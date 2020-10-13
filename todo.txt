@@ -1,0 +1,44 @@
+----------MODELS----------
+->Profile
+	->user (OneToOne)
+	->first_name
+	->last_name
+	->email (blank=True, null=True)
+	->photo (blank=True, null=True)
+	->bio
+	->timestamps
+	->interests (ManyToMany)
+	->friends (ManyToMany)
+
+->Relationship
+	->sender (ForeignKey)
+	->receiver (ForeignKey)
+	->status (BooleanField)
+	->timestamp
+	
+->Posts
+	->profile (ForeignKey)
+	->text (blank=True, null=True)
+	->image (blank=True, null=True)
+
+->Interests
+	->title
+---------------------------
+-----------APPS------------
+->users
+	->signup, login, logout, delete
+	->user profile page
+
+->posts
+	->posts feed (API)
+	->create post
+	->like / repost / comment (API)
+
+->interests
+	-> create / update / delete interests (API)
+	->users cross interests (API)
+---------------------------
+
+TODO
+-Basic project setup / functionality / design
+-Learn Django Channels (users chat)
