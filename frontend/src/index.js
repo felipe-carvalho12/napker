@@ -1,17 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+function App() {
+  const [profiles, setProfiles] = useState([])
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+  useEffect(() => {
+    fetch('http://localhost:8000/profile/profile-list')
+    .then(response => response.json())
+    .then(data => {
+      setProfiles(data)
+      console.log(data)
+    })
+  }, [])
+
+  return (
+    <div>
+      {profiles.map(profile => {
+        return <p key={profile.user}>{profile.last_name}</p>
+      })}
+    </div>
+  )
+}
+
+ReactDOM.render(<App/>, document.querySelector('#root'))
