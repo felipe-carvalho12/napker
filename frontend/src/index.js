@@ -1,26 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './style.css'
 
-function App() {
-  const [profiles, setProfiles] = useState([])
+import App from './App'
 
-  useEffect(() => {
-    fetch('http://localhost:8000/profile/profile-list')
-    .then(response => response.json())
-    .then(data => {
-      setProfiles(data)
-      console.log(data)
-    })
-  }, [])
-
-  return (
-    <div>
-      {profiles.map(profile => {
-        return <p key={profile.user}>{profile.last_name}</p>
-      })}
-    </div>
-  )
-}
-
-ReactDOM.render(<App/>, document.querySelector('#root'))
+ReactDOM.render(<App />, document.querySelector('#root'))

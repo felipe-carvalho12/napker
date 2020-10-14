@@ -22,6 +22,12 @@ class Profile(models.Model):
     friends = models.ManyToManyField(User, blank=True, related_name='friends')
     interests = models.ManyToManyField(Interest, related_name='profiles')
     
+    def get_friends(self):
+        return self.friends.all()
+
+    def get_friends_number(self):
+        return self.friends.all().count()
+
     def __str__(self):
         return f'{self.user.username}'
 
