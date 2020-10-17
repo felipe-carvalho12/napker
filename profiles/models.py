@@ -14,6 +14,8 @@ class Profile(models.Model):
     first_name = models.CharField(max_length=100, blank=True)
     last_name = models.CharField(max_length=100, blank=True)
     email = models.EmailField(max_length=100, unique=True, blank=True, null=True)
+    gender = models.CharField(max_length=10, blank=True, choices=(('male', 'male'), ('female', 'female'), ('other', 'other')))
+    birth_date = models.DateField(blank=True, null=True)
     photo = models.ImageField(default='avatar.png', upload_to='')
     bio = models.TextField(default='Sem bio...', max_length=240)
     slug = models.SlugField(unique=True, blank=True)
@@ -22,9 +24,6 @@ class Profile(models.Model):
     friends = models.ManyToManyField(User, blank=True, related_name='friends')
     interests = models.ManyToManyField(Interest, related_name='profiles')
     
-    def get_friends(self):
-        return self.friends.all()
-
     def get_friends_number(self):
         return self.friends.all().count()
 
@@ -36,10 +35,17 @@ class Profile(models.Model):
         super().save(*args, **kwargs)
 
 
+class RelationshipManager(models.Manager):
+    def invitations_received(self, receiver):
+        invites = Relationship.objects.filter(receiver=receiver, status='sent')
+        return invites
+
 class Relationship(models.Model):
     sender = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='sender')
     receiver = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='receiver')
-    status = models.CharField(max_length=8, choices=(('send', 'send'), ('accepted', 'accepted')))
+    status = models.CharField(max_length=8, choices=(('sent', 'sent'), ('accepted', 'accepted')), default='sent')
+
+    objects = RelationshipManager()
 
     def __str__(self):
         return f'{self.sender} - {self.receiver} - {self.status}'

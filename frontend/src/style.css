@@ -1,6 +1,7 @@
 :root {
     --primary-color: #1DA1F2;
     --secondary-color: #E8F5FE;
+    --primary-color-hover: #0b80d0;
   }
 
   * {
@@ -41,8 +42,7 @@
     margin-left: 30px;
     margin-right: 30px;
     padding: 15px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    border-top: 1px solid rgba(225, 225, 225, 0.05);
+    border-radius: 20px;
   }
 
   .wrapper .sidebar ul li .fas {
@@ -65,7 +65,8 @@
   }
 
   .wrapper .main-content .header {
-    position: relative;
+    position: sticky;
+    top: 0;
     padding: 20px;
     background: #fff;
     color: #000;
@@ -82,4 +83,76 @@
 
   .wrapper .main-content .content {
     padding: 20px;
+    text-align: center;
   }
+
+  .btn-primary {
+    background: var(--primary-color)!important;
+    color: #fff!important;
+    border: 1px solid rgba(0, 0, 0, 0.1)!important;
+    border-radius: 20px;
+    font-weight: bold!important;
+  }
+
+  .btn-primary:hover {
+    background-color: var(--primary-color-hover)!important;
+    color: #fff!important;
+  }
+
+  .btn-secondary {
+    background: #fff!important;
+    color: var(--primary-color)!important;
+    border: 1px solid var(--primary-color)!important;
+    border-radius: 20px!important;
+    font-weight: bold!important;
+  }
+
+  .btn-secondary:hover {
+    background-color: var(--secondary-color)!important;
+  }
+
+  .btn-grey {
+    background: #eee;
+    color: #444;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    font-weight: bold;
+  }
+
+  .btn-grey:hover {
+    background: #ddd;
+  }
+
+  .btn-primary:focus, .btn-secondary:focus, .btn-grey:focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+  .profile-row {
+    margin-top: 5px;
+  }
+
+  .profile-row img {
+    margin-right: 10px;
+    border-radius: 50%;
+  }
+
+  .profile-row .profile-col {
+    min-width: 20%;
+    align-self: center;
+    display: flex;
+  }
+
+  .profile-row .profile-col .main-profile-data {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+
+/* PROFILE PAGE */
+
+.profile-data-container {
+    background: #fff;
+    padding: 90px;
+}

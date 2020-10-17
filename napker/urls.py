@@ -19,10 +19,21 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
 
+from .views import *
+
 urlpatterns = [
-    path('', TemplateView.as_view(template_name='pages/home.html'), name='home'),
+    path('', home_view, name='index'),
+    path('home', home_view),
+    path('notificações', home_view),
+    path('mensagens', home_view),
+    path('perfil', home_view),
+    path('configurações', home_view),
+    path('signup', signup_view, name='signup'),
+    path('interests', add_interests_view, name='interests'),
+    path('login', login_view, name='login'),
+    path('logout', logout_view, name='logout'),
     path('admin/', admin.site.urls),
-    path('profile/', include('profiles.urls'))
+    path('profile-api/', include('profiles.urls'))
 ]
 
 if settings.DEBUG:

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+    <title>Entrar / Napker</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style>
+        :root {
+            --primary-color: #1da1f2;
+            --secondary-color: #e8f5fe;
+            --primary-color-hover: #0b80d0;
+        }
+
+        .form_bg {
+            background: #fff;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .form_horizontal {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            text-align: center;
+        }
+
+        .form_horizontal .form_icon {
+            color: var(--primary-color);
+            font-size: 100px;
+            line-height: 85px;
+            margin: 0 0 13px;
+        }
+
+        .form_horizontal .title {
+            color: #000;
+            font-size: 23px;
+            font-weight: bold;
+            margin: 0 0 35px 0;
+        }
+
+        .form_horizontal .form-group {
+            margin: 0 0 10px;
+            position: relative;
+        }
+
+        .form_horizontal .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 13px;
+            color: #777;
+        }
+
+        .form_horizontal .form-control {
+            color: #555;
+            background: var(--secondary-color);
+            font-size: 13px;
+            letter-spacing: 1px;
+            height: 40px;
+            padding: 2px 15px 2px 35px;
+            border: none;
+            border-bottom: 1px solid #333;
+            border-radius: 0;
+        }
+
+        .form_horizontal .form-control::placeholder {
+            color: rgba(0, 0, 0, 0.7);
+            font-size: 14px;
+        }
+
+        .form_horizontal .btn {
+            color: #fff;
+            background-color: var(--primary-color);
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            width: 100%;
+            padding: 10px 20px;
+            margin: 0 0 15px 0;
+            border: none;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+
+        .form_horizontal .btn:hover {
+            background: var(--primary-color-hover);
+        }
+
+        .form_horizontal .form-options {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .form_horizontal .form-options li a {
+            color: var(--primary-color);
+            letter-spacing: 0.5px;
+            margin: 0 0 10px;
+            display: block;
+        }
+
+        .form_horizontal .form-options li a i {
+            font-size: 12px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="form_bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6">
+                    <form action="{% url 'login' %}" class="form_horizontal" method="POST">{% csrf_token %}
+                        <div class="form_icon"><i class="fas fa-user-circle"></i></div>
+                        <div class="title">Entrar no Napker</div>
+                        {% if message %}
+                        <span style="color: #f00;">{{ message }}</span>
+                        {% endif %}
+                        <div class="form-group">
+                            <span class="input-icon"><i class="fas fa-user"></i></span>
+                            <input class="form-control" type="text" name="username" placeholder="Nome de usuário">
+                        </div>
+                        <div class="form-group">
+                            <span class="input-icon"><i class="fas fa-lock"></i></span>
+                            <input class="form-control" type="password" name="password" placeholder="Senha">
+                        </div>
+
+                        <button class="btn signin" type="submit">Entrar</button>
+
+                        <ul class="form-options">
+                            <li><a href="#">Esqueceu sua senha?</a></li>
+                            <li><a href="{% url 'signup' %}">Criar conta<i class="fas fa-arrow-right"></i></a></li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

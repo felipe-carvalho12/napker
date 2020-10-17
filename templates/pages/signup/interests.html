@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+    <title>Criar conta / Napker</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style>
+        @import url('https://kodhus.com/kodhus-ui/kodhus-0.1.0.min.css');
+
+        :root {
+            --primary-color: #1da1f2;
+            --secondary-color: #e8f5fe;
+            --primary-color-hover: #0b80d0;
+        }
+
+        .form_bg {
+            background: #fff;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .form_horizontal {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            text-align: center;
+        }
+
+        .form_horizontal .form_icon {
+            color: var(--primary-color);
+            font-size: 100px;
+            line-height: 85px;
+            margin: 0 0 13px;
+        }
+
+        .form_horizontal .title {
+            color: #000;
+            font-size: 23px;
+            font-weight: bold;
+            margin: 0 0 35px 0;
+        }
+
+        .container {
+            width: 100%;
+            margin: 30px auto;
+        }
+
+        .tag-container {
+            border: 2px solid #ccc;
+            border-radius: 3px;
+            background: #fff;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: flex-start;
+            padding: 6px;
+            overflow-x: scroll;
+        }
+
+        .tag-container .tag {
+            height: 30px;
+            margin: 5px;
+            padding: 5px 6px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            background: #eee;
+            display: flex;
+            align-items: center;
+            color: #333;
+            box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 1px 1px #fff;
+            cursor: default;
+        }
+
+        .tag i {
+            font-size: 16px;
+            color: #666;
+            margin-left: 5px;
+        }
+
+        .tag-container input {
+            padding: 5px;
+            font-size: 16px;
+            border: 0;
+            outline: none;
+            color: #333;
+            flex: 1;
+        }
+
+        .form_horizontal .btn {
+            color: #fff;
+            background-color: var(--primary-color);
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            width: 100%;
+            padding: 10px 20px;
+            margin: 10px 0 15px 0;
+            border: none;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+
+        .form_horizontal .btn:hover {
+            background: var(--primary-color-hover);
+        }
+
+        .form_horizontal .form-options {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .form_horizontal .form-options li a {
+            color: var(--primary-color);
+            letter-spacing: 0.5px;
+            margin: 0 0 10px;
+            display: block;
+        }
+
+        .form_horizontal .form-options li a i {
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form_bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6">
+                    <form action="{% url 'interests' %}" class="form_horizontal" method="POST">{% csrf_token %}
+                        <div class="form_icon"><i class="fas fa-user-circle"></i></div>
+                        <div class="title">Quais os seus principais interesses?</div>
+                        {% if message %}
+                        <span style="color: #f00;">{{ message }}</span>
+                        {% endif %}
+                        <div class="container">
+                            É aqui que a mágica acontece. Quanto mais interesses você colocar mais precisamente vamos te
+                            conectar com outras pessoas que compartilhem das mesmas paixões.
+                            <br />
+                            <br />
+                            <div class="tag-container">
+                                <input />
+                                <input type="hidden" name="interests" id="interests">
+                            </div>
+
+                        </div>
+                        <button class="btn signin" type="submit">Criar conta</button>
+
+                        <ul class="form-options">
+                            <li><a href="#">Já tem uma conta?<i class="fas fa-arrow-right"></i></a></li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const tagContainer = document.querySelector('.tag-container');
+        const input = document.querySelector('.tag-container input');
+
+        let tags = [];
+        const interestsInput = document.querySelector('#interests')
+
+        function createTag(label) {
+            const div = document.createElement('div');
+            div.setAttribute('class', 'tag');
+            const span = document.createElement('span');
+            span.innerHTML = label;
+            const closeIcon = document.createElement('i');
+            closeIcon.innerHTML = '×';
+            closeIcon.setAttribute('class', 'material-icons');
+            closeIcon.setAttribute('data-item', label);
+            div.appendChild(span);
+            div.appendChild(closeIcon);
+            if (!interestsInput.value.includes(label)) interestsInput.value += ` ${label}`;
+            console.log(tags, interestsInput.value)
+            return div;
+        }
+
+        function clearTags() {
+            document.querySelectorAll('.tag').forEach(tag => {
+                tag.parentElement.removeChild(tag);
+            });
+        }
+
+        function addTags() {
+            clearTags();
+            tags.slice().reverse().forEach(tag => {
+                tagContainer.prepend(createTag(tag));
+            });
+        }
+
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.target.value.split(',').forEach(tag => {
+                    tags.push(tag);
+                });
+
+                e.preventDefault()
+
+                addTags();
+                input.value = '';
+                return false; //prevent the form to submit
+            }
+        });
+        document.addEventListener('click', (e) => {
+            console.log(e.target.tagName);
+            if (e.target.tagName === 'I') {
+                const tagLabel = e.target.getAttribute('data-item');
+                const index = tags.indexOf(tagLabel);
+                tags = [...tags.slice(0, index), ...tags.slice(index + 1)];
+                addTags();
+            }
+        })
+
+        input.focus();
+    </script>
+</body>
+
+</html>

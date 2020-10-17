@@ -30,6 +30,13 @@ export default function App() {
         setHeader(el.id.charAt(0).toUpperCase() + el.id.slice(1))
     })
 
+    document.querySelector('.logout').onclick = () => {
+        const bool = window.confirm('Sair do Napker?\nVocê poderá entrar novamente quando quiser.')
+        if (bool) {
+            window.location.replace('http://localhost:8000/logout')
+        }
+    }
+
     return (
         <>
         {components[header]}

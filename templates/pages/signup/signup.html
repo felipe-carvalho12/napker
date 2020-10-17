@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+    <title>Criar conta / Napker</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style>
+        :root {
+            --primary-color: #1da1f2;
+            --secondary-color: #e8f5fe;
+            --primary-color-hover: #0b80d0;
+        }
+
+        .form_bg {
+            background: #fff;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .form_horizontal {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            text-align: center;
+        }
+
+        .form_horizontal .form_icon {
+            color: var(--primary-color);
+            font-size: 100px;
+            line-height: 85px;
+            margin: 0 0 13px;
+        }
+
+        .form_horizontal .title {
+            color: #000;
+            font-size: 23px;
+            font-weight: bold;
+            margin: 0 0 35px 0;
+        }
+
+        .form_horizontal .form-control {
+            margin-bottom: 10px;
+            color: #555;
+            background: var(--secondary-color);
+            font-size: 13px;
+            letter-spacing: 1px;
+            height: 40px;
+            padding: 2px 15px 2px 35px;
+            border: none;
+            border-bottom: 1px solid #333;
+            border-radius: 0;
+        }
+
+        #username-taken,
+        #invalid-password {
+            display: none;
+            color: #f00;
+        }
+
+        .form_horizontal .form-control::placeholder {
+            color: rgba(0, 0, 0, 0.7);
+            font-size: 14px;
+        }
+
+        .form_horizontal .btn {
+            color: #fff;
+            background-color: var(--primary-color);
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            width: 100%;
+            padding: 10px 20px;
+            margin: 0 0 15px 0;
+            border: none;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+
+        .form_horizontal .btn:hover {
+            background: var(--primary-color-hover);
+        }
+
+        .form_horizontal .form-options {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .form_horizontal .form-options li a {
+            color: var(--primary-color);
+            letter-spacing: 0.5px;
+            margin: 0 0 10px;
+            display: block;
+        }
+
+        .form_horizontal .form-options li a i {
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form_bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6">
+                    <form action="{% url 'signup' %}" class="form_horizontal" method="POST">{% csrf_token %}
+                        <div class="form_icon"><i class="fas fa-user-circle"></i></div>
+                        <div class="title">Criar conta no Napker</div>
+                        {% if message %}
+                        <span style="color: #f00;">{{ message }}</span>
+                        {% endif %}
+                        <input class="form-control" type="text" name="first-name" placeholder="Nome">
+                        <input class="form-control" type="text" name="last-name" placeholder="Sobrenome">
+                        <input class="form-control" type="text" name="username" id="username"
+                            placeholder="Nome de usuário">
+                        <span id="username-taken">Nome de usuário já existe</span>
+                        <input class="form-control" type="email" name="email" placeholder="Email">
+
+                        <select class="form-control" name="gender" id="gender">
+                            <option value="male">Masculino</option>
+                            <option value="female">Feminino</option>
+                            <option value="other">Outro</option>
+                        </select>
+
+                        <input class="form-control" type="date" name="birth-date" placeholder="Data de nascimento">
+                        <input class="form-control" type="password" name="password" id="password" placeholder="Senha">
+                        <input class="form-control" type="password" name="passwordc" id="passwordc"
+                            placeholder="Confirmar senha">
+                        <span id="invalid-password">As senhas devem ser iguais</span>
+
+                        <button class="btn signin" type="submit" id="submit-btn">Continuar</button>
+
+                        <ul class="form-options">
+                            <li><a href="{% url 'login' %}">Já tem uma conta?<i class="fas fa-arrow-right"></i></a></li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const usernameField = document.querySelector('#username')
+        const passwordField = document.querySelector('#password')
+        const passwordcField = document.querySelector('#passwordc')
+        const submitBtn = document.querySelector('#submit-btn')
+
+        usernameField.addEventListener('keyup', () => {
+            console.log(usernameField.value)
+            fetch(`http://localhost:8000/profile-api/user/${usernameField.value}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(usernameField.value, data)
+                    if (data.bool !== 'false') {
+                        document.querySelector('#username-taken').style.display = 'initial'
+                    } else if (document.querySelector('#username-taken').style.display === 'initial') {
+                        document.querySelector('#username-taken').style.display = 'none'
+                    }
+                })
+        })
+
+        submitBtn.onclick = e => {
+            e.preventDefault()
+            for (let input of document.querySelectorAll('form > input')) {
+                if (!input.value) {
+                    alert('Todos os campos devem ser preenchidos!')
+                    return
+                }
+            }
+            if (passwordField.value !== passwordcField.value) {
+                document.querySelector('#invalid-password').style.display = 'initial'
+            } else if (passwordcField.value) {
+                document.querySelector('form').submit()
+            }
+        }
+    </script>
+</body>
+
+</html>
