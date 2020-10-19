@@ -137,6 +137,11 @@
     border-radius: 50%;
   }
 
+  .profile-row img:hover, .profile-row .profile-col strong:hover {
+    cursor: pointer;
+    transform: scale(1.01);
+  }
+
   .profile-row .profile-col {
     min-width: 20%;
     align-self: center;
@@ -150,7 +155,7 @@
   }
 
 
-/* PROFILE PAGE */
+/* MYPROFILE AND PROFILE PAGE */
 
 .profile-data-container {
     background: #fff;
@@ -170,4 +175,18 @@
 #username-taken {
   display: none;
   color: #f00;
+}
+
+.profile-left-arrow {
+  padding: 10px;
+  margin-right: 10px;
+  color: var(--primary-color);
+  border-radius: 50%;
+  font-size: 20px;
+}
+
+.profile-left-arrow:hover {
+  background-color: var(--secondary-color);
+  color: var(--primary-color-hover);
+  cursor: pointer;
 }

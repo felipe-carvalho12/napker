@@ -7,23 +7,20 @@ import Notifications from './pages/notifications'
 import Messages from './pages/messages'
 import MyProfile from './pages/myprofile'
 import Settings from './pages/settings'
+import Profile from './pages/home-components/profile'
 
-export default function App(props) {
-    document.querySelectorAll('.menu').forEach(el => el.onclick = () => {
-        //setHeader(el.id.charAt(0).toUpperCase() + el.id.slice(1))
-        window.location.replace(`/${el.id}`)
-    })
-
+export default function App() {
     return (
         <Router>
             <Sidebar />
             <div className="main-content">
                 <Switch>
-                    <Route path="/" exact component={Home} />
                     <Route path="/notificações" component={Notifications} />
                     <Route path="/mensagens" component={Messages} />
                     <Route path="/perfil" component={MyProfile} />
                     <Route path="/configurações" component={Settings} />
+                    <Route path="/user/:slug" component={Profile} />
+                    <Route path="/" component={Home} />
                 </Switch>
             </div>
         </Router>

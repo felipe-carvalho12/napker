@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from profiles.models import Profile, Interest
 
@@ -86,8 +86,8 @@ def add_interests_view(request):
 
 def update_profile(request):
     if request.method == 'POST':
-        profile = Profile.objects.get(user=authenticate(request, username='felipe', password='django@12'))
-        #profile = Profile.objects.get(user=request.user)
+        #profile = Profile.objects.get(user=authenticate(request, username='felipe', password='django@12'))
+        profile = Profile.objects.get(user=request.user)
         photo = request.POST['profile-photo'] if request.POST['profile-photo'] != '' else profile.photo
         first_name = request.POST['first-name'] if request.POST['first-name'] != '' else profile.first_name
         last_name = request.POST['last-name'] if request.POST['last-name'] != '' else profile.last_name
@@ -106,4 +106,4 @@ def update_profile(request):
             profile.save()
         except:
             pass
-        return render(request, 'pages/index.html')
+        return redirect('/perfil')

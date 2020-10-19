@@ -12,6 +12,9 @@ export default function MyProfile() {
         transform: 'scale(1.5)',
         marginBottom: '25px'
     }
+
+    document.title = 'Perfil / Napker'
+
     useEffect(() => {
         fetch(`${serverURL}/profile-api/myprofile`)
             .then(response => response.json())
@@ -21,7 +24,7 @@ export default function MyProfile() {
     return (
         <>
             <Header page="Perfil" />
-            {profile ? <div>
+            {profile ? <div className="content">
                 <Modal show={isEditing}
                     onHide={() => setIsEditing(false)}
                     size="lg">
@@ -67,10 +70,6 @@ export default function MyProfile() {
                             <div>
                                 <label htmlFor="bio" className="profile-label">Bio:</label>
                                 <input class="form-control" type="email" name="bio" id="bio" placeholder={profile.bio} />
-                            </div>
-                            <div>
-                                <label htmlFor="birth-date" className="profile-label">Senha:</label>
-                                <input class="form-control" type="password" name="password" id="password" placeholder="Senha" />
                             </div>
                         </form>
                     </Modal.Body>

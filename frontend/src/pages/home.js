@@ -10,6 +10,8 @@ export default function Home() {
         'Posts': <Posts />
     }
 
+    document.title = 'Home / Napker'
+
     return (
         <>
             <Header page="Home" />
