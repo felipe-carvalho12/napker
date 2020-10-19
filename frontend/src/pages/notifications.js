@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
+import Header from '../components/header'
+import { csrftoken, serverURL } from '../utils'
 
 export default function Notifications() {
-    const [invites, setInvites] = useState([{ sender: { id: '', user: '' } }])
+    const [invites, setInvites] = useState([])
     useEffect(() => {
-        fetch('http://localhost:8000/profile-api/myinvites')
+        fetch(`${serverURL}/profile-api/myinvites`)
             .then(response => response.json())
             .then(data => setInvites(data))
     }, [])
@@ -14,12 +16,11 @@ export default function Notifications() {
             'senderid': btn.dataset.senderid,
             'reply': btn.dataset.reply
         }
-        console.log(requestBody)
-        fetch('http://localhost:8000/profile-api/reply-friend-request', {
+        fetch(`${serverURL}/profile-api/reply-friend-request`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
-                'X-CSRF-TOKEN': csrftoken
+                'X-CSRFToken': csrftoken,
             },
             body: JSON.stringify(requestBody)
         })
@@ -30,13 +31,14 @@ export default function Notifications() {
 
     return (
         <>
+            <Header page="Notificações" />
             <div className="list-group" id='friend-request-list'>
-                {invites.map(i => {
+                {invites.length ? invites.map(i => {
                     return (
                         <li className="list-group-item profile-row" id={i.sender.id} key={i.sender.id}>
                             <div className="d-flex justify-content-between">
                                 <div className="profile-col">
-                                    <img src={`http://localhost:8000${i.sender.photo}`} />
+                                    <img src={`${serverURL}${i.sender.photo}`} />
                                     <div className="main-profile-data">
                                         <strong>{i.sender.first_name} {i.sender.last_name}</strong>
                                         <p className="text-secondary">@{i.sender.user.username}</p>
@@ -46,13 +48,13 @@ export default function Notifications() {
                                     {i.sender.bio}
                                 </div>
                                 <div className="profile-col" style={{ justifyContent: 'space-between' }}>
-                                    <button className="btn btn-primary" data-senderid={i.sender.id} data-reply='accept' onClick={replyRequest}>Confirmar</button>
-                                    <button className="btn btn-grey" data-senderid={i.sender.id} data-reply='decline' onClick={replyRequest}>Excluir</button>
+                                    <button className="btn btn-primary btn-reply-fr" data-senderid={i.sender.id} data-reply='accept' onClick={replyRequest}>Confirmar</button>
+                                    <button className="btn btn-grey btn-reply-fr" data-senderid={i.sender.id} data-reply='decline' onClick={replyRequest}>Excluir</button>
                                 </div>
                             </div>
                         </li>
                     )
-                })}
+                }) : <h3 style={{ marginTop: '100px' }}>Você ainda não tem nenhuma notificação</h3>}
             </div>
         </>
     )

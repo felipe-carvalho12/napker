@@ -30,6 +30,7 @@ urlpatterns = [
     path('configurações', home_view),
     path('signup', signup_view, name='signup'),
     path('interests', add_interests_view, name='interests'),
+    path('update-profile', update_profile),
     path('login', login_view, name='login'),
     path('logout', logout_view, name='logout'),
     path('admin/', admin.site.urls),

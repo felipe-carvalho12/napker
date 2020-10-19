@@ -156,3 +156,18 @@
     background: #fff;
     padding: 90px;
 }
+
+.profile-label {
+  width: 20%;
+}
+
+.form-control {
+  display: inline-block;
+  margin-bottom: 5px;
+  width: 80%;
+}
+
+#username-taken {
+  display: none;
+  color: #f00;
+}

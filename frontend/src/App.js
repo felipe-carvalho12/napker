@@ -1,45 +1,31 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
-import Home from './components/home'
-import Notifications from './components/notifications'
-import Messages from './components/messages'
-import Profile from './components/profile'
-import Settings from './components/settings'
+import Sidebar from './components/sidebar'
+import Home from './pages/home'
+import Notifications from './pages/notifications'
+import Messages from './pages/messages'
+import MyProfile from './pages/myprofile'
+import Settings from './pages/settings'
 
-export default function App() {
-    const [header, setHeader] = useState('Home')
-    const components = {
-        'Home': Home(),
-        'Notificações': Notifications(),
-        'Mensagens': Messages(),
-        'Perfil': Profile(),
-        'Configurações': Settings(),
-    }
-
-    useEffect(() => {
-        document.querySelector('.header > strong').innerText = header
-        document.title = `${header} / Napker`
-        window.history.pushState({header: header}, '', header.toLowerCase())  //fix it!
-    }, [header])
-
-    window.onpopstate = e => {
-        setHeader(e.state.header)
-    }
-
+export default function App(props) {
     document.querySelectorAll('.menu').forEach(el => el.onclick = () => {
-        setHeader(el.id.charAt(0).toUpperCase() + el.id.slice(1))
+        //setHeader(el.id.charAt(0).toUpperCase() + el.id.slice(1))
+        window.location.replace(`/${el.id}`)
     })
 
-    document.querySelector('.logout').onclick = () => {
-        const bool = window.confirm('Sair do Napker?\nVocê poderá entrar novamente quando quiser.')
-        if (bool) {
-            window.location.replace('http://localhost:8000/logout')
-        }
-    }
-
     return (
-        <>
-        {components[header]}
-        </>
+        <Router>
+            <Sidebar />
+            <div className="main-content">
+                <Switch>
+                    <Route path="/" exact component={Home} />
+                    <Route path="/notificações" component={Notifications} />
+                    <Route path="/mensagens" component={Messages} />
+                    <Route path="/perfil" component={MyProfile} />
+                    <Route path="/configurações" component={Settings} />
+                </Switch>
+            </div>
+        </Router>
     )
 }
