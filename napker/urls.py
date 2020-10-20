@@ -34,7 +34,9 @@ urlpatterns = [
     path('login', login_view, name='login'),
     path('logout', logout_view, name='logout'),
     path('admin/', admin.site.urls),
-    path('profile-api/', include('profiles.urls'))
+    path('profile-api/', include('profiles.urls')),
+
+    path('chat', include('chat.urls'))
 ]
 
 if settings.DEBUG:
