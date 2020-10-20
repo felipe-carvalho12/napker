@@ -36,28 +36,28 @@ export default function MyProfile() {
                             <input type="hidden" name="csrfmiddlewaretoken" value={csrftoken} />
                             <div className="d-flex flex-column justify-content-center align-items-center" style={{ padding: '25px' }}>
                                 <img src={`${serverURL}${profile.photo}`} style={profilePhotoStyle} />
-                                <input type="file" accept="image/png, image/jpg" name="profile-photo" />
+                                <input type="file" accept="image/png, image/jpg" name="profile-photo" onChange={e => console.log(e.target.files)}/>
                             </div>
                             <div>
                                 <label htmlFor="first-name" className="profile-label">Nome:</label>
-                                <input class="form-control" type="text" name="first-name" id="first-name" placeholder={profile.first_name} />
+                                <input className="form-control" type="text" name="first-name" id="first-name" placeholder={profile.first_name} />
                             </div>
                             <div>
                                 <label htmlFor="last-name" className="profile-label">Sobrenome:</label>
-                                <input class="form-control" type="text" name="last-name" id="last-name" placeholder={profile.last_name} />
+                                <input className="form-control" type="text" name="last-name" id="last-name" placeholder={profile.last_name} />
                             </div>
                             <div>
                                 <label htmlFor="username" className="profile-label">Nome de usuário:</label>
-                                <input class="form-control" type="text" name="username" id="username" placeholder={profile.user.username} />
+                                <input className="form-control" type="text" name="username" id="username" placeholder={profile.user.username} />
                                 <span id="username-taken">Nome de usuário já existe</span>
                             </div>
                             <div>
                                 <label htmlFor="email" className="profile-label">Email:</label>
-                                <input class="form-control" type="email" name="email" id="email" placeholder={profile.email} />
+                                <input className="form-control" type="email" name="email" id="email" placeholder={profile.email} />
                             </div>
                             <div>
                                 <label htmlFor="gender" className="profile-label">Gênero:</label>
-                                <select class="form-control" name="gender" id="gender" placeholder={profile.gender}>
+                                <select className="form-control" name="gender" id="gender" placeholder={profile.gender}>
                                     <option value="male">Masculino</option>
                                     <option value="female">Feminino</option>
                                     <option value="other">Outro</option>
@@ -65,11 +65,11 @@ export default function MyProfile() {
                             </div>
                             <div>
                                 <label htmlFor="birth-date" className="profile-label">Data de nascimento:</label>
-                                <input class="form-control" type="date" name="birth-date" id="birth-date" defaultValue={profile.birth_date} />
+                                <input className="form-control" type="date" name="birth-date" id="birth-date" defaultValue={profile.birth_date} />
                             </div>
                             <div>
                                 <label htmlFor="bio" className="profile-label">Bio:</label>
-                                <input class="form-control" type="email" name="bio" id="bio" placeholder={profile.bio} />
+                                <input className="form-control" type="email" name="bio" id="bio" placeholder={profile.bio} />
                             </div>
                         </form>
                     </Modal.Body>

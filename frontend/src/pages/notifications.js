@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import Header from '../components/header'
 import { csrftoken, serverURL } from '../utils'
 
-export default function Notifications() {
+export default function Notifications(props) {
     const [invites, setInvites] = useState([])
 
     document.title = 'Notificações / Napker'
@@ -28,7 +29,10 @@ export default function Notifications() {
             body: JSON.stringify(requestBody)
         })
             .then(response => response.json())
-            .then(data => console.log(data))
+            .then(data => {
+                console.log(data)
+                props.updateNotificationsNumber()
+            })
         document.getElementById('friend-request-list').removeChild(document.getElementById(btn.dataset.senderid))
     }
 
@@ -42,9 +46,13 @@ export default function Notifications() {
                             <li className="list-group-item profile-row" id={i.sender.id} key={i.sender.id}>
                                 <div className="d-flex justify-content-between">
                                     <div className="profile-col">
-                                        <img src={`${serverURL}${i.sender.photo}`} />
+                                        <Link to={`/user/${i.sender.slug}`}>
+                                            <img src={`${serverURL}${i.sender.photo}`} />
+                                        </Link>
                                         <div className="main-profile-data">
-                                            <strong>{i.sender.first_name} {i.sender.last_name}</strong>
+                                            <Link to={`/user/${i.sender.slug}`} style={{ color: '#000' }}>
+                                                <strong>{i.sender.first_name} {i.sender.last_name}</strong>
+                                            </Link>
                                             <p className="text-secondary">@{i.sender.user.username}</p>
                                         </div>
                                     </div>

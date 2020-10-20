@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import Sidebar from './components/sidebar'
@@ -9,13 +9,30 @@ import MyProfile from './pages/myprofile'
 import Settings from './pages/settings'
 import Profile from './pages/home-components/profile'
 
+import { serverURL } from './utils'
+
 export default function App() {
+    const [notificationsNumber, setNotificationsNumber] = useState(0)
+
+    useEffect(() => {
+        updateNotificationsNumber()
+    }, [])
+
+    const updateNotificationsNumber = () => {
+        console.log('updating notifications number...')
+        fetch(`${serverURL}/profile-api/myinvites`)
+            .then(response => response.json())
+            .then(data => setNotificationsNumber(data.length))
+    }
+
     return (
-        <Router>
-            <Sidebar />
+        <Router>{console.log('Number: ', notificationsNumber)}
+            <Sidebar notificationsNumber={notificationsNumber} />
             <div className="main-content">
                 <Switch>
-                    <Route path="/notificações" component={Notifications} />
+                    <Route path="/notificações" render={props => (
+                        <Notifications {...props} updateNotificationsNumber={updateNotificationsNumber} />
+                    )} />
                     <Route path="/mensagens" component={Messages} />
                     <Route path="/perfil" component={MyProfile} />
                     <Route path="/configurações" component={Settings} />
