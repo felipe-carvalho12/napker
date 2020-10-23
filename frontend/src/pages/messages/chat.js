@@ -7,19 +7,23 @@ import WebSocketInstance from './websocket'
 class Chat extends React.Component {
     initialiseChat() {
         this.waitForSocketConnection(() => {
+            WebSocketInstance.addCallbacks(
+                this.setMessages.bind(this),
+                this.addMessage.bind(this)
+            )
             WebSocketInstance.fetchMessages(
-                this.state.username,
+                this.props.username,
                 this.props.chatId
             );
         });
-        WebSocketInstance.connect(this.props.chatId);
+        if (this.props.chatId) WebSocketInstance.connect(this.props.chatId)
     }
 
     constructor(props) {
         super(props);
         this.state = {
             message: '',
-            username: this.props.username,
+            messages: [],
             otherUsername: this.props.otherUsername,
             otherProfile: null
         }
@@ -40,6 +44,14 @@ class Chat extends React.Component {
         }, 100);
     }
 
+    setMessages(messages) {
+        this.setState({ messages: messages.reverse() })
+    }
+
+    addMessage(message) {
+        this.setState({ messages: [...this.state.messages, message] })
+    }
+
     messageChangeHandler = event => {
         this.setState({ message: event.target.value });
     };
@@ -47,43 +59,49 @@ class Chat extends React.Component {
     sendMessageHandler = e => {
         e.preventDefault();
         const messageObject = {
-            from: this.state.username,
+            from: this.props.username,
             content: this.state.message,
             chatId: this.props.chatId
         };
+        console.log(messageObject)
         WebSocketInstance.newChatMessage(messageObject);
         this.setState({ message: "" });
     };
 
-    renderTimestamp = timestamp => {  // ignore for now
+    renderTimestamp = timestamp => {
         let prefix = "";
         const timeDiff = Math.round(
             (new Date().getTime() - new Date(timestamp).getTime()) / 60000
         );
         if (timeDiff < 1) {
             // less than one minute ago
-            prefix = "just now...";
+            prefix = "agora pouco...";
+        } else if (timeDiff === 1) {
+            prefix = '1 minuto atrás'
         } else if (timeDiff < 60 && timeDiff > 1) {
             // less than sixty minutes ago
-            prefix = `${timeDiff} minutes ago`;
+            prefix = `${timeDiff} minutos atrás`;
+        } else if (timeDiff === 60 * 60) {
+            prefix = '1 hora atrás'
         } else if (timeDiff < 24 * 60 && timeDiff > 60) {
             // less than 24 hours ago
-            prefix = `${Math.round(timeDiff / 60)} hours ago`;
+            prefix = `${Math.round(timeDiff / 60)} horas atrás`;
+        } else if (timeDiff === 60 * 60 * 24) {
+            prefix = '1 dia atrás'
         } else if (timeDiff < 31 * 24 * 60 && timeDiff > 24 * 60) {
             // less than 7 days ago
-            prefix = `${Math.round(timeDiff / (60 * 24))} days ago`;
+            prefix = `${Math.round(timeDiff / (60 * 24))} dias atrás`;
         } else {
             prefix = `${new Date(timestamp)}`;
         }
         return prefix;
     };
 
-    renderMessages = messages => { // use mine
+    renderMessages = messages => {
         const currentUser = this.props.username;
         return messages.map((message, i, arr) => (
             <li
                 key={message.id}
-                style={{ marginBottom: arr.length - 1 === i ? "300px" : "15px" }}
                 className={message.author === currentUser ? "sent" : "received"}
             >
                 <p>
@@ -105,7 +123,6 @@ class Chat extends React.Component {
     handleComponentChange = () => {
         this.scrollToBottom();
         if (this.state.otherUsername && (!this.state.otherProfile || this.state.otherProfile.user.username !== this.state.otherUsername)) {
-            console.log('fetching profile...')
             fetch(`${SERVER_URL}/profile-api/user/${this.state.otherUsername}`)
                 .then(response => response.json())
                 .then(data => this.setState({
@@ -154,9 +171,11 @@ class Chat extends React.Component {
                                 <p className="text-secondary">@{this.state.otherProfile.user.username}</p>
                             </div>
                         </div>
-                        <div id="chat-log"></div>
+                        <div id="chat-log">
+                            {this.state.messages ? this.renderMessages(this.state.messages) : ''}
+                        </div>
                         <form className="send-message-container" onSubmit={this.sendMessageHandler}>
-                            <input placeholder="Mensagem" className="message-input" id="chat-message-input" onChange={this.messageChangeHandler} />
+                            <input placeholder="Mensagem" className="message-input" id="chat-message-input" value={this.state.message} onChange={this.messageChangeHandler} />
                             <button className="btn btn-primary" id="chat-message-submit">
                                 <i class="fas fa-paper-plane" style={{ position: 'relative', right: '10%' }} />
                             </button>

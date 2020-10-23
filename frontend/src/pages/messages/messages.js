@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import Header from '../../components/header'
 import Chat from './chat'
@@ -10,12 +10,19 @@ class Messages extends React.Component {
         super(props)
         this.state = {
             username: null,
-            chatId: null
+            chatId: null,
+            activeChatsProfiles: null
         }
     }
 
-    componentWillMount() {
-        document.title = 'Mensagens / Napker'
+    componentWillReceiveProps(newProps) {
+        if (newProps === this.props) return
+        const participants = { username: this.state.username, other_username: newProps.match.params.otherUsername }
+        fetch(`${SERVER_URL}/chat-api/chat-id/${JSON.stringify(participants)}`)
+            .then(response => response.json())
+            .then(data => this.setState({
+                chatId: data['chat_id']
+            }))
     }
 
     handleComponentChange() {
@@ -26,22 +33,27 @@ class Messages extends React.Component {
                     username: data.username
                 }))
         }
-        if (!this.state.chatId) {
-            const participants = {username: this.state.username, other_username: this.props.match.params.otherUsername}
-            fetch(`${SERVER_URL}/chat-api/chat-id/${JSON.stringify(participants)}`)
+        if (!this.state.activeChatsProfiles && this.state.activeChatsProfiles !== []) {
+            console.log('fetching...')
+            fetch(`${SERVER_URL}/chat-api/active-chats-profiles`)
                 .then(response => response.json())
-                .then(data => this.setState({
-                    chatId: data['chat_id'].parseInt()
-                }))
+                .then(data => {
+                    if (!this.state.username) return
+                    console.log(data)
+                    this.setState({
+                        activeChatsProfiles: data
+                    })
+                })
         }
     }
 
-    componentDidMount() {
+    componentWillMount() {
+        document.title = 'Mensagens / Napker'
         this.handleComponentChange()
     }
 
     componentDidUpdate() {
-        this.handleComponentChange()        
+        this.handleComponentChange()
     }
 
     render() {
@@ -54,20 +66,18 @@ class Messages extends React.Component {
                             <input placeholder="Pesquisar pessoas" className="search-input" />
                         </div>
                         <div className="list-group chats-container">
-                            <Link to={`/mensagens/felipe`} style={{ color: '#000', textDecoration: 'none' }}>
-                                <li className="list-item profile-chat-item">
-                                    <img src={`${SERVER_URL}/media/felipe.jpg`} alt="" style={{ borderRadius: '50%' }} />
-                                    <strong>Felipe Carvalho</strong>
-                                    <p className="text-secondary" style={{ marginLeft: '5px' }}>@felipe</p>
-                                </li>
-                            </Link>
-                            <Link to={`/mensagens/zuck`} style={{ color: '#000', textDecoration: 'none' }}>
-                                <li className="list-item profile-chat-item">
-                                    <img src={`${SERVER_URL}/media/mark.jpeg`} alt="" style={{ borderRadius: '50%' }} />
-                                    <strong>Mark Zuckerberg</strong>
-                                    <p className="text-secondary" style={{ marginLeft: '5px' }}>@zuck</p>
-                                </li>
-                            </Link>
+                            {this.state.activeChatsProfiles && this.state.activeChatsProfiles.map(profile => {
+                                console.log('rendering', profile)
+                                return (
+                                    <Link to={`/mensagens/${profile.user.username}`} style={{ color: '#000', textDecoration: 'none' }}>
+                                        <li className="list-item profile-chat-item">
+                                            <img src={`${SERVER_URL}${profile.photo}`} alt="" style={{ borderRadius: '50%' }} />
+                                            <strong>{profile.first_name} {profile.last_name}</strong>
+                                            <p className="text-secondary" style={{ marginLeft: '5px' }}>@{profile.user.username}</p>
+                                        </li>
+                                    </Link>
+                                )
+                            })}
                         </div>
                     </div>
                     <Chat username={this.state.username} otherUsername={this.props.match.params.otherUsername} chatId={this.state.chatId} />

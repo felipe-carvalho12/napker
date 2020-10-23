@@ -21,6 +21,9 @@ class WebSocketService {
       this.socketRef.onopen = () => {
         console.log("WebSocket open");
       };
+      this.socketNewMessage(JSON.stringify({
+        command: 'fetch-messages'
+      }))
       this.socketRef.onmessage = e => {
         this.socketNewMessage(e.data);
       };
@@ -29,12 +32,12 @@ class WebSocketService {
       };
       this.socketRef.onclose = () => {
         console.log("WebSocket closed let's reopen");
-        this.connect();
+        this.connect(chatUrl);
       };
     }
   
     disconnect() {
-      this.socketRef.close();
+      if (this.socketRef) this.socketRef.close();
     }
   
     socketNewMessage(data) {
@@ -63,7 +66,7 @@ class WebSocketService {
       this.sendMessage({
         command: "new_message",
         from: message.from,
-        message: message.content,
+        content: message.content,
         chatId: message.chatId
       });
     }
@@ -82,7 +85,7 @@ class WebSocketService {
     }
   
     state() {
-      return this.socketRef.readyState;
+      return this.socketRef ? this.socketRef.readyState : 0
     }
   }
   

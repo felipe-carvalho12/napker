@@ -24,6 +24,7 @@ class ChatConsumer(WebsocketConsumer):
         current_chat = get_current_chat(data['chatId'])
         current_chat.messages.add(message)
         current_chat.save()
+        print(current_chat.messages)
         content = {
             'command': 'new_message',
             'message': self.message_to_json(message)
@@ -69,6 +70,7 @@ class ChatConsumer(WebsocketConsumer):
         self.commands[data['command']](self, data)
 
     def send_chat_message(self, message):
+        print('returning the message...')
         async_to_sync(self.channel_layer.group_send)(
             self.room_group_name,
             {
