@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Header from '../../components/header'
-import { csrftoken, serverURL } from '../../utils'
+import { SERVER_URL } from '../../settings'
+import { csrftoken } from '../../utils'
 
 export default function Profile() {
     const { slug } = useParams()
     const [profile, setProfile] = useState(null)
 
     useEffect(() => {
-        fetch(`${serverURL}/profile-api/user/${slug}`)
+        fetch(`${SERVER_URL}/profile-api/user/${slug}`)
             .then(response => response.json())
             .then(data => setProfile(data))
     }, [])
@@ -21,7 +22,7 @@ export default function Profile() {
     }
 
     const sendFriendRequest = pk => {
-        fetch(`${serverURL}/profile-api/send-friend-request`, {
+        fetch(`${SERVER_URL}/profile-api/send-friend-request`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
@@ -34,7 +35,7 @@ export default function Profile() {
     }
 
     const cancelFriendRequest = pk => {
-        fetch(`${serverURL}/profile-api/cancel-friend-request`, {
+        fetch(`${SERVER_URL}/profile-api/cancel-friend-request`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
@@ -66,7 +67,7 @@ export default function Profile() {
                 <div className="content">
                     <div className="d-flex justify-content-between align-items-center profile-data-container">
                         <div className="d-flex flex-column align-items-start">
-                            <p style={{ padding: '15px' }}><img src={`${serverURL}${profile.photo}`} style={profilePhotoStyle} /></p>
+                            <p style={{ padding: '15px' }}><img src={`${SERVER_URL}${profile.photo}`} style={profilePhotoStyle} /></p>
                             <p style={{ marginBottom: 0 }}><strong>{profile.first_name} {profile.last_name}</strong></p>
                             <p className="text-secondary" style={{ marginTop: 0 }}>@{profile.user.username}</p>
                             <p>{profile.bio}</p>

@@ -1,5 +1,6 @@
+import { SERVER_URL } from './settings'
+
 const csrftoken = getCookie('csrftoken')
-const serverURL = 'http://127.0.0.1:8000'
 
 function getCookie(name) {
   let cookieValue = null;
@@ -20,8 +21,8 @@ function getCookie(name) {
 function handleLogout() {
   const bool = window.confirm('Sair do Napker?\nVocê poderá entrar novamente quando quiser.')
   if (bool) {
-    window.location.replace(`${serverURL}/logout`)
+    window.location.replace(`${SERVER_URL}/logout`)
   }
 }
 
-export { csrftoken, serverURL, handleLogout };
+export { csrftoken, handleLogout };

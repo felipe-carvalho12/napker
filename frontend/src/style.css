@@ -2,6 +2,8 @@
     --primary-color: #1DA1F2;
     --secondary-color: #E8F5FE;
     --primary-color-hover: #0b80d0;
+    --body-background: #f3f5f9;
+    --body-background-hover: #f9fbff;
   }
 
   * {
@@ -14,7 +16,7 @@
   }
 
   body {
-    background: #f3f5f9;
+    background: var(--body-background);
   }
 
   .wrapper {
@@ -75,6 +77,7 @@
 
   .wrapper .main-content {
     width: 100%;
+    height: 100%;
     margin-left: 300px;
   }
 
@@ -203,4 +206,136 @@
   background-color: var(--secondary-color);
   color: var(--primary-color-hover);
   cursor: pointer;
+}
+
+/* MESSAGES PAGE */
+
+.messages-wrapper {
+  height: 89vh;
+}
+
+.messages-wrapper .chats-list {
+  width: 30%;
+  height: 100%;
+  background: #fff;
+  overflow: hidden;
+  overflow-y: scroll;
+  border-right: 3px solid var(--body-background);
+}
+
+.messages-wrapper .chats-list .search-input-container {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 2px solid var(--body-background);
+}
+
+.messages-wrapper .chats-list .search-input {
+  width: 100%;
+  height: 40px;
+  border: none;
+  border-radius: 20px;
+  background-color: var(--body-background);
+  text-align: start;
+  padding: 15px;
+}
+
+.messages-wrapper .chats-list .chats-container {
+  border-radius: 0;
+}
+
+.messages-wrapper .chats-list .chats-container .profile-chat-item {
+  display: flex;
+  padding: 10px;
+  border-bottom: 2px solid var(--body-background);
+}
+
+.messages-wrapper .chats-list .chats-container .profile-chat-item:hover {
+  background: var(--body-background-hover);
+}
+
+.messages-wrapper .current-chat {
+  width: 70%;
+  height: 100%;
+  background: #fff;
+}
+
+.messages-wrapper .current-chat .current-chat-header {
+  display: flex;
+  padding: 15px;
+  width: 100%;
+  border-bottom: 2px solid var(--body-background);
+}
+
+.messages-wrapper .current-chat .current-chat-header .header-profile-img {
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  margin-right: 5px;
+}
+
+.messages-wrapper .current-chat #chat-log {
+  overflow: hidden;
+  overflow-y: scroll;
+  width: 100%;
+  padding: 15px;
+}
+
+.messages-wrapper .current-chat #chat-log .received {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+}
+
+.messages-wrapper .current-chat #chat-log .received p {
+  background: #ccc;
+  color: #000;
+  max-width: 70%;
+  padding: 15px;
+  text-align: left;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
+
+.messages-wrapper .current-chat #chat-log .sent {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding-left: 20px;
+}
+
+.messages-wrapper .current-chat #chat-log .sent p {
+  background: var(--primary-color);
+  color: #fff;
+  max-width: 70%;
+  padding: 15px;
+  text-align: left;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+  border-top-right-radius: 30px;
+}
+
+.messages-wrapper .current-chat .send-message-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  border-top: 2px solid var(--body-background);
+  padding: 15px;
+}
+
+.messages-wrapper .current-chat .send-message-container .message-input {
+  width: 60%;
+  padding-left: 15px;
+  border: none;
+  border-radius: 20px;
+  background-color: var(--body-background);
+  margin-right: 5px;
+}
+
+.messages-wrapper .chats-list .search-input:focus,
+.messages-wrapper .current-chat .send-message-container .message-input:focus {
+  outline: none;
+  background: #fff;
+  border: 1px solid var(--primary-color);
 }

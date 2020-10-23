@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import Modal from 'react-bootstrap/Modal'
 import Header from '../components/header'
-import { csrftoken, serverURL } from '../utils'
+import { SERVER_URL } from '../settings'
+import { csrftoken } from '../utils'
 
 export default function MyProfile() {
     const [profile, setProfile] = useState(null)
@@ -16,7 +17,7 @@ export default function MyProfile() {
     document.title = 'Perfil / Napker'
 
     useEffect(() => {
-        fetch(`${serverURL}/profile-api/myprofile`)
+        fetch(`${SERVER_URL}/profile-api/myprofile`)
             .then(response => response.json())
             .then(data => setProfile(data))
     }, [])
@@ -32,10 +33,10 @@ export default function MyProfile() {
                         <Modal.Title>Editar perfil</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <form action={`${serverURL}/update-profile`} id="update-profile-form" method="POST">
+                        <form action={`${SERVER_URL}/update-profile`} id="update-profile-form" method="POST">
                             <input type="hidden" name="csrfmiddlewaretoken" value={csrftoken} />
                             <div className="d-flex flex-column justify-content-center align-items-center" style={{ padding: '25px' }}>
-                                <img src={`${serverURL}${profile.photo}`} style={profilePhotoStyle} />
+                                <img src={`${SERVER_URL}${profile.photo}`} style={profilePhotoStyle} />
                                 <input type="file" accept="image/png, image/jpg" name="profile-photo" onChange={e => console.log(e.target.files)}/>
                             </div>
                             <div>
@@ -80,7 +81,7 @@ export default function MyProfile() {
                 </Modal>
                 <div className="d-flex justify-content-between align-items-center profile-data-container">
                     <div className="d-flex flex-column align-items-start">
-                        <p style={{ padding: '15px' }}><img src={`${serverURL}${profile.photo}`} style={profilePhotoStyle} /></p>
+                        <p style={{ padding: '15px' }}><img src={`${SERVER_URL}${profile.photo}`} style={profilePhotoStyle} /></p>
                         <p style={{ marginBottom: 0 }}><strong>{profile.first_name} {profile.last_name}</strong></p>
                         <p className="text-secondary" style={{ marginTop: 0 }}>@{profile.user.username}</p>
                         <p>{profile.bio}</p>

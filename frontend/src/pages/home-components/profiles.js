@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { csrftoken, serverURL } from '../../utils'
+import { SERVER_URL } from '../../settings'
+import { csrftoken } from '../../utils'
 
 export default function Profiles() {
     const [profiles, setProfiles] = useState([])
@@ -9,9 +10,9 @@ export default function Profiles() {
     useEffect(() => {
         let url
         if (search === '') {
-            url = `${serverURL}/profile-api/profile-list`
+            url = `${SERVER_URL}/profile-api/profile-list`
         } else {
-            url = `${serverURL}/profile-api/users/${search}`
+            url = `${SERVER_URL}/profile-api/users/${search}`
         }
         fetch(url)
             .then(response => response.json())
@@ -22,7 +23,7 @@ export default function Profiles() {
     }, [search])
 
     const sendFriendRequest = pk => {
-        fetch(`${serverURL}/profile-api/send-friend-request`, {
+        fetch(`${SERVER_URL}/profile-api/send-friend-request`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
@@ -35,7 +36,7 @@ export default function Profiles() {
     }
 
     const cancelFriendRequest = pk => {
-        fetch(`${serverURL}/profile-api/cancel-friend-request`, {
+        fetch(`${SERVER_URL}/profile-api/cancel-friend-request`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
@@ -74,7 +75,7 @@ export default function Profiles() {
                             <div className="d-flex justify-content-between">
                                 <div className="profile-col">
                                     <Link to={`/user/${profile.slug}`}>
-                                        <img src={`${serverURL}${profile.photo}`} />
+                                        <img src={`${SERVER_URL}${profile.photo}`} />
                                     </Link>
                                     <div className="main-profile-data">
                                         <Link to={`/user/${profile.slug}`} style={{ color: '#000' }}>

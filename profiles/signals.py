@@ -24,5 +24,5 @@ def post_delete_remove_from_friends(sender, instance, **kwargs):
     sender_ = instance.sender
     receiver_ = instance.receiver
     if instance.status == 'accepted':
-        sender_.friends.remove(receiver_)
-        receiver_.friends.remove(sender_)
+        sender_.friends.remove(receiver_.user)
+        receiver_.friends.remove(sender_.user)

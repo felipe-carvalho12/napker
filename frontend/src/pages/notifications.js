@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Header from '../components/header'
-import { csrftoken, serverURL } from '../utils'
+import { SERVER_URL } from '../settings'
+import { csrftoken } from '../utils'
 
 export default function Notifications(props) {
     const [invites, setInvites] = useState([])
@@ -9,7 +10,7 @@ export default function Notifications(props) {
     document.title = 'Notificações / Napker'
 
     useEffect(() => {
-        fetch(`${serverURL}/profile-api/myinvites`)
+        fetch(`${SERVER_URL}/profile-api/myinvites`)
             .then(response => response.json())
             .then(data => setInvites(data))
     }, [])
@@ -20,7 +21,7 @@ export default function Notifications(props) {
             'senderid': btn.dataset.senderid,
             'reply': btn.dataset.reply
         }
-        fetch(`${serverURL}/profile-api/reply-friend-request`, {
+        fetch(`${SERVER_URL}/profile-api/reply-friend-request`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
@@ -47,7 +48,7 @@ export default function Notifications(props) {
                                 <div className="d-flex justify-content-between">
                                     <div className="profile-col">
                                         <Link to={`/user/${i.sender.slug}`}>
-                                            <img src={`${serverURL}${i.sender.photo}`} />
+                                            <img src={`${SERVER_URL}${i.sender.photo}`} />
                                         </Link>
                                         <div className="main-profile-data">
                                             <Link to={`/user/${i.sender.slug}`} style={{ color: '#000' }}>

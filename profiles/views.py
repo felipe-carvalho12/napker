@@ -5,10 +5,16 @@ from django.contrib.auth.models import User
 from django.db.models import Q
 from django.shortcuts import render
 
-from .serializers import ProfileSerializer, RelationshipSerializer
+from .serializers import ProfileSerializer, RelationshipSerializer, UserSerializer
 from .models import Profile, Relationship
 
 # Create your views here.
+@api_view(['GET'])
+def get_logged_user(request):
+    serializer = UserSerializer(User.objects.get(username='felipe'))
+    #serializer = UserSerializer(request.user)
+    return Response(serializer.data)
+
 @api_view(['GET'])
 def get_profile(request, username):
     if list(User.objects.filter(username=username)) != []:
