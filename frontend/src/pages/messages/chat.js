@@ -81,12 +81,12 @@ class Chat extends React.Component {
         } else if (timeDiff < 60 && timeDiff > 1) {
             // less than sixty minutes ago
             prefix = `${timeDiff} minutos atrás`;
-        } else if (timeDiff === 60 * 60) {
+        } else if (Math.round(timeDiff / 60) === 1) {
             prefix = '1 hora atrás'
         } else if (timeDiff < 24 * 60 && timeDiff > 60) {
             // less than 24 hours ago
             prefix = `${Math.round(timeDiff / 60)} horas atrás`;
-        } else if (timeDiff === 60 * 60 * 24) {
+        } else if (Math.round(timeDiff / (60 * 24)) === 1) {
             prefix = '1 dia atrás'
         } else if (timeDiff < 31 * 24 * 60 && timeDiff > 24 * 60) {
             // less than 7 days ago
@@ -185,7 +185,7 @@ class Chat extends React.Component {
                         <div>
                             <strong style={{ fontSize: 'larger' }}>Você não tem uma conversa selecionada</strong>
                             <p className="text-secondary">Selecione uma existente ou comece uma nova</p>
-                            <button className="btn btn-primary">Nova conversa</button>
+                            <button className="btn btn-primary" onClick={() => this.props.openModal()}>Nova conversa</button>
                         </div>
                     </div>}
             </>

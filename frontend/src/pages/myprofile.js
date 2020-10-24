@@ -94,7 +94,7 @@ export default function MyProfile() {
                         <button className="btn btn-secondary" type="button" onClick={() => setIsEditing(true)}>Editar perfil</button>
                     </div>
                 </div>
-            </div > : <></>}
+            </div > : ''}
         </>
     )
 }

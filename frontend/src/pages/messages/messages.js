@@ -1,4 +1,5 @@
 import React from 'react'
+import Modal from 'react-bootstrap/Modal'
 import { Link } from 'react-router-dom'
 
 import Header from '../../components/header'
@@ -11,13 +12,15 @@ class Messages extends React.Component {
         this.state = {
             username: null,
             chatId: null,
-            activeChatsProfiles: null
+            activeChatsProfiles: null,
+            addingNewChat: false,
+            modalProfiles: [],
         }
     }
 
     componentWillReceiveProps(newProps) {
         if (newProps === this.props) return
-        const participants = { username: this.state.username, other_username: newProps.match.params.otherUsername }
+        const participants = { username: this.state.username, other_username: newProps.match.params.slug }
         fetch(`${SERVER_URL}/chat-api/chat-id/${JSON.stringify(participants)}`)
             .then(response => response.json())
             .then(data => this.setState({
@@ -34,16 +37,7 @@ class Messages extends React.Component {
                 }))
         }
         if (!this.state.activeChatsProfiles && this.state.activeChatsProfiles !== []) {
-            console.log('fetching...')
-            fetch(`${SERVER_URL}/chat-api/active-chats-profiles`)
-                .then(response => response.json())
-                .then(data => {
-                    if (!this.state.username) return
-                    console.log(data)
-                    this.setState({
-                        activeChatsProfiles: data
-                    })
-                })
+            this.fetchActiveChatProfiles()
         }
     }
 
@@ -56,14 +50,101 @@ class Messages extends React.Component {
         this.handleComponentChange()
     }
 
+    fetchActiveChatProfiles = () => {
+        fetch(`${SERVER_URL}/chat-api/active-chats-profiles`)
+            .then(response => response.json())
+            .then(data => {
+                if (!this.state.username) return
+                this.setState({
+                    activeChatsProfiles: data.reverse()
+                })
+            })
+    }
+
+    openModal = () => {
+        this.setState({
+            addingNewChat: true
+        })
+    }
+
+    setModalSearch = query => {
+        if (query === '') {
+            this.setState({
+                modalProfiles: []
+            })
+            return
+        }
+        fetch(`${SERVER_URL}/profile-api/users/${query}`)
+            .then(response => response.json())
+            .then(data => {
+                this.setState({
+                    modalProfiles: data
+                })
+            })
+    }
+
+    setContactSearch = query => {
+        if (query === '') {
+            this.fetchActiveChatProfiles()
+            return
+        }
+        if (this.state.activeChatsProfiles) {
+            const filteredProfiles = this.state.activeChatsProfiles.filter(p => p.user.username.includes(query))
+            this.setState({
+                activeChatsProfiles: filteredProfiles
+            })
+        }
+    }
+
     render() {
         return (
             <>
                 <Header page="Mensagens" />
                 <div className="content d-flex messages-wrapper">
+                    <Modal show={this.state.addingNewChat}
+                        onHide={() => this.setState({ addingNewChat: false })}
+                        size="lg">
+                        <Modal.Header closeButton>
+                            <Modal.Title><strong>Nova conversa</strong></Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body style={{ padding: '0' }}>
+                            <input className="modal-search-input"
+                                placeholder="Pesquisar pessoas"
+                                onChange={e => this.setModalSearch(e.target.value)}
+                            />
+                            <div className="list-group" style={{ height: '400px', overflow: 'hidden', overflowY: 'scroll' }}>
+                                {this.state.modalProfiles && this.state.modalProfiles.map(profile => {
+                                    return (
+                                        <Link to={`/mensagens/${profile.slug}`}
+                                            style={{ color: '#000', textDecoration: 'none' }}
+                                            onClick={() => this.setState({
+                                                addingNewChat: false
+                                            })}
+                                        >
+                                            <li className="list-group-item profile-row modal-profile-li" key={profile.id}>
+                                                <div className="d-flex justify-content-between">
+                                                    <div className="profile-col">
+
+                                                        <img src={`${SERVER_URL}${profile.photo}`} />
+                                                        <div className="main-profile-data">
+                                                            <strong>{profile.first_name} {profile.last_name}</strong>
+                                                            <p className="text-secondary">@{profile.user.username}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="profile-col">
+                                                        {profile.bio}
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </Link>
+                                    )
+                                })}
+                            </div>
+                        </Modal.Body>
+                    </Modal>
                     <div className="d-flex flex-column chats-list">
                         <div className="search-input-container">
-                            <input placeholder="Pesquisar pessoas" className="search-input" />
+                            <input placeholder="Pesquisar pessoas" className="search-input" onChange={e => this.setContactSearch(e.target.value)} />
                         </div>
                         <div className="list-group chats-container">
                             {this.state.activeChatsProfiles && this.state.activeChatsProfiles.map(profile => {
@@ -80,7 +161,11 @@ class Messages extends React.Component {
                             })}
                         </div>
                     </div>
-                    <Chat username={this.state.username} otherUsername={this.props.match.params.otherUsername} chatId={this.state.chatId} />
+                    <Chat username={this.state.username}
+                        otherUsername={this.props.match.params.slug}
+                        chatId={this.state.chatId}
+                        openModal={this.openModal}
+                    />
                 </div>
             </>
         )

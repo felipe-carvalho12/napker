@@ -33,7 +33,7 @@ export default function App() {
                         <Notifications {...props} updateNotificationsNumber={updateNotificationsNumber} />
                     )} />
                     <Route path="/mensagens" exact component={Messages} />
-                    <Route path="/mensagens/:otherUsername" component={Messages} />
+                    <Route path="/mensagens/:slug" component={Messages} />
                     <Route path="/perfil" component={MyProfile} />
                     <Route path="/configurações" component={Settings} />
                     <Route path="/user/:slug" component={Profile} />

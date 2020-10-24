@@ -3,7 +3,7 @@
     --secondary-color: #E8F5FE;
     --primary-color-hover: #0b80d0;
     --body-background: #f3f5f9;
-    --body-background-hover: #f9fbff;
+    --white-hover: #eee;
   }
 
   * {
@@ -137,12 +137,16 @@
   }
 
   .btn-grey:hover {
-    background: #ddd;
+    background: var(--white-hover);
   }
 
   .btn-primary:focus, .btn-secondary:focus, .btn-grey:focus {
     outline: none;
     box-shadow: none;
+  }
+
+  .filtered-profile:hover {
+    background: var(--white-hover);
   }
 
   .profile-row {
@@ -179,6 +183,11 @@
     padding: 90px;
 }
 
+
+.profile-data-container .friend-btn:hover {
+  background: #f00!important;
+}
+
 .profile-label {
   width: 20%;
 }
@@ -212,6 +221,18 @@
 
 .messages-wrapper {
   height: 89vh;
+}
+
+.modal-search-input {
+  background: var(--body-background);
+  width: 100%;
+  padding: 15px;
+  border: none;
+  outline: none;
+}
+
+.modal-profile-li:hover {
+  background: #eee;
 }
 
 .messages-wrapper .chats-list {
@@ -251,7 +272,7 @@
 }
 
 .messages-wrapper .chats-list .chats-container .profile-chat-item:hover {
-  background: var(--body-background-hover);
+  background: var(--white-hover);
 }
 
 .messages-wrapper .current-chat {
