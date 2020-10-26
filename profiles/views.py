@@ -34,13 +34,14 @@ def filter_profiles(request, query):
 
 @api_view(['GET'])
 def profile_list(request):
-    #profiles = Profile.objects.exclude(user=authenticate(request, username='felipe', password='django@12'))
-    #profile = Profile.objects.get(user=authenticate(request, username='felipe', password='django@12'))
-    profiles = Profile.objects.exclude(user=request.user)
     profile = Profile.objects.get(user=request.user)
-    invitations = Relationship.objects.invitations_received(profile)
-    profiles = [p for p in profiles if p not in [i.sender for i in invitations]]
-    profiles = [p for p in profiles if p.user not in profile.friends.all()]
+    profiles = []
+    for p in Profile.objects.all():
+        if p == profile: continue
+        if p.user in profile.friends.all(): continue
+        if p in [i.receiver for i in Relationship.objects.invitations_sent(profile)]: continue
+        if p in [i.sender for i in Relationship.objects.invitations_received(profile)]: continue
+        profiles.append(p)
     serializer = ProfileSerializer(profiles, many=True)
     return Response(serializer.data)
 
@@ -49,6 +50,14 @@ def my_profile(request):
     #profile = Profile.objects.get(user=authenticate(request, username='felipe', password='django@12'))
     profile = Profile.objects.get(user=request.user)
     serializer = ProfileSerializer(profile)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def friends_profiles(request, slug):
+    user = User.objects.get(username=slug)
+    profile = Profile.objects.get(user=user)
+    friends = [friend_user.profile for friend_user in profile.friends.all()]
+    serializer = ProfileSerializer(friends, many=True)
     return Response(serializer.data)
 
 @api_view(['GET'])
@@ -71,7 +80,7 @@ def get_relationship(request, slug):
         return Response({'relationship': 'none'})
 
 @api_view(['GET'])
-def friend_request_received(request):
+def friend_requests_received(request):
     #profile = Profile.objects.get(user=authenticate(request, username='felipe', password='django@12'))
     profile = Profile.objects.get(user=request.user)
     invites = Relationship.objects.invitations_received(profile)
@@ -92,7 +101,7 @@ def remove_from_friends(request):
         #profile = Profile.objects.get(user=authenticate(request, username='felipe', password='django@12'))
         profile = Profile.objects.get(user=request.user)
         other_user = User.objects.get(pk=int(request.data))
-        other_profile = profile.objects.get(user=other_user)
+        other_profile = Profile.objects.get(user=other_user)
         relationship = Relationship.objects.filter(Q(sender=profile) | Q(sender=other_profile), Q(receiver=profile) | Q(receiver=other_profile), status='accepted').first()
         relationship.delete()
         return Response('Removed from friends with success')
@@ -123,7 +132,10 @@ def cancel_friend_request(request):
 def reply_friend_request(request):
     #profile = Profile.objects.get(user=authenticate(request, username='felipe', password='django@12'))
     profile = Profile.objects.get(user=request.user)
-    sender = Profile.objects.get(id=int(request.data['senderid']))
+    try:
+        sender = Profile.objects.get(id=int(request.data['senderid']))
+    except:
+        sender = Profile.objects.get(user=User.objects.get(id=int(request.data['senderid'])))
     reply = request.data['reply']
     r = Relationship.objects.get(sender=sender, receiver=profile, status='sent')
     if reply == 'accept':

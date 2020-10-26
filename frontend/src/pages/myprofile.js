@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import Modal from 'react-bootstrap/Modal'
 import Header from '../components/header'
 import { SERVER_URL } from '../settings'
@@ -37,7 +38,7 @@ export default function MyProfile() {
                             <input type="hidden" name="csrfmiddlewaretoken" value={csrftoken} />
                             <div className="d-flex flex-column justify-content-center align-items-center" style={{ padding: '25px' }}>
                                 <img src={`${SERVER_URL}${profile.photo}`} style={profilePhotoStyle} />
-                                <input type="file" accept="image/png, image/jpg" name="profile-photo" onChange={e => console.log(e.target.files)}/>
+                                <input type="file" accept="image/png, image/jpg" name="profile-photo" onChange={e => console.log(e.target.files)} />
                             </div>
                             <div>
                                 <label htmlFor="first-name" className="profile-label">Nome:</label>
@@ -88,7 +89,11 @@ export default function MyProfile() {
                         <p className="text-secondary">
                             <i className="far fa-calendar-alt"></i> Entrou em {profile.created.split('-').reverse().join('/')}
                         </p>
-                        <p><strong>{profile.friends.length}</strong> {profile.friends.length === 1 ? 'amigo' : 'amigos'}</p>
+                        <p>
+                            <Link to={`/user/${profile.slug}/amigos`} style={{ color: '#000' }}>
+                                <strong>{profile.friends.length}</strong> {profile.friends.length === 1 ? 'amigo' : 'amigos'}
+                            </Link>
+                        </p>
                     </div>
                     <div>
                         <button className="btn btn-secondary" type="button" onClick={() => setIsEditing(true)}>Editar perfil</button>

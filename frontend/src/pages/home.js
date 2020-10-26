@@ -3,7 +3,7 @@ import Posts from './home-components/posts'
 import Profiles from './home-components/profiles'
 import Header from '../components/header'
 
-export default function Home() {
+export default function Home(props) {
     const [page, setPage] = useState('Perfis')
     const pages = {
         'Perfis': <Profiles />,

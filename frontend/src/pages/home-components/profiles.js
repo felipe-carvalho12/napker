@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { SERVER_URL } from '../../settings'
 import { csrftoken } from '../../utils'
 
-export default function Profiles() {
+export default function Profiles(props) {
     const [profiles, setProfiles] = useState([])
     const [filteredProfiles, setFilteredProfiles] = useState(null)
     const [search, setSearch] = useState('')

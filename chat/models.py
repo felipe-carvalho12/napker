@@ -16,7 +16,7 @@ class Message(models.Model):
         Contact, related_name='messages', on_delete=models.CASCADE)
     content = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
-    viewed = models.BooleanField(default=False)
+    read = models.BooleanField(default=False)
 
     def __str__(self):
         return self.contact.user.username
@@ -28,4 +28,4 @@ class Chat(models.Model):
     messages = models.ManyToManyField(Message, blank=True)
 
     def __str__(self):
-        return "{}".format(self.pk)
+        return f'{self.participants.first()} & {self.participants.last()}'

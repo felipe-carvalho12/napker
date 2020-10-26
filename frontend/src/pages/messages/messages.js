@@ -148,10 +148,9 @@ class Messages extends React.Component {
                         </div>
                         <div className="list-group chats-container">
                             {this.state.activeChatsProfiles && this.state.activeChatsProfiles.map(profile => {
-                                console.log('rendering', profile)
                                 return (
                                     <Link to={`/mensagens/${profile.user.username}`} style={{ color: '#000', textDecoration: 'none' }}>
-                                        <li className="list-item profile-chat-item">
+                                        <li className="list-item profile-chat-item" style={{ whiteSpace: 'nowrap' }}>
                                             <img src={`${SERVER_URL}${profile.photo}`} alt="" style={{ borderRadius: '50%' }} />
                                             <strong>{profile.first_name} {profile.last_name}</strong>
                                             <p className="text-secondary" style={{ marginLeft: '5px' }}>@{profile.user.username}</p>
@@ -165,6 +164,7 @@ class Messages extends React.Component {
                         otherUsername={this.props.match.params.slug}
                         chatId={this.state.chatId}
                         openModal={this.openModal}
+                        updateUnreadMessagesNumber={this.props.updateUnreadMessagesNumber}
                     />
                 </div>
             </>

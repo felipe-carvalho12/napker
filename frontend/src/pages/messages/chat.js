@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+import { csrftoken } from '../../utils'
 import { SERVER_URL } from '../../settings'
 import WebSocketInstance from './websocket'
 
@@ -63,7 +64,6 @@ class Chat extends React.Component {
             content: this.state.message,
             chatId: this.props.chatId
         };
-        console.log(messageObject)
         WebSocketInstance.newChatMessage(messageObject);
         this.setState({ message: "" });
     };
@@ -155,6 +155,21 @@ class Chat extends React.Component {
                 otherUsername: newProps.otherUsername
             })
         }
+        if (newProps.chatId) {
+            fetch(`${SERVER_URL}/chat-api/read-messages`, {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json',
+                    'X-CSRFToken': csrftoken,
+                },
+                body: JSON.stringify({ chat_id: newProps.chatId })
+            })
+                .then(response => response.json())
+                .then(data => console.log(data))
+        }
+        if (this.props.updateUnreadMessagesNumber) {
+            this.props.updateUnreadMessagesNumber()
+        }
     }
 
     render() {
@@ -163,7 +178,7 @@ class Chat extends React.Component {
                 {this.state.otherProfile ?
                     <div className="d-flex flex-column justify-content-between align-items-center current-chat">
                         <div className="current-chat-header">
-                            <Link to="/user/felipe">
+                            <Link to={`/user/${this.state.otherProfile.slug}`}>
                                 <img src={`${SERVER_URL}${this.state.otherProfile.photo}`} className="header-profile-img" />
                             </Link>
                             <div className="d-flex flex-column align-items-start" style={{ height: '52px' }}>

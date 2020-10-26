@@ -23,6 +23,7 @@ def get_user_contact(username):
 def get_current_chat(chatId):
     return get_object_or_404(Chat, id=int(chatId))
 
+
 @api_view(['GET'])
 def get_chat_id(request, participants):
     data = json.loads(participants)
@@ -47,14 +48,54 @@ def get_chat_id(request, participants):
         chat.participants.add(other_contact)
     return Response({'chat_id': chat.id})
 
+
 @api_view(['GET'])
 def get_active_chats_profiles(request):
     #contact = Contact.objects.get(user=authenticate(request, username='felipe', password='django@12'))
     contact = Contact.objects.get(user=request.user)
+    chats = [chat for chat in Chat.objects.filter(
+        participants__id=contact.id) if chat.messages.all().exists()]
+    ordered_chats = sorted(
+        chats, key=lambda chat: chat.messages.last().timestamp)
     profiles = []
-    for chat in Chat.objects.filter(participants__id=contact.id):
-        for con in chat.participants.all():
-            if con != contact:
-                profiles.append(Profile.objects.get(user=con.user))
+    for chat in ordered_chats:
+        for participant in chat.participants.all():
+            if participant == contact:
+                continue
+            profiles.append(Profile.objects.get(user=participant.user))
     serializer = ProfileSerializer(profiles, many=True)
     return Response(serializer.data)
+
+
+@api_view(['GET'])
+def get_all_unread_messages_number(request):
+    #contact = Contact.objects.get(user=authenticate(request, username='felipe', password='django@12'))
+    contact = Contact.objects.get(user=request.user)
+    unread_messages_counter = 0
+    chats = [chat for chat in Chat.objects.filter(participants__id=contact.id) if chat.messages.all().exists()]
+    for chat in chats:
+        unread_messages_counter += len(chat.messages.filter(read=False).exclude(contact=contact))
+        print('MENSAGEM: ', chat.messages.filter(contact=contact, read=False))
+    return Response({'unread_messages_number': unread_messages_counter})
+
+
+@api_view(['GET'])
+def get_chat_unread_messages_number(request, chat_id):
+    #contact = Contact.objects.get(user=authenticate(request, username='felipe', password='django@12'))
+    contact = Contact.objects.get(user=request.user)
+    unread_messages_counter = 0
+    chat = get_current_chat(chat_id)
+    unread_messages_counter += len(chat.messages.filter(contact=contact, read=False))
+    return Response({'unread_messages_number': unread_messages_counter})
+
+
+@api_view(['POST'])
+def read_unread_messages(request):
+    #contact = Contact.objects.get(user=authenticate(request, username='felipe', password='django@12'))
+    contact = Contact.objects.get(user=request.user)
+    chat_id = request.data['chat_id']
+    messages = get_current_chat(chat_id).messages.filter(read=False).exclude(contact=contact)
+    for message in messages:
+        message.read = True
+        message.save()
+    return Response('messages marked as read')

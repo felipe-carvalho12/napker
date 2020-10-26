@@ -15,7 +15,7 @@ export default function Sidebar(props) {
                     <li><i className="fas fa-bell"/>Notificações{!props.notificationsNumber ? '' : <p id="notifications-number">{props.notificationsNumber}</p>}</li>
                 </Link>
                 <Link to="/mensagens" style={{ textDecoration: 'none' }}>
-                    <li><i className="fas fa-envelope"/>Mensagens</li>
+                    <li><i className="fas fa-envelope"/>Mensagens{!props.unreadMessagesNumber ? '' : <p id="notifications-number">{props.unreadMessagesNumber}</p>}</li>
                 </Link>
                 <Link to="/perfil" style={{ textDecoration: 'none' }}>
                     <li><i className="fas fa-user"/>Perfil</li>

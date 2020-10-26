@@ -10,7 +10,7 @@ class Interest(models.Model):
         return self.title
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     first_name = models.CharField(max_length=100, blank=True)
     last_name = models.CharField(max_length=100, blank=True)
     email = models.EmailField(max_length=100, unique=True, blank=True, null=True)
@@ -38,6 +38,9 @@ class Profile(models.Model):
 class RelationshipManager(models.Manager):
     def invitations_received(self, receiver):
         invites = Relationship.objects.filter(receiver=receiver, status='sent')
+        return invites
+    def invitations_sent(self, sender):
+        invites = Relationship.objects.filter(sender=sender, status='sent')
         return invites
 
 class Relationship(models.Model):
