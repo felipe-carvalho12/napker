@@ -16,7 +16,8 @@ class Profile extends React.Component {
     profilePhotoStyle = {
         borderRadius: '50%',
         display: 'inline-block',
-        transform: 'scale(1.5)',
+        width: '96px',
+        heigh: '96px',
         marginBottom: '25px'
     }
 
@@ -135,7 +136,10 @@ class Profile extends React.Component {
             })
         })
             .then(response => response.json())
-            .then(data => console.log(data))
+            .then(data => {
+                console.log(data)
+                this.props.updateNotificationsNumber()
+            })
     }
 
     handleRelationshipUpdate = e => {
@@ -158,8 +162,6 @@ class Profile extends React.Component {
             this.acceptFriendRequest(btn.dataset.pk)
             btn.innerHTML = 'Amigos'
             btn.className = 'btn btn-primary'
-            console.log(this.props)
-            this.props.updateNotificationsNumber()
         }
     }
 
@@ -183,6 +185,11 @@ class Profile extends React.Component {
                                 <p>
                                     <Link to={`/user/${this.state.profile.slug}/amigos`} style={{ color: '#000' }}>
                                         <strong>{this.state.profile.friends.length}</strong> {this.state.profile.friends.length === 1 ? 'amigo' : 'amigos'}
+                                    </Link>
+                                </p>
+                                <p>
+                                    <Link to={`/user/${this.state.profile.slug}/posts`} style={{ color: '#000' }}>
+                                        <strong>{this.state.profile.posts.length}</strong> {this.state.profile.posts.length === 1 ? 'post' : 'posts'}
                                     </Link>
                                 </p>
                             </div>

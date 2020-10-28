@@ -24,7 +24,7 @@ export default function Friends() {
     }, [profile])
 
     return (
-        <>{console.log(profile, slug)}
+        <>
             <Header page={profile ? `${profile.first_name} ${profile.last_name} / Amigos` : 'Perfil / Amigos'}
                 backArrow={true}
             />

@@ -24,7 +24,6 @@ class ChatConsumer(WebsocketConsumer):
         current_chat = get_current_chat(data['chatId'])
         current_chat.messages.add(message)
         current_chat.save()
-        print(current_chat.messages)
         content = {
             'command': 'new_message',
             'message': self.message_to_json(message)
@@ -42,6 +41,7 @@ class ChatConsumer(WebsocketConsumer):
             'id': message.id,
             'author': message.contact.user.username,
             'content': message.content,
+            'read': message.read,
             'timestamp': str(message.timestamp)
         }
 

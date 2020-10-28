@@ -24,11 +24,17 @@ class Profile(models.Model):
     friends = models.ManyToManyField(User, blank=True, related_name='friends')
     interests = models.ManyToManyField(Interest, related_name='profiles')
     
+    def __str__(self):
+        return f'{self.user.username}'
+
     def get_friends_number(self):
         return self.friends.all().count()
 
-    def __str__(self):
-        return f'{self.user.username}'
+    def get_posts_number(self):
+        return self.user.posts.all().count()
+
+    def get_all_posts(self):
+        return self.user.posts.all()
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.user.username)

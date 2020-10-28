@@ -11,7 +11,8 @@ export default function MyProfile() {
     const profilePhotoStyle = {
         borderRadius: '50%',
         display: 'inline-block',
-        transform: 'scale(1.5)',
+        width: '96px',
+        heigh: '96px',
         marginBottom: '25px'
     }
 
@@ -92,6 +93,11 @@ export default function MyProfile() {
                         <p>
                             <Link to={`/user/${profile.slug}/amigos`} style={{ color: '#000' }}>
                                 <strong>{profile.friends.length}</strong> {profile.friends.length === 1 ? 'amigo' : 'amigos'}
+                            </Link>
+                        </p>
+                        <p>
+                            <Link to={`/user/${profile.slug}/posts`} style={{ color: '#000' }}>
+                                <strong>{profile.posts.length}</strong> {profile.posts.length === 1 ? 'post' : 'posts'}
                             </Link>
                         </p>
                     </div>

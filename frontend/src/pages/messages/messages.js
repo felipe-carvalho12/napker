@@ -12,6 +12,7 @@ class Messages extends React.Component {
         this.state = {
             username: null,
             chatId: null,
+            activeChats: null,
             activeChatsProfiles: null,
             addingNewChat: false,
             modalProfiles: [],
@@ -56,7 +57,8 @@ class Messages extends React.Component {
             .then(data => {
                 if (!this.state.username) return
                 this.setState({
-                    activeChatsProfiles: data.reverse()
+                    activeChats: data.chats.reverse(),
+                    activeChatsProfiles: data.profiles.reverse()
                 })
             })
     }
@@ -94,6 +96,18 @@ class Messages extends React.Component {
                 activeChatsProfiles: filteredProfiles
             })
         }
+    }
+
+    resetUnreadMessagesCounter = () => {
+        this.unreadMessagesCounter = 0
+    }
+
+    incrementUnreadMessagesCounter = () => {
+        this.unreadMessagesCounter++
+    }
+
+    setLastChatMessage = message => {
+        this.lastChatMessage = message
     }
 
     render() {
@@ -145,15 +159,29 @@ class Messages extends React.Component {
                     <div className="d-flex flex-column chats-list">
                         <div className="search-input-container">
                             <input placeholder="Pesquisar pessoas" className="search-input" onChange={e => this.setContactSearch(e.target.value)} />
+                            <i className="fas fa-plus add-icon" onClick={this.openModal}></i>
                         </div>
                         <div className="list-group chats-container">
                             {this.state.activeChatsProfiles && this.state.activeChatsProfiles.map(profile => {
                                 return (
                                     <Link to={`/mensagens/${profile.user.username}`} style={{ color: '#000', textDecoration: 'none' }}>
+                                        {this.resetUnreadMessagesCounter()}
                                         <li className="list-item profile-chat-item" style={{ whiteSpace: 'nowrap' }}>
-                                            <img src={`${SERVER_URL}${profile.photo}`} alt="" style={{ borderRadius: '50%' }} />
-                                            <strong>{profile.first_name} {profile.last_name}</strong>
-                                            <p className="text-secondary" style={{ marginLeft: '5px' }}>@{profile.user.username}</p>
+                                            <img src={`${SERVER_URL}${profile.photo}`} alt="" style={{ borderRadius: '50%', width: '64px', height: '64px', marginRight: '10px' }} />
+                                            <div className="d-flex flex-column align-items-start">
+                                                <div className="d-flex" style={{ maxHeight: '30px' }}>
+                                                    <strong style={{ height: 'fit-content' }}>{profile.first_name} {profile.last_name}</strong>
+                                                    {this.state.activeChats[this.state.activeChatsProfiles.indexOf(profile)].messages.map(message => {
+                                                        const messages = this.state.activeChats[this.state.activeChatsProfiles.indexOf(profile)].messages
+                                                        if (messages[messages.length - 1] === message) this.setLastChatMessage(message.content)
+                                                        if (message.read || message.contact.user.username !== profile.user.username) return
+                                                        this.incrementUnreadMessagesCounter()
+                                                    })}
+                                                    {this.unreadMessagesCounter ? <p className="notifications-number">{this.unreadMessagesCounter}</p> : ''}
+                                                    <p className="text-secondary" style={{ marginLeft: '5px' }}>@{profile.user.username}</p>
+                                                </div>
+                                                <p className="text-secondary">{this.lastChatMessage.slice(0, 40)}</p>
+                                            </div>
                                         </li>
                                     </Link>
                                 )
@@ -165,6 +193,7 @@ class Messages extends React.Component {
                         chatId={this.state.chatId}
                         openModal={this.openModal}
                         updateUnreadMessagesNumber={this.props.updateUnreadMessagesNumber}
+                        updateMessagesComponent={this.fetchActiveChatProfiles}
                     />
                 </div>
             </>

@@ -66,40 +66,18 @@ class Chat extends React.Component {
         };
         WebSocketInstance.newChatMessage(messageObject);
         this.setState({ message: "" });
+        this.props.updateMessagesComponent()
+        
     };
 
     renderTimestamp = timestamp => {
-        let prefix = "";
-        const timeDiff = Math.round(
-            (new Date().getTime() - new Date(timestamp).getTime()) / 60000
-        );
-        if (timeDiff < 1) {
-            // less than one minute ago
-            prefix = "agora pouco...";
-        } else if (timeDiff === 1) {
-            prefix = '1 minuto atrás'
-        } else if (timeDiff < 60 && timeDiff > 1) {
-            // less than sixty minutes ago
-            prefix = `${timeDiff} minutos atrás`;
-        } else if (Math.round(timeDiff / 60) === 1) {
-            prefix = '1 hora atrás'
-        } else if (timeDiff < 24 * 60 && timeDiff > 60) {
-            // less than 24 hours ago
-            prefix = `${Math.round(timeDiff / 60)} horas atrás`;
-        } else if (Math.round(timeDiff / (60 * 24)) === 1) {
-            prefix = '1 dia atrás'
-        } else if (timeDiff < 31 * 24 * 60 && timeDiff > 24 * 60) {
-            // less than 7 days ago
-            prefix = `${Math.round(timeDiff / (60 * 24))} dias atrás`;
-        } else {
-            prefix = `${new Date(timestamp)}`;
-        }
-        return prefix;
+        const ts = new Date(timestamp)
+        return `${ts.getDate()}/${ts.getMonth()}/${ts.getFullYear()} - ${ts.getHours()}:${ts.getMinutes()}`
     };
 
     renderMessages = messages => {
         const currentUser = this.props.username;
-        return messages.map((message, i, arr) => (
+        return messages.map(message => (
             <li
                 key={message.id}
                 className={message.author === currentUser ? "sent" : "received"}
@@ -107,7 +85,9 @@ class Chat extends React.Component {
                 <p>
                     {message.content}
                     <br />
-                    <small>{this.renderTimestamp(message.timestamp)}</small>
+                    <small>
+                        {this.renderTimestamp(message.timestamp)} {message.author === currentUser ? message.read ? '✓✓' : '✓' : ''}
+                    </small>
                 </p>
             </li>
         ));
@@ -149,6 +129,8 @@ class Chat extends React.Component {
                 );
             });
             WebSocketInstance.connect(newProps.chatId);
+
+            this.props.updateMessagesComponent()
         }
         if (this.state.otherUsername != newProps.otherUsername) {
             this.setState({

@@ -34,6 +34,7 @@ def filter_profiles(request, query):
 
 @api_view(['GET'])
 def profile_list(request):
+    #profile = Profile.objects.get(user=authenticate(request, username='felipe', password='django@12'))
     profile = Profile.objects.get(user=request.user)
     profiles = []
     for p in Profile.objects.all():
@@ -132,10 +133,7 @@ def cancel_friend_request(request):
 def reply_friend_request(request):
     #profile = Profile.objects.get(user=authenticate(request, username='felipe', password='django@12'))
     profile = Profile.objects.get(user=request.user)
-    try:
-        sender = Profile.objects.get(id=int(request.data['senderid']))
-    except:
-        sender = Profile.objects.get(user=User.objects.get(id=int(request.data['senderid'])))
+    sender = Profile.objects.get(user=User.objects.get(id=int(request.data['senderid'])))
     reply = request.data['reply']
     r = Relationship.objects.get(sender=sender, receiver=profile, status='sent')
     if reply == 'accept':

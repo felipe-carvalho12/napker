@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
+from posts.serializers import PostSerializer
 from .models import Interest, Profile, Relationship
 
 
@@ -18,6 +19,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     user = UserSerializer()
     interests = InterestSerializer(many=True)
     friends = UserSerializer(many=True)
+    posts = PostSerializer(source='get_all_posts', many=True)
     class Meta:
         model = Profile
         fields = '__all__'

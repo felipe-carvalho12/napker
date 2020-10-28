@@ -53,18 +53,20 @@ def get_chat_id(request, participants):
 def get_active_chats_profiles(request):
     #contact = Contact.objects.get(user=authenticate(request, username='felipe', password='django@12'))
     contact = Contact.objects.get(user=request.user)
-    chats = [chat for chat in Chat.objects.filter(
-        participants__id=contact.id) if chat.messages.all().exists()]
-    ordered_chats = sorted(
-        chats, key=lambda chat: chat.messages.last().timestamp)
+    chats = [chat for chat in Chat.objects.filter(participants__id=contact.id) if chat.messages.all().exists()]
+    ordered_chats = sorted(chats, key=lambda chat: chat.messages.last().timestamp)
     profiles = []
     for chat in ordered_chats:
         for participant in chat.participants.all():
             if participant == contact:
                 continue
             profiles.append(Profile.objects.get(user=participant.user))
-    serializer = ProfileSerializer(profiles, many=True)
-    return Response(serializer.data)
+    profiles_serializer = ProfileSerializer(profiles, many=True)
+    chats_serializer = ChatSerializer(ordered_chats, many=True)
+    return Response({
+        'profiles': profiles_serializer.data,
+        'chats': chats_serializer.data
+    })
 
 
 @api_view(['GET'])

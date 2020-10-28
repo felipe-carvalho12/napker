@@ -47,7 +47,7 @@
     border-radius: 20px;
   }
 
-  #notifications-number {
+  .notifications-number {
     display: inline-block;
     position: relative;
     bottom: 10px;
@@ -55,7 +55,7 @@
     text-align: center;
     color:#fff;
     background-color: red;
-    width: 15px;
+    min-width: 15px;
     height: 17px;
     font-size: 12px;
     border-radius: 50%;
@@ -154,6 +154,8 @@
   }
 
   .profile-row img {
+    width: 64px;
+    height: 64px;
     margin-right: 10px;
     border-radius: 50%;
   }
@@ -203,7 +205,7 @@
   color: #f00;
 }
 
-.profile-left-arrow {
+.profile-left-arrow, .add-icon {
   padding: 10px;
   margin-right: 10px;
   color: var(--primary-color);
@@ -211,7 +213,7 @@
   font-size: 20px;
 }
 
-.profile-left-arrow:hover {
+.profile-left-arrow:hover, .add-icon:hover {
   background-color: var(--secondary-color);
   color: var(--primary-color-hover);
   cursor: pointer;
@@ -254,6 +256,7 @@
 .messages-wrapper .chats-list .search-input {
   width: 100%;
   height: 40px;
+  margin-right: 10px;
   border: none;
   border-radius: 20px;
   background-color: var(--body-background);
@@ -267,6 +270,7 @@
 
 .messages-wrapper .chats-list .chats-container .profile-chat-item {
   display: flex;
+  justify-content: flex-start;
   padding: 10px;
   border-bottom: 2px solid var(--body-background);
 }
