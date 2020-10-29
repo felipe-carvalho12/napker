@@ -48,7 +48,10 @@ export default function Notifications(props) {
                                 <div className="d-flex justify-content-between">
                                     <div className="profile-col">
                                         <Link to={`/user/${i.sender.slug}`}>
-                                            <img src={`${SERVER_URL}${i.sender.photo}`} />
+                                            <img src={`${SERVER_URL}${i.sender.photo}`}
+                                                className="profile-img-med"
+                                                style={{ marginRight: '10px' }}
+                                            />
                                         </Link>
                                         <div className="main-profile-data">
                                             <Link to={`/user/${i.sender.slug}`} style={{ color: '#000' }}>
@@ -67,7 +70,7 @@ export default function Notifications(props) {
                                 </div>
                             </li>
                         )
-                    }) : <h3 style={{ marginTop: '100px' }}>Você ainda não tem nenhuma notificação</h3>}
+                    }) : <h3 style={{ marginTop: '100px' }}>Você não tem nenhuma notificação</h3>}
                 </div>
             </div>
         </>

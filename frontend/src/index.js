@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './style.css'
+import './assets/style.css'
+import './assets/profile.css'
+import './assets/chat.css'
 
 import App from './App'
 

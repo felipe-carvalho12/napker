@@ -1,6 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+
 import Header from '../../components/header'
+import Posts from '../profile-components/posts'
+import Interests from '../profile-components/interests'
 import { SERVER_URL } from '../../settings'
 import { csrftoken } from '../../utils'
 
@@ -9,16 +12,10 @@ class Profile extends React.Component {
         super(props)
         this.state = {
             profile: null,
-            relationshipButtonLabel: ''
+            relationshipButtonLabel: '',
+            currentPageIsPosts: true,
         }
         this.slug = this.props.match.params.slug
-    }
-    profilePhotoStyle = {
-        borderRadius: '50%',
-        display: 'inline-block',
-        width: '96px',
-        heigh: '96px',
-        marginBottom: '25px'
     }
 
     componentWillMount() {
@@ -165,17 +162,32 @@ class Profile extends React.Component {
         }
     }
 
+    switchPage = e => {
+        document.querySelectorAll('.profile-page-menu-item-active').forEach(el => {
+            el.classList.remove('profile-page-menu-item-active')
+        })
+        e.target.classList.add('profile-page-menu-item-active')
+        this.setState({
+            currentPageIsPosts: !this.state.currentPageIsPosts
+        })
+    }
+
     render() {
         return (
             <>
                 <Header page={this.state.profile ? `${this.state.profile.first_name} ${this.state.profile.last_name}` : 'Perfil'}
                     backArrow={true}
                 />
-                {!this.state.profile ? <></> : <>
+                {!this.state.profile ? <></> :
                     <div className="content">
                         <div className="d-flex justify-content-between align-items-center profile-data-container">
                             <div className="d-flex flex-column align-items-start">
-                                <p style={{ padding: '15px' }}><img src={`${SERVER_URL}${this.state.profile.photo}`} style={this.profilePhotoStyle} /></p>
+                                <p style={{ padding: '15px' }}>
+                                    <img src={`${SERVER_URL}${this.state.profile.photo}`}
+                                        className="profile-img-big"
+                                        style={{ marginBottom: '25px' }}
+                                    />
+                                </p>
                                 <p style={{ marginBottom: 0 }}><strong>{this.state.profile.first_name} {this.state.profile.last_name}</strong></p>
                                 <p className="text-secondary" style={{ marginTop: 0 }}>@{this.state.profile.user.username}</p>
                                 <p>{this.state.profile.bio}</p>
@@ -187,11 +199,6 @@ class Profile extends React.Component {
                                         <strong>{this.state.profile.friends.length}</strong> {this.state.profile.friends.length === 1 ? 'amigo' : 'amigos'}
                                     </Link>
                                 </p>
-                                <p>
-                                    <Link to={`/user/${this.state.profile.slug}/posts`} style={{ color: '#000' }}>
-                                        <strong>{this.state.profile.posts.length}</strong> {this.state.profile.posts.length === 1 ? 'post' : 'posts'}
-                                    </Link>
-                                </p>
                             </div>
                             <div>
                                 <button className="btn d-none"
@@ -201,8 +208,20 @@ class Profile extends React.Component {
                                 >{this.state.relationshipButtonLabel}</button>
                             </div>
                         </div>
+                        <div className="profile-page-menu">
+                            <div className="profile-page-menu-item profile-page-menu-item-active" onClick={this.switchPage}>
+                                Posts ({this.state.profile.posts.length})
+                            </div>
+                            <div className="profile-page-menu-item" onClick={this.switchPage}>
+                                Interesses ({this.state.profile.interests.length})
+                            </div>
+                        </div>
+                        {this.state.currentPageIsPosts ?
+                            <Posts profile={this.state.profile} /> :
+                            <Interests profile={this.state.profile} />
+                        }
                     </div>
-                </>}
+                }
             </>
         )
     }

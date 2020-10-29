@@ -67,7 +67,7 @@ class Chat extends React.Component {
         WebSocketInstance.newChatMessage(messageObject);
         this.setState({ message: "" });
         this.props.updateMessagesComponent()
-        
+
     };
 
     renderTimestamp = timestamp => {
@@ -161,7 +161,10 @@ class Chat extends React.Component {
                     <div className="d-flex flex-column justify-content-between align-items-center current-chat">
                         <div className="current-chat-header">
                             <Link to={`/user/${this.state.otherProfile.slug}`}>
-                                <img src={`${SERVER_URL}${this.state.otherProfile.photo}`} className="header-profile-img" />
+                                <img src={`${SERVER_URL}${this.state.otherProfile.photo}`}
+                                    className="profile-img-sm"
+                                    style={{ marginRight: '5px' }}
+                                />
                             </Link>
                             <div className="d-flex flex-column align-items-start" style={{ height: '52px' }}>
                                 <strong>{this.state.otherProfile.first_name} {this.state.otherProfile.last_name}</strong>

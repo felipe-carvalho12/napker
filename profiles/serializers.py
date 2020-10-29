@@ -1,9 +1,21 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
-from posts.serializers import PostSerializer
-from .models import Interest, Profile, Relationship
+from posts.models import *
+from .models import *
 
+# UNRELATED SERIALIZERS - AVOID CIRCULAR RELATIONSHIP ISSUE
+class CommentUnrelatedSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Post
+        fields = '__all__'
+
+class PostUnrelatedSerializer(serializers.ModelSerializer):
+    comments = CommentUnrelatedSerializer(source='all_comments', many=True)
+    class Meta:
+        model = Post
+        fields = '__all__'
+#------------------------------------------
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -19,7 +31,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     user = UserSerializer()
     interests = InterestSerializer(many=True)
     friends = UserSerializer(many=True)
-    posts = PostSerializer(source='get_all_posts', many=True)
+    posts = PostUnrelatedSerializer(source='get_all_posts', many=True)
     class Meta:
         model = Profile
         fields = '__all__'
@@ -30,3 +42,13 @@ class RelationshipSerializer(serializers.ModelSerializer):
     class Meta:
         model = Relationship
         fields = '__all__'
+
+
+# POSTS APP SERIALIZERS
+class PostSerializer(PostUnrelatedSerializer):
+    likes = ProfileSerializer(many=True)
+    author = ProfileSerializer()
+
+class CommentSerializer(CommentUnrelatedSerializer):
+    author = ProfileSerializer()
+    post = PostSerializer()

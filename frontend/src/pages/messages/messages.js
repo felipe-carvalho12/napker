@@ -138,8 +138,10 @@ class Messages extends React.Component {
                                             <li className="list-group-item profile-row modal-profile-li" key={profile.id}>
                                                 <div className="d-flex justify-content-between">
                                                     <div className="profile-col">
-
-                                                        <img src={`${SERVER_URL}${profile.photo}`} />
+                                                        <img src={`${SERVER_URL}${profile.photo}`}
+                                                            className="profile-img-med"
+                                                            style={{ marginRight: '10px' }}
+                                                        />
                                                         <div className="main-profile-data">
                                                             <strong>{profile.first_name} {profile.last_name}</strong>
                                                             <p className="text-secondary">@{profile.user.username}</p>
@@ -167,7 +169,10 @@ class Messages extends React.Component {
                                     <Link to={`/mensagens/${profile.user.username}`} style={{ color: '#000', textDecoration: 'none' }}>
                                         {this.resetUnreadMessagesCounter()}
                                         <li className="list-item profile-chat-item" style={{ whiteSpace: 'nowrap' }}>
-                                            <img src={`${SERVER_URL}${profile.photo}`} alt="" style={{ borderRadius: '50%', width: '64px', height: '64px', marginRight: '10px' }} />
+                                            <img src={`${SERVER_URL}${profile.photo}`}
+                                                className="profile-img-med"
+                                                style={{ marginRight: '10px' }}
+                                            />
                                             <div className="d-flex flex-column align-items-start">
                                                 <div className="d-flex" style={{ maxHeight: '30px' }}>
                                                     <strong style={{ height: 'fit-content' }}>{profile.first_name} {profile.last_name}</strong>

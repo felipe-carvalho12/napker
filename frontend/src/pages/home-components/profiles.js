@@ -89,7 +89,10 @@ export default function Profiles(props) {
                             <li className="list-group-item profile-row filtered-profile" key={profile.id}>
                                 <div className="d-flex justify-content-between">
                                     <div className="profile-col">
-                                        <img src={`${SERVER_URL}${profile.photo}`} />
+                                        <img src={`${SERVER_URL}${profile.photo}`}
+                                            className="profile-img-med"
+                                            style={{ marginRight: '10px' }}
+                                        />
                                         <div className="main-profile-data">
                                             <strong>{profile.first_name} {profile.last_name}</strong>
                                             <p className="text-secondary">@{profile.user.username}</p>
@@ -111,7 +114,10 @@ export default function Profiles(props) {
                             <div className="d-flex justify-content-between">
                                 <div className="profile-col">
                                     <Link to={`/user/${profile.slug}`}>
-                                        <img src={`${SERVER_URL}${profile.photo}`} />
+                                        <img src={`${SERVER_URL}${profile.photo}`}
+                                            className="profile-img-med"
+                                            style={{ marginRight: '10px' }}
+                                        />
                                     </Link>
                                     <div className="main-profile-data">
                                         <Link to={`/user/${profile.slug}`} style={{ color: '#000' }}>

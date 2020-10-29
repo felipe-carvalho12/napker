@@ -1,20 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Modal from 'react-bootstrap/Modal'
+
 import Header from '../components/header'
+import Posts from './profile-components/posts'
+import Interests from './profile-components/interests'
 import { SERVER_URL } from '../settings'
 import { csrftoken } from '../utils'
 
 export default function MyProfile() {
     const [profile, setProfile] = useState(null)
     const [isEditing, setIsEditing] = useState(false)
-    const profilePhotoStyle = {
-        borderRadius: '50%',
-        display: 'inline-block',
-        width: '96px',
-        heigh: '96px',
-        marginBottom: '25px'
-    }
+    const [currentPageIsPosts, setCurrentPageIsPosts] = useState(true)
 
     document.title = 'Perfil / Napker'
 
@@ -23,6 +20,14 @@ export default function MyProfile() {
             .then(response => response.json())
             .then(data => setProfile(data))
     }, [])
+
+    const switchPage = e => {
+        document.querySelectorAll('.profile-page-menu-item-active').forEach(el => {
+            el.classList.remove('profile-page-menu-item-active')
+        })
+        e.target.classList.add('profile-page-menu-item-active')
+        setCurrentPageIsPosts(!currentPageIsPosts)
+    }
 
     return (
         <>
@@ -38,7 +43,10 @@ export default function MyProfile() {
                         <form action={`${SERVER_URL}/update-profile`} id="update-profile-form" method="POST">
                             <input type="hidden" name="csrfmiddlewaretoken" value={csrftoken} />
                             <div className="d-flex flex-column justify-content-center align-items-center" style={{ padding: '25px' }}>
-                                <img src={`${SERVER_URL}${profile.photo}`} style={profilePhotoStyle} />
+                                <img src={`${SERVER_URL}${profile.photo}`}
+                                    className="profile-img-big"
+                                    style={{ marginBottom: '25px' }}
+                                />
                                 <input type="file" accept="image/png, image/jpg" name="profile-photo" onChange={e => console.log(e.target.files)} />
                             </div>
                             <div>
@@ -81,9 +89,14 @@ export default function MyProfile() {
                         <button className="btn btn-primary" onClick={() => document.querySelector('form#update-profile-form').submit()}>Salvar</button>
                     </Modal.Footer>
                 </Modal>
-                <div className="d-flex justify-content-between align-items-center profile-data-container">
+                <div className="profile-data-container">
                     <div className="d-flex flex-column align-items-start">
-                        <p style={{ padding: '15px' }}><img src={`${SERVER_URL}${profile.photo}`} style={profilePhotoStyle} /></p>
+                        <p style={{ padding: '15px' }}>
+                            <img src={`${SERVER_URL}${profile.photo}`}
+                                className="profile-img-big"
+                                style={{ marginBottom: '25px' }}
+                            />
+                        </p>
                         <p style={{ marginBottom: 0 }}><strong>{profile.first_name} {profile.last_name}</strong></p>
                         <p className="text-secondary" style={{ marginTop: 0 }}>@{profile.user.username}</p>
                         <p>{profile.bio}</p>
@@ -95,16 +108,23 @@ export default function MyProfile() {
                                 <strong>{profile.friends.length}</strong> {profile.friends.length === 1 ? 'amigo' : 'amigos'}
                             </Link>
                         </p>
-                        <p>
-                            <Link to={`/user/${profile.slug}/posts`} style={{ color: '#000' }}>
-                                <strong>{profile.posts.length}</strong> {profile.posts.length === 1 ? 'post' : 'posts'}
-                            </Link>
-                        </p>
                     </div>
                     <div>
                         <button className="btn btn-secondary" type="button" onClick={() => setIsEditing(true)}>Editar perfil</button>
                     </div>
                 </div>
+                <div className="profile-page-menu">
+                    <div className="profile-page-menu-item profile-page-menu-item-active" onClick={switchPage}>
+                        Posts ({profile.posts.length})
+                    </div>
+                    <div className="profile-page-menu-item" onClick={switchPage}>
+                        Interesses ({profile.interests.length})
+                    </div>
+                </div>
+                {currentPageIsPosts ?
+                    <Posts profile={profile} /> :
+                    <Interests profile={profile} />
+                }
             </div > : ''}
         </>
     )

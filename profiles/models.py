@@ -5,6 +5,7 @@ from django.template.defaultfilters import slugify
 # Create your models here.
 class Interest(models.Model):
     title = models.CharField(max_length=50)
+    public = models.BooleanField(default=True) 
     
     def __str__(self):
         return self.title
@@ -31,10 +32,10 @@ class Profile(models.Model):
         return self.friends.all().count()
 
     def get_posts_number(self):
-        return self.user.posts.all().count()
+        return self.posts.all().count()
 
     def get_all_posts(self):
-        return self.user.posts.all()
+        return self.posts.all()
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.user.username)

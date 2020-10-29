@@ -36,7 +36,10 @@ export default function Friends() {
                                 <li className="list-group-item profile-row filtered-profile" key={friend.id}>
                                     <div className="d-flex justify-content-between">
                                         <div className="profile-col">
-                                            <img src={`${SERVER_URL}${friend.photo}`} />
+                                            <img src={`${SERVER_URL}${friend.photo}`}
+                                                className="profile-img-med"
+                                                style={{ borderRight: '10px' }}
+                                            />
                                             <div className="main-profile-data">
                                                 <strong>{friend.first_name} {friend.last_name}</strong>
                                                 <p className="text-secondary">@{friend.user.username}</p>

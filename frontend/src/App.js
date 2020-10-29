@@ -9,7 +9,6 @@ import MyProfile from './pages/myprofile'
 import Settings from './pages/settings'
 import Profile from './pages/home-components/profile'
 import ProfileFriends from './pages/profile-components/friends'
-import ProfilePosts from './pages/profile-components/posts'
 
 import { SERVER_URL } from './settings'
 
@@ -52,7 +51,6 @@ export default function App() {
                         <Profile {...props} updateNotificationsNumber={updateNotificationsNumber} />
                     )} />
                     <Route path="/user/:slug/amigos" component={ProfileFriends} />
-                    <Route path="/user/:slug/posts" component={ProfilePosts} />
                     <Route path="/" component={Home} />
                 </Switch>
             </div>
