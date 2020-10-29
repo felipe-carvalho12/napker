@@ -16,10 +16,14 @@ export default function MyProfile() {
     document.title = 'Perfil / Napker'
 
     useEffect(() => {
+        fetchProfile()
+    }, [])
+
+    const fetchProfile = () => {
         fetch(`${SERVER_URL}/profile-api/myprofile`)
             .then(response => response.json())
             .then(data => setProfile(data))
-    }, [])
+    }
 
     const switchPage = e => {
         document.querySelectorAll('.profile-page-menu-item-active').forEach(el => {
@@ -122,7 +126,7 @@ export default function MyProfile() {
                     </div>
                 </div>
                 {currentPageIsPosts ?
-                    <Posts profile={profile} /> :
+                    <Posts profile={profile} fetchProfile={fetchProfile}/> :
                     <Interests profile={profile} />
                 }
             </div > : ''}

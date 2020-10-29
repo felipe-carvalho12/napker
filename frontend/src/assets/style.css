@@ -257,8 +257,11 @@ body {
   justify-content: space-between;
 }
 
+.post-list .post-container .post-actions .fas {
+  color: #E0245E;
+}
+
 .post-list .post-container .post-actions .fa-comment,
-.post-list .post-container .post-actions .fa-retweet,
 .post-list .post-container .post-actions .fa-heart {
   padding: 10px;
   border-radius: 50%;
@@ -267,14 +270,11 @@ body {
 .post-list .post-container .post-actions .fa-comment:hover {
   background: var(--secondary-color);
   color: var(--primary-color);
-}
-
-.post-list .post-container .post-actions .fa-retweet:hover {
-  background: #E0F1E8;
-  color: #49CB84;
+  cursor: pointer;
 }
 
 .post-list .post-container .post-actions .fa-heart:hover {
   background: #F5E2E8;
   color: #E0245E;
+  cursor: pointer;
 }

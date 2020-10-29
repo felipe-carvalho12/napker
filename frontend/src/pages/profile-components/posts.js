@@ -6,6 +6,30 @@ import { SERVER_URL } from '../../settings'
 
 export default function Posts(props) {
     const profile = props.profile
+
+    const likeUnlikePost = e => {
+        const likeBtn = e.target
+        if (likeBtn.classList.contains('fas')) {
+            likeBtn.classList.remove('fas') //border heart
+            likeBtn.classList.add('far')  //filled heart
+            fetch(`${SERVER_URL}/post-api/unlike-post/${likeBtn.dataset.postid}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    props.fetchProfile()
+                })
+        } else {
+            likeBtn.classList.remove('far') //border heart
+            likeBtn.classList.add('fas')  //filled heart
+            fetch(`${SERVER_URL}/post-api/like-post/${likeBtn.dataset.postid}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    props.fetchProfile()
+                })
+        }
+    }
+
     return (
         <>
             <div className="post-list">
@@ -36,8 +60,16 @@ export default function Posts(props) {
                             <div className="post-actions">
                                 <p className="text-secondary">
                                     <i class="far fa-comment" />{post.comments.length}
-                                    <i class="fas fa-retweet" />0
-                                    <i class="far fa-heart" />{post.likes.length}
+                                    {post.likes.includes(profile.id) ?
+                                        <i class="fas fa-heart"
+                                            data-postid={post.id}
+                                            onClick={likeUnlikePost}
+                                        />
+                                        :
+                                        <i class="far fa-heart"
+                                            data-postid={post.id}
+                                            onClick={likeUnlikePost}
+                                        />}{post.likes.length}
                                 </p>
                             </div>
                         </li>

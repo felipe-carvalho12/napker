@@ -57,10 +57,10 @@ class Profile extends React.Component {
                 case 'Amigos':
                     btn.classList.add('btn-primary')
                     btn.onmouseenter = () => {
-                        btn.innerHTML = 'Remover'
+                        if (btn.innerHTML === 'Amigos') btn.innerHTML = 'Remover'
                     }
                     btn.onmouseout = () => {
-                        btn.innerHTML = 'Amigos'
+                        if (btn.innerHTML === 'Remover') btn.innerHTML = 'Amigos'
                     }
                     btn.classList.add('friend-btn')
                     btn.classList.remove('d-none')
@@ -203,7 +203,7 @@ class Profile extends React.Component {
                             <div>
                                 <button className="btn d-none"
                                     id="profile-page-relationship-btn"
-                                    data-pk={this.state.profile.user.id}
+                                    data-pk={this.state.profile.id}
                                     onClick={this.handleRelationshipUpdate}
                                 >{this.state.relationshipButtonLabel}</button>
                             </div>

@@ -9,7 +9,7 @@ export default function Settings() {
         <>
             <Header page="Configurações" />
             <div className="content">
-                Configurações
+                Em desenvolvimento...
             </div>
         </>
     )

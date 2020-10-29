@@ -38,7 +38,7 @@ export default function Friends() {
                                         <div className="profile-col">
                                             <img src={`${SERVER_URL}${friend.photo}`}
                                                 className="profile-img-med"
-                                                style={{ borderRight: '10px' }}
+                                                style={{ marginRight: '10px' }}
                                             />
                                             <div className="main-profile-data">
                                                 <strong>{friend.first_name} {friend.last_name}</strong>
