@@ -77,7 +77,6 @@ def get_all_unread_messages_number(request):
     chats = [chat for chat in Chat.objects.filter(participants__id=contact.id) if chat.messages.all().exists()]
     for chat in chats:
         unread_messages_counter += len(chat.messages.filter(read=False).exclude(contact=contact))
-        print('MENSAGEM: ', chat.messages.filter(contact=contact, read=False))
     return Response({'unread_messages_number': unread_messages_counter})
 
 

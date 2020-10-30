@@ -221,7 +221,7 @@ body {
   align-items: center;
 }
 
-.post-list .post-container {
+.post-container {
   background: #fff;
   width: 100%;
   margin-top: 2px;
@@ -229,27 +229,27 @@ body {
   flex-direction: column;
 }
 
-.post-list .post-container .post-row {
+.post-container .post-row {
   width: 100%;
   padding: 15px;
   display: flex;
 }
 
-.post-list .post-container .post-row .post-col {
+.post-container .post-row .post-col {
   margin-right: 10px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
 
-.post-list .post-container .post-row .post-col .post-img {
+.post-container .post-row .post-col .post-img {
   max-width: 500px;
   max-height: 200px;
   margin-top: 15px;
   border-radius: 20px;
 }
 
-.post-list .post-container .post-actions {
+.post-container .post-actions {
   background: #fff;
   width: 25%;
   padding: 0 0 2px 79px;
@@ -257,24 +257,33 @@ body {
   justify-content: space-between;
 }
 
-.post-list .post-container .post-actions .fas {
+.post-container .post-actions .fas {
   color: #E0245E;
 }
 
-.post-list .post-container .post-actions .fa-comment,
-.post-list .post-container .post-actions .fa-heart {
+.post-container .post-actions .fa-comment, .post-container .post-actions .fa-heart {
   padding: 10px;
   border-radius: 50%;
 }
 
-.post-list .post-container .post-actions .fa-comment:hover {
+.post-container .post-actions .fa-comment:hover {
   background: var(--secondary-color);
   color: var(--primary-color);
   cursor: pointer;
 }
 
-.post-list .post-container .post-actions .fa-heart:hover {
+.post-container .post-actions .fa-heart:hover {
   background: #F5E2E8;
   color: #E0245E;
+  cursor: pointer;
+}
+
+.post-container .post-actions .post-likes-number {
+  display: inline-block;
+}
+
+.post-container .post-actions .post-likes-number:hover {
+  color: #E0245E;
+  text-decoration: underline;
   cursor: pointer;
 }

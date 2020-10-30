@@ -4,7 +4,7 @@ import Profiles from './home-components/profiles'
 import Header from '../components/header'
 
 export default function Home(props) {
-    const [page, setPage] = useState('Perfis')
+    const [page, setPage] = useState('Posts')
     const pages = {
         'Perfis': <Profiles />,
         'Posts': <Posts />

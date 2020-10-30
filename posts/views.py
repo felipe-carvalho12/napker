@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate
 from django.http import JsonResponse
 from django.shortcuts import render
 
-from profiles.serializers import PostSerializer, CommentSerializer
+from profiles.serializers import PostSerializer, PostLikeSerializer, CommentSerializer, CommentLikeSerializer
 from .models import *
 
 # Create your views here.
@@ -22,6 +22,32 @@ def post_list(request):
     serializer = PostSerializer(posts, many=True)
     return Response(serializer.data)
 
+@api_view(['GET'])
+def get_post(request, post_id):
+    post = Post.objects.get(id=post_id)
+    serializer = PostSerializer(post)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def unvisualized_likes(request):
+    #profile = Profile.objects.get(user=authenticate(request, username='felipe', password='django@12'))
+    profile = Profile.objects.get(user=request.user)
+    likes = []
+    for post in profile.posts.all():
+        for like in post.likes.filter(visualized=False).exclude(profile=profile):
+            likes.append(like)
+    serializer = PostLikeSerializer(likes, many=True)
+    return Response(serializer.data)
+
+def visualize_likes(request):
+    #profile = Profile.objects.get(user=authenticate(request, username='felipe', password='django@12'))
+    profile = Profile.objects.get(user=request.user)
+    for post in profile.posts.all():
+        for like in post.likes.filter(visualized=False):
+            like.visualized = True
+            like.save()
+    return JsonResponse('Likes visualized with success', safe=False)
+
 def create_post(request):
     if request.method == 'POST':
         #profile = Profile.objects.get(user=authenticate(request, username='felipe', password='django@12'))
@@ -34,12 +60,26 @@ def like_post(request, post_id):
     #profile = Profile.objects.get(user=authenticate(request, username='felipe', password='django@12'))
     profile = Profile.objects.get(user=request.user)
     post = Post.objects.get(id=post_id)
-    post.likes.add(profile)
+    PostLike.objects.create(profile=profile, post=post)
     return JsonResponse(f'Liked post #{post.id}', safe=False)
 
 def unlike_post(request, post_id):
     #profile = Profile.objects.get(user=authenticate(request, username='felipe', password='django@12'))
     profile = Profile.objects.get(user=request.user)
     post = Post.objects.get(id=post_id)
-    post.likes.remove(profile)
+    PostLike.objects.get(profile=profile, post=post).delete()
     return JsonResponse(f'Unliked post #{post.id}', safe=False)
+
+def like_comment(request, comment_id):
+    #profile = Profile.objects.get(user=authenticate(request, username='felipe', password='django@12'))
+    profile = Profile.objects.get(user=request.user)
+    comment = Comment.objects.get(id=comment_id)
+    CommentLike.objects.create(profile=profile, comment=comment)
+    return JsonResponse(f'Liked comment #{comment.id}', safe=False)
+
+def unlike_comment(request, comment_id):
+    #profile = Profile.objects.get(user=authenticate(request, username='felipe', password='django@12'))
+    profile = Profile.objects.get(user=request.user)
+    comment = Comment.objects.get(id=comment_id)
+    CommentLike.objects.get(profile=profile, comment=comment).delete()
+    return JsonResponse(f'Unliked comment #{comment.id}', safe=False)

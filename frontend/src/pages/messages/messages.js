@@ -166,7 +166,7 @@ class Messages extends React.Component {
                         <div className="list-group chats-container">
                             {this.state.activeChatsProfiles && this.state.activeChatsProfiles.map(profile => {
                                 return (
-                                    <Link to={`/mensagens/${profile.user.username}`} style={{ color: '#000', textDecoration: 'none' }}>
+                                    <Link to={`/mensagens/${profile.slug}`} style={{ color: '#000', textDecoration: 'none' }}>
                                         {this.resetUnreadMessagesCounter()}
                                         <li className="list-item profile-chat-item" style={{ whiteSpace: 'nowrap' }}>
                                             <img src={`${SERVER_URL}${profile.photo}`}
