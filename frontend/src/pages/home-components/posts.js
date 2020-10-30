@@ -2,6 +2,7 @@ import React from 'react'
 import Modal from 'react-bootstrap/Modal'
 import { Link } from 'react-router-dom'
 
+import LikesModal from '../../components/likesmodal'
 import { SERVER_URL } from '../../settings'
 import { csrftoken } from '../../utils'
 
@@ -71,47 +72,23 @@ export default class Posts extends React.Component {
         }
     }
 
+    hideLikesModal = () => {
+        this.setState({
+            likesModal: {
+                isOpen: false,
+                likes: null
+            }
+        })
+    }
+
     render() {
         return (
             <>
-                <Modal show={this.state.likesModal.isOpen}
-                    onHide={() => this.setState({ likesModal: { isOpen: false, likes: null } })}
-                    size="lg">
-                    <Modal.Header closeButton>
-                        <Modal.Title><strong>Likes</strong></Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <div className="list-group" style={{ height: '400px', overflow: 'hidden', overflowY: 'scroll' }}>
-                            {this.state.likesModal.likes &&
-                                this.state.likesModal.likes.map(like => like.profile).map(profile => {
-                                    return (
-                                        <Link to={`/user/${profile.slug}`}
-                                            style={{ color: '#000', textDecoration: 'none' }}
-                                            onClick={() => this.setState({ likesModal: { isOpen: false, likes: null } })}
-                                        >
-                                            <li className="list-group-item profile-row modal-profile-li" key={profile.id}>
-                                                <div className="d-flex justify-content-between">
-                                                    <div className="profile-col">
-                                                        <img src={`${SERVER_URL}${profile.photo}`}
-                                                            className="profile-img-med"
-                                                            style={{ marginRight: '10px' }}
-                                                        />
-                                                        <div className="main-profile-data">
-                                                            <strong>{profile.first_name} {profile.last_name}</strong>
-                                                            <p className="text-secondary">@{profile.user.username}</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="profile-col">
-                                                        {profile.bio}
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </Link>
-                                    )
-                                })}
-                        </div>
-                    </Modal.Body>
-                </Modal>
+                <LikesModal
+                    isOpen={this.state.likesModal.isOpen}
+                    likes={this.state.likesModal.likes}
+                    hideModal={this.hideLikesModal}
+                />
                 <div className="form-row d-inline-block">
                     <div className="col d-flex">
                         <input type="text"
@@ -145,7 +122,7 @@ export default class Posts extends React.Component {
                                                 </p>
                                             </div>
                                         </Link>
-                                        <Link to={`/post/${post.id}`} style={{ color:'#000' }}>
+                                        <Link to={`/post/${post.id}`} style={{ color: '#000' }}>
                                             <div style={{ textAlign: 'start' }}>
                                                 {post.content}
                                             </div>

@@ -60,7 +60,8 @@ def like_post(request, post_id):
     #profile = Profile.objects.get(user=authenticate(request, username='felipe', password='django@12'))
     profile = Profile.objects.get(user=request.user)
     post = Post.objects.get(id=post_id)
-    PostLike.objects.create(profile=profile, post=post)
+    if not PostLike.objects.filter(profile=profile, post=post).exists():
+        PostLike.objects.create(profile=profile, post=post)
     return JsonResponse(f'Liked post #{post.id}', safe=False)
 
 def unlike_post(request, post_id):
@@ -74,7 +75,8 @@ def like_comment(request, comment_id):
     #profile = Profile.objects.get(user=authenticate(request, username='felipe', password='django@12'))
     profile = Profile.objects.get(user=request.user)
     comment = Comment.objects.get(id=comment_id)
-    CommentLike.objects.create(profile=profile, comment=comment)
+    if not CommentLike.objects.filter(profile=profile, comment=comment).exists():
+        CommentLike.objects.create(profile=profile, comment=comment)
     return JsonResponse(f'Liked comment #{comment.id}', safe=False)
 
 def unlike_comment(request, comment_id):

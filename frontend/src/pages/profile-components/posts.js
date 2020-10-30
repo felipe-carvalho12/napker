@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
-import Header from '../../components/header'
+import LikesModal from '../../components/likesmodal'
 import { SERVER_URL } from '../../settings'
 
 export default function Posts(props) {
+    const [likesModal, setLikesModal] = useState({ isOpen: false, likes: null })
     const profile = props.profile
 
     const likeUnlikePost = e => {
@@ -30,8 +31,20 @@ export default function Posts(props) {
         }
     }
 
+    const hideLikesModal = () => {
+        setLikesModal({
+            isOpen: false,
+            likes: null
+        })
+    }
+
     return (
         <>
+            <LikesModal
+                isOpen={likesModal.isOpen}
+                likes={likesModal.likes}
+                hideModal={hideLikesModal}
+            />
             <div className="post-list">
                 {profile && profile.posts.length ? profile.posts.map(post => {
                     return (
@@ -60,7 +73,7 @@ export default function Posts(props) {
                             <div className="post-actions">
                                 <p className="text-secondary">
                                     <i class="far fa-comment" />{post.comments.length}
-                                    {post.likes.includes(profile.id) ?
+                                    {post.likes.map(like => like.profile.id).includes(profile.id) ?
                                         <i class="fas fa-heart"
                                             data-postid={post.id}
                                             onClick={likeUnlikePost}
@@ -69,7 +82,12 @@ export default function Posts(props) {
                                         <i class="far fa-heart"
                                             data-postid={post.id}
                                             onClick={likeUnlikePost}
-                                        />}{post.likes.length}
+                                        />}
+                                    <p className="post-likes-number"
+                                        onClick={() => setLikesModal({ isOpen: true, likes: post.likes })}
+                                    >
+                                        {post.likes.length}
+                                    </p>
                                 </p>
                             </div>
                         </li>

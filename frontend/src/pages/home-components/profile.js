@@ -19,11 +19,7 @@ class Profile extends React.Component {
     }
 
     componentWillMount() {
-        fetch(`${SERVER_URL}/profile-api/user/${this.slug}`)
-            .then(response => response.json())
-            .then(data => this.setState({
-                profile: data
-            }))
+        this.fetchProfile()
     }
 
     componentDidMount() {
@@ -80,6 +76,13 @@ class Profile extends React.Component {
         }
     }
 
+    fetchProfile = () => {
+        fetch(`${SERVER_URL}/profile-api/user/${this.slug}`)
+            .then(response => response.json())
+            .then(data => this.setState({
+                profile: data
+            }))
+    }
 
     sendFriendRequest = pk => {
         fetch(`${SERVER_URL}/profile-api/send-friend-request`, {
@@ -217,7 +220,7 @@ class Profile extends React.Component {
                             </div>
                         </div>
                         {this.state.currentPageIsPosts ?
-                            <Posts profile={this.state.profile} /> :
+                            <Posts profile={this.state.profile} fetchProfile={this.fetchProfile} /> :
                             <Interests profile={this.state.profile} />
                         }
                     </div>

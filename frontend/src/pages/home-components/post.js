@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
+
+import LikesModal from '../../components/likesmodal'
 import Header from '../../components/header'
 import { SERVER_URL } from '../../settings'
 import { csrftoken } from '../../utils'
@@ -7,6 +9,8 @@ import { csrftoken } from '../../utils'
 export default function Post() {
     const [post, setPost] = useState(null)
     const [profile, setProfile] = useState(null)
+    const [likesModal, setLikesModal] = useState({isOpen: false, likes: null})
+
     const { id } = useParams()
 
     useEffect(() => {
@@ -68,8 +72,20 @@ export default function Post() {
         }
     }
 
+    const hideLikesModal = () => {
+        setLikesModal({
+            isOpen: false,
+            likes: null
+        })
+    }
+
     return (
         <>
+            <LikesModal
+                isOpen={likesModal.isOpen}
+                likes={likesModal.likes}
+                hideModal={hideLikesModal}
+            />
             <Header page="Post" backArrow={true} />
             <div className="content">
                 {post && profile &&
@@ -114,7 +130,7 @@ export default function Post() {
                                             onClick={likeUnlikePost}
                                         />}
                                     <p className="post-likes-number"
-
+                                        onClick={() => setLikesModal({isOpen: true, likes: post.likes})}
                                     >
                                         {post.likes.length}
                                     </p>
@@ -159,9 +175,7 @@ export default function Post() {
                                                         data-commentid={comment.id}
                                                         onClick={likeUnlikeComment}
                                                     />}
-                                                <p className="post-likes-number"
-
-                                                >
+                                                <p className="post-likes-number">
                                                     {comment.likes.length}
                                                 </p>
                                             </p>
