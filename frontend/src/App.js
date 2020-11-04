@@ -28,7 +28,7 @@ export default function App() {
         fetch(`${SERVER_URL}/profile-api/myinvites`)
             .then(response => response.json())
             .then(data => setInvitesReceived(data.length))
-        fetch(`${SERVER_URL}/post-api/unvisualized-likes`)
+        fetch(`${SERVER_URL}/post-api/unvisualized-post-likes`)
             .then(response => response.json())
             .then(data => setUnvisulaizedLikes(data.length))
     }
@@ -57,7 +57,10 @@ export default function App() {
                         <Profile {...props} updateNotificationsNumber={updateNotificationsNumber} />
                     )} />
                     <Route path="/user/:slug/amigos" component={ProfileFriends} />
-                    <Route path="/post/:id" component={Post}/>
+                    <Route path="/post/:id" exact component={Post}/>
+                    <Route path="/post/:id/comment" render={props => (
+                        <Post {...props} commentModalIsOpen={true} />
+                    )} />
                     <Route path="/" component={Home} />
                 </Switch>
             </div>

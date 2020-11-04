@@ -134,7 +134,14 @@ export default class Posts extends React.Component {
                                 </div>
                                 <div className="post-actions">
                                     <p className="text-secondary">
-                                        <i class="far fa-comment" />{post.comments.length}
+                                        <Link
+                                            to={`/post/${post.id}/comment`}
+                                            className="text-secondary"
+                                        >
+                                            <i
+                                                class="far fa-comment"
+                                            />{post.comments.length}
+                                        </Link>
                                         {post.likes.map(like => like.profile.id).includes(this.state.profile.id) ?
                                             <i class="fas fa-heart"
                                                 data-postid={post.id}

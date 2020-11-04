@@ -6,8 +6,8 @@ import { csrftoken } from '../utils'
 
 export default function Notifications(props) {
     const [invites, setInvites] = useState([])
-    const [likes, setLikes] = useState([])
-    let notificationsNumber = invites.length + likes.length
+    const [postLikes, setPostLikes] = useState([])
+    let notificationsNumber = invites.length + postLikes.length
 
     document.title = 'Notificações / Napker'
 
@@ -15,13 +15,13 @@ export default function Notifications(props) {
         fetch(`${SERVER_URL}/profile-api/myinvites`)
             .then(response => response.json())
             .then(data => setInvites(data))
-        fetch(`${SERVER_URL}/post-api/unvisualized-likes`)
+        fetch(`${SERVER_URL}/post-api/unvisualized-post-likes`)
             .then(response => response.json())
-            .then(data => setLikes(data))
+            .then(data => setPostLikes(data))
     }, [])
 
     useEffect(() => {
-        if (likes.length) {
+        if (postLikes.length) {
             fetch(`${SERVER_URL}/post-api/visualize-likes`)
                 .then(response => response.json())
                 .then(data => {
@@ -29,7 +29,7 @@ export default function Notifications(props) {
                     props.updateNotificationsNumber()
                 })
         }
-    }, [likes])
+    }, [postLikes])
 
     const replyRequest = e => {
         const btn = e.target
@@ -95,10 +95,10 @@ export default function Notifications(props) {
 
                     <br />
 
-                    {!!likes.length &&
+                    {!!postLikes.length &&
                         <>
                             <h4>Curtidas</h4>
-                            {likes.map(like => {
+                            {postLikes.map(like => {
                                 return (
                                     <li className="list-group-item profile-row" key={like.profile.id}>
                                         <div className="d-flex justify-content-between">

@@ -28,6 +28,7 @@ class PostLike(models.Model):
     profile = models.ForeignKey(Profile, related_name='likes', blank=True, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, related_name='likes', on_delete=models.CASCADE)
     visualized = models.BooleanField(default=False)
+    timestamp = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return f'{self.profile} liked {self.post}'
@@ -50,6 +51,7 @@ class CommentLike(models.Model):
     profile = models.ForeignKey(Profile, related_name='comment_likes', blank=True, on_delete=models.CASCADE)
     comment = models.ForeignKey(Comment, related_name='likes', on_delete=models.CASCADE)
     visualized = models.BooleanField(default=False)
+    timestamp = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return f'{self.profile} liked {self.comment}'

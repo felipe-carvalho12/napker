@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from profiles.models import Profile, Interest
 
 
-def home_view(request, slug=None):
+def home_view(request, slug=None, id=None):
     if request.user.is_authenticated:
         return render(request, 'pages/index.html')
     else:

@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
+import CommentModal from '../../components/commentmodal'
 import LikesModal from '../../components/likesmodal'
 import Header from '../../components/header'
 import { SERVER_URL } from '../../settings'
 import { csrftoken } from '../../utils'
 
-export default function Post() {
+export default function Post(props) {
     const [post, setPost] = useState(null)
     const [profile, setProfile] = useState(null)
-    const [likesModal, setLikesModal] = useState({isOpen: false, likes: null})
+    const [commentModalIsOpen, setCommentModalIsOpen] = useState(props.commentModalIsOpen)
+    const [likesModal, setLikesModal] = useState({ isOpen: false, likes: null })
 
     const { id } = useParams()
 
@@ -72,6 +74,26 @@ export default function Post() {
         }
     }
 
+    const commentPost = comment => {
+        fetch(`${SERVER_URL}/post-api/comment-post/${id}`, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+                'X-CSRFToken': csrftoken,
+            },
+            body: JSON.stringify({ comment: comment })
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                fetchPost()
+            })
+    }
+
+    const hideCommentModal = () => {
+        setCommentModalIsOpen(false)
+    }
+
     const hideLikesModal = () => {
         setLikesModal({
             isOpen: false,
@@ -81,6 +103,11 @@ export default function Post() {
 
     return (
         <>
+            <CommentModal
+                isOpen={commentModalIsOpen}
+                hideModal={hideCommentModal}
+                commentPost={commentPost}
+            />
             <LikesModal
                 isOpen={likesModal.isOpen}
                 likes={likesModal.likes}
@@ -118,7 +145,12 @@ export default function Post() {
                             </div>
                             <div className="post-actions">
                                 <p className="text-secondary" style={{ fontSize: 'large' }}>
-                                    <i class="far fa-comment" />{post.comments.length}
+                                    <Link to={`/post/${id}/comment`} className="text-secondary">
+                                        <i
+                                            class="far fa-comment"
+                                            onClick={() => setCommentModalIsOpen(true)}
+                                        />
+                                    </Link>{post.comments.length}
                                     {post.likes.map(like => like.profile.id).includes(profile.id) ?
                                         <i class="fas fa-heart"
                                             data-postid={post.id}
@@ -130,7 +162,7 @@ export default function Post() {
                                             onClick={likeUnlikePost}
                                         />}
                                     <p className="post-likes-number"
-                                        onClick={() => setLikesModal({isOpen: true, likes: post.likes})}
+                                        onClick={() => setLikesModal({ isOpen: true, likes: post.likes })}
                                     >
                                         {post.likes.length}
                                     </p>
@@ -152,7 +184,7 @@ export default function Post() {
                                             <div className="post-col">
                                                 <Link to={`/user/${comment.author.slug}`} style={{ color: '#000' }}>
                                                     <div style={{ height: '30px' }}>
-                                                        <strong>{post.author.first_name} {post.author.last_name} </strong>
+                                                        <strong>{comment.author.first_name} {comment.author.last_name} </strong>
                                                         <p className="text-secondary d-inline-block">
                                                             @{comment.author.user.username} • {comment.created.split('-').reverse().join('/')}
                                                         </p>
