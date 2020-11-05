@@ -32,6 +32,7 @@ export default function Notifications(props) {
     }, [postLikes])
 
     const replyRequest = e => {
+        e.stopPropagation()
         const btn = e.target
         const requestBody = {
             'senderid': btn.dataset.senderid,
@@ -63,19 +64,20 @@ export default function Notifications(props) {
                             <h4>Solicitações de amizade</h4>
                             {invites.map(i => {
                                 return (
-                                    <li className="list-group-item profile-row" id={i.sender.id} key={i.sender.id}>
+                                    <li
+                                        className="list-group-item profile-row"
+                                        id={i.sender.id}
+                                        key={i.sender.id}
+                                        onClick={() => window.location.href = `/user/${i.sender.slug}`}
+                                    >
                                         <div className="d-flex justify-content-between">
                                             <div className="profile-col">
-                                                <Link to={`/user/${i.sender.slug}`}>
-                                                    <img src={`${SERVER_URL}${i.sender.photo}`}
-                                                        className="profile-img-med"
-                                                        style={{ marginRight: '10px' }}
-                                                    />
-                                                </Link>
+                                                <img src={`${SERVER_URL}${i.sender.photo}`}
+                                                    className="profile-img-med"
+                                                    style={{ marginRight: '10px' }}
+                                                />
                                                 <div className="main-profile-data">
-                                                    <Link to={`/user/${i.sender.slug}`} style={{ color: '#000' }}>
-                                                        <strong>{i.sender.first_name} {i.sender.last_name}</strong>
-                                                    </Link>
+                                                    <strong>{i.sender.first_name} {i.sender.last_name}</strong>
                                                     <p className="text-secondary">@{i.sender.user.username}</p>
                                                 </div>
                                             </div>

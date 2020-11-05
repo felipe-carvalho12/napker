@@ -50,6 +50,7 @@ export default class Posts extends React.Component {
     }
 
     likeUnlikePost = e => {
+        e.stopPropagation()
         const likeBtn = e.target
         if (likeBtn.classList.contains('fas')) {
             likeBtn.classList.remove('fas') //border heart
@@ -104,17 +105,28 @@ export default class Posts extends React.Component {
                 <div className="post-list">
                     {this.state.posts && this.state.profile && this.state.posts.map(post => {
                         return (
-                            <li className="post-container" key={post.id}>
+                            <li
+                                className="post-container"
+                                key={post.id}
+                                onClick={() => window.location.href = `/post/${post.id}`}
+                            >
                                 <div className="post-row">
                                     <div className="post-col">
-                                        <Link to={`/user/${post.author.slug}`}>
+                                        <Link
+                                            to={`/user/${post.author.slug}`}
+                                            onClick={e => e.stopPropagation()}
+                                        >
                                             <img src={`${SERVER_URL}${post.author.photo}`}
                                                 className="profile-img-med"
                                             />
                                         </Link>
                                     </div>
                                     <div className="post-col">
-                                        <Link to={`/user/${post.author.slug}`} style={{ color: '#000' }}>
+                                        <Link
+                                            to={`/user/${post.author.slug}`}
+                                            style={{ color: '#000' }}
+                                            onClick={e => e.stopPropagation()}
+                                        >
                                             <div style={{ height: '30px' }}>
                                                 <strong>{post.author.first_name} {post.author.last_name} </strong>
                                                 <p className="text-secondary d-inline-block">
@@ -122,14 +134,12 @@ export default class Posts extends React.Component {
                                                 </p>
                                             </div>
                                         </Link>
-                                        <Link to={`/post/${post.id}`} style={{ color: '#000' }}>
-                                            <div style={{ textAlign: 'start' }}>
-                                                {post.content}
-                                            </div>
-                                            {post.image &&
-                                                <img src={`${SERVER_URL}${post.image}`} className="post-img" />
-                                            }
-                                        </Link>
+                                        <div style={{ textAlign: 'start' }}>
+                                            {post.content}
+                                        </div>
+                                        {post.image &&
+                                            <img src={`${SERVER_URL}${post.image}`} className="post-img" />
+                                        }
                                     </div>
                                 </div>
                                 <div className="post-actions">
@@ -137,6 +147,7 @@ export default class Posts extends React.Component {
                                         <Link
                                             to={`/post/${post.id}/comment`}
                                             className="text-secondary"
+                                            onClick={e => e.stopPropagation()}
                                         >
                                             <i
                                                 class="far fa-comment"
@@ -153,7 +164,10 @@ export default class Posts extends React.Component {
                                                 onClick={this.likeUnlikePost}
                                             />}
                                         <p className="post-likes-number"
-                                            onClick={() => this.setState({ likesModal: { isOpen: true, likes: post.likes } })}
+                                            onClick={e => {
+                                                e.stopPropagation()
+                                                this.setState({ likesModal: { isOpen: true, likes: post.likes } })
+                                            }}
                                         >
                                             {post.likes.length}
                                         </p>

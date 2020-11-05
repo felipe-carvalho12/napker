@@ -11,6 +11,9 @@ class Post(models.Model):
     updated = models.DateField(auto_now=True)
     created = models.DateField(auto_now_add=True)
 
+    class Meta:
+        ordering = ['-created']
+
     def __str__(self):
         return f'{self.author} - {self.content[:50]}'
 
@@ -19,10 +22,6 @@ class Post(models.Model):
 
     def all_comments(self):
         return self.comments
-
-    class Meta:
-        ordering = ['-created']
-
 
 class PostLike(models.Model):
     profile = models.ForeignKey(Profile, related_name='likes', blank=True, on_delete=models.CASCADE)
@@ -40,6 +39,9 @@ class Comment(models.Model):
     updated = models.DateField(auto_now=True)
     created = models.DateField(auto_now_add=True)
     visualized = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['-created']
 
     def __str__(self):
         return f'{self.author.user.username} - {self.content[:50]}'

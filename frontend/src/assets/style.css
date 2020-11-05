@@ -195,6 +195,11 @@ body {
   margin-top: 5px;
 }
 
+.profile-row:hover {
+  background: var(--white-hover);
+  cursor: pointer;
+}
+
 .profile-row img:hover, .profile-row .profile-col strong:hover {
   cursor: pointer;
   transform: scale(1.01);
@@ -229,6 +234,10 @@ body {
   flex-direction: column;
 }
 
+.post-list .post-container:hover {
+  background: var(--white-hover);
+}
+
 .post-container .post-row {
   width: 100%;
   padding: 15px;
@@ -250,7 +259,6 @@ body {
 }
 
 .post-container .post-actions {
-  background: #fff;
   width: 25%;
   padding: 0 0 2px 79px;
   display: flex;

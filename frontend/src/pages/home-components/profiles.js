@@ -57,6 +57,7 @@ export default function Profiles(props) {
     }
 
     const handleRelationshipUpdate = e => {
+        e.stopPropagation()
         const btn = e.target
         if (btn.innerHTML === 'Solicitar') {
             sendFriendRequest(btn.dataset.pk)
@@ -110,19 +111,19 @@ export default function Profiles(props) {
                     )
                 }) : profiles && profiles.map(profile => {
                     return (
-                        <li className="list-group-item profile-row" key={profile.id}>
+                        <li
+                        className="list-group-item profile-row"
+                        key={profile.id}
+                        onClick={() => window.location.href = `/user/${profile.slug}`}
+                        >
                             <div className="d-flex justify-content-between">
                                 <div className="profile-col">
-                                    <Link to={`/user/${profile.slug}`}>
-                                        <img src={`${SERVER_URL}${profile.photo}`}
-                                            className="profile-img-med"
-                                            style={{ marginRight: '10px' }}
-                                        />
-                                    </Link>
+                                    <img src={`${SERVER_URL}${profile.photo}`}
+                                        className="profile-img-med"
+                                        style={{ marginRight: '10px' }}
+                                    />
                                     <div className="main-profile-data">
-                                        <Link to={`/user/${profile.slug}`} style={{ color: '#000' }}>
-                                            <strong>{profile.first_name} {profile.last_name}</strong>
-                                        </Link>
+                                        <strong>{profile.first_name} {profile.last_name}</strong>
                                         <p className="text-secondary">@{profile.user.username}</p>
                                     </div>
                                 </div>
