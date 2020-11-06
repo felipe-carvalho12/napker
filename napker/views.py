@@ -73,7 +73,7 @@ def add_interests_view(request):
         profile = Profile.objects.get(user=user)
         interests = request.POST['interests'].split(' ')
         for title in interests:
-            i, created = Interest.objects.get_or_create(title=title)
+            i, created = Interest.objects.get_or_create(title=title, public=False)
             profile.interests.add(i)
         profile.save()
         return render(request, 'pages/index.html')

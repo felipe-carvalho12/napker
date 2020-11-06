@@ -8,7 +8,7 @@ export default function Interests(props) {
         <div className="interests-page-container">
             <h3>Interesses públicos de {profile.first_name}</h3>
             <div>
-                {profile && profile.interests.map(interest => {
+                {profile && profile.interests.filter(i => i.public).map(interest => {
                     return (
                         <>
                             {interest.title &&

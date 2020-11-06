@@ -25,6 +25,7 @@ urlpatterns = [
     path('', home_view, name='index'),
     path('home', home_view),
     path('notificações', home_view),
+    path('mensagens', home_view),
     path('mensagens/<str:slug>', home_view),
     path('perfil', home_view),
     path('configurações', home_view),

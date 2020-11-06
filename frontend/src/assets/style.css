@@ -56,7 +56,7 @@ body {
   color: #fff;
   background-color: red;
   min-width: 15px;
-  height: 17px;
+  height: 18px;
   font-size: 12px;
   border-radius: 50%;
 }
@@ -101,6 +101,7 @@ body {
 .wrapper .main-content .content {
   padding: 20px;
   text-align: center;
+  border-left: 1px solid #e0e4e8;
 }
 
 /* BUTTONS */

@@ -118,9 +118,13 @@ export default function MyProfile() {
                             className="btn btn-secondary"
                             type="button"
                             onClick={() => setIsEditing(true)}
-                            style={{ marginBottom:'10px' }}
-                        >Editar perfil</button>
-                        <button className="btn btn-secondary">Editar interesses</button>
+                            style={{ marginBottom: '10px' }}
+                        >
+                            Editar perfil
+                        </button>
+                        <Link to='/perfil/meus-interesses'>
+                            <button className="btn btn-secondary">Editar interesses</button>
+                        </Link>
                     </div>
                 </div>
                 <div className="profile-page-menu">
@@ -128,7 +132,7 @@ export default function MyProfile() {
                         Posts ({profile.posts.length})
                     </div>
                     <div className="profile-page-menu-item" onClick={switchPage}>
-                        Interesses ({profile.interests.length})
+                        Interesses ({profile.interests.filter(i => i.public).length})
                     </div>
                 </div>
                 {currentPageIsPosts ?

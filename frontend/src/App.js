@@ -10,6 +10,7 @@ import Settings from './pages/settings'
 import Profile from './pages/home-components/profile'
 import ProfileFriends from './pages/profile-components/friends'
 import InterestProfiles from './pages/profile-components/interestprofiles'
+import EditInterests from './pages/profile-components/edit-interests/editinterests'
 import Post from './pages/home-components/post'
 
 import { SERVER_URL } from './settings'
@@ -56,7 +57,8 @@ export default function App() {
                     <Route path="/mensagens/:slug" render={props => (
                         <Messages {...props} updateUnreadMessagesNumber={updateUnreadMessagesNumber} />
                     )} />
-                    <Route path="/perfil" component={MyProfile} />
+                    <Route path="/perfil" exact component={MyProfile} />
+                    <Route path="/perfil/meus-interesses" component={EditInterests} />
                     <Route path="/configurações" component={Settings} />
                     <Route path="/user/:slug" exact render={props => (
                         <Profile {...props} updateNotificationsNumber={updateNotificationsNumber} />

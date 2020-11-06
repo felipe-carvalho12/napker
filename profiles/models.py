@@ -5,7 +5,7 @@ from django.template.defaultfilters import slugify
 # Create your models here.
 class Interest(models.Model):
     title = models.CharField(max_length=50)
-    public = models.BooleanField(default=True) 
+    public = models.BooleanField(default=False) 
     
     def __str__(self):
         return self.title

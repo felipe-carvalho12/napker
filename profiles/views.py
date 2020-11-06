@@ -7,7 +7,7 @@ from django.db.models import Q
 from django.shortcuts import render
 
 from .serializers import ProfileSerializer, RelationshipSerializer, UserSerializer
-from .models import Profile, Relationship
+from .models import *
 
 # Create your views here.
 @api_view(['GET'])
@@ -155,3 +155,17 @@ def reply_friend_request(request):
     elif reply == 'decline':
         r.delete()
     return Response('Replied with success')
+
+@api_view(['POST'])
+def set_myinterests(request):
+    #profile = Profile.objects.get(user=authenticate(request, username='felipe', password='django@12'))
+    profile = Profile.objects.get(user=request.user)
+    profile.interests.clear()
+    for title in request.data['public_interests']:
+        public_i, created = Interest.objects.get_or_create(title=title, public=True)
+        profile.interests.add(public_i)
+    for title in request.data['private_interests']:
+        private_i, created = Interest.objects.get_or_create(title=title, public=False)
+        profile.interests.add(private_i)
+    profile.save()
+    return Response('Interests updated')

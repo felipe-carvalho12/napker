@@ -17,4 +17,5 @@ urlpatterns = [
     path('send-friend-request', send_friends_request),
     path('cancel-friend-request', cancel_friend_request),
     path('reply-friend-request', reply_friend_request),
+    path('set-myinterests', set_myinterests),
 ]

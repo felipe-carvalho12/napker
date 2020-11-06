@@ -1,3 +1,5 @@
+@import url('https://kodhus.com/kodhus-ui/kodhus-0.1.0.min.css');
+
 :root {
     --primary-color: #1DA1F2;
     --secondary-color: #E8F5FE;
@@ -78,4 +80,34 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.tag-container .tag {
+    width: fit-content;
+    height: 30px;
+    margin: 5px;
+    padding: 5px 6px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background: #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #333;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 1px 1px #fff;
+    cursor: default;
+}
+
+.tag-container .tag i {
+    font-size: 16px;
+    color: #666;
+    margin-left: 5px;
+}
+
+.tag-container input {
+    padding: 5px;
+    font-size: 16px;
+    outline: none;
+    color: #333;
+    flex: 1;
 }
