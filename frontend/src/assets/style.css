@@ -144,6 +144,11 @@ body {
   cursor: pointer;
 }
 
+.trash-icon:hover {
+  color: #f00!important;
+  cursor: pointer;
+}
+
 .btn-grey {
   background: #eee;
   color: #444;
@@ -219,6 +224,23 @@ body {
 
 /* POSTS */
 
+@keyframes hide {
+  0% {
+    opacity: 1;
+    max-height: 500px;
+  }
+
+  75% {
+    opacity: 0;
+    max-height: 500px;
+  }
+
+  100% {
+    opacity: 0;
+    max-height: 0px;
+  }
+}
+
 .post-list {
   display: flex;
   flex-direction: column;
@@ -232,6 +254,10 @@ body {
   margin-top: 2px;
   display: flex;
   flex-direction: column;
+  animation-name: hide;
+  animation-duration: 1.5s;
+  animation-fill-mode: forwards;
+  animation-play-state: paused;
 }
 
 .post-list .post-container:hover {

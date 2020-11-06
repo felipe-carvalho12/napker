@@ -11,7 +11,8 @@ export default function Post(props) {
     const [post, setPost] = useState(null)
     const [profile, setProfile] = useState(null)
     const [commentModalIsOpen, setCommentModalIsOpen] = useState(props.commentModalIsOpen)
-    const [likesModal, setLikesModal] = useState({ isOpen: false, likes: null })
+    const [postLikesModal, setPostLikesModal] = useState({ isOpen: false, likes: null })
+    const [commentLikesModal, setCommentLikesModal] = useState({ isOpen: false, likes: null })
 
     const { id } = useParams()
 
@@ -90,12 +91,40 @@ export default function Post(props) {
             })
     }
 
+    const deleteComment = (e, commentId) => {
+        e.stopPropagation()
+        const el = document.querySelector(`#post-comment-${commentId}`)
+        if (window.confirm('Tem certeza que deseja apagar o comentário?\nEssa ação é irreversível.')) {
+            el.style.animationPlayState = 'running'
+            el.addEventListener('animationend', () => el.remove())
+            fetch(`${SERVER_URL}/post-api/delete-comment/${commentId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json',
+                    'X-CSRFToken': csrftoken,
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    fetchPost()
+                })
+        }
+    }
+
     const hideCommentModal = () => {
         setCommentModalIsOpen(false)
     }
 
-    const hideLikesModal = () => {
-        setLikesModal({
+    const hidePostLikesModal = () => {
+        setPostLikesModal({
+            isOpen: false,
+            likes: null
+        })
+    }
+
+    const hideCommentLikesModal = () => {
+        setCommentLikesModal({
             isOpen: false,
             likes: null
         })
@@ -109,9 +138,14 @@ export default function Post(props) {
                 commentPost={commentPost}
             />
             <LikesModal
-                isOpen={likesModal.isOpen}
-                likes={likesModal.likes}
-                hideModal={hideLikesModal}
+                isOpen={postLikesModal.isOpen}
+                likes={postLikesModal.likes}
+                hideModal={hidePostLikesModal}
+            />
+            <LikesModal
+                isOpen={commentLikesModal.isOpen}
+                likes={commentLikesModal.likes}
+                hideModal={hideCommentLikesModal}
             />
             <Header page="Post" backArrow={true} />
             <div className="content">
@@ -162,7 +196,7 @@ export default function Post(props) {
                                             onClick={likeUnlikePost}
                                         />}
                                     <p className="post-likes-number"
-                                        onClick={() => setLikesModal({ isOpen: true, likes: post.likes })}
+                                        onClick={() => setPostLikesModal({ isOpen: true, likes: post.likes })}
                                     >
                                         {post.likes.length}
                                     </p>
@@ -172,28 +206,40 @@ export default function Post(props) {
                         <div className="comment-list">
                             {post.comments.map(comment => {
                                 return (
-                                    <li className="post-container">
-                                        <div className="post-row">
-                                            <div className="post-col">
-                                                <Link to={`/user/${comment.author.slug}`}>
-                                                    <img src={`${SERVER_URL}${comment.author.photo}`}
-                                                        className="profile-img-med"
-                                                    />
-                                                </Link>
-                                            </div>
-                                            <div className="post-col">
-                                                <Link to={`/user/${comment.author.slug}`} style={{ color: '#000' }}>
-                                                    <div style={{ height: '30px' }}>
-                                                        <strong>{comment.author.first_name} {comment.author.last_name} </strong>
-                                                        <p className="text-secondary d-inline-block">
-                                                            @{comment.author.user.username} • {comment.created.split('-').reverse().join('/')}
-                                                        </p>
+                                    <li
+                                        className="post-container"
+                                        id={`post-comment-${comment.id}`}
+                                        key={comment.id}
+                                    >
+                                        <div className="d-flex justify-content-between">
+                                            <div className="post-row">
+                                                <div className="post-col">
+                                                    <Link to={`/user/${comment.author.slug}`}>
+                                                        <img src={`${SERVER_URL}${comment.author.photo}`}
+                                                            className="profile-img-med"
+                                                        />
+                                                    </Link>
+                                                </div>
+                                                <div className="post-col">
+                                                    <Link to={`/user/${comment.author.slug}`} style={{ color: '#000' }}>
+                                                        <div style={{ height: '30px' }}>
+                                                            <strong>{comment.author.first_name} {comment.author.last_name} </strong>
+                                                            <p className="text-secondary d-inline-block">
+                                                                @{comment.author.user.username} • {comment.created.split('-').reverse().join('/')}
+                                                            </p>
+                                                        </div>
+                                                    </Link>
+                                                    <div style={{ textAlign: 'start' }}>
+                                                        {comment.content}
                                                     </div>
-                                                </Link>
-                                                <div style={{ textAlign: 'start' }}>
-                                                    {comment.content}
                                                 </div>
                                             </div>
+                                            {comment.author.id == profile.id &&
+                                                <i
+                                                    className="far fa-trash-alt trash-icon text-secondary"
+                                                    style={{ margin: '20px 20px 0 0' }}
+                                                    onClick={e => deleteComment(e, comment.id)}
+                                                />}
                                         </div>
                                         <div className="post-actions">
                                             <p className="text-secondary">
@@ -207,7 +253,10 @@ export default function Post(props) {
                                                         data-commentid={comment.id}
                                                         onClick={likeUnlikeComment}
                                                     />}
-                                                <p className="post-likes-number">
+                                                <p
+                                                    className="post-likes-number"
+                                                    onClick={() => setPostLikesModal({ isOpen: true, likes: comment.likes })}
+                                                >
                                                     {comment.likes.length}
                                                 </p>
                                             </p>

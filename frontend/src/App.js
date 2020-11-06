@@ -9,14 +9,16 @@ import MyProfile from './pages/myprofile'
 import Settings from './pages/settings'
 import Profile from './pages/home-components/profile'
 import ProfileFriends from './pages/profile-components/friends'
+import InterestProfiles from './pages/profile-components/interestprofiles'
 import Post from './pages/home-components/post'
 
 import { SERVER_URL } from './settings'
 
 export default function App() {
     const [invitesReceivedNumber, setInvitesReceived] = useState(0)
-    const [unvisualizedLikes, setUnvisulaizedLikes] = useState(0)
-    let notificationsNumber = invitesReceivedNumber + unvisualizedLikes
+    const [unvisualizedLikesNumber, setUnvisulaizedLikes] = useState(0)
+    const [unvisualizedCommentsNumber, setUnvisulaizedComments] = useState(0)
+    let notificationsNumber = invitesReceivedNumber + unvisualizedLikesNumber + unvisualizedCommentsNumber
     const [unreadMessagesNumber, setUnreadMessagesNumber] = useState(0)
 
     useEffect(() => {
@@ -31,6 +33,9 @@ export default function App() {
         fetch(`${SERVER_URL}/post-api/unvisualized-post-likes`)
             .then(response => response.json())
             .then(data => setUnvisulaizedLikes(data.length))
+        fetch(`${SERVER_URL}/post-api/unvisualized-post-comments`)
+            .then(response => response.json())
+            .then(data => setUnvisulaizedComments(data.length))
     }
 
     const updateUnreadMessagesNumber = () => {
@@ -57,10 +62,11 @@ export default function App() {
                         <Profile {...props} updateNotificationsNumber={updateNotificationsNumber} />
                     )} />
                     <Route path="/user/:slug/amigos" component={ProfileFriends} />
-                    <Route path="/post/:id" exact component={Post}/>
+                    <Route path="/post/:id" exact component={Post} />
                     <Route path="/post/:id/comment" render={props => (
                         <Post {...props} commentModalIsOpen={true} />
                     )} />
+                    <Route path="/interesse/:interest" component={InterestProfiles} />
                     <Route path="/" component={Home} />
                 </Switch>
             </div>

@@ -113,8 +113,14 @@ export default function MyProfile() {
                             </Link>
                         </p>
                     </div>
-                    <div>
-                        <button className="btn btn-secondary" type="button" onClick={() => setIsEditing(true)}>Editar perfil</button>
+                    <div className="d-flex flex-column">
+                        <button
+                            className="btn btn-secondary"
+                            type="button"
+                            onClick={() => setIsEditing(true)}
+                            style={{ marginBottom:'10px' }}
+                        >Editar perfil</button>
+                        <button className="btn btn-secondary">Editar interesses</button>
                     </div>
                 </div>
                 <div className="profile-page-menu">
@@ -126,7 +132,7 @@ export default function MyProfile() {
                     </div>
                 </div>
                 {currentPageIsPosts ?
-                    <Posts profile={profile} fetchProfile={fetchProfile}/> :
+                    <Posts profile={profile} fetchProfile={fetchProfile} /> :
                     <Interests profile={profile} />
                 }
             </div > : ''}

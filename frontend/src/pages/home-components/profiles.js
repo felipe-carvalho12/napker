@@ -9,7 +9,6 @@ export default function Profiles(props) {
     const [search, setSearch] = useState('')
 
     useEffect(() => {
-        console.log('fetching profiles...')
         fetch(`${SERVER_URL}/profile-api/profile-list`)
             .then(response => response.json())
             .then(data => {

@@ -7,6 +7,7 @@ urlpatterns = [
     path('user/<str:slug>', get_profile),
     path('users/<str:query>', filter_profiles),
     path('profile-list', profile_list),
+    path('interest-profile-list/<str:interest>', interest_profile_list),
     path('myprofile', my_profile),
     path('get-friends-profiles/<str:slug>', friends_profiles),
     path('relationship/<str:slug>', get_relationship),

@@ -1,3 +1,4 @@
+import random
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.contrib.auth import authenticate, login
@@ -43,7 +44,20 @@ def profile_list(request):
         if p in [i.receiver for i in Relationship.objects.invitations_sent(profile)]: continue
         if p in [i.sender for i in Relationship.objects.invitations_received(profile)]: continue
         profiles.append(p)
-    serializer = ProfileSerializer(profiles, many=True)
+    random.shuffle(profiles)
+    serializer = ProfileSerializer(profiles[:50], many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def interest_profile_list(request, interest):
+    #profile = Profile.objects.get(user=authenticate(request, username='felipe', password='django@12'))
+    profile = Profile.objects.get(user=request.user)
+    profiles = []
+    for p in Profile.objects.filter(interests__title=interest):
+        if p == profile: continue
+        profiles.append(p)
+    random.shuffle(profiles)
+    serializer = ProfileSerializer(profiles[:50], many=True)
     return Response(serializer.data)
 
 @api_view(['GET'])

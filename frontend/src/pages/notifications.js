@@ -7,7 +7,8 @@ import { csrftoken } from '../utils'
 export default function Notifications(props) {
     const [invites, setInvites] = useState([])
     const [postLikes, setPostLikes] = useState([])
-    let notificationsNumber = invites.length + postLikes.length
+    const [comments, setComments] = useState([])
+    let notificationsNumber = invites.length + postLikes.length + comments.length
 
     document.title = 'Notificações / Napker'
 
@@ -18,6 +19,9 @@ export default function Notifications(props) {
         fetch(`${SERVER_URL}/post-api/unvisualized-post-likes`)
             .then(response => response.json())
             .then(data => setPostLikes(data))
+        fetch(`${SERVER_URL}/post-api/unvisualized-post-comments`)
+            .then(response => response.json())
+            .then(data => setComments(data))
     }, [])
 
     useEffect(() => {
@@ -30,6 +34,17 @@ export default function Notifications(props) {
                 })
         }
     }, [postLikes])
+
+    useEffect(() => {
+        if (comments.length) {
+            fetch(`${SERVER_URL}/post-api/visualize-comments`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    props.updateNotificationsNumber()
+                })
+        }
+    }, [comments])
 
     const replyRequest = e => {
         e.stopPropagation()
@@ -132,6 +147,40 @@ export default function Notifications(props) {
                     }
 
                     <br />
+
+                    {!!comments.length &&
+                        <>
+                            <h4>Comentários</h4>
+                            {comments.map(comment => {
+                                return (
+                                    <li className="list-group-item profile-row" key={comment.author.id}>
+                                        <div className="d-flex justify-content-between">
+                                            <div className="profile-col">
+                                                <Link to={`/user/${comment.author.slug}`}>
+                                                    <img src={`${SERVER_URL}${comment.author.photo}`}
+                                                        className="profile-img-med"
+                                                        style={{ marginRight: '10px' }}
+                                                    />
+                                                </Link>
+                                            </div>
+                                            <div className="profile-col" style={{ fontSize: 'larger' }}>
+                                                <p>
+                                                    <Link to={`/user/${comment.author.slug}`} style={{ color: "#000" }}>
+                                                        @{comment.author.user.username}
+                                                    </Link> comentou seu post.
+                                                </p>
+                                            </div>
+                                            <div className="profile-col" style={{ justifyContent: 'center' }}>
+                                                <Link to={`/post/${comment.post.id}`}>
+                                                    <button className="btn btn-primary">Ver post</button>
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    </li>
+                                )
+                            })}
+                        </>
+                    }
 
                 </div>
                 {!notificationsNumber &&
