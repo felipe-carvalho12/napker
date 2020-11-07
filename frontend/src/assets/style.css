@@ -242,6 +242,35 @@ body {
   }
 }
 
+.create-post-form {
+  background: #fff;
+  padding: 15px 15px 5px 15px;
+}
+
+.create-post-form .post-content-input {
+  color: #000;
+  border: none;
+  font-size: large;
+}
+
+.post-extra-options {
+  width: 20%;
+  display: flex;
+}
+
+.post-extra-options .far {
+  color: var(--primary-color);
+  font-size: 20px;
+  margin-right: 10px;
+  padding: 10px;
+  border-radius: 50%;
+}
+
+.post-extra-options .far:hover {
+  background: var(--secondary-color);
+  cursor: pointer;
+}
+
 .post-list {
   display: flex;
   flex-direction: column;
@@ -278,9 +307,9 @@ body {
   align-items: flex-start;
 }
 
-.post-container .post-row .post-col .post-img {
-  max-width: 500px;
-  max-height: 200px;
+.post-img {
+  max-width: 650px;
+  max-height: 350px;
   margin-top: 15px;
   border-radius: 20px;
 }

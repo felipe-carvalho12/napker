@@ -12,11 +12,11 @@ export default class Posts extends React.Component {
         this.state = {
             profile: null,
             posts: null,
-            postContent: '',
             likesModal: {
                 isOpen: false,
                 likes: null
-            }
+            },
+            postFormImagePreview: null
         }
     }
 
@@ -31,22 +31,6 @@ export default class Posts extends React.Component {
         fetch(`${SERVER_URL}/post-api/post-list`)
             .then(response => response.json())
             .then(data => this.setState({ posts: data }))
-    }
-
-    createPost = () => {
-        fetch(`${SERVER_URL}/post-api/create-post`, {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json',
-                'X-CSRFToken': csrftoken,
-            },
-            body: JSON.stringify({ content: this.state.postContent })
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data)
-                this.setState({ postContent: '' })
-            })
     }
 
     likeUnlikePost = e => {
@@ -82,6 +66,43 @@ export default class Posts extends React.Component {
         })
     }
 
+    deletePost = (e, postId) => {
+        e.stopPropagation()
+        const el = document.querySelector(`#profile-post-${postId}`)
+        if (window.confirm('Tem certeza que deseja apagar o post?\nEssa ação é irreversível.')) {
+            el.style.animationPlayState = 'running'
+            el.addEventListener('animationend', () => {
+                this.fetchPosts()
+            })
+            fetch(`${SERVER_URL}/post-api/delete-post/${postId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json',
+                    'X-CSRFToken': csrftoken,
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                })
+        }
+    }
+
+    handlePostImageChange = e => {
+        const reader = new FileReader()
+        reader.onload = () => {
+            if (reader.readyState === 2) {
+                this.setState({ postFormImagePreview: reader.result })
+                document.querySelector('#post-form-image-preview').style.display = 'initial'
+            }
+        }
+        try {
+            reader.readAsDataURL(e.target.files[0])
+        } catch {
+
+        }
+    }
+
     render() {
         return (
             <>
@@ -90,57 +111,105 @@ export default class Posts extends React.Component {
                     likes={this.state.likesModal.likes}
                     hideModal={this.hideLikesModal}
                 />
-                <div className="form-row d-inline-block">
-                    <div className="col d-flex">
-                        <input type="text"
-                            className="form-control"
-                            placeholder="O que está acontecendo?"
-                            style={{ marginRight: '5px', width: '400px' }}
-                            value={this.state.postContent}
-                            onChange={e => this.setState({ postContent: e.target.value })}
+                {this.state.profile &&
+                    <form
+                        action={`${SERVER_URL}/post-api/create-post`}
+                        method="POST"
+                        className="create-post-form"
+                        encType="multipart/form-data"
+                    >
+                        <input type="hidden" name="csrfmiddlewaretoken" value={csrftoken} />
+                        <div className="d-flex">
+                            <img
+                                src={`${SERVER_URL}${this.state.profile.photo}`}
+                                className="profile-img-med"
+                            />
+                            <input type="text"
+                                className="post-content-input"
+                                name="post-content"
+                                placeholder="No que você está pensando?"
+                                autoFocus
+                            />
+                        </div>
+                        <img
+                            src={this.state.postFormImagePreview}
+                            className="post-img"
+                            id="post-form-image-preview"
+                            style={{ display: 'none' }}
                         />
-                        <button className="btn btn-primary" style={{ marginBottom: '20px', borderRadius: '5px' }} onClick={this.createPost}>Postar</button>
-                    </div>
-                </div>
+                        <hr />
+                        <div className="d-flex justify-content-between" style={{ margin: '0px 70px 0 70px' }}>
+                            <div className="post-extra-options">
+                                <label htmlFor="post-image" class="far fa-image" />
+                                <input
+                                    type="file"
+                                    accept="image/png, image/jpg, image/jpeg"
+                                    name="post-image"
+                                    id="post-image"
+                                    style={{ display: 'none' }}
+                                    onChange={this.handlePostImageChange}
+                                />
+                                <label class="far fa-smile" />
+                            </div>
+                            <button
+                                type="submit"
+                                className="btn btn-primary"
+                                style={{ height: '40px' }}
+                            >
+                                Postar
+                            </button>
+                        </div>
+                    </form>}
                 <div className="post-list">
-                    {this.state.posts && this.state.profile && this.state.posts.map(post => {
+                    {this.state.posts && this.state.posts.map(post => {
                         return (
                             <li
                                 className="post-container"
+                                id={`profile-post-${post.id}`}
                                 key={post.id}
                                 onClick={() => window.location.href = `/post/${post.id}`}
                             >
-                                <div className="post-row">
-                                    <div className="post-col">
-                                        <Link
-                                            to={`/user/${post.author.slug}`}
-                                            onClick={e => e.stopPropagation()}
-                                        >
-                                            <img src={`${SERVER_URL}${post.author.photo}`}
-                                                className="profile-img-med"
-                                            />
-                                        </Link>
-                                    </div>
-                                    <div className="post-col">
-                                        <Link
-                                            to={`/user/${post.author.slug}`}
-                                            style={{ color: '#000' }}
-                                            onClick={e => e.stopPropagation()}
-                                        >
-                                            <div style={{ height: '30px' }}>
-                                                <strong>{post.author.first_name} {post.author.last_name} </strong>
-                                                <p className="text-secondary d-inline-block">
-                                                    @{post.author.user.username} • {post.created.split('-').reverse().join('/')}
-                                                </p>
-                                            </div>
-                                        </Link>
-                                        <div style={{ textAlign: 'start' }}>
-                                            {post.content}
+                                <div className="d-flex justify-content-between">
+                                    <div className="post-row">
+                                        <div className="post-col">
+                                            <Link
+                                                to={post.author.id === this.state.profile.id ?
+                                                    '/perfil' : `/user/${post.author.slug}`}
+                                                onClick={e => e.stopPropagation()}
+                                            >
+                                                <img src={`${SERVER_URL}${post.author.photo}`}
+                                                    className="profile-img-med"
+                                                />
+                                            </Link>
                                         </div>
-                                        {post.image &&
-                                            <img src={`${SERVER_URL}${post.image}`} className="post-img" />
-                                        }
+                                        <div className="post-col">
+                                            <Link
+                                                to={post.author.id === this.state.profile.id ?
+                                                    '/perfil' : `/user/${post.author.slug}`}
+                                                style={{ color: '#000' }}
+                                                onClick={e => e.stopPropagation()}
+                                            >
+                                                <div style={{ height: '30px' }}>
+                                                    <strong>{post.author.first_name} {post.author.last_name} </strong>
+                                                    <p className="text-secondary d-inline-block">
+                                                        @{post.author.user.username} • {post.created.split('-').reverse().join('/')}
+                                                    </p>
+                                                </div>
+                                            </Link>
+                                            <div style={{ textAlign: 'start' }}>
+                                                {post.content}
+                                            </div>
+                                            {post.image &&
+                                                <img src={`${SERVER_URL}${post.image}`} className="post-img" />
+                                            }
+                                        </div>
                                     </div>
+                                    {post.author.id === this.state.profile.id &&
+                                        <i
+                                            className="far fa-trash-alt trash-icon text-secondary"
+                                            style={{ margin: '20px 20px 0 0' }}
+                                            onClick={e => this.deletePost(e, post.id)}
+                                        />}
                                 </div>
                                 <div className="post-actions">
                                     <p className="text-secondary">

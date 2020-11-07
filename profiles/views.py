@@ -26,6 +26,15 @@ def get_profile(request, slug):
         return Response({'bool': 'false'})
 
 @api_view(['GET'])
+def get_profile_by_email(request, email):
+    if Profile.objects.filter(email=email).exists():
+        profile = Profile.objects.get(email=email)
+        serializer = ProfileSerializer(profile)
+        return Response(serializer.data)
+    else:
+        return Response({'bool': 'false'})
+
+@api_view(['GET'])
 def filter_profiles(request, query):
     #user = authenticate(request, username='felipe', password='django@12')
     #profiles = [profile for profile in Profile.objects.all() if query.lower() in profile.user.username and profile.user != user]
@@ -53,7 +62,7 @@ def interest_profile_list(request, interest):
     #profile = Profile.objects.get(user=authenticate(request, username='felipe', password='django@12'))
     profile = Profile.objects.get(user=request.user)
     profiles = []
-    for p in Profile.objects.filter(interests__title=interest):
+    for p in Profile.objects.filter(interests__title=interest.lower()):
         if p == profile: continue
         profiles.append(p)
     random.shuffle(profiles)
@@ -162,10 +171,10 @@ def set_myinterests(request):
     profile = Profile.objects.get(user=request.user)
     profile.interests.clear()
     for title in request.data['public_interests']:
-        public_i, created = Interest.objects.get_or_create(title=title, public=True)
+        public_i, created = Interest.objects.get_or_create(title=title.lower(), public=True)
         profile.interests.add(public_i)
     for title in request.data['private_interests']:
-        private_i, created = Interest.objects.get_or_create(title=title, public=False)
+        private_i, created = Interest.objects.get_or_create(title=title.lower(), public=False)
         profile.interests.add(private_i)
     profile.save()
     return Response('Interests updated')

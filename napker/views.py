@@ -86,11 +86,11 @@ def add_interests_view(request):
 
 def update_profile(request):
     if request.method == 'POST':
-        #profile = Profile.objects.get(user=authenticate(request, username='felipe', password='django@12'))
         profile = Profile.objects.get(user=request.user)
-        photo = request.POST['profile-photo'] if request.POST['profile-photo'] != '' else profile.photo
+        photo = request.FILES['profile-photo'] if len(request.FILES) else profile.photo
         first_name = request.POST['first-name'] if request.POST['first-name'] != '' else profile.first_name
         last_name = request.POST['last-name'] if request.POST['last-name'] != '' else profile.last_name
+        username = request.POST['username'] if request.POST['username'] != '' else profile.user.username
         email = request.POST['email'] if request.POST['email'] != '' else profile.email
         gender = request.POST['gender'] if request.POST['gender'] != '' else profile.gender
         birth_date = request.POST['birth-date'] if request.POST['birth-date'] != '' else profile.birth_date
@@ -99,10 +99,12 @@ def update_profile(request):
             profile.photo = photo
             profile.first_name = first_name
             profile.last_name = last_name
+            profile.user.username = username if not User.objects.filter(username=username).exists() else profile.user.username
             profile.email = email
             profile.gender = gender
             profile.birth_date = birth_date
             profile.bio = bio
+            profile.user.save()
             profile.save()
         except:
             pass

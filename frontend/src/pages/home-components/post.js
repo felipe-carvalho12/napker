@@ -96,7 +96,10 @@ export default function Post(props) {
         const el = document.querySelector(`#post-comment-${commentId}`)
         if (window.confirm('Tem certeza que deseja apagar o comentário?\nEssa ação é irreversível.')) {
             el.style.animationPlayState = 'running'
-            el.addEventListener('animationend', () => el.remove())
+            console.log(el, el.style.animationPlayState)
+            el.addEventListener('animationend', () => {
+                fetchPost()
+            })
             fetch(`${SERVER_URL}/post-api/delete-comment/${commentId}`, {
                 method: 'POST',
                 headers: {
@@ -107,7 +110,25 @@ export default function Post(props) {
                 .then(response => response.json())
                 .then(data => {
                     console.log(data)
-                    fetchPost()
+                })
+        }
+    }
+
+    const deletePost = (e, postId) => {
+        e.stopPropagation()
+        const el = document.querySelector(`#profile-post-${postId}`)
+        if (window.confirm('Tem certeza que deseja apagar o post?\nEssa ação é irreversível.')) {
+            fetch(`${SERVER_URL}/post-api/delete-post/${postId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json',
+                    'X-CSRFToken': csrftoken,
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    window.location.href = '/'
                 })
         }
     }
@@ -152,30 +173,38 @@ export default function Post(props) {
                 {post && profile &&
                     <>
                         <div className="post-container">
-                            <div className="post-row">
-                                <div className="post-col">
-                                    <Link to={`/user/${post.author.slug}`}>
-                                        <img src={`${SERVER_URL}${post.author.photo}`}
-                                            className="profile-img-med"
-                                        />
-                                    </Link>
-                                </div>
-                                <div className="post-col">
-                                    <Link to={`/user/${post.author.slug}`} style={{ color: '#000' }}>
-                                        <div style={{ height: '30px' }}>
-                                            <strong>{post.author.first_name} {post.author.last_name} </strong>
-                                            <p className="text-secondary d-inline-block">
-                                                @{post.author.user.username} • {post.created.split('-').reverse().join('/')}
-                                            </p>
-                                        </div>
-                                    </Link>
-                                    <div style={{ textAlign: 'start', fontSize: 'larger' }}>
-                                        {post.content}
+                            <div className="d-flex justify-content-between">
+                                <div className="post-row">
+                                    <div className="post-col">
+                                        <Link to={`/user/${post.author.slug}`}>
+                                            <img src={`${SERVER_URL}${post.author.photo}`}
+                                                className="profile-img-med"
+                                            />
+                                        </Link>
                                     </div>
-                                    {post.image &&
-                                        <img src={`${SERVER_URL}${post.image}`} className="post-img" />
-                                    }
+                                    <div className="post-col">
+                                        <Link to={`/user/${post.author.slug}`} style={{ color: '#000' }}>
+                                            <div style={{ height: '30px' }}>
+                                                <strong>{post.author.first_name} {post.author.last_name} </strong>
+                                                <p className="text-secondary d-inline-block">
+                                                    @{post.author.user.username} • {post.created.split('-').reverse().join('/')}
+                                                </p>
+                                            </div>
+                                        </Link>
+                                        <div style={{ textAlign: 'start', fontSize: 'larger' }}>
+                                            {post.content}
+                                        </div>
+                                        {post.image &&
+                                            <img src={`${SERVER_URL}${post.image}`} className="post-img" />
+                                        }
+                                    </div>
                                 </div>
+                                {profile.id == post.author.id &&
+                                    <i
+                                        className="far fa-trash-alt trash-icon text-secondary"
+                                        style={{ margin: '20px 20px 0 0' }}
+                                        onClick={e => deletePost(e, post.id)}
+                                    />}
                             </div>
                             <div className="post-actions">
                                 <p className="text-secondary" style={{ fontSize: 'large' }}>

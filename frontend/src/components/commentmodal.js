@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Modal from 'react-bootstrap/Modal'
 
 export default function CommentModal(props) {
-    const comment = () => {
+    const comment = e => {
+        e.preventDefault()
         props.commentPost(document.querySelector('#comment-modal-input').value)
         props.hideModal()
     }
+
     return (
         <Modal show={props.isOpen}
             onHide={props.hideModal}
@@ -14,16 +16,21 @@ export default function CommentModal(props) {
                 <Modal.Title><strong>Comentar</strong></Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <input
-                    className="form-control"
-                    id="comment-modal-input"
-                    placeholder="Comente alguma coisa"
-                    style={{ marginRight: '5px' }}
-                />
-                <button
-                    className="btn btn-primary"
-                    onClick={comment}
-                >Enviar</button>
+                <form>
+                    <input
+                        className="form-control"
+                        id="comment-modal-input"
+                        placeholder="Comente alguma coisa"
+                        style={{ marginRight: '5px' }}
+                    />
+                    <button
+                        className="btn btn-primary"
+                        type="submit"
+                        onClick={comment}
+                    >
+                        Enviar
+                    </button>
+                </form>
             </Modal.Body>
         </Modal>
     )

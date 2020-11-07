@@ -10,6 +10,7 @@ import { csrftoken } from '../utils'
 
 export default function MyProfile() {
     const [profile, setProfile] = useState(null)
+    const [profileImagePreview, setProfileImagePreview] = useState(null)
     const [isEditing, setIsEditing] = useState(false)
     const [currentPageIsPosts, setCurrentPageIsPosts] = useState(true)
 
@@ -22,7 +23,10 @@ export default function MyProfile() {
     const fetchProfile = () => {
         fetch(`${SERVER_URL}/profile-api/myprofile`)
             .then(response => response.json())
-            .then(data => setProfile(data))
+            .then(data => {
+                setProfile(data)
+                setProfileImagePreview(`${SERVER_URL}${data.photo}`)
+            })
     }
 
     const switchPage = e => {
@@ -31,6 +35,44 @@ export default function MyProfile() {
         })
         e.target.classList.add('profile-page-menu-item-active')
         setCurrentPageIsPosts(!currentPageIsPosts)
+    }
+
+    const handleProfileImageChange = e => {
+        const reader = new FileReader()
+        reader.onload = () => {
+            if (reader.readyState === 2) {
+                setProfileImagePreview(reader.result)
+            }
+        }
+        try {
+            reader.readAsDataURL(e.target.files[0])
+        } catch {
+            
+        }
+    }
+
+    const handleUsernameChange = e => {
+        fetch(`${SERVER_URL}/profile-api/user/${e.target.value}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.bool !== 'false') {
+                    document.querySelector('#username-taken').style.display = 'initial'
+                } else if (document.querySelector('#username-taken').style.display === 'initial') {
+                    document.querySelector('#username-taken').style.display = 'none'
+                }
+            })
+    }
+
+    const handleEmailChange = e => {
+        fetch(`${SERVER_URL}/profile-api/profile-by-email/${e.target.value}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.bool !== 'false') {
+                    document.querySelector('#email-taken').style.display = 'initial'
+                } else if (document.querySelector('#email-taken').style.display === 'initial') {
+                    document.querySelector('#email-taken').style.display = 'none'
+                }
+            })
     }
 
     return (
@@ -44,33 +86,57 @@ export default function MyProfile() {
                         <Modal.Title>Editar perfil</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <form action={`${SERVER_URL}/update-profile`} id="update-profile-form" method="POST">
+                        <form action={`${SERVER_URL}/update-profile`} id="update-profile-form" method="POST" encType="multipart/form-data">
                             <input type="hidden" name="csrfmiddlewaretoken" value={csrftoken} />
                             <div className="d-flex flex-column justify-content-center align-items-center" style={{ padding: '25px' }}>
-                                <img src={`${SERVER_URL}${profile.photo}`}
+                                <img src={profileImagePreview}
                                     className="profile-img-big"
                                     style={{ marginBottom: '25px' }}
                                 />
-                                <input type="file" accept="image/png, image/jpg" name="profile-photo" onChange={e => console.log(e.target.files)} />
+                                <input
+                                    type="file"
+                                    accept="image/png, image/jpg, image/jpeg"
+                                    name="profile-photo"
+                                    onChange={handleProfileImageChange}
+                                />
                             </div>
-                            <div>
+                            <div className="d-flex">
                                 <label htmlFor="first-name" className="profile-label">Nome:</label>
                                 <input className="form-control" type="text" name="first-name" id="first-name" placeholder={profile.first_name} />
                             </div>
-                            <div>
+                            <div className="d-flex">
                                 <label htmlFor="last-name" className="profile-label">Sobrenome:</label>
                                 <input className="form-control" type="text" name="last-name" id="last-name" placeholder={profile.last_name} />
                             </div>
-                            <div>
+                            <div className="d-flex">
                                 <label htmlFor="username" className="profile-label">Nome de usuário:</label>
-                                <input className="form-control" type="text" name="username" id="username" placeholder={profile.user.username} />
+                                <input
+                                    className="form-control"
+                                    type="text"
+                                    name="username"
+                                    id="username"
+                                    placeholder={profile.user.username}
+                                    onChange={handleUsernameChange}
+                                />
+                            </div>
+                            <div style={{ width: '100%', textAlign: 'center', padding: '3px' }}>
                                 <span id="username-taken">Nome de usuário já existe</span>
                             </div>
-                            <div>
+                            <div className="d-flex">
                                 <label htmlFor="email" className="profile-label">Email:</label>
-                                <input className="form-control" type="email" name="email" id="email" placeholder={profile.email} />
+                                <input
+                                    className="form-control"
+                                    type="email"
+                                    name="email"
+                                    id="email"
+                                    placeholder={profile.email}
+                                    onChange={handleEmailChange}
+                                />
                             </div>
-                            <div>
+                            <div style={{ width: '100%', textAlign: 'center', padding: '3px' }}>
+                                <span id="email-taken">Email já utilizado</span>
+                            </div>
+                            <div className="d-flex">
                                 <label htmlFor="gender" className="profile-label">Gênero:</label>
                                 <select className="form-control" name="gender" id="gender" placeholder={profile.gender}>
                                     <option value="male">Masculino</option>
@@ -78,11 +144,11 @@ export default function MyProfile() {
                                     <option value="other">Outro</option>
                                 </select>
                             </div>
-                            <div>
+                            <div className="d-flex">
                                 <label htmlFor="birth-date" className="profile-label">Data de nascimento:</label>
                                 <input className="form-control" type="date" name="birth-date" id="birth-date" defaultValue={profile.birth_date} />
                             </div>
-                            <div>
+                            <div className="d-flex">
                                 <label htmlFor="bio" className="profile-label">Bio:</label>
                                 <input className="form-control" type="email" name="bio" id="bio" placeholder={profile.bio} />
                             </div>

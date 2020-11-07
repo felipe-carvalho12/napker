@@ -5,8 +5,11 @@ from django.template.defaultfilters import slugify
 # Create your models here.
 class Interest(models.Model):
     title = models.CharField(max_length=50)
-    public = models.BooleanField(default=False) 
+    public = models.BooleanField(default=False)
     
+    class Meta:
+        ordering = ['title']
+
     def __str__(self):
         return self.title
 

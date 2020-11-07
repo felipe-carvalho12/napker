@@ -71,16 +71,14 @@ export default function Profiles(props) {
 
     return (
         <>
-            <div className="form-row d-inline-block">
-                <div className="col">
-                    <input type="text"
-                        className="form-control"
-                        placeholder="Pesquisar"
-                        style={{ width: '400px' }}
-                        value={search}
-                        onChange={e => setSearch(e.target.value)}
-                    />
-                </div>
+            <div className="form-row">
+                <input type="text"
+                    className="form-control"
+                    placeholder="Pesquisar"
+                    style={{ width: '400px' }}
+                    value={search}
+                    onChange={e => setSearch(e.target.value)}
+                />
             </div>
             <div className="list-group">
                 {filteredProfiles ? filteredProfiles.map(profile => {
@@ -111,9 +109,9 @@ export default function Profiles(props) {
                 }) : profiles && profiles.map(profile => {
                     return (
                         <li
-                        className="list-group-item profile-row"
-                        key={profile.id}
-                        onClick={() => window.location.href = `/user/${profile.slug}`}
+                            className="list-group-item profile-row"
+                            key={profile.id}
+                            onClick={() => window.location.href = `/user/${profile.slug}`}
                         >
                             <div className="d-flex justify-content-between">
                                 <div className="profile-col">

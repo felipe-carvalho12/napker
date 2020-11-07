@@ -16,7 +16,12 @@ export default function Home(props) {
         <>
             <Header page="Home" />
             <div className="content">
-                <button type="button" className="btn btn-primary" style={{ marginRight: '50px', borderRadius: '20px' }} onClick={() => setPage(page === 'Perfis' ? 'Posts' : 'Perfis')}>
+                <button
+                    type="button"
+                    className="btn btn-primary"
+                    style={{ marginBottom: '10px', borderRadius: '20px' }}
+                    onClick={() => setPage(page === 'Perfis' ? 'Posts' : 'Perfis')}
+                >
                     {page === 'Perfis' ? 'Ver posts' : 'Ver perfis'}
                 </button>
                 {pages[page]}

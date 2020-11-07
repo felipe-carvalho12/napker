@@ -3,7 +3,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.contrib.auth import authenticate
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from profiles.serializers import PostSerializer, PostLikeSerializer, CommentSerializer, CommentLikeSerializer
 from .models import *
@@ -71,31 +71,35 @@ def visualize_comments(request):
 def create_post(request):
     if request.method == 'POST':
         profile = Profile.objects.get(user=request.user)
-        data = json.loads(request.body)
-        Post.objects.create(content=data['content'], author=profile)
-        return JsonResponse('Post created with success', safe=False)
+        content = request.POST['post-content']
+        if len(request.FILES):
+            image = request.FILES['post-image']
+            Post.objects.create(content=content, author=profile, image=image)
+        else:
+            Post.objects.create(content=content, author=profile)
+        return redirect('/')
 
 def delete_post(request, post_id):
     if request.method == 'POST':
         profile = Profile.objects.get(user=request.user)
-        post = Post.objects.filter(id=post_id, author=profile)
-        if post.exists(): post.first().delete()
-        return JsonResponse(f'Deleted post #{post.id}', safe=False)
+        posts = Post.objects.filter(id=post_id, author=profile)
+        if posts.exists(): posts.first().delete()
+        return JsonResponse(f'Deleted post #{post_id}', safe=False)
 
 def comment_post(request, post_id):
     if request.method == 'POST':
         profile = Profile.objects.get(user=request.user)
         data = json.loads(request.body)
         post = Post.objects.get(id=post_id)
-        comment = Comment.objects.create(content=data['comment'], author=profile, post=post)
+        Comment.objects.create(content=data['comment'], author=profile, post=post)
         return JsonResponse(f'Commented post #{post.id}', safe=False)
 
 def delete_comment(request, comment_id):
     if request.method == 'POST':
         profile = Profile.objects.get(user=request.user)
-        comment = Comment.objects.filter(id=comment_id, author=profile)
-        if comment.exists(): comment.first().delete()
-        return JsonResponse(f'Deleted comment #{comment.id}', safe=False)
+        comments = Comment.objects.filter(id=comment_id, author=profile)
+        if comments.exists(): comments.first().delete()
+        return JsonResponse(f'Deleted comment #{comment_id}', safe=False)
 
 def like_post(request, post_id):
     #profile = Profile.objects.get(user=authenticate(request, username='felipe', password='django@12'))

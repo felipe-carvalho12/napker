@@ -52,7 +52,9 @@ export default function Posts(props) {
         const el = document.querySelector(`#profile-post-${postId}`)
         if (window.confirm('Tem certeza que deseja apagar o post?\nEssa ação é irreversível.')) {
             el.style.animationPlayState = 'running'
-            el.addEventListener('animationend', () => el.remove())
+            el.addEventListener('animationend', () => {
+                props.fetchProfile()
+            })
             fetch(`${SERVER_URL}/post-api/delete-post/${postId}`, {
                 method: 'POST',
                 headers: {
@@ -63,7 +65,6 @@ export default function Posts(props) {
                 .then(response => response.json())
                 .then(data => {
                     console.log(data)
-                    props.fetchProfile()
                 })
         }
     }

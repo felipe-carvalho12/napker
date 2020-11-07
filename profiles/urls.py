@@ -5,6 +5,7 @@ from .views import *
 urlpatterns = [
     path('logged-user', get_logged_user),
     path('user/<str:slug>', get_profile),
+    path('profile-by-email/<str:email>', get_profile_by_email),
     path('users/<str:query>', filter_profiles),
     path('profile-list', profile_list),
     path('interest-profile-list/<str:interest>', interest_profile_list),
