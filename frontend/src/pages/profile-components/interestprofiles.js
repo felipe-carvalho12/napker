@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 import Header from '../../components/header'
 import { SERVER_URL } from '../../settings'
-import { csrftoken } from '../../utils'
 
 export default function InterestProfiles() {
-    const [profiles, setProfiles] = useState([])
+    const [profiles, setProfiles] = useState(null)
     const { interest } = useParams()
 
-    document.title = `${interest} / Napker`
+    document.title = `${interest[0].toUpperCase() + interest.slice(1)} / Napker`
 
     useEffect(() => {
         fetch(`${SERVER_URL}/profile-api/interest-profile-list/${interest}`)
@@ -25,11 +24,13 @@ export default function InterestProfiles() {
             />
             <div className="content">
                 <div className="list-group">
-                    <h3>Perfis interessados em "{interest}"</h3>
-                    {profiles && profiles.map(profile => {
+                    <div className="interests-title-container">
+                        <h3>Perfis interessados em "{interest}"</h3>
+                    </div>
+                    {profiles !== null ? profiles.map(profile => {
                         return (
                             <li
-                                className="list-group-item profile-row"
+                                className="list-group-item profile-row filtered-profile"
                                 key={profile.id}
                                 onClick={() => window.location.href = `/user/${profile.slug}`}
                             >
@@ -51,7 +52,11 @@ export default function InterestProfiles() {
                                 </div>
                             </li>
                         )
-                    })}
+                    }) :
+                        <div className="profiles-loader-container">
+                            <div className="loader" />
+                        </div>
+                    }
                 </div>
             </div>
         </>

@@ -1,11 +1,19 @@
 @import url('https://kodhus.com/kodhus-ui/kodhus-0.1.0.min.css');
-
 :root {
     --primary-color: #1DA1F2;
     --secondary-color: #E8F5FE;
     --primary-color-hover: #0b80d0;
     --body-background: #f3f5f9;
     --white-hover: #eee;
+}
+
+.profile-page-loader-container {
+    width: 100%;
+    height: 600px;
+    display: flex;
+    justify-content: center;
+    background: #fff;
+    padding-top: 60px;
 }
 
 .profile-data-container {
@@ -63,6 +71,15 @@
     border-bottom: 2px solid var(--primary-color);
 }
 
+/* POSTS */
+
+.no-posts-container {
+    width: 100%;
+    height: 200px;
+    background: #fff;
+    margin-top: 2px
+}
+
 /* INTERESTS */
 
 .interests-page-container {
@@ -110,4 +127,22 @@
     outline: none;
     color: #333;
     flex: 1;
+}
+
+.edit-interests-loader-container {
+    width: 100%;
+    height: 500px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    padding-top: 25px;
+}
+
+.interests-title-container {
+    width: 100%;
+    background: #fff;
+    padding: 15px;
+    margin-bottom: 3px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
 }

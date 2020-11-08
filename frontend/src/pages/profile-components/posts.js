@@ -78,76 +78,88 @@ export default function Posts(props) {
                 hideModal={hideLikesModal}
             />
             <div className="post-list">
-                {profile && myprofile && profile.posts.length ? profile.posts.map(post => {
-                    return (
-                        <li
-                            className="post-container"
-                            key={post.id}
-                            id={`profile-post-${post.id}`}
-                            onClick={() => window.location.href = `/post/${post.id}`}
-                        >
-                            <div className="d-flex justify-content-between">
-                                <div className="post-row">
-                                    <div className="post-col">
-                                        <img src={`${SERVER_URL}${profile.photo}`}
-                                            className="profile-img-med"
-                                        />
+                {profile && myprofile ?
+                    <>
+                        {profile.posts.length ? profile.posts.map(post => {
+                            return (
+                                <li
+                                    className="post-container"
+                                    key={post.id}
+                                    id={`profile-post-${post.id}`}
+                                    onClick={() => window.location.href = `/post/${post.id}`}
+                                >
+                                    <div className="d-flex justify-content-between">
+                                        <div className="post-row">
+                                            <div className="post-col">
+                                                <img src={`${SERVER_URL}${profile.photo}`}
+                                                    className="profile-img-med"
+                                                />
+                                            </div>
+                                            <div className="post-col">
+                                                <div style={{ height: '30px' }}>
+                                                    <strong>{profile.first_name} {profile.last_name} </strong>
+                                                    <p className="text-secondary d-inline-block">
+                                                        @{profile.user.username} • {post.created.split('-').reverse().join('/')}
+                                                    </p>
+                                                </div>
+                                                <div style={{ textAlign: 'start' }}>
+                                                    {post.content}
+                                                </div>
+                                                {post.image &&
+                                                    <img src={`${SERVER_URL}${post.image}`} className="post-img" />
+                                                }
+                                            </div>
+                                        </div>
+                                        {profile.id == myprofile.id &&
+                                            <i
+                                                className="far fa-trash-alt trash-icon text-secondary"
+                                                style={{ margin: '20px 20px 0 0' }}
+                                                onClick={e => deletePost(e, post.id)}
+                                            />}
                                     </div>
-                                    <div className="post-col">
-                                        <div style={{ height: '30px' }}>
-                                            <strong>{profile.first_name} {profile.last_name} </strong>
-                                            <p className="text-secondary d-inline-block">
-                                                @{profile.user.username} • {post.created.split('-').reverse().join('/')}
+                                    <div className="post-actions">
+                                        <p className="text-secondary">
+                                            <Link
+                                                to={`/post/${post.id}/comment`}
+                                                className="text-secondary"
+                                                onClick={e => e.stopPropagation()}
+                                            >
+                                                <i class="far fa-comment" />
+                                            </Link>{post.comments.length}
+                                            {post.likes.map(like => like.profile.id).includes(myprofile.id) ?
+                                                <i class="fas fa-heart"
+                                                    data-postid={post.id}
+                                                    onClick={likeUnlikePost}
+                                                />
+                                                :
+                                                <i class="far fa-heart"
+                                                    data-postid={post.id}
+                                                    onClick={likeUnlikePost}
+                                                />}
+                                            <p className="post-likes-number"
+                                                onClick={e => {
+                                                    e.stopPropagation()
+                                                    setLikesModal({ isOpen: true, likes: post.likes })
+                                                }
+                                                }
+                                            >
+                                                {post.likes.length}
                                             </p>
-                                        </div>
-                                        <div style={{ textAlign: 'start' }}>
-                                            {post.content}
-                                        </div>
-                                        {post.image &&
-                                            <img src={`${SERVER_URL}${post.image}`} className="post-img" />
-                                        }
+                                        </p>
                                     </div>
-                                </div>
-                                {profile.id == myprofile.id &&
-                                    <i
-                                        className="far fa-trash-alt trash-icon text-secondary"
-                                        style={{ margin: '20px 20px 0 0' }}
-                                        onClick={e => deletePost(e, post.id)}
-                                    />}
+                                </li>
+                            )
+                        }) :
+                            <div className="no-posts-container">
+                                <h3 style={{ marginTop: '50px' }}>{profile.first_name} não tem posts</h3>
                             </div>
-                            <div className="post-actions">
-                                <p className="text-secondary">
-                                    <Link
-                                        to={`/post/${post.id}/comment`}
-                                        className="text-secondary"
-                                        onClick={e => e.stopPropagation()}
-                                    >
-                                        <i class="far fa-comment" />
-                                    </Link>{post.comments.length}
-                                    {post.likes.map(like => like.profile.id).includes(myprofile.id) ?
-                                        <i class="fas fa-heart"
-                                            data-postid={post.id}
-                                            onClick={likeUnlikePost}
-                                        />
-                                        :
-                                        <i class="far fa-heart"
-                                            data-postid={post.id}
-                                            onClick={likeUnlikePost}
-                                        />}
-                                    <p className="post-likes-number"
-                                        onClick={e => {
-                                            e.stopPropagation()
-                                            setLikesModal({ isOpen: true, likes: post.likes })
-                                        }
-                                        }
-                                    >
-                                        {post.likes.length}
-                                    </p>
-                                </p>
-                            </div>
-                        </li>
-                    )
-                }) : <h3 style={{ marginTop: '50px' }}>{profile.first_name} não tem posts</h3>}
+                        }
+                    </>
+                    :
+                    <div className="posts-loader-container" >
+                        <div className="loader" />
+                    </div>
+                }
             </div>
         </>
     )

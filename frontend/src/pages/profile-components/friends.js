@@ -29,7 +29,7 @@ export default function Friends() {
                 backArrow={true}
             />
             <div className="content">
-                <div className="lidt-group">
+                <div className="list-group">
                     {friends && friends.map(friend => {
                         return (
                             <Link to={`/user/${friend.slug}`} style={{ color: '#000', textDecoration: 'none' }}>

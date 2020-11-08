@@ -75,22 +75,6 @@ export default function Post(props) {
         }
     }
 
-    const commentPost = comment => {
-        fetch(`${SERVER_URL}/post-api/comment-post/${id}`, {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json',
-                'X-CSRFToken': csrftoken,
-            },
-            body: JSON.stringify({ comment: comment })
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data)
-                fetchPost()
-            })
-    }
-
     const deleteComment = (e, commentId) => {
         e.stopPropagation()
         const el = document.querySelector(`#post-comment-${commentId}`)
@@ -153,11 +137,13 @@ export default function Post(props) {
 
     return (
         <>
-            <CommentModal
-                isOpen={commentModalIsOpen}
-                hideModal={hideCommentModal}
-                commentPost={commentPost}
-            />
+            {post &&
+                <CommentModal
+                    isOpen={commentModalIsOpen}
+                    hideModal={hideCommentModal}
+                    post={post}
+                />
+            }
             <LikesModal
                 isOpen={postLikesModal.isOpen}
                 likes={postLikesModal.likes}
@@ -170,7 +156,7 @@ export default function Post(props) {
             />
             <Header page="Post" backArrow={true} />
             <div className="content">
-                {post && profile &&
+                {post && profile ?
                     <>
                         <div className="post-container">
                             <div className="d-flex justify-content-between">
@@ -294,7 +280,10 @@ export default function Post(props) {
                                 )
                             })}
                         </div>
-                    </>
+                    </> :
+                    <div className="posts-loader-container" >
+                        <div className="loader" />
+                    </div>
                 }
             </div>
         </>

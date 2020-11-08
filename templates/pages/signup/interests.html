@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,122 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
     <title>Criar conta / Napker</title>
+    <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <style>
-        @import url('https://kodhus.com/kodhus-ui/kodhus-0.1.0.min.css');
-
-        :root {
-            --primary-color: #1da1f2;
-            --secondary-color: #e8f5fe;
-            --primary-color-hover: #0b80d0;
-        }
-
-        .form_bg {
-            background: #fff;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-        }
-
-        .form_horizontal {
-            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-            text-align: center;
-        }
-
-        .form_horizontal .form_icon {
-            color: var(--primary-color);
-            font-size: 100px;
-            line-height: 85px;
-            margin: 0 0 13px;
-        }
-
-        .form_horizontal .title {
-            color: #000;
-            font-size: 23px;
-            font-weight: bold;
-            margin: 0 0 35px 0;
-        }
-
-        .container {
-            width: 100%;
-            margin: 30px auto;
-        }
-
-        .tag-container {
-            border: 2px solid #ccc;
-            border-radius: 3px;
-            background: #fff;
-            display: flex;
-            flex-wrap: wrap;
-            align-content: flex-start;
-            padding: 6px;
-            overflow-x: scroll;
-        }
-
-        .tag-container .tag {
-            height: 30px;
-            margin: 5px;
-            padding: 5px 6px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            background: #eee;
-            display: flex;
-            align-items: center;
-            color: #333;
-            box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 1px 1px #fff;
-            cursor: default;
-        }
-
-        .tag i {
-            font-size: 16px;
-            color: #666;
-            margin-left: 5px;
-        }
-
-        .tag-container input {
-            padding: 5px;
-            font-size: 16px;
-            border: 0;
-            outline: none;
-            color: #333;
-            flex: 1;
-        }
-
-        .form_horizontal .btn {
-            color: #fff;
-            background-color: var(--primary-color);
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: 1px;
-            width: 100%;
-            padding: 10px 20px;
-            margin: 10px 0 15px 0;
-            border: none;
-            border-radius: 20px;
-            text-transform: uppercase;
-        }
-
-        .form_horizontal .btn:hover {
-            background: var(--primary-color-hover);
-        }
-
-        .form_horizontal .form-options {
-            margin: 0;
-            padding: 0;
-            list-style: none;
-        }
-
-        .form_horizontal .form-options li a {
-            color: var(--primary-color);
-            letter-spacing: 0.5px;
-            margin: 0 0 10px;
-            display: block;
-        }
-
-        .form_horizontal .form-options li a i {
-            font-size: 12px;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/signupInterests.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 
 <body>
@@ -130,18 +20,26 @@
             <div class="row">
                 <div class="col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6">
                     <form action="{% url 'interests' %}" class="form_horizontal" method="POST">{% csrf_token %}
-                        <div class="form_icon"><i class="fas fa-user-circle"></i></div>
+                        <div class="form_icon">
+                            <img src="{% static 'img/favicon.ico' %}">
+                        </div>
                         <div class="title">Quais os seus principais interesses?</div>
                         {% if message %}
                         <span style="color: #f00;">{{ message }}</span>
                         {% endif %}
                         <div class="container">
-                            É aqui que a mágica acontece. Quanto mais interesses você colocar mais precisamente vamos te
-                            conectar com outras pessoas que compartilhem das mesmas paixões.
+                            <div class="interests-description">
+                                É aqui que a mágica acontece. Quanto mais interesses você colocar mais precisamente
+                                vamos te
+                                conectar com outras pessoas que compartilhem das mesmas paixões.
+                                <br />
+                                <br />
+                                <strong>Obs:</strong> Os interesses enviados aqui não serão visíveis para os outros usuários
+                            </div>
                             <br />
                             <br />
                             <div class="tag-container">
-                                <input />
+                                <input placeholder="Digite e pressione 'Enter'"/>
                                 <input type="hidden" name="interests" id="interests">
                             </div>
 
@@ -194,19 +92,18 @@
 
         input.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {
-                e.target.value.split(',').forEach(tag => {
-                    tags.push(tag);
-                });
-
                 e.preventDefault()
-
-                addTags();
-                input.value = '';
+                if (e.target.value !== '') {
+                    e.target.value.split(',').forEach(tag => {
+                        tags.push(tag);
+                    });
+                    addTags();
+                    input.value = ''
+                }
                 return false; //prevent the form to submit
             }
         });
         document.addEventListener('click', (e) => {
-            console.log(e.target.tagName);
             if (e.target.tagName === 'I') {
                 const tagLabel = e.target.getAttribute('data-item');
                 const index = tags.indexOf(tagLabel);

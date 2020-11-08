@@ -89,10 +89,10 @@ def delete_post(request, post_id):
 def comment_post(request, post_id):
     if request.method == 'POST':
         profile = Profile.objects.get(user=request.user)
-        data = json.loads(request.body)
+        content = request.POST['comment-content']
         post = Post.objects.get(id=post_id)
-        Comment.objects.create(content=data['comment'], author=profile, post=post)
-        return JsonResponse(f'Commented post #{post.id}', safe=False)
+        Comment.objects.create(content=content, author=profile, post=post)
+        return redirect(f'/post/{post_id}')
 
 def delete_comment(request, comment_id):
     if request.method == 'POST':

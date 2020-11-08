@@ -1,0 +1,115 @@
+@import url('https://kodhus.com/kodhus-ui/kodhus-0.1.0.min.css');
+.form_bg {
+    background: #fff;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.form_horizontal {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-align: center;
+}
+
+.form_horizontal .form_icon {
+    color: var(--primary-color);
+    font-size: 100px;
+    line-height: 85px;
+    margin: 0 0 13px;
+}
+
+.form_horizontal .title {
+    color: #000;
+    font-size: 23px;
+    font-weight: bold;
+    margin: 0 0 35px 0;
+}
+
+.container {
+    width: 100%;
+    margin: 30px auto;
+}
+
+.interests-description {
+    padding: 15px;
+    background: var(--secondary-color);
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    color: #333;
+    font-size: 15px; 
+}
+
+.tag-container {
+    border: 2px solid #ccc;
+    border-radius: 3px;
+    background: #fff;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    padding: 6px;
+    overflow-x: scroll;
+}
+
+.tag-container .tag {
+    height: 30px;
+    margin: 5px;
+    padding: 5px 6px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background: #eee;
+    display: flex;
+    align-items: center;
+    color: #333;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 1px 1px #fff;
+    cursor: default;
+}
+
+.tag i {
+    font-size: 16px;
+    color: #666;
+    margin-left: 5px;
+}
+
+.tag-container input {
+    padding: 5px;
+    font-size: 16px;
+    border: 0;
+    outline: none;
+    color: #333;
+    flex: 1;
+}
+
+.form_horizontal .btn {
+    color: #fff;
+    background-color: var(--primary-color);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    width: 100%;
+    padding: 10px 20px;
+    margin: 10px 0 15px 0;
+    border: none;
+    border-radius: 20px;
+    text-transform: uppercase;
+}
+
+.form_horizontal .btn:hover {
+    background: var(--primary-color-hover);
+}
+
+.form_horizontal .form-options {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.form_horizontal .form-options li a {
+    color: var(--primary-color);
+    letter-spacing: 0.5px;
+    margin: 0 0 10px;
+    display: block;
+}
+
+.form_horizontal .form-options li a i {
+    font-size: 12px;
+}

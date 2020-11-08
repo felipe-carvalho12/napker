@@ -164,33 +164,38 @@ class Messages extends React.Component {
                             <i className="fas fa-plus add-icon" onClick={this.openModal}></i>
                         </div>
                         <div className="list-group chats-container">
-                            {this.state.activeChatsProfiles && this.state.activeChatsProfiles.map(profile => {
-                                return (
-                                    <Link to={`/mensagens/${profile.slug}`} style={{ color: '#000', textDecoration: 'none' }}>
-                                        {this.resetUnreadMessagesCounter()}
-                                        <li className="list-item profile-chat-item" style={{ whiteSpace: 'nowrap' }}>
-                                            <img src={`${SERVER_URL}${profile.photo}`}
-                                                className="profile-img-med"
-                                                style={{ marginRight: '10px' }}
-                                            />
-                                            <div className="d-flex flex-column align-items-start">
-                                                <div className="d-flex" style={{ maxHeight: '30px' }}>
-                                                    <strong style={{ height: 'fit-content' }}>{profile.first_name} {profile.last_name}</strong>
-                                                    {this.state.activeChats[this.state.activeChatsProfiles.indexOf(profile)].messages.map(message => {
-                                                        const messages = this.state.activeChats[this.state.activeChatsProfiles.indexOf(profile)].messages
-                                                        if (messages[messages.length - 1] === message) this.setLastChatMessage(message.content)
-                                                        if (message.read || message.contact.user.username !== profile.user.username) return
-                                                        this.incrementUnreadMessagesCounter()
-                                                    })}
-                                                    {this.unreadMessagesCounter ? <p className="notifications-number">{this.unreadMessagesCounter}</p> : ''}
-                                                    <p className="text-secondary" style={{ marginLeft: '5px' }}>@{profile.user.username}</p>
+                            {this.state.activeChatsProfiles !== null ?
+                                this.state.activeChatsProfiles.map(profile => {
+                                    return (
+                                        <Link to={`/mensagens/${profile.slug}`} style={{ color: '#000', textDecoration: 'none' }}>
+                                            {this.resetUnreadMessagesCounter()}
+                                            <li className="list-item profile-chat-item" style={{ whiteSpace: 'nowrap' }}>
+                                                <img src={`${SERVER_URL}${profile.photo}`}
+                                                    className="profile-img-med"
+                                                    style={{ marginRight: '10px' }}
+                                                />
+                                                <div className="d-flex flex-column align-items-start">
+                                                    <div className="d-flex" style={{ maxHeight: '30px' }}>
+                                                        <strong style={{ height: 'fit-content' }}>{profile.first_name} {profile.last_name}</strong>
+                                                        {this.state.activeChats[this.state.activeChatsProfiles.indexOf(profile)].messages.map(message => {
+                                                            const messages = this.state.activeChats[this.state.activeChatsProfiles.indexOf(profile)].messages
+                                                            if (messages[messages.length - 1] === message) this.setLastChatMessage(message.content)
+                                                            if (message.read || message.contact.user.username !== profile.user.username) return
+                                                            this.incrementUnreadMessagesCounter()
+                                                        })}
+                                                        {this.unreadMessagesCounter ? <p className="notifications-number">{this.unreadMessagesCounter}</p> : ''}
+                                                        <p className="text-secondary" style={{ marginLeft: '5px' }}>@{profile.user.username}</p>
+                                                    </div>
+                                                    <p className="text-secondary">{this.lastChatMessage.slice(0, 40)}</p>
                                                 </div>
-                                                <p className="text-secondary">{this.lastChatMessage.slice(0, 40)}</p>
-                                            </div>
-                                        </li>
-                                    </Link>
-                                )
-                            })}
+                                            </li>
+                                        </Link>
+                                    )
+                                }) :
+                                <div className="messages-loader-container">
+                                    <div className="loader" />
+                                </div>
+                            }
                         </div>
                     </div>
                     <Chat username={this.state.username}

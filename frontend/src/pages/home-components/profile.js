@@ -181,7 +181,7 @@ class Profile extends React.Component {
                 <Header page={this.state.profile ? `${this.state.profile.first_name} ${this.state.profile.last_name}` : 'Perfil'}
                     backArrow={true}
                 />
-                {!this.state.profile ? <></> :
+                {this.state.profile ?
                     <div className="content">
                         <div className="d-flex justify-content-between align-items-center profile-data-container">
                             <div className="d-flex flex-column align-items-start">
@@ -223,6 +223,10 @@ class Profile extends React.Component {
                             <Posts profile={this.state.profile} fetchProfile={this.fetchProfile} /> :
                             <Interests profile={this.state.profile} />
                         }
+                    </div>
+                    :
+                    <div className="profile-page-loader-container">
+                        <div className="loader" />
                     </div>
                 }
             </>

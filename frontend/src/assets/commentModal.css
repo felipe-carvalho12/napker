@@ -1,0 +1,33 @@
+.comment-form {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+}
+
+.comment-form .chat-emoji-list {
+    left: -14%!important;
+    top: 100%!important;
+}
+
+.comment-form .fa-smile {
+    color: var(--primary-color);
+    font-size: 25px;
+    margin-right: 10px;
+    margin-bottom: 0!important;
+    padding: 10px;
+    border-radius: 50%;
+}
+
+.comment-form .fa-smile:hover {
+    background: var(--secondary-color);
+    cursor: pointer;
+}
+
+.comment-form input[type=text] {
+    height: 37px;
+}
+
+.comment-form button {
+    height: 37px;
+}

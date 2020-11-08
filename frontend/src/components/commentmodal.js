@@ -1,11 +1,31 @@
-import React, { useEffect } from 'react'
+import React, { useState } from 'react'
 import Modal from 'react-bootstrap/Modal'
+import Picker from 'emoji-picker-react'
+
+import { csrftoken } from '../utils'
+import { SERVER_URL } from '../settings'
 
 export default function CommentModal(props) {
-    const comment = e => {
-        e.preventDefault()
-        props.commentPost(document.querySelector('#comment-modal-input').value)
-        props.hideModal()
+    const [commentContent, setCommentContent] = useState('')
+
+    const post = props.post
+
+    const handleCommentChange = e => {
+        setCommentContent(e.target.value)
+        const el = document.querySelector('#comment-form-submit')
+        el.disabled = e.target.value === ''
+    }
+
+    const openCloseEmojiList = () => {
+        const el = document.querySelector('#emoji-list-container')
+        const style = el.style
+        if (!style.display) style.display = 'none'
+        style.display = style.display === 'none' ? 'initial' : 'none'
+    }
+
+    const onEmojiSelect = (event, emojiObject) => {
+        setCommentContent(commentContent + emojiObject.emoji)
+        document.querySelector('#comment-form-submit').disabled = false
     }
 
     return (
@@ -16,17 +36,52 @@ export default function CommentModal(props) {
                 <Modal.Title><strong>Comentar</strong></Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <form>
+                <div className="post-container">
+                    <div className="d-flex justify-content-between">
+                        <div className="post-row">
+                            <div className="post-col">
+                                <img src={`${SERVER_URL}${post.author.photo}`}
+                                    className="profile-img-med"
+                                />
+                            </div>
+                            <div className="post-col">
+                                <div style={{ height: '30px' }}>
+                                    <strong>{post.author.first_name} {post.author.last_name} </strong>
+                                    <p className="text-secondary d-inline-block">
+                                        @{post.author.user.username} • {post.created.split('-').reverse().join('/')}
+                                    </p>
+                                </div>
+                                <div style={{ textAlign: 'start' }}>
+                                    {post.content}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <form action={`${SERVER_URL}/post-api/comment-post/${post.id}`} method="POST" className="comment-form">
+                    <input type="hidden" name="csrfmiddlewaretoken" value={csrftoken} />
+                    <label
+                        className="far fa-smile"
+                        onClick={openCloseEmojiList}
+                    />
                     <input
+                        type="text"
                         className="form-control"
-                        id="comment-modal-input"
+                        name="comment-content"
+                        value={commentContent}
                         placeholder="Comente alguma coisa"
                         style={{ marginRight: '5px' }}
+                        onChange={handleCommentChange}
                     />
+                    <div className="emoji-list-container chat-emoji-list" id="emoji-list-container">
+                        <Picker onEmojiClick={onEmojiSelect} />
+                    </div>
                     <button
                         className="btn btn-primary"
+                        id="comment-form-submit"
                         type="submit"
-                        onClick={comment}
+                        disabled
                     >
                         Enviar
                     </button>

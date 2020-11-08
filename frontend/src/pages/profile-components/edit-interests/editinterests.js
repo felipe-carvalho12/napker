@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 
 import Header from '../../../components/header'
 import PublicInterests from './publicInterests'
@@ -39,7 +38,7 @@ export default function EditInterests() {
     }
 
     return (
-        <>{console.log('rerendered')}
+        <>
             <Header page="Meus interesses" backArrow={true} />
             <div className="content">
                 <p
@@ -48,7 +47,7 @@ export default function EditInterests() {
                 >
                     Interesses atualizados com sucesso
                 </p>
-                {myProfile &&
+                {myProfile ?
                     <div className="interests-page-container">
                         <PublicInterests
                             myProfile={myProfile}
@@ -71,7 +70,11 @@ export default function EditInterests() {
                         >
                             Salvar
                         </button>
-                    </div>}
+                    </div> :
+                    <div className="edit-interests-loader-container">
+                        <div className="loader" />
+                    </div>
+                }
             </div>
         </>
     )

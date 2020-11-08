@@ -47,8 +47,10 @@ class Chat extends React.Component {
         this.handleComponentChange()
     }
 
+
     componentDidUpdate() {
         this.handleComponentChange()
+        document.querySelector('#chat-message-input') && document.querySelector('#chat-message-input').focus()
     }
 
     componentWillReceiveProps(newProps) {
@@ -63,9 +65,8 @@ class Chat extends React.Component {
             WebSocketInstance.connect(newProps.chatId);
 
             this.props.updateMessagesComponent()
-        }
-        if (this.state.otherUsername != newProps.otherUsername) {
             this.setState({
+                message: '',
                 otherUsername: newProps.otherUsername
             })
         }
@@ -108,19 +109,22 @@ class Chat extends React.Component {
         this.setState({ messages: [...this.state.messages, message] })
     }
 
-    messageChangeHandler = event => {
-        this.setState({ message: event.target.value });
+    messageChangeHandler = e => {
+        this.setState({ message: e.target.value })
+        const el = document.querySelector('#chat-message-submit')
+        el.disabled = e.target.value === ''
     };
 
     sendMessageHandler = e => {
-        e.preventDefault();
+        e.preventDefault()
         const messageObject = {
             from: this.props.username,
             content: this.state.message,
             chatId: this.props.chatId
         };
-        WebSocketInstance.newChatMessage(messageObject);
-        this.setState({ message: "" });
+        WebSocketInstance.newChatMessage(messageObject)
+        this.setState({ message: '' })
+        document.querySelector('#chat-message-submit').disabled = true
         this.props.updateMessagesComponent()
 
     };
@@ -168,6 +172,7 @@ class Chat extends React.Component {
 
     onEmojiSelect = (event, emojiObject) => {
         this.setState({ message: this.state.message + emojiObject.emoji })
+        document.querySelector('#chat-message-submit').disabled = false
     }
 
     render() {
@@ -203,9 +208,14 @@ class Chat extends React.Component {
                                 className="message-input"
                                 id="chat-message-input"
                                 value={this.state.message}
+                                autoFocus
                                 onChange={this.messageChangeHandler}
                             />
-                            <button className="btn btn-primary chat-message-submit" id="chat-message-submit">
+                            <button
+                                className="btn btn-primary chat-message-submit"
+                                id="chat-message-submit"
+                                disabled
+                            >
                                 <i class="fas fa-paper-plane" />
                             </button>
                         </form>

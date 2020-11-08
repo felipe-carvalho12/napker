@@ -4,7 +4,7 @@ import { SERVER_URL } from '../../settings'
 import { csrftoken } from '../../utils'
 
 export default function Profiles(props) {
-    const [profiles, setProfiles] = useState([])
+    const [profiles, setProfiles] = useState(null)
     const [filteredProfiles, setFilteredProfiles] = useState(null)
     const [search, setSearch] = useState('')
 
@@ -71,71 +71,79 @@ export default function Profiles(props) {
 
     return (
         <>
-            <div className="form-row">
-                <input type="text"
-                    className="form-control"
+            <div className="profiles-filter-container">
+                <input
+                    type="text"
+                    className="profiles-filter-input"
                     placeholder="Pesquisar"
-                    style={{ width: '400px' }}
                     value={search}
                     onChange={e => setSearch(e.target.value)}
                 />
             </div>
             <div className="list-group">
-                {filteredProfiles ? filteredProfiles.map(profile => {
-                    return (
-                        <Link to={`/user/${profile.slug}`} style={{ color: '#000', textDecoration: 'none' }}>
-                            <li className="list-group-item profile-row filtered-profile" key={profile.id}>
-                                <div className="d-flex justify-content-between">
-                                    <div className="profile-col">
-                                        <img src={`${SERVER_URL}${profile.photo}`}
-                                            className="profile-img-med"
-                                            style={{ marginRight: '10px' }}
-                                        />
-                                        <div className="main-profile-data">
-                                            <strong>{profile.first_name} {profile.last_name}</strong>
-                                            <p className="text-secondary">@{profile.user.username}</p>
+                {profiles || filteredProfiles ?
+                    <div className="profile-list-container">
+                        {filteredProfiles ? filteredProfiles.map(profile => {
+                            return (
+                                <Link to={`/user/${profile.slug}`} style={{ color: '#000', textDecoration: 'none' }}>
+                                    <li className="list-group-item profile-row filtered-profile" key={profile.id}>
+                                        <div className="d-flex justify-content-between">
+                                            <div className="profile-col">
+                                                <img src={`${SERVER_URL}${profile.photo}`}
+                                                    className="profile-img-med"
+                                                    style={{ marginRight: '10px' }}
+                                                />
+                                                <div className="main-profile-data">
+                                                    <strong>{profile.first_name} {profile.last_name}</strong>
+                                                    <p className="text-secondary">@{profile.user.username}</p>
+                                                </div>
+                                            </div>
+                                            <div className="profile-col">
+                                                {profile.bio}
+                                            </div>
+                                            <div className="profile-col">
+
+                                            </div>
+                                        </div>
+                                    </li>
+                                </Link>
+                            )
+                        }) : profiles && profiles.map(profile => {
+                            return (
+                                <li
+                                    className="list-group-item profile-row"
+                                    key={profile.id}
+                                    onClick={() => window.location.href = `/user/${profile.slug}`}
+                                >
+                                    <div className="d-flex justify-content-between">
+                                        <div className="profile-col">
+                                            <img src={`${SERVER_URL}${profile.photo}`}
+                                                className="profile-img-med"
+                                                style={{ marginRight: '10px' }}
+                                            />
+                                            <div className="main-profile-data">
+                                                <strong>{profile.first_name} {profile.last_name}</strong>
+                                                <p className="text-secondary">@{profile.user.username}</p>
+                                            </div>
+                                        </div>
+                                        <div className="profile-col">
+                                            {profile.bio}
+                                        </div>
+                                        <div className="profile-col">
+                                            <button className="btn btn-secondary" data-pk={profile.id} onClick={handleRelationshipUpdate}>
+                                                Solicitar
+                                    </button>
                                         </div>
                                     </div>
-                                    <div className="profile-col">
-                                        {profile.bio}
-                                    </div>
-                                    <div className="profile-col">
-
-                                    </div>
-                                </div>
-                            </li>
-                        </Link>
-                    )
-                }) : profiles && profiles.map(profile => {
-                    return (
-                        <li
-                            className="list-group-item profile-row"
-                            key={profile.id}
-                            onClick={() => window.location.href = `/user/${profile.slug}`}
-                        >
-                            <div className="d-flex justify-content-between">
-                                <div className="profile-col">
-                                    <img src={`${SERVER_URL}${profile.photo}`}
-                                        className="profile-img-med"
-                                        style={{ marginRight: '10px' }}
-                                    />
-                                    <div className="main-profile-data">
-                                        <strong>{profile.first_name} {profile.last_name}</strong>
-                                        <p className="text-secondary">@{profile.user.username}</p>
-                                    </div>
-                                </div>
-                                <div className="profile-col">
-                                    {profile.bio}
-                                </div>
-                                <div className="profile-col">
-                                    <button className="btn btn-secondary" data-pk={profile.user.id} onClick={handleRelationshipUpdate}>
-                                        Solicitar
-                                    </button>
-                                </div>
-                            </div>
-                        </li>
-                    )
-                })}
+                                </li>
+                            )
+                        })
+                        }
+                    </div> :
+                    <div className="profiles-loader-container">
+                        <div className="loader" />
+                    </div>
+                }
             </div>
         </>
     )

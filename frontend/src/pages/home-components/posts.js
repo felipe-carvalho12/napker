@@ -89,12 +89,18 @@ export default class Posts extends React.Component {
         }
     }
 
+    handlePostContentChange = e => {
+        this.setState({ postContent: e.target.value })
+        const el = document.querySelector('#post-form-submit-btn')
+        el.disabled = e.target.value === ''
+    }
+
     handlePostImageChange = e => {
         const reader = new FileReader()
         reader.onload = () => {
             if (reader.readyState === 2) {
                 this.setState({ postFormImagePreview: reader.result })
-                document.querySelector('#post-form-image-preview').style.display = 'initial'
+                document.querySelector('#post-img-container').style.display = 'initial'
             }
         }
         try {
@@ -102,6 +108,12 @@ export default class Posts extends React.Component {
         } catch {
 
         }
+    }
+
+    handleCloseImage = () => {
+        document.querySelector('#post-img-container').style.display = 'none'
+        document.querySelector('#post-image').value = ''
+        this.setState({ postFormImagePreview: null })
     }
 
     openCloseEmojiList = () => {
@@ -113,6 +125,7 @@ export default class Posts extends React.Component {
 
     onEmojiSelect = (event, emojiObject) => {
         this.setState({ postContent: this.state.postContent + emojiObject.emoji })
+        document.querySelector('#post-form-submit-btn').disabled = false
     }
 
     render() {
@@ -142,15 +155,28 @@ export default class Posts extends React.Component {
                                 value={this.state.postContent}
                                 placeholder="No que você está pensando?"
                                 autoFocus
-                                onChange={e => this.setState({ postContent: e.target.value })}
+                                onChange={this.handlePostContentChange}
                             />
                         </div>
-                        <img
-                            src={this.state.postFormImagePreview}
-                            className="post-img"
-                            id="post-form-image-preview"
-                            style={{ display: 'none' }}
-                        />
+                        <div className="w-100 d-flex justify-content-center">
+                            <div
+                                className="post-img-container"
+                                id="post-img-container">
+                                <div
+                                    className="post-img-options"
+                                >
+                                    <i
+                                        className="far fa-times-circle"
+                                        onClick={this.handleCloseImage}
+                                    />
+                                </div>
+                                <img
+                                    src={this.state.postFormImagePreview}
+                                    className="post-img post-form-img-preview"
+                                    id="post-form-img-preview"
+                                />
+                            </div>
+                        </div>
                         <hr />
                         <div className="d-flex justify-content-between" style={{ margin: '0px 70px 0 70px' }}>
                             <div className="post-extra-options">
@@ -171,7 +197,9 @@ export default class Posts extends React.Component {
                             <button
                                 type="submit"
                                 className="btn btn-primary"
+                                id="post-form-submit-btn"
                                 style={{ height: '40px' }}
+                                disabled
                             >
                                 Postar
                             </button>
@@ -181,90 +209,94 @@ export default class Posts extends React.Component {
                         </div>
                     </form>}
                 <div className="post-list">
-                    {this.state.posts && this.state.posts.map(post => {
-                        return (
-                            <li
-                                className="post-container"
-                                id={`profile-post-${post.id}`}
-                                key={post.id}
-                                onClick={() => window.location.href = `/post/${post.id}`}
-                            >
-                                <div className="d-flex justify-content-between">
-                                    <div className="post-row">
-                                        <div className="post-col">
-                                            <Link
-                                                to={post.author.id === this.state.profile.id ?
-                                                    '/perfil' : `/user/${post.author.slug}`}
-                                                onClick={e => e.stopPropagation()}
-                                            >
-                                                <img src={`${SERVER_URL}${post.author.photo}`}
-                                                    className="profile-img-med"
-                                                />
-                                            </Link>
-                                        </div>
-                                        <div className="post-col">
-                                            <Link
-                                                to={post.author.id === this.state.profile.id ?
-                                                    '/perfil' : `/user/${post.author.slug}`}
-                                                style={{ color: '#000' }}
-                                                onClick={e => e.stopPropagation()}
-                                            >
-                                                <div style={{ height: '30px' }}>
-                                                    <strong>{post.author.first_name} {post.author.last_name} </strong>
-                                                    <p className="text-secondary d-inline-block">
-                                                        @{post.author.user.username} • {post.created.split('-').reverse().join('/')}
-                                                    </p>
-                                                </div>
-                                            </Link>
-                                            <div style={{ textAlign: 'start' }}>
-                                                {post.content}
+                    {this.state.posts && this.state.profile ?
+                        this.state.posts.map(post => {
+                            return (
+                                <li
+                                    className="post-container"
+                                    id={`profile-post-${post.id}`}
+                                    key={post.id}
+                                    onClick={() => window.location.href = `/post/${post.id}`}
+                                >
+                                    <div className="d-flex justify-content-between">
+                                        <div className="post-row">
+                                            <div className="post-col">
+                                                <Link
+                                                    to={post.author.id === this.state.profile.id ?
+                                                        '/perfil' : `/user/${post.author.slug}`}
+                                                    onClick={e => e.stopPropagation()}
+                                                >
+                                                    <img src={`${SERVER_URL}${post.author.photo}`}
+                                                        className="profile-img-med"
+                                                    />
+                                                </Link>
                                             </div>
-                                            {post.image &&
-                                                <img src={`${SERVER_URL}${post.image}`} className="post-img" />
-                                            }
+                                            <div className="post-col">
+                                                <Link
+                                                    to={post.author.id === this.state.profile.id ?
+                                                        '/perfil' : `/user/${post.author.slug}`}
+                                                    style={{ color: '#000' }}
+                                                    onClick={e => e.stopPropagation()}
+                                                >
+                                                    <div style={{ height: '30px' }}>
+                                                        <strong>{post.author.first_name} {post.author.last_name} </strong>
+                                                        <p className="text-secondary d-inline-block">
+                                                            @{post.author.user.username} • {post.created.split('-').reverse().join('/')}
+                                                        </p>
+                                                    </div>
+                                                </Link>
+                                                <div style={{ textAlign: 'start' }}>
+                                                    {post.content}
+                                                </div>
+                                                {post.image &&
+                                                    <img src={`${SERVER_URL}${post.image}`} className="post-img" />
+                                                }
+                                            </div>
                                         </div>
-                                    </div>
-                                    {post.author.id === this.state.profile.id &&
-                                        <i
-                                            className="far fa-trash-alt trash-icon text-secondary"
-                                            style={{ margin: '20px 20px 0 0' }}
-                                            onClick={e => this.deletePost(e, post.id)}
-                                        />}
-                                </div>
-                                <div className="post-actions">
-                                    <p className="text-secondary">
-                                        <Link
-                                            to={`/post/${post.id}/comment`}
-                                            className="text-secondary"
-                                            onClick={e => e.stopPropagation()}
-                                        >
+                                        {post.author.id === this.state.profile.id &&
                                             <i
-                                                class="far fa-comment"
-                                            />{post.comments.length}
-                                        </Link>
-                                        {post.likes.map(like => like.profile.id).includes(this.state.profile.id) ?
-                                            <i class="fas fa-heart"
-                                                data-postid={post.id}
-                                                onClick={this.likeUnlikePost}
-                                            />
-                                            :
-                                            <i class="far fa-heart"
-                                                data-postid={post.id}
-                                                onClick={this.likeUnlikePost}
+                                                className="far fa-trash-alt trash-icon text-secondary"
+                                                style={{ margin: '20px 20px 0 0' }}
+                                                onClick={e => this.deletePost(e, post.id)}
                                             />}
-                                        <p className="post-likes-number"
-                                            onClick={e => {
-                                                e.stopPropagation()
-                                                this.setState({ likesModal: { isOpen: true, likes: post.likes } })
-                                            }}
-                                        >
-                                            {post.likes.length}
+                                    </div>
+                                    <div className="post-actions">
+                                        <p className="text-secondary">
+                                            <Link
+                                                to={`/post/${post.id}/comment`}
+                                                className="text-secondary"
+                                                onClick={e => e.stopPropagation()}
+                                            >
+                                                <i
+                                                    class="far fa-comment"
+                                                />{post.comments.length}
+                                            </Link>
+                                            {post.likes.map(like => like.profile.id).includes(this.state.profile.id) ?
+                                                <i class="fas fa-heart"
+                                                    data-postid={post.id}
+                                                    onClick={this.likeUnlikePost}
+                                                />
+                                                :
+                                                <i class="far fa-heart"
+                                                    data-postid={post.id}
+                                                    onClick={this.likeUnlikePost}
+                                                />}
+                                            <p className="post-likes-number"
+                                                onClick={e => {
+                                                    e.stopPropagation()
+                                                    this.setState({ likesModal: { isOpen: true, likes: post.likes } })
+                                                }}
+                                            >
+                                                {post.likes.length}
+                                            </p>
                                         </p>
-                                    </p>
-                                </div>
-                            </li>
-                        )
-                    })}
+                                    </div>
+                                </li>
+                            )
+                        }) :
+                        <div className="posts-loader-container" >
+                            <div className="loader" />
+                        </div>}
                 </div>
             </>
         )

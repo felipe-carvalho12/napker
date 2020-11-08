@@ -1,11 +1,3 @@
-:root {
-    --primary-color: #1DA1F2;
-    --secondary-color: #E8F5FE;
-    --primary-color-hover: #0b80d0;
-    --body-background: #e3e5e9;
-    --white-hover: #eee;
-}
-
 .messages-wrapper {
     height: 89vh;
 }
@@ -20,6 +12,13 @@
 
 .modal-profile-li:hover {
     background: #eee;
+}
+
+.messages-loader-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
 }
 
 .messages-wrapper .chats-list {
@@ -44,7 +43,7 @@
     margin-right: 10px;
     border: none;
     border-radius: 20px;
-    background-color: var(--body-background);
+    background-color: #e3e5e9;
     text-align: start;
     padding: 15px;
 }
@@ -152,7 +151,7 @@
     padding-left: 15px;
     border: none;
     border-radius: 20px;
-    background-color: var(--body-background);
+    background-color: #e3e5e9;
     margin-right: 5px;
 }
 
