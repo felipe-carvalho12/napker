@@ -30,11 +30,10 @@ export default function MyProfile() {
     }
 
     const switchPage = e => {
-        document.querySelectorAll('.profile-page-menu-item-active').forEach(el => {
-            el.classList.remove('profile-page-menu-item-active')
+        document.querySelectorAll('.active-menu-item').forEach(el => {
+            el.classList.remove('active-menu-item')
         })
-        e.target.classList.add('profile-page-menu-item-active')
-        setCurrentPageIsPosts(!currentPageIsPosts)
+        e.target.classList.add('active-menu-item')
     }
 
     const handleProfileImageChange = e => {

@@ -23,10 +23,10 @@ export default function InterestProfiles() {
                 backArrow={true}
             />
             <div className="content">
-                <div className="list-group">
-                    <div className="interests-title-container">
-                        <h3>Perfis interessados em "{interest}"</h3>
-                    </div>
+                <div className="interests-title-container">
+                    <h3>Perfis interessados em "{interest}"</h3>
+                </div>
+                <div className="list-group interest-profile-list">
                     {profiles !== null ? profiles.map(profile => {
                         return (
                             <li

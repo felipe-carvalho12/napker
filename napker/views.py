@@ -7,7 +7,7 @@ from profiles.models import Profile, Interest
 
 def home_view(request, slug=None, id=None, interest=None):
     if request.user.is_authenticated:
-        return render(request, 'pages/index.html')
+        return render(request, 'index.html')
     else:
         return render(request, 'pages/login.html')
 
@@ -19,7 +19,7 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return render(request, 'pages/index.html')
+            return render(request, 'index.html')
         else:
             return render(request, 'pages/login.html', {'message': 'Credenciais inválidas'})
     else:
@@ -76,7 +76,7 @@ def add_interests_view(request):
             i, created = Interest.objects.get_or_create(title=title, public=False)
             profile.interests.add(i)
         profile.save()
-        return render(request, 'pages/index.html')
+        return render(request, 'index.html')
     else:
         if request.user.is_authenticated:
             return render(request, 'pages/index.html')

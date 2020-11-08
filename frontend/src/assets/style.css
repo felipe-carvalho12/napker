@@ -1,6 +1,6 @@
 :root {
   --primary-color: #1DA1F2;
-  --secondary-color: #E8E5EE;
+  --secondary-color: #e8f5fe;
   --primary-color-hover: #0b80d0;
   --body-background: #f3f5f9;
   --white-hover: #eee;
@@ -51,6 +51,10 @@ body {
   margin-right: 30px;
   padding: 15px;
   border-radius: 20px;
+}
+
+.wrapper .sidebar ul .sidebar-menu-item-active {
+  color: var(--primary-color);
 }
 
 .notifications-number {
