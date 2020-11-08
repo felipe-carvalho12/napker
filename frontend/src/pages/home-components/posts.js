@@ -1,5 +1,5 @@
 import React from 'react'
-import Modal from 'react-bootstrap/Modal'
+import Picker from 'emoji-picker-react'
 import { Link } from 'react-router-dom'
 
 import LikesModal from '../../components/likesmodal'
@@ -16,6 +16,7 @@ export default class Posts extends React.Component {
                 isOpen: false,
                 likes: null
             },
+            postContent: '',
             postFormImagePreview: null
         }
     }
@@ -103,6 +104,17 @@ export default class Posts extends React.Component {
         }
     }
 
+    openCloseEmojiList = () => {
+        const el = document.querySelector('#emoji-list-container')
+        const style = el.style
+        if (!style.display) style.display = 'none'
+        style.display = style.display === 'none' ? 'initial' : 'none'
+    }
+
+    onEmojiSelect = (event, emojiObject) => {
+        this.setState({ postContent: this.state.postContent + emojiObject.emoji })
+    }
+
     render() {
         return (
             <>
@@ -127,8 +139,10 @@ export default class Posts extends React.Component {
                             <input type="text"
                                 className="post-content-input"
                                 name="post-content"
+                                value={this.state.postContent}
                                 placeholder="No que você está pensando?"
                                 autoFocus
+                                onChange={e => this.setState({ postContent: e.target.value })}
                             />
                         </div>
                         <img
@@ -149,7 +163,10 @@ export default class Posts extends React.Component {
                                     style={{ display: 'none' }}
                                     onChange={this.handlePostImageChange}
                                 />
-                                <label class="far fa-smile" />
+                                <label
+                                    className="far fa-smile"
+                                    onClick={this.openCloseEmojiList}
+                                />
                             </div>
                             <button
                                 type="submit"
@@ -158,6 +175,9 @@ export default class Posts extends React.Component {
                             >
                                 Postar
                             </button>
+                        </div>
+                        <div className="emoji-list-container" id="emoji-list-container">
+                            <Picker onEmojiClick={this.onEmojiSelect} />
                         </div>
                     </form>}
                 <div className="post-list">

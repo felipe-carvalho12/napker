@@ -2,7 +2,7 @@
     --primary-color: #1DA1F2;
     --secondary-color: #E8F5FE;
     --primary-color-hover: #0b80d0;
-    --body-background: #f3f5f9;
+    --body-background: #e3e5e9;
     --white-hover: #eee;
 }
 
@@ -119,16 +119,36 @@
     border-top-right-radius: 30px;
 }
 
+.chat-emoji-list {
+    left: 30%!important;
+    top: 30%!important;
+}
+
 .messages-wrapper .current-chat .send-message-container {
     display: flex;
     justify-content: center;
+    align-items: center;
     width: 100%;
     border-top: 2px solid var(--body-background);
-    padding: 15px;
+    padding: 3px;
+}
+
+.messages-wrapper .current-chat .send-message-container .fa-smile {
+    color: var(--primary-color);
+    font-size: 25px;
+    margin-right: 10px;
+    padding: 10px;
+    border-radius: 50%;
+}
+
+.messages-wrapper .current-chat .send-message-container .fa-smile:hover {
+    background: var(--secondary-color);
+    cursor: pointer;
 }
 
 .messages-wrapper .current-chat .send-message-container .message-input {
-    width: 60%;
+    width: 70%;
+    height: 40px;
     padding-left: 15px;
     border: none;
     border-radius: 20px;
@@ -140,4 +160,13 @@
     outline: none;
     background: #fff;
     border: 1px solid var(--primary-color);
+}
+
+.messages-wrapper .current-chat .send-message-container .chat-message-submit {
+    height: 40px;
+}
+
+.messages-wrapper .current-chat .send-message-container .chat-message-submit .fa-paper-plane {
+    position: relative;
+    right: 10%;
 }

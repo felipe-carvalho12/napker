@@ -1,4 +1,5 @@
 import React from 'react'
+import Picker from 'emoji-picker-react'
 import { Link } from 'react-router-dom'
 
 import { csrftoken } from '../../utils'
@@ -30,75 +31,6 @@ class Chat extends React.Component {
         }
         this.initialiseChat();
     }
-
-    waitForSocketConnection(callback) {
-        const component = this;
-        setTimeout(function () {
-            if (WebSocketInstance.state() === 1) {
-                console.log("Connection is made");
-                callback();
-                return;
-            } else {
-                console.log("wait for connection...");
-                component.waitForSocketConnection(callback);
-            }
-        }, 100);
-    }
-
-    setMessages(messages) {
-        this.setState({ messages: messages.reverse() })
-    }
-
-    addMessage(message) {
-        this.setState({ messages: [...this.state.messages, message] })
-    }
-
-    messageChangeHandler = event => {
-        this.setState({ message: event.target.value });
-    };
-
-    sendMessageHandler = e => {
-        e.preventDefault();
-        const messageObject = {
-            from: this.props.username,
-            content: this.state.message,
-            chatId: this.props.chatId
-        };
-        WebSocketInstance.newChatMessage(messageObject);
-        this.setState({ message: "" });
-        this.props.updateMessagesComponent()
-
-    };
-
-    renderTimestamp = timestamp => {
-        const ts = new Date(timestamp)
-        return `${ts.getDate()}/${ts.getMonth()}/${ts.getFullYear()} - ${ts.getHours()}:${ts.getMinutes()}`
-    };
-
-    renderMessages = messages => {
-        const currentUser = this.props.username;
-        return messages.map(message => (
-            <li
-                key={message.id}
-                className={message.author === currentUser ? "sent" : "received"}
-            >
-                <p>
-                    {message.content}
-                    <br />
-                    <small>
-                        {this.renderTimestamp(message.timestamp)} {message.author === currentUser ? message.read ? '✓✓' : '✓' : ''}
-                    </small>
-                </p>
-            </li>
-        ));
-    };
-
-    scrollToBottom = () => {
-        if (document.querySelector('#chat-log')) {
-            const chatLog = document.querySelector('#chat-log')
-            chatLog.scrollTop = chatLog.scrollHeight
-        }
-    };
 
     handleComponentChange = () => {
         this.scrollToBottom();
@@ -154,6 +86,90 @@ class Chat extends React.Component {
         }
     }
 
+    waitForSocketConnection(callback) {
+        const component = this;
+        setTimeout(function () {
+            if (WebSocketInstance.state() === 1) {
+                console.log("Connection is made");
+                callback();
+                return;
+            } else {
+                console.log("wait for connection...");
+                component.waitForSocketConnection(callback);
+            }
+        }, 100);
+    }
+
+    setMessages(messages) {
+        this.setState({ messages: messages.reverse() })
+    }
+
+    addMessage(message) {
+        this.setState({ messages: [...this.state.messages, message] })
+    }
+
+    messageChangeHandler = event => {
+        this.setState({ message: event.target.value });
+    };
+
+    sendMessageHandler = e => {
+        e.preventDefault();
+        const messageObject = {
+            from: this.props.username,
+            content: this.state.message,
+            chatId: this.props.chatId
+        };
+        WebSocketInstance.newChatMessage(messageObject);
+        this.setState({ message: "" });
+        this.props.updateMessagesComponent()
+
+    };
+
+    renderTimestamp = timestamp => {
+        const ts = new Date(timestamp)
+        const day = ts.getDate() >= 10 ? ts.getDate() : `0${ts.getDate()}`
+        const month = ts.getMonth() >= 10 ? ts.getMonth() : `0${ts.getMonth()}`
+        const hour = ts.getHours() >= 10 ? ts.getHours() : `0${ts.getHours()}`
+        const minute = ts.getMinutes() >= 10 ? ts.getMinutes() : `0${ts.getMinutes()}`
+        return `${day}/${month}/${ts.getFullYear()} - ${hour}:${minute}`
+    };
+
+    renderMessages = messages => {
+        const currentUser = this.props.username;
+        return messages.map(message => (
+            <li
+                key={message.id}
+                className={message.author === currentUser ? "sent" : "received"}
+            >
+                <p>
+                    {message.content}
+                    <br />
+                    <small>
+                        {this.renderTimestamp(message.timestamp)} {message.author === currentUser ? message.read ? '✓✓' : '✓' : ''}
+                    </small>
+                </p>
+            </li>
+        ));
+    };
+
+    scrollToBottom = () => {
+        if (document.querySelector('#chat-log')) {
+            const chatLog = document.querySelector('#chat-log')
+            chatLog.scrollTop = chatLog.scrollHeight
+        }
+    };
+
+    openCloseEmojiList = () => {
+        const el = document.querySelector('#emoji-list-container')
+        const style = el.style
+        if (!style.display) style.display = 'none'
+        style.display = style.display === 'none' ? 'initial' : 'none'
+    }
+
+    onEmojiSelect = (event, emojiObject) => {
+        this.setState({ message: this.state.message + emojiObject.emoji })
+    }
+
     render() {
         return (
             <>
@@ -174,10 +190,23 @@ class Chat extends React.Component {
                         <div id="chat-log">
                             {this.state.messages ? this.renderMessages(this.state.messages) : ''}
                         </div>
+                        <div className="emoji-list-container chat-emoji-list" id="emoji-list-container">
+                            <Picker onEmojiClick={this.onEmojiSelect} />
+                        </div>
                         <form className="send-message-container" onSubmit={this.sendMessageHandler}>
-                            <input placeholder="Mensagem" className="message-input" id="chat-message-input" value={this.state.message} onChange={this.messageChangeHandler} />
-                            <button className="btn btn-primary" id="chat-message-submit">
-                                <i class="fas fa-paper-plane" style={{ position: 'relative', right: '10%' }} />
+                            <label
+                                className="far fa-smile"
+                                onClick={this.openCloseEmojiList}
+                            />
+                            <input
+                                placeholder="Mensagem"
+                                className="message-input"
+                                id="chat-message-input"
+                                value={this.state.message}
+                                onChange={this.messageChangeHandler}
+                            />
+                            <button className="btn btn-primary chat-message-submit" id="chat-message-submit">
+                                <i class="fas fa-paper-plane" />
                             </button>
                         </form>
                     </div> :

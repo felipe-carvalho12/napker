@@ -99,6 +99,7 @@ body {
 }
 
 .wrapper .main-content .content {
+  position: relative;
   padding: 20px;
   text-align: center;
   border-left: 1px solid #e0e4e8;
@@ -269,6 +270,14 @@ body {
 .post-extra-options .far:hover {
   background: var(--secondary-color);
   cursor: pointer;
+}
+
+.emoji-list-container {
+  display: none;
+  position: absolute;
+  left: 20px;
+  z-index: 1;
+  border: 1px solid rgba(20, 20, 20, 0.2);
 }
 
 .post-list {
