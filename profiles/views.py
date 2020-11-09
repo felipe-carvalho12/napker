@@ -42,22 +42,37 @@ def filter_profiles(request, query):
 
 @api_view(['GET'])
 def profile_list(request):
-    #profile = Profile.objects.get(user=authenticate(request, username='felipe', password='django@12'))
     profile = Profile.objects.get(user=request.user)
     profiles = []
-    for p in Profile.objects.all():
-        if p == profile: continue
-        if p.user in profile.friends.all(): continue
-        if p in [i.receiver for i in Relationship.objects.invitations_sent(profile)]: continue
-        if p in [i.sender for i in Relationship.objects.invitations_received(profile)]: continue
-        profiles.append(p)
-    random.shuffle(profiles)
+    shared_interests_quantity = []
+    for interest in profile.interests.all():
+        for p in Profile.objects.filter(interests__title=interest.title).exclude(user=profile.user):
+            if p in profiles:
+                shared_interests_quantity[profiles.index(p)] += 1
+                continue
+            if p.user in profile.friends.all(): continue
+            if p in [i.receiver for i in Relationship.objects.invitations_sent(profile)]: continue
+            if p in [i.sender for i in Relationship.objects.invitations_received(profile)]: continue
+            profiles.append(p)
+            shared_interests_quantity.append(1)
+    if len(profiles):
+        profiles = list(zip(profiles, shared_interests_quantity))
+        random.shuffle(profiles)
+        profiles = sorted(profiles, key=lambda p: p[1])
+        profiles = [p[0] for p in profiles]
+        profiles.reverse()
+    else:
+        for p in Profile.objects.all().exclude(user=profile.user):
+            if p.user in profile.friends.all(): continue
+            if p in [i.receiver for i in Relationship.objects.invitations_sent(profile)]: continue
+            if p in [i.sender for i in Relationship.objects.invitations_received(profile)]: continue
+            profiles.append(p)
+        random.shuffle(profiles)
     serializer = ProfileSerializer(profiles[:50], many=True)
     return Response(serializer.data)
 
 @api_view(['GET'])
 def interest_profile_list(request, interest):
-    #profile = Profile.objects.get(user=authenticate(request, username='felipe', password='django@12'))
     profile = Profile.objects.get(user=request.user)
     profiles = []
     for p in Profile.objects.filter(interests__title=interest.lower()):
@@ -69,7 +84,6 @@ def interest_profile_list(request, interest):
 
 @api_view(['GET'])
 def my_profile(request):
-    #profile = Profile.objects.get(user=authenticate(request, username='felipe', password='django@12'))
     profile = Profile.objects.get(user=request.user)
     serializer = ProfileSerializer(profile)
     return Response(serializer.data)

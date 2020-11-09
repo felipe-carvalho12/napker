@@ -5,7 +5,7 @@ import Header from '../../components/header'
 import { SERVER_URL } from '../../settings'
 
 export default function Friends() {
-    const [friends, setFriends] = useState([])
+    const [friends, setFriends] = useState(null)
     const [profile, setProfile] = useState(null)
     const { slug } = useParams()
 
@@ -30,32 +30,44 @@ export default function Friends() {
             />
             <div className="content">
                 <div className="list-group profile-friends-container">
-                    {friends && friends.map(friend => {
-                        return (
-                            <Link to={`/user/${friend.slug}`} style={{ color: '#000', textDecoration: 'none' }}>
-                                <li className="list-group-item profile-row filtered-profile profile-friend-list-item" key={friend.id}>
-                                    <div className="d-flex justify-content-between">
-                                        <div className="profile-col">
-                                            <img src={`${SERVER_URL}${friend.photo}`}
-                                                className="profile-img-med"
-                                                style={{ marginRight: '10px' }}
-                                            />
-                                            <div className="main-profile-data">
-                                                <strong>{friend.first_name} {friend.last_name}</strong>
-                                                <p className="text-secondary">@{friend.user.username}</p>
-                                            </div>
-                                        </div>
-                                        <div className="profile-col">
-                                            {friend.bio}
-                                        </div>
-                                        <div className="profile-col">
+                    {friends !== null ?
+                        <>
+                            {friends.length ? friends.map(friend => {
+                                return (
+                                    <Link to={`/user/${friend.slug}`} style={{ color: '#000', textDecoration: 'none' }}>
+                                        <li className="list-group-item profile-row filtered-profile profile-friend-list-item" key={friend.id}>
+                                            <div className="d-flex justify-content-between">
+                                                <div className="profile-col">
+                                                    <img src={`${SERVER_URL}${friend.photo}`}
+                                                        className="profile-img-med"
+                                                        style={{ marginRight: '10px' }}
+                                                    />
+                                                    <div className="main-profile-data">
+                                                        <strong>{friend.first_name} {friend.last_name}</strong>
+                                                        <p className="text-secondary">@{friend.user.username}</p>
+                                                    </div>
+                                                </div>
+                                                <div className="profile-col">
+                                                    {friend.bio}
+                                                </div>
+                                                <div className="profile-col">
 
-                                        </div>
-                                    </div>
-                                </li>
-                            </Link>
-                        )
-                    })}
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </Link>
+                                )
+                            }) :
+                                <h3 style={{ marginTop: '30px' }}>
+                                    {profile ? `${profile.first_name} ainda não possui amigos` : 'Você ainda não possui amigos'}
+                                </h3>
+                            }
+                        </>
+                        :
+                        <div className="profiles-loader-container">
+                            <div className="loader" />
+                        </div>
+                    }
                 </div>
             </div>
         </>

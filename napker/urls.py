@@ -28,6 +28,7 @@ urlpatterns = [
     path('mensagens', pages_view),
     path('mensagens/<str:slug>', pages_view),
     path('perfil', pages_view),
+    path('perfil/meus-interesses', pages_view),
     path('configurações', pages_view),
     path('configurações/bloquear-usuário', pages_view),
     path('configurações/alterar-senha', pages_view),

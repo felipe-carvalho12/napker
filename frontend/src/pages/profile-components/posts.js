@@ -151,7 +151,11 @@ export default function Posts(props) {
                             )
                         }) :
                             <div className="no-posts-container">
-                                <h3 style={{ marginTop: '50px' }}>{profile.first_name} não tem posts</h3>
+                                {profile.id === myprofile.id ?
+                                    <h3 style={{ marginTop: '50px' }}>Você não tem posts</h3>
+                                    :
+                                    <h3 style={{ marginTop: '50px' }}>{profile.first_name} não tem posts</h3>
+                                }
                             </div>
                         }
                     </>
