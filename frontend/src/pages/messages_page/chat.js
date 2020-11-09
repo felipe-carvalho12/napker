@@ -2,7 +2,7 @@ import React from 'react'
 import Picker from 'emoji-picker-react'
 import { Link } from 'react-router-dom'
 
-import { csrftoken } from '../../utils'
+import { csrftoken, openCloseEmojiList } from '../../utils'
 import { SERVER_URL } from '../../settings'
 import WebSocketInstance from './websocket'
 
@@ -112,7 +112,7 @@ class Chat extends React.Component {
     messageChangeHandler = e => {
         this.setState({ message: e.target.value })
         const el = document.querySelector('#chat-message-submit')
-        el.disabled = e.target.value === ''
+        el.disabled = e.target.value.trim() === ''
     };
 
     sendMessageHandler = e => {
@@ -125,6 +125,7 @@ class Chat extends React.Component {
         WebSocketInstance.newChatMessage(messageObject)
         this.setState({ message: '' })
         document.querySelector('#chat-message-submit').disabled = true
+        openCloseEmojiList(true)
         this.props.updateMessagesComponent()
 
     };
@@ -163,13 +164,6 @@ class Chat extends React.Component {
         }
     };
 
-    openCloseEmojiList = () => {
-        const el = document.querySelector('#emoji-list-container')
-        const style = el.style
-        if (!style.display) style.display = 'none'
-        style.display = style.display === 'none' ? 'initial' : 'none'
-    }
-
     onEmojiSelect = (event, emojiObject) => {
         this.setState({ message: this.state.message + emojiObject.emoji })
         document.querySelector('#chat-message-submit').disabled = false
@@ -201,7 +195,8 @@ class Chat extends React.Component {
                         <form className="send-message-container" onSubmit={this.sendMessageHandler}>
                             <label
                                 className="far fa-smile"
-                                onClick={this.openCloseEmojiList}
+                                id="emoji-button"
+                                onClick={() => openCloseEmojiList(false)}
                             />
                             <input
                                 placeholder="Mensagem"

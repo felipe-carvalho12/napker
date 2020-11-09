@@ -36,8 +36,6 @@ def get_profile_by_email(request, email):
 
 @api_view(['GET'])
 def filter_profiles(request, query):
-    #user = authenticate(request, username='felipe', password='django@12')
-    #profiles = [profile for profile in Profile.objects.all() if query.lower() in profile.user.username and profile.user != user]
     profiles = [profile for profile in Profile.objects.all() if query.lower() in profile.user.username and profile.user != request.user]
     serializer = ProfileSerializer(profiles, many=True)
     return Response(serializer.data)

@@ -140,7 +140,7 @@
     border-radius: 50%;
 }
 
-.messages-wrapper .current-chat .send-message-container .fa-smile:hover {
+.messages-wrapper .current-chat .send-message-container .fa-smile:hover, .emoji-button-active {
     background: var(--secondary-color);
     cursor: pointer;
 }

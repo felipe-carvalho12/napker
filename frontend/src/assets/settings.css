@@ -1,0 +1,150 @@
+.settings-page-container {
+    width: 100%;
+    height: 590px;
+    display: flex;
+    background: #fff;
+}
+
+.settings-page-container .settings-page-menu {
+    width: 40%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    border-right: 1px solid var(--border-color);
+}
+
+.settings-page-container .settings-page-menu li {
+    width: 100%;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: large;
+    color: #333;
+    padding: 10px 20px 10px 20px;
+}
+
+.settings-page-container .settings-page-menu .active {
+    background: var(--white-hover);
+}
+
+.settings-page-container .settings-page-menu li:hover {
+    background: var(--white-hover);
+    cursor: pointer;
+}
+
+.settings-description-container {
+    width: 60%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* BLOCK USER */
+
+.settings-description-container .search-user-container {
+    width: 100%;
+    height: 12%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20% 10px 20%;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.settings-description-container .search-user-container .search-user-input {
+    background: var(--body-background);
+    border: none;
+    border-radius: 20px;
+    padding-left: 20px;
+}
+
+.settings-description-container .search-user-container .search-user-input:focus {
+    border: 1px solid var(--primary-color);
+    background: #fff;
+}
+
+.settings-description-container .block-user-profile-list {
+    width: 100%;
+    height: 60%;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.settings-description-container .block-user-profile-list .block-user-profile-item-active {
+    background: var(--white-hover);
+}
+
+.settings-description-container .block-user-profile-list .filtered-profile {
+    border: none;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.settings-description-container .block-user-confirmation-container {
+    width: 100%;
+    height: 28%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* CHANGE PASSWORD */
+
+.change-password-title-container {
+    width: 100%;
+    height: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.change-password-form {
+    width: 100%;
+    height: 60%;
+    padding-top: 20px;
+}
+
+.change-password-form input[type=password] {
+    width: 60%;
+    border: none;
+    outline: none;
+    border-radius: 20px;
+    background: var(--body-background);
+    margin-bottom: 20px;
+    padding: 10px 20px 10px 20px;
+}
+
+.change-password-form input[type=password]:focus {
+    border: 1px solid var(--primary-color);
+    background: #fff;
+}
+
+.change-password-form button {
+    width: 60%;
+}
+
+/* DELETE ACCOUNT */
+
+.delete-account-title-container {
+    width: 100%;
+    height: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.delete-account-confirmation {
+    width: 100%;
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: large;
+    color: #444;
+}
+
+.delete-account-confirmation button {
+    margin-top: 20px;
+}

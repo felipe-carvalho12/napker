@@ -59,18 +59,26 @@ body {
   color: var(--primary-color);
 }
 
-.notifications-number {
+.notifications-text-container {
   display: inline-block;
   position: relative;
   bottom: 10px;
-  margin-bottom: 0;
-  text-align: center;
-  color: #fff;
-  background-color: red;
   min-width: 15px;
   height: 18px;
+  border-radius: 50%;
+}
+
+.notifications-text-container .notifications-text {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff!important;
+  background-color: #f00;
   font-size: 12px;
   border-radius: 50%;
+  padding: 2px;
 }
 
 .wrapper .sidebar ul li .fas {
@@ -113,6 +121,18 @@ body {
 .wrapper .main-content .content {
   position: relative;
   text-align: center;
+}
+
+.home-page-subheader {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 0 5px 0;
+  border-bottom: 1px solid var(--border-color);
+  background: #fff;
+  font-size: large;
+  color: #333;
 }
 
 .loader {
@@ -222,9 +242,10 @@ body {
 }
 
 .notifications-section {
-  background: var(--white-hover);
+  background: var(--secondary-color);
   margin-top: 20px;
   padding: 15px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
   border-radius: 20px;
 }
 

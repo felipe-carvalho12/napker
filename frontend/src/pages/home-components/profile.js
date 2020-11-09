@@ -170,9 +170,11 @@ class Profile extends React.Component {
             el.classList.remove('profile-page-menu-item-active')
         })
         e.target.classList.add('profile-page-menu-item-active')
-        this.setState({
-            currentPageIsPosts: !this.state.currentPageIsPosts
-        })
+        if (e.target.id === 'profile-posts-page-menu-item') {
+            this.setState({ currentPageIsPosts: true })
+        } else if (e.target.id === 'profile-interests-page-menu-item') {
+            this.setState({ currentPageIsPosts: false })
+        }
     }
 
     render() {
@@ -212,10 +214,18 @@ class Profile extends React.Component {
                             </div>
                         </div>
                         <div className="profile-page-menu">
-                            <div className="profile-page-menu-item profile-page-menu-item-active" onClick={this.switchPage}>
+                            <div
+                                className="profile-page-menu-item profile-page-menu-item-active"
+                                id="profile-posts-page-menu-item"
+                                onClick={this.switchPage}
+                            >
                                 Posts ({this.state.profile.posts.length})
                             </div>
-                            <div className="profile-page-menu-item" onClick={this.switchPage}>
+                            <div
+                                className="profile-page-menu-item"
+                                id="profile-interests-page-menu-item"
+                                onClick={this.switchPage}
+                            >
                                 Interesses ({this.state.profile.interests.filter(i => i.public).length})
                             </div>
                         </div>

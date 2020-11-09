@@ -6,8 +6,10 @@ import { csrftoken } from '../utils'
 
 export default function Notifications(props) {
     const [invites, setInvites] = useState(null)
-    const [postLikes, setPostLikes] = useState(null)
-    const [comments, setComments] = useState(null)
+    const [unvisualizedPostLikes, setUnvisualizedPostLikes] = useState(null)
+    const [visualizedPostLikes, setVisualizedPostLikes] = useState(null)
+    const [unvisualizedComments, setUnvisualizedComments] = useState(null)
+    const [visualizedComments, setVisualizedComments] = useState(null)
 
     document.title = 'Notificações / Napker'
 
@@ -17,14 +19,20 @@ export default function Notifications(props) {
             .then(data => setInvites(data))
         fetch(`${SERVER_URL}/post-api/unvisualized-post-likes`)
             .then(response => response.json())
-            .then(data => setPostLikes(data))
+            .then(data => setUnvisualizedPostLikes(data))
         fetch(`${SERVER_URL}/post-api/unvisualized-post-comments`)
             .then(response => response.json())
-            .then(data => setComments(data))
+            .then(data => setUnvisualizedComments(data))
+        fetch(`${SERVER_URL}/post-api/post-likes-visualized-last-2-days`)
+            .then(response => response.json())
+            .then(data => setVisualizedPostLikes(data))
+        fetch(`${SERVER_URL}/post-api/post-comments-visualized-last-2-days`)
+            .then(response => response.json())
+            .then(data => setVisualizedComments(data))
     }, [])
 
     useEffect(() => {
-        if (postLikes && postLikes.length) {
+        if (unvisualizedPostLikes && unvisualizedPostLikes.length) {
             fetch(`${SERVER_URL}/post-api/visualize-likes`)
                 .then(response => response.json())
                 .then(data => {
@@ -32,10 +40,10 @@ export default function Notifications(props) {
                     props.updateNotificationsNumber()
                 })
         }
-    }, [postLikes])
+    }, [unvisualizedPostLikes])
 
     useEffect(() => {
-        if (comments && comments.length) {
+        if (unvisualizedComments && unvisualizedComments.length) {
             fetch(`${SERVER_URL}/post-api/visualize-comments`)
                 .then(response => response.json())
                 .then(data => {
@@ -43,7 +51,7 @@ export default function Notifications(props) {
                     props.updateNotificationsNumber()
                 })
         }
-    }, [comments])
+    }, [unvisualizedComments])
 
     const replyRequest = e => {
         e.stopPropagation()
@@ -74,9 +82,9 @@ export default function Notifications(props) {
             <Header page="Notificações" />
             <div className="content">
                 <>
-                    {invites !== null && postLikes !== null && comments !== null ?
+                    {invites !== null && unvisualizedPostLikes && visualizedPostLikes !== null && unvisualizedComments !== null && visualizedComments !== null ?
                         <>
-                            {!!invites.length || !!postLikes.length || !!comments.length ?
+                            {invites.length || unvisualizedPostLikes.length || visualizedPostLikes.length || unvisualizedComments.length || !!visualizedComments.length ?
                                 <div className="notifications-container">
                                     {!!invites.length &&
                                         <div className="notifications-section">
@@ -116,80 +124,169 @@ export default function Notifications(props) {
 
                                     <br />
 
-                                    {!!postLikes.length &&
+                                    {(unvisualizedPostLikes.length || visualizedPostLikes.length) &&
                                         <div className="notifications-section">
                                             <h4>Curtidas</h4>
-                                            {postLikes.map(like => {
-                                                return (
-                                                    <li className="list-group-item profile-row" key={like.profile.id}>
-                                                        <div className="d-flex justify-content-between">
-                                                            <div className="profile-col">
-                                                                <Link to={`/user/${like.profile.slug}`}>
-                                                                    <img src={`${SERVER_URL}${like.profile.photo}`}
-                                                                        className="profile-img-med"
-                                                                        style={{ marginRight: '10px' }}
-                                                                    />
-                                                                </Link>
-                                                            </div>
-                                                            <div className="profile-col" style={{ fontSize: 'larger' }}>
-                                                                <p>
-                                                                    <Link to={`/user/${like.profile.slug}`} style={{ color: "#000" }}>
-                                                                        @{like.profile.user.username}
-                                                                    </Link> curtiu o seu post.
+                                            {!!unvisualizedPostLikes.length &&
+                                                <>
+                                                    {unvisualizedPostLikes.map(like => {
+                                                        return (
+                                                            <li className="list-group-item profile-row" key={like.profile.id}>
+                                                                <div className="d-flex justify-content-between">
+                                                                    <div className="profile-col">
+                                                                        <Link to={`/user/${like.profile.slug}`}>
+                                                                            <img src={`${SERVER_URL}${like.profile.photo}`}
+                                                                                className="profile-img-med"
+                                                                                style={{ marginRight: '10px' }}
+                                                                            />
+                                                                        </Link>
+                                                                        <div className="notifications-text-container">
+                                                                            <div className="notifications-text">
+                                                                                novo
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="profile-col" style={{ fontSize: 'larger' }}>
+                                                                        <p>
+                                                                            <Link to={`/user/${like.profile.slug}`} style={{ color: "#000" }}>
+                                                                                @{like.profile.user.username}
+                                                                            </Link> curtiu seu post.
                                                                 </p>
-                                                            </div>
-                                                            <div className="profile-col" style={{ justifyContent: 'center' }}>
-                                                                <Link to={`/post/${like.post.id}`}>
-                                                                    <button className="btn btn-primary">Ver post</button>
-                                                                </Link>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                )
-                                            })}
+                                                                    </div>
+                                                                    <div className="profile-col" style={{ justifyContent: 'center' }}>
+                                                                        <Link to={`/post/${like.post.id}`}>
+                                                                            <button className="btn btn-primary">Ver post</button>
+                                                                        </Link>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        )
+                                                    })}
+                                                </>
+                                            }
+
+                                            {!!visualizedPostLikes.length &&
+                                                <>
+                                                    {visualizedPostLikes.map(like => {
+                                                        return (
+                                                            <li className="list-group-item profile-row" key={like.profile.id}>
+                                                                <div className="d-flex justify-content-between">
+                                                                    <div className="profile-col">
+                                                                        <Link to={`/user/${like.profile.slug}`}>
+                                                                            <img src={`${SERVER_URL}${like.profile.photo}`}
+                                                                                className="profile-img-med"
+                                                                                style={{ marginRight: '10px' }}
+                                                                            />
+                                                                        </Link>
+                                                                    </div>
+                                                                    <div className="profile-col" style={{ fontSize: 'larger' }}>
+                                                                        <p>
+                                                                            <Link to={`/user/${like.profile.slug}`} style={{ color: "#000" }}>
+                                                                                @{like.profile.user.username}
+                                                                            </Link> curtiu seu post.
+                                                                </p>
+                                                                    </div>
+                                                                    <div className="profile-col" style={{ justifyContent: 'center' }}>
+                                                                        <Link to={`/post/${like.post.id}`}>
+                                                                            <button className="btn btn-primary">Ver post</button>
+                                                                        </Link>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        )
+                                                    })}
+                                                </>
+                                            }
                                         </div>
                                     }
 
                                     <br />
 
-                                    {!!comments.length &&
+                                    {(unvisualizedComments.length || visualizedComments.length) &&
                                         <div className="notifications-section">
                                             <h4>Comentários</h4>
-                                            {comments.map(comment => {
-                                                return (
-                                                    <li className="list-group-item profile-row" key={comment.author.id}>
-                                                        <div className="d-flex justify-content-between">
-                                                            <div className="profile-col">
-                                                                <Link to={`/user/${comment.author.slug}`}>
-                                                                    <img src={`${SERVER_URL}${comment.author.photo}`}
-                                                                        className="profile-img-med"
-                                                                        style={{ marginRight: '10px' }}
-                                                                    />
-                                                                </Link>
-                                                            </div>
-                                                            <div className="profile-col" style={{ fontSize: 'larger' }}>
-                                                                <p>
-                                                                    <Link to={`/user/${comment.author.slug}`} style={{ color: "#000" }}>
-                                                                        @{comment.author.user.username}
-                                                                    </Link> comentou seu post.
+                                            {!!unvisualizedComments.length &&
+                                                <>
+                                                    {unvisualizedComments.map(comment => {
+                                                        return (
+                                                            <li className="list-group-item profile-row" key={comment.author.id}>
+                                                                <div className="d-flex justify-content-between">
+                                                                    <div className="profile-col">
+                                                                        <Link to={`/user/${comment.author.slug}`}>
+                                                                            <img src={`${SERVER_URL}${comment.author.photo}`}
+                                                                                className="profile-img-med"
+                                                                                style={{ marginRight: '10px' }}
+                                                                            />
+                                                                        </Link>
+                                                                        <div className="notifications-text-container">
+                                                                            <div className="notifications-text">
+                                                                                novo
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="profile-col" style={{ fontSize: 'larger' }}>
+                                                                        <p>
+                                                                            <Link to={`/user/${comment.author.slug}`} style={{ color: "#000" }}>
+                                                                                @{comment.author.user.username}
+                                                                            </Link> comentou seu post.
+                                                                        </p>
+                                                                    </div>
+                                                                    <div className="profile-col" style={{ justifyContent: 'center' }}>
+                                                                        <Link to={`/post/${comment.post.id}`}>
+                                                                            <button className="btn btn-primary">Ver post</button>
+                                                                        </Link>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        )
+                                                    })}
+                                                </>
+                                            }
+
+                                            {!!visualizedComments.length &&
+                                                <>
+                                                    {visualizedComments.map(comment => {
+                                                        return (
+                                                            <li className="list-group-item profile-row" key={comment.author.id}>
+                                                                <div className="d-flex justify-content-between">
+                                                                    <div className="profile-col">
+                                                                        <Link to={`/user/${comment.author.slug}`}>
+                                                                            <img src={`${SERVER_URL}${comment.author.photo}`}
+                                                                                className="profile-img-med"
+                                                                                style={{ marginRight: '10px' }}
+                                                                            />
+                                                                        </Link>
+                                                                    </div>
+                                                                    <div className="profile-col" style={{ fontSize: 'larger' }}>
+                                                                        <p>
+                                                                            <Link to={`/user/${comment.author.slug}`} style={{ color: "#000" }}>
+                                                                                @{comment.author.user.username}
+                                                                            </Link> comentou seu post.
                                                                 </p>
-                                                            </div>
-                                                            <div className="profile-col" style={{ justifyContent: 'center' }}>
-                                                                <Link to={`/post/${comment.post.id}`}>
-                                                                    <button className="btn btn-primary">Ver post</button>
-                                                                </Link>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                )
-                                            })}
+                                                                    </div>
+                                                                    <div className="profile-col" style={{ justifyContent: 'center' }}>
+                                                                        <Link to={`/post/${comment.post.id}`}>
+                                                                            <button className="btn btn-primary">Ver post</button>
+                                                                        </Link>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        )
+                                                    })}
+                                                </>
+                                            }
                                         </div>
                                     }
+
+                                    <br />
+
                                 </div> :
                                 <div className="notifications-container">
                                     <h3 style={{ marginTop: '100px' }}>Você não tem nenhuma notificação</h3>
                                 </div>
                             }
+
+
                         </> :
                         <div className="notifications-loader-container">
                             <div className="loader" />

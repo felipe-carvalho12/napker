@@ -183,7 +183,14 @@ class Messages extends React.Component {
                                                             if (message.read || message.contact.user.username !== profile.user.username) return
                                                             this.incrementUnreadMessagesCounter()
                                                         })}
-                                                        {this.unreadMessagesCounter ? <p className="notifications-number">{this.unreadMessagesCounter}</p> : ''}
+                                                        {this.unreadMessagesCounter ?
+                                                            <div className="notifications-text-container">
+                                                                <div className="notifications-text">
+                                                                    {this.unreadMessagesCounter}
+                                                                </div>
+                                                            </div>
+                                                            : ''
+                                                        }
                                                         <p className="text-secondary" style={{ marginLeft: '5px' }}>@{profile.user.username}</p>
                                                     </div>
                                                     <p className="text-secondary">{this.lastChatMessage.slice(0, 40)}</p>

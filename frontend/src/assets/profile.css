@@ -1,11 +1,4 @@
 @import url('https://kodhus.com/kodhus-ui/kodhus-0.1.0.min.css');
-:root {
-    --primary-color: #1DA1F2;
-    --secondary-color: #E8F5FE;
-    --primary-color-hover: #0b80d0;
-    --body-background: #f3f5f9;
-    --white-hover: #eee;
-}
 
 .profile-page-loader-container {
     width: 100%;
@@ -143,12 +136,24 @@
     background: #fff;
     padding: 15px;
     margin-bottom: 3px;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
 }
 
 .interest-profile-list {
     width: 100%;
+    min-height: 500px;
     padding: 15px;
     background: #fff;
+}
+
+/* FRIENDS */
+
+.profile-friends-container {
+    width: 100%;
+    min-height: 680px;
+    background: #fff;
+}
+
+.profile-friends-container .profile-friend-list-item {
+    border: none;
+    border-bottom: 1px solid var(--border-color);
 }

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 import LikesModal from '../../components/likesmodal'
 import { SERVER_URL } from '../../settings'
-import { csrftoken } from '../../utils'
+import { csrftoken, openCloseEmojiList } from '../../utils'
 
 export default class Posts extends React.Component {
     constructor(props) {
@@ -92,7 +92,7 @@ export default class Posts extends React.Component {
     handlePostContentChange = e => {
         this.setState({ postContent: e.target.value })
         const el = document.querySelector('#post-form-submit-btn')
-        el.disabled = e.target.value === ''
+        el.disabled = e.target.value.trim() === ''
     }
 
     handlePostImageChange = e => {
@@ -101,6 +101,7 @@ export default class Posts extends React.Component {
             if (reader.readyState === 2) {
                 this.setState({ postFormImagePreview: reader.result })
                 document.querySelector('#post-img-container').style.display = 'initial'
+                document.querySelector('#post-form-submit-btn').disabled = false
             }
         }
         try {
@@ -113,14 +114,8 @@ export default class Posts extends React.Component {
     handleCloseImage = () => {
         document.querySelector('#post-img-container').style.display = 'none'
         document.querySelector('#post-image').value = ''
+        if (this.state.postContent.trim() === '') document.querySelector('#post-form-submit-btn').disabled = true
         this.setState({ postFormImagePreview: null })
-    }
-
-    openCloseEmojiList = () => {
-        const el = document.querySelector('#emoji-list-container')
-        const style = el.style
-        if (!style.display) style.display = 'none'
-        style.display = style.display === 'none' ? 'initial' : 'none'
     }
 
     onEmojiSelect = (event, emojiObject) => {
@@ -145,10 +140,12 @@ export default class Posts extends React.Component {
                     >
                         <input type="hidden" name="csrfmiddlewaretoken" value={csrftoken} />
                         <div className="d-flex">
-                            <img
-                                src={`${SERVER_URL}${this.state.profile.photo}`}
-                                className="profile-img-med"
-                            />
+                            <Link to="/perfil">
+                                <img
+                                    src={`${SERVER_URL}${this.state.profile.photo}`}
+                                    className="profile-img-med"
+                                />
+                            </Link>
                             <input type="text"
                                 className="post-content-input"
                                 name="post-content"
@@ -191,7 +188,8 @@ export default class Posts extends React.Component {
                                 />
                                 <label
                                     className="far fa-smile"
-                                    onClick={this.openCloseEmojiList}
+                                    id="emoji-button"
+                                    onClick={() => openCloseEmojiList(false)}
                                 />
                             </div>
                             <button
@@ -213,7 +211,7 @@ export default class Posts extends React.Component {
                         this.state.posts.map(post => {
                             return (
                                 <li
-                                    className="post-container"
+                                    className="post-container post-list-item"
                                     id={`profile-post-${post.id}`}
                                     key={post.id}
                                     onClick={() => window.location.href = `/post/${post.id}`}

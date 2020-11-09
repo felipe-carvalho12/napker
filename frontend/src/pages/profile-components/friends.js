@@ -29,11 +29,11 @@ export default function Friends() {
                 backArrow={true}
             />
             <div className="content">
-                <div className="list-group">
+                <div className="list-group profile-friends-container">
                     {friends && friends.map(friend => {
                         return (
                             <Link to={`/user/${friend.slug}`} style={{ color: '#000', textDecoration: 'none' }}>
-                                <li className="list-group-item profile-row filtered-profile" key={friend.id}>
+                                <li className="list-group-item profile-row filtered-profile profile-friend-list-item" key={friend.id}>
                                     <div className="d-flex justify-content-between">
                                         <div className="profile-col">
                                             <img src={`${SERVER_URL}${friend.photo}`}

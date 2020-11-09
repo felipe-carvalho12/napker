@@ -25,4 +25,21 @@ function handleLogout() {
   }
 }
 
-export { csrftoken, handleLogout };
+function openCloseEmojiList(closing = false) {
+  const el = document.querySelector('#emoji-list-container')
+  const style = el.style
+  if (closing) {
+      style.display = 'none'
+      document.querySelector('#emoji-button').classList.remove('emoji-button-active')
+  } else {
+      if (!style.display || style.display === 'none') {
+          style.display = 'initial'
+          document.querySelector('#emoji-button').classList.add('emoji-button-active')
+      } else {
+          style.display = 'none'
+          document.querySelector('#emoji-button').classList.remove('emoji-button-active')
+      }
+  }
+}
+
+export { csrftoken, handleLogout, openCloseEmojiList };

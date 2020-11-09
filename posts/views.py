@@ -1,4 +1,5 @@
 import json
+import datetime
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.contrib.auth import authenticate
@@ -25,6 +26,32 @@ def post_list(request):
 def get_post(request, post_id):
     post = Post.objects.get(id=post_id)
     serializer = PostSerializer(post)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def post_likes_visualized_on_last_2_days(request):
+    profile = Profile.objects.get(user=request.user)
+    today = datetime.date.today()
+    likes = []
+    for post in profile.posts.all():
+        for like in post.likes.filter(visualized=True).exclude(profile=profile):
+            start_date = today - datetime.timedelta(days=2)
+            if like.updated >= start_date:
+                likes.append(like)
+    serializer = PostLikeSerializer(likes, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def post_comments_visualized_on_last_2_days(request):
+    profile = Profile.objects.get(user=request.user)
+    today = datetime.date.today()
+    comments = []
+    for post in profile.posts.all():
+        for comment in post.comments.filter(visualized=True).exclude(author=profile):
+            start_date = today - datetime.timedelta(days=2)
+            if comment.updated >= start_date:
+                comments.append(comment)
+    serializer = CommentSerializer(comments, many=True)
     return Response(serializer.data)
 
 @api_view(['GET'])

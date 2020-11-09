@@ -4,9 +4,9 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Sidebar from './components/sidebar'
 import Home from './pages/home'
 import Notifications from './pages/notifications'
-import Messages from './pages/messages/messages'
+import Messages from './pages/messages_page/messages'
 import MyProfile from './pages/myprofile'
-import Settings from './pages/settings'
+import Settings from './pages/settings_page/settingsMenu'
 import Profile from './pages/home-components/profile'
 import ProfileFriends from './pages/profile-components/friends'
 import InterestProfiles from './pages/profile-components/interestprofiles'
@@ -60,7 +60,16 @@ export default function App() {
                     )} />
                     <Route path="/perfil" exact component={MyProfile} />
                     <Route path="/perfil/meus-interesses" component={EditInterests} />
-                    <Route path="/configurações" component={Settings} />
+                    <Route path="/configurações" exact component={Settings} />
+                    <Route path="/configurações/bloquear-usuário" exact render={props => (
+                        <Settings {...props} page={'block-user'} />
+                    )} />
+                    <Route path="/configurações/alterar-senha" exact render={props => (
+                        <Settings {...props} page={'change-password'} />
+                    )} />
+                    <Route path="/configurações/deletar-conta" exact render={props => (
+                        <Settings {...props} page={'delete-account'} />
+                    )} />
                     <Route path="/user/:slug" exact render={props => (
                         <Profile {...props} updateNotificationsNumber={updateNotificationsNumber} />
                     )} />

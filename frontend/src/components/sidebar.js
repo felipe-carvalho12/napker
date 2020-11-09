@@ -52,13 +52,26 @@ export default function Sidebar(props) {
                 <Link to="/notificações" style={{ textDecoration: 'none' }}>
                     <li className="sidebar-menu-item" id="notifications-menu" onClick={switchPage}>
                         <i className="fas fa-bell sidebar-menu-item" />
-                        Notificações{!props.notificationsNumber ? '' : <p className="notifications-number">{props.notificationsNumber}</p>}
+                        Notificações
+                        {!props.notificationsNumber ? '' :
+                            <div className="notifications-text-container">
+                                <div className="notifications-text">
+                                    {props.notificationsNumber}
+                                </div>
+                            </div>
+                        }
                     </li>
                 </Link>
                 <Link to="/mensagens" style={{ textDecoration: 'none' }}>
                     <li className="sidebar-menu-item" id="messages-menu" onClick={switchPage}>
                         <i className="fas fa-envelope sidebar-menu-item" />
-                        Mensagens{!props.unreadMessagesNumber ? '' : <p className="notifications-number">{props.unreadMessagesNumber}</p>}
+                        Mensagens{!props.unreadMessagesNumber ? '' :
+                            <div className="notifications-text-container">
+                                <div className="notifications-text">
+                                    {props.unreadMessagesNumber}
+                                </div>
+                            </div>
+                        }
                     </li>
                 </Link>
                 <Link to="/perfil" style={{ textDecoration: 'none' }}>

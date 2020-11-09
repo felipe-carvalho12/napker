@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Modal from 'react-bootstrap/Modal'
 import Picker from 'emoji-picker-react'
 
-import { csrftoken } from '../utils'
+import { csrftoken, openCloseEmojiList } from '../utils'
 import { SERVER_URL } from '../settings'
 
 export default function CommentModal(props) {
@@ -14,13 +14,6 @@ export default function CommentModal(props) {
         setCommentContent(e.target.value)
         const el = document.querySelector('#comment-form-submit')
         el.disabled = e.target.value === ''
-    }
-
-    const openCloseEmojiList = () => {
-        const el = document.querySelector('#emoji-list-container')
-        const style = el.style
-        if (!style.display) style.display = 'none'
-        style.display = style.display === 'none' ? 'initial' : 'none'
     }
 
     const onEmojiSelect = (event, emojiObject) => {
@@ -63,7 +56,8 @@ export default function CommentModal(props) {
                     <input type="hidden" name="csrfmiddlewaretoken" value={csrftoken} />
                     <label
                         className="far fa-smile"
-                        onClick={openCloseEmojiList}
+                        id="emoji-button"
+                        onClick={() => openCloseEmojiList(false)}
                     />
                     <input
                         type="text"

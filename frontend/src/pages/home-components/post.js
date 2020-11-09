@@ -136,7 +136,7 @@ export default function Post(props) {
     }
 
     return (
-        <>
+        <div className="post-page-container">
             {post &&
                 <CommentModal
                     isOpen={commentModalIsOpen}
@@ -231,7 +231,7 @@ export default function Post(props) {
                                                 <div className="post-col">
                                                     <Link to={`/user/${comment.author.slug}`}>
                                                         <img src={`${SERVER_URL}${comment.author.photo}`}
-                                                            className="profile-img-med"
+                                                            className="profile-img-sm"
                                                         />
                                                     </Link>
                                                 </div>
@@ -286,6 +286,6 @@ export default function Post(props) {
                     </div>
                 }
             </div>
-        </>
+        </div>
     )
 }

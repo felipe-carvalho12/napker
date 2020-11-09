@@ -77,6 +77,7 @@ export default function Profiles(props) {
                     className="profiles-filter-input"
                     placeholder="Pesquisar"
                     value={search}
+                    autoFocus
                     onChange={e => setSearch(e.target.value)}
                 />
             </div>

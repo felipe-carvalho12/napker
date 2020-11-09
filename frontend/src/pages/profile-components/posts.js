@@ -83,7 +83,7 @@ export default function Posts(props) {
                         {profile.posts.length ? profile.posts.map(post => {
                             return (
                                 <li
-                                    className="post-container"
+                                    className="post-container post-list-item"
                                     key={post.id}
                                     id={`profile-post-${post.id}`}
                                     onClick={() => window.location.href = `/post/${post.id}`}
