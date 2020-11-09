@@ -19,7 +19,7 @@ export default function Home(props) {
                 <button
                     type="button"
                     className="btn btn-primary"
-                    style={{ marginBottom: '10px', borderRadius: '20px' }}
+                    style={{ margin: '10px', borderRadius: '20px' }}
                     onClick={() => setPage(page === 'Perfis' ? 'Posts' : 'Perfis')}
                 >
                     {page === 'Perfis' ? 'Ver posts' : 'Ver perfis'}

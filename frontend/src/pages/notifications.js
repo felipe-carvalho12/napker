@@ -75,9 +75,9 @@ export default function Notifications(props) {
             <div className="content">
                 <>
                     {invites !== null && postLikes !== null && comments !== null ?
-                        <div className="list-group">
+                        <>
                             {!!invites.length || !!postLikes.length || !!comments.length ?
-                                <div id="notification-list">
+                                <div className="notifications-container">
                                     {!!invites.length &&
                                         <div className="notifications-section">
                                             <h4>Solicitações de amizade</h4>
@@ -172,7 +172,7 @@ export default function Notifications(props) {
                                                                     <Link to={`/user/${comment.author.slug}`} style={{ color: "#000" }}>
                                                                         @{comment.author.user.username}
                                                                     </Link> comentou seu post.
-                                                </p>
+                                                                </p>
                                                             </div>
                                                             <div className="profile-col" style={{ justifyContent: 'center' }}>
                                                                 <Link to={`/post/${comment.post.id}`}>
@@ -186,10 +186,12 @@ export default function Notifications(props) {
                                         </div>
                                     }
                                 </div> :
-                                <h3 style={{ marginTop: '100px' }}>Você não tem nenhuma notificação</h3>
+                                <div className="notifications-container">
+                                    <h3 style={{ marginTop: '100px' }}>Você não tem nenhuma notificação</h3>
+                                </div>
                             }
-                        </div> :
-                        <div className="posts-loader-container">
+                        </> :
+                        <div className="notifications-loader-container">
                             <div className="loader" />
                         </div>
                     }

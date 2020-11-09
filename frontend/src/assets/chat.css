@@ -43,7 +43,7 @@
     margin-right: 10px;
     border: none;
     border-radius: 20px;
-    background-color: #e3e5e9;
+    background-color: var(--body-background);
     text-align: start;
     padding: 15px;
 }
@@ -56,7 +56,7 @@
     display: flex;
     justify-content: flex-start;
     padding: 10px;
-    border-bottom: 2px solid var(--body-background);
+    border-bottom: 1px solid var(--border-color);
 }
 
 .messages-wrapper .chats-list .chats-container .profile-chat-item:hover {
@@ -151,7 +151,7 @@
     padding-left: 15px;
     border: none;
     border-radius: 20px;
-    background-color: #e3e5e9;
+    background-color: var(--body-background);
     margin-right: 5px;
 }
 

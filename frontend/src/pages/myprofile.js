@@ -30,10 +30,15 @@ export default function MyProfile() {
     }
 
     const switchPage = e => {
-        document.querySelectorAll('.active-menu-item').forEach(el => {
-            el.classList.remove('active-menu-item')
+        document.querySelectorAll('.profile-page-menu-item-active').forEach(el => {
+            el.classList.remove('profile-page-menu-item-active')
         })
-        e.target.classList.add('active-menu-item')
+        e.target.classList.add('profile-page-menu-item-active')
+        if (e.target.id === 'profile-posts-page-menu-item') {
+            setCurrentPageIsPosts(true)
+        } else if (e.target.id === 'profile-interests-page-menu-item') {
+            setCurrentPageIsPosts(false)
+        }
     }
 
     const handleProfileImageChange = e => {
@@ -195,12 +200,20 @@ export default function MyProfile() {
                             </div>
                         </div>
                         <div className="profile-page-menu">
-                            <div className="profile-page-menu-item profile-page-menu-item-active" onClick={switchPage}>
+                            <div
+                                className="profile-page-menu-item profile-page-menu-item-active"
+                                id="profile-posts-page-menu-item"
+                                onClick={switchPage}
+                            >
                                 Posts ({profile.posts.length})
-                    </div>
-                            <div className="profile-page-menu-item" onClick={switchPage}>
+                            </div>
+                            <div
+                                className="profile-page-menu-item"
+                                id="profile-interests-page-menu-item"
+                                onClick={switchPage}
+                            >
                                 Interesses ({profile.interests.filter(i => i.public).length})
-                    </div>
+                            </div>
                         </div>
                         {currentPageIsPosts ?
                             <Posts profile={profile} fetchProfile={fetchProfile} /> :

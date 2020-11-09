@@ -22,27 +22,30 @@ from django.views.generic import TemplateView
 from .views import *
 
 urlpatterns = [
-    path('', home_view, name='index'),
-    path('home', home_view),
-    path('notificações', home_view),
-    path('mensagens', home_view),
-    path('mensagens/<str:slug>', home_view),
-    path('perfil', home_view),
-    path('configurações', home_view),
-    path('user/<str:slug>', home_view),
-    path('user/<str:slug>/amigos', home_view),
-    path('post/<int:id>', home_view),
-    path('post/<int:id>/comment', home_view), 
-    path('interesse/<str:interest>', home_view),   
+    path('', index_view, name='index'),
+    path('home', pages_view),
+    path('notificações', pages_view),
+    path('mensagens', pages_view),
+    path('mensagens/<str:slug>', pages_view),
+    path('perfil', pages_view),
+    path('configurações', pages_view),
+    path('user/<str:slug>', pages_view),
+    path('user/<str:slug>/amigos', pages_view),
+    path('post/<int:id>', pages_view),
+    path('post/<int:id>/comment', pages_view), 
+    path('interesse/<str:interest>', pages_view),
+
     path('signup', signup_view, name='signup'),
     path('interesses', add_interests_view, name='interests'),
     path('update-profile', update_profile),
     path('login', login_view, name='login'),
     path('logout', logout_view, name='logout'),
-    path('admin/', admin.site.urls),
+
     path('profile-api/', include('profiles.urls')),
     path('chat-api/', include('chat.urls')),
     path('post-api/', include('posts.urls')),
+
+    path('admin/', admin.site.urls),
 ]
 
 if settings.DEBUG:

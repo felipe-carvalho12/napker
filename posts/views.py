@@ -11,7 +11,6 @@ from .models import *
 # Create your views here.
 @api_view(['GET'])
 def post_list(request):
-    #profile = Profile.objects.get(user=authenticate(request, username='felipe', password='django@12'))
     profile = Profile.objects.get(user=request.user)
     posts = list(profile.get_all_posts())
     for friend_user in profile.friends.all():
@@ -30,7 +29,6 @@ def get_post(request, post_id):
 
 @api_view(['GET'])
 def unvisualized_post_likes(request):
-    #profile = Profile.objects.get(user=authenticate(request, username='felipe', password='django@12'))
     profile = Profile.objects.get(user=request.user)
     likes = []
     for post in profile.posts.all():
@@ -40,7 +38,6 @@ def unvisualized_post_likes(request):
     return Response(serializer.data)
 
 def visualize_likes(request):
-    #profile = Profile.objects.get(user=authenticate(request, username='felipe', password='django@12'))
     profile = Profile.objects.get(user=request.user)
     for post in profile.posts.all():
         for like in post.likes.filter(visualized=False):
@@ -50,7 +47,6 @@ def visualize_likes(request):
 
 @api_view(['GET'])
 def unvisualized_post_comments(request):
-    #profile = Profile.objects.get(user=authenticate(request, username='felipe', password='django@12'))
     profile = Profile.objects.get(user=request.user)
     comments = []
     for post in profile.posts.all():
@@ -60,7 +56,6 @@ def unvisualized_post_comments(request):
     return Response(serializer.data)
 
 def visualize_comments(request):
-    #profile = Profile.objects.get(user=authenticate(request, username='felipe', password='django@12'))
     profile = Profile.objects.get(user=request.user)
     for post in profile.posts.all():
         for comments in post.comments.filter(visualized=False):
@@ -102,7 +97,6 @@ def delete_comment(request, comment_id):
         return JsonResponse(f'Deleted comment #{comment_id}', safe=False)
 
 def like_post(request, post_id):
-    #profile = Profile.objects.get(user=authenticate(request, username='felipe', password='django@12'))
     profile = Profile.objects.get(user=request.user)
     post = Post.objects.get(id=post_id)
     if not PostLike.objects.filter(profile=profile, post=post).exists():
@@ -110,14 +104,12 @@ def like_post(request, post_id):
     return JsonResponse(f'Liked post #{post.id}', safe=False)
 
 def unlike_post(request, post_id):
-    #profile = Profile.objects.get(user=authenticate(request, username='felipe', password='django@12'))
     profile = Profile.objects.get(user=request.user)
     post = Post.objects.get(id=post_id)
     PostLike.objects.get(profile=profile, post=post).delete()
     return JsonResponse(f'Unliked post #{post.id}', safe=False)
 
 def like_comment(request, comment_id):
-    #profile = Profile.objects.get(user=authenticate(request, username='felipe', password='django@12'))
     profile = Profile.objects.get(user=request.user)
     comment = Comment.objects.get(id=comment_id)
     if not CommentLike.objects.filter(profile=profile, comment=comment).exists():
@@ -125,7 +117,6 @@ def like_comment(request, comment_id):
     return JsonResponse(f'Liked comment #{comment.id}', safe=False)
 
 def unlike_comment(request, comment_id):
-    #profile = Profile.objects.get(user=authenticate(request, username='felipe', password='django@12'))
     profile = Profile.objects.get(user=request.user)
     comment = Comment.objects.get(id=comment_id)
     CommentLike.objects.get(profile=profile, comment=comment).delete()

@@ -28,6 +28,7 @@
 .create-post-form {
     background: #fff;
     padding: 15px 15px 5px 15px;
+    margin-bottom: 20px;
 }
 
 .create-post-form .post-content-input {
@@ -107,7 +108,7 @@
 .post-container {
     background: #fff;
     width: 100%;
-    margin-top: 2px;
+    border-bottom: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
     animation-name: hide;

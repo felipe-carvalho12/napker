@@ -4,13 +4,17 @@ from django.shortcuts import render, redirect
 
 from profiles.models import Profile, Interest
 
+def index_view(request):
+    if request.user.is_authenticated:
+        return redirect('/home')
+    else:
+        return redirect('/login')
 
-def home_view(request, slug=None, id=None, interest=None):
+def pages_view(request, slug=None, id=None, interest=None):
     if request.user.is_authenticated:
         return render(request, 'index.html')
     else:
-        return render(request, 'pages/login.html')
-
+        redirect('/login')
 
 def login_view(request):
     if request.method == 'POST':
@@ -19,7 +23,7 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return render(request, 'index.html')
+            return redirect('/')
         else:
             return render(request, 'pages/login.html', {'message': 'Credenciais inválidas'})
     else:
@@ -28,7 +32,7 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return render(request, 'pages/login.html')
+    return redirect('/login')
 
 
 def signup_view(request):

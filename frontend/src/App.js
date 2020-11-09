@@ -50,6 +50,7 @@ export default function App() {
             <Sidebar notificationsNumber={notificationsNumber} unreadMessagesNumber={unreadMessagesNumber} />
             <div className="main-content">
                 <Switch>
+                    <Route path="/home" component={Home} />
                     <Route path="/notificações" render={props => (
                         <Notifications {...props} updateNotificationsNumber={updateNotificationsNumber} />
                     )} />
@@ -68,8 +69,7 @@ export default function App() {
                     <Route path="/post/:id/comment" render={props => (
                         <Post {...props} commentModalIsOpen={true} />
                     )} />
-                    <Route path="/interesse/:interest" component={InterestProfiles} />
-                    <Route path="/" component={Home} />
+                    <Route path="/interesses/:interest" component={InterestProfiles} />
                 </Switch>
             </div>
         </Router>

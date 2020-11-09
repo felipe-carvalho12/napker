@@ -16,7 +16,7 @@ export default function Interests(props) {
                                     <hr />
                                     <li className="interest-item">
                                         {interest.title[0].toUpperCase() + interest.title.slice(1)}
-                                        <Link to={`/interesse/${interest.title}`}>
+                                        <Link to={`/interesses/${interest.title}`}>
                                             <button className="btn-secondary" style={{ padding: '5px' }}>Pesquisar usuários</button>
                                         </Link>
                                     </li>
