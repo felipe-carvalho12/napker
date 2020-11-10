@@ -29,27 +29,27 @@ def get_post(request, post_id):
     return Response(serializer.data)
 
 @api_view(['GET'])
-def post_likes_visualized_on_last_2_days(request):
+def post_likes_visualized_on_last_day(request):
     profile = Profile.objects.get(user=request.user)
     today = datetime.date.today()
     likes = []
     for post in profile.posts.all():
         for like in post.likes.filter(visualized=True).exclude(profile=profile):
-            start_date = today - datetime.timedelta(days=2)
-            if like.updated >= start_date:
+            start_date = today - datetime.timedelta(days=1)
+            if like.updated >= start_date and like not in likes:
                 likes.append(like)
     serializer = PostLikeSerializer(likes, many=True)
     return Response(serializer.data)
 
 @api_view(['GET'])
-def post_comments_visualized_on_last_2_days(request):
+def post_comments_visualized_on_last_day(request):
     profile = Profile.objects.get(user=request.user)
     today = datetime.date.today()
     comments = []
     for post in profile.posts.all():
         for comment in post.comments.filter(visualized=True).exclude(author=profile):
-            start_date = today - datetime.timedelta(days=2)
-            if comment.updated >= start_date:
+            start_date = today - datetime.timedelta(days=1)
+            if comment.updated >= start_date and comment not in comments:
                 comments.append(comment)
     serializer = CommentSerializer(comments, many=True)
     return Response(serializer.data)

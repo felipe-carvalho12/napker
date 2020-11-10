@@ -1,5 +1,4 @@
 @import url('https://kodhus.com/kodhus-ui/kodhus-0.1.0.min.css');
-
 .profile-page-loader-container {
     width: 100%;
     height: 600px;
@@ -38,7 +37,6 @@
 
 .profile-page-menu {
     width: 100%;
-    margin-top: 3px;
     background: #fff;
     color: #666;
     font-weight: bold;
@@ -51,6 +49,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .profile-page-menu .profile-page-menu-item:hover {
@@ -75,9 +74,20 @@
 
 /* INTERESTS */
 
+.edit-interests-success-message {
+    width: 100%;
+    background: #fff;
+    color: #0c0;
+    display: none;
+    margin: 0;
+    padding: 5px;
+    font-size: large;
+    font-weight: bold;
+    border-bottom: 1px solid var(--border-color);
+}
+
 .interests-page-container {
     background: #fff;
-    margin-top: 2px;
     padding: 30px;
     text-align: start;
 }
@@ -124,7 +134,7 @@
 
 .edit-interests-loader-container {
     width: 100%;
-    height: 500px;
+    height: 600px;
     background: #fff;
     display: flex;
     justify-content: center;

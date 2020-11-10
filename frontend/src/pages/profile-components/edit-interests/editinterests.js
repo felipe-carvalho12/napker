@@ -42,8 +42,8 @@ export default function EditInterests() {
             <Header page="Meus interesses" backArrow={true} />
             <div className="content">
                 <p
+                    className="edit-interests-success-message"
                     id="interests-updated-message"
-                    style={{ background: '#fff', color: '#0f0', display: 'none', padding: '5px', fontSize: 'large', fontWeight: 'bold' }}
                 >
                     Interesses atualizados com sucesso
                 </p>
