@@ -40,9 +40,7 @@ def filter_profiles(request, query):
     serializer = ProfileSerializer(profiles, many=True)
     return Response(serializer.data)
 
-@api_view(['GET'])
-def profile_list(request):
-    profile = Profile.objects.get(user=request.user)
+def get_profile_list(profile):
     profiles = []
     shared_interests_quantity = []
     for interest in profile.interests.all():
@@ -51,6 +49,8 @@ def profile_list(request):
                 shared_interests_quantity[profiles.index(p)] += 1
                 continue
             if p.user in profile.friends.all(): continue
+            if p.user in profile.blocked_users.all(): continue
+            if profile.user in p.blocked_users.all(): continue
             if p in [i.receiver for i in Relationship.objects.invitations_sent(profile)]: continue
             if p in [i.sender for i in Relationship.objects.invitations_received(profile)]: continue
             profiles.append(p)
@@ -68,6 +68,12 @@ def profile_list(request):
             if p in [i.sender for i in Relationship.objects.invitations_received(profile)]: continue
             profiles.append(p)
         random.shuffle(profiles)
+    return profiles
+
+@api_view(['GET'])
+def profile_list_view(request):
+    profile = Profile.objects.get(user=request.user)
+    profiles = get_profile_list(profile)
     serializer = ProfileSerializer(profiles[:50], many=True)
     return Response(serializer.data)
 
@@ -98,7 +104,6 @@ def friends_profiles(request, slug):
 
 @api_view(['GET'])
 def get_relationship(request, slug):
-    #profile = Profile.objects.get(user=authenticate(request, username='felipe', password='django@12'))
     profile = Profile.objects.get(user=request.user)
     other_user = User.objects.get(username=slug)
     other_profile = Profile.objects.get(user=other_user)
@@ -117,7 +122,6 @@ def get_relationship(request, slug):
 
 @api_view(['GET'])
 def friend_requests_received(request):
-    #profile = Profile.objects.get(user=authenticate(request, username='felipe', password='django@12'))
     profile = Profile.objects.get(user=request.user)
     invites = Relationship.objects.invitations_received(profile)
     serializer = RelationshipSerializer(invites, many=True)
@@ -125,7 +129,6 @@ def friend_requests_received(request):
 
 @api_view(['GET'])
 def pending_sent_friend_requests(request):
-    #profile = Profile.objects.get(user=authenticate(request, username='felipe', password='django@12'))
     profile = Profile.objects.get(user=request.user)
     relationships = [r for r in profile.sender.all() if r.status == 'sent']
     serializer = RelationshipSerializer(relationships, many=True)
@@ -134,7 +137,6 @@ def pending_sent_friend_requests(request):
 @api_view(['POST'])
 def remove_from_friends(request):
     if request.method == 'POST':
-        #profile = Profile.objects.get(user=authenticate(request, username='felipe', password='django@12'))
         profile = Profile.objects.get(user=request.user)
         other_profile = Profile.objects.get(id=int(request.data))
         relationship = Relationship.objects.filter(Q(sender=profile) | Q(sender=other_profile), Q(receiver=profile) | Q(receiver=other_profile), status='accepted').first()
@@ -145,7 +147,6 @@ def remove_from_friends(request):
 @api_view(['POST'])
 def send_friends_request(request):
     if request.method == 'POST':
-        #sender = Profile.objects.get(user=authenticate(request, username='felipe', password='django@12'))
         sender = Profile.objects.get(user=request.user)
         receiver = Profile.objects.get(id=int(request.data))
         if Relationship.objects.filter(Q(sender=sender) | Q(sender=receiver), Q(receiver=sender) | Q(receiver=receiver)).exists():
@@ -156,7 +157,6 @@ def send_friends_request(request):
 @api_view(['POST'])
 def cancel_friend_request(request):
     if request.method == 'POST':
-        #sender = Profile.objects.get(user=authenticate(request, username='felipe', password='django@12'))
         sender = Profile.objects.get(user=request.user)
         receiver = Profile.objects.get(id=int(request.data))
         r = Relationship.objects.get(sender=sender, receiver=receiver, status='sent')
@@ -165,7 +165,6 @@ def cancel_friend_request(request):
 
 @api_view(['POST'])
 def reply_friend_request(request):
-    #profile = Profile.objects.get(user=authenticate(request, username='felipe', password='django@12'))
     profile = Profile.objects.get(user=request.user)
     sender = Profile.objects.get(id=int(request.data['senderid']))
     reply = request.data['reply']
@@ -178,8 +177,23 @@ def reply_friend_request(request):
     return Response('Replied with success')
 
 @api_view(['POST'])
+def block_profile(request):
+    profile = Profile.objects.get(user=request.user)
+    profile_to_block = Profile.objects.get(id=request.data['id'])
+    profile.blocked_users.add(profile_to_block.user)
+    profile.save()
+    return Response('Profile blocked')
+
+@api_view(['POST'])
+def unblock_profile(request):
+    profile = Profile.objects.get(user=request.user)
+    profile_to_unblock = Profile.objects.get(id=request.data['id'])
+    profile.blocked_users.remove(profile_to_unblock.user)
+    profile.save()
+    return Response('Profile unblocked')
+
+@api_view(['POST'])
 def set_myinterests(request):
-    #profile = Profile.objects.get(user=authenticate(request, username='felipe', password='django@12'))
     profile = Profile.objects.get(user=request.user)
     profile.interests.clear()
     for title in request.data['public_interests']:

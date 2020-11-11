@@ -26,6 +26,7 @@ class Profile(models.Model):
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
     friends = models.ManyToManyField(User, blank=True, related_name='friends')
+    blocked_users = models.ManyToManyField(User, blank=True, related_name='blocked_me')
     interests = models.ManyToManyField(Interest, related_name='profiles')
     
     def __str__(self):

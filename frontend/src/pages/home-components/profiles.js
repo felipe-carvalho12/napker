@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { SERVER_URL } from '../../settings'
+import { SERVER_URL, DEFAULT_AVATAR_URL } from '../../settings'
 import { csrftoken } from '../../utils'
 
-export default function Profiles(props) {
+export default function Profiles() {
+    const [myProfile, setMyProfile] = useState(null)
     const [profiles, setProfiles] = useState(null)
     const [filteredProfiles, setFilteredProfiles] = useState(null)
     const [search, setSearch] = useState('')
 
     useEffect(() => {
+        fetch(`${SERVER_URL}/profile-api/myprofile`)
+            .then(response => response.json())
+            .then(data => setMyProfile(data))
         fetch(`${SERVER_URL}/profile-api/profile-list`)
             .then(response => response.json())
             .then(data => {
@@ -82,33 +86,61 @@ export default function Profiles(props) {
                 />
             </div>
             <div className="list-group">
-                {profiles || filteredProfiles ?
+                {myProfile && (profiles || filteredProfiles) ?
                     <div className="profile-list-container">
                         {filteredProfiles ? filteredProfiles.map(profile => {
-                            return (
-                                <Link to={`/user/${profile.slug}`} style={{ color: '#000', textDecoration: 'none' }}>
-                                    <li className="list-group-item profile-row filtered-profile" key={profile.id}>
-                                        <div className="d-flex justify-content-between">
-                                            <div className="profile-col">
-                                                <img src={`${SERVER_URL}${profile.photo}`}
-                                                    className="profile-img-med"
-                                                    style={{ marginRight: '10px' }}
-                                                />
-                                                <div className="main-profile-data">
-                                                    <strong>{profile.first_name} {profile.last_name}</strong>
-                                                    <p className="text-secondary">@{profile.user.username}</p>
+                            console.log(myProfile.blocked_users, profile.user)
+                            if (profile.blocked_users.map(u => u.id).includes(myProfile.user.id)) {
+                                return (
+                                    <Link to={`/user/${profile.slug}`} style={{ color: '#000', textDecoration: 'none' }}>
+                                        <li className="list-group-item profile-row filtered-profile" key={profile.id}>
+                                            <div className="d-flex justify-content-between">
+                                                <div className="profile-col">
+                                                    <img src={`${SERVER_URL}${DEFAULT_AVATAR_URL}`}
+                                                        className="profile-img-med"
+                                                        style={{ marginRight: '10px' }}
+                                                    />
+                                                    <div className="main-profile-data">
+                                                        <strong>{profile.first_name} {profile.last_name}</strong>
+                                                        <p className="text-secondary">@{profile.user.username}</p>
+                                                    </div>
+                                                </div>
+                                                <div className="profile-col">
+                                                    O usuário te bloqueou
+                                                </div>
+                                                <div className="profile-col">
+    
                                                 </div>
                                             </div>
-                                            <div className="profile-col">
-                                                {profile.bio}
-                                            </div>
-                                            <div className="profile-col">
+                                        </li>
+                                    </Link>
+                                )
+                            } else {
+                                return (
+                                    <Link to={`/user/${profile.slug}`} style={{ color: '#000', textDecoration: 'none' }}>
+                                        <li className="list-group-item profile-row filtered-profile" key={profile.id}>
+                                            <div className="d-flex justify-content-between">
+                                                <div className="profile-col">
+                                                    <img src={`${SERVER_URL}${profile.photo}`}
+                                                        className="profile-img-med"
+                                                        style={{ marginRight: '10px' }}
+                                                    />
+                                                    <div className="main-profile-data">
+                                                        <strong>{profile.first_name} {profile.last_name}</strong>
+                                                        <p className="text-secondary">@{profile.user.username}</p>
+                                                    </div>
+                                                </div>
+                                                <div className="profile-col">
+                                                    {profile.bio}
+                                                </div>
+                                                <div className="profile-col">
 
+                                                </div>
                                             </div>
-                                        </div>
-                                    </li>
-                                </Link>
-                            )
+                                        </li>
+                                    </Link>
+                                )
+                            }
                         }) : profiles && profiles.map(profile => {
                             return (
                                 <li

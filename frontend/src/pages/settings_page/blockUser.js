@@ -24,6 +24,10 @@ export default function BlockUser() {
         document.getElementById(id).classList.add('block-user-profile-item-active')
     }
 
+    const blockProfile = profile => {
+        
+    }
+
     return (
         <div className="settings-description-container">
             <div className="search-user-container">
@@ -75,7 +79,11 @@ export default function BlockUser() {
                 {selectedProfile ?
                     <div>
                         <h4>Bloquear @{selectedProfile.user.username} ?</h4>
-                        <button className="btn btn-danger">Bloquear</button>
+                        <button
+                            className="btn btn-danger"
+                            onClick={() => blockProfile(selectedProfile)}
+                        >Bloquear
+                        </button>
                     </div>
                     :
                     <h3>Selecione o usuário que deseja bloquear</h3>

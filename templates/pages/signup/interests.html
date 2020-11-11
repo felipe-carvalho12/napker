@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
     <title>Criar conta / Napker</title>
-    <link rel="shortcut icon" type="image/png" href="{% static 'media/favicon.ico' %}" />
+    <link rel="shortcut icon" type="image/png" href="{% static 'media/favicon.png' %}" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'css/signupInterests.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
@@ -21,7 +21,7 @@
                 <div class="col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6">
                     <form action="{% url 'interests' %}" class="form_horizontal" method="POST">{% csrf_token %}
                         <div class="form_icon">
-                            <img src="{% static 'media/favicon.ico' %}">
+                            <img src="{% static 'media/favicon.png' %}">
                         </div>
                         <div class="title">Quais os seus principais interesses?</div>
                         {% if message %}

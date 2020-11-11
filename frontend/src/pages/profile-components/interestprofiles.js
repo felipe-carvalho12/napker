@@ -30,7 +30,7 @@ export default function InterestProfiles() {
                     {profiles !== null ? profiles.map(profile => {
                         return (
                             <li
-                                className="list-group-item profile-row filtered-profile"
+                                className="list-group-item profile-row filtered-profile interest-profile-row"
                                 key={profile.id}
                                 onClick={() => window.location.href = `/user/${profile.slug}`}
                             >

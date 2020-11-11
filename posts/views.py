@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
+from profiles.views import get_profile_list
 from profiles.serializers import PostSerializer, PostLikeSerializer, CommentSerializer, CommentLikeSerializer
 from .models import *
 
@@ -13,13 +14,21 @@ from .models import *
 @api_view(['GET'])
 def post_list(request):
     profile = Profile.objects.get(user=request.user)
-    posts = list(profile.get_all_posts())
+    posts = []
+
     for friend_user in profile.friends.all():
         friend_profile = Profile.objects.get(user=friend_user)
         posts.extend(friend_profile.get_all_posts())
-    posts = sorted(posts, key=lambda post: post.created)
+        
+    if not len(posts):
+        profiles = get_profile_list(profile)
+        for p in profiles:
+            posts.extend(p.get_all_posts())
+
+    posts.extend(profile.get_all_posts())
+    posts = sorted(posts, key=lambda post: post.created)[:30]
     posts.reverse()
-    serializer = PostSerializer(posts[:50], many=True)
+    serializer = PostSerializer(posts, many=True)
     return Response(serializer.data)
 
 @api_view(['GET'])
@@ -29,26 +38,26 @@ def get_post(request, post_id):
     return Response(serializer.data)
 
 @api_view(['GET'])
-def post_likes_visualized_on_last_day(request):
+def post_likes_visualized_on_last_2_days(request):
     profile = Profile.objects.get(user=request.user)
     today = datetime.date.today()
     likes = []
     for post in profile.posts.all():
         for like in post.likes.filter(visualized=True).exclude(profile=profile):
-            start_date = today - datetime.timedelta(days=1)
+            start_date = today - datetime.timedelta(days=2)
             if like.updated >= start_date and like not in likes:
                 likes.append(like)
     serializer = PostLikeSerializer(likes, many=True)
     return Response(serializer.data)
 
 @api_view(['GET'])
-def post_comments_visualized_on_last_day(request):
+def post_comments_visualized_on_last_2_days(request):
     profile = Profile.objects.get(user=request.user)
     today = datetime.date.today()
     comments = []
     for post in profile.posts.all():
         for comment in post.comments.filter(visualized=True).exclude(author=profile):
-            start_date = today - datetime.timedelta(days=1)
+            start_date = today - datetime.timedelta(days=2)
             if comment.updated >= start_date and comment not in comments:
                 comments.append(comment)
     serializer = CommentSerializer(comments, many=True)

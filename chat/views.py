@@ -51,7 +51,6 @@ def get_chat_id(request, participants):
 
 @api_view(['GET'])
 def get_active_chats_profiles(request):
-    #contact = Contact.objects.get(user=authenticate(request, username='felipe', password='django@12'))
     contact = Contact.objects.get(user=request.user)
     chats = [chat for chat in Chat.objects.filter(participants__id=contact.id) if chat.messages.all().exists()]
     ordered_chats = sorted(chats, key=lambda chat: chat.messages.last().timestamp)
@@ -71,7 +70,6 @@ def get_active_chats_profiles(request):
 
 @api_view(['GET'])
 def get_all_unread_messages_number(request):
-    #contact = Contact.objects.get(user=authenticate(request, username='felipe', password='django@12'))
     contact = Contact.objects.get(user=request.user)
     unread_messages_counter = 0
     chats = [chat for chat in Chat.objects.filter(participants__id=contact.id) if chat.messages.all().exists()]
@@ -82,7 +80,6 @@ def get_all_unread_messages_number(request):
 
 @api_view(['GET'])
 def get_chat_unread_messages_number(request, chat_id):
-    #contact = Contact.objects.get(user=authenticate(request, username='felipe', password='django@12'))
     contact = Contact.objects.get(user=request.user)
     unread_messages_counter = 0
     chat = get_current_chat(chat_id)
@@ -92,7 +89,6 @@ def get_chat_unread_messages_number(request, chat_id):
 
 @api_view(['POST'])
 def read_unread_messages(request):
-    #contact = Contact.objects.get(user=authenticate(request, username='felipe', password='django@12'))
     contact = Contact.objects.get(user=request.user)
     chat_id = request.data['chat_id']
     messages = get_current_chat(chat_id).messages.filter(read=False).exclude(contact=contact)

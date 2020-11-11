@@ -10,7 +10,7 @@ def index_view(request):
     else:
         return redirect('/login')
 
-def pages_view(request, slug=None, id=None, interest=None):
+def pages_view(request, slug=None, id=None, query=None):
     if request.user.is_authenticated:
         return render(request, 'index.html')
     else:
@@ -83,7 +83,7 @@ def add_interests_view(request):
         return render(request, 'index.html')
     else:
         if request.user.is_authenticated:
-            return render(request, 'pages/index.html')
+            return redirect('/')
         else:
             return render(request, 'pages/signup/interests.html')
 

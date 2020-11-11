@@ -5,8 +5,8 @@ from .views import *
 urlpatterns = [
     path('post-list', post_list),
     path('post/<int:post_id>', get_post),
-    path('post-likes-visualized-last-day', post_likes_visualized_on_last_day),
-    path('post-comments-visualized-last-day', post_comments_visualized_on_last_day),
+    path('post-likes-visualized-last-2-days', post_likes_visualized_on_last_2_days),
+    path('post-comments-visualized-last-2-days', post_comments_visualized_on_last_2_days),
     path('unvisualized-post-likes', unvisualized_post_likes),
     path('visualize-likes', visualize_likes),
     path('unvisualized-post-comments', unvisualized_post_comments),

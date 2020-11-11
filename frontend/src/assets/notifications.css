@@ -1,0 +1,91 @@
+.no-notifications-container {
+    width: 100%;
+    height: 600px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.notifications-container {
+    width: 100%;
+    min-height: 600px;
+    background: #fff;
+}
+
+.notifications-container .friend-request-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.notifications-container .friend-request-row .friend-request-col {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.notifications-container .notification-row {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.notifications-container .notification-row .notification-like {
+    font-size: 30px;
+    color: #E0245E;
+    margin-right: 5px;
+}
+
+.notifications-container .notification-row .notification-comment {
+    font-size: 30px;
+    color: var(--primary-color);
+    margin-right: 5px;
+}
+
+.notifications-container .notification-row .notification-message {
+    display: flex;
+    justify-content: flex-start;
+    text-align: start;
+    margin-top: 5px;
+    padding: 0 78px 0 78px;
+    font-size: large;
+    font-weight: bold;
+}
+
+.notifications-container .notification-row .notification-post-content {
+    display: flex;
+    justify-content: flex-start;
+    text-align: start;
+    margin-top: 5px;
+    padding: 0 78px 0 78px;
+    font-size: medium;
+}
+
+.notifications-container .notification-row .notification-comment-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+    padding: 0 78px 0 78px;
+}
+
+.notification-comment-content {
+    display: flex;
+    justify-content: flex-start;
+    text-align: start;
+    font-size: medium;
+}
+
+.notifications-loader-container {
+    width: 100%;
+    height: 600px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    padding-top: 25px;
+}

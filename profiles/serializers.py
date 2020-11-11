@@ -67,6 +67,7 @@ class InterestSerializer(serializers.ModelSerializer):
 class ProfileSerializer(ProfileUnrelatedSerializer):
     interests = InterestSerializer(many=True)
     friends = UserSerializer(many=True)
+    blocked_users = UserSerializer(many=True)
     posts = PostSerializer(source='get_all_posts', many=True)
 
 class RelationshipSerializer(serializers.ModelSerializer):

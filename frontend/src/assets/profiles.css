@@ -1,8 +1,8 @@
 .profiles-filter-container {
     width: 100%;
     background: #fff;
-    margin-bottom: 3px;
     padding: 15px 60px 15px 60px;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .profiles-filter-container .profiles-filter-input {
@@ -24,7 +24,6 @@
     width: 100%;
     min-height: 500px;
     background: #fff;
-    padding: 15px;
 }
 
 .filtered-profile:hover {
@@ -33,7 +32,8 @@
 }
 
 .profile-list-container .profile-row {
-    margin-top: 2px;
+    border: none;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .profile-list-container .profile-row:hover {

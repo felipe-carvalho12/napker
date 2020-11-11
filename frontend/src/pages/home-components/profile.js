@@ -11,7 +11,9 @@ class Profile extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            myProfile: null,
             profile: null,
+            alertMessage: null,
             relationshipButtonLabel: '',
             currentPageIsPosts: true,
         }
@@ -82,6 +84,9 @@ class Profile extends React.Component {
             .then(data => this.setState({
                 profile: data
             }))
+        fetch(`${SERVER_URL}/profile-api/myprofile`)
+            .then(response => response.json())
+            .then(data => this.setState({ myProfile: data }))
     }
 
     sendFriendRequest = pk => {
@@ -165,6 +170,57 @@ class Profile extends React.Component {
         }
     }
 
+    blockUnblockUser = () => {
+        if (this.state.myProfile.blocked_users.map(u => u.id).includes(this.state.profile.user.id)) {
+            if (window.confirm(`Tem certeza que deseja desbloquear ${this.state.profile.first_name} ?`)) {
+                fetch(`${SERVER_URL}/profile-api/unblock-user`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-type': 'application/json',
+                        'X-CSRFToken': csrftoken,
+                    },
+                    body: JSON.stringify(this.state.profile)
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data)
+                        this.setState({ alertMessage: `Você desbloqueou @${this.state.profile.user.username}` })
+                    })
+            }
+        } else {
+            if (window.confirm(`Tem certeza que deseja bloquear ${this.state.profile.first_name} ?`)) {
+                fetch(`${SERVER_URL}/profile-api/block-user`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-type': 'application/json',
+                        'X-CSRFToken': csrftoken,
+                    },
+                    body: JSON.stringify(this.state.profile)
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data)
+                        this.setState({ alertMessage: `Você bloqueou @${this.state.profile.user.username}` })
+                    })
+            }
+        }
+        this.fetchProfile()
+        document.querySelector('#view-more-select').style.display = 'none'
+    }
+
+    openCloseExtraOptions = () => {
+        const el = document.querySelector('#view-more-select')
+        const style = el.style
+        if (!style.display) style.display = 'none'
+        if (style.display === 'none') {
+            document.querySelector('#view-more-icon').classList.add('view-more-icon-active')
+            style.display = 'flex'
+        } else {
+            document.querySelector('#view-more-icon').classList.remove('view-more-icon-active')
+            style.display = 'none'
+        }
+    }
+
     switchPage = e => {
         document.querySelectorAll('.profile-page-menu-item-active').forEach(el => {
             el.classList.remove('profile-page-menu-item-active')
@@ -183,55 +239,91 @@ class Profile extends React.Component {
                 <Header page={this.state.profile ? `${this.state.profile.first_name} ${this.state.profile.last_name}` : 'Perfil'}
                     backArrow={true}
                 />
-                {this.state.profile ?
+                {this.state.myProfile && this.state.profile ?
                     <div className="content">
-                        <div className="d-flex justify-content-between align-items-center profile-data-container">
-                            <div className="d-flex flex-column align-items-start">
-                                <p style={{ padding: '15px' }}>
-                                    <img src={`${SERVER_URL}${this.state.profile.photo}`}
-                                        className="profile-img-big"
-                                        style={{ marginBottom: '25px' }}
-                                    />
-                                </p>
-                                <p style={{ marginBottom: 0 }}><strong>{this.state.profile.first_name} {this.state.profile.last_name}</strong></p>
-                                <p className="text-secondary" style={{ marginTop: 0 }}>@{this.state.profile.user.username}</p>
-                                <p>{this.state.profile.bio}</p>
-                                <p className="text-secondary">
-                                    <i className="far fa-calendar-alt"></i> Entrou em {this.state.profile.created.split('-').reverse().join('/')}
-                                </p>
-                                <p>
-                                    <Link to={`/user/${this.state.profile.slug}/amigos`} style={{ color: '#000' }}>
-                                        <strong>{this.state.profile.friends.length}</strong> {this.state.profile.friends.length === 1 ? 'amigo' : 'amigos'}
-                                    </Link>
-                                </p>
+                        {this.state.profile.blocked_users.map(u => u.id).includes(this.state.myProfile.user.id) ?
+                            <div className="user-blocked-me-container">
+                                <h3>O usuário te bloqueou</h3>
                             </div>
-                            <div>
-                                <button className="btn d-none"
-                                    id="profile-page-relationship-btn"
-                                    data-pk={this.state.profile.id}
-                                    onClick={this.handleRelationshipUpdate}
-                                >{this.state.relationshipButtonLabel}</button>
-                            </div>
-                        </div>
-                        <div className="profile-page-menu">
-                            <div
-                                className="profile-page-menu-item profile-page-menu-item-active"
-                                id="profile-posts-page-menu-item"
-                                onClick={this.switchPage}
-                            >
-                                Posts ({this.state.profile.posts.length})
-                            </div>
-                            <div
-                                className="profile-page-menu-item"
-                                id="profile-interests-page-menu-item"
-                                onClick={this.switchPage}
-                            >
-                                Interesses ({this.state.profile.interests.filter(i => i.public).length})
-                            </div>
-                        </div>
-                        {this.state.currentPageIsPosts ?
-                            <Posts profile={this.state.profile} fetchProfile={this.fetchProfile} /> :
-                            <Interests profile={this.state.profile} />
+                            :
+                            <>
+                                {this.state.alertMessage &&
+                                    <div class="alert alert-success profile-page-alert-success" role="alert">
+                                        {this.state.alertMessage}
+                                    </div>
+                                }
+                                <div className="d-flex justify-content-between align-items-center profile-data-container">
+                                    <div className="d-flex flex-column align-items-start">
+                                        <p style={{ padding: '15px' }}>
+                                            <img src={`${SERVER_URL}${this.state.profile.photo}`}
+                                                className="profile-img-big"
+                                                style={{ marginBottom: '25px' }}
+                                            />
+                                        </p>
+                                        <p style={{ marginBottom: 0 }}><strong>{this.state.profile.first_name} {this.state.profile.last_name}</strong></p>
+                                        <p className="text-secondary" style={{ marginTop: 0 }}>@{this.state.profile.user.username}</p>
+                                        <p>{this.state.profile.bio}</p>
+                                        <p className="text-secondary">
+                                            <i className="far fa-calendar-alt"></i> Entrou em {this.state.profile.created.split('-').reverse().join('/')}
+                                        </p>
+                                        <p>
+                                            <Link to={`/user/${this.state.profile.slug}/amigos`} style={{ color: '#000' }}>
+                                                <strong>{this.state.profile.friends.length}</strong> {this.state.profile.friends.length === 1 ? 'amigo' : 'amigos'}
+                                            </Link>
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <i
+                                            className="fas fa-ellipsis-h btn btn-secondary mr-2"
+                                            id="view-more-icon"
+                                            onClick={this.openCloseExtraOptions}
+                                        />
+                                        <div className="view-more-select profile-view-more-select" id="view-more-select">
+                                            <Link to={`/mensagens/${this.state.profile.slug}`} style={{ color: '#000', textDecoration: 'none' }}>
+                                                {!this.state.myProfile.blocked_users.map(u => u.id).includes(this.state.profile.user.id) &&
+                                                    <li>
+                                                        <i class="fas fa-envelope text-secondary" />
+                                                        Enviar mensagem
+                                                    </li>
+                                                }
+                                            </Link>
+                                            <li onClick={this.blockUnblockUser}>
+                                                <i class="fas fa-user-lock text-secondary" />
+                                                {this.state.myProfile.blocked_users.map(u => u.id).includes(this.state.profile.user.id) ?
+                                                    'Desbloquear'
+                                                    :
+                                                    'Bloquear'
+                                                }
+                                            </li>
+                                        </div>
+                                        <button className="btn d-none"
+                                            id="profile-page-relationship-btn"
+                                            data-pk={this.state.profile.id}
+                                            onClick={this.handleRelationshipUpdate}
+                                        >{this.state.relationshipButtonLabel}</button>
+                                    </div>
+                                </div>
+                                <div className="profile-page-menu">
+                                    <div
+                                        className="profile-page-menu-item profile-page-menu-item-active"
+                                        id="profile-posts-page-menu-item"
+                                        onClick={this.switchPage}
+                                    >
+                                        Posts ({this.state.profile.posts.length})
+                                    </div>
+                                    <div
+                                        className="profile-page-menu-item"
+                                        id="profile-interests-page-menu-item"
+                                        onClick={this.switchPage}
+                                    >
+                                        Interesses ({this.state.profile.interests.filter(i => i.public).length})
+                                    </div>
+                                </div>
+                                {this.state.currentPageIsPosts ?
+                                    <Posts profile={this.state.profile} fetchProfile={this.fetchProfile} /> :
+                                    <Interests profile={this.state.profile} />
+                                }
+                            </>
                         }
                     </div>
                     :

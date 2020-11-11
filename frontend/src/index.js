@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 
 import './assets/chat.css'
 import './assets/commentModal.css'
+import './assets/notifications.css'
 import './assets/posts.css'
 import './assets/profile.css'
 import './assets/profiles.css'

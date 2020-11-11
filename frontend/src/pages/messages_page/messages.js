@@ -10,6 +10,7 @@ class Messages extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            myProfile: null,
             username: null,
             chatId: null,
             activeChats: null,
@@ -30,13 +31,14 @@ class Messages extends React.Component {
     }
 
     handleComponentChange() {
-        if (!this.state.username) {
-            fetch(`${SERVER_URL}/profile-api/logged-user`)
-                .then(response => response.json())
-                .then(data => this.setState({
-                    username: data.username
-                }))
-        }
+        fetch(`${SERVER_URL}/profile-api/myprofile`)
+        .then(response => response.json())
+        .then(data => {
+            this.setState({
+                myProfile: data,
+                username: data.user.username
+            })
+        })
         if (!this.state.activeChatsProfiles && this.state.activeChatsProfiles !== []) {
             this.fetchActiveChatProfiles()
         }
@@ -79,6 +81,12 @@ class Messages extends React.Component {
         fetch(`${SERVER_URL}/profile-api/users/${query}`)
             .then(response => response.json())
             .then(data => {
+                for (let p of data) {
+                    if (p.blocked_users.map(u => u.id).includes(this.state.myProfile.user.id) ||
+                    this.state.myProfile.blocked_users.map(u => u.id).includes(p.user.id)) {
+                        data.pop(data.indexOf(p))
+                    }
+                }
                 this.setState({
                     modalProfiles: data
                 })
@@ -184,8 +192,8 @@ class Messages extends React.Component {
                                                             this.incrementUnreadMessagesCounter()
                                                         })}
                                                         {this.unreadMessagesCounter ?
-                                                            <div className="notifications-text-container">
-                                                                <div className="notifications-text">
+                                                            <div className="notification-text-container">
+                                                                <div className="notification-text">
                                                                     {this.unreadMessagesCounter}
                                                                 </div>
                                                             </div>
