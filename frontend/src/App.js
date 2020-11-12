@@ -25,6 +25,10 @@ export default function App() {
     useEffect(() => {
         updateNotificationsNumber()
         updateUnreadMessagesNumber()
+        window.setInterval(() => {
+            updateNotificationsNumber()
+            updateUnreadMessagesNumber()
+        }, 6000)
     }, [])
 
     const updateNotificationsNumber = () => {

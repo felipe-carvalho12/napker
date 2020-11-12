@@ -29,6 +29,14 @@ class ChatConsumer(WebsocketConsumer):
             'message': self.message_to_json(message)
         }
         return self.send_chat_message(content)
+    
+    def read_messages(self, data):
+        messages = get_last_50_messages(data['chatId'])
+        content = {
+            'command': 'messages',
+            'messages': self.messages_to_json(messages)
+        }
+        self.send_chat_messages(content)
 
     def messages_to_json(self, messages):
         result = []
@@ -47,7 +55,8 @@ class ChatConsumer(WebsocketConsumer):
 
     commands = {
         'fetch_messages': fetch_messages,
-        'new_message': new_message
+        'new_message': new_message,
+        'read_messages': read_messages,
     }
 
     def connect(self):
@@ -70,12 +79,20 @@ class ChatConsumer(WebsocketConsumer):
         self.commands[data['command']](self, data)
 
     def send_chat_message(self, message):
-        print('returning the message...')
         async_to_sync(self.channel_layer.group_send)(
             self.room_group_name,
             {
                 'type': 'chat_message',
                 'message': message
+            }
+        )
+    
+    def send_chat_messages(self, messages):
+        async_to_sync(self.channel_layer.group_send)(
+            self.room_group_name,
+            {
+                'type': 'chat_messages',
+                'messages': messages
             }
         )
 
@@ -85,3 +102,7 @@ class ChatConsumer(WebsocketConsumer):
     def chat_message(self, event):
         message = event['message']
         self.send(text_data=json.dumps(message))
+
+    def chat_messages(self, event):
+        messages = event['messages']
+        self.send(text_data=json.dumps(messages))

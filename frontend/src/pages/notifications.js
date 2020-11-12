@@ -11,9 +11,11 @@ export default function Notifications(props) {
     const [unvisualizedComments, setUnvisualizedComments] = useState(null)
     const [visualizedComments, setVisualizedComments] = useState(null)
 
+    let notificationsFetchInterval
+
     document.title = 'Notificações / Napker'
 
-    useEffect(() => {
+    const fetchNotifications = () => {
         fetch(`${SERVER_URL}/profile-api/myinvites`)
             .then(response => response.json())
             .then(data => setInvites(data))
@@ -29,6 +31,12 @@ export default function Notifications(props) {
         fetch(`${SERVER_URL}/post-api/post-comments-visualized-last-2-days`)
             .then(response => response.json())
             .then(data => setVisualizedComments(data))
+    }
+
+    useEffect(() => {
+        fetchNotifications()
+        notificationsFetchInterval = window.setInterval(fetchNotifications, 3000)
+        return () => window.clearInterval(notificationsFetchInterval)
     }, [])
 
     useEffect(() => {

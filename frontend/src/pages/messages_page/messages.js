@@ -18,16 +18,21 @@ class Messages extends React.Component {
             addingNewChat: false,
             modalProfiles: [],
         }
+        this.rerenderingInterval = null
     }
 
-    componentWillReceiveProps(newProps) {
-        if (newProps === this.props) return
-        const participants = { username: this.state.username, other_username: newProps.match.params.slug }
+    handleReceiveProps = props => {
+        const participants = { username: this.state.username, other_username: props.match.params.slug }
         fetch(`${SERVER_URL}/chat-api/chat-id/${JSON.stringify(participants)}`)
             .then(response => response.json())
             .then(data => this.setState({
                 chatId: data['chat_id']
             }))
+    }
+
+    componentWillReceiveProps(newProps) {
+        if (newProps === this.props) return
+        this.handleReceiveProps(newProps)
     }
 
     handleComponentChange() {
@@ -38,6 +43,9 @@ class Messages extends React.Component {
                     this.setState({
                         username: data.username
                     })
+                    if (this.props.match.params.slug) {
+                        this.handleReceiveProps(this.props)
+                    }
                 })
         }
         if (!this.state.activeChatsProfiles && this.state.activeChatsProfiles !== []) {
@@ -48,6 +56,11 @@ class Messages extends React.Component {
     componentWillMount() {
         document.title = 'Mensagens / Napker'
         this.handleComponentChange()
+        this.rerenderingInterval = window.setInterval(this.fetchActiveChatProfiles, 3000)
+    }
+
+    componentWillUnmount() {
+        window.clearInterval(this.rerenderingInterval)
     }
 
     componentDidUpdate() {
@@ -55,6 +68,7 @@ class Messages extends React.Component {
     }
 
     fetchActiveChatProfiles = () => {
+        console.log('fetching profiles...')
         fetch(`${SERVER_URL}/chat-api/active-chats-profiles`)
             .then(response => response.json())
             .then(data => {
@@ -163,7 +177,7 @@ class Messages extends React.Component {
                     </Modal>
                     <div className="d-flex flex-column chats-list">
                         <div className="search-input-container">
-                            <input placeholder="Pesquisar pessoas" className="search-input" onChange={e => this.setContactSearch(e.target.value)} />
+                            <input className="search-input" id="contact-filter-input" placeholder="Pesquisar pessoas" onChange={e => this.setContactSearch(e.target.value)} />
                             <i className="fas fa-plus add-icon" onClick={this.openModal}></i>
                         </div>
                         <div className="list-group chats-container">

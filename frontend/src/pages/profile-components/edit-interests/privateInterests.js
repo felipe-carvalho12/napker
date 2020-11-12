@@ -48,7 +48,11 @@ export default function PrivateInterests(props) {
             input.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter') {
                     e.target.value.split(',').forEach(tag => {
-                        tags.push(tag);
+                        if (tag.length < 3) {
+                            window.alert('Os interesses devem ter no mínimo 3 caracteres!')
+                        } else {
+                            tags.push(tag)
+                        }
                     });
 
                     e.preventDefault()

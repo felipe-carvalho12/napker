@@ -63,6 +63,15 @@
     background: var(--white-hover);
 }
 
+.chat-loader-container {
+    width: 65%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 15%;
+    background: #fff;
+}
+
 .messages-wrapper .current-chat {
     width: 65%;
     height: 100%;

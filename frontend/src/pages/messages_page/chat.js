@@ -10,8 +10,9 @@ class Chat extends React.Component {
     initialiseChat() {
         this.waitForSocketConnection(() => {
             WebSocketInstance.addCallbacks(
-                this.setMessages.bind(this),
-                this.addMessage.bind(this)
+                this.getMessages.bind(this),
+                this.addMessage.bind(this),
+                this.getUpdatedMessages.bind(this)
             )
             WebSocketInstance.fetchMessages(
                 this.props.username,
@@ -59,6 +60,10 @@ class Chat extends React.Component {
         document.querySelector('#chat-message-input') && document.querySelector('#chat-message-input').focus()
     }
 
+    componentWillUnmount() {
+        WebSocketInstance.disconnect()
+    }
+
     componentWillReceiveProps(newProps) {
         if (this.props.chatId !== newProps.chatId) {
             WebSocketInstance.disconnect();
@@ -77,20 +82,27 @@ class Chat extends React.Component {
             })
         }
         if (newProps.chatId) {
-            fetch(`${SERVER_URL}/chat-api/read-messages`, {
-                method: 'POST',
-                headers: {
-                    'Content-type': 'application/json',
-                    'X-CSRFToken': csrftoken,
-                },
-                body: JSON.stringify({ chat_id: newProps.chatId })
-            })
-                .then(response => response.json())
-                .then(data => console.log(data))
+            this.readMessages(newProps)
         }
         if (this.props.updateUnreadMessagesNumber) {
             this.props.updateUnreadMessagesNumber()
         }
+    }
+
+    readMessages = props => {
+        fetch(`${SERVER_URL}/chat-api/read-messages`, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+                'X-CSRFToken': csrftoken,
+            },
+            body: JSON.stringify({ chat_id: props.chatId })
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                WebSocketInstance.readMessages(this.props.chatId)
+            })
     }
 
     waitForSocketConnection(callback) {
@@ -107,12 +119,17 @@ class Chat extends React.Component {
         }, 100);
     }
 
-    setMessages(messages) {
+    getMessages(messages) {
         this.setState({ messages: messages.reverse() })
     }
 
     addMessage(message) {
         this.setState({ messages: [...this.state.messages, message] })
+        this.readMessages(this.props)
+    }
+
+    getUpdatedMessages(messages) {
+        this.setState({ messages: messages.reverse() })
     }
 
     messageChangeHandler = e => {
@@ -165,7 +182,14 @@ class Chat extends React.Component {
                     {message.content}
                     <br />
                     <small>
-                        {this.renderTimestamp(message.timestamp)} {message.author === currentUser ? message.read ? '✓✓' : '✓' : ''}
+                        {this.renderTimestamp(message.timestamp)} {message.author === currentUser ?
+                            message.read ?
+                                <i class="fas fa-check-double" />
+                                :
+                                <i class="fas fa-check" />
+                            :
+                            ''
+                        }
                     </small>
                 </p>
             </li>
@@ -187,56 +211,66 @@ class Chat extends React.Component {
     render() {
         return (
             <>
-                {this.state.otherProfile ?
-                    <div className="d-flex flex-column justify-content-between align-items-center current-chat">
-                        <div className="current-chat-header">
-                            <Link to={`/user/${this.state.otherProfile.slug}`}>
-                                <img src={`${SERVER_URL}${this.state.otherProfile.photo}`}
-                                    className="profile-img-sm"
-                                    style={{ marginRight: '5px' }}
-                                />
-                            </Link>
-                            <div className="d-flex flex-column align-items-start" style={{ height: '52px' }}>
-                                <strong>{this.state.otherProfile.first_name} {this.state.otherProfile.last_name}</strong>
-                                <p className="text-secondary">@{this.state.otherProfile.user.username}</p>
+                {this.state.otherProfile !== null || !this.props.otherUsername ?
+                    <>
+                        {this.state.otherProfile ?
+                            <div className="d-flex flex-column justify-content-between align-items-center current-chat">
+                                <div className="current-chat-header">
+                                    <Link to={`/user/${this.state.otherProfile.slug}`}>
+                                        <img src={`${SERVER_URL}${this.state.otherProfile.photo}`}
+                                            className="profile-img-sm"
+                                            style={{ marginRight: '5px' }}
+                                        />
+                                    </Link>
+                                    <div className="d-flex flex-column align-items-start" style={{ height: '52px' }}>
+                                        <strong>{this.state.otherProfile.first_name} {this.state.otherProfile.last_name}</strong>
+                                        <p className="text-secondary">@{this.state.otherProfile.user.username}</p>
+                                    </div>
+                                </div>
+                                <div id="chat-log">
+                                    {this.state.messages ? this.renderMessages(this.state.messages) : ''}
+                                </div>
+                                <div className="emoji-list-container chat-emoji-list" id="emoji-list-container">
+                                    <Picker onEmojiClick={this.onEmojiSelect} />
+                                </div>
+                                <form className="send-message-container" onSubmit={this.sendMessageHandler}>
+                                    <label
+                                        className="far fa-smile"
+                                        id="emoji-button"
+                                        onClick={() => openCloseEmojiList(false)}
+                                    />
+                                    <input
+                                        placeholder="Mensagem"
+                                        className="message-input"
+                                        id="chat-message-input"
+                                        value={this.state.message}
+                                        autoFocus={document.querySelector('#contact-filter-input').value === ''}
+                                        onChange={this.messageChangeHandler}
+                                    />
+                                    <button
+                                        className="btn btn-primary chat-message-submit"
+                                        id="chat-message-submit"
+                                        disabled
+                                    >
+                                        <i class="fas fa-paper-plane" />
+                                    </button>
+                                </form>
                             </div>
-                        </div>
-                        <div id="chat-log">
-                            {this.state.messages ? this.renderMessages(this.state.messages) : ''}
-                        </div>
-                        <div className="emoji-list-container chat-emoji-list" id="emoji-list-container">
-                            <Picker onEmojiClick={this.onEmojiSelect} />
-                        </div>
-                        <form className="send-message-container" onSubmit={this.sendMessageHandler}>
-                            <label
-                                className="far fa-smile"
-                                id="emoji-button"
-                                onClick={() => openCloseEmojiList(false)}
-                            />
-                            <input
-                                placeholder="Mensagem"
-                                className="message-input"
-                                id="chat-message-input"
-                                value={this.state.message}
-                                autoFocus
-                                onChange={this.messageChangeHandler}
-                            />
-                            <button
-                                className="btn btn-primary chat-message-submit"
-                                id="chat-message-submit"
-                                disabled
-                            >
-                                <i class="fas fa-paper-plane" />
-                            </button>
-                        </form>
-                    </div> :
-                    <div className="d-flex flex-column justify-content-center align-items-center current-chat">
-                        <div>
-                            <strong style={{ fontSize: 'larger' }}>Você não tem uma conversa selecionada</strong>
-                            <p className="text-secondary">Selecione uma existente ou comece uma nova</p>
-                            <button className="btn btn-primary" onClick={() => this.props.openModal()}>Nova conversa</button>
-                        </div>
-                    </div>}
+                            :
+                            <div className="d-flex flex-column justify-content-center align-items-center current-chat">
+                                <div>
+                                    <strong style={{ fontSize: 'larger' }}>Você não tem uma conversa selecionada</strong>
+                                    <p className="text-secondary">Selecione uma existente ou comece uma nova</p>
+                                    <button className="btn btn-primary" onClick={() => this.props.openModal()}>Nova conversa</button>
+                                </div>
+                            </div>
+                        }
+                    </>
+                    :
+                    <div className="chat-loader-container">
+                        <div className="loader" />
+                    </div>
+                }
             </>
         )
     }
