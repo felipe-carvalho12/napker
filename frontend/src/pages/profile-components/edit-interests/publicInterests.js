@@ -79,7 +79,7 @@ export default function PublicInterests(props) {
                 Coloque aqui interesses que sem eles seu perfil ficaria incompleto.
             </p>
             <div class="tag-container public-tag-container">
-                <input placeholder="Digite e pressione 'Enter'" />
+                <input placeholder="Digite e pressione 'Enter'" maxLength="50" />
                 <input type="hidden" name="public-interests" id="public-interests" />
             </div>
         </div>

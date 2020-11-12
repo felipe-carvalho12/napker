@@ -49,7 +49,7 @@ def get_profile_list(profile):
     profiles = []
     shared_interests_quantity = []
     for interest in profile.interests.all():
-        for p in Profile.objects.filter(interests__title=interest.title).exclude(user=profile.user):
+        for p in Profile.objects.filter(interests__title__contains=interest.title).exclude(user=profile.user):
             if p in profiles:
                 shared_interests_quantity[profiles.index(p)] += 1
                 continue

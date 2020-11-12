@@ -78,7 +78,7 @@ export default function PrivateInterests(props) {
                 possuem o máximo de afinidade possível com você.
             </p>
             <div class="tag-container private-tag-container">
-                <input placeholder="Digite e pressione 'Enter'" />
+                <input placeholder="Digite e pressione 'Enter'" maxLength="50" />
                 <input type="hidden" name="private-interests" id="private-interests" />
             </div>
 

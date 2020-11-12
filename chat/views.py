@@ -56,9 +56,7 @@ def get_active_chats_profiles(request):
     ordered_chats = sorted(chats, key=lambda chat: chat.messages.last().timestamp)
     profiles = []
     for chat in ordered_chats:
-        for participant in chat.participants.all():
-            if participant == contact:
-                continue
+        for participant in chat.participants.exclude(user=contact.user):
             profiles.append(Profile.objects.get(user=participant.user))
     profiles_serializer = ProfileSerializer(profiles, many=True)
     chats_serializer = ChatSerializer(ordered_chats, many=True)
