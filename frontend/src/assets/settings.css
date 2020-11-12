@@ -5,6 +5,35 @@
     background: #fff;
 }
 
+.settings-page-container .alert {
+    width: 100%;
+    margin: 0!important;
+    text-align: center;
+}
+
+.settings-page-container input[type=password] {
+    width: 60%;
+    border: none;
+    outline: none;
+    border-radius: 20px;
+    background: var(--body-background);
+    margin-bottom: 20px;
+    padding: 10px 20px 10px 20px;
+}
+
+.settings-page-container input[type=password]:focus {
+    border: 1px solid var(--primary-color);
+    background: #fff;
+}
+
+.settings-description-container .settings-loader-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 10%;
+}
+
 .settings-page-container .settings-page-menu {
     width: 40%;
     height: 100%;
@@ -44,49 +73,34 @@
 
 /* BLOCK USER */
 
-.settings-description-container .search-user-container {
+.settings-description-container .no-blocked-profiles {
     width: 100%;
-    height: 12%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px 20% 10px 20%;
-    border-bottom: 1px solid var(--border-color);
 }
 
-.settings-description-container .search-user-container .search-user-input {
-    background: var(--body-background);
-    border: none;
-    border-radius: 20px;
-    padding-left: 20px;
+.settings-description-container .blocked-profiles-list {
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
 }
 
-.settings-description-container .search-user-container .search-user-input:focus {
-    border: 1px solid var(--primary-color);
+.settings-description-container .blocked-profiles-list .blocked-profiles-title {
+    width: 100%;
+    position: sticky;
+    z-index: 1;
+    top: 0;
+    padding: 15px;
+    text-align: center;
     background: #fff;
-}
-
-.settings-description-container .block-user-profile-list {
-    width: 100%;
-    height: 60%;
     border-bottom: 1px solid var(--border-color);
 }
 
-.settings-description-container .block-user-profile-list .block-user-profile-item-active {
-    background: var(--white-hover);
-}
-
-.settings-description-container .block-user-profile-list .filtered-profile {
+.settings-description-container .blocked-profiles-list .blocked-profile {
     border: none;
     border-bottom: 1px solid var(--border-color);
-}
-
-.settings-description-container .block-user-confirmation-container {
-    width: 100%;
-    height: 28%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 /* CHANGE PASSWORD */
@@ -103,21 +117,6 @@
     width: 100%;
     height: 60%;
     padding-top: 20px;
-}
-
-.change-password-form input[type=password] {
-    width: 60%;
-    border: none;
-    outline: none;
-    border-radius: 20px;
-    background: var(--body-background);
-    margin-bottom: 20px;
-    padding: 10px 20px 10px 20px;
-}
-
-.change-password-form input[type=password]:focus {
-    border: 1px solid var(--primary-color);
-    background: #fff;
 }
 
 .change-password-form button {

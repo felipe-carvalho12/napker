@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { SERVER_URL, LOGO_URL } from '../settings'
 
 export default function Sidebar(props) {
     useEffect(() => {
@@ -40,9 +41,11 @@ export default function Sidebar(props) {
 
     return (
         <div className="sidebar">
-            <Link to="/home" style={{ textDecoration: 'none' }} onClick={e => switchPage(e, true)}>
-                <h2>Napker</h2>
-            </Link>
+            <div className="logo-container">
+                <Link to="/home" style={{ textDecoration: 'none' }} onClick={e => switchPage(e, true)}>
+                    <img src={`${SERVER_URL}${LOGO_URL}`} />
+                </Link>
+            </div>
             <ul>
                 <Link to="/home" style={{ textDecoration: 'none' }}>
                     <li className="sidebar-menu-item" id="home-menu" onClick={switchPage}>

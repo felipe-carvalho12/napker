@@ -45,7 +45,9 @@
                         <input class="form-control" type="password" name="password" id="password" placeholder="Senha">
                         <input class="form-control" type="password" name="passwordc" id="passwordc"
                             placeholder="Confirmar senha">
-                        <span class="error-message" id="invalid-password">As senhas devem ser iguais</span>
+                        <span class="error-message" id="invalid-password-1">As senhas devem ser iguais</span>
+                        <span class="error-message" id="invalid-password-2">A senha deve ter no mínimo 8
+                            caracteres</span>
 
                         <button class="btn signin" type="submit" id="submit-btn">Continuar</button>
 
@@ -97,7 +99,9 @@
                 }
             }
             if (passwordField.value !== passwordcField.value) {
-                document.querySelector('#invalid-password').style.display = 'initial'
+                document.querySelector('#invalid-password-1').style.display = 'initial'
+            } else if (passwordField.value.length < 8) {
+                document.querySelector('#invalid-password-2').style.display = 'initial'
             } else if (passwordcField.value) {
                 document.querySelector('form').submit()
             }

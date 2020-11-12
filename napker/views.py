@@ -1,5 +1,9 @@
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
 from profiles.models import Profile, Interest
@@ -14,7 +18,7 @@ def pages_view(request, slug=None, id=None, query=None):
     if request.user.is_authenticated:
         return render(request, 'index.html')
     else:
-        redirect('/login')
+        return redirect('/login')
 
 def login_view(request):
     if request.method == 'POST':
@@ -80,7 +84,7 @@ def add_interests_view(request):
             i, created = Interest.objects.get_or_create(title=title, public=False)
             profile.interests.add(i)
         profile.save()
-        return render(request, 'index.html')
+        return redirect('/')
     else:
         if request.user.is_authenticated:
             return redirect('/')
@@ -113,3 +117,29 @@ def update_profile(request):
         except:
             pass
         return redirect('/perfil')
+
+@api_view(['POST'])
+def change_password(request):
+    passwrod = request.data['password']
+    user = authenticate(request, username=request.user.username, password=passwrod)
+
+    new_password = request.data['new_password']
+    new_passwordc = request.data['new_passwordc']
+    if user is None:
+        return Response('Senha incorreta!')
+    if new_password != new_passwordc:
+        return Response('Os campos "Nova senha" e "Confirmar nova senha" devem ter o mesmo valor!')
+
+    user.set_password(new_password)
+    user.save()
+    login(request, user)
+    return Response('success')
+
+@api_view(['POST'])
+def delete_account(request):
+    passwrod = request.data['password']
+    user = authenticate(request, username=request.user.username, password=passwrod)
+    if user is None:
+        return Response('Wrong password')
+    user.delete()
+    return Response('Account deleted')

@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 import Header from '../../components/header'
-import { SERVER_URL } from '../../settings'
-import BlockUser from './blockUser'
+import BlockedProfiles from './blockedProfiles'
 import ChangePassword from './changePassword'
 import DeleteAccount from './deleteAccount'
 
 export default function Settings(props) {
-    if (!props.page) props.page = 'block-user'
+    if (!props.page) props.page = 'blocked-profiles'
 
     document.title = 'Configurações / Napker'
 
@@ -29,15 +28,15 @@ export default function Settings(props) {
             <div className="content">
                 <div className="settings-page-container">
                     <div className="settings-page-menu">
-                        <Link to="/configurações/bloquear-usuário" style={{ textDecoration: 'none', width: '100%' }}>
-                            <li id="block-user" onClick={() => pageChange('block-user')}>
-                                Bloquear usuário
+                        <Link to="/configurações/perfis-bloqueados" style={{ textDecoration: 'none', width: '100%' }}>
+                            <li id="blocked-profiles" onClick={() => pageChange('blocked-profiles')}>
+                                Perfis bloqueados
                             <i className="fas fa-angle-right"></i>
                             </li>
                         </Link>
                         <Link to="/configurações/alterar-senha" style={{ textDecoration: 'none', width: '100%' }}>
                             <li id="change-password" onClick={() => pageChange('change-password')}>
-                                Mudar senha
+                                Alterar senha
                             <i className="fas fa-angle-right"></i>
                             </li>
                         </Link>
@@ -48,8 +47,8 @@ export default function Settings(props) {
                             </li>
                         </Link>
                     </div>
-                    {props.page === 'block-user' ?
-                        <BlockUser />
+                    {props.page === 'blocked-profiles' ?
+                        <BlockedProfiles />
                         :
                         <>
                             {props.page === 'change-password' ?

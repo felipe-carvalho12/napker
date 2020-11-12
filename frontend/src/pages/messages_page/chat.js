@@ -26,6 +26,7 @@ class Chat extends React.Component {
         this.state = {
             message: '',
             messages: [],
+            myProfile: null,
             otherUsername: this.props.otherUsername,
             otherProfile: null
         }
@@ -40,6 +41,11 @@ class Chat extends React.Component {
                 .then(data => this.setState({
                     otherProfile: data
                 }))
+        }
+        if (!this.state.myProfile) {
+            fetch(`${SERVER_URL}/profile-api/myprofile`)
+                .then(response => response.json())
+                .then(data => this.setState({ myProfile: data }))
         }
     }
 
@@ -122,12 +128,21 @@ class Chat extends React.Component {
             content: this.state.message,
             chatId: this.props.chatId
         };
-        WebSocketInstance.newChatMessage(messageObject)
         this.setState({ message: '' })
+        if (this.state.otherProfile.blocked_users.map(u => u.id).includes(this.state.myProfile.user.id)) {
+            window.alert(`Você não pode enviar mensagens para @${this.state.otherUsername}.
+            ${this.state.otherProfile.first_name} te bloqueou.`)
+            return
+        }
+        if (this.state.myProfile.blocked_users.map(u => u.id).includes(this.state.otherProfile.user.id)) {
+            window.alert(`Você não pode enviar mensagens para @${this.state.otherUsername}.
+            Você bloqueou ${this.state.otherProfile.first_name}.`)
+            return
+        }
+        WebSocketInstance.newChatMessage(messageObject)
         document.querySelector('#chat-message-submit').disabled = true
         openCloseEmojiList(true)
         this.props.updateMessagesComponent()
-
     };
 
     renderTimestamp = timestamp => {

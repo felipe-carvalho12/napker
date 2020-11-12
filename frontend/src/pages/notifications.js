@@ -134,10 +134,13 @@ export default function Notifications(props) {
                                                                             style={{ marginRight: '10px' }}
                                                                         />
                                                                     </Link>
+                                                                    <p className="text-secondary d-inline-block">
+                                                                        {like.created.split('-').reverse().join('/')}
+                                                                    </p>
                                                                     <div className="notification-text-container">
                                                                         <div className="notification-text">
                                                                             novo
-                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                                 <div className="notification-message">
@@ -169,6 +172,9 @@ export default function Notifications(props) {
                                                                             style={{ marginRight: '10px' }}
                                                                         />
                                                                     </Link>
+                                                                    <p className="text-secondary d-inline-block">
+                                                                        {comment.created.split('-').reverse().join('/')}
+                                                                    </p>
                                                                     <div className="notification-text-container">
                                                                         <div className="notification-text">
                                                                             novo
@@ -215,6 +221,9 @@ export default function Notifications(props) {
                                                                             style={{ marginRight: '10px' }}
                                                                         />
                                                                     </Link>
+                                                                    <p className="text-secondary d-inline-block">
+                                                                        {like.created.split('-').reverse().join('/')}
+                                                                    </p>
                                                                 </div>
                                                                 <div className="notification-message">
                                                                     <p>
@@ -245,6 +254,9 @@ export default function Notifications(props) {
                                                                             style={{ marginRight: '10px' }}
                                                                         />
                                                                     </Link>
+                                                                    <p className="text-secondary d-inline-block">
+                                                                        {comment.created.split('-').reverse().join('/')}
+                                                                    </p>
                                                                 </div>
                                                                 <div className="notification-message">
                                                                     <p>

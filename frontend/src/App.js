@@ -61,8 +61,8 @@ export default function App() {
                     <Route path="/perfil" exact component={MyProfile} />
                     <Route path="/perfil/meus-interesses" component={EditInterests} />
                     <Route path="/configurações" exact component={Settings} />
-                    <Route path="/configurações/bloquear-usuário" exact render={props => (
-                        <Settings {...props} page={'block-user'} />
+                    <Route path="/configurações/perfis-bloqueados" exact render={props => (
+                        <Settings {...props} page={'blocked-profiles'} />
                     )} />
                     <Route path="/configurações/alterar-senha" exact render={props => (
                         <Settings {...props} page={'change-password'} />

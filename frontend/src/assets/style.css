@@ -87,6 +87,13 @@ body {
   padding: 2px;
 }
 
+.wrapper .sidebar .logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
 .wrapper .sidebar ul li .fas {
   width: 25px;
 }

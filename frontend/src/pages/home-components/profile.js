@@ -184,7 +184,8 @@ class Profile extends React.Component {
                     .then(response => response.json())
                     .then(data => {
                         console.log(data)
-                        this.setState({ alertMessage: `Você desbloqueou @${this.state.profile.user.username}` })
+                        this.setState({ alertMessage: `Você desbloqueou @${this.state.profile.user.username}.` })
+                        this.fetchProfile()
                     })
             }
         } else {
@@ -200,7 +201,11 @@ class Profile extends React.Component {
                     .then(response => response.json())
                     .then(data => {
                         console.log(data)
-                        this.setState({ alertMessage: `Você bloqueou @${this.state.profile.user.username}` })
+                        this.setState({
+                            alertMessage: `Você bloqueou @${this.state.profile.user.username}.
+                         ${this.state.profile.first_name} não conseguirá mais ver o seu perfil ou te enviar mensagens.`
+                        })
+                        this.fetchProfile()
                     })
             }
         }
@@ -296,11 +301,13 @@ class Profile extends React.Component {
                                                 }
                                             </li>
                                         </div>
-                                        <button className="btn d-none"
-                                            id="profile-page-relationship-btn"
-                                            data-pk={this.state.profile.id}
-                                            onClick={this.handleRelationshipUpdate}
-                                        >{this.state.relationshipButtonLabel}</button>
+                                        {!this.state.myProfile.blocked_users.map(u => u.id).includes(this.state.profile.user.id) &&
+                                            <button className="btn d-none"
+                                                id="profile-page-relationship-btn"
+                                                data-pk={this.state.profile.id}
+                                                onClick={this.handleRelationshipUpdate}
+                                            >{this.state.relationshipButtonLabel}</button>
+                                        }
                                     </div>
                                 </div>
                                 <div className="profile-page-menu">

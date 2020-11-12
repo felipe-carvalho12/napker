@@ -11,6 +11,7 @@ urlpatterns = [
     path('interest-profile-list/<str:interest>', interest_profile_list),
     path('myprofile', my_profile),
     path('get-friends-profiles/<str:slug>', friends_profiles),
+    path('get-blocked-profiles', blocked_profiles),
     path('relationship/<str:slug>', get_relationship),
     path('myinvites', friend_requests_received),
     path('pending-sent-friend-requests', pending_sent_friend_requests),

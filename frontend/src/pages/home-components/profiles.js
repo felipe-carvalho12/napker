@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { SERVER_URL, DEFAULT_AVATAR_URL } from '../../settings'
+import { SERVER_URL } from '../../settings'
 import { csrftoken } from '../../utils'
 
 export default function Profiles() {
@@ -89,59 +89,32 @@ export default function Profiles() {
                 {myProfile && (profiles || filteredProfiles) ?
                     <div className="profile-list-container">
                         {filteredProfiles ? filteredProfiles.map(profile => {
-                            console.log(myProfile.blocked_users, profile.user)
-                            if (profile.blocked_users.map(u => u.id).includes(myProfile.user.id)) {
-                                return (
-                                    <Link to={`/user/${profile.slug}`} style={{ color: '#000', textDecoration: 'none' }}>
-                                        <li className="list-group-item profile-row filtered-profile" key={profile.id}>
-                                            <div className="d-flex justify-content-between">
-                                                <div className="profile-col">
-                                                    <img src={`${SERVER_URL}${DEFAULT_AVATAR_URL}`}
-                                                        className="profile-img-med"
-                                                        style={{ marginRight: '10px' }}
-                                                    />
-                                                    <div className="main-profile-data">
-                                                        <strong>{profile.first_name} {profile.last_name}</strong>
-                                                        <p className="text-secondary">@{profile.user.username}</p>
-                                                    </div>
-                                                </div>
-                                                <div className="profile-col">
-                                                    O usuário te bloqueou
-                                                </div>
-                                                <div className="profile-col">
-    
+                            return (
+                                <Link to={`/user/${profile.slug}`} style={{ color: '#000', textDecoration: 'none' }}>
+                                    <li className="list-group-item profile-row filtered-profile" key={profile.id}>
+                                        <div className="d-flex justify-content-between">
+                                            <div className="profile-col">
+                                                <img src={`${SERVER_URL}${profile.photo}`}
+                                                    className="profile-img-med"
+                                                    style={{ marginRight: '10px' }}
+                                                />
+                                                <div className="main-profile-data">
+                                                    <strong>{profile.first_name} {profile.last_name}</strong>
+                                                    <p className="text-secondary">@{profile.user.username}</p>
                                                 </div>
                                             </div>
-                                        </li>
-                                    </Link>
-                                )
-                            } else {
-                                return (
-                                    <Link to={`/user/${profile.slug}`} style={{ color: '#000', textDecoration: 'none' }}>
-                                        <li className="list-group-item profile-row filtered-profile" key={profile.id}>
-                                            <div className="d-flex justify-content-between">
-                                                <div className="profile-col">
-                                                    <img src={`${SERVER_URL}${profile.photo}`}
-                                                        className="profile-img-med"
-                                                        style={{ marginRight: '10px' }}
-                                                    />
-                                                    <div className="main-profile-data">
-                                                        <strong>{profile.first_name} {profile.last_name}</strong>
-                                                        <p className="text-secondary">@{profile.user.username}</p>
-                                                    </div>
-                                                </div>
-                                                <div className="profile-col">
-                                                    {profile.bio}
-                                                </div>
-                                                <div className="profile-col">
+                                            <div className="profile-col">
+                                                {profile.bio}
+                                            </div>
+                                            <div className="profile-col">
 
-                                                </div>
                                             </div>
-                                        </li>
-                                    </Link>
-                                )
-                            }
-                        }) : profiles && profiles.map(profile => {
+                                        </div>
+                                    </li>
+                                </Link>
+                            )
+                        }
+                        ) : profiles && profiles.map(profile => {
                             return (
                                 <li
                                     className="list-group-item profile-row"

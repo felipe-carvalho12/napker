@@ -12,7 +12,6 @@ from .models import *
 # Create your views here.
 @api_view(['GET'])
 def get_logged_user(request):
-    #serializer = UserSerializer(User.objects.get(username='felipe'))
     serializer = UserSerializer(request.user)
     return Response(serializer.data)
 
@@ -36,7 +35,13 @@ def get_profile_by_email(request, email):
 
 @api_view(['GET'])
 def filter_profiles(request, query):
-    profiles = [profile for profile in Profile.objects.all() if query.lower() in profile.user.username and profile.user != request.user]
+    profile = Profile.objects.get(user=request.user)
+    profiles = []
+    for p in Profile.objects.all().exclude(user=profile.user):
+        if query.lower() not in p.user.username: continue
+        if profile.user in p.blocked_users.all(): continue
+        if p.user in profile.blocked_users.all(): continue
+        profiles.append(p)
     serializer = ProfileSerializer(profiles, many=True)
     return Response(serializer.data)
 
@@ -100,6 +105,13 @@ def friends_profiles(request, slug):
     profile = Profile.objects.get(user=user)
     friends = [friend_user.profile for friend_user in profile.friends.all()]
     serializer = ProfileSerializer(friends, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def blocked_profiles(request):
+    profile = Profile.objects.get(user=request.user)
+    profiles = [blocked_user.profile for blocked_user in profile.blocked_users.all()]
+    serializer = ProfileSerializer(profiles, many=True)
     return Response(serializer.data)
 
 @api_view(['GET'])
@@ -180,6 +192,8 @@ def reply_friend_request(request):
 def block_profile(request):
     profile = Profile.objects.get(user=request.user)
     profile_to_block = Profile.objects.get(id=request.data['id'])
+    for r in Relationship.objects.filter(Q(sender=profile) | Q(sender=profile_to_block), Q(receiver=profile) | Q(receiver=profile_to_block)):
+        r.delete()
     profile.blocked_users.add(profile_to_block.user)
     profile.save()
     return Response('Profile blocked')

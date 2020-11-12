@@ -19,7 +19,7 @@ export default function Home() {
                 <div className="home-page-subheader">
                     {page === 'Perfis' ?
                         'Veja o que os seus amigos estão fazendo ultimamente: ' :
-                        'Veja perfis de usuários que possuem interesses em comum com você: '
+                        'Encontre usuários que possuem os mesmos interesses que você e faça novas amizades: '
                     }
                     <button
                         type="button"
