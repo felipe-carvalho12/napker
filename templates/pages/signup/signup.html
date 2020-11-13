@@ -35,12 +35,6 @@
                         <input class="form-control" type="email" name="email" id="email" placeholder="Email">
                         <span class="error-message" id="email-taken">Email já utilizado</span>
 
-                        <select class="form-control" name="gender" id="gender">
-                            <option value="male">Masculino</option>
-                            <option value="female">Feminino</option>
-                            <option value="other">Outro</option>
-                        </select>
-
                         <input class="form-control" type="date" name="birth-date" placeholder="Data de nascimento">
                         <input class="form-control" type="password" name="password" id="password" placeholder="Senha">
                         <input class="form-control" type="password" name="passwordc" id="passwordc"
@@ -79,15 +73,17 @@
         })
 
         emailField.addEventListener('keyup', () => {
-            fetch(`http://localhost:8000/profile-api/profile-by-email/${emailField.value}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.bool !== 'false') {
-                        document.querySelector('#email-taken').style.display = 'initial'
-                    } else if (document.querySelector('#email-taken').style.display === 'initial') {
-                        document.querySelector('#email-taken').style.display = 'none'
-                    }
-                })
+            if (emailField.value !== '') {
+                fetch(`http://localhost:8000/profile-api/profile-by-email/${emailField.value}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.bool !== 'false') {
+                            document.querySelector('#email-taken').style.display = 'initial'
+                        } else if (document.querySelector('#email-taken').style.display === 'initial') {
+                            document.querySelector('#email-taken').style.display = 'none'
+                        }
+                    })
+            }
         })
 
         submitBtn.onclick = e => {

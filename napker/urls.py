@@ -39,13 +39,16 @@ urlpatterns = [
     path('post/<int:id>/comment', pages_view), 
     path('interesses/<str:query>', pages_view),
 
+    path('fc', TemplateView.as_view(template_name='pages/signup/activation_link_sent.html')),
     path('signup', signup_view, name='signup'),
-    path('interesses', add_interests_view, name='interests'),
+    path('signup/interesses', add_interests_view, name='interests'),
     path('update-profile', update_profile),
     path('change-password', change_password),
     path('login', login_view, name='login'),
     path('logout', logout_view, name='logout'),
     path('delete-account', delete_account),
+
+    path('activate/<uidb64>/<token>', activate_account_view, name='activate'),
 
     path('profile-api/', include('profiles.urls')),
     path('chat-api/', include('chat.urls')),

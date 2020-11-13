@@ -20,6 +20,7 @@
             <div class="row">
                 <div class="col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6">
                     <form action="{% url 'interests' %}" class="form_horizontal" method="POST">{% csrf_token %}
+                        <input type="hidden" name="uid" value="{{ user.pk }}">
                         <div class="form_icon">
                             <img src="{% static 'media/favicon.png' %}">
                         </div>
@@ -34,12 +35,13 @@
                                 conectar com outras pessoas que compartilhem das mesmas paixões.
                                 <br />
                                 <br />
-                                <strong>Obs:</strong> Os interesses enviados aqui não serão visíveis para os outros usuários
+                                <strong>Obs:</strong> Os interesses enviados aqui não serão visíveis para os outros
+                                usuários
                             </div>
                             <br />
                             <br />
                             <div class="tag-container">
-                                <input placeholder="Digite e pressione 'Enter'"/>
+                                <input placeholder="Digite e pressione 'Enter'" />
                                 <input type="hidden" name="interests" id="interests">
                             </div>
 
@@ -95,9 +97,13 @@
                 e.preventDefault()
                 if (e.target.value !== '') {
                     e.target.value.split(',').forEach(tag => {
-                        tags.push(tag);
-                    });
-                    addTags();
+                        if (tag.length < 3) {
+                            window.alert('Os interesses devem ter no mínimo 3 caracteres!')
+                        } else {
+                            tags.push(tag)
+                        }
+                    })
+                    addTags()
                     input.value = ''
                 }
                 return false; //prevent the form to submit

@@ -26,8 +26,8 @@ def get_profile(request, slug):
 
 @api_view(['GET'])
 def get_profile_by_email(request, email):
-    if Profile.objects.filter(email=email).exists():
-        profile = Profile.objects.get(email=email)
+    if Profile.objects.filter(email=email, user__is_active=True).exists():
+        profile = Profile.objects.get(email=email, user__is_active=True)
         serializer = ProfileSerializer(profile)
         return Response(serializer.data)
     else:

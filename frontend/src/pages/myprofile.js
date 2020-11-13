@@ -143,14 +143,6 @@ export default function MyProfile() {
                                         <span id="email-taken">Email já utilizado</span>
                                     </div>
                                     <div className="d-flex">
-                                        <label htmlFor="gender" className="profile-label">Gênero:</label>
-                                        <select className="form-control" name="gender" id="gender" placeholder={profile.gender}>
-                                            <option value="male">Masculino</option>
-                                            <option value="female">Feminino</option>
-                                            <option value="other">Outro</option>
-                                        </select>
-                                    </div>
-                                    <div className="d-flex">
                                         <label htmlFor="birth-date" className="profile-label">Data de nascimento:</label>
                                         <input className="form-control" type="date" name="birth-date" id="birth-date" defaultValue={profile.birth_date} />
                                     </div>

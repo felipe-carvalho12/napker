@@ -1,0 +1,9 @@
+{% autoescape off %}
+
+Olá {{ user.profile.first_name }}! Estamos muito felizes de ter você aqui.
+
+Clique no link abaixo para verificar a sua conta:
+
+http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+
+{% endautoescape %}
