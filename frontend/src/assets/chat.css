@@ -156,7 +156,7 @@
 
 .messages-wrapper .current-chat .send-message-container .message-input {
     width: 70%;
-    height: 40px;
+    height: 35px;
     padding-left: 15px;
     border: none;
     border-radius: 20px;
@@ -171,10 +171,14 @@
 }
 
 .messages-wrapper .current-chat .send-message-container .chat-message-submit {
-    height: 40px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.messages-wrapper .current-chat .send-message-container .chat-message-submit .fa-paper-plane {
+.messages-wrapper .current-chat .send-message-container .chat-message-submit .fas {
     position: relative;
     right: 10%;
+    font-size: large;
 }

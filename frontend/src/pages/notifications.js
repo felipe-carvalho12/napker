@@ -81,26 +81,26 @@ export default function Notifications(props) {
                 console.log(data)
                 props.updateNotificationsNumber()
             })
-        console.log(document.getElementById(btn.dataset.senderid))
-        document.getElementById(btn.dataset.senderid).remove()
+        document.getElementById(`fr-${btn.dataset.senderid}`).remove()
+        fetchNotifications()
     }
 
     return (
-        <>
+        <div>
             <Header page="Notificações" />
             <div className="content">
-                <>
+                <div>
                     {invites !== null && unvisualizedPostLikes && visualizedPostLikes !== null && unvisualizedComments !== null && visualizedComments !== null ?
-                        <>
+                        <div>
                             {invites.length || unvisualizedPostLikes.length || visualizedPostLikes.length || unvisualizedComments.length || !!visualizedComments.length ?
                                 <div className="notifications-container">
                                     {!!invites.length &&
-                                        <>
+                                        <div>
                                             {invites.map(i => {
                                                 return (
                                                     <li
                                                         className="friend-request-row"
-                                                        id={i.sender.id}
+                                                        id={`fr-${i.sender.id}`}
                                                         key={i.sender.id}
                                                         onClick={() => window.location.href = `/user/${i.sender.slug}`}
                                                     >
@@ -124,7 +124,7 @@ export default function Notifications(props) {
                                                     </li>
                                                 )
                                             })}
-                                        </>
+                                        </div>
                                     }
 
                                     {(!!unvisualizedPostLikes.length || !!unvisualizedComments.length) &&
@@ -298,13 +298,13 @@ export default function Notifications(props) {
                             }
 
 
-                        </> :
+                        </div> :
                         <div className="notifications-loader-container">
                             <div className="loader" />
                         </div>
                     }
-                </>
+                </div>
             </div>
-        </>
+        </div>
     )
 }

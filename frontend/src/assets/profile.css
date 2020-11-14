@@ -50,8 +50,59 @@
     margin-right: 5px;
 }
 
-.profile-label {
+.bio-emoji-list {
+    left: 60%!important;
+    top: 22%!important;
+}
+
+.d-flex .profile-field-label {
     width: 20%;
+}
+
+.d-flex .profile-field-input {
+    width: 80%!important;
+    flex-basis: auto!important;
+    border: 1px solid rgba(0, 0, 0, 0.2)!important;
+    border-radius: 5px!important;
+    padding: 10px!important;
+    color: #444!important;
+    outline: none!important;
+    margin: 0!important;
+    margin-bottom: 4px!important;
+}
+
+.d-flex .email-input-container {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    flex-basis: auto;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    padding: 10px;
+    color:#444;
+    outline: none;
+    margin: 0;
+    margin-bottom: 4px;
+}
+
+.d-flex .email-input-container .profile-field-input-email {
+    width: 95%;
+    height: 100%;
+    border: none;
+    outline: none;
+}
+
+.d-flex .email-input-container .fa-smile {
+    color: var(--primary-color);
+    font-size: 25px;
+    margin-left: 10px;
+    margin-bottom: 0!important;
+    border-radius: 50%;
+}
+
+.d-flex .email-input-container .fa-smile:hover {
+    background: var(--secondary-color);
+    cursor: pointer;
 }
 
 .form-control {

@@ -73,6 +73,7 @@
 .post-extra-options {
     width: 20%;
     display: flex;
+    position: relative;
 }
 
 .post-extra-options .far {
@@ -88,10 +89,11 @@
     cursor: pointer;
 }
 
-.emoji-list-container {
+.post-extra-options .emoji-list-container {
     display: none;
     position: absolute;
-    left: 20px;
+    left: 60%;
+    top: -100%;
     z-index: 1;
     border: 1px solid rgba(20, 20, 20, 0.2);
 }

@@ -79,7 +79,7 @@ export default function Posts(props) {
             />
             <div className="post-list">
                 {profile && myprofile ?
-                    <>{console.log(profile.posts)}
+                    <>
                         {profile.posts.length ? profile.posts.map(post => {
                             return (
                                 <li

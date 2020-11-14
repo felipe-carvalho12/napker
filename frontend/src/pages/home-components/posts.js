@@ -92,7 +92,7 @@ export default class Posts extends React.Component {
     handlePostContentChange = e => {
         this.setState({ postContent: e.target.value })
         const el = document.querySelector('#post-form-submit-btn')
-        el.disabled = e.target.value.trim() === ''
+        el.disabled = e.target.value.trim() === '' && !this.state.postFormImagePreview
     }
 
     handlePostImageChange = e => {
@@ -191,6 +191,9 @@ export default class Posts extends React.Component {
                                     id="emoji-button"
                                     onClick={() => openCloseEmojiList(false)}
                                 />
+                                <div className="emoji-list-container" id="emoji-list-container">
+                                    <Picker onEmojiClick={this.onEmojiSelect} />
+                                </div>
                             </div>
                             <button
                                 type="submit"
@@ -202,10 +205,8 @@ export default class Posts extends React.Component {
                                 Postar
                             </button>
                         </div>
-                        <div className="emoji-list-container" id="emoji-list-container">
-                            <Picker onEmojiClick={this.onEmojiSelect} />
-                        </div>
-                    </form>}
+                    </form>
+                }
                 <div className="post-list">
                     {this.state.posts && this.state.profile ?
                         this.state.posts.map(post => {

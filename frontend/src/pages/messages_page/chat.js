@@ -252,7 +252,7 @@ class Chat extends React.Component {
                                         id="chat-message-submit"
                                         disabled
                                     >
-                                        <i class="fas fa-paper-plane" />
+                                        <i class="fas fa-chevron-right" />
                                     </button>
                                 </form>
                             </div>

@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Modal from 'react-bootstrap/Modal'
+import Picker from 'emoji-picker-react'
 
 import Header from '../components/header'
 import Posts from './profile-components/posts'
 import Interests from './profile-components/interests'
 import { SERVER_URL } from '../settings'
-import { csrftoken } from '../utils'
+import { csrftoken, openCloseEmojiList } from '../utils'
 
 export default function MyProfile() {
     const [profile, setProfile] = useState(null)
     const [profileImagePreview, setProfileImagePreview] = useState(null)
     const [isEditing, setIsEditing] = useState(false)
+    const [editingBioContent, setEditingBioContent] = useState('')
     const [currentPageIsPosts, setCurrentPageIsPosts] = useState(true)
 
     document.title = 'Perfil / Napker'
@@ -55,28 +57,23 @@ export default function MyProfile() {
         }
     }
 
+
     const handleUsernameChange = e => {
-        fetch(`${SERVER_URL}/profile-api/user/${e.target.value}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.bool !== 'false') {
-                    document.querySelector('#username-taken').style.display = 'initial'
-                } else if (document.querySelector('#username-taken').style.display === 'initial') {
-                    document.querySelector('#username-taken').style.display = 'none'
-                }
-            })
+        if (e.target.value.trim() !== '') {
+            fetch(`${SERVER_URL}/profile-api/user/${e.target.value}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.bool !== 'false' && data.id !== profile.id) {
+                        document.querySelector('#username-taken').style.display = 'initial'
+                    } else {
+                        document.querySelector('#username-taken').style.display = 'none'
+                    }
+                })
+        }
     }
 
-    const handleEmailChange = e => {
-        fetch(`${SERVER_URL}/profile-api/profile-by-email/${e.target.value}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.bool !== 'false') {
-                    document.querySelector('#email-taken').style.display = 'initial'
-                } else if (document.querySelector('#email-taken').style.display === 'initial') {
-                    document.querySelector('#email-taken').style.display = 'none'
-                }
-            })
+    const onEmojiSelect = (event, emojiObject) => {
+        setEditingBioContent(editingBioContent + emojiObject.emoji)
     }
 
     return (
@@ -92,9 +89,15 @@ export default function MyProfile() {
                                 <Modal.Title>Editar perfil</Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
-                                <form action={`${SERVER_URL}/update-profile`} id="update-profile-form" method="POST" encType="multipart/form-data">
+                                <form
+                                    action={`${SERVER_URL}/update-profile`}
+                                    className="d-flex flex-column justify-content-center"
+                                    id="update-profile-form"
+                                    method="POST"
+                                    encType="multipart/form-data"
+                                >
                                     <input type="hidden" name="csrfmiddlewaretoken" value={csrftoken} />
-                                    <div className="d-flex flex-column justify-content-center align-items-center" style={{ padding: '25px' }}>
+                                    <div className="d-flex flex-column justify-content-center align-items-center mb-2">
                                         <img src={profileImagePreview}
                                             className="profile-img-big"
                                             style={{ marginBottom: '25px' }}
@@ -106,18 +109,22 @@ export default function MyProfile() {
                                             onChange={handleProfileImageChange}
                                         />
                                     </div>
-                                    <div className="d-flex">
-                                        <label htmlFor="first-name" className="profile-label">Nome:</label>
-                                        <input className="form-control" type="text" name="first-name" id="first-name" placeholder={profile.first_name} />
+                                    <div className="d-flex justify-content-center">
+                                        Email: {profile.email}
                                     </div>
-                                    <div className="d-flex">
-                                        <label htmlFor="last-name" className="profile-label">Sobrenome:</label>
-                                        <input className="form-control" type="text" name="last-name" id="last-name" placeholder={profile.last_name} />
+                                    <hr />
+                                    <div className="d-flex align-items-center">
+                                        <label htmlFor="first-name" className="profile-field-label">Nome:</label>
+                                        <input className="profile-field-input" type="text" name="first-name" id="first-name" placeholder={profile.first_name} />
                                     </div>
-                                    <div className="d-flex">
-                                        <label htmlFor="username" className="profile-label">Nome de usuário:</label>
+                                    <div className="d-flex align-items-center">
+                                        <label htmlFor="last-name" className="profile-field-label">Sobrenome:</label>
+                                        <input className="profile-field-input" type="text" name="last-name" id="last-name" placeholder={profile.last_name} />
+                                    </div>
+                                    <div className="d-flex align-items-center">
+                                        <label htmlFor="username" className="profile-field-label">Nome de usuário:</label>
                                         <input
-                                            className="form-control"
+                                            className="profile-field-input"
                                             type="text"
                                             name="username"
                                             id="username"
@@ -125,30 +132,37 @@ export default function MyProfile() {
                                             onChange={handleUsernameChange}
                                         />
                                     </div>
-                                    <div style={{ width: '100%', textAlign: 'center', padding: '3px' }}>
-                                        <span id="username-taken">Nome de usuário já existe</span>
+                                    <div
+                                        id="username-taken"
+                                        style={{ display: 'none', width: '100%', textAlign: 'center', padding: '3px' }}
+                                    >
+                                        <span>Nome de usuário já existe</span>
                                     </div>
-                                    <div className="d-flex">
-                                        <label htmlFor="email" className="profile-label">Email:</label>
-                                        <input
-                                            className="form-control"
-                                            type="email"
-                                            name="email"
-                                            id="email"
-                                            placeholder={profile.email}
-                                            onChange={handleEmailChange}
-                                        />
+                                    <div className="d-flex align-items-center">
+                                        <label htmlFor="birth-date" className="profile-field-label">Data de nascimento:</label>
+                                        <input className="profile-field-input" type="date" name="birth-date" id="birth-date" defaultValue={profile.birth_date} />
                                     </div>
-                                    <div style={{ width: '100%', textAlign: 'center', padding: '3px' }}>
-                                        <span id="email-taken">Email já utilizado</span>
+                                    <div className="emoji-list-container bio-emoji-list" id="emoji-list-container">
+                                        <Picker onEmojiClick={onEmojiSelect} />
                                     </div>
-                                    <div className="d-flex">
-                                        <label htmlFor="birth-date" className="profile-label">Data de nascimento:</label>
-                                        <input className="form-control" type="date" name="birth-date" id="birth-date" defaultValue={profile.birth_date} />
-                                    </div>
-                                    <div className="d-flex">
-                                        <label htmlFor="bio" className="profile-label">Bio:</label>
-                                        <input className="form-control" type="email" name="bio" id="bio" placeholder={profile.bio} />
+                                    <div className="d-flex align-items-center">
+                                        <label htmlFor="bio" className="profile-field-label">Bio:</label>
+                                        <div className="email-input-container">
+                                            <input
+                                                className="profile-field-input-email"
+                                                type="email"
+                                                name="bio"
+                                                id="bio"
+                                                value={editingBioContent}
+                                                placeholder={profile.bio}
+                                                onChange={e => setEditingBioContent(e.target.value)}
+                                            />
+                                            <label
+                                                className="far fa-smile"
+                                                id="emoji-button"
+                                                onClick={() => openCloseEmojiList(false)}
+                                            />
+                                        </div>
                                     </div>
                                 </form>
                             </Modal.Body>
