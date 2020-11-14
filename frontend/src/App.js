@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
-import Sidebar from './components/sidebar'
+import Sidebar from './components/main/sidebar'
+import BottomMenu from './components/main/bottomMenu'
 import Home from './pages/home'
 import Notifications from './pages/notifications'
 import Messages from './pages/messages_page/messages'
@@ -84,6 +85,7 @@ export default function App() {
                     )} />
                     <Route path="/interesses/:interest" component={InterestProfiles} />
                 </Switch>
+                <BottomMenu notificationsNumber={notificationsNumber} unreadMessagesNumber={unreadMessagesNumber} />
             </div>
         </Router>
     )

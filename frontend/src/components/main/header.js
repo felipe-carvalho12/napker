@@ -1,5 +1,5 @@
 import React from 'react'
-import { handleLogout } from '../utils'
+import { handleLogout } from '../../utils'
 
 export default function Header(props) {
     return (

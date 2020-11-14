@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import Modal from 'react-bootstrap/Modal'
 import Picker from 'emoji-picker-react'
 
-import Header from '../components/header'
+import Header from '../components/main/header'
 import Posts from './profile-components/posts'
 import Interests from './profile-components/interests'
 import { SERVER_URL } from '../settings'

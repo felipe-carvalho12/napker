@@ -2,7 +2,7 @@ import React from 'react'
 import Modal from 'react-bootstrap/Modal'
 import { Link } from 'react-router-dom'
 
-import Header from '../../components/header'
+import Header from '../../components/main/header'
 import Chat from './chat'
 import { SERVER_URL } from '../../settings'
 

@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 
 import CommentModal from '../../components/commentmodal'
 import LikesModal from '../../components/likesmodal'
-import Header from '../../components/header'
+import Header from '../../components/main/header'
 import { SERVER_URL } from '../../settings'
 import { csrftoken } from '../../utils'
 

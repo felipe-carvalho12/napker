@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Posts from './home-components/posts'
 import Profiles from './home-components/profiles'
-import Header from '../components/header'
+import Header from '../components/main/header'
 
 export default function Home() {
     const [page, setPage] = useState('Posts')
@@ -18,8 +18,8 @@ export default function Home() {
             <div className="content">
                 <div className="home-page-subheader">
                     {page === 'Perfis' ?
-                        'Veja o que os seus amigos estão fazendo ultimamente: ' :
-                        'Encontre usuários que possuem os mesmos interesses que você e faça novas amizades: '
+                        'Veja o que os seus amigos andam fazendo: ' :
+                        'Veja usuários com os mesmos interesses que você: '
                     }
                     <button
                         type="button"

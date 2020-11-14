@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { SERVER_URL, LOGO_URL } from '../settings'
+import { SERVER_URL, LOGO_URL } from '../../settings'
 
 export default function Sidebar(props) {
     useEffect(() => {
@@ -49,12 +49,13 @@ export default function Sidebar(props) {
             <ul>
                 <Link to="/home" style={{ textDecoration: 'none' }}>
                     <li className="sidebar-menu-item" id="home-menu" onClick={switchPage}>
-                        <i className="fas fa-home sidebar-menu-item sidebar-menu-icon" />Home
+                        <i className="fas fa-home sidebar-menu-icon" />
+                        Home
                     </li>
                 </Link>
                 <Link to="/notificações" style={{ textDecoration: 'none' }}>
                     <li className="sidebar-menu-item" id="notifications-menu" onClick={switchPage}>
-                        <i className="fas fa-bell sidebar-menu-item sidebar-menu-icon" />
+                        <i className="fas fa-bell sidebar-menu-icon" />
                         Notificações
                         {!props.notificationsNumber ? '' :
                             <div className="notification-text-container">
@@ -67,8 +68,9 @@ export default function Sidebar(props) {
                 </Link>
                 <Link to="/mensagens" style={{ textDecoration: 'none' }}>
                     <li className="sidebar-menu-item" id="messages-menu" onClick={switchPage}>
-                        <i className="fas fa-envelope sidebar-menu-item sidebar-menu-icon" />
-                        Mensagens{!props.unreadMessagesNumber ? '' :
+                        <i className="fas fa-envelope sidebar-menu-icon" />
+                        Mensagens
+                        {!props.unreadMessagesNumber ? '' :
                             <div className="notification-text-container">
                                 <div className="notification-text">
                                     {props.unreadMessagesNumber}
@@ -79,12 +81,14 @@ export default function Sidebar(props) {
                 </Link>
                 <Link to="/perfil" style={{ textDecoration: 'none' }}>
                     <li className="sidebar-menu-item" id="profile-menu" onClick={switchPage}>
-                        <i className="fas fa-user sidebar-menu-item sidebar-menu-icon" />Perfil
+                        <i className="fas fa-user sidebar-menu-icon" />
+                        Perfil
                     </li>
                 </Link>
                 <Link to="/configurações" style={{ textDecoration: 'none' }}>
                     <li className="sidebar-menu-item" id="settings-menu" onClick={switchPage}>
-                        <i className="fas fa-cog sidebar-menu-item sidebar-menu-icon" />Configurações
+                        <i className="fas fa-cog sidebar-menu-icon" />
+                        Configurações
                     </li>
                 </Link>
             </ul>

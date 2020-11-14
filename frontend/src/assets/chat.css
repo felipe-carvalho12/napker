@@ -3,7 +3,7 @@
 }
 
 .modal-search-input {
-    background: var(--body-background);
+    background: var(--border-color);
     width: 100%;
     padding: 15px;
     border: none;
@@ -27,14 +27,14 @@
     background: #fff;
     overflow: hidden;
     overflow-y: scroll;
-    border-right: 3px solid var(--body-background);
+    border-right: 3px solid var(--border-color);
 }
 
 .messages-wrapper .chats-list .search-input-container {
     display: flex;
     align-items: center;
     padding: 15px;
-    border-bottom: 2px solid var(--body-background);
+    border-bottom: 2px solid var(--border-color);
 }
 
 .messages-wrapper .chats-list .search-input {
@@ -43,7 +43,7 @@
     margin-right: 10px;
     border: none;
     border-radius: 20px;
-    background-color: var(--body-background);
+    background-color: var(--border-color);
     text-align: start;
     padding: 15px;
 }
@@ -82,7 +82,7 @@
     display: flex;
     padding: 15px;
     width: 100%;
-    border-bottom: 2px solid var(--body-background);
+    border-bottom: 2px solid var(--border-color);
 }
 
 .messages-wrapper .current-chat #chat-log {
@@ -137,7 +137,7 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    border-top: 2px solid var(--body-background);
+    border-top: 2px solid var(--border-color);
     padding: 3px;
 }
 
@@ -160,7 +160,7 @@
     padding-left: 15px;
     border: none;
     border-radius: 20px;
-    background-color: var(--body-background);
+    background-color: var(--border-color);
     margin-right: 5px;
 }
 
