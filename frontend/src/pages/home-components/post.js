@@ -194,7 +194,7 @@ export default function Post(props) {
                             </div>
                             <div className="post-actions">
                                 <p className="text-secondary" style={{ fontSize: 'large' }}>
-                                    <Link to={`/post/${id}/comment`} className="text-secondary">
+                                    <Link to={`/post/${id}/comentar`} className="text-secondary">
                                         <i
                                             class="far fa-comment"
                                             onClick={() => setCommentModalIsOpen(true)}

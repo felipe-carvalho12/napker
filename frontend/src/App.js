@@ -82,7 +82,7 @@ export default function App() {
                     )} />
                     <Route path="/user/:slug/amigos" component={ProfileFriends} />
                     <Route path="/post/:id" exact component={Post} />
-                    <Route path="/post/:id/comment" render={props => (
+                    <Route path="/post/:id/comentar" render={props => (
                         <Post {...props} commentModalIsOpen={true} />
                     )} />
                     <Route path="/interesses/:interest" component={InterestProfiles} />

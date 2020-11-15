@@ -263,7 +263,7 @@ export default class Posts extends React.Component {
                                     <div className="post-actions">
                                         <p className="text-secondary">
                                             <Link
-                                                to={`/post/${post.id}/comment`}
+                                                to={`/post/${post.id}/comentar`}
                                                 className="text-secondary"
                                                 onClick={e => e.stopPropagation()}
                                             >
