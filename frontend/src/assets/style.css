@@ -233,11 +233,29 @@ body {
     display: none;
   }
 
+  .wrapper .main-content .content .create-post-form {
+    display: none;
+  }
+
   .wrapper .main-content .bottom-menu {
     display: initial;
   }
 
   .wrapper .main-content {
     margin: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .wrapper .main-content .content .home-page-subheader {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 500px) {
+  .post-list .post-container .post-row .post-col .post-author-data-wrapper {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 15px;
   }
 }

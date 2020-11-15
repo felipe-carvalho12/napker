@@ -36,10 +36,12 @@ urlpatterns = [
     path('user/<str:slug>', pages_view),
     path('user/<str:slug>/amigos', pages_view),
     path('post/<int:id>', pages_view),
-    path('post/<int:id>/comment', pages_view), 
+    path('post/<int:id>/comment', pages_view),
     path('interesses/<str:query>', pages_view),
+    path('postar', pages_view),
 
-    path('fc', TemplateView.as_view(template_name='pages/signup/activation_link_sent.html')),
+    path('fc', TemplateView.as_view(
+        template_name='pages/signup/activation_link_sent.html')),
     path('signup', signup_view, name='signup'),
     path('signup/interesses', add_interests_view, name='interests'),
     path('update-profile', update_profile),
@@ -58,5 +60,7 @@ urlpatterns = [
 ]
 
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL,
+                          document_root=settings.STATIC_ROOT)

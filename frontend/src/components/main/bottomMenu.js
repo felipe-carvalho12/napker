@@ -41,6 +41,11 @@ export default function Sidebar(props) {
 
     return (
         <div className="bottom-menu fixed-bottom">
+            <div style={{ display: 'flex', justifyContent: 'flex-end', margin: '15px' }}>
+                <Link to="/postar">
+                    <i className="fas fa-pencil-alt" />
+                </Link>
+            </div>
             <ul>
                 <Link to="/home" style={{ textDecoration: 'none' }}>
                     <li className="sidebar-menu-item" id="home-menu" onClick={switchPage}>

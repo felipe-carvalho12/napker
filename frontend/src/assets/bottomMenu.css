@@ -1,16 +1,23 @@
 .bottom-menu {
     display: none;
     width: 100%;
-    background: #fff;
+}
+
+.bottom-menu .fa-pencil-alt {
     padding: 15px;
-    border-top: 2px solid var(--border-color);
+    background: var(--primary-color);
+    color: #fff;
+    border-radius: 50%;
 }
 
 .bottom-menu ul {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    background: #fff;
     margin: 0;
+    padding: 15px;
+    border-top: 2px solid var(--border-color);
 }
 
 .bottom-menu ul li {

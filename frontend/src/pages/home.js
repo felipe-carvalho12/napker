@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import Posts from './home-components/posts'
 import Profiles from './home-components/profiles'
 import Header from '../components/main/header'
+import BottomMenu from '../components/main/bottomMenu'
 
-export default function Home() {
+export default function Home(props) {
     const [page, setPage] = useState('Posts')
     const pages = {
         'Perfis': <Profiles />,
@@ -34,6 +35,7 @@ export default function Home() {
                     </button>
                 </div>
                 {pages[page]}
+                <BottomMenu notificationsNumber={props.notificationsNumber} unreadMessagesNumber={props.unreadMessagesNumber} />
             </div>
         </>
     )

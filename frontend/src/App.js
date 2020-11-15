@@ -14,6 +14,8 @@ import InterestProfiles from './pages/profile-components/interestprofiles'
 import EditInterests from './pages/profile-components/edit-interests/editinterests'
 import Post from './pages/home-components/post'
 
+import PostFormPage from './components/postFormPage'
+
 import { SERVER_URL } from './settings'
 
 export default function App() {
@@ -84,6 +86,8 @@ export default function App() {
                         <Post {...props} commentModalIsOpen={true} />
                     )} />
                     <Route path="/interesses/:interest" component={InterestProfiles} />
+
+                    <Route path="/postar" component={PostFormPage} />
                 </Switch>
                 <BottomMenu notificationsNumber={notificationsNumber} unreadMessagesNumber={unreadMessagesNumber} />
             </div>

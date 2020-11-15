@@ -146,11 +146,12 @@ export default class Posts extends React.Component {
                                     className="profile-img-med"
                                 />
                             </Link>
-                            <input type="text"
-                                className="post-content-input"
+                            <textarea
+                                className="post-content-text-area"
                                 name="post-content"
                                 value={this.state.postContent}
                                 placeholder="No que você está pensando?"
+                                maxLength={300}
                                 autoFocus
                                 onChange={this.handlePostContentChange}
                             />
@@ -237,7 +238,7 @@ export default class Posts extends React.Component {
                                                     style={{ color: '#000' }}
                                                     onClick={e => e.stopPropagation()}
                                                 >
-                                                    <div style={{ height: '30px' }}>
+                                                    <div className="post-author-data-wrapper">
                                                         <strong>{post.author.first_name} {post.author.last_name} </strong>
                                                         <p className="text-secondary d-inline-block">
                                                             @{post.author.user.username} • {post.created.split('-').reverse().join('/')}
