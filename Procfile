@@ -1,1 +1,1 @@
-web: gunicorn napker.wsgi
+web: gunicorn napker.wsgi --log-file -
