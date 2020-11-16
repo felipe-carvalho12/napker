@@ -27,8 +27,8 @@
 .post-img {
     min-width: 130px;
     min-height: 70px;
-    max-width: 75%;
-    max-height: 75%;
+    max-width: 600px;
+    max-height: 400px;
     margin-top: 15px;
     border-radius: 20px;
 }
@@ -130,7 +130,7 @@
     cursor: pointer;
 }
 
-.post-list .post-container {
+.post-container {
     background: #fff;
     width: 100%;
     border-bottom: 1px solid var(--border-color);
@@ -142,17 +142,17 @@
     animation-play-state: paused;
 }
 
-.post-list .post-container:hover {
+.post-container:hover {
     background: var(--white-hover);
 }
 
-.post-list .post-container .post-row {
+.post-container .post-row {
     width: 100%;
     padding: 15px;
     display: flex;
 }
 
-.post-list .post-container .post-row .post-col {
+.post-container .post-row .post-col {
     height: fit-content;
     display: flex;
     flex-direction: column;
@@ -160,43 +160,43 @@
     margin-right: 10px;
 }
 
-.post-list .post-container .post-row .post-col .post-author-data-wrapper {
+.post-container .post-row .post-col .post-author-data-wrapper {
     height: 30px;
     display: flex;
 }
 
-.post-list .post-container .post-actions {
+.post-container .post-actions {
     display: flex;
     justify-content: space-between;
     padding: 0 0 2px 79px;
 }
 
-.post-list .post-container .post-actions .fas {
+.post-container .post-actions .fas {
     color: #E0245E;
 }
 
-.post-list .post-container .post-actions .fa-comment, .post-list .post-container .post-actions .fa-heart {
+.post-container .post-actions .fa-comment, .post-container .post-actions .fa-heart {
     padding: 10px;
     border-radius: 50%;
 }
 
-.post-list .post-container .post-actions .fa-comment:hover {
+.post-container .post-actions .fa-comment:hover {
     background: var(--secondary-color);
     color: var(--primary-color);
     cursor: pointer;
 }
 
-.post-list .post-container .post-actions .fa-heart:hover {
+.post-container .post-actions .fa-heart:hover {
     background: #F5E2E8;
     color: #E0245E;
     cursor: pointer;
 }
 
-.post-list .post-container .post-actions .post-likes-number {
+.post-container .post-actions .post-likes-number {
     display: inline-block;
 }
 
-.post-list .post-container .post-actions .post-likes-number:hover {
+.post-container .post-actions .post-likes-number:hover {
     color: #E0245E;
     text-decoration: underline;
     cursor: pointer;

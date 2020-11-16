@@ -190,7 +190,8 @@ export default function Post(props) {
                                         className="far fa-trash-alt trash-icon text-secondary"
                                         style={{ margin: '20px 20px 0 0' }}
                                         onClick={e => deletePost(e, post.id)}
-                                    />}
+                                    />
+                                }
                             </div>
                             <div className="post-actions">
                                 <p className="text-secondary" style={{ fontSize: 'large' }}>
@@ -209,7 +210,8 @@ export default function Post(props) {
                                         <i class="far fa-heart"
                                             data-postid={post.id}
                                             onClick={likeUnlikePost}
-                                        />}
+                                        />
+                                    }
                                     <p className="post-likes-number"
                                         onClick={() => setPostLikesModal({ isOpen: true, likes: post.likes })}
                                     >
@@ -254,7 +256,8 @@ export default function Post(props) {
                                                     className="far fa-trash-alt trash-icon text-secondary"
                                                     style={{ margin: '20px 20px 0 0' }}
                                                     onClick={e => deleteComment(e, comment.id)}
-                                                />}
+                                                />
+                                            }
                                         </div>
                                         <div className="post-actions">
                                             <p className="text-secondary">
@@ -267,7 +270,8 @@ export default function Post(props) {
                                                     <i class="far fa-heart"
                                                         data-commentid={comment.id}
                                                         onClick={likeUnlikeComment}
-                                                    />}
+                                                    />
+                                                }
                                                 <p
                                                     className="post-likes-number"
                                                     onClick={() => setPostLikesModal({ isOpen: true, likes: comment.likes })}
@@ -278,7 +282,8 @@ export default function Post(props) {
                                         </div>
                                     </li>
                                 )
-                            })}
+                            })
+                            }
                         </div>
                     </> :
                     <div className="posts-loader-container" >

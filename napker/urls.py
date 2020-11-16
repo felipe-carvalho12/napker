@@ -36,7 +36,7 @@ urlpatterns = [
     path('user/<str:slug>', pages_view),
     path('user/<str:slug>/amigos', pages_view),
     path('post/<int:id>', pages_view),
-    path('post/<int:id>/comment', pages_view),
+    path('post/<int:id>/comentar', pages_view),
     path('interesses/<str:query>', pages_view),
     path('postar', pages_view),
 
