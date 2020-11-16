@@ -68,7 +68,7 @@ TEMPLATES = [
         'DIRS': [
             os.path.join(BASE_DIR, 'templates'),
             os.path.join(BASE_DIR, 'frontend/build')
-            ],
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -87,8 +87,11 @@ ASGI_APPLICATION = 'napker.routing.application'
 # Not for production! Must switch to a redis channel layer before deploying!
 CHANNEL_LAYERS = {
     "default": {
-        "BACKEND": "channels.layers.InMemoryChannelLayer"
-    }
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("localhost", 6379)],
+        },
+    },
 }
 
 # Database
@@ -153,7 +156,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media_root')
 # Django cors headers
 
 CORS_ALLOWED_ORIGINS = [
-    
+    'http://127.0.0.1:8000',
 ]
 
 
@@ -168,11 +171,8 @@ EMAIL_HOST_PASSWORD = 'Fe12Fa20'
 
 # HTTPS
 
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_HSTS_PRELOAD = True
 
 SECURE_SSL_REDIRECT = True
 

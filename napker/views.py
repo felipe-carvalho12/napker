@@ -17,17 +17,20 @@ from django.shortcuts import render, redirect
 
 from profiles.models import Profile, Interest
 
+
 def index_view(request):
     if request.user.is_authenticated:
         return redirect('/home')
     else:
         return redirect('/login')
 
+
 def pages_view(request, slug=None, id=None, query=None):
     if request.user.is_authenticated:
         return render(request, 'index.html')
     else:
         return redirect('/login')
+
 
 def login_view(request):
     if request.method == 'POST':
@@ -83,14 +86,17 @@ def signup_view(request):
     else:
         return render(request, 'pages/signup/signup.html')
 
+
 def add_interests_view(request):
     if request.method == 'POST':
         user = User.objects.get(pk=request.POST['uid'])
         profile = Profile.objects.get(user=user)
-        interests = request.POST['interests'].split(' ')
+        interests = request.POST['interests'].split(', ')
         for title in interests:
-            if len(title) < 3: continue
-            i, created = Interest.objects.get_or_create(title=title, public=False)
+            if len(title) < 3:
+                continue
+            i, created = Interest.objects.get_or_create(
+                title=title, public=False)
             profile.interests.add(i)
         profile.save()
 
@@ -115,6 +121,7 @@ def add_interests_view(request):
     else:
         return redirect('/')
 
+
 def activate_account_view(request, uidb64, token):
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))
@@ -129,10 +136,12 @@ def activate_account_view(request, uidb64, token):
     else:
         return render(request, 'auth/activation_failed.html')
 
+
 def update_profile(request):
     if request.method == 'POST':
         profile = Profile.objects.get(user=request.user)
-        photo = request.FILES['profile-photo'] if len(request.FILES) else profile.photo
+        photo = request.FILES['profile-photo'] if len(
+            request.FILES) else profile.photo
         first_name = request.POST['first-name'] if request.POST['first-name'] != '' else profile.first_name
         last_name = request.POST['last-name'] if request.POST['last-name'] != '' else profile.last_name
         username = request.POST['username'] if request.POST['username'] != '' else profile.user.username
@@ -142,7 +151,8 @@ def update_profile(request):
             profile.photo = photo
             profile.first_name = first_name
             profile.last_name = last_name
-            profile.user.username = username if not User.objects.filter(username=username).exists() else profile.user.username
+            profile.user.username = username if not User.objects.filter(
+                username=username).exists() else profile.user.username
             profile.birth_date = birth_date
             profile.bio = bio
             profile.user.save()
@@ -151,10 +161,12 @@ def update_profile(request):
             pass
         return redirect('/perfil')
 
+
 @api_view(['POST'])
 def change_password(request):
     passwrod = request.data['password']
-    user = authenticate(request, username=request.user.username, password=passwrod)
+    user = authenticate(
+        request, username=request.user.username, password=passwrod)
 
     new_password = request.data['new_password']
     new_passwordc = request.data['new_passwordc']
@@ -168,10 +180,12 @@ def change_password(request):
     login(request, user)
     return Response('success')
 
+
 @api_view(['POST'])
 def delete_account(request):
     passwrod = request.data['password']
-    user = authenticate(request, username=request.user.username, password=passwrod)
+    user = authenticate(
+        request, username=request.user.username, password=passwrod)
     if user is None:
         return Response('Wrong password')
     user.delete()

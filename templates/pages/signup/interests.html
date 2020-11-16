@@ -74,7 +74,7 @@
             closeIcon.setAttribute('data-item', label);
             div.appendChild(span);
             div.appendChild(closeIcon);
-            if (!interestsInput.value.includes(label)) interestsInput.value += ` ${label}`;
+            if (!interestsInput.value.includes(label)) interestsInput.value += `, ${label}`;
             console.log(tags, interestsInput.value)
             return div;
         }
@@ -114,6 +114,10 @@
                 const tagLabel = e.target.getAttribute('data-item');
                 const index = tags.indexOf(tagLabel);
                 tags = [...tags.slice(0, index), ...tags.slice(index + 1)];
+                interestsInput.value = [
+                    ...interestsInput.value.split(', ').slice(0, interestsInput.value.split(', ').indexOf(tagLabel)),
+                    ...interestsInput.value.split(', ').slice(interestsInput.value.split(', ').indexOf(tagLabel) + 1)
+                ].join(', ')
                 addTags();
             }
         })

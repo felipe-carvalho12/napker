@@ -61,7 +61,7 @@
         const submitBtn = document.querySelector('#submit-btn')
 
         usernameField.addEventListener('keyup', () => {
-            fetch(`http://localhost:8000/profile-api/user/${usernameField.value}`)
+            fetch(`https://napker.herokuapp.com/profile-api/user/${usernameField.value}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data.bool !== 'false') {
@@ -74,7 +74,7 @@
 
         emailField.addEventListener('keyup', () => {
             if (emailField.value !== '') {
-                fetch(`http://localhost:8000/profile-api/profile-by-email/${emailField.value}`)
+                fetch(`https://napker.herokuapp.com/profile-api/profile-by-email/${emailField.value}`)
                     .then(response => response.json())
                     .then(data => {
                         if (data.bool !== 'false') {
