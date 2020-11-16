@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'gld^)fy0sgzfs=nd2tc0cz73(v8n9sa%m!-%@car9*$o(u9#dz'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['napker.herokuapp.com', '127.0.0.1']
 
@@ -170,6 +170,8 @@ EMAIL_HOST_PASSWORD = 'Fe12Fa20'
 
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
+
+SECURE_SSL_REDIRECT = True
 
 
 # DEPLOY
