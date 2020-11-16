@@ -160,7 +160,7 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 
-#SMTP Configuration
+# SMTP Configuration
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
@@ -169,6 +169,14 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'napkercontato@gmail.com'
 EMAIL_HOST_PASSWORD = 'Fe12Fa20'
 
-#-----
+# HTTPS
+
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
+
+# DEPLOY
+
+CONN_MAX_AGE = None
 
 django_heroku.settings(locals())
