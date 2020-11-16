@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'gld^)fy0sgzfs=nd2tc0cz73(v8n9sa%m!-%@car9*$o(u9#dz'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['napker.herokuapp.com', '127.0.0.1']
 
@@ -153,10 +153,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media_root')
 # Django cors headers
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "http://localhost:8000",
-    "http://127.0.0.1:3000",
-    "http://127.0.0.1:8000",
+    
 ]
 
 
