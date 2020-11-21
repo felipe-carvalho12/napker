@@ -82,12 +82,11 @@ TEMPLATES = [
 WSGI_APPLICATION = "napker.wsgi.application"
 
 ASGI_APPLICATION = "napker.routing.application"
-# Not for production! Must switch to a redis channel layer before deploying!
 CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [("127.0.0.1", 6379)],
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
         },
     },
 }
