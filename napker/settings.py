@@ -85,9 +85,6 @@ ASGI_APPLICATION = "napker.routing.application"
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            "hosts": [('napker.herokuapp.com', 6379)],
-        },
     },
 }
 
