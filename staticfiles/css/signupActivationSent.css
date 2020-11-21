@@ -1,0 +1,14 @@
+.activation-sent-container {
+    font-size: large;
+    padding-top: 10%;
+}
+
+.activation-sent-container .email-not-sent {
+    width: fit-content;
+    color: var(--primary-color);
+}
+
+.activation-sent-container .email-not-sent:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
