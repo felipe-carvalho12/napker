@@ -170,7 +170,7 @@ export default function Post(props) {
                                     </div>
                                     <div className="post-col">
                                         <Link to={`/user/${post.author.slug}`} style={{ color: '#000' }}>
-                                            <div style={{ height: '30px' }}>
+                                            <div style={{ textAlign: 'start' }}>
                                                 <strong>{post.author.first_name} {post.author.last_name} </strong>
                                                 <p className="text-secondary d-inline-block">
                                                     @{post.author.user.username} • {post.created.split('-').reverse().join('/')}

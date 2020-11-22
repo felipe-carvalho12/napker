@@ -229,9 +229,6 @@ body {
 }
 
 @media (max-width: 980px) {
-  input, select, textarea {
-    font-size: 16px;
-  }
   .wrapper .sidebar {
     display: none;
   }
@@ -253,11 +250,11 @@ body {
   .post-container:hover {
     background: initial;
   }
-  .post-container .post-actions .fa-comment:hover {
+  .post-actions .fa-comment:hover, .post-actions .fa-heart:hover {
     background: initial;
   }
-  .post-container .post-actions .fa-heart:hover {
-    background: initial;
+  .post-actions .far:hover {
+    color: #6c757d;
   }
 }
 
