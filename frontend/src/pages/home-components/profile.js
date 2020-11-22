@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import Header from '../../components/main/header'
+import Header from '../../components/fixed/header'
 import Posts from '../profile-components/posts'
 import Interests from '../profile-components/interests'
 import { SERVER_URL } from '../../settings'

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import Posts from './home-components/posts'
-import Profiles from './home-components/profiles'
-import Header from '../components/main/header'
+import Posts from './home-components/Posts'
+import Profiles from './home-components/Profiles'
+import Header from '../components/fixed/Header'
 
 export default function Home(props) {
     const [page, setPage] = useState('Posts')

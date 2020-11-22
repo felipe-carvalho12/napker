@@ -147,7 +147,7 @@ export default class Posts extends React.Component {
                                 />
                             </Link>
                             <textarea
-                                className="post-content-text-area"
+                                className="post-content-textarea"
                                 name="post-content"
                                 value={this.state.postContent}
                                 placeholder="No que você está pensando?"

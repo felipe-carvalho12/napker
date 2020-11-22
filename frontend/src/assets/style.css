@@ -229,6 +229,9 @@ body {
 }
 
 @media (max-width: 980px) {
+  input, select, textarea {
+    font-size: 16px;
+  }
   .wrapper .sidebar {
     display: none;
   }
@@ -243,6 +246,9 @@ body {
   }
   .list-group-item {
     padding: 1rem 3rem;
+  }
+  .profile-list-container .profile-row:hover {
+    background: initial;
   }
   .post-container:hover {
     background: initial;

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-import Header from '../../components/main/header'
+import Header from '../../components/fixed/header'
 import BlockedProfiles from './blockedProfiles'
 import ChangePassword from './changePassword'
 import DeleteAccount from './deleteAccount'

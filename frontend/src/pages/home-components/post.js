@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
-import CommentModal from '../../components/commentmodal'
-import LikesModal from '../../components/likesmodal'
-import Header from '../../components/main/header'
+import CommentModal from '../../components/CommentModal'
+import LikesModal from '../../components/LikesModal'
+import Header from '../../components/fixed/Header'
 import { SERVER_URL } from '../../settings'
 import { csrftoken } from '../../utils'
 

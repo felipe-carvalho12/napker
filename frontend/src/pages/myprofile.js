@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom'
 import Modal from 'react-bootstrap/Modal'
 import Picker from 'emoji-picker-react'
 
-import Header from '../components/main/header'
-import Posts from './profile-components/posts'
-import Interests from './profile-components/interests'
+import Header from '../components/fixed/Header'
+import Posts from './profile-components/Posts'
+import Interests from './profile-components/Interests'
 import { SERVER_URL } from '../settings'
 import { csrftoken, openCloseEmojiList } from '../utils'
 

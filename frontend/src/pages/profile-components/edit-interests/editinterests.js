@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import Header from '../../../components/main/header'
+import Header from '../../../components/fixed/header'
 import PublicInterests from './publicInterests'
 import PrivateInterests from './privateInterests'
 import { SERVER_URL } from '../../../settings'

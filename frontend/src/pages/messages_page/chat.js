@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 import { csrftoken, openCloseEmojiList } from '../../utils'
 import { SERVER_URL } from '../../settings'
-import WebSocketInstance from './websocket'
+import WebSocketInstance from './Websocket'
 
 class Chat extends React.Component {
     initialiseChat() {
