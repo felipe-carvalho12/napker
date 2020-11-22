@@ -239,7 +239,9 @@ export default class Posts extends React.Component {
                                                     onClick={e => e.stopPropagation()}
                                                 >
                                                     <div className="post-author-data-wrapper">
-                                                        <strong>{post.author.first_name} {post.author.last_name} </strong>
+                                                        <strong style={{ marginRight: '5px' }}>
+                                                            {post.author.first_name} {post.author.last_name}
+                                                        </strong>
                                                         <p className="text-secondary d-inline-block">
                                                             @{post.author.user.username} • {post.created.split('-').reverse().join('/')}
                                                         </p>
@@ -258,7 +260,8 @@ export default class Posts extends React.Component {
                                                 className="far fa-trash-alt trash-icon text-secondary"
                                                 style={{ margin: '20px 20px 0 0' }}
                                                 onClick={e => this.deletePost(e, post.id)}
-                                            />}
+                                            />
+                                        }
                                     </div>
                                     <div className="post-actions">
                                         <p className="text-secondary">
@@ -280,7 +283,8 @@ export default class Posts extends React.Component {
                                                 <i class="far fa-heart"
                                                     data-postid={post.id}
                                                     onClick={this.likeUnlikePost}
-                                                />}
+                                                />
+                                            }
                                             <p className="post-likes-number"
                                                 onClick={e => {
                                                     e.stopPropagation()
@@ -296,7 +300,8 @@ export default class Posts extends React.Component {
                         }) :
                         <div className="posts-loader-container" >
                             <div className="loader" />
-                        </div>}
+                        </div>
+                    }
                 </div>
             </>
         )

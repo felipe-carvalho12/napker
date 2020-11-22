@@ -1,11 +1,11 @@
 @keyframes hide {
     0% {
         opacity: 1;
-        max-height: 500px;
+        max-height: 800px;
     }
     75% {
         opacity: 0;
-        max-height: 500px;
+        max-height: 800px;
     }
     100% {
         opacity: 0;
@@ -41,7 +41,7 @@
 
 .create-post-form-mobile {
     background: #fff;
-    padding: 15px 15px 5px 15px;
+    padding: 15px 15px 60px 15px;
 }
 
 .post-content-textarea {
