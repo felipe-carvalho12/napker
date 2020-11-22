@@ -22,8 +22,9 @@
 
 .profile-list-container {
     width: 100%;
-    min-height: 500px;
     background: #fff;
+    overflow-y: hidden;
+    padding-bottom: 60px;
 }
 
 .filtered-profile:hover {
@@ -41,9 +42,25 @@
     cursor: pointer;
 }
 
-.profile-row img:hover, .profile-row .profile-col strong:hover {
+.profile-row img:hover, .profile-row strong:hover {
     cursor: pointer;
     transform: scale(1.01);
+}
+
+.profile-row .profile-img-container {
+    width: fit-content;
+    align-self: center;
+}
+
+.profile-row .profile-row-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profile-row .profile-row-bottom {
+    display: flex;
+    text-align: start;
 }
 
 .profile-row .profile-col {
@@ -52,10 +69,10 @@
     display: flex;
 }
 
-.profile-row .profile-col .main-profile-data {
+.profile-row .main-profile-data {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    text-align: start;
 }
 
 .profiles-loader-container {

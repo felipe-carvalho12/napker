@@ -235,11 +235,23 @@ body {
   .wrapper .main-content .content .create-post-form {
     display: none;
   }
-  .wrapper .main-content .bottom-menu {
+  .wrapper .main-content .bottom-menu, .bottom-menu-action-icon {
     display: initial;
   }
   .wrapper .main-content {
     margin: 0;
+  }
+  .list-group-item {
+    padding: 1rem 3rem;
+  }
+  .post-container:hover {
+    background: initial;
+  }
+  .post-container .post-actions .fa-comment:hover {
+    background: initial;
+  }
+  .post-container .post-actions .fa-heart:hover {
+    background: initial;
   }
 }
 
@@ -247,6 +259,16 @@ body {
   .post-img {
     max-width: 500px;
     max-height: 400px;
+  }
+  .list-group-item {
+    padding: 1rem 2rem;
+  }
+}
+
+@media (max-width: 635px) {
+  .profile-list-item-bio-button-wrapper {
+    width: fit-content;
+    flex-direction: column;
   }
 }
 
@@ -290,6 +312,9 @@ body {
   .post-img {
     max-width: 240px;
     max-height: 300px;
+  }
+  .list-group-item {
+    padding: 0.75rem 1.25rem;
   }
 }
 

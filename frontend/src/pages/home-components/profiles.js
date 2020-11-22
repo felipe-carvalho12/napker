@@ -92,22 +92,25 @@ export default function Profiles() {
                             return (
                                 <Link to={`/user/${profile.slug}`} style={{ color: '#000', textDecoration: 'none' }}>
                                     <li className="list-group-item profile-row filtered-profile" key={profile.id}>
-                                        <div className="d-flex justify-content-between">
-                                            <div className="profile-col">
+                                        <div className="d-flex">
+                                            <div className="profile-img-container">
                                                 <img src={`${SERVER_URL}${profile.photo}`}
                                                     className="profile-img-med"
                                                     style={{ marginRight: '10px' }}
                                                 />
-                                                <div className="main-profile-data">
-                                                    <strong>{profile.first_name} {profile.last_name}</strong>
-                                                    <p className="text-secondary">@{profile.user.username}</p>
+                                            </div>
+                                            <div className="d-flex flex-column w-100">
+                                                <div className="profile-row-top">
+                                                    <div className="main-profile-data">
+                                                        <strong style={{ textAlign: 'start' }}>
+                                                            {profile.first_name} {profile.last_name}
+                                                        </strong>
+                                                        <p className="text-secondary">@{profile.user.username}</p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div className="profile-col">
-                                                {profile.bio}
-                                            </div>
-                                            <div className="profile-col">
-
+                                                <div className="profile-row-bottom">
+                                                    {profile.bio}
+                                                </div>
                                             </div>
                                         </div>
                                     </li>
@@ -121,24 +124,28 @@ export default function Profiles() {
                                     key={profile.id}
                                     onClick={() => window.location.href = `/user/${profile.slug}`}
                                 >
-                                    <div className="d-flex justify-content-between">
-                                        <div className="profile-col">
+                                    <div className="d-flex">
+                                        <div className="profile-img-container">
                                             <img src={`${SERVER_URL}${profile.photo}`}
                                                 className="profile-img-med"
                                                 style={{ marginRight: '10px' }}
                                             />
-                                            <div className="main-profile-data">
-                                                <strong>{profile.first_name} {profile.last_name}</strong>
-                                                <p className="text-secondary">@{profile.user.username}</p>
+                                        </div>
+                                        <div className="d-flex flex-column w-100">
+                                            <div className="profile-row-top">
+                                                <div className="main-profile-data">
+                                                    <strong style={{ textAlign: 'start' }}>
+                                                        {profile.first_name} {profile.last_name}
+                                                    </strong>
+                                                    <p className="text-secondary">@{profile.user.username}</p>
+                                                </div>
+                                                <button className="btn btn-secondary" data-pk={profile.id} onClick={handleRelationshipUpdate}>
+                                                    Solicitar
+                                                </button>
                                             </div>
-                                        </div>
-                                        <div className="profile-col">
-                                            {profile.bio}
-                                        </div>
-                                        <div className="profile-col">
-                                            <button className="btn btn-secondary" data-pk={profile.id} onClick={handleRelationshipUpdate}>
-                                                Solicitar
-                                    </button>
+                                            <div className="profile-row-bottom">
+                                                {profile.bio}
+                                            </div>
                                         </div>
                                     </div>
                                 </li>
