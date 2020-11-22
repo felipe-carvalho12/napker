@@ -267,7 +267,7 @@ class Profile extends React.Component {
                                         </p>
                                         <p style={{ marginBottom: 0 }}><strong>{this.state.profile.first_name} {this.state.profile.last_name}</strong></p>
                                         <p className="text-secondary" style={{ marginTop: 0 }}>@{this.state.profile.user.username}</p>
-                                        <p>{this.state.profile.bio}</p>
+                                        <p style={{ textAlign: 'start' }}>{this.state.profile.bio}</p>
                                         <p className="text-secondary">
                                             <i className="far fa-calendar-alt"></i> Entrou em {this.state.profile.created.split('-').reverse().join('/')}
                                         </p>

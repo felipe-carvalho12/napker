@@ -29,7 +29,7 @@
     justify-content: space-between;
     align-items: center;
     background: #fff;
-    padding: 15px 90px 15px 90px;
+    padding: 1.5% 8.7%;
 }
 
 .profile-data-container .friend-btn:hover {
@@ -79,7 +79,7 @@
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 5px;
     padding: 10px;
-    color:#444;
+    color: #444;
     outline: none;
     margin: 0;
     margin-bottom: 4px;

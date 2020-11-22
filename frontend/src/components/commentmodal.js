@@ -38,7 +38,7 @@ export default function CommentModal(props) {
                                 />
                             </div>
                             <div className="post-col">
-                                <div style={{ height: '30px' }}>
+                                <div>
                                     <strong>{post.author.first_name} {post.author.last_name} </strong>
                                     <p className="text-secondary d-inline-block">
                                         @{post.author.user.username} • {post.created.split('-').reverse().join('/')}
@@ -59,13 +59,13 @@ export default function CommentModal(props) {
                         id="emoji-button"
                         onClick={() => openCloseEmojiList(false)}
                     />
-                    <input
+                    <textarea
                         type="text"
                         className="form-control"
                         name="comment-content"
                         value={commentContent}
                         placeholder="Comente alguma coisa"
-                        style={{ marginRight: '5px' }}
+                        style={{ marginRight: '5px', height: '40px' }}
                         onChange={handleCommentChange}
                     />
                     <div className="emoji-list-container chat-emoji-list" id="emoji-list-container">

@@ -96,8 +96,10 @@ export default function Posts(props) {
                                                 />
                                             </div>
                                             <div className="post-col">
-                                                <div style={{ height: '30px' }}>
-                                                    <strong>{profile.first_name} {profile.last_name} </strong>
+                                                <div className="post-author-data-wrapper">
+                                                    <strong style={{ marginRight: '5px' }}>
+                                                        {profile.first_name} {profile.last_name}
+                                                    </strong>
                                                     <p className="text-secondary d-inline-block">
                                                         @{profile.user.username} • {post.created.split('-').reverse().join('/')}
                                                     </p>
@@ -115,7 +117,8 @@ export default function Posts(props) {
                                                 className="far fa-trash-alt trash-icon text-secondary"
                                                 style={{ margin: '20px 20px 0 0' }}
                                                 onClick={e => deletePost(e, post.id)}
-                                            />}
+                                            />
+                                        }
                                     </div>
                                     <div className="post-actions">
                                         <p className="text-secondary">
@@ -135,7 +138,8 @@ export default function Posts(props) {
                                                 <i class="far fa-heart"
                                                     data-postid={post.id}
                                                     onClick={likeUnlikePost}
-                                                />}
+                                                />
+                                            }
                                             <p className="post-likes-number"
                                                 onClick={e => {
                                                     e.stopPropagation()

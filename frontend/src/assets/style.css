@@ -241,6 +241,9 @@ body {
   .wrapper .main-content {
     margin: 0;
   }
+  .fa-smile {
+    display: none;
+  }
   .list-group-item {
     padding: 1rem 3rem;
   }
