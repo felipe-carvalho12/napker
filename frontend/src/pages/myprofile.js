@@ -172,8 +172,8 @@ export default function MyProfile() {
                             </Modal.Footer>
                         </Modal>
                         <div className="profile-data-container">
-                            <div className="d-flex flex-column align-items-start">
-                                <p style={{ padding: '15px' }}>
+                            <div className="d-flex flex-column align-items-start" style={{ textAlign: 'start' }}>
+                                <p>
                                     <img src={`${SERVER_URL}${profile.photo}`}
                                         className="profile-img-big"
                                         style={{ marginBottom: '25px' }}
@@ -191,7 +191,7 @@ export default function MyProfile() {
                                     </Link>
                                 </p>
                             </div>
-                            <div className="d-flex flex-column">
+                            <div className="myprofile-btn-wrapper">
                                 <button
                                     className="btn btn-secondary"
                                     type="button"
@@ -199,7 +199,7 @@ export default function MyProfile() {
                                     style={{ marginBottom: '10px' }}
                                 >
                                     Editar perfil
-                        </button>
+                                </button>
                                 <Link to='/perfil/meus-interesses'>
                                     <button className="btn btn-secondary">Editar interesses</button>
                                 </Link>

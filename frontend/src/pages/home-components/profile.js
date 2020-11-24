@@ -49,6 +49,9 @@ class Profile extends React.Component {
     }
 
     componentDidUpdate() {
+        if (this.state.myProfile && this.state.myProfile.id === this.state.profile.id) {
+            window.location.href = '/perfil'
+        }
         let btn = document.querySelector('#profile-page-relationship-btn')
         if (btn) {
             switch (btn.innerHTML) {
@@ -257,9 +260,9 @@ class Profile extends React.Component {
                                         {this.state.alertMessage}
                                     </div>
                                 }
-                                <div className="d-flex justify-content-between align-items-center profile-data-container">
-                                    <div className="d-flex flex-column align-items-start">
-                                        <p style={{ padding: '15px' }}>
+                                <div className="profile-data-container">
+                                    <div className="d-flex flex-column align-items-start" style={{ textAlign: 'start' }}>
+                                        <p>
                                             <img src={`${SERVER_URL}${this.state.profile.photo}`}
                                                 className="profile-img-big"
                                                 style={{ marginBottom: '25px' }}
@@ -277,7 +280,7 @@ class Profile extends React.Component {
                                             </Link>
                                         </p>
                                     </div>
-                                    <div>
+                                    <div className="profile-btn-wrapper">
                                         <i
                                             className="fas fa-ellipsis-h btn btn-secondary mr-2"
                                             id="view-more-icon"

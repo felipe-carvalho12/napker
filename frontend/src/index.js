@@ -11,6 +11,7 @@ import './assets/profiles.css'
 import './assets/settings.css'
 import './assets/sidebar.css'
 import './assets/style.css'
+import './assets/responsivity.css'
 
 import App from './App'
 

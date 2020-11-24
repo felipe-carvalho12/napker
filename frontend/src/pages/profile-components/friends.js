@@ -7,12 +7,16 @@ import { SERVER_URL } from '../../settings'
 export default function Friends() {
     const [friends, setFriends] = useState(null)
     const [profile, setProfile] = useState(null)
+    const [myProfile, setMyProfile] = useState(null)
     const { slug } = useParams()
 
     useEffect(() => {
         fetch(`${SERVER_URL}/profile-api/user/${slug}`)
             .then(response => response.json())
             .then(data => setProfile(data))
+        fetch(`${SERVER_URL}/profile-api/myprofile`)
+            .then(response => response.json())
+            .then(data => setMyProfile(data))
     }, [])
 
     useEffect(() => {
@@ -30,11 +34,14 @@ export default function Friends() {
             />
             <div className="content">
                 <div className="list-group profile-friends-container">
-                    {friends !== null ?
+                    {friends !== null && myProfile !== null ?
                         <>
                             {friends.length ? friends.map(friend => {
                                 return (
-                                    <Link to={`/user/${friend.slug}`} style={{ color: '#000', textDecoration: 'none' }}>
+                                    <Link to={friend.id === myProfile.id ?
+                                        '/perfil' : `/user/${friend.slug}`}
+                                        style={{ color: '#000', textDecoration: 'none' }}
+                                    >
                                         <li className="list-group-item profile-row filtered-profile profile-friend-list-item" key={friend.id}>
                                             <div className="d-flex justify-content-between">
                                                 <div className="profile-col">

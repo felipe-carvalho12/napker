@@ -9,7 +9,7 @@ import { csrftoken } from '../../utils'
 
 export default function Post(props) {
     const [post, setPost] = useState(null)
-    const [profile, setProfile] = useState(null)
+    const [myprofile, setMyProfile] = useState(null)
     const [commentModalIsOpen, setCommentModalIsOpen] = useState(props.commentModalIsOpen)
     const [postLikesModal, setPostLikesModal] = useState({ isOpen: false, likes: null })
     const [commentLikesModal, setCommentLikesModal] = useState({ isOpen: false, likes: null })
@@ -20,7 +20,7 @@ export default function Post(props) {
         fetchPost()
         fetch(`${SERVER_URL}/profile-api/myprofile`)
             .then(response => response.json())
-            .then(data => setProfile(data))
+            .then(data => setMyProfile(data))
     }, [])
 
     const fetchPost = () => {
@@ -156,20 +156,25 @@ export default function Post(props) {
             />
             <Header page="Post" backArrow={true} />
             <div className="content">
-                {post && profile ?
+                {post && myprofile ?
                     <>
                         <div className="post-container">
                             <div className="d-flex justify-content-between">
                                 <div className="post-row">
                                     <div className="post-col">
-                                        <Link to={`/user/${post.author.slug}`}>
+                                        <Link to={post.author.id === myprofile.id ?
+                                            '/perfil' : `/user/${post.author.slug}`}
+                                        >
                                             <img src={`${SERVER_URL}${post.author.photo}`}
                                                 className="profile-img-med"
                                             />
                                         </Link>
                                     </div>
                                     <div className="post-col">
-                                        <Link to={`/user/${post.author.slug}`} style={{ color: '#000' }}>
+                                        <Link to={post.author.id === myprofile.id ?
+                                            '/perfil' : `/user/${post.author.slug}`}
+                                            style={{ color: '#000' }}
+                                        >
                                             <div style={{ textAlign: 'start' }}>
                                                 <strong>{post.author.first_name} {post.author.last_name} </strong>
                                                 <p className="text-secondary d-inline-block">
@@ -185,7 +190,7 @@ export default function Post(props) {
                                         }
                                     </div>
                                 </div>
-                                {profile.id == post.author.id &&
+                                {myprofile.id == post.author.id &&
                                     <i
                                         className="far fa-trash-alt trash-icon text-secondary"
                                         style={{ margin: '20px 20px 0 0' }}
@@ -201,7 +206,7 @@ export default function Post(props) {
                                             onClick={() => setCommentModalIsOpen(true)}
                                         />
                                     </Link>{post.comments.length}
-                                    {post.likes.map(like => like.profile.id).includes(profile.id) ?
+                                    {post.likes.map(like => like.profile.id).includes(myprofile.id) ?
                                         <i class="fas fa-heart"
                                             data-postid={post.id}
                                             onClick={likeUnlikePost}
@@ -231,16 +236,23 @@ export default function Post(props) {
                                         <div className="d-flex justify-content-between">
                                             <div className="post-row">
                                                 <div className="post-col">
-                                                    <Link to={`/user/${comment.author.slug}`}>
+                                                    <Link to={comment.author.id === myprofile.id ?
+                                                        '/perfil' : `/user/${comment.author.slug}`}
+                                                    >
                                                         <img src={`${SERVER_URL}${comment.author.photo}`}
                                                             className="profile-img-sm"
                                                         />
                                                     </Link>
                                                 </div>
                                                 <div className="post-col">
-                                                    <Link to={`/user/${comment.author.slug}`} style={{ color: '#000' }}>
-                                                        <div style={{ height: '30px' }}>
-                                                            <strong>{comment.author.first_name} {comment.author.last_name} </strong>
+                                                    <Link to={comment.author.id === myprofile.id ?
+                                                        '/perfil' : `/user/${comment.author.slug}`}
+                                                        style={{ color: '#000' }}
+                                                    >
+                                                        <div style={{ textAlign: 'start' }}>
+                                                            <strong style={{ marginRight: '5px' }}>
+                                                                {comment.author.first_name} {comment.author.last_name}
+                                                            </strong>
                                                             <p className="text-secondary d-inline-block">
                                                                 @{comment.author.user.username} • {comment.created.split('-').reverse().join('/')}
                                                             </p>
@@ -251,7 +263,7 @@ export default function Post(props) {
                                                     </div>
                                                 </div>
                                             </div>
-                                            {comment.author.id == profile.id &&
+                                            {comment.author.id == myprofile.id &&
                                                 <i
                                                     className="far fa-trash-alt trash-icon text-secondary"
                                                     style={{ margin: '20px 20px 0 0' }}
@@ -259,9 +271,9 @@ export default function Post(props) {
                                                 />
                                             }
                                         </div>
-                                        <div className="post-actions">
+                                        <div className="post-actions" style={{ padding: '0 0 2px 63px' }}>
                                             <p className="text-secondary">
-                                                {comment.likes.map(like => like.profile.id).includes(profile.id) ?
+                                                {comment.likes.map(like => like.profile.id).includes(myprofile.id) ?
                                                     <i class="fas fa-heart"
                                                         data-commentid={comment.id}
                                                         onClick={likeUnlikeComment}

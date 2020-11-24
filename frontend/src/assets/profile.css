@@ -32,13 +32,22 @@
     padding: 1.5% 8.7%;
 }
 
+.profile-data-container .myprofile-btn-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-data-container .profile-btn-wrapper {
+    display: flex;
+}
+
 .profile-data-container .friend-btn:hover {
     background: #f00!important;
 }
 
 .profile-data-container .profile-view-more-select {
-    top: 200px;
-    left: 74%;
+    top: 60%;
+    right: 10%;
 }
 
 .view-more-icon-active {
