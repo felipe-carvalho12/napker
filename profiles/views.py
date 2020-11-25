@@ -230,8 +230,8 @@ def block_profile(request):
     if profile != profile_to_block:
         for r in Relationship.objects.filter(Q(sender=profile) | Q(sender=profile_to_block), Q(receiver=profile) | Q(receiver=profile_to_block)):
             r.delete()
-            profile.blocked_users.add(profile_to_block.user)
-            profile.save()
+        profile.blocked_users.add(profile_to_block.user)
+        profile.save()
         return Response('Profile blocked')
     else:
         return Response('You can\'t block yourself')

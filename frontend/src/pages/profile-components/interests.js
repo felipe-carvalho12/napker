@@ -7,7 +7,7 @@ export default function Interests(props) {
     return (
         <div className="interests-page-container">
             <h3>Interesses públicos de {profile.first_name}</h3>
-            <div>
+            <div className="interest-list-container">
                 {profile && profile.interests.filter(i => i.public).map(interest => {
                     return (
                         <>
@@ -17,7 +17,7 @@ export default function Interests(props) {
                                     <li className="interest-item">
                                         {interest.title[0].toUpperCase() + interest.title.slice(1)}
                                         <Link to={`/interesses/${interest.title}`}>
-                                            <button className="btn-secondary" style={{ padding: '5px' }}>Pesquisar usuários</button>
+                                            <button className="btn btn-secondary" style={{ padding: '5px' }}>Pesquisar usuários</button>
                                         </Link>
                                     </li>
                                 </>

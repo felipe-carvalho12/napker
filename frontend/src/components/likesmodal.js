@@ -1,10 +1,17 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Modal from 'react-bootstrap/Modal'
-import { Link } from 'react-router-dom'
 
 import { SERVER_URL } from '../settings'
+import ProfileListItem from '../components/ProfileListItem'
 
 export default function LikesModal(props) {
+    const [myProfile, setMyProfile] = useState(null)
+    useEffect(() => {
+        fetch(`${SERVER_URL}/profile-api/myprofile`)
+            .then(response => response.json())
+            .then(data => setMyProfile(data))
+    }, [])
+
     return (
         <Modal show={props.isOpen}
             onHide={props.hideModal}
@@ -17,28 +24,12 @@ export default function LikesModal(props) {
                     {props.likes &&
                         props.likes.map(like => like.profile).map(profile => {
                             return (
-                                <Link to={`/user/${profile.slug}`}
-                                    style={{ color: '#000', textDecoration: 'none' }}
+                                <ProfileListItem
+                                    profile={profile}
+                                    myProfile={myProfile}
+                                    style={{ borderTop: 'none', borderLeft: 'none', borderRight: 'none' }}
                                     onClick={props.hideModal}
-                                >
-                                    <li className="list-group-item profile-row modal-profile-li" key={profile.id}>
-                                        <div className="d-flex justify-content-between">
-                                            <div className="profile-col">
-                                                <img src={`${SERVER_URL}${profile.photo}`}
-                                                    className="profile-img-med"
-                                                    style={{ marginRight: '10px' }}
-                                                />
-                                                <div className="main-profile-data">
-                                                    <strong>{profile.first_name} {profile.last_name}</strong>
-                                                    <p className="text-secondary">@{profile.user.username}</p>
-                                                </div>
-                                            </div>
-                                            <div className="profile-col">
-                                                {profile.bio}
-                                            </div>
-                                        </div>
-                                    </li>
-                                </Link>
+                                />
                             )
                         })}
                 </div>

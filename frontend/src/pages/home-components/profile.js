@@ -49,9 +49,6 @@ class Profile extends React.Component {
     }
 
     componentDidUpdate() {
-        if (this.state.myProfile && this.state.myProfile.id === this.state.profile.id) {
-            window.location.href = '/perfil'
-        }
         let btn = document.querySelector('#profile-page-relationship-btn')
         if (btn) {
             switch (btn.innerHTML) {
@@ -247,7 +244,7 @@ class Profile extends React.Component {
                 <Header page={this.state.profile ? `${this.state.profile.first_name} ${this.state.profile.last_name}` : 'Perfil'}
                     backArrow={true}
                 />
-                {this.state.myProfile && this.state.profile ?
+                {this.state.myProfile !== null && this.state.profile !== null ?
                     <div className="content">
                         {this.state.profile.blocked_users.map(u => u.id).includes(this.state.myProfile.user.id) ?
                             <div className="user-blocked-me-container">

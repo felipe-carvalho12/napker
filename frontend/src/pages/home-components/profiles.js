@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+
 import { SERVER_URL } from '../../settings'
 import { csrftoken } from '../../utils'
+import ProfileListItem from '../../components/ProfileListItem'
 
 export default function Profiles() {
     const [myProfile, setMyProfile] = useState(null)
@@ -89,31 +91,7 @@ export default function Profiles() {
                     <div className="profile-list-container">
                         {filteredProfiles ? filteredProfiles.map(profile => {
                             return (
-                                <Link to={`/user/${profile.slug}`} style={{ color: '#000', textDecoration: 'none' }}>
-                                    <li className="list-group-item profile-row filtered-profile" key={profile.id}>
-                                        <div className="d-flex">
-                                            <div className="profile-img-container">
-                                                <img src={`${SERVER_URL}${profile.photo}`}
-                                                    className="profile-img-med"
-                                                    style={{ marginRight: '10px' }}
-                                                />
-                                            </div>
-                                            <div className="d-flex flex-column w-100">
-                                                <div className="profile-row-top">
-                                                    <div className="main-profile-data">
-                                                        <strong style={{ textAlign: 'start' }}>
-                                                            {profile.first_name} {profile.last_name}
-                                                        </strong>
-                                                        <p className="text-secondary">@{profile.user.username}</p>
-                                                    </div>
-                                                </div>
-                                                <div className="profile-row-bottom">
-                                                    {profile.bio}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </Link>
+                                <ProfileListItem profile={profile} myProfile={myProfile} />
                             )
                         }
                         ) : profiles && profiles.map(profile => {

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
-import Header from '../../components/fixed/header'
 import { SERVER_URL } from '../../settings'
+import Header from '../../components/fixed/header'
+import ProfileListItem from '../../components/ProfileListItem'
 
 export default function Friends() {
     const [friends, setFriends] = useState(null)
@@ -38,31 +39,11 @@ export default function Friends() {
                         <>
                             {friends.length ? friends.map(friend => {
                                 return (
-                                    <Link to={friend.id === myProfile.id ?
-                                        '/perfil' : `/user/${friend.slug}`}
-                                        style={{ color: '#000', textDecoration: 'none' }}
-                                    >
-                                        <li className="list-group-item profile-row filtered-profile profile-friend-list-item" key={friend.id}>
-                                            <div className="d-flex justify-content-between">
-                                                <div className="profile-col">
-                                                    <img src={`${SERVER_URL}${friend.photo}`}
-                                                        className="profile-img-med"
-                                                        style={{ marginRight: '10px' }}
-                                                    />
-                                                    <div className="main-profile-data">
-                                                        <strong>{friend.first_name} {friend.last_name}</strong>
-                                                        <p className="text-secondary">@{friend.user.username}</p>
-                                                    </div>
-                                                </div>
-                                                <div className="profile-col">
-                                                    {friend.bio}
-                                                </div>
-                                                <div className="profile-col">
-
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </Link>
+                                    <ProfileListItem
+                                        profile={friend}
+                                        myProfile={myProfile}
+                                        style={{ borderTop: 'none', borderLeft: 'none', borderRight: 'none' }}
+                                    />
                                 )
                             }) :
                                 <h3 style={{ marginTop: '30px' }}>

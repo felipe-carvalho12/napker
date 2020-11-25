@@ -20,11 +20,14 @@
     .fa-smile {
         display: none;
     }
-    .post-list, .profile-list-container, .comment-list {
+    .post-list, .profile-list-container, .comment-list, .interest-list-container {
         padding-bottom: 60px;
     }
     .list-group-item {
         padding: 1rem 3rem;
+    }
+    .bottom-menu ul li:hover {
+        background: initial;
     }
     .profile-list-container .profile-row:hover {
         background: initial;
@@ -40,6 +43,13 @@
     }
     .profile-page-menu .profile-page-menu-item:hover {
         background: initial;
+    }
+}
+
+@media (max-width: 750px) {
+    .interest-item {
+        flex-direction: column;
+        align-items: flex-start;
     }
 }
 
@@ -97,6 +107,9 @@
         top: 25%;
         right: 10%;
     }
+    .interests-page-container h3 {
+        font-size: 1.5rem;
+    }
 }
 
 @media (max-width: 425px) {
@@ -117,6 +130,21 @@
     .btn {
         font-size: .8rem;
         padding: .3rem .4rem;
+    }
+    .interests-page-container h3 {
+        font-size: 1.4rem;
+    }
+}
+
+@media (max-width:340px) {
+    .interests-page-container h3 {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width:330px) {
+    .interests-page-container h3 {
+        font-size: 1.2rem;
     }
 }
 
