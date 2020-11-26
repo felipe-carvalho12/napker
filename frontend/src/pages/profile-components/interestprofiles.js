@@ -1,16 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
-import Header from '../../components/fixed/header'
 import { SERVER_URL } from '../../settings'
+import Header from '../../components/fixed/header'
+import ProfileListItem from '../../components/ProfileListItem'
 
 export default function InterestProfiles() {
+    const [myProfile, setMyProfile] = useState(null)
     const [profiles, setProfiles] = useState(null)
+
     const { interest } = useParams()
 
     document.title = `${interest[0].toUpperCase() + interest.slice(1)} / Napker`
 
     useEffect(() => {
+        fetch(`${SERVER_URL}/profile-api/myprofile`)
+            .then(response => response.json())
+            .then(data => setMyProfile(data))
         fetch(`${SERVER_URL}/profile-api/interest-profile-list/${interest}`)
             .then(response => response.json())
             .then(data => setProfiles(data))
@@ -27,32 +33,16 @@ export default function InterestProfiles() {
                     <h3>Perfis interessados em "{interest}"</h3>
                 </div>
                 <div className="list-group interest-profile-list">
-                    {profiles !== null ? profiles.map(profile => {
-                        return (
-                            <li
-                                className="list-group-item profile-row filtered-profile interest-profile-row"
-                                key={profile.id}
-                                onClick={() => window.location.href = `/user/${profile.slug}`}
-                            >
-                                <div className="d-flex justify-content-between">
-                                    <div className="profile-col">
-                                        <img src={`${SERVER_URL}${profile.photo}`}
-                                            className="profile-img-med"
-                                            style={{ marginRight: '10px' }}
-                                        />
-                                        <div className="main-profile-data">
-                                            <strong>{profile.first_name} {profile.last_name}</strong>
-                                            <p className="text-secondary">@{profile.user.username}</p>
-                                        </div>
-                                    </div>
-                                    <div className="profile-col">
-                                        {profile.bio}
-                                    </div>
-                                    <div className="profile-col"></div>
-                                </div>
-                            </li>
-                        )
-                    }) :
+                    {myProfile !== null && profiles !== null ?
+                        profiles.map(profile => {
+                            return (
+                                <ProfileListItem
+                                    profile={profile}
+                                    myProfile={myProfile}
+                                    style={{ borderLeft: 'none', borderTop: 'none', borderRight: 'none' }}
+                                />
+                            )
+                        }) :
                         <div className="profiles-loader-container">
                             <div className="loader" />
                         </div>

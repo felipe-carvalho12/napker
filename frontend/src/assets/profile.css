@@ -153,6 +153,11 @@
     border-bottom: 2px solid var(--primary-color);
 }
 
+.edit-profile-input {
+    display: flex;
+    align-items: center;
+}
+
 /* POSTS */
 
 .no-posts-container {
@@ -240,8 +245,6 @@
 
 .interest-profile-list {
     width: 100%;
-    min-height: 500px;
-    background: #fff;
 }
 
 .interest-profile-row {
@@ -253,7 +256,6 @@
 
 .profile-friends-container {
     width: 100%;
-    min-height: 680px;
     background: #fff;
 }
 

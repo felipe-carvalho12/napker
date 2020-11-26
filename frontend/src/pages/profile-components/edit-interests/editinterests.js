@@ -49,6 +49,13 @@ export default function EditInterests() {
                 </p>
                 {myProfile ?
                     <div className="interests-page-container">
+                        <button
+                            className="btn btn-primary"
+                            onClick={submitInterests}
+                        >
+                            Salvar
+                        </button>
+                        <hr />
                         <PublicInterests
                             myProfile={myProfile}
                             setInterests={setPublicInterests}
@@ -62,14 +69,6 @@ export default function EditInterests() {
                             myProfile={myProfile}
                             setInterests={setPrivateInterests}
                         />
-
-                        <hr />
-                        <button
-                            className="btn btn-primary"
-                            onClick={submitInterests}
-                        >
-                            Salvar
-                        </button>
                     </div> :
                     <div className="edit-interests-loader-container">
                         <div className="loader" />

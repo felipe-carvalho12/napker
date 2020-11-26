@@ -30,7 +30,7 @@ export default function Friends() {
 
     return (
         <>
-            <Header page={profile ? `${profile.first_name} ${profile.last_name} / Amigos` : 'Perfil / Amigos'}
+            <Header page={profile !== null ? `${profile.first_name} ${profile.last_name} / Amigos` : 'Perfil / Amigos'}
                 backArrow={true}
             />
             <div className="content">

@@ -105,6 +105,7 @@ export default function MyProfile() {
                                         <input
                                             type="file"
                                             accept="image/png, image/jpg, image/jpeg"
+                                            className="profile-photo-input"
                                             name="profile-photo"
                                             onChange={handleProfileImageChange}
                                         />
@@ -113,22 +114,22 @@ export default function MyProfile() {
                                         Email: {profile.email}
                                     </div>
                                     <hr />
-                                    <div className="d-flex align-items-center">
+                                    <div className="edit-profile-input">
                                         <label htmlFor="first-name" className="profile-field-label">Nome:</label>
                                         <input className="profile-field-input" type="text" name="first-name" id="first-name" placeholder={profile.first_name} />
                                     </div>
-                                    <div className="d-flex align-items-center">
+                                    <div className="edit-profile-input">
                                         <label htmlFor="last-name" className="profile-field-label">Sobrenome:</label>
                                         <input className="profile-field-input" type="text" name="last-name" id="last-name" placeholder={profile.last_name} />
                                     </div>
-                                    <div className="d-flex align-items-center">
+                                    <div className="edit-profile-input">
                                         <label htmlFor="username" className="profile-field-label">Nome de usuário:</label>
                                         <input
                                             className="profile-field-input"
                                             type="text"
                                             name="username"
                                             id="username"
-                                            placeholder={profile.user.username}
+                                            placeholder={`@${profile.user.username}`}
                                             onChange={handleUsernameChange}
                                         />
                                     </div>
@@ -138,14 +139,14 @@ export default function MyProfile() {
                                     >
                                         <span>Nome de usuário já existe</span>
                                     </div>
-                                    <div className="d-flex align-items-center">
+                                    <div className="edit-profile-input">
                                         <label htmlFor="birth-date" className="profile-field-label">Data de nascimento:</label>
                                         <input className="profile-field-input" type="date" name="birth-date" id="birth-date" defaultValue={profile.birth_date} />
                                     </div>
                                     <div className="emoji-list-container bio-emoji-list" id="emoji-list-container">
                                         <Picker onEmojiClick={onEmojiSelect} />
                                     </div>
-                                    <div className="d-flex align-items-center">
+                                    <div className="edit-profile-input">
                                         <label htmlFor="bio" className="profile-field-label">Bio:</label>
                                         <div className="email-input-container">
                                             <input

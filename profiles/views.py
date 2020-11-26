@@ -108,6 +108,8 @@ def interest_profile_list(request, interest):
     for p in Profile.objects.filter(interests__title=interest.lower()):
         if p == profile:
             continue
+        if p in profiles:
+            continue
         profiles.append(p)
     random.shuffle(profiles)
     serializer = ProfileSerializer(profiles[:50], many=True)

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
+import { handleLogout } from '../../utils'
 import Header from '../../components/fixed/header'
 import BlockedProfiles from './blockedProfiles'
 import ChangePassword from './changePassword'
@@ -28,24 +29,29 @@ export default function Settings(props) {
             <div className="content">
                 <div className="settings-page-container">
                     <div className="settings-page-menu">
-                        <Link to="/configurações/perfis-bloqueados" style={{ textDecoration: 'none', width: '100%' }}>
-                            <li id="blocked-profiles" onClick={() => pageChange('blocked-profiles')}>
-                                Perfis bloqueados
+                        <div className="d-flex flex-column w-100">
+                            <Link to="/configurações/perfis-bloqueados" style={{ textDecoration: 'none', width: '100%' }}>
+                                <li id="blocked-profiles" onClick={() => pageChange('blocked-profiles')}>
+                                    Perfis bloqueados
                             <i className="fas fa-angle-right"></i>
-                            </li>
-                        </Link>
-                        <Link to="/configurações/alterar-senha" style={{ textDecoration: 'none', width: '100%' }}>
-                            <li id="change-password" onClick={() => pageChange('change-password')}>
-                                Alterar senha
+                                </li>
+                            </Link>
+                            <Link to="/configurações/alterar-senha" style={{ textDecoration: 'none', width: '100%' }}>
+                                <li id="change-password" onClick={() => pageChange('change-password')}>
+                                    Alterar senha
                             <i className="fas fa-angle-right"></i>
-                            </li>
-                        </Link>
-                        <Link to="/configurações/deletar-conta" style={{ textDecoration: 'none', width: '100%' }}>
-                            <li id="delete-account" onClick={() => pageChange('delete-account')}>
-                                Apagar conta
+                                </li>
+                            </Link>
+                            <Link to="/configurações/deletar-conta" style={{ textDecoration: 'none', width: '100%' }}>
+                                <li id="delete-account" onClick={() => pageChange('delete-account')}>
+                                    Apagar conta
                             <i className="fas fa-angle-right"></i>
-                            </li>
-                        </Link>
+                                </li>
+                            </Link>
+                        </div>
+                        <li className="logout-btn" onClick={handleLogout}>
+                            Sair da conta
+                        </li>
                     </div>
                     {props.page === 'blocked-profiles' ?
                         <BlockedProfiles />

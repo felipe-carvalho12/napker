@@ -20,7 +20,7 @@
     .fa-smile {
         display: none;
     }
-    .post-list, .profile-list-container, .comment-list, .interest-list-container {
+    .post-list, .profile-list-container, .comment-list, .interest-list-container, .interest-profile-list, .interests-page-container, .settings-page-container {
         padding-bottom: 60px;
     }
     .list-group-item {
@@ -42,6 +42,9 @@
         color: #6c757d;
     }
     .profile-page-menu .profile-page-menu-item:hover {
+        background: initial;
+    }
+    .left-arrow-icon:hover, .add-icon:hover {
         background: initial;
     }
 }
@@ -112,6 +115,16 @@
     }
 }
 
+@media (max-width:450px) {
+    .edit-profile-input {
+        flex-direction: column;
+    }
+    .edit-profile-input .profile-field-label {
+        width: 100%;
+        text-align: center;
+    }
+}
+
 @media (max-width: 425px) {
     .post-img {
         max-width: 290px;
@@ -155,5 +168,8 @@
     }
     .profile-data-container {
         padding: 3% 7.4%;
+    }
+    .profile-photo-input {
+        font-size: .75rem;
     }
 }

@@ -99,27 +99,39 @@ export default function Notifications(props) {
                                             {invites.map(i => {
                                                 return (
                                                     <li
-                                                        className="friend-request-row"
+                                                        className="friend-request-row profile-row"
                                                         id={`fr-${i.sender.id}`}
                                                         key={i.sender.id}
                                                         onClick={() => window.location.href = `/user/${i.sender.slug}`}
                                                     >
-                                                        <div className="friend-request-col">
-                                                            <img src={`${SERVER_URL}${i.sender.photo}`}
-                                                                className="profile-img-med"
-                                                                style={{ marginRight: '10px' }}
-                                                            />
-                                                            <div className="d-flex flex-column align-items-start">
-                                                                <strong>{i.sender.first_name} {i.sender.last_name}</strong>
-                                                                <p className="text-secondary">@{i.sender.user.username}</p>
+                                                        <div className="d-flex">
+                                                            <div className="profile-img-container">
+                                                                <img src={`${SERVER_URL}${i.sender.photo}`}
+                                                                    className="profile-img-med"
+                                                                    style={{ marginRight: '10px' }}
+                                                                />
+                                                            </div>
+                                                            <div className="d-flex flex-column w-100">
+                                                                <div className="profile-row-top">
+                                                                    <div className="main-profile-data">
+                                                                        <strong style={{ textAlign: 'start' }}>
+                                                                            {i.sender.first_name} {i.sender.last_name}
+                                                                        </strong>
+                                                                        <p className="text-secondary">@{i.sender.user.username}</p>
+                                                                    </div>
+                                                                </div>
+                                                                <div className="profile-row-bottom">
+                                                                    {i.sender.bio}
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <div className="friend-request-col">
-                                                            {i.sender.bio}
-                                                        </div>
-                                                        <div className="friend-request-col" style={{ justifyContent: 'space-between' }}>
-                                                            <button className="btn btn-primary btn-reply-fr mr-1" data-senderid={i.sender.id} data-reply='accept' onClick={replyRequest}>Confirmar</button>
-                                                            <button className="btn btn-grey btn-reply-fr" data-senderid={i.sender.id} data-reply='decline' onClick={replyRequest}>Excluir</button>
+                                                            <button className="btn btn-primary btn-reply-fr mr-1" data-senderid={i.sender.id} data-reply='accept' onClick={replyRequest}>
+                                                                Aceitar
+                                                            </button>
+                                                            <button className="btn btn-grey btn-reply-fr" data-senderid={i.sender.id} data-reply='decline' onClick={replyRequest}>
+                                                                Excluir
+                                                            </button>
                                                         </div>
                                                     </li>
                                                 )
