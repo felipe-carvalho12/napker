@@ -214,7 +214,7 @@ class Chat extends React.Component {
                 {this.state.otherProfile !== null || !this.props.otherUsername ?
                     <>
                         {this.state.otherProfile ?
-                            <div className="d-flex flex-column justify-content-between align-items-center current-chat">
+                            <div className="current-chat">
                                 <div className="current-chat-header">
                                     <Link to={`/user/${this.state.otherProfile.slug}`}>
                                         <img src={`${SERVER_URL}${this.state.otherProfile.photo}`}

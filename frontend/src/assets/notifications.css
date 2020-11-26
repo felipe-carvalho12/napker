@@ -53,7 +53,7 @@
     justify-content: flex-start;
     text-align: start;
     margin-top: 5px;
-    padding: 0 78px 0 78px;
+    padding: 0 10px 0 78px;
     font-size: large;
     font-weight: bold;
 }
@@ -63,7 +63,7 @@
     justify-content: flex-start;
     text-align: start;
     margin-top: 5px;
-    padding: 0 78px 0 78px;
+    padding: 0 10px 0 78px;
     font-size: medium;
 }
 
@@ -71,7 +71,7 @@
     display: flex;
     justify-content: space-between;
     margin-top: 5px;
-    padding: 0 78px 0 78px;
+    padding: 0 10px 0 78px;
 }
 
 .notification-comment-content {

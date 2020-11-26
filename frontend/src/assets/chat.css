@@ -24,6 +24,8 @@
 .messages-wrapper .chats-list {
     width: 35%;
     height: 100%;
+    display: flex;
+    flex-direction: column;
     background: #fff;
     overflow: hidden;
     overflow-y: scroll;
@@ -75,6 +77,10 @@
 .messages-wrapper .current-chat {
     width: 65%;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
     background: #fff;
 }
 

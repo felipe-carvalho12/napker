@@ -175,7 +175,7 @@ class Messages extends React.Component {
                             </div>
                         </Modal.Body>
                     </Modal>
-                    <div className="d-flex flex-column chats-list">
+                    <div className="chats-list">
                         <div className="search-input-container">
                             <input className="search-input" id="contact-filter-input" placeholder="Pesquisar pessoas" onChange={e => this.setContactSearch(e.target.value)} />
                             <i className="fas fa-plus add-icon" onClick={this.openModal}></i>

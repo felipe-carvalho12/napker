@@ -44,8 +44,11 @@
     .profile-page-menu .profile-page-menu-item:hover {
         background: initial;
     }
-    .left-arrow-icon:hover, .add-icon:hover {
-        background: initial;
+    .left-arrow-icon:hover, .add-icon:hover, .btn-secondary:hover {
+        background: initial!important;
+    }
+    .profile-data-container .friend-btn:hover {
+        background: #0b80d0!important;
     }
 }
 
@@ -63,6 +66,13 @@
     }
     .list-group-item {
         padding: 1rem 2rem;
+    }
+    .messages-wrapper .chats-list {
+        width: 100%;
+        border: none;
+    }
+    .messages-wrapper .current-chat {
+        display: none;
     }
 }
 
