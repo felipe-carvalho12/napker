@@ -1,4 +1,4 @@
-import { SOCKET_URL } from '../../settings'
+import { SOCKET_URL } from '../../config/settings'
 
 class WebSocketService {
   static instance = null;

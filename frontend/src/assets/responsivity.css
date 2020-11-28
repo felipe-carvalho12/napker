@@ -67,12 +67,30 @@
     .list-group-item {
         padding: 1rem 2rem;
     }
+    .mobile-messages-page {
+        display: unset;
+    }
+    .default-messages-page {
+        display: none;
+    }
     .messages-wrapper .chats-list {
         width: 100%;
         border: none;
     }
-    .messages-wrapper .current-chat {
+    .no-chat-selected, .chat-loader-container {
         display: none;
+    }
+    .current-chat {
+        width: 100vw;
+        height: 100%;
+        position: absolute;
+        z-index: 1031;
+    }
+    .current-chat .send-message-container {
+        padding: 10px;
+    }
+    .messages-wrapper .current-chat-header .left-arrow-icon {
+        display: unset;
     }
 }
 

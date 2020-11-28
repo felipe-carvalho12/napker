@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react'
 import Header from '../../../components/fixed/header'
 import PublicInterests from './publicInterests'
 import PrivateInterests from './privateInterests'
-import { SERVER_URL } from '../../../settings'
-import { csrftoken } from '../../../utils'
+import { SERVER_URL } from '../../../config/settings'
+import { csrftoken } from '../../../config/utils'
 
 export default function EditInterests() {
     const [myProfile, setMyProfile] = useState(null)

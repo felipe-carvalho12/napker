@@ -4,8 +4,8 @@ import { Link, useParams } from 'react-router-dom'
 import CommentModal from '../../components/CommentModal'
 import LikesModal from '../../components/LikesModal'
 import Header from '../../components/fixed/Header'
-import { SERVER_URL } from '../../settings'
-import { csrftoken } from '../../utils'
+import { SERVER_URL } from '../../config/settings'
+import { csrftoken } from '../../config/utils'
 
 export default function Post(props) {
     const [post, setPost] = useState(null)

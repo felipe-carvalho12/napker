@@ -6,8 +6,8 @@ import Picker from 'emoji-picker-react'
 import Header from '../components/fixed/Header'
 import Posts from './profile-components/Posts'
 import Interests from './profile-components/Interests'
-import { SERVER_URL } from '../settings'
-import { csrftoken, openCloseEmojiList } from '../utils'
+import { SERVER_URL } from '../config/settings'
+import { csrftoken, openCloseEmojiList } from '../config/utils'
 
 export default function MyProfile() {
     const [profile, setProfile] = useState(null)

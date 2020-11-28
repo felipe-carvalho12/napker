@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
-import { SERVER_URL } from '../../settings'
+import { SERVER_URL } from '../../config/settings'
 import Header from '../../components/fixed/header'
 import ProfileListItem from '../../components/ProfileListItem'
 

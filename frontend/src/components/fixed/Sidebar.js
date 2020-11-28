@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { SERVER_URL, LOGO_URL } from '../../settings'
+import { SERVER_URL, LOGO_URL } from '../../config/settings'
 
 export default function Sidebar(props) {
     useEffect(() => {

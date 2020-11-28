@@ -1,3 +1,15 @@
+.mobile-messages-page {
+    display: none;
+}
+
+.mobile-chat-page {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    z-index: 1031;
+}
+
 .messages-wrapper {
     height: 89vh;
 }
@@ -74,7 +86,7 @@
     background: #fff;
 }
 
-.messages-wrapper .current-chat {
+.current-chat {
     width: 65%;
     height: 100%;
     display: flex;
@@ -84,27 +96,38 @@
     background: #fff;
 }
 
-.messages-wrapper .current-chat .current-chat-header {
+.current-chat .current-chat-header {
+    width: 100%;
+    display: flex;
+    padding: 10px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.messages-wrapper .no-chat-selected {
+    justify-content: center!important;
+}
+
+.messages-wrapper .chat-page-container {
     display: flex;
     padding: 15px;
     width: 100%;
     border-bottom: 2px solid var(--border-color);
 }
 
-.messages-wrapper .current-chat #chat-log {
+.current-chat #chat-log {
     overflow: hidden;
     overflow-y: scroll;
     width: 100%;
     padding: 15px;
 }
 
-.messages-wrapper .current-chat #chat-log .received {
+.current-chat #chat-log .received {
     width: 100%;
     display: flex;
     justify-content: end;
 }
 
-.messages-wrapper .current-chat #chat-log .received p {
+.current-chat #chat-log .received p {
     background: #ccc;
     color: #000;
     max-width: 70%;
@@ -115,14 +138,14 @@
     border-bottom-right-radius: 30px;
 }
 
-.messages-wrapper .current-chat #chat-log .sent {
+.current-chat #chat-log .sent {
     width: 100%;
     display: flex;
     justify-content: flex-end;
     padding-left: 20px;
 }
 
-.messages-wrapper .current-chat #chat-log .sent p {
+.current-chat #chat-log .sent p {
     background: var(--primary-color);
     color: #fff;
     max-width: 70%;
@@ -138,7 +161,7 @@
     top: 30%!important;
 }
 
-.messages-wrapper .current-chat .send-message-container {
+.current-chat .send-message-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -147,7 +170,7 @@
     padding: 3px;
 }
 
-.messages-wrapper .current-chat .send-message-container .fa-smile {
+.current-chat .send-message-container .fa-smile {
     color: var(--primary-color);
     font-size: 25px;
     margin-right: 10px;
@@ -155,12 +178,12 @@
     border-radius: 50%;
 }
 
-.messages-wrapper .current-chat .send-message-container .fa-smile:hover, .emoji-button-active {
+.current-chat .send-message-container .fa-smile:hover, .emoji-button-active {
     background: var(--secondary-color);
     cursor: pointer;
 }
 
-.messages-wrapper .current-chat .send-message-container .message-input {
+.current-chat .send-message-container .message-input {
     width: 70%;
     height: 35px;
     padding-left: 15px;
@@ -170,20 +193,20 @@
     margin-right: 5px;
 }
 
-.messages-wrapper .chats-list .search-input:focus, .messages-wrapper .current-chat .send-message-container .message-input:focus {
+.messages-wrapper .chats-list .search-input:focus, .current-chat .send-message-container .message-input:focus {
     outline: none;
     background: #fff;
     border: 1px solid var(--primary-color);
 }
 
-.messages-wrapper .current-chat .send-message-container .chat-message-submit {
+.current-chat .send-message-container .chat-message-submit {
     height: 35px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.messages-wrapper .current-chat .send-message-container .chat-message-submit .fas {
+.current-chat .send-message-container .chat-message-submit .fas {
     position: relative;
     right: 10%;
     font-size: large;

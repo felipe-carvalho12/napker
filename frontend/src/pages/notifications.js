@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Header from '../components/fixed/Header'
-import { SERVER_URL } from '../settings'
-import { csrftoken } from '../utils'
+import { SERVER_URL } from '../config/settings'
+import { csrftoken } from '../config/utils'
 
 export default function Notifications(props) {
     const [invites, setInvites] = useState(null)

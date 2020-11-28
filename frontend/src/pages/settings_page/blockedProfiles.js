@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import { SERVER_URL } from '../../settings'
+import { SERVER_URL } from '../../config/settings'
 import ProfileListItem from '../../components/ProfileListItem'
 
 export default function BlockUser() {

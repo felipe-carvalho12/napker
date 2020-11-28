@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
-import { csrftoken } from '../../utils'
-import { SERVER_URL } from '../../settings'
+import { csrftoken } from '../../config/utils'
+import { SERVER_URL } from '../../config/settings'
 
 export default function ChangePassword() {
     const [errorMessage, setErrorMessage] = useState(null)

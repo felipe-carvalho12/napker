@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import { SERVER_URL } from '../../settings'
-import { csrftoken } from '../../utils'
+import { SERVER_URL } from '../../config/settings'
+import { csrftoken } from '../../config/utils'
 import ProfileListItem from '../../components/ProfileListItem'
 
 export default function Profiles() {

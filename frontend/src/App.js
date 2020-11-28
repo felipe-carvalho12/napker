@@ -16,7 +16,7 @@ import Post from './pages/home-components/Post'
 
 import PostFormPage from './pages/PostFormPage'
 
-import { SERVER_URL } from './settings'
+import { SERVER_URL } from './config/settings'
 
 export default function App() {
     const [invitesReceivedNumber, setInvitesReceived] = useState(0)

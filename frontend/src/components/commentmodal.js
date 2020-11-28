@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import Modal from 'react-bootstrap/Modal'
 import Picker from 'emoji-picker-react'
 
-import { csrftoken, openCloseEmojiList } from '../utils'
-import { SERVER_URL } from '../settings'
+import { csrftoken, openCloseEmojiList } from '../config/utils'
+import { SERVER_URL } from '../config/settings'
 
 export default function CommentModal(props) {
     const [commentContent, setCommentContent] = useState('')

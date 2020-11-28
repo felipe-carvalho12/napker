@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-import { handleLogout } from '../../utils'
+import { handleLogout } from '../../config/utils'
 import Header from '../../components/fixed/header'
 import BlockedProfiles from './blockedProfiles'
 import ChangePassword from './changePassword'

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Modal from 'react-bootstrap/Modal'
 
-import { SERVER_URL } from '../settings'
+import { SERVER_URL } from '../config/settings'
 import ProfileListItem from '../components/ProfileListItem'
 
 export default function LikesModal(props) {

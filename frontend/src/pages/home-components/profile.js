@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom'
 import Header from '../../components/fixed/header'
 import Posts from '../profile-components/posts'
 import Interests from '../profile-components/interests'
-import { SERVER_URL } from '../../settings'
-import { csrftoken } from '../../utils'
+import { SERVER_URL } from '../../config/settings'
+import { csrftoken } from '../../config/utils'
 
 class Profile extends React.Component {
     constructor(props) {

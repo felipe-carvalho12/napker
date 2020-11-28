@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import { SERVER_URL } from '../settings'
-import { csrftoken } from '../utils'
+import { SERVER_URL } from '../config/settings'
+import { csrftoken } from '../config/utils'
 
 export default function PostListItem(props) {
     const post = props.post

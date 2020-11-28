@@ -2,8 +2,8 @@ import React from 'react'
 import Picker from 'emoji-picker-react'
 import { Link } from 'react-router-dom'
 
-import { SERVER_URL } from '../../settings'
-import { csrftoken, openCloseEmojiList } from '../../utils'
+import { SERVER_URL } from '../../config/settings'
+import { csrftoken, openCloseEmojiList } from '../../config/utils'
 import LikesModal from '../../components/likesmodal'
 import PostListItem from '../../components/PostListItem'
 

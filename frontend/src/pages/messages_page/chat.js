@@ -2,8 +2,8 @@ import React from 'react'
 import Picker from 'emoji-picker-react'
 import { Link } from 'react-router-dom'
 
-import { csrftoken, openCloseEmojiList } from '../../utils'
-import { SERVER_URL } from '../../settings'
+import { csrftoken, openCloseEmojiList } from '../../config/utils'
+import { SERVER_URL } from '../../config/settings'
 import WebSocketInstance from './Websocket'
 
 class Chat extends React.Component {
@@ -216,6 +216,9 @@ class Chat extends React.Component {
                         {this.state.otherProfile ?
                             <div className="current-chat">
                                 <div className="current-chat-header">
+                                    {this.props.backArrow &&
+                                        <i class="fas fa-arrow-left left-arrow-icon" onClick={() => window.history.back()} />
+                                    }
                                     <Link to={`/user/${this.state.otherProfile.slug}`}>
                                         <img src={`${SERVER_URL}${this.state.otherProfile.photo}`}
                                             className="profile-img-sm"
@@ -244,7 +247,11 @@ class Chat extends React.Component {
                                         className="message-input"
                                         id="chat-message-input"
                                         value={this.state.message}
-                                        autoFocus={document.querySelector('#contact-filter-input').value === ''}
+                                        autoFocus={Array.prototype.slice.call(document.querySelectorAll('.contact-filter-input')).filter(el => {
+                                            return el.value !== ''
+                                        })
+                                            .lenght > 0
+                                        }
                                         onChange={this.messageChangeHandler}
                                     />
                                     <button
@@ -257,7 +264,7 @@ class Chat extends React.Component {
                                 </form>
                             </div>
                             :
-                            <div className="d-flex flex-column justify-content-center align-items-center current-chat">
+                            <div className="current-chat no-chat-selected">
                                 <div>
                                     <strong style={{ fontSize: 'larger' }}>Você não tem uma conversa selecionada</strong>
                                     <p className="text-secondary">Selecione uma existente ou comece uma nova</p>
