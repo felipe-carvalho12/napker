@@ -9,8 +9,7 @@ from profiles.models import Profile
 class Post(models.Model):
     content = models.TextField(max_length=300)
     image = models.ImageField(upload_to='post/', blank=True, null=True)
-    author = models.ForeignKey(
-        Profile, related_name='posts', on_delete=models.CASCADE)
+    author = models.ForeignKey(Profile, related_name='posts', on_delete=models.CASCADE)
     updated = models.DateField(auto_now=True)
     created = models.DateField(auto_now_add=True)
 
@@ -28,10 +27,8 @@ class Post(models.Model):
 
 
 class PostLike(models.Model):
-    profile = models.ForeignKey(
-        Profile, related_name='likes', blank=True, on_delete=models.CASCADE)
-    post = models.ForeignKey(Post, related_name='likes',
-                             on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile, related_name='likes', blank=True, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, related_name='likes', on_delete=models.CASCADE)
     visualized = models.BooleanField(default=False)
     updated = models.DateField(auto_now=True)
     created = models.DateField(auto_now_add=True)
@@ -42,8 +39,7 @@ class PostLike(models.Model):
 
 class Comment(models.Model):
     content = models.TextField(max_length=300)
-    author = models.ForeignKey(
-        Profile, related_name='comments', on_delete=models.CASCADE)
+    author = models.ForeignKey(Profile, related_name='comments', on_delete=models.CASCADE)
     post = models.ForeignKey(
         Post, related_name='comments', on_delete=models.CASCADE)
     updated = models.DateField(auto_now=True)

@@ -17,8 +17,7 @@ class Interest(models.Model):
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(
-        User, on_delete=models.CASCADE, related_name='profile')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     first_name = models.CharField(max_length=100, blank=True)
     last_name = models.CharField(max_length=100, blank=True)
     email = models.EmailField(max_length=100, blank=True, null=True)
@@ -29,8 +28,7 @@ class Profile(models.Model):
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
     friends = models.ManyToManyField(User, blank=True, related_name='friends')
-    blocked_users = models.ManyToManyField(
-        User, blank=True, related_name='blocked_me')
+    blocked_users = models.ManyToManyField(User, blank=True, related_name='blocked_me')
     interests = models.ManyToManyField(Interest, related_name='profiles')
 
     def __str__(self):
