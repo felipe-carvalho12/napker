@@ -43,7 +43,7 @@ export default function Sidebar(props) {
         <>
             <div className="bottom-menu-action-icon fixed-bottom">
                 <Link to="/postar">
-                    <i className="fas fa-pencil-alt" />
+                    <i className="fas fa-pencil-alt" id="bottom-menu-post-icon" />
                 </Link>
             </div>
             <div className="bottom-menu fixed-bottom">

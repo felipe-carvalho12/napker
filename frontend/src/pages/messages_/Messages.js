@@ -67,6 +67,15 @@ export default class Messages extends React.Component {
 
     componentWillUnmount() {
         window.clearInterval(this.rerenderingInterval)
+        if (document.querySelector('#bottom-menu-post-icon')) {
+            document.querySelector('#bottom-menu-post-icon').style.display = 'unset'
+        }
+    }
+
+    componentDidMount() {
+        if (document.querySelector('#bottom-menu-post-icon') && document.querySelector('#bottom-menu-post-icon').display !== 'none') {
+            document.querySelector('#bottom-menu-post-icon').style.display = 'none'
+        }
     }
 
     componentDidUpdate() {

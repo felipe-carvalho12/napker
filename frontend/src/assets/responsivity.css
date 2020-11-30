@@ -76,8 +76,8 @@
     }
     .current-chat {
         width: 100vw;
-        position: absolute;
-        z-index: 1031;
+        height: 78vh;
+        position: fixed;
     }
     .current-chat .current-chat-header .left-arrow-icon {
         display: unset;
