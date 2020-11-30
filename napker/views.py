@@ -151,8 +151,7 @@ def update_profile(request):
             profile.photo = photo
             profile.first_name = first_name
             profile.last_name = last_name
-            profile.user.username = username if not User.objects.filter(
-                username=username).exists() else profile.user.username
+            profile.user.username = username if not User.objects.filter(username=username).exists() else profile.user.username
             profile.birth_date = birth_date
             profile.bio = bio
             profile.user.save()

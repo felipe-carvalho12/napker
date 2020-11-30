@@ -54,6 +54,7 @@ def get_active_chats_profiles(request):
     contact = Contact.objects.get(user=request.user)
     chats = [chat for chat in Chat.objects.filter(participants__id=contact.id) if chat.messages.all().exists()]
     ordered_chats = sorted(chats, key=lambda chat: chat.messages.last().timestamp)
+    ordered_chats.reverse()
     profiles = []
     for chat in ordered_chats:
         for participant in chat.participants.exclude(user=contact.user):

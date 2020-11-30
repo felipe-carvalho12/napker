@@ -5,9 +5,29 @@ import { Link } from 'react-router-dom'
 import { SERVER_URL } from '../../../config/settings'
 
 export default function ModalContactSearch(props) {
+    const modalProfiles = props.modalProfiles
+    const setParentState = props.setParentState
+    const addingNewChat = props.addingNewChat
+
+    const setModalSearch = query => {
+        if (query === '') {
+            setParentState({
+                modalProfiles: []
+            })
+            return
+        }
+        fetch(`${SERVER_URL}/profile-api/users/${query}`)
+            .then(response => response.json())
+            .then(data => {
+                setParentState({
+                    modalProfiles: data
+                })
+            })
+    }
+
     return (
-        <Modal show={props.addingNewChat}
-            onHide={props.closeModal}
+        <Modal show={addingNewChat}
+            onHide={() => setParentState({ addingNewChat: false })}
             size="lg">
             <Modal.Header closeButton>
                 <Modal.Title><strong>Nova conversa</strong></Modal.Title>
@@ -15,14 +35,14 @@ export default function ModalContactSearch(props) {
             <Modal.Body style={{ padding: '0' }}>
                 <input className="modal-search-input"
                     placeholder="Pesquisar pessoas"
-                    onChange={e => this.setModalSearch(e.target.value)}
+                    onChange={e => setModalSearch(e.target.value)}
                 />
                 <div className="list-group" style={{ height: '400px', overflow: 'hidden', overflowY: 'scroll' }}>
-                    {props.modalProfiles && props.modalProfiles.map(profile => {
+                    {modalProfiles && modalProfiles.map(profile => {
                         return (
                             <Link to={`/mensagens/${profile.slug}`}
                                 style={{ color: '#000', textDecoration: 'none' }}
-                                onClick={props.closeModal}
+                                onClick={() => setParentState({ addingNewChat: false })}
                             >
                                 <li className="list-group-item profile-row modal-profile-li" key={profile.id}>
                                     <div className="d-flex justify-content-between">
@@ -35,9 +55,6 @@ export default function ModalContactSearch(props) {
                                                 <strong>{profile.first_name} {profile.last_name}</strong>
                                                 <p className="text-secondary">@{profile.user.username}</p>
                                             </div>
-                                        </div>
-                                        <div className="profile-col">
-                                            {profile.bio}
                                         </div>
                                     </div>
                                 </li>

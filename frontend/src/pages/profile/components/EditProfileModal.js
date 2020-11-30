@@ -120,6 +120,7 @@ export default function EditProfileModal(props) {
                                 id="bio"
                                 value={editingBioContent}
                                 placeholder={profile.bio}
+                                maxLength={100}
                                 onChange={e => setEditingBioContent(e.target.value)}
                             />
                             <label

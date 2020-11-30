@@ -1,15 +1,3 @@
-.mobile-messages-page {
-    display: none;
-}
-
-.mobile-chat-page {
-    width: 100vw;
-    height: 100vh;
-    position: absolute;
-    top: 0;
-    z-index: 1031;
-}
-
 .messages-wrapper {
     height: 89vh;
 }
@@ -101,6 +89,10 @@
     display: flex;
     padding: 10px;
     border-bottom: 2px solid var(--border-color);
+}
+
+.current-chat .current-chat-header .left-arrow-icon {
+    display: none;
 }
 
 .messages-wrapper .no-chat-selected {

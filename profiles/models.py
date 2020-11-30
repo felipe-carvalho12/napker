@@ -23,7 +23,7 @@ class Profile(models.Model):
     email = models.EmailField(max_length=100, blank=True, null=True)
     birth_date = models.DateField(blank=True, null=True)
     photo = models.ImageField(default='avatar.png', upload_to='profile/')
-    bio = models.TextField(default='Sem bio...', max_length=240)
+    bio = models.TextField(default='Sem bio...', max_length=100)
     slug = models.SlugField(unique=True, blank=True)
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)

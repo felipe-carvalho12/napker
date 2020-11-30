@@ -67,12 +67,6 @@
     .list-group-item {
         padding: 1rem 2rem;
     }
-    .mobile-messages-page {
-        display: unset;
-    }
-    .default-messages-page {
-        display: none;
-    }
     .messages-wrapper .chats-list {
         width: 100%;
         border: none;
@@ -84,6 +78,9 @@
         width: 100vw;
         position: absolute;
         z-index: 1031;
+    }
+    .current-chat .current-chat-header .left-arrow-icon {
+        display: unset;
     }
     .current-chat .send-message-container {
         padding: 10px;
