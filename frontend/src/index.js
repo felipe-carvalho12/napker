@@ -13,6 +13,7 @@ import './assets/sidebar.css'
 import './assets/style.css'
 import './assets/responsivity.css'
 
+import AppContextProvider from './context/app/AppContext'
 import App from './App'
 
-ReactDOM.render(<App />, document.querySelector('#root'))
+ReactDOM.render((<AppContextProvider><App /></AppContextProvider>), document.querySelector('#root'))

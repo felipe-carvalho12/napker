@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 
+import { SERVER_URL } from '../../config/settings'
+import { csrftoken } from '../../config/utils'
 import Header from '../../components/fixed/Header'
 import InviteNotification from './components/InviteNotification'
 import LikeProfileNotification from './components/LikeProfileNotification'
 import CommentProfileNotification from './components/CommentProfileNotification'
 import NewLabel from './components/NewLabel'
-import { SERVER_URL } from '../../config/settings'
-import { csrftoken, hideBottomMenuPostIcon } from '../../config/utils'
+import BottomMenu from '../../components/fixed/bottom-menu/BottomMenu'
 
 export default function Notifications(props) {
     const [invites, setInvites] = useState(null)
@@ -38,7 +39,6 @@ export default function Notifications(props) {
     }
 
     useEffect(() => {
-        hideBottomMenuPostIcon()
         fetchNotifications()
         notificationsFetchInterval = window.setInterval(fetchNotifications, 3000)
         return () => window.clearInterval(notificationsFetchInterval)
@@ -91,7 +91,7 @@ export default function Notifications(props) {
     }
 
     return (
-        <div>
+        <>
             <Header page="Notificações" />
             <div className="content">
                 <div>
@@ -177,6 +177,7 @@ export default function Notifications(props) {
                     }
                 </div>
             </div>
-        </div>
+            <BottomMenu />
+        </>
     )
 }

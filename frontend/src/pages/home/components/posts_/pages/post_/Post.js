@@ -7,6 +7,8 @@ import CommentModal from '../../../../../../components/CommentModal'
 import LikesModal from '../../../../../../components/LikesModal'
 import Header from '../../../../../../components/fixed/Header'
 import CommentListItem from './components/CommentListItem'
+import BottomMenu from '../../../../../../components/fixed/bottom-menu/BottomMenu'
+import CommentIcon from '../../../../../../components/fixed/bottom-menu/components/CommentIcon'
 
 export default function Post(props) {
     const [post, setPost] = useState(null)
@@ -199,6 +201,9 @@ export default function Post(props) {
                     </div>
                 }
             </div>
+            <BottomMenu>
+                <CommentIcon postId={id} />
+            </BottomMenu>
         </div>
     )
 }

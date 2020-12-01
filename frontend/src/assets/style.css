@@ -33,6 +33,10 @@ body {
   display: flex;
 }
 
+.nav-menu-item-active {
+  color: var(--primary-color)!important;
+}
+
 .notification-text-container {
   display: inline-block;
   position: relative;

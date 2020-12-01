@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
+
+import Header from '../../components/fixed/Header'
 import Posts from './components/posts_/Posts'
 import Profiles from './components/Profiles'
-import Header from '../../components/fixed/Header'
-import { showBottomMenuPostIcon } from '../../config/utils'
+import PostIcon from '../../components/fixed/bottom-menu/components/PostIcon'
+import BottomMenu from '../../components/fixed/bottom-menu/BottomMenu'
 
 export default function Home(props) {
     const [page, setPage] = useState('Posts')
@@ -12,10 +14,6 @@ export default function Home(props) {
     }
 
     document.title = 'Home / Napker'
-
-    useEffect(() => {
-        showBottomMenuPostIcon()
-    }, [])
 
     return (
         <>
@@ -40,6 +38,9 @@ export default function Home(props) {
                 </div>
                 {pages[page]}
             </div>
+            <BottomMenu>
+                <PostIcon />
+            </BottomMenu>
         </>
     )
 }

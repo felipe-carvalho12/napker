@@ -1,43 +1,25 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
+
 import { SERVER_URL, LOGO_URL } from '../../config/settings'
+import { getActivePageOnLoad, switchPage } from '../../config/utils'
+import {
+    InvitesReceivedContext, UnvisualizedCommentsContext,
+    UnvisualizedLikesContext, UnreadMessagesContext
+} from '../../context/app/AppContext'
 
-export default function Sidebar(props) {
+export default function Sidebar() {
+    const [invitesReceivedNumber, setInvitesReceived] = useContext(InvitesReceivedContext)
+    const [unvisualizedCommentsNumber, setUnvisulaizedComments] = useContext(UnvisualizedCommentsContext)
+    const [unvisualizedLikesNumber, setUnvisulaizedLikes] = useContext(UnvisualizedLikesContext)
+
+    const [unreadMessagesNumber, setUnreadMessagesNumber] = useContext(UnreadMessagesContext)
+
+    let notificationsNumber = invitesReceivedNumber + unvisualizedLikesNumber + unvisualizedCommentsNumber
+
     useEffect(() => {
-        document.querySelectorAll('.sidebar-menu-item-active').forEach(el => {
-            el.classList.remove('sidebar-menu-item-active')
-        })
-        const currentUrl = window.location.href.split('/')
-        if (currentUrl.includes('home')) {
-            document.querySelector('#home-menu').classList.add('sidebar-menu-item-active')
-        }
-        else if (currentUrl.includes('notifica%C3%A7%C3%B5es')) {
-            document.querySelector('#notifications-menu').classList.add('sidebar-menu-item-active')
-        }
-        else if (currentUrl.includes('mensagens')) {
-            document.querySelector('#messages-menu').classList.add('sidebar-menu-item-active')
-        }
-        else if (currentUrl.includes('perfil')) {
-            document.querySelector('#profile-menu').classList.add('sidebar-menu-item-active')
-        }
-        else if (currentUrl.includes('configura%C3%A7%C3%B5es')) {
-            document.querySelector('#settings-menu').classList.add('sidebar-menu-item-active')
-        }
+        getActivePageOnLoad()
     }, [])
-
-    const switchPage = (e, isHome = false) => {
-        if (!isHome) {
-            document.querySelectorAll('.sidebar-menu-item-active').forEach(el => {
-                el.classList.remove('sidebar-menu-item-active')
-            })
-            e.target.classList.add('sidebar-menu-item-active')
-        } else {
-            document.querySelectorAll('.sidebar-menu-item-active').forEach(el => {
-                el.classList.remove('sidebar-menu-item-active')
-            })
-            document.querySelector('#home-menu').classList.add('sidebar-menu-item-active')
-        }
-    }
 
     return (
         <div className="sidebar">
@@ -57,10 +39,10 @@ export default function Sidebar(props) {
                     <li className="sidebar-menu-item" id="notifications-menu" onClick={switchPage}>
                         <i className="fas fa-bell sidebar-menu-icon" />
                         Notificações
-                        {!props.notificationsNumber ? '' :
+                        {!notificationsNumber ? '' :
                             <div className="notification-text-container">
                                 <div className="notification-text">
-                                    {props.notificationsNumber}
+                                    {notificationsNumber}
                                 </div>
                             </div>
                         }
@@ -70,10 +52,10 @@ export default function Sidebar(props) {
                     <li className="sidebar-menu-item" id="messages-menu" onClick={switchPage}>
                         <i className="fas fa-envelope sidebar-menu-icon" />
                         Mensagens
-                        {!props.unreadMessagesNumber ? '' :
+                        {!unreadMessagesNumber ? '' :
                             <div className="notification-text-container">
                                 <div className="notification-text">
-                                    {props.unreadMessagesNumber}
+                                    {unreadMessagesNumber}
                                 </div>
                             </div>
                         }

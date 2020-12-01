@@ -6,8 +6,8 @@ import ModalContactSearch from './components/ModalContactSearch'
 import Chat from './components/chat_/Chat'
 import ContactListItem from './components/ContactListItem'
 import ContactFilterInput from './components/ContactFilterInput'
+import BottomMenu from '../../components/fixed/bottom-menu/BottomMenu'
 import WebSocketInstance from './Websocket'
-import { hideBottomMenuPostIcon } from '../../config/utils'
 
 export default class Messages extends React.Component {
     constructor(props) {
@@ -76,10 +76,6 @@ export default class Messages extends React.Component {
 
     componentWillUnmount() {
         window.clearInterval(this.rerenderingInterval)
-    }
-
-    componentDidMount() {
-        hideBottomMenuPostIcon()
     }
 
     componentDidUpdate() {
@@ -152,6 +148,7 @@ export default class Messages extends React.Component {
                         updateMessagesComponent={this.fetchActiveChatProfiles}
                     />
                 </div>
+                <BottomMenu />
             </>
         )
     }

@@ -2,7 +2,7 @@
     display: none;
 }
 
-.bottom-menu-action-icon .fa-pencil-alt {
+.bottom-menu-action-icon-container .bottom-menu-action-icon {
     position: absolute;
     right: 11px;
     bottom: 11vh;

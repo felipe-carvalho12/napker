@@ -22,10 +22,6 @@
     margin-right: 10px;
 }
 
-.sidebar ul .sidebar-menu-item-active {
-    color: var(--primary-color);
-}
-
 .sidebar .logo-container {
     display: flex;
     justify-content: center;

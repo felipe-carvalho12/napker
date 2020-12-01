@@ -21,7 +21,7 @@
         display: none;
     }
     .post-list, .profile-list-container, .comment-list, .interest-list-container,
-    .interest-profile-list, .interests-page-container, .settings-page-container, .notifications-container {
+    .interest-profile-list, .interests-page-container, .settings-page-container, .notifications-container, .chats-container {
         padding-bottom: 10vh;
     }
     .list-group-item {
@@ -79,6 +79,7 @@
         width: 100vw;
         height: 78vh;
         position: fixed;
+        bottom: 10vh;
     }
     .current-chat .current-chat-header .left-arrow-icon {
         display: unset;

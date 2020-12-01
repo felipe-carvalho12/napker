@@ -61,6 +61,7 @@ export default function Profiles() {
     }
 
     const handleRelationshipUpdate = e => {
+        e.preventDefault()
         e.stopPropagation()
         const btn = e.target
         if (btn.innerHTML === 'Solicitar') {
@@ -98,7 +99,7 @@ export default function Profiles() {
                                 <ProfileListItem profile={profile} myProfile={myProfile}>
                                     <button className="btn btn-secondary" data-pk={profile.id} onClick={handleRelationshipUpdate}>
                                         Solicitar
-                                     </button>
+                                    </button>
                                 </ProfileListItem>
                             )
                         })

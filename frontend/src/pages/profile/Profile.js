@@ -1,12 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+import { SERVER_URL } from '../../config/settings'
+import { csrftoken } from '../../config/utils'
 import Header from '../../components/fixed/header'
 import Posts from './components/Posts'
 import Interests from './components/interests/Interests'
-import { SERVER_URL } from '../../config/settings'
-import { csrftoken, hideBottomMenuPostIcon } from '../../config/utils'
 import ProfileData from './components/ProfileData'
+import BottomMenu from '../../components/fixed/bottom-menu/BottomMenu'
 
 class Profile extends React.Component {
     constructor(props) {
@@ -26,7 +27,6 @@ class Profile extends React.Component {
     }
 
     componentDidMount() {
-        hideBottomMenuPostIcon()
         fetch(`${SERVER_URL}/profile-api/relationship/${this.slug}`)
             .then(response => response.json())
             .then(data => {
@@ -321,6 +321,7 @@ class Profile extends React.Component {
                         <div className="loader" />
                     </div>
                 }
+                <BottomMenu />
             </>
         )
     }

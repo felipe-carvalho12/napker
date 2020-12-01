@@ -1,8 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
+import { SERVER_URL } from './config/settings'
+import {
+    InvitesReceivedContext, UnvisualizedCommentsContext,
+    UnvisualizedLikesContext, UnreadMessagesContext
+} from './context/app/AppContext'
+
 import Sidebar from './components/fixed/Sidebar'
-import BottomMenu from './components/fixed/BottomMenu'
 import Home from './pages/home/Home'
 import Notifications from './pages/notifications/Notifications'
 import Messages from './pages/messages_/Messages'
@@ -16,14 +21,14 @@ import Post from './pages/home/components/posts_/pages/post_/Post'
 
 import PostFormPage from './pages/PostFormPage'
 
-import { SERVER_URL } from './config/settings'
-
 export default function App() {
-    const [invitesReceivedNumber, setInvitesReceived] = useState(0)
-    const [unvisualizedLikesNumber, setUnvisulaizedLikes] = useState(0)
-    const [unvisualizedCommentsNumber, setUnvisulaizedComments] = useState(0)
+    const [invitesReceivedNumber, setInvitesReceived] = useContext(InvitesReceivedContext)
+    const [unvisualizedCommentsNumber, setUnvisulaizedComments] = useContext(UnvisualizedCommentsContext)
+    const [unvisualizedLikesNumber, setUnvisulaizedLikes] = useContext(UnvisualizedLikesContext)
+
+    const [unreadMessagesNumber, setUnreadMessagesNumber] = useContext(UnreadMessagesContext)
+
     let notificationsNumber = invitesReceivedNumber + unvisualizedLikesNumber + unvisualizedCommentsNumber
-    const [unreadMessagesNumber, setUnreadMessagesNumber] = useState(0)
 
     useEffect(() => {
         updateNotificationsNumber()
@@ -54,7 +59,7 @@ export default function App() {
 
     return (
         <Router>
-            <Sidebar notificationsNumber={notificationsNumber} unreadMessagesNumber={unreadMessagesNumber} />
+            <Sidebar />
             <div className="main-content">
                 <Switch>
                     <Route path="/home" component={Home} />
@@ -89,7 +94,6 @@ export default function App() {
 
                     <Route path="/postar" component={PostFormPage} />
                 </Switch>
-                <BottomMenu notificationsNumber={notificationsNumber} unreadMessagesNumber={unreadMessagesNumber} />
             </div>
         </Router>
     )
