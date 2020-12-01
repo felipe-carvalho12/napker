@@ -20,8 +20,9 @@
     .fa-smile {
         display: none;
     }
-    .post-list, .profile-list-container, .comment-list, .interest-list-container, .interest-profile-list, .interests-page-container, .settings-page-container {
-        padding-bottom: 60px;
+    .post-list, .profile-list-container, .comment-list, .interest-list-container,
+    .interest-profile-list, .interests-page-container, .settings-page-container, .notifications-container {
+        padding-bottom: 10vh;
     }
     .list-group-item {
         padding: 1rem 3rem;
@@ -167,6 +168,9 @@
     .btn {
         font-size: .8rem;
         padding: .3rem .4rem;
+    }
+    .chat-message-submit {
+        padding: .375rem .75rem;
     }
     .interests-page-container h3 {
         font-size: 1.4rem;

@@ -9,11 +9,11 @@ import MessageListItem from './components/MessageListItem'
 
 class Chat extends React.Component {
     initialiseChat() {
+        console.log('initializing chat...')
         this.waitForSocketConnection(() => {
             WebSocketInstance.addCallbacks(
                 this.getMessages.bind(this),
                 this.addMessage.bind(this),
-                this.getUpdatedMessages.bind(this)
             )
             WebSocketInstance.fetchMessages(
                 this.props.username,
@@ -27,6 +27,7 @@ class Chat extends React.Component {
         super(props);
         this.state = {
             messages: [],
+            scrolledToBottom: false,
             myProfile: null,
             otherUsername: this.props.otherUsername,
             otherProfile: null
@@ -35,7 +36,6 @@ class Chat extends React.Component {
     }
 
     handleComponentChange = () => {
-        this.scrollToBottom();
         if (this.state.otherUsername && (!this.state.otherProfile || this.state.otherProfile.user.username !== this.state.otherUsername)) {
             fetch(`${SERVER_URL}/profile-api/user/${this.state.otherUsername}`)
                 .then(response => response.json())
@@ -48,6 +48,9 @@ class Chat extends React.Component {
                 .then(response => response.json())
                 .then(data => this.setState({ myProfile: data }))
         }
+        if (this.state.messages.length && !this.state.scrolledToBottom && document.querySelectorAll('.sent, .received').length) {
+            this.scrollToBottom()
+        }
     }
 
     componentDidMount() {
@@ -57,7 +60,10 @@ class Chat extends React.Component {
 
     componentDidUpdate() {
         this.handleComponentChange()
-        document.querySelector('#chat-message-input') && document.querySelector('#chat-message-input').focus()
+        document.querySelector('#contact-filter-input') &&
+        document.activeElement !== document.querySelector('#contact-filter-input') &&
+        document.querySelector('#chat-message-input') &&
+        document.querySelector('#chat-message-input').focus()
     }
 
     componentWillUnmount() {
@@ -65,29 +71,32 @@ class Chat extends React.Component {
     }
 
     componentWillReceiveProps(newProps) {
-        if (this.props.chatId !== newProps.chatId) {
-            WebSocketInstance.disconnect();
+        if (newProps.chatId && newProps.chatId !== this.props.chatId && newProps.otherUsername && WebSocketInstance.state() !== 1) {
             this.waitForSocketConnection(() => {
                 WebSocketInstance.fetchMessages(
-                    this.props.username,
+                    newProps.username,
                     newProps.chatId
                 );
             });
-            WebSocketInstance.connect(newProps.chatId);
+            WebSocketInstance.connect(newProps.chatId)
+            this.readMessages(newProps)
 
             this.props.updateMessagesComponent()
             this.setState({
-                message: '',
-                otherUsername: newProps.otherUsername
+                messages: [],
+                scrolledToBottom: false,
             })
         }
-        if (newProps.chatId) {
-            this.readMessages(newProps)
+        if (this.state.otherUsername !== newProps.otherUsername) {
+            this.setState({
+                otherUsername: newProps.otherUsername
+            })
         }
         if (this.props.updateUnreadMessagesNumber) {
             this.props.updateUnreadMessagesNumber()
         }
         if (this.state.otherUsername && !newProps.otherUsername) {
+            WebSocketInstance.disconnect()
             this.setState({
                 otherUsername: undefined,
                 otherProfile: undefined
@@ -130,18 +139,20 @@ class Chat extends React.Component {
     }
 
     addMessage(message) {
-        this.setState({ messages: [...this.state.messages, message] })
+        this.setState({
+            messages: [...this.state.messages, message],
+            scrolledToBottom: false
+        })
         this.readMessages(this.props)
-    }
-
-    getUpdatedMessages(messages) {
-        this.setState({ messages: messages.reverse() })
     }
 
     scrollToBottom = () => {
         if (document.querySelector('#chat-log')) {
             const chatLog = document.querySelector('#chat-log')
             chatLog.scrollTop = chatLog.scrollHeight
+            this.setState({
+                scrolledToBottom: true
+            })
         }
     };
 
@@ -167,10 +178,10 @@ class Chat extends React.Component {
                                 </div>
                                 <div id="chat-log">
                                     {this.state.messages.map(message => {
-                                            return (
-                                                <MessageListItem message={message} currentUser={this.props.username} />
-                                            )
-                                        })
+                                        return (
+                                            <MessageListItem message={message} currentUser={this.props.username} />
+                                        )
+                                    })
                                     }
                                 </div>
                                 <SendMessageForm

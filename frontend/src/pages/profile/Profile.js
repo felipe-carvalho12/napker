@@ -5,7 +5,7 @@ import Header from '../../components/fixed/header'
 import Posts from './components/Posts'
 import Interests from './components/interests/Interests'
 import { SERVER_URL } from '../../config/settings'
-import { csrftoken } from '../../config/utils'
+import { csrftoken, hideBottomMenuPostIcon } from '../../config/utils'
 import ProfileData from './components/ProfileData'
 
 class Profile extends React.Component {
@@ -26,6 +26,7 @@ class Profile extends React.Component {
     }
 
     componentDidMount() {
+        hideBottomMenuPostIcon()
         fetch(`${SERVER_URL}/profile-api/relationship/${this.slug}`)
             .then(response => response.json())
             .then(data => {

@@ -80,14 +80,15 @@ class WebSocketService {
   addCallbacks(messagesCallback, newMessageCallback) {
     this.callbacks["messages"] = messagesCallback
     this.callbacks["new_message"] = newMessageCallback
-    this.callbacks["updated_messages"] = newMessageCallback
   }
 
   sendMessage(data) {
     try {
-      this.socketRef.send(JSON.stringify({ ...data }));
+      if (this.state() === 1) {
+        this.socketRef.send(JSON.stringify({ ...data }))
+      }
     } catch (err) {
-      console.log(err.message);
+      console.log(err.message)
     }
   }
 

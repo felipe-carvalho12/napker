@@ -6,6 +6,8 @@ import ModalContactSearch from './components/ModalContactSearch'
 import Chat from './components/chat_/Chat'
 import ContactListItem from './components/ContactListItem'
 import ContactFilterInput from './components/ContactFilterInput'
+import WebSocketInstance from './Websocket'
+import { hideBottomMenuPostIcon } from '../../config/utils'
 
 export default class Messages extends React.Component {
     constructor(props) {
@@ -26,14 +28,21 @@ export default class Messages extends React.Component {
 
     handleReceiveProps = props => {
         if (props.match.params.slug) {
+            if (props.match.params.slug !== this.props.match.params.slug && WebSocketInstance.state() === 1) {
+                WebSocketInstance.disconnect()
+            }
             const participants = { username: this.state.username, other_username: props.match.params.slug }
             fetch(`${SERVER_URL}/chat-api/chat-id/${JSON.stringify(participants)}`)
                 .then(response => response.json())
-                .then(data => this.setState({
-                    chatId: data['chat_id']
-                }))
-        }
+                .then(data => {
+                    this.setState({ chatId: data['chat_id'] })
+                })
+        } else if (this.state.chatId) {
+            this.setState({
+                chatId: null
+            })
 
+        }
     }
 
     componentWillReceiveProps(newProps) {
@@ -67,15 +76,10 @@ export default class Messages extends React.Component {
 
     componentWillUnmount() {
         window.clearInterval(this.rerenderingInterval)
-        if (document.querySelector('#bottom-menu-post-icon')) {
-            document.querySelector('#bottom-menu-post-icon').style.display = 'unset'
-        }
     }
 
     componentDidMount() {
-        if (document.querySelector('#bottom-menu-post-icon') && document.querySelector('#bottom-menu-post-icon').display !== 'none') {
-            document.querySelector('#bottom-menu-post-icon').style.display = 'none'
-        }
+        hideBottomMenuPostIcon()
     }
 
     componentDidUpdate() {

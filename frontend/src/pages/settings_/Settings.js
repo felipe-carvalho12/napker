@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 
+import { hideBottomMenuPostIcon } from '../../config/utils'
 import Header from '../../components/fixed/Header'
 import SettingsMenu from './components/SettingsMenu'
 import BlockedProfiles from './components/BlockedProfiles'
@@ -12,6 +13,7 @@ export default function Settings(props) {
     document.title = 'Configurações / Napker'
 
     useEffect(() => {
+        hideBottomMenuPostIcon()
         document.getElementById(props.page).classList.add('active')
     }, [])
 

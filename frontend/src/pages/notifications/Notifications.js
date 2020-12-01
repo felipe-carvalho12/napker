@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 
 import Header from '../../components/fixed/Header'
 import InviteNotification from './components/InviteNotification'
@@ -7,7 +6,7 @@ import LikeProfileNotification from './components/LikeProfileNotification'
 import CommentProfileNotification from './components/CommentProfileNotification'
 import NewLabel from './components/NewLabel'
 import { SERVER_URL } from '../../config/settings'
-import { csrftoken } from '../../config/utils'
+import { csrftoken, hideBottomMenuPostIcon } from '../../config/utils'
 
 export default function Notifications(props) {
     const [invites, setInvites] = useState(null)
@@ -39,6 +38,7 @@ export default function Notifications(props) {
     }
 
     useEffect(() => {
+        hideBottomMenuPostIcon()
         fetchNotifications()
         notificationsFetchInterval = window.setInterval(fetchNotifications, 3000)
         return () => window.clearInterval(notificationsFetchInterval)

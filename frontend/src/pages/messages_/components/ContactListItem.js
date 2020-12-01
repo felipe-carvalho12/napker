@@ -7,7 +7,6 @@ export default function ContactListItem(props) {
     const profile = props.profile
     const activeChats = props.activeChats
     const activeChatsProfiles = props.activeChatsProfiles
-
     let unreadMessagesCounter
     let lastChatMessage
 
@@ -36,19 +35,17 @@ export default function ContactListItem(props) {
                         <div className="d-flex flex-column align-items-start">
                             <div className="d-flex" style={{ maxHeight: '30px' }}>
                                 <strong style={{ height: 'fit-content' }}>{profile.first_name} {profile.last_name}</strong>
-                                {activeChats[activeChatsProfiles.indexOf(profile)].messages.map(message => {
-                                    const messages = activeChats[activeChatsProfiles.indexOf(profile)].messages
+                                {activeChats[activeChatsProfiles.indexOf(profile)].messages.map((message, i, messages) => {
                                     if (messages[messages.length - 1] === message) setLastChatMessage(message.content)
                                     if (message.read || message.contact.user.username !== profile.user.username) return
                                     incrementUnreadMessagesCounter()
                                 })}
-                                {unreadMessagesCounter ?
+                                {unreadMessagesCounter > 0 &&
                                     <div className="notification-text-container">
                                         <div className="notification-text">
                                             {unreadMessagesCounter}
                                         </div>
                                     </div>
-                                    : ''
                                 }
                                 <p className="text-secondary" style={{ marginLeft: '5px' }}>@{profile.user.username}</p>
                             </div>

@@ -32,8 +32,8 @@ export default function ProfileListItem(props) {
                                     {profile.first_name} {profile.last_name}
                                 </strong>
                                 <p className="text-secondary">@{profile.user.username}</p>
-                                {props.children}
                             </div>
+                            {props.children}
                         </div>
                         <div className="profile-row-bottom">
                             {profile.bio}

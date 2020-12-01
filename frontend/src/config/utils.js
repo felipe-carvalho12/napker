@@ -1,8 +1,8 @@
 import { SERVER_URL } from './settings'
 
-const csrftoken = getCookie('csrftoken')
+export const csrftoken = getCookie('csrftoken')
 
-function getCookie(name) {
+export function getCookie(name) {
   let cookieValue = null;
   if (document.cookie && document.cookie !== '') {
     const cookies = document.cookie.split(';');
@@ -18,14 +18,14 @@ function getCookie(name) {
   return cookieValue;
 }
 
-function handleLogout() {
+export function handleLogout() {
   const bool = window.confirm('Sair do Napker?\nVocê poderá entrar novamente quando quiser.')
   if (bool) {
     window.location.replace(`${SERVER_URL}/logout`)
   }
 }
 
-function openCloseEmojiList(closing = false) {
+export function openCloseEmojiList(closing = false) {
   const el = document.querySelector('#emoji-list-container')
   const style = el.style
   if (closing) {
@@ -42,4 +42,14 @@ function openCloseEmojiList(closing = false) {
   }
 }
 
-export { csrftoken, handleLogout, openCloseEmojiList };
+export function hideBottomMenuPostIcon() {
+  if (document.querySelector('#bottom-menu-post-icon') && document.querySelector('#bottom-menu-post-icon').display !== 'none') {
+    document.querySelector('#bottom-menu-post-icon').style.display = 'none'
+  }
+}
+
+export function showBottomMenuPostIcon() {
+  if (document.querySelector('#bottom-menu-post-icon') && document.querySelector('#bottom-menu-post-icon').display === 'none') {
+    document.querySelector('#bottom-menu-post-icon').style.display = 'initial'
+  }
+}
