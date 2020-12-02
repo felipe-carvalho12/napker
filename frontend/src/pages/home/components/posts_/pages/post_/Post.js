@@ -26,6 +26,11 @@ export default function Post(props) {
             .then(data => setMyProfile(data))
     }, [])
 
+    useEffect(() => {
+        console.log('got here')
+        setCommentModalIsOpen(!!props.commentModalIsOpen)
+    }, [props.commentModalIsOpen])
+
     const fetchPost = () => {
         fetch(`${SERVER_URL}/post-api/post/${id}`)
             .then(response => response.json())
@@ -76,6 +81,7 @@ export default function Post(props) {
 
     const hideCommentModal = () => {
         setCommentModalIsOpen(false)
+        window.history.back()
     }
 
     const hidePostLikesModal = () => {
@@ -160,7 +166,6 @@ export default function Post(props) {
                                     <Link to={`/post/${id}/comentar`} className="text-secondary">
                                         <i
                                             class="far fa-comment"
-                                            onClick={() => setCommentModalIsOpen(true)}
                                         />
                                     </Link>{post.comments.length}
                                     {post.likes.map(like => like.profile.id).includes(myProfile.id) ?

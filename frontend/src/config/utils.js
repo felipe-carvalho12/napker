@@ -50,24 +50,24 @@ export const getActivePageOnLoad = () => {
   })
   const currentUrl = window.location.href.split('/')
   if (currentUrl.includes('home')) {
-    document.querySelector('#home-menu').classList.add('nav-menu-item-active')
-    document.querySelector('#bottom-home-menu').classList.add('nav-menu-item-active')
+    document.querySelector('#home-menu') && document.querySelector('#home-menu').classList.add('nav-menu-item-active')
+    document.querySelector('#bottom-home-menu') && document.querySelector('#bottom-home-menu').classList.add('nav-menu-item-active')
   }
   else if (currentUrl.includes('notifica%C3%A7%C3%B5es')) {
-    document.querySelector('#notifications-menu').classList.add('nav-menu-item-active')
-    document.querySelector('#bottom-notifications-menu').classList.add('nav-menu-item-active')
+    document.querySelector('#notifications-menu') && document.querySelector('#notifications-menu').classList.add('nav-menu-item-active')
+    document.querySelector('#bottom-notifications-menu') && document.querySelector('#bottom-notifications-menu').classList.add('nav-menu-item-active')
   }
   else if (currentUrl.includes('mensagens')) {
-    document.querySelector('#messages-menu').classList.add('nav-menu-item-active')
-    document.querySelector('#bottom-messages-menu').classList.add('nav-menu-item-active')
+    document.querySelector('#messages-menu') && document.querySelector('#messages-menu').classList.add('nav-menu-item-active')
+    document.querySelector('#bottom-messages-menu') && document.querySelector('#bottom-messages-menu').classList.add('nav-menu-item-active')
   }
   else if (currentUrl.includes('perfil')) {
-    document.querySelector('#profile-menu').classList.add('nav-menu-item-active')
-    document.querySelector('#bottom-profile-menu').classList.add('nav-menu-item-active')
+    document.querySelector('#profile-menu') && document.querySelector('#profile-menu').classList.add('nav-menu-item-active')
+    document.querySelector('#bottom-profile-menu') && document.querySelector('#bottom-profile-menu').classList.add('nav-menu-item-active')
   }
   else if (currentUrl.includes('configura%C3%A7%C3%B5es')) {
-    document.querySelector('#settings-menu').classList.add('nav-menu-item-active')
-    document.querySelector('#bottom-settings-menu').classList.add('nav-menu-item-active')
+    document.querySelector('#settings-menu') && document.querySelector('#settings-menu').classList.add('nav-menu-item-active')
+    document.querySelector('#bottom-settings-menu') && document.querySelector('#bottom-settings-menu').classList.add('nav-menu-item-active')
   }
 }
 

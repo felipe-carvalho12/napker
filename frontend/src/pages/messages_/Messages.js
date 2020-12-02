@@ -148,7 +148,9 @@ export default class Messages extends React.Component {
                         updateMessagesComponent={this.fetchActiveChatProfiles}
                     />
                 </div>
-                <BottomMenu />
+                {!this.props.match.params.slug &&
+                    <BottomMenu />
+                }
             </>
         )
     }
