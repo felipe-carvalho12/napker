@@ -88,6 +88,7 @@
     width: 100%;
     display: flex;
     padding: 10px;
+    background: #fff;
     border-bottom: 2px solid var(--border-color);
 }
 

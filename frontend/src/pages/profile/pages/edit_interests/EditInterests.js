@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 
+import { SERVER_URL } from '../../../../config/settings'
+import { csrftoken } from '../../../../config/utils'
 import Header from '../../../../components/fixed/header'
 import PublicInterests from './components/PublicInterests'
 import PrivateInterests from './components/PrivateInterests'
-import { SERVER_URL } from '../../../../config/settings'
-import { csrftoken } from '../../../../config/utils'
+import BottomMenu from '../../../../components/fixed/bottom-menu/BottomMenu'
 
 export default function EditInterests() {
     const [myProfile, setMyProfile] = useState(null)
@@ -75,6 +76,7 @@ export default function EditInterests() {
                     </div>
                 }
             </div>
+            <BottomMenu />
         </>
     )
 }

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 import { SERVER_URL } from '../../../config/settings'
 import Header from '../../../components/fixed/header'
 import ProfileListItem from '../../../components/ProfileListItem'
+import BottomMenu from '../../../components/fixed/bottom-menu/BottomMenu'
 
 export default function Friends() {
     const [friends, setFriends] = useState(null)
@@ -58,6 +59,7 @@ export default function Friends() {
                     }
                 </div>
             </div>
+            <BottomMenu />
         </>
     )
 }

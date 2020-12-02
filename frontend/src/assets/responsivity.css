@@ -20,8 +20,8 @@
     .fa-smile {
         display: none;
     }
-    .post-list, .profile-list-container, .comment-list, .interest-list-container,
-    .interest-profile-list, .interests-page-container, .settings-page-container, .notifications-container, .chats-container {
+    .post-list, .profile-list-container, .comment-list, .interest-list-container, .interest-profile-list,
+    .interests-page-container, .settings-page-container, .settings-description-container, .notifications-container, .chats-container {
         padding-bottom: 10vh;
     }
     .list-group-item {
@@ -77,10 +77,12 @@
     }
     .current-chat {
         width: 100vw;
-        height: 88vh;
-        position: fixed;
-        top: 12vh;
+        position: absolute;
         bottom: 0;
+    }
+    .current-chat .current-chat-header {
+        position: sticky;
+        top: 12vh;
     }
     .current-chat .current-chat-header .left-arrow-icon {
         display: unset;
@@ -97,6 +99,18 @@
     .profile-list-item-bio-button-wrapper {
         width: fit-content;
         flex-direction: column;
+    }
+    .mobile-d-none {
+        display: none!important;
+    }
+    .settings-page-container .settings-page-menu {
+        width: 100%;
+    }
+    .settings-page-container .settings-description-container {
+        width: 100%;
+        position: absolute;
+        z-index: 1;
+        background: #fff;
     }
 }
 
