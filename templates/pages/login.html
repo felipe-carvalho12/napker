@@ -1,7 +1,7 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
@@ -27,6 +27,9 @@
                         {% if message %}
                         <span style="color: #f00;">{{ message }}</span>
                         {% endif %}
+                        {% if success_message %}
+                        <span style="color: #0a0;">{{ success_message }}</span>
+                        {% endif %}
                         <div class="form-group">
                             <span class="input-icon"><i class="fas fa-user"></i></span>
                             <input class="form-control" type="text" name="username" placeholder="Nome de usuário">
@@ -39,7 +42,7 @@
                         <button class="btn signin" type="submit">Entrar</button>
 
                         <ul class="form-options">
-                            <li><a href="#">Esqueceu sua senha?</a></li>
+                            <li><a href="{% url 'reset_password' %}">Esqueceu sua senha?</a></li>
                             <li><a href="{% url 'signup' %}">Criar conta</a></li>
                         </ul>
                     </form>

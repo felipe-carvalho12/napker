@@ -22,6 +22,7 @@ from django.views.generic import TemplateView
 from .views import *
 
 urlpatterns = [
+    # Main navigation
     path("", index_view, name="index"),
     path("home", pages_view),
     path("notificações", pages_view),
@@ -37,12 +38,10 @@ urlpatterns = [
     path("user/<str:slug>/amigos", pages_view),
     path("post/<int:id>", pages_view),
     path("post/<int:id>/comentar", pages_view),
-    path("interesses/<str:query>", pages_view),
     path("postar", pages_view),
-    path(
-        "fc",
-        TemplateView.as_view(template_name="pages/signup/activation_link_sent.html"),
-    ),
+    path("interesses/<str:query>", pages_view),
+
+    # Profile utils
     path("signup", signup_view, name="signup"),
     path("signup/interesses", add_interests_view, name="interests"),
     path("update-profile", update_profile),
@@ -50,10 +49,20 @@ urlpatterns = [
     path("login", login_view, name="login"),
     path("logout", logout_view, name="logout"),
     path("delete-account", delete_account),
+
     path("activate/<uidb64>/<token>", activate_account_view, name="activate"),
+
+    # APIs
     path("profile-api/", include("profiles.urls")),
     path("chat-api/", include("chat.urls")),
     path("post-api/", include("posts.urls")),
+
+    # Reset password
+    path('recuperar-senha', reset_password, name="reset_password"),
+    path('reset/<uidb64>/<token>', reset_password_confirm, name="reset"),
+    path('reset-password-complete', reset_password_complete, name="password_reset_complete"),
+
+    # Admin
     path("admin/", admin.site.urls),
 ]
 
