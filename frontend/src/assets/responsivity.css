@@ -87,9 +87,6 @@
     .current-chat .current-chat-header .left-arrow-icon {
         display: unset;
     }
-    .current-chat #chat-log {
-        padding-top: 24vh;
-    }
     .current-chat .send-message-container {
         position: fixed;
         bottom: 0;

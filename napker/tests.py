@@ -122,8 +122,63 @@ class RouteTests(TestCase):
             'bio': 'Hello, world!'
         }
         self.client.force_login(user=self.test_user)
-        response = self.client.post('/update-profile', post_data)
+        response = self.client.post('/update-profile', post_data, follow=True)
+        self.assertEqual(response.redirect_chain[-1], ('/perfil', 302))
     
+
+    def test_reset_password(self):
+        response = self.client.get('/recuperar-senha')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'reset_password/reset_password.html')
+        self.assertContains(response, 'Recuperar senha / Napker')
+
+        response = self.client.post('/recuperar-senha', {'email': 'unexistent_email'})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'reset_password/reset_password.html')
+        self.assertEqual(response.context['message'], 'Não existe nenhuma conta ligada a esse email!')
+        self.assertContains(response, 'Recuperar senha / Napker')
+
+        response = self.client.post('/recuperar-senha', {'email': self.test_user.profile.email})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'reset_password/email_sent.html')
+        self.assertContains(response, 'Recuperar senha / Napker')
+
+        uidb64 = urlsafe_base64_encode(force_bytes(self.test_user.pk))
+        token = PasswordResetTokenGenerator().make_token(self.test_user)
+        response = self.client.get(f'/reset/{uidb64}/{token}')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'reset_password/new_password.html')
+        self.assertEqual(response.context['user'], self.test_user)
+        self.assertContains(response, 'Recuperar senha / Napker')
+
+        response = self.client.get(f'/reset/{uidb64}/invalid_token')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'reset_password/failed.html')
+
+        response = self.client.get(f'/reset/invalid_uidb64/{token}')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'reset_password/failed.html')
+
+        response = self.client.post('/reset-password-complete', {'uid': self.test_user.pk, 'password': 'test', 'passwordc': 'different'})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'reset_password/new_password.html')
+        self.assertEqual(response.context['message'], 'As senhas devem ser iguais!')
+        self.assertContains(response, 'Recuperar senha / Napker')
+
+        response = self.client.post('/reset-password-complete', {'uid': self.test_user.pk, 'password': 'test', 'passwordc': 'test'})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'pages/login.html')
+        self.assertEqual(response.context['success_message'], 'Senha alterada com sucesso!')
+        self.assertContains(response, 'Entrar / Napker')
+
+
+    def test_change_password(self):
+        pass
+
+
+    def test_delete_account(self):
+        pass
+
 
     # REACT APP ROUTES
 
