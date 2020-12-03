@@ -206,6 +206,7 @@ def reset_password_complete(request):
         passwordc = request.POST['passwordc']
         if password == passwordc:
             user.set_password(password)
+            user.save()
             return render(request, 'pages/login.html', {'success_message': 'Senha alterada com sucesso!'})
         return render(request, 'reset_password/new_password.html', {'message': 'As senhas devem ser iguais!'})
 
