@@ -95,8 +95,7 @@ def add_interests_view(request):
         for title in interests:
             if len(title) < 3:
                 continue
-            i, created = Interest.objects.get_or_create(
-                title=title, public=False)
+            i, created = Interest.objects.get_or_create(title=title, public=False)
             profile.interests.add(i)
         profile.save()
 
@@ -140,8 +139,7 @@ def activate_account_view(request, uidb64, token):
 def update_profile(request):
     if request.method == 'POST':
         profile = Profile.objects.get(user=request.user)
-        photo = request.FILES['profile-photo'] if len(
-            request.FILES) else profile.photo
+        photo = request.FILES['profile-photo'] if len(request.FILES) else profile.photo
         first_name = request.POST['first-name'] if request.POST['first-name'] != '' else profile.first_name
         last_name = request.POST['last-name'] if request.POST['last-name'] != '' else profile.last_name
         username = request.POST['username'] if request.POST['username'] != '' else profile.user.username
@@ -161,12 +159,62 @@ def update_profile(request):
         return redirect('/perfil')
 
 
+def reset_password(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+        if not Profile.objects.filter(email=email).exists():
+            return render(request, 'reset_password/reset_password.html', {'message': 'Não existe nenhuma conta ligada a esse email!'})
+        profile = Profile.objects.get(email=email)
+        user = profile.user
+        current_site = get_current_site(request)
+        email_subject = 'Recupere a sua senha'
+        message = render_to_string('reset_password/email_message.html', {
+        'user': user,
+        'domain': current_site.domain,
+        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+        'token': PasswordResetTokenGenerator().make_token(user)
+        })
+        email_message = EmailMessage(
+            email_subject,
+            message,
+            settings.EMAIL_HOST_USER,
+            [user.profile.email],
+        )
+        email_message.send(fail_silently=False)
+        return render(request, 'reset_password/email_sent.html')
+    else:
+        return render(request, 'reset_password/reset_password.html')
+
+
+def reset_password_confirm(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except Exception:
+        user = None
+    if user is not None and PasswordResetTokenGenerator().check_token(user, token):
+        return render(request, 'reset_password/new_password.html', {'user': user})
+    else:
+        return render(request, 'reset_password/failed.html')
+
+
+def reset_password_complete(request):
+    if request.method == 'POST':
+        uid = request.POST['uid']
+        user = User.objects.get(pk=uid)
+        password = request.POST['password']
+        passwordc = request.POST['passwordc']
+        if password == passwordc:
+            user.set_password(password)
+            user.save()
+            return render(request, 'pages/login.html', {'success_message': 'Senha alterada com sucesso!'})
+        return render(request, 'reset_password/new_password.html', {'message': 'As senhas devem ser iguais!'})
+
+
 @api_view(['POST'])
 def change_password(request):
-    passwrod = request.data['password']
-    user = authenticate(
-        request, username=request.user.username, password=passwrod)
-
+    password = request.data['password']
+    user = authenticate(request, username=request.user.username, password=password)
     new_password = request.data['new_password']
     new_passwordc = request.data['new_passwordc']
     if user is None:

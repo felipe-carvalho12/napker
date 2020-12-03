@@ -20,6 +20,7 @@ export default function ChangePassword() {
         }
         if (newPassword !== newPasswordc) {
             setErrorMessage('Os campos "Nova senha" e "Confirmar nova senha" devem ter o mesmo valor!')
+            setSuccessMessage(null)
             return
         }
         fetch(`${SERVER_URL}/change-password`, {
@@ -38,9 +39,11 @@ export default function ChangePassword() {
             .then(data => {
                 if (data === 'success') {
                     setSuccessMessage('Senha alterada com successo!')
+                    setErrorMessage(null)
                     password = newPassword = newPasswordc = ''
                 } else {
                     setErrorMessage(data)
+                    setSuccessMessage(null)
                 }
             })
     }
@@ -64,7 +67,7 @@ export default function ChangePassword() {
             <form className="change-password-form">
                 <input id="password" type="password" placeholder="Senha atual" autoFocus />
                 <br />
-                <a href="#">Esqueceu sua senha?</a>
+                <a href={`${SERVER_URL}/recuperar-senha`}>Esqueceu sua senha?</a>
                 <hr />
                 <br />
                 <input id="new_password" type="password" placeholder="Nova senha" />

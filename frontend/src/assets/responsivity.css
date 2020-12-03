@@ -78,16 +78,24 @@
     .current-chat {
         width: 100vw;
         position: absolute;
-        bottom: 0;
+        bottom: 7.5vh;
     }
     .current-chat .current-chat-header {
-        position: sticky;
+        position: fixed;
         top: 12vh;
+        height: 9vh;
     }
     .current-chat .current-chat-header .left-arrow-icon {
         display: unset;
     }
+    .current-chat #chat-log {
+        padding-top: 21vh;
+    }
     .current-chat .send-message-container {
+        position: fixed;
+        bottom: 0;
+        height: 8vh;
+        background: #fff;
         padding: 10px;
     }
     .messages-wrapper .current-chat-header .left-arrow-icon {
