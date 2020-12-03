@@ -1,0 +1,9 @@
+{% autoescape off %}
+
+Olá {{ user.profile.first_name }}!
+
+Clique no link abaixo para criar uma nova senha:
+
+http://{{ domain }}{% url 'reset' uidb64=uid token=token %}
+
+{% endautoescape %}
