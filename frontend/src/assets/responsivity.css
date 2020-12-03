@@ -81,15 +81,14 @@
         bottom: 7.5vh;
     }
     .current-chat .current-chat-header {
-        position: fixed;
+        position: sticky;
         top: 12vh;
-        height: 9vh;
     }
     .current-chat .current-chat-header .left-arrow-icon {
         display: unset;
     }
     .current-chat #chat-log {
-        padding-top: 21vh;
+        padding-top: 24vh;
     }
     .current-chat .send-message-container {
         position: fixed;
