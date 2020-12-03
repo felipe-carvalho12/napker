@@ -230,8 +230,8 @@ def change_password(request):
 
 @api_view(['POST'])
 def delete_account(request):
-    passwrod = request.data['password']
-    user = authenticate(request, username=request.user.username, password=passwrod)
+    password = request.data['password']
+    user = authenticate(request, username=request.user.username, password=password)
     if user is None:
         return Response('Wrong password')
     user.delete()

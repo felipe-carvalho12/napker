@@ -1,5 +1,7 @@
 import datetime
+
 from django.test import TestCase, Client
+
 from django.contrib.auth.models import User
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
@@ -171,13 +173,47 @@ class RouteTests(TestCase):
         self.assertEqual(response.context['success_message'], 'Senha alterada com sucesso!')
         self.assertContains(response, 'Entrar / Napker')
 
-
+    
     def test_change_password(self):
-        pass
+        user = User.objects.create(username='felipe')
+        user.set_password('password098')
+        user.save()
+        request_body = {
+            'password': 'password098',
+            'new_password': 'test',
+            'new_passwordc': 'test'
+        }
+        self.client.force_login(user)
+
+        response = self.client.post('/change-password', {**request_body, 'password': 'wrong'}, format='json')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, 'Senha incorreta!')
+
+        response = self.client.post('/change-password', request_body, format='json')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, 'success')
+
+        response = self.client.post('/change-password', {**request_body, 'password': 'test', 'new_password': 'different'}, format='json')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, 'Os campos "Nova senha" e "Confirmar nova senha" devem ter o mesmo valor!')
 
 
     def test_delete_account(self):
-        pass
+        user = User.objects.create(username='felipe')
+        user.set_password('password098')
+        user.save()
+        users_count = User.objects.all().count()
+        self.client.force_login(user)
+
+        response = self.client.post('/delete-account', {'password': 'wrong'})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, 'Wrong password')
+        self.assertEqual(users_count, User.objects.all().count())
+
+        response = self.client.post('/delete-account', {'password': 'password098'})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, 'Account deleted')
+        self.assertEqual(users_count - 1, User.objects.all().count())
 
 
     # REACT APP ROUTES
@@ -273,4 +309,3 @@ class RouteTests(TestCase):
         response = self.client.get('/interesses/napker')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'index.html')
-    
