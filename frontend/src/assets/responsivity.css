@@ -110,6 +110,9 @@
     .settings-page-container .settings-page-menu {
         width: 100%;
     }
+    .settings-page-container .settings-page-menu .active {
+        background: #fff;
+    }
     .settings-page-container .settings-description-container {
         width: 100%;
         position: absolute;

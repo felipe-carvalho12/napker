@@ -38,6 +38,7 @@ class RouteTests(TestCase):
         self.assertEqual(response.redirect_chain[-1], ('/home', 302))
 
         response = self.client.post('/login', {'username': 'fred', 'password': 'wrong'})
+        self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'pages/login.html') 
         self.assertEqual(response.context['message'], 'Credenciais inválidas')
 
