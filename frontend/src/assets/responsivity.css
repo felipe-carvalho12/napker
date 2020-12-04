@@ -87,9 +87,6 @@
     .current-chat .current-chat-header .left-arrow-icon {
         display: unset;
     }
-    .current-chat #chat-log {
-        padding-top: 24vh;
-    }
     .current-chat .send-message-container {
         position: fixed;
         bottom: 0;
@@ -112,6 +109,9 @@
     }
     .settings-page-container .settings-page-menu {
         width: 100%;
+    }
+    .settings-page-container .settings-page-menu .active {
+        background: #fff;
     }
     .settings-page-container .settings-description-container {
         width: 100%;

@@ -39,7 +39,7 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('/')
+            return redirect('/home')
         else:
             return render(request, 'pages/login.html', {'message': 'Credenciais inválidas'})
     else:
@@ -204,11 +204,11 @@ def reset_password_complete(request):
         user = User.objects.get(pk=uid)
         password = request.POST['password']
         passwordc = request.POST['passwordc']
-        if password == passwordc:
-            user.set_password(password)
-            user.save()
-            return render(request, 'pages/login.html', {'success_message': 'Senha alterada com sucesso!'})
-        return render(request, 'reset_password/new_password.html', {'message': 'As senhas devem ser iguais!'})
+        if password != passwordc:
+            return render(request, 'reset_password/new_password.html', {'message': 'As senhas devem ser iguais!'})
+        user.set_password(password)
+        user.save()
+        return render(request, 'pages/login.html', {'success_message': 'Senha alterada com sucesso!'})
 
 
 @api_view(['POST'])
@@ -230,9 +230,8 @@ def change_password(request):
 
 @api_view(['POST'])
 def delete_account(request):
-    passwrod = request.data['password']
-    user = authenticate(
-        request, username=request.user.username, password=passwrod)
+    password = request.data['password']
+    user = authenticate(request, username=request.user.username, password=password)
     if user is None:
         return Response('Wrong password')
     user.delete()

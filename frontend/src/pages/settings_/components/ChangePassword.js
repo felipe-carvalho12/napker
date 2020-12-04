@@ -9,9 +9,12 @@ export default function ChangePassword() {
 
     const handleFormSubmit = e => {
         e.preventDefault()
-        let password = document.querySelector('#password').value
-        let newPassword = document.querySelector('#new_password').value
-        let newPasswordc = document.querySelector('#new_passwordc').value
+        let passwordEl = document.querySelector('#password')
+        let newPasswordEl = document.querySelector('#new_password')
+        let newPasswordcEl = document.querySelector('#new_passwordc')
+        let password = passwordEl.value
+        let newPassword = newPasswordEl.value
+        let newPasswordc = newPasswordcEl.value
         for (let input of document.querySelectorAll('form > input')) {
             if (!input.value) {
                 alert('Todos os campos devem ser preenchidos!')
@@ -40,7 +43,7 @@ export default function ChangePassword() {
                 if (data === 'success') {
                     setSuccessMessage('Senha alterada com successo!')
                     setErrorMessage(null)
-                    password = newPassword = newPasswordc = ''
+                    passwordEl.value = newPasswordEl.value = newPasswordcEl.value = ''
                 } else {
                     setErrorMessage(data)
                     setSuccessMessage(null)

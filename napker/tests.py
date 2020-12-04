@@ -8,6 +8,14 @@ from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from posts.models import Post
 from profiles.models import Interest
 
+from django.contrib.auth.models import User
+from django.utils.http import urlsafe_base64_encode
+from django.utils.encoding import force_bytes
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
+
+from posts.models import Post
+from profiles.models import Interest
+
 
 class RouteTests(TestCase):
     def setUp(self):
@@ -35,8 +43,10 @@ class RouteTests(TestCase):
         self.assertEqual(response.redirect_chain[-1], ('/home', 302))
 
         response = self.client.post('/login', {'username': 'fred', 'password': 'wrong'})
+        self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'pages/login.html') 
         self.assertEqual(response.context['message'], 'Credenciais inválidas')
+
 
     def test_logout(self):
         self.client.force_login(user=self.test_user)
@@ -84,7 +94,6 @@ class RouteTests(TestCase):
         self.assertEqual(user.username, 'john_smith123')
         self.assertEqual(user.profile.email, 'john@fakemail.com')
         self.assertEqual(user.profile.birth_date, datetime.date(2000, 7, 14))
-        self.assertEqual(user.password, 'secret')
 
         response = self.client.post('/signup/interesses', {'uid': user.pk, 'interests': 'futebol, viajar'})
         self.assertFalse(user.is_active)
@@ -108,7 +117,110 @@ class RouteTests(TestCase):
         response = self.client.get(f'/activate/invalid_uidb64/{token}')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'auth/activation_failed.html')
+
+
+    def test_update_profile(self):
+        post_data = {
+            'photo': 'test.png',
+            'first-name': 'Fred',
+            'last-name': 'Santos',
+            'username': 'fred.santos',
+            'birth-date': '2000-8-14',
+            'bio': 'Hello, world!'
+        }
+        self.client.force_login(user=self.test_user)
+        response = self.client.post('/update-profile', post_data, follow=True)
+        self.assertEqual(response.redirect_chain[-1], ('/perfil', 302))
     
+
+    def test_reset_password(self):
+        response = self.client.get('/recuperar-senha')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'reset_password/reset_password.html')
+        self.assertContains(response, 'Recuperar senha / Napker')
+
+        response = self.client.post('/recuperar-senha', {'email': 'unexistent_email'})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'reset_password/reset_password.html')
+        self.assertEqual(response.context['message'], 'Não existe nenhuma conta ligada a esse email!')
+        self.assertContains(response, 'Recuperar senha / Napker')
+
+        response = self.client.post('/recuperar-senha', {'email': self.test_user.profile.email})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'reset_password/email_sent.html')
+        self.assertContains(response, 'Recuperar senha / Napker')
+
+        uidb64 = urlsafe_base64_encode(force_bytes(self.test_user.pk))
+        token = PasswordResetTokenGenerator().make_token(self.test_user)
+        response = self.client.get(f'/reset/{uidb64}/{token}')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'reset_password/new_password.html')
+        self.assertEqual(response.context['user'], self.test_user)
+        self.assertContains(response, 'Recuperar senha / Napker')
+
+        response = self.client.get(f'/reset/{uidb64}/invalid_token')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'reset_password/failed.html')
+
+        response = self.client.get(f'/reset/invalid_uidb64/{token}')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'reset_password/failed.html')
+
+        response = self.client.post('/reset-password-complete', {'uid': self.test_user.pk, 'password': 'test', 'passwordc': 'different'})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'reset_password/new_password.html')
+        self.assertEqual(response.context['message'], 'As senhas devem ser iguais!')
+        self.assertContains(response, 'Recuperar senha / Napker')
+
+        response = self.client.post('/reset-password-complete', {'uid': self.test_user.pk, 'password': 'test', 'passwordc': 'test'})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'pages/login.html')
+        self.assertEqual(response.context['success_message'], 'Senha alterada com sucesso!')
+        self.assertContains(response, 'Entrar / Napker')
+
+    
+    def test_change_password(self):
+        user = User.objects.create(username='felipe')
+        user.set_password('password098')
+        user.save()
+        request_body = {
+            'password': 'password098',
+            'new_password': 'test',
+            'new_passwordc': 'test'
+        }
+        self.client.force_login(user)
+
+        response = self.client.post('/change-password', {**request_body, 'password': 'wrong'}, format='json')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, 'Senha incorreta!')
+
+        response = self.client.post('/change-password', request_body, format='json')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, 'success')
+
+        response = self.client.post('/change-password', {**request_body, 'password': 'test', 'new_password': 'different'}, format='json')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, 'Os campos "Nova senha" e "Confirmar nova senha" devem ter o mesmo valor!')
+
+
+    def test_delete_account(self):
+        user = User.objects.create(username='felipe')
+        user.set_password('password098')
+        user.save()
+        users_count = User.objects.all().count()
+        self.client.force_login(user)
+
+        response = self.client.post('/delete-account', {'password': 'wrong'})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, 'Wrong password')
+        self.assertEqual(users_count, User.objects.all().count())
+
+        response = self.client.post('/delete-account', {'password': 'password098'})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, 'Account deleted')
+        self.assertEqual(users_count - 1, User.objects.all().count())
+
+
     # REACT APP ROUTES
 
     def test_home_route(self):
@@ -190,11 +302,9 @@ class RouteTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'index.html')
     
+
     def test_interests_route(self):
         self.client.force_login(user=self.test_user)
-
         response = self.client.get('/interesses/napker')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'index.html')
-    
-        
