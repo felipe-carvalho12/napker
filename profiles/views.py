@@ -11,7 +11,6 @@ from .models import *
 
 # Create your views here.
 
-
 @api_view(['GET'])
 def get_logged_user(request):
     serializer = UserSerializer(request.user)
