@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 import Header from '../components/fixed/header'
 import { SERVER_URL } from '../config/settings'
-import { csrftoken } from '../config/utils'
+import { csrftoken, tagUser } from '../config/utils'
 
 export default class Posts extends React.Component {
     constructor(props) {
@@ -26,6 +26,7 @@ export default class Posts extends React.Component {
         this.setState({ postContent: e.target.value })
         const el = document.querySelector('#post-form-submit-btn')
         el.disabled = e.target.value.trim() === '' && !this.state.postFormImagePreview
+        tagUser(e.target.value)
     }
 
     handlePostImageChange = e => {
