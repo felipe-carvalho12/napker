@@ -29,6 +29,10 @@ body {
   background: #fff;
 }
 
+btn, input {
+  overflow: hidden;
+}
+
 .wrapper {
   display: flex;
 }
