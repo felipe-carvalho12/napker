@@ -1,4 +1,6 @@
+import datetime
 import random
+
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.contrib.auth import authenticate, login
@@ -75,9 +77,19 @@ def get_profile_list(profile):
             shared_interests_quantity.append(1)
     if len(profiles):
         profiles = list(zip(profiles, shared_interests_quantity))
-        random.shuffle(profiles)
-        profiles = sorted(profiles, key=lambda p: p[1])
-        profiles = [p[0] for p in profiles]
+        interest_profile_dict = {}
+        for i in set(shared_interests_quantity):
+            interest_profile_dict[i] = [p[0] for p in profiles if p[1] == i]
+        for key in interest_profile_dict:
+            interest_profile_dict[key] = sorted(
+                interest_profile_dict[key],
+                key=lambda p: abs(datetime.date.toordinal(profile.birth_date) - datetime.date.toordinal(p.birth_date))
+            )
+        profiles.clear()
+        for key in interest_profile_dict:
+            i_p_list = interest_profile_dict[key]
+            i_p_list.reverse()
+            profiles.extend(i_p_list)
         profiles.reverse()
     else:
         for p in Profile.objects.all().exclude(user=profile.user):
