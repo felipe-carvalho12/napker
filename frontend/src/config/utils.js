@@ -84,13 +84,3 @@ export const switchPage = (e, isHome = false) => {
     document.querySelector('#home-menu').classList.add('nav-menu-item-active')
   }
 }
-
-// TAG USERS WITH @
-
-export const tagUser = query => {
-  fetch(`${SERVER_URL}/profile-api/users/${/@(.*)/.exec(query)[0]}`)
-    .then(response => response.json())
-    .then(data => {
-      console.log(data, /@(.*)/.exec(query)[0])
-    })
-}
