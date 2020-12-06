@@ -78,12 +78,17 @@ export default function Profiles() {
     return (
         <>
             <div className="profiles-filter-container">
-                <input
-                    type="text"
-                    className="profiles-filter-input"
-                    placeholder="Pesquisar"
-                    value={search}
-                    onChange={e => setSearch(e.target.value)}
+                <div style={{ width: '89%' }}>
+                    <input
+                        type="text"
+                        className="profiles-filter-input"
+                        placeholder="Pesquisar"
+                        value={search}
+                        onChange={e => setSearch(e.target.value)}
+                    />
+                </div>
+                <i
+                    className="fas fa-ellipsis-h btn btn-primary"
                 />
             </div>
             <div className="list-group">
