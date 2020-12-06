@@ -17,6 +17,9 @@
 .profiles-filter-container i.btn {
     width: 50px;
     height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin: 4px;
     background: #e3e5e9!important;
     color: #666!important;
