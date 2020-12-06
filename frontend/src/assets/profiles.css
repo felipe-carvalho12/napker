@@ -25,6 +25,10 @@
     color: #666!important;
 }
 
+.profiles-filter-container i.btn:hover {
+    background: #d3d5d9!important;
+}
+
 .profiles-filter-input:focus {
     outline: none;
     background: #fff;
