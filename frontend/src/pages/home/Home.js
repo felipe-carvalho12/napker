@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import Header from '../../components/fixed/Header'
 import Posts from './components/posts_/Posts'
-import Profiles from './components/Profiles'
+import Profiles from './components/profiles/Profiles'
 import PostIcon from '../../components/fixed/bottom-menu/components/PostIcon'
 import BottomMenu from '../../components/fixed/bottom-menu/BottomMenu'
 

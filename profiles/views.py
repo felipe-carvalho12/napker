@@ -78,8 +78,8 @@ def get_profile_list(profile):
     if len(profiles):
         profiles = list(zip(profiles, shared_interests_quantity))
         interest_profile_dict = {}
-        for i in set(shared_interests_quantity):
-            interest_profile_dict[i] = [p[0] for p in profiles if p[1] == i]
+        for i_quantity in set(shared_interests_quantity):
+            interest_profile_dict[i_quantity] = [p[0] for p in profiles if p[1] == i_quantity]
         for key in interest_profile_dict:
             interest_profile_dict[key] = sorted(
                 interest_profile_dict[key],
@@ -87,13 +87,17 @@ def get_profile_list(profile):
             )
         profiles.clear()
         for key in interest_profile_dict:
-            i_p_list = interest_profile_dict[key]
-            i_p_list.reverse()
-            profiles.extend(i_p_list)
+            profile_list = interest_profile_dict[key]
+            profile_list.reverse()
+            profiles.extend(profile_list)
         profiles.reverse()
     else:
         for p in Profile.objects.all().exclude(user=profile.user):
             if p.user in profile.friends.all():
+                continue
+            if p.user in profile.blocked_users.all():
+                continue
+            if profile.user in p.blocked_users.all():
                 continue
             if p in [i.receiver for i in Relationship.objects.invitations_sent(profile)]:
                 continue

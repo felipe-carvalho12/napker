@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 
-import { SERVER_URL } from '../../../config/settings'
-import { csrftoken } from '../../../config/utils'
-import ProfileListItem from '../../../components/ProfileListItem'
+import { SERVER_URL } from '../../../../config/settings'
+import { csrftoken } from '../../../../config/utils'
+import ProfileListItem from '../../../../components/ProfileListItem'
+import ProfilesSearchInput from './components/ProfilesSearchInput'
 
 export default function Profiles() {
     const [myProfile, setMyProfile] = useState(null)
     const [profiles, setProfiles] = useState(null)
     const [filteredProfiles, setFilteredProfiles] = useState(null)
-    const [search, setSearch] = useState('')
 
     useEffect(() => {
         fetch(`${SERVER_URL}/profile-api/myprofile`)
@@ -21,18 +21,6 @@ export default function Profiles() {
                 setProfiles(data)
             })
     }, [])
-
-    useEffect(() => {
-        if (search === '') {
-            setFilteredProfiles(null)
-            return
-        }
-        fetch(`${SERVER_URL}/profile-api/users/${search}`)
-            .then(response => response.json())
-            .then(data => {
-                setFilteredProfiles(data)
-            })
-    }, [search])
 
     const sendFriendRequest = pk => {
         fetch(`${SERVER_URL}/profile-api/send-friend-request`, {
@@ -77,20 +65,7 @@ export default function Profiles() {
 
     return (
         <>
-            <div className="profiles-filter-container">
-                <div style={{ width: '89%' }}>
-                    <input
-                        type="text"
-                        className="profiles-filter-input"
-                        placeholder="Pesquisar"
-                        value={search}
-                        onChange={e => setSearch(e.target.value)}
-                    />
-                </div>
-                <i
-                    className="fas fa-ellipsis-h btn btn-primary"
-                />
-            </div>
+            <ProfilesSearchInput setFilteredProfiles={setFilteredProfiles} />
             <div className="list-group">
                 {myProfile && (profiles || filteredProfiles) ?
                     <div className="profile-list-container">

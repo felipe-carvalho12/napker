@@ -14,18 +14,21 @@
     background: #e3e5e9;
 }
 
-.profiles-filter-container i.btn {
+.profiles-filter-container .profiles-search-extra-options-icon {
     width: 50px;
     height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
+    border: 1px solid rgba(0, 0, 0, 0.1)!important;
+    border-radius: 20px;
+    font-weight: bold!important;
     margin: 4px;
     background: #e3e5e9!important;
     color: #666!important;
 }
 
-.profiles-filter-container i.btn:hover {
+.profiles-filter-container .profiles-search-extra-options-icon:hover, .profiles-filter-container .profiles-search-extra-options-icon-active {
     background: #d3d5d9!important;
 }
 
@@ -33,6 +36,24 @@
     outline: none;
     background: #fff;
     border: 1px solid var(--primary-color);
+}
+
+.profiles-search-type-selector {
+    display: none;
+    width: fit-content;
+    position: absolute;
+    z-index: 1;
+    right: 5%;
+    padding: 10px 5px;
+    border: 1px solid rgba(0, 0, 0, .1);
+    border-radius: 10px;
+    text-align: start;
+    background: #fff;
+}
+
+.profiles-search-type-selector:hover {
+    background: var(--white-hover);
+    cursor: pointer;
 }
 
 .profile-list-container {
