@@ -19,7 +19,7 @@ export default function ProfilesSearchInput(props) {
                     setFilteredProfiles(data)
                 })
         } else if (searchType === 'byInterest') {
-            fetch(`${SERVER_URL}/profile-api/users/${search}`)
+            fetch(`${SERVER_URL}/profile-api/users-by-interest/${search}`)
                 .then(response => response.json())
                 .then(data => {
                     setFilteredProfiles(data)

@@ -55,6 +55,17 @@ def filter_profiles(request, query):
     return Response(serializer.data)
 
 
+@api_view(['GET'])
+def filter_profiles_by_interests(request, query):
+    interests = [i.strip() for i in query.split(',')]
+    profiles = []
+    for profile in Profile.objects.filter(interests__title__contains=interests[0]).exclude(user=request.user):
+        if all(inter in [i.title for i in profile.interests.filter(public=True)] for inter in interests) and profile not in profiles:
+            profiles.append(profile)
+    serializer = ProfileSerializer(profiles, many=True)
+    return Response(serializer.data)
+
+
 def get_profile_list(profile):
     profiles = []
     shared_interests_quantity = []
