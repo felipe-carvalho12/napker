@@ -1,4 +1,8 @@
-.home-page-subheader {
+.mobile-home-menu {
+    display: none;
+}
+
+.home-page-menu {
     width: 100%;
     display: flex;
     align-items: center;
@@ -8,7 +12,7 @@
     color: #333;
 }
 
-.home-page-subheader .home-menu-btn-container {
+.home-page-menu .home-menu-btn-container {
     width: 25%;
     display: flex;
     justify-content: center;
@@ -16,6 +20,6 @@
     border-right: 1px solid var(--border-color);
 }
 
-.home-page-subheader .home-menu-btn-container-active {
+.home-page-menu .home-menu-btn-container-active {
     border-bottom: 2px solid var(--primary-color);
 }

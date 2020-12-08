@@ -53,6 +53,15 @@
     }
 }
 
+@media (max-width: 790px) {
+    .mobile-home-menu {
+        display: unset;
+    }
+    .desktop-home-menu {
+        display: none;
+    }
+}
+
 @media (max-width: 750px) {
     .interest-item {
         flex-direction: column;
