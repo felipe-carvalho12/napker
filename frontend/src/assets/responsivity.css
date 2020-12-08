@@ -129,9 +129,6 @@
 }
 
 @media (max-width: 560px) {
-    .wrapper .main-content .content .home-page-subheader {
-        flex-direction: column;
-    }
     .post-img {
         max-width: 430px;
         max-height: 400px;

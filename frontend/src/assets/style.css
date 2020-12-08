@@ -92,18 +92,6 @@ btn, input {
   text-align: center;
 }
 
-.home-page-subheader {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 5px 0 5px 0;
-  border-bottom: 1px solid var(--border-color);
-  background: #fff;
-  font-size: 1.2rem;
-  color: #333;
-}
-
 .loader {
   width: 28px;
   height: 28px;
