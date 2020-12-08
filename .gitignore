@@ -1,5 +1,9 @@
 /.vscode
 /venv
 
-__pycache__/
+/napker/__pycache__
+/profiles/__pycache__
+/posts/__pycache__
+/chat/__pycache__
+
 *.py[cod]
