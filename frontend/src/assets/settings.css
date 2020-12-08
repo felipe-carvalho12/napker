@@ -31,6 +31,7 @@
     display: flex;
     justify-content: center;
     padding-top: 10%;
+    background: var(--body-background);
 }
 
 .settings-page-container .settings-page-menu {
@@ -44,7 +45,17 @@
     border-right: 1px solid var(--border-color);
 }
 
-.settings-page-container .settings-page-menu li {
+.settings-page-container .security-page-menu {
+    width: 100%;
+    height: unset!important;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.settings-page-container .settings-page-menu li, .settings-page-container .security-page-menu li {
     width: 100%;
     border-bottom: 1px solid var(--border-color);
     display: flex;
@@ -73,6 +84,7 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+    background: #fff;
 }
 
 /* BLOCK USER */
@@ -107,15 +119,16 @@
     border-bottom: 1px solid var(--border-color);
 }
 
-/* CHANGE PASSWORD */
-
-.change-password-title-container {
+.settings-page-title-container {
     width: 100%;
     height: 20%;
+    background: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
+/* CHANGE PASSWORD */
 
 .change-password-form {
     width: 100%;
@@ -128,14 +141,6 @@
 }
 
 /* DELETE ACCOUNT */
-
-.delete-account-title-container {
-    width: 100%;
-    height: 20%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
 .delete-account-confirmation {
     width: 100%;

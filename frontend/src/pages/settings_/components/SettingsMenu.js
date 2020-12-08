@@ -14,15 +14,9 @@ export default function SettingsMenu(props) {
                         <i className="fas fa-angle-right" />
                     </li>
                 </Link>
-                <Link to="/configurações/alterar-senha" style={{ textDecoration: 'none', width: '100%' }}>
-                    <li id="change-password" onClick={() => props.pageChange('change-password')}>
-                        Alterar senha
-                        <i className="fas fa-angle-right" />
-                    </li>
-                </Link>
-                <Link to="/configurações/deletar-conta" style={{ textDecoration: 'none', width: '100%' }}>
-                    <li id="delete-account" onClick={() => props.pageChange('delete-account')}>
-                        Apagar conta
+                <Link to="/configurações/segurança" style={{ textDecoration: 'none', width: '100%' }}>
+                    <li id="security" onClick={() => props.pageChange('security')}>
+                        Segurança
                         <i className="fas fa-angle-right" />
                     </li>
                 </Link>

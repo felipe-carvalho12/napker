@@ -4,6 +4,7 @@
   --primary-color-hover: #0b80d0;
   --white-hover: #eee;
   --border-color: #E6ECF0;
+  --body-background: #F7F9FA;
 }
 
 * {
@@ -26,7 +27,7 @@ html {
 }
 
 body {
-  background: #F7F9FA;
+  background: var(--body-background);
 }
 
 btn, input {
