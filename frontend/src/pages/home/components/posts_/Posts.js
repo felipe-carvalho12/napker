@@ -39,13 +39,13 @@ export default class Posts extends React.Component {
                 <LikesModal
                     isOpen={this.state.likesModal.isOpen}
                     likes={this.state.likesModal.likes}
-                    hideModal={() => this.setState({likesModal: {isOpen: false, likes: null}})}
+                    hideModal={() => this.setState({ likesModal: { isOpen: false, likes: null } })}
                 />
                 {this.state.myProfile &&
                     <PostForm myProfile={this.state.myProfile} />
                 }
                 <div className="post-list">
-                    {this.state.posts && this.state.myProfile ?
+                    {this.state.posts && this.state.myProfile &&
                         this.state.posts.map(post => {
                             return (
                                 <PostListItem
@@ -55,11 +55,11 @@ export default class Posts extends React.Component {
                                     openLikesModal={likes => this.setState({ likesModal: { isOpen: true, likes: likes } })}
                                 />
                             )
-                        }) :
-                        <div className="posts-loader-container" >
-                            <div className="loader" />
-                        </div>
+                        })
                     }
+                    <div className="posts-loader-container" >
+                        <div className="loader" />
+                    </div>
                 </div>
             </>
         )

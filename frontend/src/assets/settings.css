@@ -2,7 +2,6 @@
     width: 100%;
     height: 88vh;
     display: flex;
-    background: #fff;
 }
 
 .settings-page-container .alert {
@@ -37,6 +36,7 @@
 .settings-page-container .settings-page-menu {
     width: 40%;
     height: 100%;
+    background: #fff;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

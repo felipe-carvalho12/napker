@@ -58,7 +58,6 @@
 
 .profile-list-container {
     width: 100%;
-    background: #fff;
     overflow-y: hidden;
 }
 
@@ -115,5 +114,4 @@
     display: flex;
     justify-content: center;
     padding-top: 25px;
-    background: #fff;
 }
