@@ -85,6 +85,9 @@ export default function App() {
                     <Route path="/configurações/deletar-conta" exact render={props => (
                         <Settings {...props} page={'delete-account'} />
                     )} />
+                    <Route path="/configurações/faq" exact render={props => (
+                        <Settings {...props} page={'faq'} />
+                    )} />
                     <Route path="/user/:slug" exact render={props => (
                         <Profile {...props} updateNotificationsNumber={updateNotificationsNumber} />
                     )} />

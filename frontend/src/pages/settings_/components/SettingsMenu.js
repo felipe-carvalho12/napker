@@ -20,6 +20,12 @@ export default function SettingsMenu(props) {
                         <i className="fas fa-angle-right" />
                     </li>
                 </Link>
+                <Link to="/configurações/faq" style={{ textDecoration: 'none', width: '100%' }}>
+                    <li id="faq" onClick={() => props.pageChange('faq')}>
+                        FAQ
+                        <i className="fas fa-angle-right" />
+                    </li>
+                </Link>
             </div>
             <li className="logout-btn" onClick={handleLogout}>
                 Sair da conta

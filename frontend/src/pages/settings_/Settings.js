@@ -4,6 +4,7 @@ import Header from '../../components/fixed/Header'
 import SettingsMenu from './components/SettingsMenu'
 import BlockedProfiles from './components/BlockedProfiles'
 import SecurityMenu from './components/security_/SecurityMenu'
+import Faq from './components/Faq'
 import ChangePassword from './components/security_/components/ChangePassword'
 import DeleteAccount from './components/security_/components/DeleteAccount'
 import BottomMenu from '../../components/fixed/bottom-menu/BottomMenu'
@@ -17,7 +18,7 @@ export default function Settings(props) {
 
     useEffect(() => {
         document.getElementById(props.page !== 'default' ? props.page : defaultPage) &&
-        document.getElementById(props.page !== 'default' ? props.page : defaultPage).classList.add('active')
+            document.getElementById(props.page !== 'default' ? props.page : defaultPage).classList.add('active')
     }, [])
 
     useEffect(() => {
@@ -66,8 +67,14 @@ export default function Settings(props) {
                                         <ChangePassword />
                                         :
                                         <>
-                                            {props.page === 'delete-account' &&
+                                            {props.page === 'delete-account' ?
                                                 <DeleteAccount />
+                                                :
+                                                <>
+                                                    {props.page === 'faq' &&
+                                                        <Faq />
+                                                    }
+                                                </>
                                             }
                                         </>
                                     }
