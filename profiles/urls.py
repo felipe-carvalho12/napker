@@ -8,7 +8,7 @@ urlpatterns = [
     path('profile-by-email/<str:email>', get_profile_by_email),
     path('users/<str:query>', filter_profiles),
     path('users-by-interest/<str:query>', filter_profiles_by_interests),
-    path('profile-list', profile_list_view),
+    path('profile-list/<int:scroll_count>', profile_list_view),
     path('interest-profile-list/<str:interest>', interest_profile_list),
     path('myprofile', my_profile),
     path('get-friends-profiles/<str:slug>', friends_profiles),

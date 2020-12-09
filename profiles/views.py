@@ -120,10 +120,10 @@ def get_profile_list(profile):
 
 
 @api_view(['GET'])
-def profile_list_view(request):
+def profile_list_view(request, scroll_count):
     profile = Profile.objects.get(user=request.user)
     profiles = get_profile_list(profile)
-    serializer = ProfileSerializer(profiles[:50], many=True)
+    serializer = ProfileSerializer(profiles[:5 * scroll_count], many=True)
     return Response(serializer.data)
 
 

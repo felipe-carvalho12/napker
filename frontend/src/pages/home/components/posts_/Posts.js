@@ -18,6 +18,14 @@ export default class Posts extends React.Component {
             postContent: '',
             postFormImagePreview: null
         }
+        this.scrollCount = 1
+
+        window.onscroll = () => {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+                this.scrollCount++
+                this.fetchPosts()
+            }
+        }
     }
 
     componentWillMount() {
@@ -28,10 +36,11 @@ export default class Posts extends React.Component {
     }
 
     fetchPosts = () => {
-        fetch(`${SERVER_URL}/post-api/post-list`)
+        fetch(`${SERVER_URL}/post-api/post-list/${this.scrollCount}`)
             .then(response => response.json())
             .then(data => this.setState({ posts: data }))
     }
+
 
     render() {
         return (

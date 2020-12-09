@@ -9,18 +9,28 @@ export default function Profiles() {
     const [myProfile, setMyProfile] = useState(null)
     const [profiles, setProfiles] = useState(null)
     const [filteredProfiles, setFilteredProfiles] = useState(null)
+    const [scrollCount, setScrollCount] = useState(1)
+
+    window.onscroll = () => {
+        if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+            setScrollCount(scrollCount + 1)
+        }
+    }
 
     useEffect(() => {
         fetch(`${SERVER_URL}/profile-api/myprofile`)
             .then(response => response.json())
             .then(data => setMyProfile(data))
-        fetch(`${SERVER_URL}/profile-api/profile-list`)
+    }, [])
+
+    useEffect(() => {
+        fetch(`${SERVER_URL}/profile-api/profile-list/${scrollCount}`)
             .then(response => response.json())
             .then(data => {
                 setFilteredProfiles(null)
                 setProfiles(data)
             })
-    }, [])
+    }, [scrollCount])
 
     const sendFriendRequest = pk => {
         fetch(`${SERVER_URL}/profile-api/send-friend-request`, {
@@ -67,7 +77,7 @@ export default function Profiles() {
         <>
             <ProfilesSearchInput setFilteredProfiles={setFilteredProfiles} />
             <div className="list-group">
-                {myProfile && (profiles || filteredProfiles) ?
+                {myProfile && (profiles || filteredProfiles) &&
                     <div className="profile-list-container">
                         {filteredProfiles ? filteredProfiles.map(profile => {
                             return (
@@ -84,11 +94,11 @@ export default function Profiles() {
                             )
                         })
                         }
-                    </div> :
-                    <div className="profiles-loader-container">
-                        <div className="loader" />
                     </div>
                 }
+                <div className="profiles-loader-container">
+                    <div className="loader" />
+                </div>
             </div>
         </>
     )

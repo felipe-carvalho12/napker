@@ -12,7 +12,7 @@ from .models import *
 
 # Create your views here.
 @api_view(['GET'])
-def post_list(request):
+def post_list(request, scroll_count):
     profile = Profile.objects.get(user=request.user)
     posts = []
 
@@ -26,9 +26,9 @@ def post_list(request):
             posts.extend(p.get_all_posts())
 
     posts.extend(profile.get_all_posts())
-    posts = sorted(posts, key=lambda post: post.created)[:30]
+    posts = sorted(posts, key=lambda post: post.created)
     posts.reverse()
-    serializer = PostSerializer(posts, many=True)
+    serializer = PostSerializer(posts[:5 * scroll_count], many=True)
     return Response(serializer.data)
 
 @api_view(['GET'])
