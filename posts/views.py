@@ -14,16 +14,14 @@ from .models import *
 @api_view(['GET'])
 def post_list(request, scroll_count):
     profile = Profile.objects.get(user=request.user)
+    profiles = get_profile_list(profile)
     posts = []
 
     for friend_user in profile.friends.all():
         friend_profile = Profile.objects.get(user=friend_user)
         posts.extend(friend_profile.get_all_posts())
-        
-    if not len(posts):
-        profiles = get_profile_list(profile)
-        for p in profiles:
-            posts.extend(p.get_all_posts())
+    for p in profiles:
+        posts.extend(p.get_all_posts())
 
     posts.extend(profile.get_all_posts())
     posts = sorted(posts, key=lambda post: post.created)
