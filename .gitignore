@@ -1,11 +1,6 @@
 /.vscode
 /venv
 
-/napker/__pycache__
-/profiles/__pycache__
-/posts/__pycache__
-/chat/__pycache__
+__pycache__
 
-/db.sqlite3
-
-*.py[cod]
+*.sqlite3
