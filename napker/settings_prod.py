@@ -33,7 +33,6 @@ INSTALLED_APPS = [
     "profiles",
     "chat",
     "posts",
-    "news",
 ]
 
 MIDDLEWARE = [
