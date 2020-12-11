@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
-STATE = 'production'
+STATE = 'development'
 
 if STATE == 'production':
     from .settings_prod import *
