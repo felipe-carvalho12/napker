@@ -1,4 +1,6 @@
+import datetime
 import random
+
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.contrib.auth import authenticate, login
@@ -53,6 +55,17 @@ def filter_profiles(request, query):
     return Response(serializer.data)
 
 
+@api_view(['GET'])
+def filter_profiles_by_interests(request, query):
+    interests = [i.strip() for i in query.split(',')]
+    profiles = []
+    for profile in Profile.objects.filter(interests__title__contains=interests[0]).exclude(user=request.user):
+        if all(inter in [i.title for i in profile.interests.filter(public=True)] for inter in interests) and profile not in profiles:
+            profiles.append(profile)
+    serializer = ProfileSerializer(profiles, many=True)
+    return Response(serializer.data)
+
+
 def get_profile_list(profile):
     profiles = []
     shared_interests_quantity = []
@@ -75,13 +88,27 @@ def get_profile_list(profile):
             shared_interests_quantity.append(1)
     if len(profiles):
         profiles = list(zip(profiles, shared_interests_quantity))
-        random.shuffle(profiles)
-        profiles = sorted(profiles, key=lambda p: p[1])
-        profiles = [p[0] for p in profiles]
+        interest_profile_dict = {}
+        for i_quantity in set(shared_interests_quantity):
+            interest_profile_dict[i_quantity] = [p[0] for p in profiles if p[1] == i_quantity]
+        for key in interest_profile_dict:
+            interest_profile_dict[key] = sorted(
+                interest_profile_dict[key],
+                key=lambda p: abs(datetime.date.toordinal(profile.birth_date) - datetime.date.toordinal(p.birth_date))
+            )
+        profiles.clear()
+        for key in interest_profile_dict:
+            profile_list = interest_profile_dict[key]
+            profile_list.reverse()
+            profiles.extend(profile_list)
         profiles.reverse()
     else:
         for p in Profile.objects.all().exclude(user=profile.user):
             if p.user in profile.friends.all():
+                continue
+            if p.user in profile.blocked_users.all():
+                continue
+            if profile.user in p.blocked_users.all():
                 continue
             if p in [i.receiver for i in Relationship.objects.invitations_sent(profile)]:
                 continue
@@ -93,10 +120,10 @@ def get_profile_list(profile):
 
 
 @api_view(['GET'])
-def profile_list_view(request):
+def profile_list_view(request, scroll_count):
     profile = Profile.objects.get(user=request.user)
     profiles = get_profile_list(profile)
-    serializer = ProfileSerializer(profiles[:50], many=True)
+    serializer = ProfileSerializer(profiles[:5 * scroll_count], many=True)
     return Response(serializer.data)
 
 

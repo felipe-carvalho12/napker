@@ -31,6 +31,7 @@ urlpatterns = [
     path("perfil", pages_view),
     path("perfil/meus-interesses", pages_view),
     path("configurações", pages_view),
+    path("configurações/segurança", pages_view),
     path("configurações/perfis-bloqueados", pages_view),
     path("configurações/alterar-senha", pages_view),
     path("configurações/deletar-conta", pages_view),

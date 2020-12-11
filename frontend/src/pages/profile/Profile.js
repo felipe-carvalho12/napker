@@ -267,7 +267,7 @@ class Profile extends React.Component {
                                             onClick={this.openCloseExtraOptions}
                                         />
                                         <div className="view-more-select profile-view-more-select" id="view-more-select">
-                                            <Link to={`/mensagens/${this.state.profile.slug}`} style={{ color: '#000', textDecoration: 'none' }}>
+                                            <Link to={`/mensagens/${this.state.profile.slug}`} style={{ color: '#000', textDecoration: 'none', borderBottom: '1px solid rgba(0,0,0,.1)' }}>
                                                 {!this.state.myProfile.blocked_users.map(u => u.id).includes(this.state.profile.user.id) &&
                                                     <li>
                                                         <i class="fas fa-envelope text-secondary" />

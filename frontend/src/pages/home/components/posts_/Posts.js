@@ -18,6 +18,14 @@ export default class Posts extends React.Component {
             postContent: '',
             postFormImagePreview: null
         }
+        this.scrollCount = 1
+
+        window.onscroll = () => {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+                this.scrollCount++
+                this.fetchPosts()
+            }
+        }
     }
 
     componentWillMount() {
@@ -28,10 +36,11 @@ export default class Posts extends React.Component {
     }
 
     fetchPosts = () => {
-        fetch(`${SERVER_URL}/post-api/post-list`)
+        fetch(`${SERVER_URL}/post-api/post-list/${this.scrollCount}`)
             .then(response => response.json())
             .then(data => this.setState({ posts: data }))
     }
+
 
     render() {
         return (
@@ -39,13 +48,13 @@ export default class Posts extends React.Component {
                 <LikesModal
                     isOpen={this.state.likesModal.isOpen}
                     likes={this.state.likesModal.likes}
-                    hideModal={() => this.setState({likesModal: {isOpen: false, likes: null}})}
+                    hideModal={() => this.setState({ likesModal: { isOpen: false, likes: null } })}
                 />
                 {this.state.myProfile &&
                     <PostForm myProfile={this.state.myProfile} />
                 }
                 <div className="post-list">
-                    {this.state.posts && this.state.myProfile ?
+                    {this.state.posts && this.state.myProfile &&
                         this.state.posts.map(post => {
                             return (
                                 <PostListItem
@@ -55,11 +64,11 @@ export default class Posts extends React.Component {
                                     openLikesModal={likes => this.setState({ likesModal: { isOpen: true, likes: likes } })}
                                 />
                             )
-                        }) :
-                        <div className="posts-loader-container" >
-                            <div className="loader" />
-                        </div>
+                        })
                     }
+                    <div className="posts-loader-container" >
+                        <div className="loader" />
+                    </div>
                 </div>
             </>
         )

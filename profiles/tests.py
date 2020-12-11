@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
 from django.test import TestCase, Client
 
+from .views import get_profile_list
+
 from .models import Profile
 
 
@@ -85,4 +87,5 @@ class ProfilesTests(TestCase):
 
     
     def test_profile_matching_function(self):
-        pass
+        profiles = get_profile_list(self.test_user.profile)
+        # (...)

@@ -1,0 +1,25 @@
+.mobile-home-menu {
+    display: none;
+}
+
+.home-page-menu {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    background: #fff;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.home-page-menu .home-menu-btn-container {
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-right: 1px solid var(--border-color);
+}
+
+.home-page-menu .home-menu-btn-container-active {
+    border-bottom: 2px solid var(--primary-color);
+}

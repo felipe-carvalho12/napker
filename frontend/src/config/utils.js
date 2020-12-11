@@ -42,7 +42,7 @@ export const openCloseEmojiList = (closing = false) => {
   }
 }
 
-// nav AND BOTTOM MENU
+// NAV AND BOTTOM MENU
 
 export const getActivePageOnLoad = () => {
   document.querySelectorAll('.nav-menu-item-active').forEach(el => {

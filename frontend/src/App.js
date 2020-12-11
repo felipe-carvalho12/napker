@@ -76,11 +76,17 @@ export default function App() {
                     <Route path="/configurações/perfis-bloqueados" exact render={props => (
                         <Settings {...props} page={'blocked-profiles'} />
                     )} />
+                    <Route path="/configurações/segurança" exact render={props => (
+                        <Settings {...props} page={'security'} />
+                    )} />
                     <Route path="/configurações/alterar-senha" exact render={props => (
                         <Settings {...props} page={'change-password'} />
                     )} />
                     <Route path="/configurações/deletar-conta" exact render={props => (
                         <Settings {...props} page={'delete-account'} />
+                    )} />
+                    <Route path="/configurações/faq" exact render={props => (
+                        <Settings {...props} page={'faq'} />
                     )} />
                     <Route path="/user/:slug" exact render={props => (
                         <Profile {...props} updateNotificationsNumber={updateNotificationsNumber} />

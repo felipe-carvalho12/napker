@@ -2,8 +2,6 @@
 /.vscode
 /venv
 
-# Django #
-*.log
-*.pot
-*.pyc
-__pycache__
+__pycache__/
+
+*.sqlite3

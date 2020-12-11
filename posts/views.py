@@ -8,27 +8,18 @@ from django.shortcuts import render, redirect
 
 from profiles.views import get_profile_list
 from profiles.serializers import PostSerializer, PostLikeSerializer, CommentSerializer, CommentLikeSerializer
+from profiles.models import Profile
 from .models import *
+from .utils import *
 
 # Create your views here.
+
+
+
 @api_view(['GET'])
-def post_list(request):
-    profile = Profile.objects.get(user=request.user)
-    posts = []
-
-    for friend_user in profile.friends.all():
-        friend_profile = Profile.objects.get(user=friend_user)
-        posts.extend(friend_profile.get_all_posts())
-        
-    if not len(posts):
-        profiles = get_profile_list(profile)
-        for p in profiles:
-            posts.extend(p.get_all_posts())
-
-    posts.extend(profile.get_all_posts())
-    posts = sorted(posts, key=lambda post: post.created)[:30]
-    posts.reverse()
-    serializer = PostSerializer(posts, many=True)
+def post_list_view(request, scroll_count):
+    posts = process_post_relevance(Profile.objects.get(user=request.user))
+    serializer = PostSerializer(posts[:5 * scroll_count], many=True)
     return Response(serializer.data)
 
 @api_view(['GET'])

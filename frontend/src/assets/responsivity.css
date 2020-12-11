@@ -53,6 +53,15 @@
     }
 }
 
+@media (max-width: 790px) {
+    .mobile-home-menu {
+        display: unset;
+    }
+    .desktop-home-menu {
+        display: none;
+    }
+}
+
 @media (max-width: 750px) {
     .interest-item {
         flex-direction: column;
@@ -117,7 +126,6 @@
         width: 100%;
         position: absolute;
         z-index: 1;
-        background: #fff;
     }
 }
 
@@ -129,9 +137,6 @@
 }
 
 @media (max-width: 560px) {
-    .wrapper .main-content .content .home-page-subheader {
-        flex-direction: column;
-    }
     .post-img {
         max-width: 430px;
         max-height: 400px;
