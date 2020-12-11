@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "channels",
     "profiles",
+    'storages',
     "chat",
     "posts",
 ]
