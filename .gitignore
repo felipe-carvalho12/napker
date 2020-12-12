@@ -2,6 +2,10 @@
 /.vscode
 /venv
 
-__pycache__/
+pycache/
+profiles/migrations/pycache/
+posts/migrations/pycache/
+chat/migrations/pycache/
+settings/migrations/pycache/
 
-*.sqlite3
+/db.sqlite3
