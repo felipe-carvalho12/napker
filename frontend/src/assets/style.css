@@ -4,7 +4,7 @@
   --primary-color-hover: #00A69F;
   --white-hover: #eee;
   --border-color: #E6ECF0;
-  --body-background: #F7F9FA;
+  --body-background: #F2FAFA;
 }
 
 * {
@@ -32,6 +32,21 @@ body {
 
 btn, input {
   overflow: hidden;
+}
+
+h3 {
+  font-weight: bold;
+  color: #5A7575;
+}
+
+a {
+  font-weight: bold;
+  color:  var(--primary-color);
+}
+
+a:hover {
+  font-weight: bold;
+  color: var(--primary-color-hover);
 }
 
 .wrapper {

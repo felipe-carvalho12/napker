@@ -67,6 +67,10 @@ export default function DeleteAccount() {
                 <button
                     className="btn btn-danger"
                     onClick={deleteAccount}
+                    style={{
+                        borderRadius : "20px",
+                        fontWeight: "bold"
+                    }}
                 >Deletar conta</button>
             </div>
         </div>
