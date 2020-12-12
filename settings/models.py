@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 class Feedback(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='feedbacks', null=True)
-    rating = models.IntegerField(choices=((1, 1), (2, 2), (3, 3), (4, 4), (5, 5)))
+    rating = models.IntegerField(choices=((-1, -1), (1, 1), (2, 2), (3, 3), (4, 4), (5, 5)))
     message = models.TextField(max_length=100)
     created = models.DateField(auto_now_add=True)
 

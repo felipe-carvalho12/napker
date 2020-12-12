@@ -6,9 +6,9 @@ import { csrftoken } from '../../../config/utils'
 
 export default function Feedback() {
     const [name, setName] = useState(null)
-    
-    let selectedRating = 0
-    
+
+    let selectedRating = -1
+
     useEffect(() => {
         fetch(`${SERVER_URL}/profile-api/myprofile`)
             .then(response => response.json())
@@ -31,14 +31,19 @@ export default function Feedback() {
         const img = e.target
         document.querySelectorAll('.option-container > img').forEach(image => {
             image.src = `/static/media/feedback-faces/${image.id}bw.png`
-            image.dataset.selected = 'false'
+            if (image !== img) image.dataset.selected = 'false'
             image.classList.remove('animated')
         })
-        img.src = `/static/media/feedback-faces/${img.id}.png`
-        img.dataset.selected = img.dataset.selected === 'true' ? 'false' : 'true'
-        img.classList.add('animated')
-        img.onanimationend = () => img.classList.remove('animated')
-        let selectedRating = img.id
+        if (img.dataset.selected === 'false') {
+            img.src = `/static/media/feedback-faces/${img.id}.png`
+            img.dataset.selected = 'true'
+            img.classList.add('animated')
+            img.onanimationend = () => img.classList.remove('animated')
+            selectedRating = img.id
+        } else {
+            img.dataset.selected = 'false'
+            selectedRating = -1
+        }
     }
 
     const thankYouPage = () => {
@@ -48,23 +53,26 @@ export default function Feedback() {
     }
 
 
-    const handleFormSubmit = e => {
+    const handleFeedbackSubmit = e => {
         const message = document.querySelector('.feedback-form > .textarea-container > textarea').value
-        e.preventDefault()
-        fetch(`${SERVER_URL}/settings-api/feedback`, {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json',
-                'X-CSRFToken': csrftoken,
-            },
-            body: JSON.stringify({
-                'rating': selectedRating,
-                'message': message
+        if (message.trim() === '') {
+            alert('A mensagem não pode estar em branco')
+        } else {
+            fetch(`${SERVER_URL}/settings-api/feedback`, {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json',
+                    'X-CSRFToken': csrftoken,
+                },
+                body: JSON.stringify({
+                    'rating': selectedRating,
+                    'message': message
+                })
             })
-        })
-            .then(response => response.json())
-            .then(data => console.log(data))
-        thankYouPage()
+                .then(response => response.json())
+                .then(data => console.log(data))
+            thankYouPage()
+        }
     }
 
     return (
@@ -130,7 +138,7 @@ export default function Feedback() {
                 <hr />
                 <div className="textarea-container">
                     <textarea placeholder="Digite a sua mensagem aqui..." />
-                    <button className="btn btn-primary w-100" onClick={handleFormSubmit}>Enviar</button>
+                    <button className="btn btn-primary w-100" onClick={handleFeedbackSubmit}>Enviar</button>
                 </div>
             </div>
         </div>
