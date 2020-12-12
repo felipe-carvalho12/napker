@@ -8,7 +8,7 @@ export default function ProfilesSearchInput(props) {
     const [searchType, setSearchType] = useState('byName')
 
     useEffect(() => {
-        if (search === '') {
+        if (search.trim() === '') {
             setFilteredProfiles(null)
             return
         }
