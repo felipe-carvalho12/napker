@@ -8,4 +8,4 @@ posts/migrations/__pycache__/
 chat/migrations/__pycache__/
 settings/migrations/__pycache__/
 
-*.sqlite3/
+/db.sqlite3

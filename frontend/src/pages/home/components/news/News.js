@@ -13,17 +13,7 @@ export default function News() {
 
     return (
         <>
-            {news !== null &&
-                <>
-                {news.map(article => {
-                    return (
-                        <div>
-                            {article}
-                        </div>
-                    )
-                })}
-                </>
-            }
+            
         </>
     )
 }
