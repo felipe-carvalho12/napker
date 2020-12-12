@@ -27,7 +27,7 @@ export default function Feedback() {
     const thankYouPage = () => {
         document.querySelector('.feedback-form > h3').innerHTML = `Muito obrigado${name !== null ? (`, ${name}`) : ''}!`
         document.querySelector('.feedback-faces-container').innerHTML = 'A sua mensagem nos ajudará a tornar o Napker cada vez inclusivo e transparente.\nCaso pense em mais alguma coisa, sinta-se à vontade para entrar em contato novamente.'
-        document.querySelector('.textarea-container').innerHTML = ''
+        document.querySelector('.textarea-container').innerHTML = 
     }
 
 
