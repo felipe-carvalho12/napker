@@ -123,7 +123,7 @@ def get_profile_list(profile):
 def profile_list_view(request, scroll_count):
     profile = Profile.objects.get(user=request.user)
     profiles = get_profile_list(profile)
-    serializer = ProfileSerializer(profiles[:5 * scroll_count], many=True)
+    serializer = ProfileSerializer(profiles[:10 * scroll_count], many=True)
     return Response(serializer.data)
 
 
