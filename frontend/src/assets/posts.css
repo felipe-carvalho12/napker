@@ -35,7 +35,7 @@
 .create-post-form {
     background: #fff;
     padding: 15px 15px 10px 15px;
-    border-bottom: 15px solid #F2FAFA;
+    border-bottom: 15px solid #F7F9FA;
 }
 
 .create-post-form-mobile {
@@ -49,6 +49,9 @@
     font-size: large;
     width: 100%;
     padding: 15px;
+    border-color: white;
+    box-shadow: white;
+
 }
 
 .post-content-textarea:focus {
@@ -206,3 +209,17 @@
 .post-page-container {
     width: 100%;
 }
+textarea{  
+    overflow: hidden;
+    width: 100%;
+    font-size: 14px;
+    margin: 10px;
+    border-color: white;
+    box-shadow: white;
+    border: none;
+    outline: none;
+
+
+}
+    
+   
