@@ -3,5 +3,9 @@
 /venv
 
 __pycache__/
+profiles/migrations/__pycache__/
+posts/migrations/__pycache__/
+chat/migrations/__pycache__/
+settings/migrations/__pycache__/
 
 *.sqlite3/
