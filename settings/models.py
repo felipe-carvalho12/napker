@@ -1,3 +1,4 @@
+import datetime
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -7,6 +8,7 @@ class Feedback(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='feedbacks', null=True)
     rating = models.IntegerField(choices=((1, 1), (2, 2), (3, 3), (4, 4), (5, 5)))
     message = models.TextField(max_length=100)
+    created = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return f'{self.rating} - {self.message[:20]}'

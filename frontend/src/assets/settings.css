@@ -159,6 +159,23 @@
 
 /* FEEDBACK */
 
+@keyframes selectface {
+    0% {
+        width: 70px;
+        height: 70px;
+    }
+
+    50% {
+        width: 75px;
+        height: 75px;
+    }
+
+    100% {
+        width: 70px;
+        height: 70px;
+    }
+}
+
 .feedback-form {
     padding: 20px;
 }
@@ -170,7 +187,7 @@
     background: var(--body-background);
     border-radius: 25px;
     text-align: center;
-    padding: 10px;
+    padding: 20px;
 }
 
 .feedback-form .option-container {
@@ -181,6 +198,12 @@
 .feedback-form .option-container img {
     width: 70px;
     height: 70px;
+}
+
+.feedback-form .option-container .animated {
+    animation-name: selectface;
+    animation-duration: .5s;
+    animation-fill-mode: forwards;
 }
 
 .feedback-form .option-container img:hover {

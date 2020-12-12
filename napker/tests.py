@@ -8,14 +8,6 @@ from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from posts.models import Post
 from profiles.models import Interest
 
-from django.contrib.auth.models import User
-from django.utils.http import urlsafe_base64_encode
-from django.utils.encoding import force_bytes
-from django.contrib.auth.tokens import PasswordResetTokenGenerator
-
-from posts.models import Post
-from profiles.models import Interest
-
 
 class RouteTests(TestCase):
     def setUp(self):
