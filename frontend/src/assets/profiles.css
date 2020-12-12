@@ -35,7 +35,7 @@
 .profiles-filter-input:focus {
     outline: none;
     background: #fff;
-    border: 1px solid var(--primary-color);
+    border: 1px solid var(--primary-color)!important;
 }
 
 .profiles-search-type-selector {
