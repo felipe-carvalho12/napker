@@ -3,9 +3,11 @@
 /venv
 
 pycache/
-profiles/migrations/pycache/
-posts/migrations/pycache/
-chat/migrations/pycache/
-settings/migrations/pycache/
+/profiles/migrations/pycache/
+/posts/migrations/pycache/
+/chat/migrations/pycache/
+/settings/migrations/pycache/
+
+/frontend/build/
 
 /db.sqlite3
