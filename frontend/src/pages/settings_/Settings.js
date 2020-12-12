@@ -8,6 +8,7 @@ import Faq from './components/Faq'
 import ChangePassword from './components/security_/components/ChangePassword'
 import DeleteAccount from './components/security_/components/DeleteAccount'
 import BottomMenu from '../../components/fixed/bottom-menu/BottomMenu'
+import Feedback from './components/Feedback'
 
 
 export default function Settings(props) {
@@ -54,34 +55,32 @@ export default function Settings(props) {
             }
             <div className="content">
                 <div className="settings-page-container">
+
                     <SettingsMenu pageChange={pageChange} />
-                    {props.page === 'blocked-profiles' || props.page === 'default' ?
+                    {props.page === 'blocked-profiles' || props.page === 'default' &&
                         <BlockedProfiles />
-                        :
-                        <>
-                            {props.page === 'security' ?
-                                <SecurityMenu pageChange={pageChange} />
-                                :
-                                <>
-                                    {props.page === 'change-password' ?
-                                        <ChangePassword />
-                                        :
-                                        <>
-                                            {props.page === 'delete-account' ?
-                                                <DeleteAccount />
-                                                :
-                                                <>
-                                                    {props.page === 'faq' &&
-                                                        <Faq />
-                                                    }
-                                                </>
-                                            }
-                                        </>
-                                    }
-                                </>
-                            }
-                        </>
                     }
+
+                    {props.page === 'security' &&
+                        <SecurityMenu pageChange={pageChange} />
+                    }
+
+                    {props.page === 'change-password' &&
+                        <ChangePassword />
+                    }
+
+                    {props.page === 'delete-account' &&
+                        <DeleteAccount />
+                    }
+
+                    {props.page === 'faq' &&
+                        <Faq />
+                    }
+
+                    {props.page === 'feedback' &&
+                        <Feedback />
+                    }
+
                 </div>
             </div>
             <BottomMenu />

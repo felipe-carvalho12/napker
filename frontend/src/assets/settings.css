@@ -156,3 +156,36 @@
 .delete-account-confirmation button {
     margin-top: 20px;
 }
+
+/* FEEDBACK */
+
+.feedback-form {
+    padding: 20px;
+}
+
+.feedback-form h3 {
+    color: var(--primary-color);
+}
+.feedback-form .feedback-faces-container {
+    background: var(--body-background);
+    border-radius: 25px;
+    text-align: center;
+    padding: 10px;
+}
+
+.feedback-form .option-container {
+    font-size: 50px;
+    margin: 10px;
+}
+
+.feedback-form .option-container i:hover {
+    cursor: pointer;
+}
+
+.feedback-form textarea {
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, .2);
+    border-radius: 10px;
+    padding: 10px;
+    outline: none;
+}

@@ -88,6 +88,9 @@ export default function App() {
                     <Route path="/configurações/faq" exact render={props => (
                         <Settings {...props} page={'faq'} />
                     )} />
+                    <Route path="/configurações/fale-conosco" exact render={props => (
+                        <Settings {...props} page={'feedback'} />
+                    )} />
                     <Route path="/user/:slug" exact render={props => (
                         <Profile {...props} updateNotificationsNumber={updateNotificationsNumber} />
                     )} />
