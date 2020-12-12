@@ -166,6 +166,9 @@
     .interests-page-container h3 {
         font-size: 1.5rem;
     }
+    .feedback-form .option-container {
+        margin: 0;
+    }
 }
 
 @media (max-width:450px) {

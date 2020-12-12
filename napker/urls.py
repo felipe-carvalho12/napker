@@ -59,6 +59,7 @@ urlpatterns = [
     path("profile-api/", include("profiles.urls")),
     path("chat-api/", include("chat.urls")),
     path("post-api/", include("posts.urls")),
+    path("settings-api/", include("settings.urls")),
 
     # Reset password
     path('recuperar-senha', reset_password, name="reset_password"),

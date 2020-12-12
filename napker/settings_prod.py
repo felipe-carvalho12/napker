@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     "channels",
     "profiles",
     'storages',
+    "settings",
     "chat",
     "posts",
 ]

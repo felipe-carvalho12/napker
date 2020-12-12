@@ -57,7 +57,7 @@ export default function Settings(props) {
                 <div className="settings-page-container">
 
                     <SettingsMenu pageChange={pageChange} />
-                    {props.page === 'blocked-profiles' || props.page === 'default' &&
+                    {(props.page === 'blocked-profiles' || props.page === 'default') &&
                         <BlockedProfiles />
                     }
 

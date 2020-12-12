@@ -178,7 +178,12 @@
     margin: 10px;
 }
 
-.feedback-form .option-container i:hover {
+.feedback-form .option-container img {
+    width: 70px;
+    height: 70px;
+}
+
+.feedback-form .option-container img:hover {
     cursor: pointer;
 }
 
