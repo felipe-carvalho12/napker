@@ -40,12 +40,12 @@ h3 {
 }
 
 a {
-  font-weight: bold;
+  font-weight: 400;
   color:  var(--primary-color);
 }
 
 a:hover {
-  font-weight: bold;
+  font-weight: 400;
   color: var(--primary-color-hover);
 }
 

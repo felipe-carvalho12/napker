@@ -2,7 +2,7 @@
     display: flex;
     position: relative;
     justify-content: center;
-    align-items: center;
+    align-items: start;
 }
 
 .comment-form .chat-emoji-list {
