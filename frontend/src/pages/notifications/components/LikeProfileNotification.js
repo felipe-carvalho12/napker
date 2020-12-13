@@ -15,10 +15,10 @@ export default function LikeProfileNotification(props) {
                         style={{ marginRight: '10px' }}
                     />
                 </Link>
+                <i class="fas fa-heart notification-like" />
                 <p className="text-secondary d-inline-block">
                     {like.created.split('-').reverse().join('/')}
                 </p>
-                <i class="fas fa-heart notification-like" />
                 {props.children}
             </div>
             <div className="notification-message">

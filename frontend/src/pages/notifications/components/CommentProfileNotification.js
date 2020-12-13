@@ -14,10 +14,10 @@ export default function CommentProfileNotification(props) {
                         style={{ marginRight: '10px' }}
                     />
                 </Link>
+                <i class="fas fa-comment notification-comment" />
                 <p className="text-secondary d-inline-block">
                     {comment.created.split('-').reverse().join('/')}
                 </p>
-                <i class="fas fa-comment notification-comment" />
                 {props.children}
             </div>
             <div className="notification-message">

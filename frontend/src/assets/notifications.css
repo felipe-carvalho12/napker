@@ -17,6 +17,7 @@
     align-items: center;
     padding: 30px;
     border-bottom: 1px solid var(--border-color);
+    background-color: white;
 }
 
 .notifications-container .friend-request-row .friend-request-col {
@@ -30,7 +31,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    padding: 15px;
+    padding: 30px;
     border-bottom: 1px solid var(--border-color);
 }
 
