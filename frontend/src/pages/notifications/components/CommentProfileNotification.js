@@ -14,7 +14,7 @@ export default function CommentProfileNotification(props) {
                         style={{ marginRight: '10px' }}
                     />
                 </Link>
-                <i class="fas fa-comment notification-comment" />
+                <i class="fas fa-comment notification-comment" style={{ margin: '0' }} />
                 <p className="text-secondary d-inline-block">
                     {comment.created.split('-').reverse().join('/')}
                 </p>

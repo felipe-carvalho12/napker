@@ -5,7 +5,7 @@ import { SERVER_URL } from '../../../config/settings'
 
 export default function LikeProfileNotification(props) {
     const like = props.like
-    
+
     return (
         <li className="notification-row" key={like.profile.id}>
             <div className="d-flex align-items-center">
@@ -16,7 +16,7 @@ export default function LikeProfileNotification(props) {
                     />
                 </Link>
                 <i class="fas fa-heart notification-like" />
-                <p className="text-secondary d-inline-block">
+                <p className="text-secondary d-inline-block" style={{ margin: '0' }}>
                     {like.created.split('-').reverse().join('/')}
                 </p>
                 {props.children}
@@ -35,8 +35,8 @@ export default function LikeProfileNotification(props) {
             </div>
             <div className="btn-see-post-container">
                 <Link to={`/post/${like.post.id}`}>
-                        <button className="btn btn-primary btn-see-post">
-                            Ver Post
+                    <button className="btn btn-primary btn-see-post">
+                        Ver Post
                         </button>
                 </Link>
             </div>
