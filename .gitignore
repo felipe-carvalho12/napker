@@ -1,13 +1,13 @@
 # venv
-/.vscode
-/venv
+.vscode
+venv
 
 # pycache
 __pycache__
 
 # react app
 /frontend/build
-/frontend/node_modules
+node_modules
 
 # db
-/db.sqlite3
+db.sqlite3
