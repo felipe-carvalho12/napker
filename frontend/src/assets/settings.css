@@ -183,10 +183,11 @@
     justify-content: space-between;
     cursor: pointer;
     border-top: 1px solid var(--border-color);
+    padding: 5px;
 }
 
 .faq-content h2 {
-    color: var(--primary-color);
+    color: var(--primary-color-hover);
     text-align: left;
     margin-bottom: 0;
     padding: 8px;
