@@ -120,8 +120,8 @@
 }
 
 .current-chat #chat-log .received p {
-    background: #ccc;
-    color: #000;
+    background: #DEDEDE;
+    color: #595959;
     max-width: 70%;
     padding: 15px;
     text-align: left;
