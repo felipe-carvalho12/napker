@@ -3,14 +3,7 @@
 /venv
 
 # pycache
-/profiles/pycache/
-/posts/pycache/
-/chat/pycache/
-/settings/pycache/
-/profiles/migrations/pycache/
-/posts/migrations/pycache/
-/chat/migrations/pycache/
-/settings/migrations/pycache/
+__pycache__
 
 # react app
 /frontend/build
