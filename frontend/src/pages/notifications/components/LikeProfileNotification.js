@@ -12,7 +12,7 @@ export default function LikeProfileNotification(props) {
                 <i class="fas fa-heart notification-like" />
                 <Link to={`/user/${like.profile.slug}`}>
                     <img src={`${SERVER_URL}${like.profile.photo}`}
-                        className="profile-img-sm"
+                        className="profile-img-med"
                         style={{ marginRight: '10px' }}
                     />
                 </Link>

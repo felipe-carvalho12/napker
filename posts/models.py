@@ -26,6 +26,14 @@ class Post(models.Model):
         return self.comments
 
 
+class Hashtag(models.Model):
+    title = models.CharField(max_length=50)
+    posts = models.ManyToManyField(Post, related_name='hashtags')
+
+    def __str__(self):
+        return self.title
+
+
 class PostLike(models.Model):
     profile = models.ForeignKey(Profile, related_name='likes', blank=True, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, related_name='likes', on_delete=models.CASCADE)

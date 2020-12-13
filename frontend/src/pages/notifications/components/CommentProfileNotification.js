@@ -11,7 +11,7 @@ export default function CommentProfileNotification(props) {
                 <i class="fas fa-comment notification-comment" />
                 <Link to={`/user/${comment.author.slug}`}>
                     <img src={`${SERVER_URL}${comment.author.photo}`}
-                        className="profile-img-sm"
+                        className="profile-img-med"
                         style={{ marginRight: '10px' }}
                     />
                 </Link>

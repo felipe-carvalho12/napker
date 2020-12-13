@@ -5,6 +5,7 @@ from .views import *
 urlpatterns = [
     path('post-list/<int:scroll_count>', post_list_view),
     path('post/<int:post_id>', get_post),
+    path('add-hashtags', add_hashtags),
     path('post-likes-visualized-last-2-days', post_likes_visualized_on_last_2_days),
     path('post-comments-visualized-last-2-days', post_comments_visualized_on_last_2_days),
     path('unvisualized-post-likes', unvisualized_post_likes),

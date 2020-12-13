@@ -14,8 +14,6 @@ from .utils import *
 
 # Create your views here.
 
-
-
 @api_view(['GET'])
 def post_list_view(request, scroll_count):
     posts = process_post_relevance(Profile.objects.get(user=request.user))
@@ -27,6 +25,16 @@ def get_post(request, post_id):
     post = Post.objects.get(id=post_id)
     serializer = PostSerializer(post)
     return Response(serializer.data)
+
+@api_view(['POST'])
+def add_hashtags(request):
+    data = request.data
+    post = Post.objects.get(pk=data['postId'])
+    for hashtag in data['hashtags']:
+        hashtag, created = Hashtag.objects.get_or_create(title=hashtag.lower())
+        hashtag.posts.add(post)
+        hashtag.save()
+    return Response('post added to hashtags')
 
 @api_view(['GET'])
 def post_likes_visualized_on_last_2_days(request):
