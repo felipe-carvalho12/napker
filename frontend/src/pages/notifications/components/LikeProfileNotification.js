@@ -32,10 +32,12 @@ export default function LikeProfileNotification(props) {
                 <div className="notification-post-content">
                     {like.post.content}
                 </div>
+            </div>
+            <div className="btn-see-post-container">
                 <Link to={`/post/${like.post.id}`}>
-                    <button className="btn btn-primary btn-see-post">
-                        Ver Post
-                    </button>
+                        <button className="btn btn-primary btn-see-post">
+                            Ver Post
+                        </button>
                 </Link>
             </div>
         </li>
