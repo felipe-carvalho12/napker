@@ -37,6 +37,23 @@ def add_hashtags(request):
     return Response('post added to hashtags')
 
 @api_view(['GET'])
+def hashtag_post_list(request, hashtag):
+    hashtag_obj, created = Hashtag.objects.get_or_create(title=hashtag)
+    posts = [post for post in hashtag_obj.posts.all() if post.image]
+    serializer = PostSerializer(posts, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def explore_post_list(request):
+    profile = Profile.objects.get(user=request.user)
+    posts = []
+    for interest in profile.interests.all():
+        if Hashtag.objects.filter(title=interest.title).exists():
+            posts.extend([post for post in Hashtag.objects.get(title=interest.title).posts.all() if post.image])
+    serializer = PostSerializer(posts, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
 def post_likes_visualized_on_last_2_days(request):
     profile = Profile.objects.get(user=request.user)
     today = datetime.date.today()

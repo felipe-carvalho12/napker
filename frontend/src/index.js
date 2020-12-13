@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import './assets/bottomMenu.css'
 import './assets/chat.css'
 import './assets/commentModal.css'
+import './assets/explore.css'
 import './assets/home.css'
 import './assets/notifications.css'
 import './assets/posts.css'
