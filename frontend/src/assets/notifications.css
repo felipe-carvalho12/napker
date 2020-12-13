@@ -41,6 +41,13 @@
     margin-right: 5px;
 }
 
+.notifications-container .notification-row .notification-like-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+    padding: 0 10px 0 78px;
+}
+
 .notifications-container .notification-row .notification-comment {
     font-size: 30px;
     color: var(--primary-color);
@@ -61,8 +68,6 @@
     display: flex;
     justify-content: flex-start;
     text-align: start;
-    margin-top: 5px;
-    padding: 0 10px 0 78px;
     font-size: medium;
 }
 
@@ -86,4 +91,9 @@
     display: flex;
     justify-content: center;
     padding-top: 10%;
+}
+
+.btn-see-post {
+    height:37px;
+    width:100px;
 }

@@ -32,7 +32,7 @@ export default function CommentProfileNotification(props) {
                     {comment.content}
                 </div>
                 <Link to={`/post/${comment.post.id}`}>
-                    <button className="btn btn-primary">
+                    <button className="btn btn-primary btn-see-post">
                         Ver Post
                     </button>
                 </Link>
