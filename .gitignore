@@ -2,12 +2,19 @@
 /.vscode
 /venv
 
-pycache/
+# pycache
+/profiles/pycache/
+/posts/pycache/
+/chat/pycache/
+/settings/pycache/
 /profiles/migrations/pycache/
 /posts/migrations/pycache/
 /chat/migrations/pycache/
 /settings/migrations/pycache/
 
-/frontend/build/
+# react app
+/frontend/build
+/frontend/node_modules
 
+# db
 /db.sqlite3
