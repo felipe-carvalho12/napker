@@ -9,7 +9,6 @@ export default function LikeProfileNotification(props) {
     return (
         <li className="notification-row" key={like.profile.id}>
             <div className="d-flex align-items-center">
-                <i class="fas fa-heart notification-like" />
                 <Link to={`/user/${like.profile.slug}`}>
                     <img src={`${SERVER_URL}${like.profile.photo}`}
                         className="profile-img-med"
@@ -19,6 +18,7 @@ export default function LikeProfileNotification(props) {
                 <p className="text-secondary d-inline-block">
                     {like.created.split('-').reverse().join('/')}
                 </p>
+                <i class="fas fa-heart notification-like" />
                 {props.children}
             </div>
             <div className="notification-message">

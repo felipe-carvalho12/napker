@@ -8,7 +8,6 @@ export default function CommentProfileNotification(props) {
     return (
         <li className="notification-row" key={comment.author.id}>
             <div className="d-flex align-items-center">
-                <i class="fas fa-comment notification-comment" />
                 <Link to={`/user/${comment.author.slug}`}>
                     <img src={`${SERVER_URL}${comment.author.photo}`}
                         className="profile-img-med"
@@ -18,6 +17,7 @@ export default function CommentProfileNotification(props) {
                 <p className="text-secondary d-inline-block">
                     {comment.created.split('-').reverse().join('/')}
                 </p>
+                <i class="fas fa-comment notification-comment" />
                 {props.children}
             </div>
             <div className="notification-message">
