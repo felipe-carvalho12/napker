@@ -49,6 +49,8 @@ def process_author_relevance(profile, authors):
     for key in author_relevance_lists:
         maximum = max(author_relevance_lists[key][0])
         author_relevance_lists[key] = [author_relevance_lists[key][1] * (point / maximum) for point in author_relevance_lists[key][0]]
+        if key == "age_list":
+            author_relevance_lists[key].reverse
 
     author_relevance_list = []
 
