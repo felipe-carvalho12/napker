@@ -160,11 +160,15 @@
     flex-direction: column;
     align-items: flex-start;
     margin-right: 10px;
+    word-wrap: break-word;
+    word-break: break-all;
 }
 
 .post-row .post-col .post-author-data-wrapper {
     height: 30px;
     display: flex;
+    word-wrap: break-word;
+    word-break: break-all;
 }
 
 .post-actions {

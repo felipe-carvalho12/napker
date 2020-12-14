@@ -1,4 +1,6 @@
 .messages-wrapper {
+    word-wrap: break-word;
+    word-break: break-all;
     height: 89vh;
 }
 
@@ -19,6 +21,8 @@
     display: flex;
     justify-content: center;
     margin-top: 15px;
+    word-wrap: break-word;
+    word-break: break-all;
 }
 
 .messages-wrapper .chats-list {
