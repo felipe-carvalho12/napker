@@ -10,6 +10,7 @@ class Post(models.Model):
     content = models.TextField(max_length=300)
     image = models.ImageField(upload_to='post/', blank=True, null=True)
     author = models.ForeignKey(Profile, related_name='posts', on_delete=models.CASCADE)
+    views = models.ManyToManyField(Profile, related_name='post_views')
     updated = models.DateField(auto_now=True)
     created = models.DateField(auto_now_add=True)
 
