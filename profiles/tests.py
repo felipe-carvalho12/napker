@@ -139,6 +139,10 @@ class ProfilesTests(TestCase):
     
 
     def test_profile_list_view(self):
+        pass
+
+    
+    def test_interest_profile_list_view(self):
         interest_public_1 = Interest.objects.create(title='napker', public=True)
         interest_private_1 = Interest.objects.create(title='napker', public=False)
 
@@ -163,3 +167,10 @@ class ProfilesTests(TestCase):
         response = self.client.get('/profile-api/interest-profile-list/nonexistent')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data), 0)
+
+
+    def test_my_profile_view(self):
+        self.client.force_login(self.test_user)
+        response = self.client.get('/profile-api/myprofile')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data['user']['username'], self.test_user.username)
