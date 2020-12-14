@@ -13,7 +13,7 @@ def get_author_relevance(profile, author):
 
     friends_points = len(set(profile.friends.all()).intersection(author.friends.all()))
 
-    if not author == profile: interest_points = len(set(profile.interests.all()).intersection(author.interests.all())) 
+    if not author == profile: interest_points = len(set([i.title for i in profile.interests.all()]).intersection([i.title for i in author.interests.all()])) 
     else: interest_points = 0.5
 
     author_relevance_dict = {
@@ -53,26 +53,26 @@ def process_authors_relevance(profile, authors):
         if key == "age_list":
             author_relevance_lists[key] = [1 - value for value in author_relevance_lists[key]]
 
-    author_relevance_list = []
+    authors_relevance_list = []
 
     for element in author_relevance_lists["interest_list"]:
         i = author_relevance_lists["interest_list"].index(element)
-        author_relevance_list.append(
+        authors_relevance_list.append(
             author_relevance_lists["interest_list"][i] +
             author_relevance_lists["age_list"][i] +
             author_relevance_lists["friends_list"][i] +
             author_relevance_lists["is_friend_list"][i]
         )
 
-    author_relevance_list = list(zip(authors, author_relevance_list))
+    authors_relevance_list = list(zip(authors, authors_relevance_list))
 
-    return author_relevance_list
+    return authors_relevance_list
 
 
 def get_post_relevance(profile, post, authors_relevance):
     author_points = authors_relevance[[author_relevance[0] for author_relevance in authors_relevance].index(post.author)][1]
 
-    views_authors = post.views.all()
+    views_authors = post.views.exclude(user=profile.user)
     likes_authors = [like.profile for like in post.all_likes().all()]
 
     likes_points = [
@@ -90,8 +90,8 @@ def get_post_relevance(profile, post, authors_relevance):
 
 
 def process_posts_relevance(profile):
-    AUTHOR_WEIGHT = 0.25
-    LIKES_WEIGHT = 0.75
+    AUTHOR_WEIGHT = 0.5
+    LIKES_WEIGHT = 0.5
 
     posts = Post.objects.all()
     post_relevance_lists = {
@@ -134,7 +134,5 @@ def sort_posts_by_relevance(profile):
 
     posts_by_relevance = [post_relevance[0] for post_relevance in sorted(posts_relevance, key=lambda p: p[1])]
     posts_by_relevance.reverse()
-
-    print(sorted(posts_relevance, key=lambda p: p[1]))
 
     return posts_by_relevance

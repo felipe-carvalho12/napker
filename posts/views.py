@@ -17,8 +17,8 @@ from .utils import *
 @api_view(['GET'])
 def post_list_view(request, scroll_count):
     profile = Profile.objects.get(user=request.user)
-    posts = sort_posts_by_relevance(Profile.objects.get(user=request.user))
-    for post in posts:
+    posts = sort_posts_by_relevance(profile)
+    for post in posts[:5 * scroll_count]:
         if profile in post.views.all(): continue
         post.views.add(profile)
         post.save()
