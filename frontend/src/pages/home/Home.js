@@ -16,6 +16,7 @@ export default function Home(props) {
         'Profiles': <Profiles />,
         'Explore': <Explore />,
         'News': <News />,
+        'Trending': '',
     }
 
     document.title = 'Home / Napker'
@@ -37,6 +38,7 @@ export default function Home(props) {
                         profilesPageTitle='Encontrar perfis'
                         explorePageTitle='Descobrir'
                         newsPageTitle='Notícias'
+                        trendsPageTitle='Tendências'
                     />
                 </div>
                 <div className="mobile-home-menu">
