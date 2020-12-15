@@ -49,6 +49,10 @@ a:hover {
   color: var(--primary-color-hover);
 }
 
+.list-group-item {
+  background: #fcfcfc;
+}
+
 .wrapper {
   display: flex;
 }
@@ -92,7 +96,7 @@ a:hover {
   align-items: center;
   top: 0;
   padding: 20px 16% 20px 20px;
-  background: #fff;
+  background: #fcfdfc;
   color: #000;
   font-size: 1.2rem;
   border-bottom: 1px solid var(--border-color);

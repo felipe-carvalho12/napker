@@ -30,7 +30,7 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    background: #fff;
+    background: #fcfcfc;
     overflow: hidden;
     overflow-y: scroll;
     border-right: 3px solid var(--border-color);
@@ -84,14 +84,14 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    background: #fff;
+    background: #fcfcfc;
 }
 
 .current-chat .current-chat-header {
     width: 100%;
     display: flex;
     padding: 10px;
-    background: #fff;
+    background: #fcfcfc;
     border-bottom: 2px solid var(--border-color);
 }
 
@@ -191,7 +191,7 @@
 
 .messages-wrapper .chats-list .search-input:focus, .current-chat .send-message-container .message-input:focus {
     outline: none;
-    background: #fff;
+    background: #fcfcfc;
     border: 1px solid var(--primary-color);
 }
 

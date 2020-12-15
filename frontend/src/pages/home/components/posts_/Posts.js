@@ -21,7 +21,7 @@ export default class Posts extends React.Component {
         this.scrollCount = 1
 
         window.onscroll = () => {
-            if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+            if (Math.ceil(window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
                 this.scrollCount++
                 this.fetchPosts()
             }

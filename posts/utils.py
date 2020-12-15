@@ -135,4 +135,6 @@ def sort_posts_by_relevance(profile):
     posts_by_relevance = [post_relevance[0] for post_relevance in sorted(posts_relevance, key=lambda p: p[1])]
     posts_by_relevance.reverse()
 
+    print([post_relevance for post_relevance in sorted(posts_relevance, key=lambda p: p[1])])
+
     return posts_by_relevance

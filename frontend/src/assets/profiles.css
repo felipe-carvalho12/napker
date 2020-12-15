@@ -1,7 +1,7 @@
 .profiles-filter-container {
     width: 100%;
     display: flex;
-    background: #fff;
+    background: #fcfcfc;
     padding: 15px 5.37%;
     border-bottom: 1px solid var(--border-color);
 }
@@ -34,7 +34,7 @@
 
 .profiles-filter-input:focus {
     outline: none;
-    background: #fff;
+    background: #fcfcfc;
     border: 1px solid var(--primary-color)!important;
 }
 
