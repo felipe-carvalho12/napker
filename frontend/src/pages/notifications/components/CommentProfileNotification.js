@@ -18,7 +18,7 @@ export default function CommentProfileNotification(props) {
                             style={{ marginRight: '10px' }}
                         />
                     </Link>
-                    <p className="text-secondary d-inline-block">
+                    <p className="text-secondary d-inline-block" style={{ margin: '0' }}>
                         {comment.created.split('-').reverse().join('/')}
                         {" • "}
                         {props.children}
