@@ -1,7 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
+
+import { FeedSettingsContext } from '../../../context/home/HomeContext'
 
 
 export default function HomePageMenu(props) {
+    const [feedModalIsOpen, setFeedModalIsOpen] = useContext(FeedSettingsContext)
+
     const setPage = props.setPage
 
     const feedPageTitle = props.feedPageTitle
@@ -13,7 +17,7 @@ export default function HomePageMenu(props) {
     return (
         <div className="home-page-menu">
             <div className="feed-view-more-icon-container">
-                <div className="feed-view-more-icon">
+                <div className="feed-view-more-icon" onClick={() => setFeedModalIsOpen(true)}>
                     +
                 </div>
             </div>
@@ -24,7 +28,7 @@ export default function HomePageMenu(props) {
                     style={{ margin: '10px 0', borderRadius: '20px' }}
                     onClick={() => setPage('Feed')}
                 >
-                    <i class="fas fa-home mr-1" />
+                    <i class="fas fa-home ml-1 mr-1" />
                     {feedPageTitle}
                 </button>
             </div>
@@ -35,7 +39,7 @@ export default function HomePageMenu(props) {
                     style={{ margin: '10px 0', borderRadius: '20px' }}
                     onClick={() => setPage('Profiles')}
                 >
-                    <i class="fas fa-user-friends mr-1" />
+                    <i class="fas fa-user-friends ml-1 mr-1" />
                     {profilesPageTitle}
                 </button>
             </div>
@@ -46,7 +50,7 @@ export default function HomePageMenu(props) {
                     style={{ margin: '10px 0', borderRadius: '20px' }}
                     onClick={() => setPage('Explore')}
                 >
-                    <i class="fas fa-search mr-1" />
+                    <i class="fas fa-search ml-1 mr-1" />
                     {explorePageTitle}
                 </button>
             </div>
@@ -57,7 +61,7 @@ export default function HomePageMenu(props) {
                     style={{ margin: '10px 0', borderRadius: '20px' }}
                     onClick={() => setPage('News')}
                 >
-                    <i class="fas fa-newspaper mr-1" />
+                    <i class="fas fa-newspaper ml-1 mr-1" />
                     {newsPageTitle}
                 </button>
             </div>
@@ -68,7 +72,7 @@ export default function HomePageMenu(props) {
                     style={{ margin: '10px 0', borderRadius: '20px' }}
                     onClick={() => setPage('Trending')}
                 >
-                    <i class="fas fa-chart-line mr-1" />
+                    <i class="fas fa-chart-line ml-1 mr-1" />
                     {trendsPageTitle}
                 </button>
             </div>

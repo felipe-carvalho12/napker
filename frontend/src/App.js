@@ -20,6 +20,7 @@ import EditInterests from './pages/profile/pages/edit_interests/EditInterests'
 import Post from './pages/home/components/posts_/pages/post_/Post'
 
 import PostFormPage from './pages/PostFormPage'
+import HomeContextProvider from './context/home/HomeContext'
 
 export default function App() {
     const [invitesReceivedNumber, setInvitesReceived] = useContext(InvitesReceivedContext)
@@ -62,7 +63,11 @@ export default function App() {
             <Sidebar />
             <div className="main-content">
                 <Switch>
-                    <Route path="/home" component={Home} />
+                    <Route path="/home" render={props => (
+                        <HomeContextProvider>
+                            <Home {...props} />
+                        </HomeContextProvider>
+                    )} />
                     <Route path="/notificações" render={props => (
                         <Notifications {...props} updateNotificationsNumber={updateNotificationsNumber} />
                     )} />

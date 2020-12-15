@@ -40,7 +40,7 @@ class Profile(models.Model):
     friends = models.ManyToManyField(User, blank=True, related_name='friends')
     blocked_users = models.ManyToManyField(User, blank=True, related_name='blocked_me')
     interests = models.ManyToManyField(Interest, related_name='profiles')
-    post_weights = models.ForeignKey(PostWeights, on_delete=models.SET_NULL, related_name='profiles', default=None, null=True)
+    post_weights = models.ForeignKey(PostWeights, on_delete=models.SET_NULL, related_name='profiles', default=None, blank=True, null=True)
 
     def __str__(self):
         return f'{self.user.username}'

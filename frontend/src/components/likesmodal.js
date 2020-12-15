@@ -15,7 +15,8 @@ export default function LikesModal(props) {
     return (
         <Modal show={props.isOpen}
             onHide={props.hideModal}
-            size="lg">
+            size="lg"
+        >
             <Modal.Header closeButton>
                 <Modal.Title><strong>Curtidas</strong></Modal.Title>
             </Modal.Header>
