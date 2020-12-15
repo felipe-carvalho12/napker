@@ -33,7 +33,12 @@
     flex-direction: row;
     padding: 30px;
     border-bottom: 1px solid var(--border-color);
+    transition: 0.3s;
 }
+
+.notification-row:hover {
+    background-color: var(--white-hover);
+  }
 
 .notifications-container .notification-row .notification-like {
     font-size: 30px;

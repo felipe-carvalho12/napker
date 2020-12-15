@@ -142,6 +142,7 @@
     animation-duration: 1.5s;
     animation-fill-mode: forwards;
     animation-play-state: paused;
+    transition: 0.3s;
 }
 
 .post-container:hover {
