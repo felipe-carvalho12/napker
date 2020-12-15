@@ -73,6 +73,9 @@ export default class Posts extends React.Component {
                                 </Link>
                                 <textarea
                                     className="post-content-textarea"
+                                    class='autoExpand' 
+                                    rows='3' 
+                                    data-min-rows='3'                 
                                     name="post-content"
                                     value={this.state.postContent}
                                     placeholder="No que você está pensando?"
