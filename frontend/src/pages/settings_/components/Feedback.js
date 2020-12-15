@@ -157,7 +157,7 @@ export default function Feedback() {
                         </div>
                     </div>
                 </div>
-                <hr />c
+                <hr />
                 <div className="textarea-container">
                     <textarea 
                     class='autoExpand' 
