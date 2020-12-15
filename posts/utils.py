@@ -27,10 +27,16 @@ def get_author_relevance(profile, author):
 
 
 def process_authors_relevance(profile, authors):
-    INTERST_WEIGHT = 0.25
-    AGE_WEIGHT = 0.25
-    FRIENDS_WEIGHT = 0.25
-    IS_FRIEND_WEIGHT = 0.25
+    if profile.post_weights is not None:
+        INTERST_WEIGHT = profile.post_weights.interest
+        AGE_WEIGHT = profile.post_weights.age
+        FRIENDS_WEIGHT = profile.post_weights.friends
+        IS_FRIEND_WEIGHT = profile.post_weights.is_friend
+    else:
+        INTERST_WEIGHT = 0.25
+        AGE_WEIGHT = 0.25
+        FRIENDS_WEIGHT = 0.25
+        IS_FRIEND_WEIGHT = 0.25
 
     author_relevance_lists = {
         "interest_list" : ([], INTERST_WEIGHT),
@@ -134,7 +140,5 @@ def sort_posts_by_relevance(profile):
 
     posts_by_relevance = [post_relevance[0] for post_relevance in sorted(posts_relevance, key=lambda p: p[1])]
     posts_by_relevance.reverse()
-
-    print([post_relevance for post_relevance in sorted(posts_relevance, key=lambda p: p[1])])
 
     return posts_by_relevance

@@ -12,6 +12,11 @@ export default function HomePageMenu(props) {
 
     return (
         <div className="home-page-menu">
+            <div className="feed-view-more-icon-container">
+                <div className="feed-view-more-icon">
+                    +
+                </div>
+            </div>
             <div className="home-menu-btn-container home-menu-btn-container-active feed">
                 <button
                     type="button"

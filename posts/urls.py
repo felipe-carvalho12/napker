@@ -6,7 +6,7 @@ urlpatterns = [
     path('post-list/<int:scroll_count>', post_list_view),
     path('post/<int:post_id>', get_post),
     path('add-hashtags', add_hashtags),
-    path('hashtag-post-list/<str:hashtag>', hashtag_post_list),
+    path('interest-post-list/<str:interest>', interest_post_list),
     path('explore-post-list', explore_post_list),
     path('post-likes-visualized-last-2-days', post_likes_visualized_on_last_2_days),
     path('post-comments-visualized-last-2-days', post_comments_visualized_on_last_2_days),

@@ -23,3 +23,28 @@
 .home-page-menu .home-menu-btn-container-active {
     border-bottom: 2px solid var(--primary-color);
 }
+
+.home-page-menu .feed-view-more-icon-container {
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    top: -8px;
+    position: absolute;
+}
+
+.home-page-menu .feed-view-more-icon-container .feed-view-more-icon {
+    width: 15px;
+    height: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--primary-color);
+    color: #fff;
+    border-radius: 50%;
+    z-index: 2000;
+}
+
+.home-page-menu .feed-view-more-icon-container .feed-view-more-icon:hover {
+    cursor: pointer;
+    background: var(--primary-color-hover);
+}

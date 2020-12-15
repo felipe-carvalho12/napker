@@ -42,9 +42,10 @@ def add_hashtags(request):
     return Response('post added to hashtags')
 
 @api_view(['GET'])
-def hashtag_post_list(request, hashtag):
-    hashtag_obj, created = Hashtag.objects.get_or_create(title=hashtag)
+def interest_post_list(request, interest):
+    hashtag_obj, created = Hashtag.objects.get_or_create(title=interest)
     posts = [post for post in hashtag_obj.posts.all() if post.image]
+    posts.extend(post for post in Post.objects.all() if interest in post.content)
     serializer = PostSerializer(posts, many=True)
     return Response(serializer.data)
 

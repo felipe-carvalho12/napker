@@ -10,7 +10,7 @@ export default function Explore() {
     const [posts, setPosts] = useState(null)
     const [likesModal, setLikesModal] = useState({ isOpen: false, likes: null })
 
-    let selectedHashtag = null
+    let selectedInterest = null
 
     useEffect(() => {
         fetch(`${SERVER_URL}/profile-api/myprofile`)
@@ -22,8 +22,8 @@ export default function Explore() {
     }, [])
 
     const fetchPosts = () => {
-        if (selectedHashtag) {
-            fetch(`${SERVER_URL}/post-api/hashtag-post-list/${selectedHashtag}`)
+        if (selectedInterest) {
+            fetch(`${SERVER_URL}/post-api/interest-post-list/${selectedInterest}`)
                 .then(response => response.json())
                 .then(data => setPosts(data))
         } else {
@@ -39,7 +39,7 @@ export default function Explore() {
             el.classList.remove('active')
         })
         element.classList.add('active')
-        selectedHashtag = element.innerText !== 'Todos' ? element.innerText : null
+        selectedInterest = element.innerText !== 'Todos' ? element.innerText : null
         fetchPosts()
     }
 

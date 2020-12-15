@@ -16,6 +16,16 @@ class Interest(models.Model):
         return self.title
 
 
+class PostWeights(models.Model):
+    interest_weight = models.FloatField()
+    age_weight = models.FloatField()
+    friends_weight = models.FloatField()
+    is_friend_weight = models.FloatField()
+
+    def __str__(self):
+        return f'INTEREST: {self.interest}, AGE: {self.age}, FRIENDS: {self.friends}, IS_FRIEND: {self.is_friend}'
+
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     first_name = models.CharField(max_length=100, blank=True)
@@ -30,6 +40,7 @@ class Profile(models.Model):
     friends = models.ManyToManyField(User, blank=True, related_name='friends')
     blocked_users = models.ManyToManyField(User, blank=True, related_name='blocked_me')
     interests = models.ManyToManyField(Interest, related_name='profiles')
+    post_weights = models.ForeignKey(PostWeights, on_delete=models.SET_NULL, related_name='profiles', default=None, null=True)
 
     def __str__(self):
         return f'{self.user.username}'
