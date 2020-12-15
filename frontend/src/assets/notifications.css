@@ -67,6 +67,8 @@
     justify-content: flex-start;
     text-align: start;
     font-size: medium;
+    word-wrap: break-word;
+    word-break: break-all;
 }
 
 .notifications-container .notification-row .notification-comment-container {
@@ -81,6 +83,8 @@
     justify-content: flex-start;
     text-align: start;
     font-size: medium;
+    word-wrap: break-word;
+    word-break: break-all;
 }
 
 .notification-container {
