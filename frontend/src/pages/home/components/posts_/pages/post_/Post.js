@@ -173,7 +173,8 @@ export default function Post(props) {
                                             data-postid={post.id}
                                             onClick={likeUnlikePost}
                                         />
-                                        :
+                                        :                       
+
                                         <i class="far fa-heart"
                                             data-postid={post.id}
                                             onClick={likeUnlikePost}
