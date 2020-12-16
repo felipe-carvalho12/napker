@@ -85,7 +85,7 @@ a:hover {
 }
 
 .wrapper .main-content {
-  width: 60%;
+  width: 60vw;
   height: 100%;
   margin: 1px;
 }
@@ -238,21 +238,4 @@ a:hover {
 .view-more-select li:hover {
   background: var(--white-hover);
   cursor: pointer;
-}
-
-/* width */
-::-webkit-scrollbar {
-  width: 12px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px var(--white-hover);
-  background: #C0E2E0;
-}
- 
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: var(--primary-color-hover); 
-  border-radius: 10px; 
 }

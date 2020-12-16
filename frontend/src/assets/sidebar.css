@@ -2,7 +2,7 @@
     position: sticky;
     top: 0;
     height: 100vh;
-    width: -webkit-fill-available;
+    width: 20vw;
     background: #fcfdfc;
     padding: 30px 0;
     border-right: 1px solid var(--border-color);
