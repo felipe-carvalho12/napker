@@ -56,7 +56,7 @@ export default function PostListItem(props) {
 
     return (
         <li
-            className="d-flex white-hover" style={{ padding: '5px 15px', background: '#fff' }}
+            className="d-flex w-100 white-hover" style={{ padding: '5px 15px', background: '#fff', borderBottom: '1px solid var(--border-color)' }}
             id={`profile-post-${post.id}`}
             key={post.id}
             onClick={() => window.location.href = `/post/${post.id}`}
@@ -72,60 +72,64 @@ export default function PostListItem(props) {
                     />
                 </Link>
             </div>
-            <div className="d-flex flex-column h-100" style={{ marginRight: '10px' }}>
-                <Link
-                    to={post.author.id === myProfile.id ?
-                        '/perfil' : `/user/${post.author.slug}`}
-                    style={{ color: '#000' }}
-                    onClick={e => e.stopPropagation()}
-                >
-                    <div className="d-flex justify-content-between w-100">
-                        <div>
+            <div className="d-flex flex-column h-100 w-100" style={{ marginRight: '10px' }}>
+                <div className="d-flex justify-content-between w-100">
+                    <div>
+                        <Link
+                            to={post.author.id === myProfile.id ?
+                                '/perfil' : `/user/${post.author.slug}`}
+                            style={{ color: '#000' }}
+                            onClick={e => e.stopPropagation()}
+                        >
                             <strong className="mr-2">
                                 {post.author.first_name} {post.author.last_name}
                             </strong>
                             <p className="text-secondary d-inline-block">
                                 @{post.author.user.username} • {post.created.split('-').reverse().join('/')}
                             </p>
-                        </div>
-                        <i
-                            className="fas fa-ellipsis-h text-secondary"
-                            onClick={e => deletePost(e, post.id)}
-                        />
+                        </Link>
                     </div>
-                </Link>
+                    <i
+                        className="fas fa-ellipsis-h d-flex justify-content-center align-items-center text-secondary secondary-hover"
+                        style={{ textDecoration: 'none', width: '30px', height: '30px', borderRadius: '30px' }}
+                        onClick={e => deletePost(e, post.id)}
+                    />
+                </div>
                 <div className="d-flex flex-column">
                     <div className="d-flex justify-content-start word-break">
                         {post.content}
                     </div>
                     {post.image &&
-                        <div>
+                        <div className="d-flex justify-content-start w-100">
                             <img src={`${SERVER_URL}${post.image}`} className="post-img" />
                         </div>
                     }
-                    <div className="d-flex justify-content-between w-70">
-                        <p className="text-secondary">
-                            <Link
-                                to={`/post/${post.id}/comentar`}
-                                className="text-secondary"
-                                onClick={e => e.stopPropagation()}
-                            >
-                                <i
-                                    class="far fa-comment"
-                                />{post.comments.length}
-                            </Link>
+                    <div className="d-flex justify-content-start align-items-start text-secondary w-20 mt-2 mb-1">
+                        <Link
+                            to={`/post/${post.id}/comentar`}
+                            className="text-secondary"
+                            onClick={e => e.stopPropagation()}
+                        >
+                            <i
+                                class="far fa-comment mr-2"
+                            />{post.comments.length}
+                        </Link>
+                        <div className="d-flex align-items-center">
                             {post.likes.map(like => like.profile.id).includes(myProfile.id) ?
-                                <i class="fas fa-heart"
+                                <i class="fas fa-heart mr-2  ml-3"
                                     data-postid={post.id}
+                                    style={{ color: '#E0245E' }}
                                     onClick={likeUnlikePost}
                                 />
                                 :
-                                <i class="far fa-heart"
+                                <i class="far fa-heart mr-2 ml-3"
                                     data-postid={post.id}
                                     onClick={likeUnlikePost}
+                                    style={{ color: '#E0245E' }}
                                 />
                             }
                             <p className="post-likes-number"
+                                style={{ margin: '0' }}
                                 onClick={e => {
                                     e.stopPropagation()
                                     props.openLikesModal(post.likes)
@@ -134,7 +138,7 @@ export default function PostListItem(props) {
                             >
                                 {post.likes.length}
                             </p>
-                        </p>
+                        </div>
                     </div>
                 </div>
             </div>

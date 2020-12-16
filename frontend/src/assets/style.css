@@ -59,7 +59,15 @@ a:hover {
   transition: .2s;
 }
 
+.secondary-hover:hover {
+  cursor: pointer;
+  background: var(--secondary-color);
+  color: var(--primary-color)!important;
+  transition: .2s;
+}
+
 .word-break {
+    text-align: start;
     word-wrap: break-word;
     word-break: break-all;
 }
