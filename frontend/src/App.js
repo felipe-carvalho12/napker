@@ -7,7 +7,8 @@ import {
     UnvisualizedLikesContext, UnreadMessagesContext
 } from './context/app/AppContext'
 
-import Sidebar from './components/fixed/Sidebar'
+import SidebarLeft from './components/fixed/SidebarLeft'
+import SidebarRight from './components/fixed/SidebarRight'
 import Home from './pages/home/Home'
 import Notifications from './pages/notifications/Notifications'
 import Messages from './pages/messages_/Messages'
@@ -60,7 +61,7 @@ export default function App() {
 
     return (
         <Router>
-            <Sidebar />
+            <SidebarLeft />
             <div className="main-content">
                 <Switch>
                     <Route path="/home" render={props => (
@@ -109,6 +110,7 @@ export default function App() {
                     <Route path="/postar" component={PostFormPage} />
                 </Switch>
             </div>
+            <SidebarRight />
         </Router>
     )
 }

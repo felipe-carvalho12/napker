@@ -55,6 +55,7 @@ a:hover {
 
 .wrapper {
   display: flex;
+  justify-content: center;
 }
 
 .nav-menu-item-active {
@@ -84,9 +85,9 @@ a:hover {
 }
 
 .wrapper .main-content {
-  width: 100%;
+  width: 60%;
   height: 100%;
-  margin-left: 22.4%;
+  margin: 1px;
 }
 
 .wrapper .main-content .header {
