@@ -26,8 +26,12 @@ export default function FeedModal(props) {
             </Modal.Header>
             <Modal.Body>
                 <div>
-                    <h3>Escolha como o nosso algoritmo deve ordenar os posts</h3>
-                    <p>Quanto maior o valor, mais peso o critério de avaliação terá na hora de calcularmos a relevância de um post.</p>
+                    <h3>Como devemos ordenar os posts?</h3>
+                    <p>
+                        Os critérios abaixos serão utilizados para calcular a relevância de um usuário.
+                        Sabendo disso, os pesos que você escolher servirão para calcular a relevância do autor de um post e dos usuários que curtiram/comentaram o mesmo.
+                        Após calcularmos a relevância dos posts vamos ordená-los.
+                    </p>
                     <hr />
                     <h5>Interesses</h5>
                     <div class="slidecontainer">

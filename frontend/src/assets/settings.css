@@ -242,8 +242,7 @@
     }
 
     50% {
-        width: 75px;
-        height: 75px;
+        transform: scale(1.25);
     }
 
     100% {
