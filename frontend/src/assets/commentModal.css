@@ -31,3 +31,14 @@
 .comment-form button {
     height: 37px;
 }
+textarea{  
+    overflow: hidden;
+    width: 100%;
+    font-size: 14px;
+    margin: 10px;
+    border-color: white;
+    box-shadow: white;
+    border: none;
+    outline: none;
+
+}
