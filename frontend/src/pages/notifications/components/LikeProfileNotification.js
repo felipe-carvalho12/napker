@@ -7,7 +7,7 @@ export default function LikeProfileNotification(props) {
     const like = props.like
 
     return (
-        <li className="d-flex w-100 white-hover" style={{ padding: '10px 15px', background: '#fff', borderBottom: '1px solid var(--border-color)' }} 
+        <li className="d-flex w-100 white-hover" style={{ padding: '15px 15px', background: '#fff', borderBottom: '1px solid var(--border-color)' }} 
             key={like.profile.id}
         >
             <div className="d-flex flex-column h-100" style={{ marginRight: '10px' }}>
