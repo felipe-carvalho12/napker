@@ -128,21 +128,14 @@
     height: 100%;
 }
 
-.post-list-item:hover {
-    cursor: pointer;
-}
 
 .post-container {
     background: #fff;
-    width: 100%;
     border-bottom: 1px solid var(--border-color);
-    display: flex;
-    flex-direction: column;
     animation-name: hide;
     animation-duration: 1.5s;
     animation-fill-mode: forwards;
     animation-play-state: paused;
-    transition: 0.3s;
 }
 
 .post-container:hover {
@@ -223,8 +216,6 @@ textarea{
     box-shadow: white;
     border: none;
     outline: none;
-
-
 }
     
    

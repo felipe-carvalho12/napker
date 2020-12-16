@@ -56,89 +56,88 @@ export default function PostListItem(props) {
 
     return (
         <li
-            className="post-container post-list-item"
+            className="d-flex white-hover" style={{ padding: '5px 15px', background: '#fff' }}
             id={`profile-post-${post.id}`}
             key={post.id}
             onClick={() => window.location.href = `/post/${post.id}`}
         >
-            <div className="d-flex justify-content-between">
-                <div className="post-row">
-                    <div className="post-col">
-                        <Link
-                            to={post.author.id === myProfile.id ?
-                                '/perfil' : `/user/${post.author.slug}`}
-                            onClick={e => e.stopPropagation()}
-                        >
-                            <img src={`${SERVER_URL}${post.author.photo}`}
-                                className="profile-img-med"
-                            />
-                        </Link>
-                    </div>
-                    <div className="post-col">
-                        <Link
-                            to={post.author.id === myProfile.id ?
-                                '/perfil' : `/user/${post.author.slug}`}
-                            style={{ color: '#000' }}
-                            onClick={e => e.stopPropagation()}
-                        >
-                            <div className="post-author-data-wrapper">
-                                <strong style={{ marginRight: '5px' }}>
-                                    {post.author.first_name} {post.author.last_name}
-                                </strong>
-                                <p className="text-secondary d-inline-block">
-                                    @{post.author.user.username} • {post.created.split('-').reverse().join('/')}
-                                </p>
-                            </div>
-                        </Link>
-                        <div style={{ textAlign: 'start' }}>
-                            {post.content}
+            <div className="d-flex flex-column h-100" style={{ marginRight: '10px' }}>
+                <Link
+                    to={post.author.id === myProfile.id ?
+                        '/perfil' : `/user/${post.author.slug}`}
+                    onClick={e => e.stopPropagation()}
+                >
+                    <img src={`${SERVER_URL}${post.author.photo}`}
+                        className="profile-img-sm"
+                    />
+                </Link>
+            </div>
+            <div className="d-flex flex-column h-100" style={{ marginRight: '10px' }}>
+                <Link
+                    to={post.author.id === myProfile.id ?
+                        '/perfil' : `/user/${post.author.slug}`}
+                    style={{ color: '#000' }}
+                    onClick={e => e.stopPropagation()}
+                >
+                    <div className="d-flex justify-content-between w-100">
+                        <div>
+                            <strong className="mr-2">
+                                {post.author.first_name} {post.author.last_name}
+                            </strong>
+                            <p className="text-secondary d-inline-block">
+                                @{post.author.user.username} • {post.created.split('-').reverse().join('/')}
+                            </p>
                         </div>
-                        {post.image &&
+                        <i
+                            className="fas fa-ellipsis-h text-secondary"
+                            onClick={e => deletePost(e, post.id)}
+                        />
+                    </div>
+                </Link>
+                <div className="d-flex flex-column">
+                    <div className="d-flex justify-content-start word-break">
+                        {post.content}
+                    </div>
+                    {post.image &&
+                        <div>
                             <img src={`${SERVER_URL}${post.image}`} className="post-img" />
-                        }
+                        </div>
+                    }
+                    <div className="d-flex justify-content-between w-70">
+                        <p className="text-secondary">
+                            <Link
+                                to={`/post/${post.id}/comentar`}
+                                className="text-secondary"
+                                onClick={e => e.stopPropagation()}
+                            >
+                                <i
+                                    class="far fa-comment"
+                                />{post.comments.length}
+                            </Link>
+                            {post.likes.map(like => like.profile.id).includes(myProfile.id) ?
+                                <i class="fas fa-heart"
+                                    data-postid={post.id}
+                                    onClick={likeUnlikePost}
+                                />
+                                :
+                                <i class="far fa-heart"
+                                    data-postid={post.id}
+                                    onClick={likeUnlikePost}
+                                />
+                            }
+                            <p className="post-likes-number"
+                                onClick={e => {
+                                    e.stopPropagation()
+                                    props.openLikesModal(post.likes)
+                                }
+                                }
+                            >
+                                {post.likes.length}
+                            </p>
+                        </p>
                     </div>
                 </div>
-                {post.author.id === myProfile.id &&
-                    <i
-                        className="far fa-trash-alt trash-icon text-secondary"
-                        style={{ margin: '20px 20px 0 0' }}
-                        onClick={e => deletePost(e, post.id)}
-                    />
-                }
             </div>
-            <div className="post-actions">
-                <p className="text-secondary">
-                    <Link
-                        to={`/post/${post.id}/comentar`}
-                        className="text-secondary"
-                        onClick={e => e.stopPropagation()}
-                    >
-                        <i
-                            class="far fa-comment"
-                        />{post.comments.length}
-                    </Link>
-                    {post.likes.map(like => like.profile.id).includes(myProfile.id) ?
-                        <i class="fas fa-heart"
-                            data-postid={post.id}
-                            onClick={likeUnlikePost}
-                        />
-                        :
-                        <i class="far fa-heart"
-                            data-postid={post.id}
-                            onClick={likeUnlikePost}
-                        />
-                    }
-                    <p className="post-likes-number"
-                        onClick={e => {
-                            e.stopPropagation()
-                            props.openLikesModal(post.likes)
-                        }
-                        }
-                    >
-                        {post.likes.length}
-                    </p>
-                </p>
-            </div>
-        </li>
+        </li >
     )
 }

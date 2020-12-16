@@ -81,7 +81,7 @@ export default function PostForm(props) {
                 <Link to="/perfil">
                     <img
                         src={`${SERVER_URL}${myProfile.photo}`}
-                        className="profile-img-med"
+                        className="profile-img-sm"
                     />
                 </Link>
                 <textarea

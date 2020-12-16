@@ -53,6 +53,17 @@ a:hover {
   background: #fcfcfc;
 }
 
+.white-hover:hover {
+  cursor: pointer;
+  background: var(--white-hover);
+  transition: .2s;
+}
+
+.word-break {
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
 .wrapper {
   display: flex;
   justify-content: center;
