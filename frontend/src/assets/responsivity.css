@@ -21,7 +21,7 @@
         display: initial;
     }
     .wrapper .main-content {
-        margin: 0;
+        width: 100%;
     }
     .fa-smile {
         display: none;
