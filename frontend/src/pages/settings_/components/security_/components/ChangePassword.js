@@ -75,7 +75,6 @@ export default function ChangePassword() {
             <div className="settings-page-title-container">
                 <h3>Alterar senha</h3>
             </div>
-            <hr />
             <form className="change-password-form">
                 <input id="password" type="password" placeholder="Senha atual" autoFocus />
                 <br />

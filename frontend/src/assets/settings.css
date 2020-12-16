@@ -84,7 +84,7 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    background: #fff;
+    background: var(--body-background);
 }
 
 /* BLOCK USER */
@@ -126,11 +126,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    border-bottom: 1px solid var(--border-color);
 }
 
 /* CHANGE PASSWORD */
 
 .change-password-form {
+    background: #fff;
     width: 100%;
     height: 60%;
     padding-top: 20px;
@@ -143,6 +145,7 @@
 /* DELETE ACCOUNT */
 
 .delete-account-confirmation {
+    background: #fff;
     width: 100%;
     height: 40%;
     display: flex;
@@ -160,19 +163,23 @@
 /* FAQ */
   
 .faq-content {
+    background: #fff;
     display: flex;
     align-items: center;
 }
 
 .faq-content .faq-center {
+    background: #fff;
     width: 100%;
 }
 
 .faq-content details {
+    background: #fff;
     font-family: 'Raleway', sans-serif;
 }
 
 .faq-content summary {
+    background: #fff;
     transition: background .75s ease;
     width: 100%;
     outline: 0;
@@ -182,7 +189,7 @@
     align-items: center;
     justify-content: space-between;
     cursor: pointer;
-    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
     padding: 5px;
 }
 
@@ -191,17 +198,20 @@
     text-align: left;
     margin-bottom: 0;
     padding: 8px;
+    font: uni;
     text-shadow: none;
     font-size: 20px;
     font-weight: bold;
 }
 
 .faq-content details p {
+    background: #fff;
     padding: 0 25px 15px 25px;
     margin: 0;
     text-shadow: none;
     text-align: justify;
     line-height: 1.3em;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .faq-content summary::after {
@@ -226,7 +236,7 @@
 }
 
 .faq-content summary:hover {
-    background: #d3d3d3;
+    background: var(--white-hover);
 }
 
 .faq-content details summary::-webkit-details-marker {
