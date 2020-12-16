@@ -55,7 +55,6 @@ export default function DeleteAccount() {
             <div className="settings-page-title-container">
                 <h3>Deletar conta</h3>
             </div>
-            <hr />
             <div className="delete-account-confirmation">
                 <input id="password" type="password" placeholder="Senha" autoFocus />
                 <hr />
