@@ -12,7 +12,21 @@ export default function HomePageMenu(props) {
     const profilesPageTitle = props.profilesPageTitle
     const explorePageTitle = props.explorePageTitle
     const newsPageTitle = props.newsPageTitle
-    const trendsPageTitle = props.trendsPageTitle
+    const trendsPageTitle = props.trendsPageTitle;
+
+    const isMobile = visualViewport.width <= 980
+
+    function handleMouseIn(e, text) {
+        if (!isMobile) {
+            e.target.innerHTML = text
+        }
+    }
+
+    function handleMouseOut(e, icon) {
+        if (!isMobile) {
+            e.target.innerHTML = icon
+        }
+    }
 
     return (
         <div className="home-page-menu">
@@ -26,10 +40,11 @@ export default function HomePageMenu(props) {
                     type="button"
                     className="btn btn-primary"
                     style={{ margin: '10px 0', borderRadius: '20px' }}
-                    onClick={() => setPage('Feed')}
+                    onClick={e => setPage('Feed')}
+                    onMouseEnter={e => handleMouseIn(e, feedPageTitle)}
+                    onMouseOut={e => handleMouseOut(e, '<i class="fas fa-home ml-1 mr-1" />')}
                 >
                     <i class="fas fa-home ml-1 mr-1" />
-                    {feedPageTitle}
                 </button>
             </div>
             <div className="home-menu-btn-container profiles">
@@ -37,10 +52,11 @@ export default function HomePageMenu(props) {
                     type="button"
                     className="btn btn-primary"
                     style={{ margin: '10px 0', borderRadius: '20px' }}
-                    onClick={() => setPage('Profiles')}
+                    onClick={e => setPage('Profiles')}
+                    onMouseEnter={e => handleMouseIn(e, profilesPageTitle)}
+                    onMouseOut={e => handleMouseOut(e, '<i class="fas fa-user-friends ml-1 mr-1" />')}
                 >
                     <i class="fas fa-user-friends ml-1 mr-1" />
-                    {profilesPageTitle}
                 </button>
             </div>
             <div className="home-menu-btn-container explore">
@@ -48,10 +64,11 @@ export default function HomePageMenu(props) {
                     type="button"
                     className="btn btn-primary"
                     style={{ margin: '10px 0', borderRadius: '20px' }}
-                    onClick={() => setPage('Explore')}
+                    onClick={e => setPage('Explore')}
+                    onMouseEnter={e => handleMouseIn(e, explorePageTitle)}
+                    onMouseOut={e => handleMouseOut(e, '<i class="fas fa-search ml-1 mr-1" />')}
                 >
                     <i class="fas fa-search ml-1 mr-1" />
-                    {explorePageTitle}
                 </button>
             </div>
             <div className="home-menu-btn-container news">
@@ -59,10 +76,11 @@ export default function HomePageMenu(props) {
                     type="button"
                     className="btn btn-primary"
                     style={{ margin: '10px 0', borderRadius: '20px' }}
-                    onClick={() => setPage('News')}
+                    onClick={e => setPage('News')}
+                    onMouseEnter={e => handleMouseIn(e, newsPageTitle)}
+                    onMouseOut={e => handleMouseOut(e, '<i class="fas fa-newspaper ml-1 mr-1" />')}
                 >
                     <i class="fas fa-newspaper ml-1 mr-1" />
-                    {newsPageTitle}
                 </button>
             </div>
             <div className="home-menu-btn-container trending">
@@ -70,10 +88,11 @@ export default function HomePageMenu(props) {
                     type="button"
                     className="btn btn-primary"
                     style={{ margin: '10px 0', borderRadius: '20px' }}
-                    onClick={() => setPage('Trending')}
+                    onClick={e => setPage('Trending')}
+                    onMouseEnter={e => handleMouseIn(e, trendsPageTitle)}
+                    onMouseOut={e => handleMouseOut(e, '<i class="fas fa-chart-line ml-1 mr-1" />')}
                 >
                     <i class="fas fa-chart-line ml-1 mr-1" />
-                    {trendsPageTitle}
                 </button>
             </div>
         </div>
