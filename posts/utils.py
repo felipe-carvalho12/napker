@@ -1,5 +1,4 @@
 import datetime
-import numpy as np
 from .models import *
 
 def get_author_relevance(profile, author):
@@ -17,9 +16,14 @@ def get_author_relevance(profile, author):
     if not author == profile: interest_points = len(set([i.title for i in profile.interests.all()]).intersection([i.title for i in author.interests.all()])) 
     else: interest_points = 0.5
 
-    author_relevance_array = np.array([ interest_points, age_points, friends_points, is_friend_boolean ])
+    author_relevance_dict = {
+        "interest_points" : interest_points,
+        "age_points" : age_points,
+        "friends_points" : friends_points,
+        "is_friend_boolean" : is_friend_boolean,
+    }
 
-    return author_relevance_array
+    return author_relevance_dict
 
 
 def process_authors_relevance(profile, authors):
