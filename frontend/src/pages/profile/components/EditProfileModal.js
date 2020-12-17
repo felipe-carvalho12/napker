@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import Modal from 'react-bootstrap/Modal'
 import Picker from 'emoji-picker-react'
+
 import { SERVER_URL } from '../../../config/settings'
 import { csrftoken, openCloseEmojiList } from '../../../config/utils'
+
+
 export default function EditProfileModal(props) {
-console.log (props)
     const profile = props.profile
     const isOpen = props.isOpen
     const closeModal = props.closeModal
@@ -32,7 +34,8 @@ console.log (props)
     return (
         <Modal show={isOpen}
             onHide={closeModal}
-            size="lg">
+            size="lg"
+        >
             <Modal.Header closeButton>
                 <Modal.Title>Editar perfil</Modal.Title>
             </Modal.Header>

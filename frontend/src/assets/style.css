@@ -82,34 +82,8 @@ a:hover {
   justify-content: center;
 }
 
-.nav-menu-item-active {
-  color: var(--primary-color)!important;
-}
-
-.notification-text-container {
-  display: inline-block;
-  position: relative;
-  bottom: 10px;
-  min-width: 15px;
-  height: 18px;
-  border-radius: 50%;
-}
-
-.notification-text-container .notification-text {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #fff!important;
-  background-color: #f00!important;
-  font-size: 0.75rem!important;
-  border-radius: 50%;
-  padding: 2px;
-}
-
 .wrapper .main-content {
-  width: 60vw;
+  width: 57vw;
   height: 100%;
   margin: 1px;
 }
@@ -145,6 +119,32 @@ a:hover {
   border-top: 4px solid var(--primary-color);
   border-radius: 50%;
   animation: spin 0.7s linear infinite;
+}
+
+.nav-menu-item-active {
+  color: var(--primary-color)!important;
+}
+
+.notification-text-container {
+  display: inline-block;
+  position: relative;
+  bottom: 10px;
+  min-width: 15px;
+  height: 18px;
+  border-radius: 50%;
+}
+
+.notification-text-container .notification-text {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff!important;
+  background-color: #f00!important;
+  font-size: 0.75rem!important;
+  border-radius: 50%;
+  padding: 2px;
 }
 
 /* BUTTONS */

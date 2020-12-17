@@ -1,21 +1,21 @@
-import { Croppie } from 'croppie'
 import React, { useState, useContext } from 'react'
-import Modal from 'react-bootstrap/Modal'
-import { SERVER_URL } from '../../../config/settings'
-import { csrftoken, openCloseEmojiList } from '../../../config/utils'
+
+import { EditProfileContext } from '../../../context/editprofile/EditProfileContext'
 import CroppieModal from './CroppieModal'
 import EditProfileModal from './EditProfileModal'
-import { EditProfileContext } from '../../../context/editprofile/EditProfileContext'
-export default function EditProfile(props) {
 
-    const [croppieState, setCroppieState] = useState(false)
+
+export default function EditProfile(props) {
+    const [croppieModalIsOpen, setCroppieModalIsOpen] = useState(false)
     const [profileImage, setProfileImage] = useContext(EditProfileContext)
-    const handleProfileImageChange = e => {
+
+    const handleProfileImageChange = (e, croppieModalIsOpen) => {
+        if (croppieModalIsOpen) props.closeEditingProfileModal()
+
         const reader = new FileReader()
         reader.onload = () => {
             if (reader.readyState === 2) {
-
-                setCroppieState(true)
+                setCroppieModalIsOpen(croppieModalIsOpen)
                 setProfileImage(reader.result)
             }
         }
@@ -25,17 +25,21 @@ export default function EditProfile(props) {
 
         }
     }
+
     return (
-
         <>
-            {croppieState ?
-                <CroppieModal image={profileImage} /> :
-                <EditProfileModal profile={props.profile}
-                isOpen={props.isOpen}
-                closeModal={() => props.setIsEditing(false)} handleProfileImageChange={handleProfileImageChange} />
-            }
+            <CroppieModal
+                image={profileImage}
+                isOpen={croppieModalIsOpen}
+                closeModal={() => setCroppieModalIsOpen(false)}
+                handleProfileImageChange={e => handleProfileImageChange(e, false)}
+            />
+            <EditProfileModal
+                profile={props.profile}
+                isOpen={props.editingProfileModalIsOpen}
+                closeModal={props.closeEditingProfileModal}
+                handleProfileImageChange={e => handleProfileImageChange(e, true)}
+            />
         </>
-
     )
 }
-
