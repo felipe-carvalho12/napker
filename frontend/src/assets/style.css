@@ -55,10 +55,13 @@ a:hover {
   background: #fcfcfc;
 }
 
+.white-hover {
+  transition: .2s;
+}
+
 .white-hover:hover {
   cursor: pointer;
-  background: var(--white-hover);
-  transition: .2s;
+  background: var(--white-hover)!important;
 }
 
 .secondary-hover:hover {

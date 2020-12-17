@@ -165,13 +165,13 @@ export default function Notifications(props) {
                                     }
 
                                 </div> :
-                                <div className="no-notifications-container">
+                                <div className="d-flex justify-content-center mt-5">
                                     <h3>Você não tem nenhuma notificação</h3>
                                 </div>
                             }
 
                         </div> :
-                        <div className="notifications-loader-container">
+                        <div className="d-flex justify-content-center mt-5">
                             <div className="loader" />
                         </div>
                     }

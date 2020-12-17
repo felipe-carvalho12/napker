@@ -8,7 +8,12 @@ export default function InviteListItem(props) {
     
     return (
         <li
-            className="friend-request-row profile-row"
+            className="d-flex justify-content-between w-100"
+            style={{
+                padding: '30px',
+                borderBottom: '1px solid var(--border-color)',
+                backgroundColor: 'white',
+            }}
             id={`fr-${invite.sender.id}`}
             key={invite.sender.id}
             onClick={() => window.location.href = `/user/${invite.sender.slug}`}
@@ -26,7 +31,7 @@ export default function InviteListItem(props) {
                             <strong style={{ textAlign: 'start' }}>
                                 {invite.sender.first_name} {invite.sender.last_name}
                             </strong>
-                            <p className="text-secondary">@{invite.sender.user.username}</p>
+                            <p className="text-secondary text-left">@{invite.sender.user.username}</p>
                         </div>
                     </div>
                     <div className="profile-row-bottom">
@@ -34,7 +39,7 @@ export default function InviteListItem(props) {
                     </div>
                 </div>
             </div>
-            <div className="friend-request-col">
+            <div className="d-flex align-items-center">
                 <button className="btn btn-primary btn-reply-fr mr-1" data-senderid={invite.sender.id} data-reply='accept' onClick={replyRequest}>
                     Aceitar
                 </button>
