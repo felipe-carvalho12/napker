@@ -31,10 +31,10 @@ export default function InviteListItem(props) {
                             <strong style={{ textAlign: 'start' }}>
                                 {invite.sender.first_name} {invite.sender.last_name}
                             </strong>
-                            <p className="text-secondary text-left">@{invite.sender.user.username}</p>
+                            <span className="text-secondary text-left"> @{invite.sender.user.username}</span>
                         </div>
                     </div>
-                    <div className="profile-row-bottom">
+                    <div className="profile-row-bottom text-left">
                         {invite.sender.bio}
                     </div>
                 </div>
