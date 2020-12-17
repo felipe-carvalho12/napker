@@ -43,7 +43,7 @@ export default function Settings(props) {
         <>
             {visualViewport.width < 635 ?
                 <>
-                    {props.page === 'default' || props.page === 'blocked-profiles' || props.page === 'security' ?
+                    {props.page !== 'change-password' && props.page !== 'delete-account' ?
                         < Header page="Configurações" backArrow={props.page !== 'default'} />
                         :
                         <>

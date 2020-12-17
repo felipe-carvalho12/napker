@@ -23,6 +23,14 @@
     .wrapper .main-content {
         width: 100%;
     }
+    .btn-primary:hover {
+        background: var(--primary-color)!important;
+        color: #fff!important;
+    }
+    .btn-secondary:hover {
+        background: #fff!important;
+        color: var(--primary-color)!important;
+    }
     .fa-smile {
         display: none;
     }
