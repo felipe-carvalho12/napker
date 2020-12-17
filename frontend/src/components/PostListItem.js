@@ -56,7 +56,7 @@ export default function PostListItem(props) {
 
     return (
         <li
-            className="d-flex w-100 white-hover" style={{ padding: '5px 15px', background: '#fff', borderBottom: '1px solid var(--border-color)' }}
+            className="d-flex w-100 white-hover hide-animation" style={{ padding: '5px 15px', background: '#fff', borderBottom: '1px solid var(--border-color)' }}
             id={`profile-post-${post.id}`}
             key={post.id}
             onClick={() => window.location.href = `/post/${post.id}`}
@@ -104,31 +104,33 @@ export default function PostListItem(props) {
                             <img src={`${SERVER_URL}${post.image}`} className="post-img" />
                         </div>
                     }
-                    <div className="d-flex justify-content-start align-items-start text-secondary w-20 mt-2 mb-1">
+                    <div className="d-flex justify-content-start align-items-start text-secondary mt-2 mb-1">
                         <Link
                             to={`/post/${post.id}/comentar`}
-                            className="text-secondary"
+                            className="d-flex align-items-center text-secondary"
+                            style={{ outline: 'none', textDecoration: 'none' }}
                             onClick={e => e.stopPropagation()}
                         >
                             <i
-                                class="far fa-comment mr-2"
-                            />{post.comments.length}
+                                class="far fa-comment mr-1"
+                            />
+                            <p style={{ margin: '0' }}>
+                                {post.comments.length}
+                            </p>
                         </Link>
                         <div className="d-flex align-items-center">
                             {post.likes.map(like => like.profile.id).includes(myProfile.id) ?
-                                <i class="fas fa-heart mr-2  ml-3"
+                                <i class="fas fa-heart mr-1  ml-2"
                                     data-postid={post.id}
-                                    style={{ color: '#E0245E' }}
                                     onClick={likeUnlikePost}
                                 />
                                 :
-                                <i class="far fa-heart mr-2 ml-3"
+                                <i class="far fa-heart mr-1 ml-2"
                                     data-postid={post.id}
                                     onClick={likeUnlikePost}
-                                    style={{ color: '#E0245E' }}
                                 />
                             }
-                            <p className="post-likes-number"
+                            <p className="likes-number"
                                 style={{ margin: '0' }}
                                 onClick={e => {
                                     e.stopPropagation()

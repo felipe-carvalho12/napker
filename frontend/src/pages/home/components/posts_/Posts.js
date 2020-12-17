@@ -53,7 +53,7 @@ export default class Posts extends React.Component {
                 {this.state.myProfile &&
                     <PostForm myProfile={this.state.myProfile} />
                 }
-                <div className="post-list">
+                <div className="d-flex flex-column justify-content-center align-items-center w-100 h-100">
                     {this.state.posts && this.state.myProfile &&
                         this.state.posts.map(post => {
                             return (
