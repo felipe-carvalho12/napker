@@ -20,7 +20,7 @@
 .create-post-form {
     background: #fff;
     padding: 15px 15px 10px 15px;
-    border-bottom: 15px solid #F7F9FA;
+    margin-bottom: 15px;
 }
 
 .create-post-form-mobile {

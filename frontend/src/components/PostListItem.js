@@ -56,9 +56,10 @@ export default function PostListItem(props) {
 
     return (
         <li
-            className="d-flex w-100 white-hover hide-animation" style={{ padding: '5px 15px', background: '#fff', borderBottom: '1px solid var(--border-color)' }}
+            className="d-flex w-100 white-hover hide-animation"
             id={`profile-post-${post.id}`}
             key={post.id}
+            style={{ padding: '5px 15px', background: '#fff', borderBottom: '1px solid var(--border-color)' }}
             onClick={() => window.location.href = `/post/${post.id}`}
         >
             <div className="d-flex flex-column h-100" style={{ marginRight: '10px' }}>
@@ -130,8 +131,7 @@ export default function PostListItem(props) {
                                     onClick={likeUnlikePost}
                                 />
                             }
-                            <p className="likes-number"
-                                style={{ margin: '0' }}
+                            <p className="m-0 likes-number"
                                 onClick={e => {
                                     e.stopPropagation()
                                     props.openLikesModal(post.likes)

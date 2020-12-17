@@ -58,68 +58,67 @@ export default function CommentListItem(props) {
 
     return (
         <li
-            className="post-container"
+            className="d-flex w-100 white-hover hide-animation"
             id={`post-comment-${comment.id}`}
             key={comment.id}
+            style={{ padding: '5px 15px', background: '#fff', borderBottom: '1px solid var(--border-color)' }}
         >
-            <div className="d-flex justify-content-between">
-                <div className="post-row">
-                    <div className="post-col">
-                        <Link to={comment.author.id === myProfile.id ?
-                            '/perfil' : `/user/${comment.author.slug}`}
-                        >
-                            <img src={`${SERVER_URL}${comment.author.photo}`}
-                                className="profile-img-sm"
-                            />
-                        </Link>
-                    </div>
-                    <div className="post-col">
+            <div className="d-flex flex-column h-100" style={{ marginRight: '10px' }}>
+                <Link to={comment.author.id === myProfile.id ?
+                    '/perfil' : `/user/${comment.author.slug}`}
+                >
+                    <img src={`${SERVER_URL}${comment.author.photo}`}
+                        className="profile-img-sm"
+                    />
+                </Link>
+            </div>
+            <div className="d-flex flex-column h-100 w-100" style={{ marginRight: '10px' }}>
+                <div className="d-flex justify-content-between w-100">
+                    <div>
                         <Link to={comment.author.id === myProfile.id ?
                             '/perfil' : `/user/${comment.author.slug}`}
                             style={{ color: '#000' }}
                         >
-                            <div style={{ textAlign: 'start' }}>
-                                <strong style={{ marginRight: '5px' }}>
-                                    {comment.author.first_name} {comment.author.last_name}
-                                </strong>
-                                <p className="text-secondary d-inline-block">
-                                    @{comment.author.user.username} • {comment.created.split('-').reverse().join('/')}
-                                </p>
-                            </div>
+                            <strong style={{ marginRight: '5px' }}>
+                                {comment.author.first_name} {comment.author.last_name}
+                            </strong>
+                            <p className="text-secondary d-inline-block">
+                                @{comment.author.user.username} • {comment.created.split('-').reverse().join('/')}
+                            </p>
                         </Link>
-                        <div style={{ textAlign: 'start' }}>
-                            {comment.content}
+                    </div>
+                    <i
+                        className="fas fa-ellipsis-h d-flex justify-content-center align-items-center text-secondary secondary-hover"
+                        style={{ textDecoration: 'none', width: '30px', height: '30px', borderRadius: '30px' }}
+                        onClick={e => deleteComment(e, comment.id)}
+                    />
+                </div>
+                <div className="d-flex flex-column">
+                    <div className="d-flex justify-content-start word-break">
+                        {comment.content}
+                    </div>
+                    <div className="d-flex justify-content-start align-items-start text-secondary mt-2 mb-1">
+                        <div className="d-flex align-items-center">
+                            {comment.likes.map(like => like.profile.id).includes(myProfile.id) ?
+                                <i class="fas fa-heart"
+                                    data-commentid={comment.id}
+                                    onClick={likeUnlikeComment}
+                                />
+                                :
+                                <i class="far fa-heart"
+                                    data-commentid={comment.id}
+                                    onClick={likeUnlikeComment}
+                                />
+                            }
+                            <p
+                                className="post-likes-number m-0"
+                                onClick={() => setPostLikesModal({ isOpen: true, likes: comment.likes })}
+                            >
+                                {comment.likes.length}
+                            </p>
                         </div>
                     </div>
                 </div>
-                {comment.author.id == myProfile.id &&
-                    <i
-                        className="far fa-trash-alt trash-icon text-secondary"
-                        style={{ margin: '20px 20px 0 0' }}
-                        onClick={e => deleteComment(e, comment.id)}
-                    />
-                }
-            </div>
-            <div className="post-actions" style={{ padding: '0 0 2px 63px' }}>
-                <p className="text-secondary">
-                    {comment.likes.map(like => like.profile.id).includes(myProfile.id) ?
-                        <i class="fas fa-heart"
-                            data-commentid={comment.id}
-                            onClick={likeUnlikeComment}
-                        />
-                        :
-                        <i class="far fa-heart"
-                            data-commentid={comment.id}
-                            onClick={likeUnlikeComment}
-                        />
-                    }
-                    <p
-                        className="post-likes-number"
-                        onClick={() => setPostLikesModal({ isOpen: true, likes: comment.likes })}
-                    >
-                        {comment.likes.length}
-                    </p>
-                </p>
             </div>
         </li>
     )
