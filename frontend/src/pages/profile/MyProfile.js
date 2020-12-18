@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { SERVER_URL } from '../../config/settings'
+import { EditProfileProvider } from '../../context/editprofile/EditProfileContext'
 import Header from '../../components/fixed/Header'
-import EditProfileModal from './components/EditProfileModal'
+import EditProfile from './components/EditProfile'
 import Posts from './components/Posts'
 import Interests from './components/interests/Interests'
 import ProfileData from './components/ProfileData'
 import BottomMenu from '../../components/fixed/bottom-menu/BottomMenu'
+
 
 export default function MyProfile() {
     const [myProfile, setProfile] = useState(null)
@@ -44,11 +46,13 @@ export default function MyProfile() {
             <div className="content">
                 {myProfile ?
                     <>
-                        <EditProfileModal
+                    <EditProfileProvider>
+                        <EditProfile
                             profile={myProfile}
-                            isOpen={isEditing}
-                            closeModal={() => setIsEditing(false)}
+                            editingProfileModalIsOpen={isEditing}
+                            closeEditingProfileModal={() => setIsEditing(false)}
                         />
+                    </EditProfileProvider>
 
                         <ProfileData profile={myProfile}>
                             <div className="myprofile-btn-wrapper">

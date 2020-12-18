@@ -5,27 +5,13 @@ import Picker from 'emoji-picker-react'
 import { SERVER_URL } from '../../../config/settings'
 import { csrftoken, openCloseEmojiList } from '../../../config/utils'
 
+
 export default function EditProfileModal(props) {
     const profile = props.profile
     const isOpen = props.isOpen
     const closeModal = props.closeModal
-
     const [profileImagePreview, setProfileImagePreview] = useState(`${SERVER_URL}${profile.photo}`)
     const [editingBioContent, setEditingBioContent] = useState('')
-
-    const handleProfileImageChange = e => {
-        const reader = new FileReader()
-        reader.onload = () => {
-            if (reader.readyState === 2) {
-                setProfileImagePreview(reader.result)
-            }
-        }
-        try {
-            reader.readAsDataURL(e.target.files[0])
-        } catch {
-
-        }
-    }
 
     const handleUsernameChange = e => {
         if (e.target.value.trim() !== '') {
@@ -48,7 +34,8 @@ export default function EditProfileModal(props) {
     return (
         <Modal show={isOpen}
             onHide={closeModal}
-            size="lg">
+            size="lg"
+        >
             <Modal.Header closeButton>
                 <Modal.Title>Editar perfil</Modal.Title>
             </Modal.Header>
@@ -71,7 +58,7 @@ export default function EditProfileModal(props) {
                             accept="image/png, image/jpg, image/jpeg"
                             className="profile-photo-input"
                             name="profile-photo"
-                            onChange={handleProfileImageChange}
+                            onChange={props.handleProfileImageChange}
                         />
                     </div>
                     <div className="d-flex justify-content-center">
