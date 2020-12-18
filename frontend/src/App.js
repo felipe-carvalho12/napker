@@ -22,6 +22,7 @@ import Post from './pages/home/components/posts_/pages/post_/Post'
 
 import PostFormPage from './pages/PostFormPage'
 import HomeContextProvider from './context/home/HomeContext'
+import EditProfileProvider from './context/edit-profile/EditProfileContext'
 
 export default function App() {
     const [invitesReceivedNumber, setInvitesReceived] = useContext(InvitesReceivedContext)
@@ -76,7 +77,11 @@ export default function App() {
                     <Route path="/mensagens/:slug" render={props => (
                         <Messages {...props} updateUnreadMessagesNumber={updateUnreadMessagesNumber} />
                     )} />
-                    <Route path="/perfil" exact component={MyProfile} />
+                    <Route path="/perfil" exact render={props => (
+                        <EditProfileProvider>
+                            <MyProfile />
+                        </EditProfileProvider>
+                    )} />
                     <Route path="/perfil/meus-interesses" component={EditInterests} />
                     <Route path="/configurações" exact component={Settings} />
                     <Route path="/configurações/perfis-bloqueados" exact render={props => (

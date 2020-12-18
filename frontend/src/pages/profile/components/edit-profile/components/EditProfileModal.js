@@ -1,16 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import Modal from 'react-bootstrap/Modal'
 import Picker from 'emoji-picker-react'
 
-import { SERVER_URL } from '../../../config/settings'
-import { csrftoken, openCloseEmojiList } from '../../../config/utils'
+import { SERVER_URL } from '../../../../../config/settings'
+import { csrftoken, openCloseEmojiList } from '../../../../../config/utils'
+import { ProfileImageContext } from '../../../../../context/edit-profile/EditProfileContext'
 
 
 export default function EditProfileModal(props) {
     const profile = props.profile
-    const isOpen = props.isOpen
-    const closeModal = props.closeModal
-    const [profileImagePreview, setProfileImagePreview] = useState(`${SERVER_URL}${profile.photo}`)
+    const [profileImage, setProfileImage] = useContext(ProfileImageContext)
     const [editingBioContent, setEditingBioContent] = useState('')
 
     const handleUsernameChange = e => {
@@ -32,10 +31,7 @@ export default function EditProfileModal(props) {
     }
 
     return (
-        <Modal show={isOpen}
-            onHide={closeModal}
-            size="lg"
-        >
+        <>
             <Modal.Header closeButton>
                 <Modal.Title>Editar perfil</Modal.Title>
             </Modal.Header>
@@ -49,7 +45,7 @@ export default function EditProfileModal(props) {
                 >
                     <input type="hidden" name="csrfmiddlewaretoken" value={csrftoken} />
                     <div className="d-flex flex-column justify-content-center align-items-center mb-2">
-                        <img src={profileImagePreview}
+                        <img src={profileImage ? profileImage : `${SERVER_URL}${profile.photo}`}
                             className="profile-img-big"
                             style={{ marginBottom: '25px' }}
                         />
@@ -120,9 +116,9 @@ export default function EditProfileModal(props) {
                 </form>
             </Modal.Body>
             <Modal.Footer>
-                <button className="btn btn-grey" onClick={closeModal}>Fechar</button>
+                <button className="btn btn-grey" onClick={props.closeModal}>Fechar</button>
                 <button className="btn btn-primary" onClick={() => document.querySelector('form#update-profile-form').submit()}>Salvar</button>
             </Modal.Footer>
-        </Modal>
+        </>
     )
 }

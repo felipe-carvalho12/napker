@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { SERVER_URL } from '../../config/settings'
-import { EditProfileProvider } from '../../context/editprofile/EditProfileContext'
+import { EditProfileModalContext } from '../../context/edit-profile/EditProfileContext'
 import Header from '../../components/fixed/Header'
-import EditProfile from './components/EditProfile'
+import EditProfile from './components/edit-profile/EditProfile'
 import Posts from './components/Posts'
 import Interests from './components/interests/Interests'
 import ProfileData from './components/ProfileData'
@@ -13,8 +13,8 @@ import BottomMenu from '../../components/fixed/bottom-menu/BottomMenu'
 
 export default function MyProfile() {
     const [myProfile, setProfile] = useState(null)
-    const [isEditing, setIsEditing] = useState(false)
     const [currentPageIsPosts, setCurrentPageIsPosts] = useState(true)
+    const [isEditing, setIsEditing] = useState(false)
 
     document.title = 'Perfil / Napker'
 
@@ -46,13 +46,11 @@ export default function MyProfile() {
             <div className="content">
                 {myProfile ?
                     <>
-                    <EditProfileProvider>
                         <EditProfile
                             profile={myProfile}
-                            editingProfileModalIsOpen={isEditing}
-                            closeEditingProfileModal={() => setIsEditing(false)}
+                            isOpen={isEditing}
+                            closeModal={() => setIsEditing(false)}
                         />
-                    </EditProfileProvider>
 
                         <ProfileData profile={myProfile}>
                             <div className="myprofile-btn-wrapper">
