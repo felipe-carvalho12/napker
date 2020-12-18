@@ -1,8 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
-import { FeedSettingsContext } from '../../context/home/HomeContext'
 import Header from '../../components/fixed/Header'
-import FeedModal from './components/modals/FeedModal'
 import Posts from './components/posts_/Posts'
 import Profiles from './components/profiles/Profiles'
 import Explore from './components/explore/Explore'
@@ -12,8 +10,6 @@ import BottomMenu from '../../components/fixed/bottom-menu/BottomMenu'
 import HomePageMenu from './components/HomePageMenu'
 
 export default function Home(props) {
-    const [feedModalIsOpen, setFeedModalIsOpen] = useContext(FeedSettingsContext)
-
     const [page, setPage] = useState('Feed')
 
     const pages = {
@@ -36,7 +32,6 @@ export default function Home(props) {
         <>
             <Header page="Home" />
             <div className="content">
-                <FeedModal isOpen={feedModalIsOpen} hideModal={() => setFeedModalIsOpen(false)} />
                 <div className="desktop-home-menu">
                     <HomePageMenu
                         setPage={setPage}

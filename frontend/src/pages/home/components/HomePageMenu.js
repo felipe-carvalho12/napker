@@ -1,11 +1,7 @@
-import React, { useContext } from 'react'
-
-import { FeedSettingsContext } from '../../../context/home/HomeContext'
+import React from 'react'
 
 
 export default function HomePageMenu(props) {
-    const [feedModalIsOpen, setFeedModalIsOpen] = useContext(FeedSettingsContext)
-
     const setPage = props.setPage
 
     const feedPageTitle = props.feedPageTitle
@@ -30,11 +26,6 @@ export default function HomePageMenu(props) {
 
     return (
         <div className="home-page-menu">
-            <div className="feed-view-more-icon-container">
-                <div className="feed-view-more-icon" onClick={() => setFeedModalIsOpen(true)}>
-                    +
-                </div>
-            </div>
             <div className="home-menu-btn-container home-menu-btn-container-active feed">
                 <button
                     type="button"

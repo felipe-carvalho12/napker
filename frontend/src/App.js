@@ -21,7 +21,6 @@ import EditInterests from './pages/profile/pages/edit_interests/EditInterests'
 import Post from './pages/home/components/posts_/pages/post_/Post'
 
 import PostFormPage from './pages/PostFormPage'
-import HomeContextProvider from './context/home/HomeContext'
 import EditProfileProvider from './context/edit-profile/EditProfileContext'
 
 export default function App() {
@@ -66,9 +65,7 @@ export default function App() {
             <div className="main-content">
                 <Switch>
                     <Route path="/home" render={props => (
-                        <HomeContextProvider>
-                            <Home {...props} />
-                        </HomeContextProvider>
+                        <Home {...props} />
                     )} />
                     <Route path="/notificações" render={props => (
                         <Notifications {...props} updateNotificationsNumber={updateNotificationsNumber} />
