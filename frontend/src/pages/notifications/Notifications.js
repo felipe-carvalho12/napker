@@ -4,8 +4,7 @@ import { SERVER_URL } from '../../config/settings'
 import { csrftoken } from '../../config/utils'
 import Header from '../../components/fixed/Header'
 import InviteNotification from './components/InviteNotification'
-import LikeProfileNotification from './components/LikeProfileNotification'
-import CommentProfileNotification from './components/CommentProfileNotification'
+import NotificationContent from './components/NotificationContent'
 import NewLabel from './components/NewLabel'
 import BottomMenu from '../../components/fixed/bottom-menu/BottomMenu'
 
@@ -118,9 +117,9 @@ export default function Notifications(props) {
                                                 <>
                                                     {unvisualizedPostLikes.map(like => {
                                                         return (
-                                                            <LikeProfileNotification like={like}>
+                                                            <NotificationContent notification={like} type={"like"}>
                                                                 <NewLabel />
-                                                            </LikeProfileNotification>
+                                                            </NotificationContent>
                                                         )
                                                     })}
                                                 </>
@@ -130,9 +129,9 @@ export default function Notifications(props) {
                                                 <>
                                                     {unvisualizedComments.map(comment => {
                                                         return (
-                                                            <CommentProfileNotification comment={comment}>
+                                                            <NotificationContent notification={comment}>
                                                                 <NewLabel />
-                                                            </CommentProfileNotification>
+                                                            </NotificationContent>
                                                         )
                                                     })}
                                                 </>
@@ -146,7 +145,7 @@ export default function Notifications(props) {
                                                 <>
                                                     {visualizedPostLikes.map(like => {
                                                         return (
-                                                            <LikeProfileNotification like={like} />
+                                                            <NotificationContent notification={like} type={"like"}/>
                                                         )
                                                     })}
                                                 </>
@@ -156,7 +155,7 @@ export default function Notifications(props) {
                                                 <>
                                                     {visualizedComments.map(comment => {
                                                         return (
-                                                            <CommentProfileNotification comment={comment} />
+                                                            <NotificationContent notification={comment} />
                                                         )
                                                     })}
                                                 </>
