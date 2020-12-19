@@ -14,8 +14,8 @@ export default function EditProfile(props) {
         const reader = new FileReader()
         reader.onload = () => {
             if (reader.readyState === 2) {
-                setIsCropping(isCropping)
                 setProfileImage(reader.result)
+                setIsCropping(isCropping)
             }
         }
         try {

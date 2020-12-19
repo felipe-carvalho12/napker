@@ -1,12 +1,39 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
+import Croppie from "croppie"
 import Modal from 'react-bootstrap/Modal'
 
-import { SERVER_URL } from '../../../../../config/settings'
 import { ProfileImageContext } from '../../../../../context/edit-profile/EditProfileContext'
 
 
 export default function CroppieModal(props) {
     const [profileImage, setProfileImage] = useContext(ProfileImageContext)
+
+    const croppieOptions = {
+        enableOrientation: true,
+        viewport: {
+            width: 300,
+            height: 300,
+            type: "square"
+        },
+        boundary: {
+            width: "100%",
+            height: "70vh"
+        }
+    }
+
+    let c
+
+    useEffect(() => {
+        const croppieEl = document.getElementById("croppie")
+        c = new Croppie(croppieEl, croppieOptions)
+        c.bind({ url: profileImage })
+    }, [])
+
+    const handleCroppedImage = () => {
+        c.result("base64").then(base64 => {
+            setProfileImage(base64)
+        })
+    }
 
     return (
         <>
@@ -16,13 +43,13 @@ export default function CroppieModal(props) {
                         <i class="fas fa-arrow-left left-arrow-icon" onClick={props.handleBackArrow} />
                         <Modal.Title>Editar perfil</Modal.Title>
                     </div>
-                    <button className="btn btn-primary">
+                    <button className="btn btn-primary" onClick={handleCroppedImage}>
                         Aplicar
                     </button>
                 </div>
             </Modal.Header>
             <Modal.Body>
-                <img src={profileImage} style={{ maxWidth: '100%', maxHeight: '100%' }} />
+                <div id="croppie" />
             </Modal.Body>
         </>
     )
