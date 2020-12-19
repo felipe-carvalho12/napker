@@ -110,6 +110,8 @@
 
 .fas.fa-heart {
     color: var(--heart-color);
+    animation: size .4s;
+
 }
 
 .fa-comment:hover {
@@ -146,4 +148,9 @@ textarea{
     outline: none;
 }
     
-   
+@keyframes size {
+    0% {padding:10px 10px 10px;}
+    50% {padding:12px 12px 12px;  
+      margin-top:-4px;}
+    100% {padding:10px 10px 10px;}
+  }
