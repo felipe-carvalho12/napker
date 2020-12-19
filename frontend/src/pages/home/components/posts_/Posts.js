@@ -51,7 +51,9 @@ export default class Posts extends React.Component {
                     hideModal={() => this.setState({ likesModal: { isOpen: false, likes: null } })}
                 />
                 {this.state.myProfile &&
-                    <PostForm myProfile={this.state.myProfile} />
+                    <div className="feed-create-post-form">
+                        <PostForm myProfile={this.state.myProfile} />
+                    </div>
                 }
                 <div className="d-flex flex-column justify-content-center align-items-center w-100 h-100">
                     {this.state.posts && this.state.myProfile &&

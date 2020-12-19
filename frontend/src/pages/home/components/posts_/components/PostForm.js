@@ -69,6 +69,7 @@ export default function PostForm(props) {
                     value={postContent}
                     placeholder="O que passa pela sua cabeça?"
                     maxLength={300}
+                    autoFocus
                     onChange={handlePostContentChange}
                 />
             </div>
@@ -103,14 +104,18 @@ export default function PostForm(props) {
                         style={{ display: 'none' }}
                         onChange={handlePostImageChange}
                     />
-                    <label
-                        className="far fa-smile"
-                        id="emoji-button"
-                        onClick={() => openCloseEmojiList(false)}
-                    />
-                    <div className="emoji-list-container" id="emoji-list-container">
-                        <Picker onEmojiClick={onEmojiSelect} />
-                    </div>
+                    {visualViewport.width > 980 &&
+                        <>
+                            <label
+                                className="far fa-smile"
+                                id="emoji-button"
+                                onClick={() => openCloseEmojiList(false)}
+                            />
+                            <div className="emoji-list-container" id="emoji-list-container">
+                                <Picker onEmojiClick={onEmojiSelect} />
+                            </div>
+                        </>
+                    }
                 </div>
                 <button
                     type="submit"

@@ -14,7 +14,7 @@
     .wrapper .sidebar {
         display: none;
     }
-    .wrapper .main-content .content .create-post-form {
+    .wrapper .main-content .content .feed-create-post-form {
         display: none;
     }
     .wrapper .main-content .bottom-menu, .bottom-menu-action-icon {
