@@ -31,16 +31,6 @@ def get_post(request, post_id):
     serializer = PostSerializer(post)
     return Response(serializer.data)
 
-@api_view(['POST'])
-def add_hashtags(request):
-    data = request.data
-    post = Post.objects.get(pk=data['postId'])
-    for hashtag in data['hashtags']:
-        hashtag, created = Hashtag.objects.get_or_create(title=hashtag.lower())
-        hashtag.posts.add(post)
-        hashtag.save()
-    return Response('post added to hashtags')
-
 @api_view(['GET'])
 def interest_post_list(request, interest):
     hashtag_obj, created = Hashtag.objects.get_or_create(title=interest)
@@ -125,11 +115,26 @@ def create_post(request):
     if request.method == 'POST':
         profile = Profile.objects.get(user=request.user)
         content = request.POST['post-content']
+        hashtags = request.POST['hashtags']
+        tagged_usernames = request.POST['tagged-usernames']
+
         if len(request.FILES):
             image = request.FILES['post-image']
-            Post.objects.create(content=content, author=profile, image=image)
+            post = Post.objects.create(content=content, author=profile, image=image)
         else:
-            Post.objects.create(content=content, author=profile)
+            post = Post.objects.create(content=content, author=profile)
+        
+        for hashtag_title in hashtags:
+            hashtag, created = Hashtag.objects.get_or_create(title=hashtag_title.lower())
+            hashtag.posts.add(post)
+            hashtag.save()
+
+        for username in tagged_usernames:
+            if User.objects.filter(username=username).exists():
+                user = User.objects.get(username=username)
+                post.tagged_profiles.add(Profile.objects.get(user=user))
+                post.save()
+
         return redirect('/')
 
 def delete_post(request, post_id):

@@ -7,7 +7,10 @@ import { csrftoken, openCloseEmojiList } from '../../../../../config/utils'
 
 export default function PostForm(props) {
     const myProfile = props.myProfile
+    const isMobile = visualViewport.width <= 980
 
+    const [hashtags, setHashtags] = useState([])
+    const [taggedUsers, setTaggedUsers] = useState([])
     const [postContent, setPostContent] = useState('')
     const [postFormImagePreview, setPostFormImagePreview] = useState(null)
 
@@ -53,6 +56,9 @@ export default function PostForm(props) {
             encType="multipart/form-data"
         >
             <input type="hidden" name="csrfmiddlewaretoken" value={csrftoken} />
+            <input type="hidden" name="hashtags" value={hashtags} />
+            <input type="hidden" name="tagged-usernames" value={taggedUsers} />
+            
             <div className="d-flex">
                 <Link to="/perfil">
                     <img
@@ -104,7 +110,7 @@ export default function PostForm(props) {
                         style={{ display: 'none' }}
                         onChange={handlePostImageChange}
                     />
-                    {visualViewport.width > 980 &&
+                    {!isMobile &&
                         <>
                             <label
                                 className="far fa-smile"
