@@ -14,7 +14,7 @@ SECRET_KEY = "gld^)fy0sgzfs=nd2tc0cz73(v8n9sa%m!-%@car9*$o(u9#dz"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["172.31.40.54"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -73,14 +73,14 @@ CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [os.environ.get('REDIS_URL', 'redis://172.31.40.54:6379')],
+            "hosts": [os.environ.get('REDIS_URL', 'redis://127.0.0.1:6379')],
         },
     },
 }
 CACHES = {
     'default': {
         'BACKEND': 'redis_cache.RedisCache',
-        'LOCATION': [os.environ.get('REDIS_URL', 'redis://172.31.40.54:6379')],
+        'LOCATION': [os.environ.get('REDIS_URL', 'redis://127.0.0.1:6379')],
         'OPTIONS': {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient'
         }
@@ -149,7 +149,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media_root")
 # Django cors headers
 
 CORS_ALLOWED_ORIGINS = [
-    "http://172.31.40.54:8000",
+    "http://127.0.0.1:8000",
 ]
 
 
