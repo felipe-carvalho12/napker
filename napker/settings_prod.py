@@ -15,7 +15,7 @@ SECRET_KEY = "gld^)fy0sgzfs=nd2tc0cz73(v8n9sa%m!-%@car9*$o(u9#dz"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["napker.herokuapp.com"]
+ALLOWED_HOSTS = ["ec2-3-14-133-51.us-east-2.compute.amazonaws.com"]
 
 
 # Application definition
