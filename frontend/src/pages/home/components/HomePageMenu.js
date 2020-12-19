@@ -7,7 +7,6 @@ export default function HomePageMenu(props) {
     const feedPageTitle = props.feedPageTitle
     const profilesPageTitle = props.profilesPageTitle
     const explorePageTitle = props.explorePageTitle
-    const newsPageTitle = props.newsPageTitle
     const trendsPageTitle = props.trendsPageTitle;
 
     const isMobile = visualViewport.width <= 980
@@ -60,18 +59,6 @@ export default function HomePageMenu(props) {
                     onMouseOut={e => handleMouseOut(e, '<i class="fas fa-search ml-1 mr-1" />')}
                 >
                     <i class="fas fa-search ml-1 mr-1" />
-                </button>
-            </div>
-            <div className="home-menu-btn-container news">
-                <button
-                    type="button"
-                    className="btn btn-primary"
-                    style={{ margin: '10px 0', borderRadius: '20px' }}
-                    onClick={e => setPage('News')}
-                    onMouseEnter={e => handleMouseIn(e, newsPageTitle)}
-                    onMouseOut={e => handleMouseOut(e, '<i class="fas fa-newspaper ml-1 mr-1" />')}
-                >
-                    <i class="fas fa-newspaper ml-1 mr-1" />
                 </button>
             </div>
             <div className="home-menu-btn-container trending">

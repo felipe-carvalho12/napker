@@ -4,7 +4,6 @@ import Header from '../../components/fixed/Header'
 import Posts from './components/posts_/Posts'
 import Profiles from './components/profiles/Profiles'
 import Explore from './components/explore/Explore'
-import News from './components/news/News'
 import PostIcon from '../../components/fixed/bottom-menu/components/PostIcon'
 import BottomMenu from '../../components/fixed/bottom-menu/BottomMenu'
 import HomePageMenu from './components/HomePageMenu'
@@ -16,7 +15,6 @@ export default function Home(props) {
         'Feed': <Posts />,
         'Profiles': <Profiles />,
         'Explore': <Explore />,
-        'News': <News />,
         'Trending': '',
     }
 

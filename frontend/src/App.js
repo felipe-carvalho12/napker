@@ -9,7 +9,7 @@ import {
 } from './context/app/AppContext'
 
 import SidebarLeft from './components/fixed/SidebarLeft'
-import SidebarRight from './components/fixed/SidebarRight'
+import SidebarRight from './components/fixed/sidebar-right/SidebarRight'
 import Home from './pages/home/Home'
 import Notifications from './pages/notifications/Notifications'
 import Messages from './pages/messages_/Messages'

@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 
 
-export default function SidebarRight() {
+export default function FeedAlorithm() {
     const [interestsValue, setInterestsValue] = useState(50)
     const [ageValue, setAgeValue] = useState(50)
     const [friendsValue, setFriendsValue] = useState(50)
     const [isFriendValue, setIsFriendValue] = useState(50)
-
+    
     return (
-        <div className="sidebar p-0 b-left" style={{ right: '0' }}>
+        <>
             <div className="d-flex justify-content-center align-items-center b-bottom" style={{ height: 'var(--header-heigth)' }}>
                 <h4>Algoritmo do Feed</h4>
             </div>
@@ -50,6 +50,6 @@ export default function SidebarRight() {
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     )
 }
