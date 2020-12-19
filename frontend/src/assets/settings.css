@@ -175,7 +175,6 @@
 
 .faq-content details {
     background: #fff;
-    font-family: 'Raleway', sans-serif;
 }
 
 .faq-content summary {
@@ -194,14 +193,14 @@
 }
 
 .faq-content h2 {
-    color: var(--primary-color-hover);
+    color: #333;
     text-align: left;
     margin-bottom: 0;
     padding: 8px;
     font: uni;
     text-shadow: none;
     font-size: 20px;
-    font-weight: bold;
+    font-weight: 100;
 }
 
 .faq-content details p {
@@ -221,7 +220,7 @@
     display: inline-block;
     padding-right: 15px;
     font-size: 180%;
-    color: #034171;
+    color: black;
 }
 
 .faq-content details[open] summary::after {
