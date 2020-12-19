@@ -14,8 +14,7 @@
 }
 
 .hide-animation {
-    animation-name: hide;
-    animation-duration: 1.5s;
+    animation: hide 1.5s;
     animation-fill-mode: forwards;
     animation-play-state: paused;
 }

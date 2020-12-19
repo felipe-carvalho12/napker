@@ -108,10 +108,25 @@
     border-radius: 50%;
 }
 
+@keyframes heartExpand {
+    0% {
+        width: 34px;
+        height: 33.6px;
+    }
+
+    50% {
+        transform: scale(1.25);
+    }
+
+    100% {
+        width: 34px;
+        height: 33.6px;
+    }
+}
+
 .fas.fa-heart {
     color: var(--heart-color);
-    animation: size .4s;
-
+    animation: heartExpand .6s;
 }
 
 .fa-comment:hover {
@@ -147,10 +162,3 @@ textarea{
     border: none;
     outline: none;
 }
-    
-@keyframes size {
-    0% {padding:10px 10px 10px;}
-    50% {padding:12px 12px 12px;  
-      margin-top:-4px;}
-    100% {padding:10px 10px 10px;}
-  }

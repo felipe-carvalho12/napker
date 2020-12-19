@@ -77,15 +77,15 @@ export default function PostListItem(props) {
                 <div className="d-flex justify-content-between w-100">
                     <div>
                         <Link
-                            to={post.author.id === myProfile.id ?
-                                '/perfil' : `/user/${post.author.slug}`}
+                            to={post.author.id === myProfile.id ? '/perfil' : `/user/${post.author.slug}`}
+                            className="d-flex justify-content-start align-items-start post-author-data-wrapper"
                             style={{ color: '#000' }}
                             onClick={e => e.stopPropagation()}
                         >
                             <strong className="mr-2">
                                 {post.author.first_name} {post.author.last_name}
                             </strong>
-                            <p className="text-secondary d-inline-block">
+                            <p className="text-secondary">
                                 @{post.author.user.username} • {post.created.split('-').reverse().join('/')}
                             </p>
                         </Link>
@@ -121,7 +121,7 @@ export default function PostListItem(props) {
                         </Link>
                         <div className="d-flex align-items-center">
                             {post.likes.map(like => like.profile.id).includes(myProfile.id) ?
-                                <i class="fas fa-heart mr-1  ml-2"
+                                <i class="fas fa-heart expand-animation mr-1  ml-2"
                                     data-postid={post.id}
                                     onClick={likeUnlikePost}
                                 />

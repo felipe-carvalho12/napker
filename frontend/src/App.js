@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import { SERVER_URL } from './config/settings'
+import { onExpandableTextareaInput } from './config/utils'
 import {
     InvitesReceivedContext, UnvisualizedCommentsContext,
     UnvisualizedLikesContext, UnreadMessagesContext
@@ -31,6 +32,9 @@ export default function App() {
     const [unreadMessagesNumber, setUnreadMessagesNumber] = useContext(UnreadMessagesContext)
 
     let notificationsNumber = invitesReceivedNumber + unvisualizedLikesNumber + unvisualizedCommentsNumber
+
+    // global input event listener
+    document.addEventListener('input', onExpandableTextareaInput)
 
     useEffect(() => {
         updateNotificationsNumber()

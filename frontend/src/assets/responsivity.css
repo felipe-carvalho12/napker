@@ -131,6 +131,9 @@
 }
 
 @media (max-width: 635px) {
+    .post-author-data-wrapper {
+        flex-direction: column;
+    }
     .profile-list-item-bio-button-wrapper {
         width: fit-content;
         flex-direction: column;
