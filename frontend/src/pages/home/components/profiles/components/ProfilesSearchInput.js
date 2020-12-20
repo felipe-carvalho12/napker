@@ -65,15 +65,15 @@ export default function ProfilesSearchInput(props) {
             </div>
             <div className="profiles-search-type-selector" id="search-type-selector" onClick={handleSearchTypeSelection}>
                 {searchType === 'byName' ?
-                    <div>
-                        <div className="arrow" />
+                    <div className="position-relative">
+                        <div className="popover-arrow" style={{ top: '-19px', left: '75%' }} />
                         <li className="d-flex align-items-center">
                             <i class="fas fa-grin-hearts text-secondary" style={{ fontSize: 'large', marginRight: '5px' }} />
                             Pesquisar por interesse
                         </li>
                     </div>
                     :
-                    <div>
+                    <div className="position-relative">
                         <div className="arrow" />
                         <li className="d-flex align-items-center">
                             <i class="fas fa-user text-secondary" style={{ fontSize: 'large', marginRight: '5px' }} />

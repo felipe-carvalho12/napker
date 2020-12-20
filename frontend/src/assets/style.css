@@ -84,11 +84,36 @@ a:hover {
   transition: .2s;
 }
 
+/* UTILS */
+
 .word-break {
     text-align: start;
     word-wrap: break-word;
     word-break: break-all;
 }
+
+.popover-arrow {
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    border-top: 1px solid rgba(0, 0, 0, .2);
+    border-left: 1px solid rgba(0, 0, 0, .2);
+    transform: rotate(45deg);
+    z-index: 2;
+    background: white;
+}
+
+.loader {
+  width: 28px;
+  height: 28px;
+  background: rgba(0, 0, 0, 0);
+  border: 4px solid #D2ECFC;
+  border-top: 4px solid var(--primary-color);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+/* DOCUMENT MAIN STRUCTURE */
 
 .wrapper {
   display: flex;
@@ -122,16 +147,6 @@ a:hover {
 .wrapper .main-content .content {
   position: relative;
   text-align: center;
-}
-
-.loader {
-  width: 28px;
-  height: 28px;
-  background: rgba(0, 0, 0, 0);
-  border: 4px solid #D2ECFC;
-  border-top: 4px solid var(--primary-color);
-  border-radius: 50%;
-  animation: spin 0.7s linear infinite;
 }
 
 .nav-menu-item-active {
@@ -281,7 +296,7 @@ a:hover {
   z-index: 1;
   display: none;
   flex-direction: column;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   text-align: start;
   background: #fff;
