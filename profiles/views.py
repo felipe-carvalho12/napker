@@ -67,10 +67,18 @@ def filter_profiles_by_interests(request, query):
 
 
 @api_view(['GET'])
-def profile_list_view(request, scroll_count):
+def myprofile_list_view(request, scroll_count):
     profile = Profile.objects.get(user=request.user)
     profiles = get_profile_list(profile)
     serializer = ProfileSerializer(profiles[:10 * scroll_count], many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def profile_list_view(request, slug):
+    profile = Profile.objects.get(slug=slug)
+    profiles = get_profile_list(profile)
+    serializer = ProfileSerializer(profiles[:5], many=True)
     return Response(serializer.data)
 
 
@@ -98,8 +106,7 @@ def my_profile(request):
 
 @api_view(['GET'])
 def friends_profiles(request, slug):
-    user = User.objects.get(username=slug)
-    profile = Profile.objects.get(user=user)
+    profile = Profile.objects.get(slug=slug)
     friends = [friend_user.profile for friend_user in profile.friends.all()]
     serializer = ProfileSerializer(friends, many=True)
     return Response(serializer.data)
@@ -117,8 +124,7 @@ def blocked_profiles(request):
 @api_view(['GET'])
 def get_relationship(request, slug):
     profile = Profile.objects.get(user=request.user)
-    other_user = User.objects.get(username=slug)
-    other_profile = Profile.objects.get(user=other_user)
+    other_profile = Profile.objects.get(slug=slug)
     if profile.friends.filter(username=slug).exists():
         return Response({'relationship': 'friends'})
     else:

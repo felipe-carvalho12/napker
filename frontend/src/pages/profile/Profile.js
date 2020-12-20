@@ -20,6 +20,7 @@ class Profile extends React.Component {
             currentPageIsPosts: true,
         }
         this.slug = this.props.match.params.slug
+        this.baseState = this.state
     }
 
     componentWillMount() {
@@ -27,33 +28,13 @@ class Profile extends React.Component {
     }
 
     componentDidMount() {
-        fetch(`${SERVER_URL}/profile-api/relationship/${this.slug}`)
-            .then(response => response.json())
-            .then(data => {
-                let label
-                switch (data.relationship) {
-                    case 'friends':
-                        label = 'Amigos'
-                        break
-                    case 'invite-sent':
-                        label = 'Solicitado'
-                        break
-                    case 'invite-received':
-                        label = 'Aceitar'
-                        break
-                    case 'none':
-                        label = 'Solicitar'
-                }
-                this.setState({
-                    relationshipButtonLabel: label
-                })
-            })
+        this.fetchRelationship()
     }
 
     componentDidUpdate() {
         let btn = document.querySelector('#profile-page-relationship-btn')
         if (btn) {
-            switch (btn.innerHTML) {
+            switch (btn.innerHTML, this.state.relationshipButtonLabel) {
                 case 'Amigos':
                     btn.classList.add('btn-primary')
                     btn.onmouseenter = () => {
@@ -78,6 +59,38 @@ class Profile extends React.Component {
                     btn.classList.remove('d-none')
             }
         }
+    }
+
+    componentWillReceiveProps(newProps) {
+        if (newProps === this.props) return
+        this.setState(this.baseState) //resetting state
+        this.slug = newProps.match.params.slug
+        this.fetchProfile()
+        this.fetchRelationship()
+    }
+
+    fetchRelationship = () => {
+        fetch(`${SERVER_URL}/profile-api/relationship/${this.slug}`)
+            .then(response => response.json())
+            .then(data => {
+                let label
+                switch (data.relationship) {
+                    case 'friends':
+                        label = 'Amigos'
+                        break
+                    case 'invite-sent':
+                        label = 'Solicitado'
+                        break
+                    case 'invite-received':
+                        label = 'Aceitar'
+                        break
+                    case 'none':
+                        label = 'Solicitar'
+                }
+                this.setState({
+                    relationshipButtonLabel: label
+                })
+            })
     }
 
     fetchProfile = () => {

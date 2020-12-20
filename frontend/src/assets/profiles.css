@@ -51,11 +51,6 @@
     background: #fff;
 }
 
-.profile-list-container {
-    width: 100%;
-    overflow-y: hidden;
-}
-
 .filtered-profile:hover {
     background: var(--white-hover);
     cursor: pointer;

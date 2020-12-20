@@ -24,7 +24,7 @@ export default function Profiles() {
     }, [])
 
     useEffect(() => {
-        fetch(`${SERVER_URL}/profile-api/profile-list/${scrollCount}`)
+        fetch(`${SERVER_URL}/profile-api/myprofile-list/${scrollCount}`)
             .then(response => response.json())
             .then(data => {
                 setFilteredProfiles(null)
@@ -78,7 +78,7 @@ export default function Profiles() {
             <ProfilesSearchInput setFilteredProfiles={setFilteredProfiles} />
             <div className="list-group">
                 {myProfile && (profiles || filteredProfiles) &&
-                    <div className="profile-list-container">
+                    <div className="w-100" style={{ overflowY: 'hidden' }}>
                         {filteredProfiles ? filteredProfiles.map(profile => {
                             return (
                                 <ProfileListItem profile={profile} myProfile={myProfile} />
@@ -96,7 +96,7 @@ export default function Profiles() {
                         }
                     </div>
                 }
-                <div className="profiles-loader-container">
+                <div className="loader-container">
                     <div className="loader" />
                 </div>
             </div>
