@@ -1,10 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import FeedSidebar from './components/feed-sidebar/FeedSidebar'
 
 
-export default function SidebarRight() {
+export default function SidebarRight(props) {
     const [page, setPage] = useState('home')
+
+    useEffect(() => {
+        console.log(props.match.params.path)
+    }, [props.match.params.path])
 
     const pages = {
         'home': <FeedSidebar />

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
 import Modal from 'react-bootstrap/Modal'
 import Cropper from "cropperjs";
 
