@@ -15,7 +15,6 @@ export default function CroppieModal(props) {
     useEffect(() => {
         const cropper = new Cropper(imageElement.current, {
             viewMode: 1,
-            zoomable: false,
             scalable: false,
             aspectRatio: 1,
             crop: () => {

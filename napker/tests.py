@@ -1,4 +1,6 @@
 import datetime
+import base64
+
 from django.test import TestCase, Client
 from django.contrib.auth.models import User
 from django.utils.http import urlsafe_base64_encode
@@ -113,7 +115,7 @@ class RouteTests(TestCase):
 
     def test_update_profile(self):
         post_data = {
-            'profile-photo': 'test.png',
+            'profile-photo': base64.b64encode('test.png'),
             'first-name': 'Fred',
             'last-name': 'Santos',
             'username': 'fred.santos',
