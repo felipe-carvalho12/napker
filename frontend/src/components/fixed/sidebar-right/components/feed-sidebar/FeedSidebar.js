@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import SidebarSlider from '../SidebarSlider'
 
-import FeedAlgorithm from './components/FeedAlgorithm'
+import FeedAlgorithm from './components/feed-algorithm/FeedAlgorithm'
 
 
 export default function FeedSidebar() {
