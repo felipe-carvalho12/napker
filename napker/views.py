@@ -1,5 +1,10 @@
+import base64
+import uuid
+
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+
+from django.core.files.base import ContentFile
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -139,7 +144,14 @@ def activate_account_view(request, uidb64, token):
 def update_profile(request):
     if request.method == 'POST':
         profile = Profile.objects.get(user=request.user)
-        photo = request.POST['profile-photo'] if request.POST['profile-photo'] else profile.photo
+
+        if request.POST.get('profile-photo', False):
+            format, imgstr = request.POST['profile-photo'].split(';base64,') 
+            ext = format.split('/')[-1] 
+            photo = ContentFile(base64.b64decode(imgstr), name=profile.user.username + ext)
+        else:
+            photo = profile.photo
+
         first_name = request.POST['first-name'] if request.POST['first-name'] != '' else profile.first_name
         last_name = request.POST['last-name'] if request.POST['last-name'] != '' else profile.last_name
         username = request.POST['username'] if request.POST['username'] != '' else profile.user.username

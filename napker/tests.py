@@ -113,7 +113,7 @@ class RouteTests(TestCase):
 
     def test_update_profile(self):
         post_data = {
-            'photo': 'test.png',
+            'profile-photo': 'test.png',
             'first-name': 'Fred',
             'last-name': 'Santos',
             'username': 'fred.santos',
