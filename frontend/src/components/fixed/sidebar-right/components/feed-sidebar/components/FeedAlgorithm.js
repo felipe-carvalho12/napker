@@ -6,13 +6,13 @@ export default function FeedAlorithm() {
     const [ageValue, setAgeValue] = useState(50)
     const [friendsValue, setFriendsValue] = useState(50)
     const [isFriendValue, setIsFriendValue] = useState(50)
-    
+
     return (
         <>
             <div className="d-flex justify-content-center align-items-center b-bottom" style={{ height: 'var(--header-heigth)' }}>
                 <h4>Algoritmo do Feed</h4>
             </div>
-            <i class="fas fa-info-circle position-absolute hover-pointer m-3" style={{ top: '0', right: '0', color: '#555' }} />
+            <i class="fas fa-info-circle position-absolute hover-pointer p-3" style={{ top: '0', right: '0', color: '#555' }} />
             <div className="d-flex flex-column justify-content-between p-2">
                 <div className="b-bottom py-3">
                     <div className="d-flex justify-content-between" style={{ padding: '5px' }}>
