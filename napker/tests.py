@@ -1,5 +1,4 @@
 import datetime
-import base64
 
 from django.test import TestCase, Client
 from django.contrib.auth.models import User
@@ -115,13 +114,14 @@ class RouteTests(TestCase):
 
     def test_update_profile(self):
         post_data = {
-            'profile-photo': base64.b64encode('test.png'),
+            'profile-photo': 'data:image/png;base64,iVBORw0KGg====',
             'first-name': 'Fred',
             'last-name': 'Santos',
             'username': 'fred.santos',
             'birth-date': '2000-8-14',
             'bio': 'Hello, world!'
         }
+
         self.client.force_login(user=self.test_user)
         response = self.client.post('/update-profile', post_data, follow=True)
         self.assertEqual(response.redirect_chain[-1], ('/perfil', 302))

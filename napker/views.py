@@ -147,8 +147,8 @@ def update_profile(request):
 
         if request.POST.get('profile-photo', False):
             format, imgstr = request.POST['profile-photo'].split(';base64,') 
-            ext = format.split('/')[-1] 
-            photo = ContentFile(base64.b64decode(imgstr), name=profile.user.username + ext)
+            img_format = format.split('/')[-1] 
+            photo = ContentFile(base64.b64decode(imgstr), name=profile.user.username + img_format)
         else:
             photo = profile.photo
 
