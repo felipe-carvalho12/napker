@@ -18,20 +18,41 @@ export default function GlobalChat() {
     }
 
     return (
-        <div className="position-relative w-100 h-100">
-            <div className="d-flex justify-content-center align-items-center b-bottom" style={{ height: 'var(--header-heigth)' }}>
+        <div className="position-relative d-flex flex-column justify-content-between align-items-center w-100 h-100">
+            <div className="d-flex justify-content-center align-items-center w-100 b-bottom" style={{ height: 'var(--header-heigth)' }}>
                 <h4>Chat global</h4>
             </div>
-            <div className="d-flex flex-column justify-content-center align-items-center py-2 b-bottom">
+            <div className="d-flex flex-column justify-content-center align-items-center w-100 py-2 b-bottom">
                 <h6>Hashtag em alta:</h6>
                 <h5 style={{ color: 'var(--primary-color)' }} >#napker</h5>
             </div>
-            <div>
-
+            <div className="chat-log">
+                <li className="received">
+                    <p>
+                        <h6 className="fw-bold mb-1">Devs Napker</h6>
+                        Olá tester! Ficamos felizes de ter você aqui.
+                    </p>
+                </li>
+                <li className="received">
+                    <p>
+                        <h6 className="fw-bold mb-1">Devs Napker</h6>
+                        O chat global ainda está em desenvolvimento...
+                        <br />
+                        <br />
+                        Nosso objetivo com ele é que os usuários conversem entre si sobre a hashtag mais usada no dia.
+                        Dessa forma, criaremos mais uma forma de engajamento e interação do usuário com a plataforma.
+                    </p>
+                </li>
+                <li className="received">
+                    <p>
+                        <h6 className="fw-bold mb-1">Devs Napker</h6>
+                        Depois passa no grupo pra nos dizer o que achou dessa ideia. ;)
+                    </p>
+                </li>
             </div>
             <div
-                className="position-absolute d-flex justify-content-center align-items-center w-100 px-1 py-2 my-3 border-bottom"
-                style={{ borderTop: '2px solid var(--border-color)', bottom: '30px' }}
+                className="d-flex justify-content-center align-items-center w-100 px-1 pt-2 pb-4 my-3 border-bottom"
+                style={{ borderTop: '2px solid var(--border-color)', background: '#fff' }}
             >
                 <input
                     placeholder="Mensagem"

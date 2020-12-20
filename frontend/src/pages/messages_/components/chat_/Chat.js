@@ -182,7 +182,7 @@ class Chat extends React.Component {
                                         <p className="text-secondary">@{this.state.otherProfile.user.username}</p>
                                     </div>
                                 </div>
-                                <div id="chat-log">
+                                <div id="chat-log" className="chat-log">
                                     {this.state.messages.map(message => {
                                         return (
                                             <MessageListItem message={message} currentUser={this.props.username} />

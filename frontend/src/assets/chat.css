@@ -88,20 +88,20 @@
     border-bottom: 2px solid var(--border-color);
 }
 
-#chat-log {
+.chat-log {
     overflow: hidden;
     overflow-y: scroll;
     width: 100%;
     padding: 15px;
 }
 
-#chat-log .received {
+.chat-log .received {
     width: 100%;
     display: flex;
     justify-content: end;
 }
 
-#chat-log .received p {
+.chat-log .received p {
     background: #DEDEDE;
     color: #595959;
     max-width: 70%;
@@ -112,14 +112,14 @@
     border-bottom-right-radius: 30px;
 }
 
-#chat-log .sent {
+.chat-log .sent {
     width: 100%;
     display: flex;
     justify-content: flex-end;
     padding-left: 20px;
 }
 
-#chat-log .sent p {
+.chat-log .sent p {
     background: var(--primary-color);
     color: #fff;
     max-width: 70%;

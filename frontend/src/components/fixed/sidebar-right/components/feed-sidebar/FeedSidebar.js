@@ -8,7 +8,7 @@ import GlobalChat from './components/GlobalChat'
 export default function FeedSidebar() {
     const [pageIndex, setPageIndex] = useState(0)
 
-    const pages = [<FeedAlgorithm />, <GlobalChat />, '2']
+    const pages = [<FeedAlgorithm />, <GlobalChat />, 'Em breve...']
 
     return (
         <>
