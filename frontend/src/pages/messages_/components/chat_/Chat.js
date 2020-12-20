@@ -61,9 +61,9 @@ class Chat extends React.Component {
     componentDidUpdate() {
         this.handleComponentChange()
         document.querySelector('#contact-filter-input') &&
-        document.activeElement !== document.querySelector('#contact-filter-input') &&
-        document.querySelector('#chat-message-input') &&
-        document.querySelector('#chat-message-input').focus()
+            document.activeElement !== document.querySelector('#contact-filter-input') &&
+            document.querySelector('#chat-message-input') &&
+            document.querySelector('#chat-message-input').focus()
     }
 
     componentWillUnmount() {
@@ -158,11 +158,17 @@ class Chat extends React.Component {
 
     render() {
         return (
-            <>
+            <div
+                className="d-flex flex-column justify-content-between align-items-center h-100"
+                style={{ width: '65%' }}
+            >
                 {this.state.otherProfile !== null || !this.props.otherUsername ?
                     <>
                         {this.state.otherProfile ?
-                            <div className="current-chat">
+                            <div
+                                className="d-flex flex-column justify-content-between align-items-center w-100 h-100"
+                                style={{ background: '#fcfcfc' }}
+                            >
                                 <div className="current-chat-header">
                                     <i class="fas fa-arrow-left left-arrow-icon" onClick={() => window.history.back()} />
                                     <Link to={`/user/${this.state.otherProfile.slug}`}>
@@ -194,7 +200,7 @@ class Chat extends React.Component {
                                 />
                             </div>
                             :
-                            <div className="current-chat no-chat-selected">
+                            <div className="d-flex flex-column justify-content-center align-items-center w-100 h-100">
                                 <div>
                                     <strong style={{ fontSize: 'larger' }}>Você não tem uma conversa selecionada</strong>
                                     <p className="text-secondary">Selecione uma existente ou comece uma nova</p>
@@ -204,11 +210,11 @@ class Chat extends React.Component {
                         }
                     </>
                     :
-                    <div className="chat-loader-container">
+                    <div className="loader-container">
                         <div className="loader" />
                     </div>
                 }
-            </>
+            </div>
         )
     }
 }

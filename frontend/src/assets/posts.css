@@ -1,13 +1,3 @@
-.posts-loader-container {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    margin-top: 2px;
-    padding: 5% 0;
-}
-
 .post-img {
     min-width: 130px;
     min-height: 70px;

@@ -12,7 +12,7 @@ export default function SidebarSlider(props) {
     }
 
     return (
-        <div className="d-flex w-100 justify-content-center position-absolute pb-3" style={{ bottom: '0' }}>
+        <div className="d-flex w-100 justify-content-center position-absolute py-3" style={{ bottom: '0' }}>
             <div
                 className="w-25 p-1 m-2 primary-hover slider-navigation-item"
                 id="0"

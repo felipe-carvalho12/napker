@@ -53,7 +53,7 @@ export default function Posts(props) {
                         }
                     </>
                     :
-                    <div className="posts-loader-container" >
+                    <div className="loader-container" >
                         <div className="loader" />
                     </div>
                 }

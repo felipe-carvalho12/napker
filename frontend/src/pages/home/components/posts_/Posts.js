@@ -68,7 +68,7 @@ export default class Posts extends React.Component {
                             )
                         })
                     }
-                    <div className="posts-loader-container" >
+                    <div className="loader-container" >
                         <div className="loader" />
                     </div>
                 </div>
