@@ -93,7 +93,7 @@ export default function PostForm(props) {
                     </div>
                     <img
                         src={postFormImagePreview}
-                        className="post-img post-form-img-preview"
+                        className="post-img mt-0"
                         id="post-form-img-preview"
                     />
                 </div>

@@ -16,15 +16,6 @@
     background: #eee;
 }
 
-.messages-loader-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-top: 15px;
-    word-wrap: break-word;
-    word-break: break-all;
-}
-
 .messages-wrapper .chats-list {
     width: 35%;
     height: 100%;

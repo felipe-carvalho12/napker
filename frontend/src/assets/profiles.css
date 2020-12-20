@@ -51,11 +51,6 @@
     background: #fff;
 }
 
-.profiles-search-type-selector:hover {
-    background: var(--white-hover);
-    cursor: pointer;
-}
-
 .profile-list-container {
     width: 100%;
     overflow-y: hidden;

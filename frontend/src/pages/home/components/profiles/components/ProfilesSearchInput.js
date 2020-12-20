@@ -63,10 +63,10 @@ export default function ProfilesSearchInput(props) {
                     onClick={openCloseSearchTypeSelector}
                 />
             </div>
-            <div className="profiles-search-type-selector" id="search-type-selector" onClick={handleSearchTypeSelection}>
+            <div className="profiles-search-type-selector white-hover" id="search-type-selector" onClick={handleSearchTypeSelection}>
                 {searchType === 'byName' ?
                     <div className="position-relative">
-                        <div className="popover-arrow" style={{ top: '-19px', left: '75%' }} />
+                        <div className="popover-arrow white-hover" style={{ top: '-19px', left: '75%' }} />
                         <li className="d-flex align-items-center">
                             <i class="fas fa-grin-hearts text-secondary" style={{ fontSize: 'large', marginRight: '5px' }} />
                             Pesquisar por interesse
@@ -74,7 +74,7 @@ export default function ProfilesSearchInput(props) {
                     </div>
                     :
                     <div className="position-relative">
-                        <div className="arrow" />
+                        <div className="popover-arrow white-hover" style={{ top: '-19px', left: '75%' }} />
                         <li className="d-flex align-items-center">
                             <i class="fas fa-user text-secondary" style={{ fontSize: 'large', marginRight: '5px' }} />
                             Pesquisar por nome

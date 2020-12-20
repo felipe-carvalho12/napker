@@ -57,7 +57,7 @@ export default function Post(props) {
     }
 
     return (
-        <div className="post-page-container">
+        <div className="w-100">
             {post &&
                 <CommentModal
                     isOpen={commentModalIsOpen}

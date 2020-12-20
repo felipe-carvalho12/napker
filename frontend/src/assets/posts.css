@@ -35,10 +35,6 @@
     margin-top: 15px;
 }
 
-.post-img-container .post-form-img-preview {
-    margin-top: 0!important;
-}
-
 .post-img-container .post-img-options {
     width: 100%;
     display: flex;
@@ -111,6 +107,9 @@
 
 .fas.fa-heart {
     color: var(--heart-color);
+}
+
+.fas.fa-heart.animated {
     animation: heartExpand .6s;
 }
 
@@ -134,9 +133,6 @@
 
 /* POST PAGE */
 
-.post-page-container {
-    width: 100%;
-}
 textarea{  
     overflow: hidden;
     width: 100%;

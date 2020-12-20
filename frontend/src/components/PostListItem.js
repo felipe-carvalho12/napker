@@ -45,6 +45,10 @@ export default function PostListItem(props) {
         } else {
             likeBtn.classList.remove('far') //border heart
             likeBtn.classList.add('fas')  //filled heart
+            likeBtn.classList.add('animated')
+            likeBtn.onanimationend = () => {
+                likeBtn.classList.remove('animated')
+            }
             fetch(`${SERVER_URL}/post-api/like-post/${likeBtn.dataset.postid}`)
                 .then(response => response.json())
                 .then(data => {

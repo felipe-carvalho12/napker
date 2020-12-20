@@ -133,7 +133,7 @@ export default class Messages extends React.Component {
                                     )
                                 })
                                 :
-                                <div className="messages-loader-container">
+                                <div className="loader-container">
                                     <div className="loader" />
                                 </div>
                             }
