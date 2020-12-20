@@ -6,7 +6,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
-    "croppie": "^2.6.5",
+    "cropperjs": "^1.5.9",
     "emoji-picker-react": "^3.2.4",
     "jquery": "^3.5.1",
     "material-ui": "^0.20.2",

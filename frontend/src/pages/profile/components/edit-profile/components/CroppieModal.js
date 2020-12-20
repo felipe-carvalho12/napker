@@ -1,6 +1,8 @@
-import React, { useContext, useEffect } from 'react'
-import Croppie from "croppie"
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import Modal from 'react-bootstrap/Modal'
+import Cropper from "cropperjs";
+
+import "cropperjs/dist/cropper.min.css";
 
 import { ProfileImageContext } from '../../../../../context/edit-profile/EditProfileContext'
 
@@ -8,48 +10,40 @@ import { ProfileImageContext } from '../../../../../context/edit-profile/EditPro
 export default function CroppieModal(props) {
     const [profileImage, setProfileImage] = useContext(ProfileImageContext)
 
-    const croppieOptions = {
-        enableOrientation: true,
-        viewport: {
-            width: 300,
-            height: 300,
-            type: "square"
-        },
-        boundary: {
-            width: "100%",
-            height: "70vh"
-        }
-    }
-
-    let c
+    const imageElement = useRef()
 
     useEffect(() => {
-        const croppieEl = document.getElementById("croppie")
-        c = new Croppie(croppieEl, croppieOptions)
-        c.bind({ url: profileImage })
-    }, [])
-
-    const handleCroppedImage = () => {
-        c.result("base64").then(base64 => {
-            setProfileImage(base64)
+        const cropper = new Cropper(imageElement.current, {
+            viewMode: 1,
+            zoomable: false,
+            scalable: false,
+            aspectRatio: 1,
+            crop: () => {
+                const canvas = cropper.getCroppedCanvas();
+                setProfileImage(canvas.toDataURL("image/png"))
+            }
         })
-    }
+    }, [])
 
     return (
         <>
             <Modal.Header closeButton>
                 <div className="d-flex justify-content-between align-items-center w-100">
                     <div className="d-flex justify-content-center align-items-center">
-                        <i class="fas fa-arrow-left left-arrow-icon" onClick={props.handleBackArrow} />
+                        <i class="fas fa-arrow-left left-arrow-icon" onClick={props.stopCropping} />
                         <Modal.Title>Editar perfil</Modal.Title>
                     </div>
-                    <button className="btn btn-primary" onClick={handleCroppedImage}>
+                    <button className="btn btn-primary" onClick={props.stopCropping}>
                         Aplicar
                     </button>
                 </div>
             </Modal.Header>
             <Modal.Body>
-                <div id="croppie" />
+                <div>
+                    <div className="d-flex justify-content-center w-100" style={{ maxHeight: '480px' }}>
+                        <img className="mw-100 mh-100" ref={imageElement} src={profileImage} alt="Source" crossorigin />
+                    </div>
+                </div>
             </Modal.Body>
         </>
     )

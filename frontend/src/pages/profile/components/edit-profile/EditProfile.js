@@ -33,8 +33,7 @@ export default function EditProfile(props) {
             {isCroppingImage ?
                 <CroppieModal
                     image={profileImage}
-                    handleProfileImageChange={e => handleProfileImageChange(e, false)}
-                    handleBackArrow={() => setIsCropping(false)}
+                    stopCropping={() => setIsCropping(false)}
                 />
                 :
                 <EditProfileModal

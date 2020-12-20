@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import Modal from 'react-bootstrap/Modal'
 import Picker from 'emoji-picker-react'
 
@@ -53,8 +53,12 @@ export default function EditProfileModal(props) {
                             type="file"
                             accept="image/png, image/jpg, image/jpeg"
                             className="profile-photo-input"
-                            name="profile-photo"
                             onChange={props.handleProfileImageChange}
+                        />
+                        <input
+                            type="hidden"
+                            name="profile-photo"
+                            value={profileImage}
                         />
                     </div>
                     <div className="d-flex justify-content-center">

@@ -139,7 +139,7 @@ def activate_account_view(request, uidb64, token):
 def update_profile(request):
     if request.method == 'POST':
         profile = Profile.objects.get(user=request.user)
-        photo = request.FILES['profile-photo'] if len(request.FILES) else profile.photo
+        photo = request.POST['profile-photo'] if request.POST['profile-photo'] else profile.photo
         first_name = request.POST['first-name'] if request.POST['first-name'] != '' else profile.first_name
         last_name = request.POST['last-name'] if request.POST['last-name'] != '' else profile.last_name
         username = request.POST['username'] if request.POST['username'] != '' else profile.user.username
