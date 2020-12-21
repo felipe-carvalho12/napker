@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 import InfoModal from './components/InfoModal'
+import InfoIcon from '../../../InfoIcon'
 
 
 export default function FeedAlgorithm() {
@@ -17,11 +18,7 @@ export default function FeedAlgorithm() {
             <div className="d-flex justify-content-center align-items-center b-bottom" style={{ height: 'var(--header-heigth)' }}>
                 <h4>Algoritmo do Feed</h4>
             </div>
-            <i
-                class="fas fa-info-circle position-absolute hover-pointer p-3"
-                style={{ top: '0', right: '0', color: '#555' }}
-                onClick={() => setInfoModalIsOpen(true)}
-            />
+            <InfoIcon onClick={() => setInfoModalIsOpen(true)} />
             <div className="d-flex flex-column justify-content-between p-2">
                 <div className="b-bottom py-3">
                     <div className="d-flex justify-content-between" style={{ padding: '5px' }}>

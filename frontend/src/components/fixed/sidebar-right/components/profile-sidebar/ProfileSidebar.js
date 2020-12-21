@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import { SERVER_URL } from '../../../../../config/settings'
-import RecomendedProfiles from './components/RecomendedProfiles'
+import RecomendedProfiles from './components/recomended-profiles/RecomendedProfiles'
 import SidebarSlider from '../SidebarSlider'
 
 

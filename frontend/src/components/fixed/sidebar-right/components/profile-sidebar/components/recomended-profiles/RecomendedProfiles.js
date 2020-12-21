@@ -1,16 +1,22 @@
 import React, { useEffect, useState } from 'react'
 
-import { SERVER_URL } from '../../../../../../config/settings'
-import ProfileListItem from '../../../../../../components/ProfileListItem'
+import { SERVER_URL } from '../../../../../../../config/settings'
+import ProfileListItem from '../../../../../../ProfileListItem'
+
+import InfoModal from './components/InfoModal'
+import InfoIcon from '../../../InfoIcon'
 
 
 export default function RecomendedProfiles(props) {
     const [recomendedProfiles, setRecomendedProfiles] = useState(null)
     const myProfile = props.myProfile
+    const profileSlug = props.profileSlug
+
+    const [infoModalIsOpen, setInfoModalIsOpen] = useState(false)
 
     useEffect(() => {
-        if (props.profileSlug) {
-            fetch(`${SERVER_URL}/profile-api/profile-list/${props.profileSlug}`)
+        if (profileSlug) {
+            fetch(`${SERVER_URL}/profile-api/profile-list/${profileSlug}`)
                 .then(response => response.json())
                 .then(data => setRecomendedProfiles(data))
         }
@@ -18,9 +24,11 @@ export default function RecomendedProfiles(props) {
 
     return (
         <>
+            <InfoModal isOpen={infoModalIsOpen} hideModal={() => setInfoModalIsOpen(false)} profileSlug={profileSlug} />
             <div className="d-flex justify-content-center align-items-center b-bottom" style={{ height: 'var(--header-heigth)' }}>
                 <h4>Você pode gostar</h4>
             </div>
+            <InfoIcon onClick={() => setInfoModalIsOpen(true)} />
             <div className="w-100" style={{ overflowY: 'hidden' }}>
                 {recomendedProfiles !== null ?
                     <>
