@@ -225,11 +225,11 @@ class Profile extends React.Component {
             }
         }
         this.fetchProfile()
-        document.querySelector('#view-more-select').style.display = 'none'
+        document.querySelector('#profile-view-more-select').style.display = 'none'
     }
 
     openCloseExtraOptions = () => {
-        const el = document.querySelector('#view-more-select')
+        const el = document.querySelector('#profile-view-more-select')
         const style = el.style
         if (!style.display) style.display = 'none'
         if (style.display === 'none') {
@@ -279,7 +279,7 @@ class Profile extends React.Component {
                                             id="view-more-icon"
                                             onClick={this.openCloseExtraOptions}
                                         />
-                                        <div className="view-more-select profile-view-more-select" id="view-more-select">
+                                        <div className="view-more-select profile-view-more-select" id="profile-view-more-select">
                                             <div className="popover-arrow" style={{ top: '-9px', left: '30%' }} />
                                             <Link to={`/mensagens/${this.state.profile.slug}`} style={{ color: '#000', textDecoration: 'none', borderBottom: '1px solid rgba(0,0,0,.1)' }}>
                                                 {!this.state.myProfile.blocked_users.map(u => u.id).includes(this.state.profile.user.id) &&

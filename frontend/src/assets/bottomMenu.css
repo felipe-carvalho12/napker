@@ -28,7 +28,7 @@
 }
 
 .bottom-menu ul li {
-    color: #657786;
+    color: var(--primary-grey);
     font-size: 1.2rem;
     font-weight: bold;
     border-radius: 20px;

@@ -55,3 +55,7 @@
     color: var(--primary-color);
     cursor: pointer;
 }
+
+.nav-menu-item-active {
+    color: var(--primary-color)!important;
+}
