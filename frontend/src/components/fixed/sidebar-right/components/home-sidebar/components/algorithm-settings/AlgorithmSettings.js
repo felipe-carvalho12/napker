@@ -15,15 +15,12 @@ export default function FeedAlgorithm() {
     return (
         <>
             <InfoModal isOpen={infoModalIsOpen} hideModal={() => setInfoModalIsOpen(false)} />
-            <div className="d-flex justify-content-center align-items-center b-bottom" style={{ height: 'var(--header-heigth)' }}>
-                <h4>Configurações do Algoritmo</h4>
-            </div>
             <InfoIcon onClick={() => setInfoModalIsOpen(true)} />
-            <div className="d-flex flex-column justify-content-between p-2">
-                <div className="b-bottom py-3 w-100">
+            <div className="d-flex flex-column justify-content-start align-items-center p-2">
+                <div className="b-bottom pb-3" style={{ paddingTop: '157.86px', width: '90%' }}>
                     <h5>Personalize o algoritmo que calcula o quão relevante um perfil é para você.</h5>
                 </div>
-                <div className="b-bottom py-3">
+                <div className="b-bottom py-3" style={{ width: '90%' }}>
                     <div className="d-flex justify-content-between" style={{ padding: '5px' }}>
                         <h5>Interesses em comum</h5>
                         <div>{interestsValue}</div>
@@ -32,7 +29,7 @@ export default function FeedAlgorithm() {
                         <input type="range" min="0" max="100" onInput={e => setInterestsValue(e.target.value)} />
                     </div>
                 </div>
-                <div className="b-bottom py-3">
+                <div className="b-bottom py-3" style={{ width: '90%' }}>
                     <div className="d-flex justify-content-between" style={{ padding: '5px' }}>
                         <h5>Semelhança de idade</h5>
                         <div>{ageValue}</div>
@@ -41,7 +38,7 @@ export default function FeedAlgorithm() {
                         <input type="range" min="0" max="100" defaultValue="50" onInput={e => setAgeValue(e.target.value)} />
                     </div>
                 </div>
-                <div className="b-bottom py-3">
+                <div className="b-bottom py-3" style={{ width: '90%' }}>
                     <div className="d-flex justify-content-between" style={{ padding: '5px' }}>
                         <h5>Amigos em comum</h5>
                         <div>{friendsValue}</div>
@@ -50,7 +47,7 @@ export default function FeedAlgorithm() {
                         <input type="range" min="0" max="100" defaultValue="50" onInput={e => setFriendsValue(e.target.value)} />
                     </div>
                 </div>
-                <div className="py-3">
+                <div className="py-3" style={{ width: '90%' }}>
                     <div className="d-flex justify-content-between" style={{ padding: '5px' }}>
                         <h5>Ser meu amigo</h5>
                         <div>{isFriendValue}</div>
