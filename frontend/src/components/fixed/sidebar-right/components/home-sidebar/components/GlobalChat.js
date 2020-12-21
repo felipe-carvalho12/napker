@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
-import Picker from 'emoji-picker-react'
 
-import { openCloseEmojiList } from '../../../../../../config/utils'
 
 export default function GlobalChat() {
     const [message, setMessage] = useState('')
@@ -12,11 +10,6 @@ export default function GlobalChat() {
         el.disabled = e.target.value.trim() === ''
     }
 
-    const onEmojiSelect = (event, emojiObject) => {
-        setMessage(message + emojiObject.emoji)
-        document.querySelector('#chat-message-submit').disabled = false
-    }
-
     return (
         <div className="position-relative d-flex flex-column justify-content-between align-items-center w-100 h-100">
             <div className="d-flex justify-content-center align-items-center w-100 b-bottom" style={{ height: 'var(--header-heigth)' }}>
@@ -24,7 +17,7 @@ export default function GlobalChat() {
             </div>
             <div className="d-flex flex-column justify-content-center align-items-center w-100 py-2 b-bottom">
                 <h6>Hashtag em alta:</h6>
-                <h5 style={{ color: 'var(--primary-color)' }} >#napker</h5>
+                <h4 style={{ color: 'var(--primary-color)' }} >#napker</h4>
             </div>
             <div className="chat-log">
                 <li className="received">
