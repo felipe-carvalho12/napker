@@ -85,10 +85,3 @@
     flex-direction: column;
     text-align: start;
 }
-
-.profiles-loader-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    padding: 5% 0;
-}
