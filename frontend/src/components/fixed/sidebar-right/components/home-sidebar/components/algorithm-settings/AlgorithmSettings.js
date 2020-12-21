@@ -20,7 +20,7 @@ export default function FeedAlgorithm() {
             </div>
             <InfoIcon onClick={() => setInfoModalIsOpen(true)} />
             <div className="d-flex flex-column justify-content-between p-2">
-                <div className="b-bottom py-3 w-100 text-center">
+                <div className="b-bottom py-3 w-100">
                     <h5>Personalize o algoritmo que calcula o quão relevante um perfil é para você.</h5>
                 </div>
                 <div className="b-bottom py-3">
