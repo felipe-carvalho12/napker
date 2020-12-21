@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import SidebarSlider from '../SidebarSlider'
 
-import FeedAlgorithm from './components/feed-algorithm/FeedAlgorithm'
+import FeedAlgorithm from './components/algorithm-settings/AlgorithmSettings'
 import GlobalChat from './components/GlobalChat'
 
 

@@ -94,7 +94,7 @@ export default function Post(props) {
                             }
                         </div>
                     </> :
-                    <div className="posts-loader-container" >
+                    <div className="loader-container" >
                         <div className="loader" />
                     </div>
                 }

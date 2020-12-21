@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import FeedSidebar from './components/feed-sidebar/FeedSidebar'
+import HomeSidebar from './components/home-sidebar/HomeSidebar'
 import ProfileSidebar from './components/profile-sidebar/ProfileSidebar'
 
 
@@ -12,7 +12,7 @@ export default function SidebarRight(props) {
     }, [props])
 
     const pages = {
-        'home': <FeedSidebar />,
+        'home': <HomeSidebar />,
         'perfil': <ProfileSidebar parentsProps={props} />, // doing it to rerender the profile sidebar on props change... otherwise it wouldn't update
         'user': <ProfileSidebar parentsProps={props} />,
     }
