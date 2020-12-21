@@ -233,10 +233,10 @@ class Profile extends React.Component {
         const style = el.style
         if (!style.display) style.display = 'none'
         if (style.display === 'none') {
-            document.querySelector('#view-more-icon').classList.add('view-more-icon-active')
+            document.querySelector('#profile-view-more-icon').classList.add('view-more-icon-active')
             style.display = 'flex'
         } else {
-            document.querySelector('#view-more-icon').classList.remove('view-more-icon-active')
+            document.querySelector('#profile-view-more-icon').classList.remove('view-more-icon-active')
             style.display = 'none'
         }
     }
@@ -276,7 +276,7 @@ class Profile extends React.Component {
                                     <div className="profile-btn-wrapper">
                                         <i
                                             className="fas fa-ellipsis-h btn btn-secondary mr-2"
-                                            id="view-more-icon"
+                                            id="profile-view-more-icon"
                                             onClick={this.openCloseExtraOptions}
                                         />
                                         <div className="view-more-select" id="profile-view-more-select" style={{ top: '60%', right: '10%' }}>
