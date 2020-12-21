@@ -107,7 +107,7 @@ export default function PostListItem(props) {
                         </Link>
                     </div>
                     <i
-                        className="fas fa-ellipsis-h d-flex justify-content-center align-items-center text-secondary secondary-hover"
+                        className="fas fa-ellipsis-h d-flex justify-content-center align-items-center text-secondary secondary-hover view-more-icon"
                         id={`post-view-more-icon-${post.id}`}
                         style={{ textDecoration: 'none', width: '30px', height: '30px', borderRadius: '30px' }}
                         onClick={e => openCloseExtraOptions(e, post.id)}
@@ -122,13 +122,17 @@ export default function PostListItem(props) {
                                 onClick={e => deletePost(e, post.id)}
                             >
                                 <i class="fas fa-trash" />
-                                Deletar post
+                                Excluir
                             </li>
                             :
                             <>
                                 <li>
                                     <i class="fas fa-exclamation-triangle text-secondary" />
-                                    Denúnciar fake news
+                                    Denunciar fake news
+                                </li>
+                                <li>
+                                    <i class="fas fa-exclamation-circle text-secondary" />
+                                    Denunciar conteúdo impróprio
                                 </li>
                             </>
                         }

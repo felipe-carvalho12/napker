@@ -275,13 +275,13 @@ class Profile extends React.Component {
                                 <ProfileData profile={this.state.profile}>
                                     <div className="profile-btn-wrapper">
                                         <i
-                                            className="fas fa-ellipsis-h btn btn-secondary mr-2"
+                                            className="fas fa-ellipsis-h btn btn-secondary mr-2 view-more-icon"
                                             id="profile-view-more-icon"
                                             onClick={this.openCloseExtraOptions}
                                         />
                                         <div className="view-more-select" id="profile-view-more-select" style={{ top: '60%', right: '10%' }}>
                                             <div className="popover-arrow" style={{ top: '-9px', left: '30%' }} />
-                                            <Link to={`/mensagens/${this.state.profile.slug}`} style={{ color: '#000', textDecoration: 'none', borderBottom: '1px solid rgba(0,0,0,.1)' }}>
+                                            <Link to={`/mensagens/${this.state.profile.slug}`} style={{ color: '#000', textDecoration: 'none' }}>
                                                 {!this.state.myProfile.blocked_users.map(u => u.id).includes(this.state.profile.user.id) &&
                                                     <li>
                                                         <i class="fas fa-envelope text-secondary" />

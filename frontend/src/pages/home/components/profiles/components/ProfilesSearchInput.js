@@ -58,7 +58,7 @@ export default function ProfilesSearchInput(props) {
                     />
                 </div>
                 <i
-                    className="fas fa-ellipsis-h btn profiles-search-extra-options-icon"
+                    className="fas fa-ellipsis-h btn profiles-search-extra-options-icon view-more-icon"
                     id="profiles-search-extra-options-icon"
                     onClick={openCloseSearchTypeSelector}
                 />
