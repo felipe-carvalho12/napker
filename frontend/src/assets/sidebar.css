@@ -8,14 +8,21 @@
     border-right: 1px solid var(--border-color);
 }
 
+.sidebar h5, .sidebar h4 {
+    color:  var(--primary-grey);
+}
+
 .sidebar h5 {
     font-size: 1rem;
-    color: #5a7575;
+}
+
+.sidebar ul {
+    padding: 15px;
 }
 
 .sidebar ul li {
-    color: #000;
-    font-size: 1.2rem;
+    color: var(--primary-grey);
+    font-size: 1rem;
     font-weight: bold;
     display: block;
     margin: 0 30px;
