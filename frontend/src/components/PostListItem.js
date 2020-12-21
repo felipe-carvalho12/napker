@@ -8,28 +8,6 @@ export default function PostListItem(props) {
     const post = props.post
     const myProfile = props.myProfile
 
-    const deletePost = (e, postId) => {
-        e.stopPropagation()
-        const el = document.querySelector(`#profile-post-${postId}`)
-        if (window.confirm('Tem certeza que deseja apagar o post?\nEssa ação é irreversível.')) {
-            el.style.animationPlayState = 'running'
-            el.addEventListener('animationend', () => {
-                this.fetchPosts()
-            })
-            fetch(`${SERVER_URL}/post-api/delete-post/${postId}`, {
-                method: 'POST',
-                headers: {
-                    'Content-type': 'application/json',
-                    'X-CSRFToken': csrftoken,
-                }
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data)
-                })
-        }
-    }
-
     const likeUnlikePost = e => {
         e.stopPropagation()
         const likeBtn = e.target
@@ -54,6 +32,41 @@ export default function PostListItem(props) {
                 .then(data => {
                     console.log(data)
                     props.renderParent()
+                })
+        }
+    }
+
+    const openCloseExtraOptions = () => {
+        const el = document.querySelector('#post-view-more-select')
+        const style = el.style
+        if (!style.display) style.display = 'none'
+        if (style.display === 'none') {
+            document.querySelector('#view-more-icon').classList.add('view-more-icon-active')
+            style.display = 'flex'
+        } else {
+            document.querySelector('#view-more-icon').classList.remove('view-more-icon-active')
+            style.display = 'none'
+        }
+    }
+
+    const deletePost = (e, postId) => {
+        e.stopPropagation()
+        const el = document.querySelector(`#profile-post-${postId}`)
+        if (window.confirm('Tem certeza que deseja apagar o post?\nEssa ação é irreversível.')) {
+            el.style.animationPlayState = 'running'
+            el.addEventListener('animationend', () => {
+                this.fetchPosts()
+            })
+            fetch(`${SERVER_URL}/post-api/delete-post/${postId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json',
+                    'X-CSRFToken': csrftoken,
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
                 })
         }
     }
@@ -101,6 +114,9 @@ export default function PostListItem(props) {
                     />
                 </div>
                 <div className="d-flex flex-column">
+                    <div className="view-more-select" id="post-view-more-select">
+                        <div className="popover-arrow" style={{ top: '-9px', left: '30%' }} />
+                    </div>
                     <div className="d-flex justify-content-start word-break">
                         {post.content}
                     </div>

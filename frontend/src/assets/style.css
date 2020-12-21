@@ -124,6 +124,11 @@ a:hover {
   cursor: pointer;
 }
 
+.view-more-select i {
+  font-size: large;
+  margin-right: 5px;
+}
+
 .loader-container {
   width: 100%;
   display: flex;

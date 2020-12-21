@@ -43,18 +43,9 @@
     background: #f00!important;
 }
 
-.profile-data-container .profile-view-more-select {
-    top: 60%;
-    right: 10%;
-}
 
 .view-more-icon-active {
     background: #f00!important;
-}
-
-.profile-view-more-select i {
-    font-size: large;
-    margin-right: 5px;
 }
 
 .bio-emoji-list {

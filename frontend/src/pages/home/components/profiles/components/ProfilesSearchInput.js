@@ -28,7 +28,7 @@ export default function ProfilesSearchInput(props) {
     }, [search])
 
     const openCloseSearchTypeSelector = () => {
-        const el = document.querySelector('#search-type-selector')
+        const el = document.querySelector('#profiles-search-type-selector')
         const style = el.style
         if (!style.display) style.display = 'none'
         if (style.display === 'none') {
@@ -63,10 +63,15 @@ export default function ProfilesSearchInput(props) {
                     onClick={openCloseSearchTypeSelector}
                 />
             </div>
-            <div className="profiles-search-type-selector white-hover" id="search-type-selector" onClick={handleSearchTypeSelection}>
+            <div
+                className="view-more-select"
+                id="profiles-search-type-selector"
+                style={{ right: '5%', top: '130px' }}
+                onClick={handleSearchTypeSelection}
+            >
                 {searchType === 'byName' ?
                     <div className="position-relative">
-                        <div className="popover-arrow white-hover" style={{ top: '-19px', left: '75%' }} />
+                        <div className="popover-arrow white-hover" style={{ top: '-9px', left: '75%' }} />
                         <li className="d-flex align-items-center">
                             <i class="fas fa-grin-hearts text-secondary" style={{ fontSize: 'large', marginRight: '5px' }} />
                             Pesquisar por interesse
@@ -74,7 +79,7 @@ export default function ProfilesSearchInput(props) {
                     </div>
                     :
                     <div className="position-relative">
-                        <div className="popover-arrow white-hover" style={{ top: '-19px', left: '75%' }} />
+                        <div className="popover-arrow white-hover" style={{ top: '-9px', left: '75%' }} />
                         <li className="d-flex align-items-center">
                             <i class="fas fa-user text-secondary" style={{ fontSize: 'large', marginRight: '5px' }} />
                             Pesquisar por nome

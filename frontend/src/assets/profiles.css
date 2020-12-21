@@ -38,19 +38,6 @@
     border: 1px solid var(--primary-color)!important;
 }
 
-.profiles-search-type-selector {
-    display: none;
-    width: fit-content;
-    position: absolute;
-    z-index: 1;
-    right: 5%;
-    padding: 10px 5px;
-    border: 1px solid rgba(0, 0, 0, .2);
-    border-radius: 10px;
-    text-align: start;
-    background: #fff;
-}
-
 .filtered-profile:hover {
     background: var(--white-hover);
     cursor: pointer;

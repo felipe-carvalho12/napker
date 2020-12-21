@@ -279,7 +279,7 @@ class Profile extends React.Component {
                                             id="view-more-icon"
                                             onClick={this.openCloseExtraOptions}
                                         />
-                                        <div className="view-more-select profile-view-more-select" id="profile-view-more-select">
+                                        <div className="view-more-select" id="profile-view-more-select" style={{ top: '60%', right: '10%' }}>
                                             <div className="popover-arrow" style={{ top: '-9px', left: '30%' }} />
                                             <Link to={`/mensagens/${this.state.profile.slug}`} style={{ color: '#000', textDecoration: 'none', borderBottom: '1px solid rgba(0,0,0,.1)' }}>
                                                 {!this.state.myProfile.blocked_users.map(u => u.id).includes(this.state.profile.user.id) &&
