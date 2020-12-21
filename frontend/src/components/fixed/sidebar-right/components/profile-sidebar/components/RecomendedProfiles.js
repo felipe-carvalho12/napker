@@ -9,10 +9,12 @@ export default function RecomendedProfiles(props) {
     const myProfile = props.myProfile
 
     useEffect(() => {
-        fetch(`${SERVER_URL}/profile-api/profile-list/${props.profileSlug}`)
-            .then(response => response.json())
-            .then(data => setRecomendedProfiles(data))
-    }, [])
+        if (props.profileSlug) {
+            fetch(`${SERVER_URL}/profile-api/profile-list/${props.profileSlug}`)
+                .then(response => response.json())
+                .then(data => setRecomendedProfiles(data))
+        }
+    }, [props])
 
     return (
         <>
