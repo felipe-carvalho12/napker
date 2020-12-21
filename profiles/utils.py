@@ -1,5 +1,6 @@
 import datetime
 from .models import *
+import numpy as np
 
 def get_author_relevance(profile, author):
     interest_points = 0
@@ -16,68 +17,43 @@ def get_author_relevance(profile, author):
     if not author == profile: interest_points = len(set([i.title for i in profile.interests.all()]).intersection([i.title for i in author.interests.all()])) 
     else: interest_points = 0.5
 
-    author_relevance_dict = {
-        "interest_points" : interest_points,
-        "age_points" : age_points,
-        "friends_points" : friends_points,
-        "is_friend_boolean" : is_friend_boolean,
-    }
-
-    return author_relevance_dict
+    return np.array([interest_points, age_points, friends_points, is_friend_boolean])
 
 
-def process_authors_relevance(profile, authors, friends=True):
+def process_authors_relevance(profile, authors):
     if profile.post_weights is not None:
-        INTERST_WEIGHT = profile.post_weights.interest
-        AGE_WEIGHT = profile.post_weights.age
-        FRIENDS_WEIGHT = profile.post_weights.friends if friends else 0
-        IS_FRIEND_WEIGHT = profile.post_weights.is_friend if friends else 0
+        raw_weights = np.array([profile.post_weights.interest, profile.post_weights.age, profile.post_weights.friends, profile.post_weights.is_friend])
     else:
-        INTERST_WEIGHT = 0.25
-        AGE_WEIGHT = 0.25
-        FRIENDS_WEIGHT = 0.25 if friends else 0
-        IS_FRIEND_WEIGHT = 0.25 if friends else 0
+        raw_weights = np.array([0.25, 0.25, 0.25, 0.25])
 
-    author_relevance_lists = {
-        "interest_list" : ([], INTERST_WEIGHT),
-        "age_list" : ([], AGE_WEIGHT),
-        "friends_list" : ([], FRIENDS_WEIGHT),
-        "is_friend_list" : ([], IS_FRIEND_WEIGHT),
-    }
+    WEIGHTS = raw_weights / np.sum(raw_weights)
 
-    for author in authors:
-        data = get_author_relevance(profile, author)
-        author_relevance_lists["interest_list"][0].append(data["interest_points"])
-        author_relevance_lists["age_list"][0].append(data["age_points"])
-        author_relevance_lists["friends_list"][0].append(data["friends_points"])
-        author_relevance_lists["is_friend_list"][0].append(data["is_friend_boolean"])
+    authors_relevance = np.vstack(tuple(get_author_relevance(profile, author) for author in authors))
 
-    for key in author_relevance_lists:
-        points_sum = sum(author_relevance_lists[key][0]) if sum(author_relevance_lists[key][0]) else 0
-        maximum = max(author_relevance_lists[key][0]) if len(author_relevance_lists[key][0]) and points_sum else 1
-        author_relevance_lists[key] = [author_relevance_lists[key][1] * (point / maximum) for point in author_relevance_lists[key][0]]
-        if key == "age_list":
-            author_relevance_lists[key] = [1 - value for value in author_relevance_lists[key]]
+    print(authors_relevance)
 
-    authors_relevance_list = []
+    authors_relevance = np.sum(np.array([np.true_divide(authors_relevance.T[i], (np.amax(column) if np.amax(column) else 1) / WEIGHTS[i]) for i, column in enumerate(authors_relevance.T)]), axis=0)
 
-    for element in author_relevance_lists["interest_list"]:
-        i = author_relevance_lists["interest_list"].index(element)
-        authors_relevance_list.append(
-            author_relevance_lists["interest_list"][i] +
-            author_relevance_lists["age_list"][i] +
-            author_relevance_lists["friends_list"][i] +
-            author_relevance_lists["is_friend_list"][i]
-        )
-
-    authors_relevance_list = list(zip(authors, authors_relevance_list))
+    print(authors_relevance)
+    
+    authors_relevance_list = list(zip(authors, authors_relevance))
 
     return authors_relevance_list
 
     
 def get_profile_list(profile):
+    profiles = []
 
-    profiles = process_authors_relevance(profile, Profile.objects.all(), friends=False)
+    for p in Profile.objects.exclude(user=profile.user):
+        if p.user in profile.blocked_users.all(): continue
+        if p.user in profile.friends.all(): continue
+        if profile.user in p.blocked_users.all(): continue
+        if p in [i.receiver for i in Relationship.objects.invitations_sent(profile)]: continue
+        if p in [i.sender for i in Relationship.objects.invitations_received(profile)]: continue
+        profiles.append(p)
+
+    profiles = process_authors_relevance(profile, profiles)
+
     interest_profile_dict = {}
     for i_quantity in set([item[1] for item in profiles]):
         interest_profile_dict[i_quantity] = [p[0] for p in profiles if p[1] == i_quantity]
