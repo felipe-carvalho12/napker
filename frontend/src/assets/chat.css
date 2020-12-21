@@ -17,8 +17,7 @@
 }
 
 .messages-wrapper .chats-list {
-    width: 35%;
-    height: 100%;
+    width: 40%;
     display: flex;
     flex-direction: column;
     background: #fcfcfc;

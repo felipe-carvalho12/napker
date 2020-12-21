@@ -113,7 +113,7 @@ export default class Messages extends React.Component {
                         setParentState={this.setState.bind(this)}
                         modalProfiles={this.state.modalProfiles}
                     />
-                    <div className="chats-list">
+                    <div className="chats-list h-100">
                         <ContactFilterInput
                             activeChatsProfiles={this.state.activeChatsProfiles}
                             setHasFilteredProfiles={bool => this.hasFilteredProfiles = bool}

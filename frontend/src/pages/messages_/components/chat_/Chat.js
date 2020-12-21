@@ -160,7 +160,7 @@ class Chat extends React.Component {
         return (
             <div
                 className="d-flex flex-column justify-content-between align-items-center h-100"
-                style={{ width: '65%' }}
+                style={{ width: '60%' }}
             >
                 {this.state.otherProfile !== null || !this.props.otherUsername ?
                     <>
