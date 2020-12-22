@@ -72,10 +72,10 @@ export default function PostListItem(props) {
 
     return (
         <li
-            className="d-flex w-100 white-hover hide-animation"
+            className="d-flex w-100 base-hover hide-animation"
             id={`profile-post-${post.id}`}
             key={post.id}
-            style={{ padding: '5px 15px', background: '#fff', borderBottom: '1px solid var(--border-color)' }}
+            style={{ padding: '5px 15px', background: 'var(--theme-base-color)', borderBottom: '1px solid var(--border-color)' }}
             onClick={() => window.location.href = `/post/${post.id}`}
         >
             <div className="d-flex flex-column h-100" style={{ marginRight: '10px' }}>
@@ -98,7 +98,7 @@ export default function PostListItem(props) {
                             style={{ color: '#000' }}
                             onClick={e => e.stopPropagation()}
                         >
-                            <strong className="mr-2">
+                            <strong className="mr-2" style={{ color: 'var(--primary-grey)' }}>
                                 {post.author.first_name} {post.author.last_name}
                             </strong>
                             <p className="text-secondary">

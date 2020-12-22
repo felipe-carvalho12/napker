@@ -10,12 +10,12 @@ export default function ProfileListItem(props) {
     return (
         <Link to={profile.id === myProfile.id ?
             '/perfil' : `/user/${profile.slug}`}
-            style={{ color: '#000', textDecoration: 'none' }}
+            style={{ color: 'var(--primary-grey)', textDecoration: 'none' }}
         >
             <li
-                className="list-group-item profile-row filtered-profile profile-profile-list-item"
+                className="position-relative border-0 b-bottom base-hover"
                 key={profile.id}
-                style={props.style}
+                style={{ ...props.style, padding: '.75rem 1.25rem' }}
                 onClick={props.onClick}
             >
                 <div className="d-flex">

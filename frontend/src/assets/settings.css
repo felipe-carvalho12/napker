@@ -71,11 +71,11 @@
 }
 
 .settings-page-container .settings-page-menu .active {
-    background: var(--white-hover);
+    background: var(--theme-base-color-hover);
 }
 
 .settings-page-container .settings-page-menu li:hover {
-    background: var(--white-hover);
+    background: var(--theme-base-color-hover);
     cursor: pointer;
 }
 
@@ -235,7 +235,7 @@
 }
 
 .faq-content summary:hover {
-    background: var(--white-hover);
+    background: var(--theme-base-color-hover);
 }
 
 .faq-content details summary::-webkit-details-marker {

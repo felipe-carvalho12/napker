@@ -25,7 +25,7 @@
 }
 
 .explore-page-container .hashtag-container:hover {
-    background: var(--white-hover);
+    background: var(--theme-base-color-hover);
     cursor: pointer;
 }
 

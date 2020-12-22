@@ -38,49 +38,34 @@
     border: 1px solid var(--primary-color)!important;
 }
 
-.filtered-profile:hover {
-    background: var(--white-hover);
-    cursor: pointer;
-}
-
-.profile-list-container .profile-row {
-    border: none;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.profile-list-container .profile-row:hover {
-    background: var(--white-hover);
-    cursor: pointer;
-}
-
-.profile-row img:hover, .profile-row strong:hover {
+img:hover, strong:hover {
     cursor: pointer;
     transform: scale(1.01);
 }
 
-.profile-row .profile-img-container {
+.profile-img-container {
     width: fit-content;
     align-self: center;
 }
 
-.profile-row .profile-row-top {
+.profile-row-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.profile-row .profile-row-bottom {
+.profile-row-bottom {
     display: flex;
     text-align: start;
 }
 
-.profile-row .profile-col {
+.profile-col {
     min-width: 20%;
     align-self: center;
     display: flex;
 }
 
-.profile-row .main-profile-data {
+.main-profile-data {
     display: flex;
     flex-direction: column;
     text-align: start;

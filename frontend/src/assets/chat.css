@@ -56,7 +56,7 @@
 }
 
 .messages-wrapper .chats-list .chats-container .profile-chat-item:hover {
-    background: var(--white-hover);
+    background: var(--theme-base-color-hover);
 }
 
 .current-chat-header {

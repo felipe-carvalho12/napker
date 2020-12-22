@@ -7,10 +7,10 @@
   --primary-color: #48D1AF;
   --secondary-color: rgba(119, 147, 125, .1);
   --primary-color-hover: #3FB597;
-  --white-hover: #F9F9F9;
   --primary-grey: #363636;
   --loader-background: rgba(119, 147, 125, .3);
   --theme-base-color: #fff;
+  --theme-base-color-hover: rgba(144, 144, 144, .075);
 
   /*
   DARK THEME
@@ -22,7 +22,6 @@
   --primary-color: #48D1AF;
   --secondary-color: rgba(119, 147, 125, .1);
   --primary-color-hover: #3FB597;
-  --white-hover: #F9F9F9;
   --primary-grey: #D9D9D9;
   --loader-background: rgba(119, 147, 125, .3);
   --theme-base-color: #000;
@@ -74,23 +73,19 @@ a:hover {
   color: var(--primary-color-hover);
 }
 
-.list-group-item {
-  background: #fcfcfc;
-}
-
 /* HOVER */
 
 .hover-pointer:hover {
   cursor: pointer;
 }
 
-.white-hover, .primary-hover, .secondary-hover  {
+.base-hover, .primary-hover, .secondary-hover  {
   transition: .2s;
 }
 
-.white-hover:hover {
+.base-hover:hover {
   cursor: pointer;
-  background: var(--white-hover)!important;
+  background: var(--theme-base-color-hover)!important;
 }
 
 .primary-hover:hover {
@@ -151,7 +146,7 @@ a:hover {
 }
 
 .view-more-select li:hover {
-  background: var(--white-hover);
+  background: var(--theme-base-color-hover);
   cursor: pointer;
 }
 
@@ -248,19 +243,19 @@ a:hover {
 /* BORDER */
 
 .b-bottom {
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color)!important;
 }
 
 .b-top {
-  border-top: 1px solid var(--border-color);
+  border-top: 1px solid var(--border-color)!important;
 }
 
 .b-left {
-  border-left: 1px solid var(--border-color);
+  border-left: 1px solid var(--border-color)!important;
 }
 
 .b-right {
-  border-right: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color)!important;
 }
 
 
@@ -319,7 +314,7 @@ a:hover {
 }
 
 .btn-grey:hover {
-  background: var(--white-hover);
+  background: var(--theme-base-color-hover);
 }
 
 .btn-primary:focus, .btn-secondary:focus, .btn-grey:focus {
