@@ -3,7 +3,7 @@
     top: 0;
     height: 100vh;
     width: 21.5vw;
-    background: #fcfdfc;
+    background: var(--fixed-components-background);
     padding: 30px 0;
     border-right: 1px solid var(--border-color);
 }

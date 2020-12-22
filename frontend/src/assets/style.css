@@ -1,14 +1,32 @@
 :root {
-  --primary-color: #48D1AF;
-  --secondary-color: #EFFFF0;
-  --primary-color-hover: #3FB597;
-  --white-hover: #F9F9F9;
   --border-color: #e6e6e6;
   --body-background: #f3f3f3;
-  --primary-grey: #363636;
+  --fixed-components-background: #fcfdfc;
   --heart-color: #E0245E;
   --heart-background-hover: #F5E2E8;
-  --loader-background: #D2ECFC;
+  --primary-color: #48D1AF;
+  --secondary-color: rgba(119, 147, 125, .1);
+  --primary-color-hover: #3FB597;
+  --white-hover: #F9F9F9;
+  --primary-grey: #363636;
+  --loader-background: rgba(119, 147, 125, .3);
+  --theme-base-color: #fff;
+
+  /*
+  DARK THEME
+  --border-color: #323232;
+  --body-background: #131313;
+  --fixed-components-background: #000;
+  --heart-color: #E0245E;
+  --heart-background-hover: #F5E2E8;
+  --primary-color: #48D1AF;
+  --secondary-color: rgba(119, 147, 125, .1);
+  --primary-color-hover: #3FB597;
+  --white-hover: #F9F9F9;
+  --primary-grey: #D9D9D9;
+  --loader-background: rgba(119, 147, 125, .3);
+  --theme-base-color: #000;
+  */
 
   --header-heigth: 12vh;
 }
@@ -34,6 +52,7 @@ html {
 
 body {
   background: var(--body-background);
+  color: var(--primary-grey);
 }
 
 btn, input {
@@ -86,7 +105,7 @@ a:hover {
   transition: .2s;
 }
 
-/* UTILS */
+/* GENERAL UTILS */
 
 .word-break {
   text-align: start;
@@ -210,7 +229,7 @@ a:hover {
   align-items: center;
   top: 0;
   padding: 20px 16% 20px 20px;
-  background: #fcfdfc;
+  background: var(--fixed-components-background);
   color: #000;
   font-size: 1.2rem;
   border-bottom: 1px solid var(--border-color);

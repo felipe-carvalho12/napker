@@ -32,13 +32,13 @@ export default function Sidebar() {
                 <Link to="/home" style={{ textDecoration: 'none' }}>
                     <li className="sidebar-menu-item" id="home-menu" onClick={switchPage}>
                         <i className="fas fa-home sidebar-menu-icon" />
-                        Home
+                        <span>Home</span>
                     </li>
                 </Link>
                 <Link to="/notificações" style={{ textDecoration: 'none' }}>
                     <li className="sidebar-menu-item" id="notifications-menu" onClick={switchPage}>
                         <i className="fas fa-bell sidebar-menu-icon" />
-                        Notificações
+                        <span>Notificações</span>
                         {!notificationsNumber ? '' :
                             <div className="notification-text-container">
                                 <div className="notification-text">
@@ -51,7 +51,7 @@ export default function Sidebar() {
                 <Link to="/mensagens" style={{ textDecoration: 'none' }}>
                     <li className="sidebar-menu-item" id="messages-menu" onClick={switchPage}>
                         <i className="fas fa-envelope sidebar-menu-icon" />
-                        Mensagens
+                        <span>Mensagens</span>
                         {!unreadMessagesNumber ? '' :
                             <div className="notification-text-container">
                                 <div className="notification-text">
@@ -64,13 +64,13 @@ export default function Sidebar() {
                 <Link to="/perfil" style={{ textDecoration: 'none' }}>
                     <li className="sidebar-menu-item" id="profile-menu" onClick={switchPage}>
                         <i className="fas fa-user sidebar-menu-icon" />
-                        Perfil
+                        <span>Perfil</span>
                     </li>
                 </Link>
                 <Link to="/configurações" style={{ textDecoration: 'none' }}>
                     <li className="sidebar-menu-item" id="settings-menu" onClick={switchPage}>
                         <i className="fas fa-cog sidebar-menu-icon" />
-                        Configurações
+                        <span>Configurações</span>
                     </li>
                 </Link>
             </ul>
