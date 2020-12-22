@@ -37,9 +37,9 @@
 
 .sidebar .logo-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
+    justify-content: start;
+    align-items: start;
+    padding: 15px 50px;
 }
 
 .sidebar ul li .fas {

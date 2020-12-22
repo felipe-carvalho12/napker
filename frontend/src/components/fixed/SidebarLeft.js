@@ -25,7 +25,7 @@ export default function Sidebar() {
         <div className="sidebar" style={{ left: '0' }}>
             <div className="logo-container">
                 <Link to="/home" style={{ textDecoration: 'none'}} onClick={e => switchPage(e, true)}>
-                    <img src={`${SERVER_URL}${LOGO_URL}`} style={{ width: '300px'}} />
+                    <img src={`${SERVER_URL}${LOGO_URL}`} style={{ width: '50px'}} />
                 </Link>
             </div>
             <ul>

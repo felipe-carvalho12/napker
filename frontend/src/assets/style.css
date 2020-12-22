@@ -1,13 +1,14 @@
 :root {
-  --primary-color: #48D1AF;
-  --secondary-color: #EFFFF0;
-  --primary-color-hover: #3FB597;
+  --primary-color: black;
+  --secondary-color: #EFEFEF;
+  --primary-color-hover: #3a3a3a;
   --white-hover: #F9F9F9;
   --border-color: #e6e6e6;
   --body-background: #f3f3f3;
   --primary-grey: #363636;
   --heart-color: #E0245E;
   --heart-background-hover: #F5E2E8;
+  --loader-background: #9a9a9a;
 
   --header-heigth: 12vh;
 }
@@ -154,7 +155,7 @@ a:hover {
   width: 28px;
   height: 28px;
   background: rgba(0, 0, 0, 0);
-  border: 4px solid #D2ECFC;
+  border: 4px solid var(--loader-background);
   border-top: 4px solid var(--primary-color);
   border-radius: 50%;
   animation: spin 0.7s linear infinite;
