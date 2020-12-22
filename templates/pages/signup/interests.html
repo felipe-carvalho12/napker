@@ -22,7 +22,7 @@
                     <form action="{% url 'interests' %}" class="form_horizontal" method="POST">{% csrf_token %}
                         <input type="hidden" name="uid" value="{{ user.pk }}">
                         <div class="form_icon">
-                            <img src="{% static 'media/favicon.png' %}">
+                            <img src="{% static 'media/favicon.png' %}" style="width: 50px">
                         </div>
                         <div class="title">Quais os seus principais interesses?</div>
                         {% if message %}

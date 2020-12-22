@@ -21,7 +21,7 @@
                 <div class="col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6">
                     <form action="{% url 'login' %}" class="form_horizontal" method="POST">{% csrf_token %}
                         <div class="form_icon">
-                            <img src="{% static 'media/favicon.png' %}">
+                            <img src="{% static 'media/favicon.png' %}" style="width: 50px">
                         </div>
                         <div class="title">Entrar no Napker</div>
                         {% if message %}
