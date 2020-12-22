@@ -25,14 +25,21 @@ import PostFormPage from './pages/PostFormPage'
 import EditProfileProvider from './context/edit-profile/EditProfileContext'
 
 export default function App() {
-    const [invitesReceivedNumber, setInvitesReceived] = useContext(InvitesReceivedContext)
-    const [unvisualizedCommentsNumber, setUnvisulaizedComments] = useContext(UnvisualizedCommentsContext)
-    const [unvisualizedLikesNumber, setUnvisulaizedLikes] = useContext(UnvisualizedLikesContext)
+    const [, setInvitesReceived] = useContext(InvitesReceivedContext)
+    const [, setUnvisulaizedComments] = useContext(UnvisualizedCommentsContext)
+    const [, setUnvisulaizedLikes] = useContext(UnvisualizedLikesContext)
 
-    const [unreadMessagesNumber, setUnreadMessagesNumber] = useContext(UnreadMessagesContext)
+    const [, setUnreadMessagesNumber] = useContext(UnreadMessagesContext)
 
-    // global input event listener
+    // global event listeners
     document.addEventListener('input', onExpandableTextareaInput)
+    document.addEventListener('click', e => {
+        if (!e.target.classList.contains('view-more-select') && !e.target.classList.contains('view-more-icon')) {
+            document.querySelectorAll('.view-more-select').forEach(el => {
+                el.style.display = 'none'
+            })
+        }
+    })
 
     useEffect(() => {
         updateNotificationsNumber()

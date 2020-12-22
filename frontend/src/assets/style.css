@@ -115,8 +115,19 @@ a:hover {
   background: #fff;
 }
 
+.view-more-select li:first-of-type{
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.view-more-select li:last-of-type {
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
 .view-more-select li {
   padding: 15px;
+  border-bottom: 1px solid rgba(0, 0, 0, .1);
 }
 
 .view-more-select li:hover {

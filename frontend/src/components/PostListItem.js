@@ -36,15 +36,14 @@ export default function PostListItem(props) {
         }
     }
 
-    const openCloseExtraOptions = () => {
-        const el = document.querySelector('#post-view-more-select')
+    const openCloseExtraOptions = (e, postId) => {
+        e.stopPropagation()
+        const el = document.querySelector(`#post-view-more-select-${postId}`)
         const style = el.style
         if (!style.display) style.display = 'none'
         if (style.display === 'none') {
-            document.querySelector('#view-more-icon').classList.add('view-more-icon-active')
             style.display = 'flex'
         } else {
-            document.querySelector('#view-more-icon').classList.remove('view-more-icon-active')
             style.display = 'none'
         }
     }
@@ -108,14 +107,35 @@ export default function PostListItem(props) {
                         </Link>
                     </div>
                     <i
-                        className="fas fa-ellipsis-h d-flex justify-content-center align-items-center text-secondary secondary-hover"
+                        className="fas fa-ellipsis-h d-flex justify-content-center align-items-center text-secondary secondary-hover view-more-icon"
+                        id={`post-view-more-icon-${post.id}`}
                         style={{ textDecoration: 'none', width: '30px', height: '30px', borderRadius: '30px' }}
-                        onClick={e => deletePost(e, post.id)}
+                        onClick={e => openCloseExtraOptions(e, post.id)}
                     />
                 </div>
-                <div className="d-flex flex-column">
-                    <div className="view-more-select" id="post-view-more-select">
-                        <div className="popover-arrow" style={{ top: '-9px', left: '30%' }} />
+                <div className="d-flex flex-column position-relative">
+                    <div className="view-more-select" id={`post-view-more-select-${post.id}`} style={{ right: '0%' }}>
+                        <div className="popover-arrow" style={{ top: '-9px', right: '8%' }} />
+                        {myProfile.id === post.author.id ?
+                            <li
+                                style={{ color: '#f00' }}
+                                onClick={e => deletePost(e, post.id)}
+                            >
+                                <i class="fas fa-trash" />
+                                Excluir
+                            </li>
+                            :
+                            <>
+                                <li>
+                                    <i class="fas fa-exclamation-triangle text-secondary" />
+                                    Denunciar fake news
+                                </li>
+                                <li>
+                                    <i class="fas fa-exclamation-circle text-secondary" />
+                                    Denunciar conteúdo impróprio
+                                </li>
+                            </>
+                        }
                     </div>
                     <div className="d-flex justify-content-start word-break">
                         {post.content}
