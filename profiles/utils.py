@@ -10,7 +10,7 @@ def get_author_relevance(profile, author):
 
     if author.user in profile.friends.all(): is_friend_boolean = 1
 
-    age_points = datetime.date.toordinal(year = 100) - abs(datetime.date.toordinal(profile.birth_date) - datetime.date.toordinal(author.birth_date))
+    age_points = datetime.date(2200, 1, 1).toordinal() - abs(datetime.date.toordinal(profile.birth_date) - datetime.date.toordinal(author.birth_date))
 
     friends_points = len(set(profile.friends.all()).intersection(author.friends.all()))
 
@@ -30,11 +30,7 @@ def process_authors_relevance(profile, authors):
 
     authors_relevance = np.vstack(tuple(get_author_relevance(profile, author) for author in authors))
 
-    print(authors_relevance)
-
     authors_relevance = np.sum(np.array([np.true_divide(authors_relevance.T[i], (np.amax(column) if np.amax(column) else 1) / WEIGHTS[i]) for i, column in enumerate(authors_relevance.T)]), axis=0)
-
-    print(authors_relevance)
     
     authors_relevance_list = list(zip(authors, authors_relevance))
 
@@ -45,13 +41,11 @@ def get_profile_list(profile):
     profiles = []
 
     for p in Profile.objects.exclude(user=profile.user):
-        '''
         if p.user in profile.blocked_users.all(): continue
         if p.user in profile.friends.all(): continue
-        if profile.user in p.blocked_users.all(): continue
-        if p in [i.receiver for i in Relationship.objects.invitations_sent(profile)]: continue
+        if profile.user.id in p.blocked_users.all(): continue
+        if p.id in [i.receiver for i in Relationship.objects.invitations_sent(profile)]: continue
         if p in [i.sender for i in Relationship.objects.invitations_received(profile)]: continue
-        '''
         profiles.append(p)
 
     profiles = process_authors_relevance(profile, profiles)
