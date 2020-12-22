@@ -6,7 +6,7 @@ from profiles.utils import *
 
 def get_post_relevance(profile, post):
 
-    views_authors = process_authors_relevance(profile, list(post.views.exclude(user=profile.user)))
+    views_authors = process_authors_relevance(profile, post.views.exclude(user=profile.user).all() if len(post.views.exclude(user=profile.user).all()) else [profile])
 
     likes_authors = [like.profile for like in post.all_likes().all()]
 
