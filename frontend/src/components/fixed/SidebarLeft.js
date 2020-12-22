@@ -9,11 +9,11 @@ import {
 } from '../../context/app/AppContext'
 
 export default function Sidebar() {
-    const [invitesReceivedNumber, setInvitesReceived] = useContext(InvitesReceivedContext)
-    const [unvisualizedCommentsNumber, setUnvisulaizedComments] = useContext(UnvisualizedCommentsContext)
-    const [unvisualizedLikesNumber, setUnvisulaizedLikes] = useContext(UnvisualizedLikesContext)
+    const [invitesReceivedNumber, ] = useContext(InvitesReceivedContext)
+    const [unvisualizedCommentsNumber, ] = useContext(UnvisualizedCommentsContext)
+    const [unvisualizedLikesNumber, ] = useContext(UnvisualizedLikesContext)
 
-    const [unreadMessagesNumber, setUnreadMessagesNumber] = useContext(UnreadMessagesContext)
+    const [unreadMessagesNumber, ] = useContext(UnreadMessagesContext)
 
     let notificationsNumber = invitesReceivedNumber + unvisualizedLikesNumber + unvisualizedCommentsNumber
 
@@ -25,7 +25,7 @@ export default function Sidebar() {
         <div className="sidebar" style={{ left: '0' }}>
             <div className="logo-container">
                 <Link to="/home" style={{ textDecoration: 'none'}} onClick={e => switchPage(e, true)}>
-                    <img src={`${SERVER_URL}${LOGO_URL}`} style={{ width: '300px'}} />
+                    <img src={`${SERVER_URL}${LOGO_URL}`} style={{ width: '220px'}} />
                 </Link>
             </div>
             <ul>
