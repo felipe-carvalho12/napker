@@ -123,7 +123,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border-bottom: 1px solid var(--border-color);
 }
 
 .profile-page-menu .profile-page-menu-item:hover {
@@ -134,7 +133,7 @@
 
 .profile-page-menu .profile-page-menu-item-active {
     color: var(--primary-color);
-    border-bottom: 2px solid var(--primary-color);
+    border-bottom-color: var(--primary-color)!important;
 }
 
 .edit-profile-input {

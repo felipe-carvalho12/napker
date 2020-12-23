@@ -25,7 +25,7 @@ export default function HomePageMenu(props) {
 
     return (
         <div className="home-page-menu">
-            <div className="home-menu-btn-container home-menu-btn-container-active feed">
+            <div className="home-menu-btn-container b-bottom home-menu-btn-container-active b-right feed">
                 <button
                     type="button"
                     className="btn btn-primary"
@@ -37,7 +37,7 @@ export default function HomePageMenu(props) {
                     <i class="fas fa-home ml-1 mr-1" />
                 </button>
             </div>
-            <div className="home-menu-btn-container profiles">
+            <div className="home-menu-btn-container b-bottom b-right profiles">
                 <button
                     type="button"
                     className="btn btn-primary"
@@ -49,7 +49,7 @@ export default function HomePageMenu(props) {
                     <i class="fas fa-user-friends ml-1 mr-1" />
                 </button>
             </div>
-            <div className="home-menu-btn-container explore">
+            <div className="home-menu-btn-container b-bottom b-right explore">
                 <button
                     type="button"
                     className="btn btn-primary"
@@ -61,7 +61,7 @@ export default function HomePageMenu(props) {
                     <i class="fas fa-search ml-1 mr-1" />
                 </button>
             </div>
-            <div className="home-menu-btn-container trending">
+            <div className="home-menu-btn-container b-bottom trending">
                 <button
                     type="button"
                     className="btn btn-primary"
