@@ -86,7 +86,7 @@ a:hover {
   cursor: pointer;
 }
 
-.base-hover, .primary-hover, .secondary-hover  {
+.primary-hover, .secondary-hover  {
   transition: .2s;
 }
 

@@ -17,9 +17,47 @@ export default function Sidebar() {
 
     let notificationsNumber = invitesReceivedNumber + unvisualizedLikesNumber + unvisualizedCommentsNumber
 
+    let theme = 'light'
+
     useEffect(() => {
         getActivePageOnLoad()
     }, [])
+
+    const switchTheme = () => {
+        const cssVariables = document.documentElement.style
+        theme = theme === 'light' ? 'dark' : 'light'
+
+        if (theme === 'light') {
+            cssVariables.setProperty('--border-color', '#f3f3f3')
+            cssVariables.setProperty('--background', '#f3f3f3')
+            cssVariables.setProperty('--fixed-components-background', '#fcfdfc')
+            cssVariables.setProperty('--heart-color', '#E0245E')
+            cssVariables.setProperty('--heart-background-hover', '#F5E2E8')
+            cssVariables.setProperty('--primary-color', '#48D1AF')
+            cssVariables.setProperty('--secondary-color', 'rgba(119, 147, 125, .1)')
+            cssVariables.setProperty('--primary-color-hover', '#3FB597')
+            cssVariables.setProperty('--primary-grey', '#363636')
+            cssVariables.setProperty('--loader-background', 'rgba(119, 147, 125, .3)')
+            cssVariables.setProperty('--theme-base-color', '#fff')
+            cssVariables.setProperty('--theme-base-color-hover', 'rgba(128, 128, 128, .01)')
+            cssVariables.setProperty('--view-more-select-border', 'rgba(0, 0, 0, .2)')
+
+        } else if (theme === 'dark') {
+            cssVariables.setProperty('--border-color', '#131313')
+            cssVariables.setProperty('--background', '#131313')
+            cssVariables.setProperty('--fixed-components-background', '#000')
+            cssVariables.setProperty('--heart-color', '#E0245E')
+            cssVariables.setProperty('--heart-background-hover', '#F5E2E8')
+            cssVariables.setProperty('--primary-color', '#48D1AF')
+            cssVariables.setProperty('--secondary-color', 'rgba(119, 147, 125, .1)')
+            cssVariables.setProperty('--primary-color-hover', '#3FB597')
+            cssVariables.setProperty('--primary-grey', '#D9D9D9')
+            cssVariables.setProperty('--loader-background', 'rgba(119, 147, 125, .3)')
+            cssVariables.setProperty('--theme-base-color', '#000')
+            cssVariables.setProperty('--theme-base-color-hover', 'rgba(128, 128, 128, .01)')
+            cssVariables.setProperty('--view-more-select-border', 'rgba(255, 255, 255, .2)')
+        }
+    }
 
     return (
         <div className="sidebar" style={{ left: '0' }}>
@@ -75,6 +113,17 @@ export default function Sidebar() {
                         </li>
                     </Link>
                 </ul>
+            </div>
+            <div class="d-flex justify-content-start sidebar-menu-item">
+                <div class="one-quarter" id="switch">
+                    <input type="checkbox" class="checkbox" id="chk" onChange={switchTheme} />
+                    <label class="label m-0" for="chk">
+                        <i class="fas fa-sun"></i>
+                        <i class="fas fa-moon"></i>
+                        <div class="ball"></div>
+                    </label>
+                </div>
+                <span style={{ marginLeft: '10px' }}>Tema</span>
             </div>
         </div>
     )

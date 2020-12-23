@@ -18,10 +18,4 @@ import './assets/responsivity.css'
 import AppContextProvider from './context/app/AppContext'
 import App from './App'
 
-document.addEventListener('DOMContentLoaded', () => {
-    const style = getComputedStyle(document.body)
-    console.log(style.getPropertyValue('--primary-color'))
-    //document.documentElement.style.setProperty('--primary-color', '#f00')
-})
-
 ReactDOM.render((<AppContextProvider><App /></AppContextProvider>), document.querySelector('#root'))
