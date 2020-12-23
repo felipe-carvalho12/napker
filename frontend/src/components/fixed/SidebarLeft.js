@@ -17,20 +17,23 @@ export default function Sidebar() {
 
     let notificationsNumber = invitesReceivedNumber + unvisualizedLikesNumber + unvisualizedCommentsNumber
 
-    let theme = window.localStorage.getItem('theme') ? window.localStorage.getItem('theme') : 'light'
+    let theme = window.localStorage.getItem('theme') || 'light'
 
 
     useEffect(() => {
+        document.getElementById('chk').checked = theme === 'dark'
         getActivePageOnLoad()
+        getTheme()
     }, [])
 
-    useEffect(() => {
-        window.localStorage.setItem('theme', theme)
-    }, [theme])
-
     const switchTheme = () => {
-        const cssVariables = document.documentElement.style
         theme = theme === 'light' ? 'dark' : 'light'
+        getTheme()
+        window.localStorage.setItem('theme', theme)
+    }
+
+    const getTheme = () => {
+        const cssVariables = document.documentElement.style
 
         if (theme === 'light') {
             cssVariables.setProperty('--border-color', '#f3f3f3')

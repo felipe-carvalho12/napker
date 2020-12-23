@@ -54,7 +54,7 @@
         background: initial;
     }
     .post-actions .far:hover {
-        color: #6c757d;
+        color: var(--text-secondary);
     }
     .profile-page-menu .profile-page-menu-item:hover {
         background: initial;
