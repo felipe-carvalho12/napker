@@ -27,7 +27,9 @@
   --theme-base-color: #000;
   */
 
-  --header-heigth: 12vh;
+  --header-heigth: 8vh;
+  --left-sidebar-padding-left: 50px;
+  --right-sidebar-padding-right: 50px; 
 }
 
 * {
@@ -225,7 +227,7 @@ a:hover {
   top: 0;
   padding: 20px 16% 20px 20px;
   background: var(--fixed-components-background);
-  color: #000;
+  color: var(--primary-grey);
   font-size: 1.2rem;
   border-bottom: 1px solid var(--border-color);
 }

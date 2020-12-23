@@ -58,7 +58,7 @@ export default function PostForm(props) {
             <input type="hidden" name="csrfmiddlewaretoken" value={csrftoken} />
             <input type="hidden" name="hashtags" value={hashtags} />
             <input type="hidden" name="tagged-usernames" value={taggedUsers} />
-            
+
             <div className="d-flex">
                 <Link to="/perfil">
                     <img
@@ -67,8 +67,7 @@ export default function PostForm(props) {
                     />
                 </Link>
                 <textarea
-                    className="post-content-textarea"
-                    class='autoExpand'
+                    className='autoExpand'
                     rows='3'
                     data-min-rows='3'
                     name="post-content"
@@ -76,6 +75,7 @@ export default function PostForm(props) {
                     placeholder="O que passa pela sua cabeça?"
                     maxLength={300}
                     autoFocus
+                    style={{ color: 'var(--primary-grey)', background: 'var(--theme-base-color)' }}
                     onChange={handlePostContentChange}
                 />
             </div>

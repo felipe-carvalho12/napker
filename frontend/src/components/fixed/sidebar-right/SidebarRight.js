@@ -13,12 +13,12 @@ export default function SidebarRight(props) {
 
     const pages = {
         'home': <HomeSidebar />,
-        'perfil': <ProfileSidebar parentsProps={props} />, // doing it to rerender the profile sidebar on props change... otherwise it wouldn't update
+        'perfil': <ProfileSidebar parentsProps={props} />, // passing parent props to rerender the profile sidebar on props change... otherwise it wouldn't update
         'user': <ProfileSidebar parentsProps={props} />,
     }
 
     return (
-        <div className="sidebar p-0 b-left" style={{ right: '0' }}>
+        <div className="sidebar b-left" style={{ right: '0', paddingRight: 'var(--right-sidebar-padding-right)' }}>
             {pages[page]}
         </div>
     )

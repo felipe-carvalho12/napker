@@ -5,25 +5,13 @@
     max-height: 100%;
     margin-top: 15px;
     border-radius: 20px;
+    border: 1px solid var(--border-color);
 }
 
 .create-post-form {
     background: var(--theme-base-color);
     padding: 15px 15px 10px 15px;
     margin-bottom: 15px;
-}
-
-.post-content-textarea {
-    color: var(--primary-grey);
-    border: none;
-    font-size: large;
-    width: 100%;
-    padding: 15px;
-    background: var(--theme-base-color);
-}
-
-.post-content-textarea:focus {
-    outline: none;
 }
 
 .post-img-container {

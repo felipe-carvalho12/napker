@@ -4,7 +4,7 @@
 
 .mobile-home-menu, .desktop-home-menu , .home-page-menu{
     position: sticky;
-    top: 12vh;
+    top: var(--header-heigth);
     z-index: 1031;
 }
 
@@ -54,10 +54,9 @@
     background: var(--primary-color-hover);
 }
 
-/* FEED SETTINGS MODAL */
+/* ALGORITHM SETTINGS */
 
 .range {
-	background: #fff;
 	height: 2rem;
 	width: 100%;
 	border-radius: 5rem;
@@ -96,7 +95,7 @@ input[type="range"]::-webkit-slider-thumb {
 input[type="range"]::-webkit-slider-runnable-track {
     width: 100%;
     height: 9px;
-    background: #e6e8e6;
+    background: var(--secondary-color);
     border-radius: 3rem;
 
     transition: all 0.5s;

@@ -9,11 +9,11 @@ import {
 } from '../../context/app/AppContext'
 
 export default function Sidebar() {
-    const [invitesReceivedNumber, ] = useContext(InvitesReceivedContext)
-    const [unvisualizedCommentsNumber, ] = useContext(UnvisualizedCommentsContext)
-    const [unvisualizedLikesNumber, ] = useContext(UnvisualizedLikesContext)
+    const [invitesReceivedNumber,] = useContext(InvitesReceivedContext)
+    const [unvisualizedCommentsNumber,] = useContext(UnvisualizedCommentsContext)
+    const [unvisualizedLikesNumber,] = useContext(UnvisualizedLikesContext)
 
-    const [unreadMessagesNumber, ] = useContext(UnreadMessagesContext)
+    const [unreadMessagesNumber,] = useContext(UnreadMessagesContext)
 
     let notificationsNumber = invitesReceivedNumber + unvisualizedLikesNumber + unvisualizedCommentsNumber
 
@@ -22,10 +22,10 @@ export default function Sidebar() {
     }, [])
 
     return (
-        <div className="sidebar" style={{ left: '0' }}>
+        <div className="sidebar" style={{ left: '0', paddingLeft: 'var(--left-sidebar-padding-left)' }}>
             <div className="logo-container">
-                <Link to="/home" style={{ textDecoration: 'none'}} onClick={e => switchPage(e, true)}>
-                    <img src={`${SERVER_URL}${LOGO_URL}`} style={{ width: '50px'}} />
+                <Link to="/home" style={{ textDecoration: 'none' }} onClick={e => switchPage(e, true)}>
+                    <img src={`${SERVER_URL}${LOGO_URL}`} style={{ width: '25px' }} />
                 </Link>
             </div>
             <ul>

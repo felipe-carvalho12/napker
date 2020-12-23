@@ -4,30 +4,18 @@
     height: 100vh;
     width: 21.5vw;
     background: var(--fixed-components-background);
-    padding: 30px 0;
     border-right: 1px solid var(--border-color);
 }
 
-.sidebar h5, .sidebar h4 {
-    color:  var(--primary-grey);
-}
-
-.sidebar h5 {
-    font-size: 1rem;
-}
-
-.sidebar ul {
-    padding: 15px;
-}
-
 .sidebar ul li {
+    width: fit-content;
     color: var(--primary-grey);
     font-size: 1rem;
     font-weight: bold;
     display: block;
-    margin: 0 30px;
-    padding: 15px 10px;
-    border-radius: 20px;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 30px;
 }
 
 .sidebar ul li .sidebar-menu-icon {
@@ -38,8 +26,9 @@
 .sidebar .logo-container {
     display: flex;
     justify-content: start;
-    align-items: start;
-    padding: 15px 50px;
+    align-items: center;
+    height: var(--header-heigth);
+    margin-left: 10px;
 }
 
 .sidebar ul li .fas {
