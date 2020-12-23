@@ -1,6 +1,6 @@
 :root {
   --border-color: #e6e6e6;
-  --body-background: #f3f3f3;
+  --background: #f3f3f3;
   --fixed-components-background: #fcfdfc;
   --heart-color: #E0245E;
   --heart-background-hover: #F5E2E8;
@@ -15,7 +15,7 @@
   /*
   DARK THEME
   --border-color: #323232;
-  --body-background: #131313;
+  --background: #131313;
   --fixed-components-background: #000;
   --heart-color: #E0245E;
   --heart-background-hover: #F5E2E8;
@@ -28,8 +28,8 @@
   */
 
   --header-heigth: 8vh;
-  --left-sidebar-padding-left: 50px;
-  --right-sidebar-padding-right: 50px; 
+  --sidebar-width: 15vw;
+  --main-content-width: 57vw;
 }
 
 * {
@@ -52,8 +52,10 @@ html {
 }
 
 body {
-  background: var(--body-background);
+  background: var(--fixed-components-background);
   color: var(--primary-grey);
+  display: flex;
+  justify-content: center;
 }
 
 btn, input {
@@ -210,12 +212,15 @@ a:hover {
 /* DOCUMENT MAIN STRUCTURE */
 
 .wrapper {
+  position: relative;
   display: flex;
   justify-content: center;
+  width: fit-content;
+  background: var(--background);
 }
 
 .wrapper .main-content {
-  width: 57vw;
+  width: var(--main-content-width);
   height: 100%;
 }
 
