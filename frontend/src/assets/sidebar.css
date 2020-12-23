@@ -91,9 +91,9 @@
 }
 
 .sidebar .fa-moon {
-	color: #f1c40f;
+	color: var(--theme-base-color);
 }
 
 .sidebar .fa-sun {
-	color: #f39c12;
+	color: var(--background);
 }
