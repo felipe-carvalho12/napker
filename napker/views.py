@@ -68,9 +68,9 @@ def signup_view(request):
 
         if password != passwordc:
             return render(request, 'pages/signup/signup.html', {'message': 'As senhas devem ser iguais!'})
-        if list(User.objects.filter(username=username)) != []:
+        if User.objects.filter(username=username).exists():
             return render(request, 'pages/signup/signup.html', {'message': 'Nome de usuário já existe!'})
-        if list(Profile.objects.filter(email=email, user__is_active=True)) != []:
+        if Profile.objects.filter(email=email, user__is_active=True).exists():
             return render(request, 'pages/signup/signup.html', {'message': 'Email já utilizado!'})
 
         try:
