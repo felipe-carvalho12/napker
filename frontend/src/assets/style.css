@@ -41,6 +41,7 @@
   list-style: none;
   text-decoration: none;
   font-family: 'Asap', sans-serif;
+  transition: .2;
 }
 
 @keyframes spin {

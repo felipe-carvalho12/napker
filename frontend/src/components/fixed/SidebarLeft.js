@@ -17,11 +17,16 @@ export default function Sidebar() {
 
     let notificationsNumber = invitesReceivedNumber + unvisualizedLikesNumber + unvisualizedCommentsNumber
 
-    let theme = 'light'
+    let theme = window.localStorage.getItem('theme') ? window.localStorage.getItem('theme') : 'light'
+
 
     useEffect(() => {
         getActivePageOnLoad()
     }, [])
+
+    useEffect(() => {
+        window.localStorage.setItem('theme', theme)
+    }, [theme])
 
     const switchTheme = () => {
         const cssVariables = document.documentElement.style
