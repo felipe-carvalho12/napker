@@ -10,4 +10,4 @@ __pycache__
 #node_modules
 
 # db
-db.sqlite3
+#db.sqlite3
