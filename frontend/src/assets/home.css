@@ -25,6 +25,10 @@
     border-right: 1px solid var(--border-color);
 }
 
+.home-page-menu .home-menu-btn-container:last-of-type {
+    border: none;
+}
+
 .home-page-menu .home-menu-btn-container-active {
     border-bottom: 2px solid var(--primary-color);
 }

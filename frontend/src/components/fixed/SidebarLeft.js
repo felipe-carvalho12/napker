@@ -22,7 +22,7 @@ export default function Sidebar() {
     }, [])
 
     return (
-        <div className="sidebar b-right" style={{ left: '0' }}>
+        <div className="sidebar" style={{ left: '0' }}>
             <div>
                 <div className="logo-container">
                     <Link to="/home" style={{ textDecoration: 'none' }} onClick={e => switchPage(e, true)}>

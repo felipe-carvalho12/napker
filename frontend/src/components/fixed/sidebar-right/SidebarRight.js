@@ -18,7 +18,7 @@ export default function SidebarRight(props) {
     }
 
     return (
-        <div className="sidebar b-left" style={{ right: '0' }}>
+        <div className="sidebar" style={{ right: '0' }}>
             {pages[page]}
         </div>
     )
