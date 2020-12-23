@@ -72,10 +72,10 @@ export default function PostListItem(props) {
 
     return (
         <li
-            className="d-flex w-100 base-hover hide-animation"
+            className="d-flex w-100 base-hover hide-animation b-bottom"
             id={`profile-post-${post.id}`}
             key={post.id}
-            style={{ padding: '5px 15px', background: 'var(--theme-base-color)', borderBottom: '1px solid var(--border-color)' }}
+            style={{ padding: '5px 15px', background: 'var(--theme-base-color)' }}
             onClick={() => window.location.href = `/post/${post.id}`}
         >
             <div className="d-flex flex-column h-100" style={{ marginRight: '10px' }}>
