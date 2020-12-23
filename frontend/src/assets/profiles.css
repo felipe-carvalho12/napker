@@ -38,7 +38,7 @@
     border: 1px solid var(--primary-color)!important;
 }
 
-img:hover, strong:hover {
+.profile-img-container:hover, .main-profile-data:hover {
     cursor: pointer;
     transform: scale(1.01);
 }

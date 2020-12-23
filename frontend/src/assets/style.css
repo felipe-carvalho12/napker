@@ -11,6 +11,7 @@
   --loader-background: rgba(119, 147, 125, .3);
   --theme-base-color: #fff;
   --theme-base-color-hover: rgba(128, 128, 128, .01);
+  --view-more-select-border: rgba(0, 0, 0, .2);
 
   /*
   DARK THEME
@@ -25,6 +26,7 @@
   --primary-grey: #D9D9D9;
   --loader-background: rgba(119, 147, 125, .3);
   --theme-base-color: #000;
+  --view-more-select-border: rgba(255, 255, 255, .2);
   */
 
   --header-heigth: 8vh;
@@ -117,11 +119,11 @@ a:hover {
   width: 15px;
   height: 15px;
   position: absolute;
-  border-top: 1px solid rgba(0, 0, 0, .2);
-  border-left: 1px solid rgba(0, 0, 0, .2);
+  border-top: 1px solid var(--view-more-select-border);
+  border-left: 1px solid var(--view-more-select-border);
   transform: rotate(45deg);
   z-index: 2;
-  background: white;
+  background: var(--theme-base-color);
 }
 
 .view-more-select {
@@ -129,10 +131,10 @@ a:hover {
   z-index: 1;
   display: none;
   flex-direction: column;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--view-more-select-border);
   border-radius: 10px;
   text-align: start;
-  background: #fff;
+  background: var(--theme-base-color);
 }
 
 .view-more-select li:first-of-type{
@@ -147,7 +149,7 @@ a:hover {
 
 .view-more-select li {
   padding: 15px;
-  border-bottom: 1px solid rgba(0, 0, 0, .1);
+  border-bottom: 1px solid var(--view-more-select-border);
 }
 
 .view-more-select li:hover {

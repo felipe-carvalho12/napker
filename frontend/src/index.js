@@ -18,4 +18,8 @@ import './assets/responsivity.css'
 import AppContextProvider from './context/app/AppContext'
 import App from './App'
 
+document.addEventListener('DOMContentLoaded', () => {
+    
+})
+
 ReactDOM.render((<AppContextProvider><App /></AppContextProvider>), document.querySelector('#root'))
