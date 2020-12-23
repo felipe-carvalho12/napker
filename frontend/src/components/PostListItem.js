@@ -8,6 +8,46 @@ export default function PostListItem(props) {
     const post = props.post
     const myProfile = props.myProfile
 
+    const likeUnlikePost = e => {
+        e.stopPropagation()
+        const likeBtn = e.target
+        if (likeBtn.classList.contains('fas')) {
+            likeBtn.classList.remove('fas') //border heart
+            likeBtn.classList.add('far')  //filled heart
+            fetch(`${SERVER_URL}/post-api/unlike-post/${likeBtn.dataset.postid}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    props.renderParent()
+                })
+        } else {
+            likeBtn.classList.remove('far') //border heart
+            likeBtn.classList.add('fas')  //filled heart
+            likeBtn.classList.add('animated')
+            likeBtn.onanimationend = () => {
+                likeBtn.classList.remove('animated')
+            }
+            fetch(`${SERVER_URL}/post-api/like-post/${likeBtn.dataset.postid}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    props.renderParent()
+                })
+        }
+    }
+
+    const openCloseExtraOptions = (e, postId) => {
+        e.stopPropagation()
+        const el = document.querySelector(`#post-view-more-select-${postId}`)
+        const style = el.style
+        if (!style.display) style.display = 'none'
+        if (style.display === 'none') {
+            style.display = 'flex'
+        } else {
+            style.display = 'none'
+        }
+    }
+
     const deletePost = (e, postId) => {
         e.stopPropagation()
         const el = document.querySelector(`#profile-post-${postId}`)
@@ -30,115 +70,120 @@ export default function PostListItem(props) {
         }
     }
 
-    const likeUnlikePost = e => {
-        e.stopPropagation()
-        const likeBtn = e.target
-        if (likeBtn.classList.contains('fas')) {
-            likeBtn.classList.remove('fas') //border heart
-            likeBtn.classList.add('far')  //filled heart
-            fetch(`${SERVER_URL}/post-api/unlike-post/${likeBtn.dataset.postid}`)
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data)
-                    props.renderParent()
-                })
-        } else {
-            likeBtn.classList.remove('far') //border heart
-            likeBtn.classList.add('fas')  //filled heart
-            fetch(`${SERVER_URL}/post-api/like-post/${likeBtn.dataset.postid}`)
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data)
-                    props.renderParent()
-                })
-        }
-    }
-
     return (
         <li
-            className="post-container post-list-item"
+            className="d-flex w-100 base-hover hide-animation b-bottom"
             id={`profile-post-${post.id}`}
             key={post.id}
+            style={{ padding: '5px 15px', background: 'var(--theme-base-color)' }}
             onClick={() => window.location.href = `/post/${post.id}`}
         >
-            <div className="d-flex justify-content-between">
-                <div className="post-row">
-                    <div className="post-col">
+            <div className="d-flex flex-column h-100" style={{ marginRight: '10px' }}>
+                <Link
+                    to={post.author.id === myProfile.id ?
+                        '/perfil' : `/user/${post.author.slug}`}
+                    onClick={e => e.stopPropagation()}
+                >
+                    <img src={`${SERVER_URL}${post.author.photo}`}
+                        className="profile-img-sm"
+                    />
+                </Link>
+            </div>
+            <div className="d-flex flex-column h-100 w-100" style={{ marginRight: '10px' }}>
+                <div className="d-flex justify-content-between w-100">
+                    <div>
                         <Link
-                            to={post.author.id === myProfile.id ?
-                                '/perfil' : `/user/${post.author.slug}`}
-                            onClick={e => e.stopPropagation()}
-                        >
-                            <img src={`${SERVER_URL}${post.author.photo}`}
-                                className="profile-img-med"
-                            />
-                        </Link>
-                    </div>
-                    <div className="post-col">
-                        <Link
-                            to={post.author.id === myProfile.id ?
-                                '/perfil' : `/user/${post.author.slug}`}
+                            to={post.author.id === myProfile.id ? '/perfil' : `/user/${post.author.slug}`}
+                            className="d-flex justify-content-start align-items-start post-author-data-wrapper"
                             style={{ color: '#000' }}
                             onClick={e => e.stopPropagation()}
                         >
-                            <div className="post-author-data-wrapper">
-                                <strong style={{ marginRight: '5px' }}>
-                                    {post.author.first_name} {post.author.last_name}
-                                </strong>
-                                <p className="text-secondary d-inline-block">
-                                    @{post.author.user.username} • {post.created.split('-').reverse().join('/')}
-                                </p>
-                            </div>
+                            <strong className="mr-2" style={{ color: 'var(--primary-grey)' }}>
+                                {post.author.first_name} {post.author.last_name}
+                            </strong>
+                            <p className="text-secondary">
+                                @{post.author.user.username} • {post.created.split('-').reverse().join('/')}
+                            </p>
                         </Link>
-                        <div style={{ textAlign: 'start' }}>
-                            {post.content}
-                        </div>
-                        {post.image &&
-                            <img src={`${SERVER_URL}${post.image}`} className="post-img" />
+                    </div>
+                    <i
+                        className="fas fa-ellipsis-h d-flex justify-content-center align-items-center text-secondary secondary-hover view-more-icon"
+                        id={`post-view-more-icon-${post.id}`}
+                        style={{ textDecoration: 'none', width: '30px', height: '30px', borderRadius: '30px' }}
+                        onClick={e => openCloseExtraOptions(e, post.id)}
+                    />
+                </div>
+                <div className="d-flex flex-column position-relative">
+                    <div className="view-more-select" id={`post-view-more-select-${post.id}`} style={{ right: '0%' }}>
+                        <div className="popover-arrow" style={{ top: '-9px', right: '8%' }} />
+                        {myProfile.id === post.author.id ?
+                            <li
+                                style={{ color: '#f00' }}
+                                onClick={e => deletePost(e, post.id)}
+                            >
+                                <i class="fas fa-trash" />
+                                Excluir
+                            </li>
+                            :
+                            <>
+                                <li>
+                                    <i class="fas fa-exclamation-triangle text-secondary" />
+                                    Denunciar fake news
+                                </li>
+                                <li>
+                                    <i class="fas fa-exclamation-circle text-secondary" />
+                                    Denunciar conteúdo impróprio
+                                </li>
+                            </>
                         }
                     </div>
-                </div>
-                {post.author.id === myProfile.id &&
-                    <i
-                        className="far fa-trash-alt trash-icon text-secondary"
-                        style={{ margin: '20px 20px 0 0' }}
-                        onClick={e => deletePost(e, post.id)}
-                    />
-                }
-            </div>
-            <div className="post-actions">
-                <p className="text-secondary">
-                    <Link
-                        to={`/post/${post.id}/comentar`}
-                        className="text-secondary"
-                        onClick={e => e.stopPropagation()}
-                    >
-                        <i
-                            class="far fa-comment"
-                        />{post.comments.length}
-                    </Link>
-                    {post.likes.map(like => like.profile.id).includes(myProfile.id) ?
-                        <i class="fas fa-heart"
-                            data-postid={post.id}
-                            onClick={likeUnlikePost}
-                        />
-                        :
-                        <i class="far fa-heart"
-                            data-postid={post.id}
-                            onClick={likeUnlikePost}
-                        />
+                    <div className="d-flex justify-content-start word-break">
+                        {post.content}
+                    </div>
+                    {post.image &&
+                        <div className="d-flex justify-content-start w-100">
+                            <img src={`${SERVER_URL}${post.image}`} className="post-img" />
+                        </div>
                     }
-                    <p className="post-likes-number"
-                        onClick={e => {
-                            e.stopPropagation()
-                            props.openLikesModal(post.likes)
-                        }
-                        }
-                    >
-                        {post.likes.length}
-                    </p>
-                </p>
+                    <div className="d-flex justify-content-start align-items-start text-secondary mt-2 mb-1">
+                        <Link
+                            to={`/post/${post.id}/comentar`}
+                            className="d-flex align-items-center text-secondary"
+                            style={{ outline: 'none', textDecoration: 'none' }}
+                            onClick={e => e.stopPropagation()}
+                        >
+                            <i
+                                class="far fa-comment mr-1"
+                            />
+                            <p style={{ margin: '0' }}>
+                                {post.comments.length}
+                            </p>
+                        </Link>
+                        <div className="d-flex align-items-center">
+                            {post.likes.map(like => like.profile.id).includes(myProfile.id) ?
+                                <i class="fas fa-heart expand-animation mr-1  ml-2"
+                                    data-postid={post.id}
+                                    onClick={likeUnlikePost}
+                                />
+                                :
+                                <i class="far fa-heart mr-1 ml-2"
+                                    data-postid={post.id}
+                                    onClick={likeUnlikePost}
+                                />
+                            }
+                            <p className="m-0 likes-number"
+                                onClick={e => {
+                                    e.stopPropagation()
+                                    props.openLikesModal(post.likes)
+                                }
+                                }
+                            >
+                                {post.likes.length}
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </li>
+        </li >
     )
 }

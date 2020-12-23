@@ -20,6 +20,7 @@ class Profile extends React.Component {
             currentPageIsPosts: true,
         }
         this.slug = this.props.match.params.slug
+        this.baseState = this.state
     }
 
     componentWillMount() {
@@ -27,33 +28,13 @@ class Profile extends React.Component {
     }
 
     componentDidMount() {
-        fetch(`${SERVER_URL}/profile-api/relationship/${this.slug}`)
-            .then(response => response.json())
-            .then(data => {
-                let label
-                switch (data.relationship) {
-                    case 'friends':
-                        label = 'Amigos'
-                        break
-                    case 'invite-sent':
-                        label = 'Solicitado'
-                        break
-                    case 'invite-received':
-                        label = 'Aceitar'
-                        break
-                    case 'none':
-                        label = 'Solicitar'
-                }
-                this.setState({
-                    relationshipButtonLabel: label
-                })
-            })
+        this.fetchRelationship()
     }
 
     componentDidUpdate() {
         let btn = document.querySelector('#profile-page-relationship-btn')
         if (btn) {
-            switch (btn.innerHTML) {
+            switch (btn.innerHTML, this.state.relationshipButtonLabel) {
                 case 'Amigos':
                     btn.classList.add('btn-primary')
                     btn.onmouseenter = () => {
@@ -78,6 +59,38 @@ class Profile extends React.Component {
                     btn.classList.remove('d-none')
             }
         }
+    }
+
+    componentWillReceiveProps(newProps) {
+        if (newProps === this.props) return
+        this.setState(this.baseState) //resetting state
+        this.slug = newProps.match.params.slug
+        this.fetchProfile()
+        this.fetchRelationship()
+    }
+
+    fetchRelationship = () => {
+        fetch(`${SERVER_URL}/profile-api/relationship/${this.slug}`)
+            .then(response => response.json())
+            .then(data => {
+                let label
+                switch (data.relationship) {
+                    case 'friends':
+                        label = 'Amigos'
+                        break
+                    case 'invite-sent':
+                        label = 'Solicitado'
+                        break
+                    case 'invite-received':
+                        label = 'Aceitar'
+                        break
+                    case 'none':
+                        label = 'Solicitar'
+                }
+                this.setState({
+                    relationshipButtonLabel: label
+                })
+            })
     }
 
     fetchProfile = () => {
@@ -212,18 +225,18 @@ class Profile extends React.Component {
             }
         }
         this.fetchProfile()
-        document.querySelector('#view-more-select').style.display = 'none'
+        document.querySelector('#profile-view-more-select').style.display = 'none'
     }
 
     openCloseExtraOptions = () => {
-        const el = document.querySelector('#view-more-select')
+        const el = document.querySelector('#profile-view-more-select')
         const style = el.style
         if (!style.display) style.display = 'none'
         if (style.display === 'none') {
-            document.querySelector('#view-more-icon').classList.add('view-more-icon-active')
+            document.querySelector('#profile-view-more-icon').classList.add('view-more-icon-active')
             style.display = 'flex'
         } else {
-            document.querySelector('#view-more-icon').classList.remove('view-more-icon-active')
+            document.querySelector('#profile-view-more-icon').classList.remove('view-more-icon-active')
             style.display = 'none'
         }
     }
@@ -262,12 +275,13 @@ class Profile extends React.Component {
                                 <ProfileData profile={this.state.profile}>
                                     <div className="profile-btn-wrapper">
                                         <i
-                                            className="fas fa-ellipsis-h btn btn-secondary mr-2"
-                                            id="view-more-icon"
+                                            className="fas fa-ellipsis-h btn btn-secondary mr-2 view-more-icon"
+                                            id="profile-view-more-icon"
                                             onClick={this.openCloseExtraOptions}
                                         />
-                                        <div className="view-more-select profile-view-more-select" id="view-more-select">
-                                            <Link to={`/mensagens/${this.state.profile.slug}`} style={{ color: '#000', textDecoration: 'none', borderBottom: '1px solid rgba(0,0,0,.1)' }}>
+                                        <div className="view-more-select" id="profile-view-more-select" style={{ top: '60%', right: '10%' }}>
+                                            <div className="popover-arrow" style={{ top: '-9px', left: '30%' }} />
+                                            <Link to={`/mensagens/${this.state.profile.slug}`} style={{ color: '#000', textDecoration: 'none' }}>
                                                 {!this.state.myProfile.blocked_users.map(u => u.id).includes(this.state.profile.user.id) &&
                                                     <li>
                                                         <i class="fas fa-envelope text-secondary" />
@@ -293,7 +307,7 @@ class Profile extends React.Component {
                                         }
                                     </div>
                                 </ProfileData>
-                                <div className="profile-page-menu">
+                                <div className="profile-page-menu b-bottom">
                                     <div
                                         className="profile-page-menu-item profile-page-menu-item-active"
                                         id="profile-posts-page-menu-item"

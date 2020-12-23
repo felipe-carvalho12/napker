@@ -1,4 +1,3 @@
-import datetime
 import random
 
 from rest_framework.decorators import api_view
@@ -10,6 +9,7 @@ from django.shortcuts import render
 
 from .serializers import ProfileSerializer, RelationshipSerializer, UserSerializer
 from .models import *
+from .utils import *
 
 # Create your views here.
 
@@ -66,64 +66,19 @@ def filter_profiles_by_interests(request, query):
     return Response(serializer.data)
 
 
-def get_profile_list(profile):
-    profiles = []
-    shared_interests_quantity = []
-    for interest in profile.interests.all():
-        for p in Profile.objects.filter(interests__title__contains=interest.title).exclude(user=profile.user):
-            if p in profiles:
-                shared_interests_quantity[profiles.index(p)] += 1
-                continue
-            if p.user in profile.friends.all():
-                continue
-            if p.user in profile.blocked_users.all():
-                continue
-            if profile.user in p.blocked_users.all():
-                continue
-            if p in [i.receiver for i in Relationship.objects.invitations_sent(profile)]:
-                continue
-            if p in [i.sender for i in Relationship.objects.invitations_received(profile)]:
-                continue
-            profiles.append(p)
-            shared_interests_quantity.append(1)
-    if len(profiles):
-        profiles = list(zip(profiles, shared_interests_quantity))
-        interest_profile_dict = {}
-        for i_quantity in set(shared_interests_quantity):
-            interest_profile_dict[i_quantity] = [p[0] for p in profiles if p[1] == i_quantity]
-        for key in interest_profile_dict:
-            interest_profile_dict[key] = sorted(
-                interest_profile_dict[key],
-                key=lambda p: abs(datetime.date.toordinal(profile.birth_date) - datetime.date.toordinal(p.birth_date))
-            )
-        profiles.clear()
-        for key in interest_profile_dict:
-            profile_list = interest_profile_dict[key]
-            profile_list.reverse()
-            profiles.extend(profile_list)
-        profiles.reverse()
-    else:
-        for p in Profile.objects.all().exclude(user=profile.user):
-            if p.user in profile.friends.all():
-                continue
-            if p.user in profile.blocked_users.all():
-                continue
-            if profile.user in p.blocked_users.all():
-                continue
-            if p in [i.receiver for i in Relationship.objects.invitations_sent(profile)]:
-                continue
-            if p in [i.sender for i in Relationship.objects.invitations_received(profile)]:
-                continue
-            profiles.append(p)
-        random.shuffle(profiles)
-    return profiles
+@api_view(['GET'])
+def myprofile_list_view(request, scroll_count):
+    profile = Profile.objects.get(user=request.user)
+    profiles = get_profile_list(profile)
+    serializer = ProfileSerializer(profiles[:10 * scroll_count], many=True)
+    return Response(serializer.data)
 
 
 @api_view(['GET'])
-def profile_list_view(request, scroll_count):
-    profile = Profile.objects.get(user=request.user)
+def profile_list_view(request, slug):
+    profile = Profile.objects.get(slug=slug)
     profiles = get_profile_list(profile)
-    serializer = ProfileSerializer(profiles[:5 * scroll_count], many=True)
+    serializer = ProfileSerializer(profiles[:5], many=True)
     return Response(serializer.data)
 
 
@@ -131,7 +86,7 @@ def profile_list_view(request, scroll_count):
 def interest_profile_list(request, interest):
     profile = Profile.objects.get(user=request.user)
     profiles = []
-    for p in Profile.objects.filter(interests__title=interest.lower()):
+    for p in [prof for prof in Profile.objects.all() if prof.interests.filter(title=interest.lower(), public=True).exists()]:
         if p == profile:
             continue
         if p in profiles:
@@ -151,8 +106,7 @@ def my_profile(request):
 
 @api_view(['GET'])
 def friends_profiles(request, slug):
-    user = User.objects.get(username=slug)
-    profile = Profile.objects.get(user=user)
+    profile = Profile.objects.get(slug=slug)
     friends = [friend_user.profile for friend_user in profile.friends.all()]
     serializer = ProfileSerializer(friends, many=True)
     return Response(serializer.data)
@@ -170,8 +124,7 @@ def blocked_profiles(request):
 @api_view(['GET'])
 def get_relationship(request, slug):
     profile = Profile.objects.get(user=request.user)
-    other_user = User.objects.get(username=slug)
-    other_profile = Profile.objects.get(user=other_user)
+    other_profile = Profile.objects.get(slug=slug)
     if profile.friends.filter(username=slug).exists():
         return Response({'relationship': 'friends'})
     else:

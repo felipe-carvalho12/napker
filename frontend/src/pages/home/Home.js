@@ -3,18 +3,20 @@ import React, { useEffect, useState } from 'react'
 import Header from '../../components/fixed/Header'
 import Posts from './components/posts_/Posts'
 import Profiles from './components/profiles/Profiles'
-import News from './components/news/News'
+import Explore from './components/explore/Explore'
+import Trending from './components/trending/Trending'
 import PostIcon from '../../components/fixed/bottom-menu/components/PostIcon'
 import BottomMenu from '../../components/fixed/bottom-menu/BottomMenu'
 import HomePageMenu from './components/HomePageMenu'
 
 export default function Home(props) {
     const [page, setPage] = useState('Feed')
+
     const pages = {
         'Feed': <Posts />,
         'Profiles': <Profiles />,
-        'Explore': '',
-        'News': <News />,
+        'Explore': <Explore />,
+        'Trending': <Trending />,
     }
 
     document.title = 'Home / Napker'
@@ -36,6 +38,7 @@ export default function Home(props) {
                         profilesPageTitle='Encontrar perfis'
                         explorePageTitle='Descobrir'
                         newsPageTitle='Notícias'
+                        trendsPageTitle='Tendências'
                     />
                 </div>
                 <div className="mobile-home-menu">

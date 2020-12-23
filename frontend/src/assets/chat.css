@@ -1,4 +1,6 @@
 .messages-wrapper {
+    word-wrap: break-word;
+    word-break: break-all;
     height: 89vh;
 }
 
@@ -14,19 +16,11 @@
     background: #eee;
 }
 
-.messages-loader-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-top: 15px;
-}
-
 .messages-wrapper .chats-list {
-    width: 35%;
-    height: 100%;
+    width: 40%;
     display: flex;
     flex-direction: column;
-    background: #fff;
+    background: #fcfcfc;
     overflow: hidden;
     overflow-y: scroll;
     border-right: 3px solid var(--border-color);
@@ -62,41 +56,15 @@
 }
 
 .messages-wrapper .chats-list .chats-container .profile-chat-item:hover {
-    background: var(--white-hover);
+    background: var(--theme-base-color-hover);
 }
 
-.chat-loader-container {
-    width: 65%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    padding-top: 15%;
-}
-
-.current-chat {
-    width: 65%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    background: #fff;
-}
-
-.current-chat .current-chat-header {
+.current-chat-header {
     width: 100%;
     display: flex;
     padding: 10px;
-    background: #fff;
+    background: #fcfcfc;
     border-bottom: 2px solid var(--border-color);
-}
-
-.current-chat .current-chat-header .left-arrow-icon {
-    display: none;
-}
-
-.messages-wrapper .no-chat-selected {
-    justify-content: center!important;
 }
 
 .messages-wrapper .chat-page-container {
@@ -106,22 +74,22 @@
     border-bottom: 2px solid var(--border-color);
 }
 
-.current-chat #chat-log {
+.chat-log {
     overflow: hidden;
     overflow-y: scroll;
     width: 100%;
     padding: 15px;
 }
 
-.current-chat #chat-log .received {
+.chat-log .received {
     width: 100%;
     display: flex;
     justify-content: end;
 }
 
-.current-chat #chat-log .received p {
-    background: #ccc;
-    color: #000;
+.chat-log .received p {
+    background: #DEDEDE;
+    color: #595959;
     max-width: 70%;
     padding: 15px;
     text-align: left;
@@ -130,14 +98,14 @@
     border-bottom-right-radius: 30px;
 }
 
-.current-chat #chat-log .sent {
+.chat-log .sent {
     width: 100%;
     display: flex;
     justify-content: flex-end;
     padding-left: 20px;
 }
 
-.current-chat #chat-log .sent p {
+.chat-log .sent p {
     background: var(--primary-color);
     color: #fff;
     max-width: 70%;
@@ -153,16 +121,7 @@
     top: 30%!important;
 }
 
-.current-chat .send-message-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    border-top: 2px solid var(--border-color);
-    padding: 3px;
-}
-
-.current-chat .send-message-container .fa-smile {
+.fa-smile {
     color: var(--primary-color);
     font-size: 25px;
     margin-right: 10px;
@@ -170,12 +129,12 @@
     border-radius: 50%;
 }
 
-.current-chat .send-message-container .fa-smile:hover, .emoji-button-active {
+.fa-smile:hover, .emoji-button-active {
     background: var(--secondary-color);
     cursor: pointer;
 }
 
-.current-chat .send-message-container .message-input {
+.message-input {
     width: 70%;
     height: 35px;
     padding-left: 15px;
@@ -185,21 +144,8 @@
     margin-right: 5px;
 }
 
-.messages-wrapper .chats-list .search-input:focus, .current-chat .send-message-container .message-input:focus {
+.messages-wrapper .chats-list .search-input:focus, .message-input:focus {
     outline: none;
-    background: #fff;
+    background: #fcfcfc;
     border: 1px solid var(--primary-color);
-}
-
-.current-chat .send-message-container .chat-message-submit {
-    height: 35px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.current-chat .send-message-container .chat-message-submit .fas {
-    position: relative;
-    right: 10%;
-    font-size: large;
 }

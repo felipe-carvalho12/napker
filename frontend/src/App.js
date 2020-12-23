@@ -2,12 +2,14 @@ import React, { useContext, useEffect, useState } from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import { SERVER_URL } from './config/settings'
+import { onExpandableTextareaInput } from './config/utils'
 import {
     InvitesReceivedContext, UnvisualizedCommentsContext,
     UnvisualizedLikesContext, UnreadMessagesContext
 } from './context/app/AppContext'
 
-import Sidebar from './components/fixed/Sidebar'
+import SidebarLeft from './components/fixed/SidebarLeft'
+import SidebarRight from './components/fixed/sidebar-right/SidebarRight'
 import Home from './pages/home/Home'
 import Notifications from './pages/notifications/Notifications'
 import Messages from './pages/messages_/Messages'
@@ -20,15 +22,24 @@ import EditInterests from './pages/profile/pages/edit_interests/EditInterests'
 import Post from './pages/home/components/posts_/pages/post_/Post'
 
 import PostFormPage from './pages/PostFormPage'
+import EditProfileProvider from './context/edit-profile/EditProfileContext'
 
 export default function App() {
-    const [invitesReceivedNumber, setInvitesReceived] = useContext(InvitesReceivedContext)
-    const [unvisualizedCommentsNumber, setUnvisulaizedComments] = useContext(UnvisualizedCommentsContext)
-    const [unvisualizedLikesNumber, setUnvisulaizedLikes] = useContext(UnvisualizedLikesContext)
+    const [, setInvitesReceived] = useContext(InvitesReceivedContext)
+    const [, setUnvisulaizedComments] = useContext(UnvisualizedCommentsContext)
+    const [, setUnvisulaizedLikes] = useContext(UnvisualizedLikesContext)
 
-    const [unreadMessagesNumber, setUnreadMessagesNumber] = useContext(UnreadMessagesContext)
+    const [, setUnreadMessagesNumber] = useContext(UnreadMessagesContext)
 
-    let notificationsNumber = invitesReceivedNumber + unvisualizedLikesNumber + unvisualizedCommentsNumber
+    // global event listeners
+    document.addEventListener('input', onExpandableTextareaInput)
+    document.addEventListener('click', e => {
+        if (!e.target.classList.contains('view-more-select') && !e.target.classList.contains('view-more-icon')) {
+            document.querySelectorAll('.view-more-select').forEach(el => {
+                el.style.display = 'none'
+            })
+        }
+    })
 
     useEffect(() => {
         updateNotificationsNumber()
@@ -59,10 +70,12 @@ export default function App() {
 
     return (
         <Router>
-            <Sidebar />
+            <SidebarLeft />
             <div className="main-content">
                 <Switch>
-                    <Route path="/home" component={Home} />
+                    <Route path="/home" render={props => (
+                        <Home {...props} />
+                    )} />
                     <Route path="/notificações" render={props => (
                         <Notifications {...props} updateNotificationsNumber={updateNotificationsNumber} />
                     )} />
@@ -70,7 +83,11 @@ export default function App() {
                     <Route path="/mensagens/:slug" render={props => (
                         <Messages {...props} updateUnreadMessagesNumber={updateUnreadMessagesNumber} />
                     )} />
-                    <Route path="/perfil" exact component={MyProfile} />
+                    <Route path="/perfil" exact render={props => (
+                        <EditProfileProvider>
+                            <MyProfile />
+                        </EditProfileProvider>
+                    )} />
                     <Route path="/perfil/meus-interesses" component={EditInterests} />
                     <Route path="/configurações" exact component={Settings} />
                     <Route path="/configurações/perfis-bloqueados" exact render={props => (
@@ -88,6 +105,9 @@ export default function App() {
                     <Route path="/configurações/faq" exact render={props => (
                         <Settings {...props} page={'faq'} />
                     )} />
+                    <Route path="/configurações/fale-conosco" exact render={props => (
+                        <Settings {...props} page={'feedback'} />
+                    )} />
                     <Route path="/user/:slug" exact render={props => (
                         <Profile {...props} updateNotificationsNumber={updateNotificationsNumber} />
                     )} />
@@ -101,6 +121,9 @@ export default function App() {
                     <Route path="/postar" component={PostFormPage} />
                 </Switch>
             </div>
+            <Switch>
+                <Route path="/:path" component={SidebarRight} />
+            </Switch>
         </Router>
     )
 }

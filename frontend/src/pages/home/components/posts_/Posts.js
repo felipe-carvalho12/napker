@@ -21,7 +21,7 @@ export default class Posts extends React.Component {
         this.scrollCount = 1
 
         window.onscroll = () => {
-            if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+            if (Math.ceil(window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
                 this.scrollCount++
                 this.fetchPosts()
             }
@@ -51,9 +51,11 @@ export default class Posts extends React.Component {
                     hideModal={() => this.setState({ likesModal: { isOpen: false, likes: null } })}
                 />
                 {this.state.myProfile &&
-                    <PostForm myProfile={this.state.myProfile} />
+                    <div className="feed-create-post-form">
+                        <PostForm myProfile={this.state.myProfile} />
+                    </div>
                 }
-                <div className="post-list">
+                <div className="d-flex flex-column justify-content-center align-items-center w-100 h-100">
                     {this.state.posts && this.state.myProfile &&
                         this.state.posts.map(post => {
                             return (
@@ -66,7 +68,7 @@ export default class Posts extends React.Component {
                             )
                         })
                     }
-                    <div className="posts-loader-container" >
+                    <div className="loader-container" >
                         <div className="loader" />
                     </div>
                 </div>

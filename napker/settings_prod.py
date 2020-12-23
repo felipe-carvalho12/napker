@@ -1,4 +1,5 @@
 import os
+import django_heroku
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -14,7 +15,7 @@ SECRET_KEY = "gld^)fy0sgzfs=nd2tc0cz73(v8n9sa%m!-%@car9*$o(u9#dz"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['ec2-18-224-251-228.us-east-2.compute.amazonaws.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['https://napker.herokuapp.com/']
 
 
 # Application definition
@@ -30,6 +31,8 @@ INSTALLED_APPS = [
     "corsheaders",
     "channels",
     "profiles",
+    'storages',
+    "settings",
     "chat",
     "posts",
 ]
@@ -149,7 +152,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media_root")
 # Django cors headers
 
 CORS_ALLOWED_ORIGINS = [
-    "http://127.0.0.1:8000",
+    
 ]
 
 
@@ -173,3 +176,6 @@ SECURE_SSL_REDIRECT = True
 # DEPLOY
 
 CONN_MAX_AGE = None
+
+django_heroku.settings(locals())
+

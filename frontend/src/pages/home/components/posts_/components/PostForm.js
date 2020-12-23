@@ -7,7 +7,10 @@ import { csrftoken, openCloseEmojiList } from '../../../../../config/utils'
 
 export default function PostForm(props) {
     const myProfile = props.myProfile
+    const isMobile = visualViewport.width <= 980
 
+    const [hashtags, setHashtags] = useState([])
+    const [taggedUsers, setTaggedUsers] = useState([])
     const [postContent, setPostContent] = useState('')
     const [postFormImagePreview, setPostFormImagePreview] = useState(null)
 
@@ -53,20 +56,26 @@ export default function PostForm(props) {
             encType="multipart/form-data"
         >
             <input type="hidden" name="csrfmiddlewaretoken" value={csrftoken} />
+            <input type="hidden" name="hashtags" value={hashtags} />
+            <input type="hidden" name="tagged-usernames" value={taggedUsers} />
+
             <div className="d-flex">
                 <Link to="/perfil">
                     <img
                         src={`${SERVER_URL}${myProfile.photo}`}
-                        className="profile-img-med"
+                        className="profile-img-sm"
                     />
                 </Link>
                 <textarea
-                    className="post-content-textarea"
+                    className='autoExpand'
+                    rows='3'
+                    data-min-rows='3'
                     name="post-content"
                     value={postContent}
-                    placeholder="No que você está pensando?"
+                    placeholder="O que passa pela sua cabeça?"
                     maxLength={300}
                     autoFocus
+                    style={{ color: 'var(--primary-grey)', background: 'var(--theme-base-color)' }}
                     onChange={handlePostContentChange}
                 />
             </div>
@@ -84,7 +93,7 @@ export default function PostForm(props) {
                     </div>
                     <img
                         src={postFormImagePreview}
-                        className="post-img post-form-img-preview"
+                        className="post-img mt-0"
                         id="post-form-img-preview"
                     />
                 </div>
@@ -101,14 +110,18 @@ export default function PostForm(props) {
                         style={{ display: 'none' }}
                         onChange={handlePostImageChange}
                     />
-                    <label
-                        className="far fa-smile"
-                        id="emoji-button"
-                        onClick={() => openCloseEmojiList(false)}
-                    />
-                    <div className="emoji-list-container" id="emoji-list-container">
-                        <Picker onEmojiClick={onEmojiSelect} />
-                    </div>
+                    {!isMobile &&
+                        <>
+                            <label
+                                className="far fa-smile"
+                                id="emoji-button"
+                                onClick={() => openCloseEmojiList(false)}
+                            />
+                            <div className="emoji-list-container" id="emoji-list-container">
+                                <Picker onEmojiClick={onEmojiSelect} />
+                            </div>
+                        </>
+                    }
                 </div>
                 <button
                     type="submit"

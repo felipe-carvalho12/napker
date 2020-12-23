@@ -1,18 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { SERVER_URL } from '../../config/settings'
+import { EditProfileModalContext } from '../../context/edit-profile/EditProfileContext'
 import Header from '../../components/fixed/Header'
-import EditProfileModal from './components/EditProfileModal'
+import EditProfile from './components/edit-profile/EditProfile'
 import Posts from './components/Posts'
 import Interests from './components/interests/Interests'
 import ProfileData from './components/ProfileData'
 import BottomMenu from '../../components/fixed/bottom-menu/BottomMenu'
 
+
 export default function MyProfile() {
     const [myProfile, setProfile] = useState(null)
-    const [isEditing, setIsEditing] = useState(false)
     const [currentPageIsPosts, setCurrentPageIsPosts] = useState(true)
+    const [isEditing, setIsEditing] = useState(false)
 
     document.title = 'Perfil / Napker'
 
@@ -44,7 +46,7 @@ export default function MyProfile() {
             <div className="content">
                 {myProfile ?
                     <>
-                        <EditProfileModal
+                        <EditProfile
                             profile={myProfile}
                             isOpen={isEditing}
                             closeModal={() => setIsEditing(false)}
@@ -65,7 +67,7 @@ export default function MyProfile() {
                                 </Link>
                             </div>
                         </ProfileData>
-                        <div className="profile-page-menu">
+                        <div className="profile-page-menu b-bottom">
                             <div
                                 className="profile-page-menu-item profile-page-menu-item-active"
                                 id="profile-posts-page-menu-item"

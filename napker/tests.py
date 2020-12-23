@@ -1,7 +1,6 @@
 import datetime
 
 from django.test import TestCase, Client
-
 from django.contrib.auth.models import User
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
@@ -27,7 +26,6 @@ class RouteTests(TestCase):
         self.other_user.save()
         Post.objects.create(content='Hello, world!', author=self.other_user.profile)
 
-
     def test_login(self):   
         response = self.client.get('/login')
         self.assertEqual(response.status_code, 200)
@@ -47,7 +45,6 @@ class RouteTests(TestCase):
         self.client.force_login(user=self.test_user)
         response = self.client.get('/logout', follow=True)
         self.assertEqual(response.redirect_chain[-1], ('/login', 302))
-
 
     def test_signup(self):  
         response = self.client.get('/signup')
@@ -117,13 +114,14 @@ class RouteTests(TestCase):
 
     def test_update_profile(self):
         post_data = {
-            'photo': 'test.png',
+            'profile-photo': 'data:image/png;base64,iVBORw0KGg====',
             'first-name': 'Fred',
             'last-name': 'Santos',
             'username': 'fred.santos',
             'birth-date': '2000-8-14',
             'bio': 'Hello, world!'
         }
+
         self.client.force_login(user=self.test_user)
         response = self.client.post('/update-profile', post_data, follow=True)
         self.assertEqual(response.redirect_chain[-1], ('/perfil', 302))
@@ -225,14 +223,12 @@ class RouteTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'index.html')
 
-
     def test_notifications_route(self):
         self.client.force_login(user=self.test_user)
         response = self.client.get('/notificações')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'index.html')
     
-
     def test_messages_route(self):
         self.client.force_login(user=self.test_user)
 
@@ -244,7 +240,6 @@ class RouteTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'index.html')
     
-
     def test_profile_route(self):
         self.client.force_login(user=self.test_user)
 
@@ -255,7 +250,6 @@ class RouteTests(TestCase):
         response = self.client.get('/perfil/meus-interesses')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'index.html')
-
 
     def test_settings_route(self):
         self.client.force_login(user=self.test_user)
@@ -276,7 +270,6 @@ class RouteTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'index.html')
     
-
     def test_user_route(self):
         self.client.force_login(user=self.test_user)
 
@@ -288,7 +281,6 @@ class RouteTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'index.html')
     
-
     def test_post_route(self):
         self.client.force_login(user=self.test_user)
 

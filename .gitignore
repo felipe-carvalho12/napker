@@ -1,6 +1,13 @@
-/.vscode
-/venv
+# venv
+.vscode
+venv
 
-__pycache__/
+# pycache
+__pycache__
 
-*.sqlite3
+# react app
+/frontend/build
+node_modules
+
+# db
+db.sqlite3

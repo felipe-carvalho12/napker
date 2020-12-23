@@ -35,6 +35,8 @@ urlpatterns = [
     path("configurações/perfis-bloqueados", pages_view),
     path("configurações/alterar-senha", pages_view),
     path("configurações/deletar-conta", pages_view),
+    path("configurações/faq", pages_view),
+    path("configurações/fale-conosco", pages_view),
     path("user/<str:slug>", pages_view),
     path("user/<str:slug>/amigos", pages_view),
     path("post/<int:id>", pages_view),
@@ -57,6 +59,7 @@ urlpatterns = [
     path("profile-api/", include("profiles.urls")),
     path("chat-api/", include("chat.urls")),
     path("post-api/", include("posts.urls")),
+    path("settings-api/", include("settings.urls")),
 
     # Reset password
     path('recuperar-senha', reset_password, name="reset_password"),

@@ -10,6 +10,8 @@ class Post(models.Model):
     content = models.TextField(max_length=300)
     image = models.ImageField(upload_to='post/', blank=True, null=True)
     author = models.ForeignKey(Profile, related_name='posts', on_delete=models.CASCADE)
+    views = models.ManyToManyField(Profile, related_name='post_views')
+    tagged_profiles = models.ManyToManyField(Profile, related_name='tagged_posts', blank=True)
     updated = models.DateField(auto_now=True)
     created = models.DateField(auto_now_add=True)
 
@@ -24,6 +26,14 @@ class Post(models.Model):
 
     def all_comments(self):
         return self.comments
+
+
+class Hashtag(models.Model):
+    title = models.CharField(max_length=50)
+    posts = models.ManyToManyField(Post, related_name='hashtags')
+
+    def __str__(self):
+        return self.title
 
 
 class PostLike(models.Model):

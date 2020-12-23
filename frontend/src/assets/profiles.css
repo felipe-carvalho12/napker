@@ -1,7 +1,7 @@
 .profiles-filter-container {
     width: 100%;
     display: flex;
-    background: #fff;
+    background: #fcfcfc;
     padding: 15px 5.37%;
     border-bottom: 1px solid var(--border-color);
 }
@@ -34,84 +34,39 @@
 
 .profiles-filter-input:focus {
     outline: none;
-    background: #fff;
-    border: 1px solid var(--primary-color);
+    background: #fcfcfc;
+    border: 1px solid var(--primary-color)!important;
 }
 
-.profiles-search-type-selector {
-    display: none;
-    width: fit-content;
-    position: absolute;
-    z-index: 1;
-    right: 5%;
-    padding: 10px 5px;
-    border: 1px solid rgba(0, 0, 0, .1);
-    border-radius: 10px;
-    text-align: start;
-    background: #fff;
-}
-
-.profiles-search-type-selector:hover {
-    background: var(--white-hover);
-    cursor: pointer;
-}
-
-.profile-list-container {
-    width: 100%;
-    overflow-y: hidden;
-}
-
-.filtered-profile:hover {
-    background: var(--white-hover);
-    cursor: pointer;
-}
-
-.profile-list-container .profile-row {
-    border: none;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.profile-list-container .profile-row:hover {
-    background: var(--white-hover);
-    cursor: pointer;
-}
-
-.profile-row img:hover, .profile-row strong:hover {
+.profile-img-container:hover, .main-profile-data:hover {
     cursor: pointer;
     transform: scale(1.01);
 }
 
-.profile-row .profile-img-container {
+.profile-img-container {
     width: fit-content;
     align-self: center;
 }
 
-.profile-row .profile-row-top {
+.profile-row-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.profile-row .profile-row-bottom {
+.profile-row-bottom {
     display: flex;
     text-align: start;
 }
 
-.profile-row .profile-col {
+.profile-col {
     min-width: 20%;
     align-self: center;
     display: flex;
 }
 
-.profile-row .main-profile-data {
+.main-profile-data {
     display: flex;
     flex-direction: column;
     text-align: start;
-}
-
-.profiles-loader-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    padding: 5% 0;
 }

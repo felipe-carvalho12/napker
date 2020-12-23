@@ -61,6 +61,9 @@ export default function CommentModal(props) {
                     />
                     <textarea
                         type="text"
+                        class='autoExpand' 
+                        rows='3' 
+                        data-min-rows='3' 
                         className="form-control"
                         name="comment-content"
                         value={commentContent}

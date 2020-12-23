@@ -22,7 +22,7 @@ class CommentLikeUnrelatedSerializer(serializers.ModelSerializer):
 
 class CommentUnrelatedSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Post
+        model = Comment
         fields = '__all__'
 
 class PostUnrelatedSerializer(serializers.ModelSerializer):

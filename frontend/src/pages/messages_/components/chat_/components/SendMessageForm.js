@@ -53,7 +53,11 @@ export default function SendMessageForm(props) {
             <div className="emoji-list-container chat-emoji-list" id="emoji-list-container">
                 <Picker onEmojiClick={onEmojiSelect} />
             </div>
-            <form className="send-message-container" onSubmit={sendMessageHandler}>
+            <form
+                className="d-flex justify-content-center align-items-center w-100 p-1"
+                style={{ borderTop: '2px solid var(--border-color)' }}
+                onSubmit={sendMessageHandler}
+            >
                 <label
                     className="far fa-smile"
                     id="emoji-button"
@@ -68,11 +72,12 @@ export default function SendMessageForm(props) {
                     onChange={messageChangeHandler}
                 />
                 <button
-                    className="btn btn-primary chat-message-submit"
+                    className="btn btn-primary d-flex justify-content-center align-items-center"
                     id="chat-message-submit"
+                    style={{ height: '35px' }}
                     disabled
                 >
-                    <i class="fas fa-chevron-right" />
+                    <i class="fas fa-chevron-right" style={{ fontSize: 'large' }} />
                 </button>
             </form>
         </>

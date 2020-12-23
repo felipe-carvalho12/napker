@@ -43,7 +43,7 @@ export default function InterestProfiles() {
                                 />
                             )
                         }) :
-                        <div className="profiles-loader-container">
+                        <div className="loader-container">
                             <div className="loader" />
                         </div>
                     }

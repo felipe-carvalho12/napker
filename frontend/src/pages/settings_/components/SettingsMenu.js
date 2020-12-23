@@ -26,6 +26,12 @@ export default function SettingsMenu(props) {
                         <i className="fas fa-angle-right" />
                     </li>
                 </Link>
+                <Link to="/configurações/fale-conosco" style={{ textDecoration: 'none', width: '100%' }}>
+                    <li id="feedback" onClick={() => props.pageChange('feedback')}>
+                        Fale conosco
+                        <i className="fas fa-angle-right" />
+                    </li>
+                </Link>
             </div>
             <li className="logout-btn" onClick={handleLogout}>
                 Sair da conta
