@@ -4,11 +4,10 @@
 <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
  width="452.000000pt" height="452.000000pt" viewBox="0 0 452.000000 452.000000"
  preserveAspectRatio="xMidYMid meet">
- <?xml-stylesheet href="..\..\frontend\src\assets\style.css"?>
 
 <g transform="translate(0.000000,452.000000) scale(0.100000,-0.100000)"
-fill="#000000" stroke="none">
-<path style="fill: var(--primary-color)" d="M674 4491 c-120 -19 -280 -86 -372 -156 -130 -98 -242 -272 -277
+fill='#48D1AF' stroke="none">
+<path d="M674 4491 c-120 -19 -280 -86 -372 -156 -130 -98 -242 -272 -277
 -431 -34 -151 -8 -312 63 -388 63 -67 170 -85 264 -43 149 66 210 257 133 420
 -35 75 -31 91 22 95 85 6 227 -98 282 -206 53 -105 51 -46 51 -1698 1 -841 5
 -1559 9 -1596 5 -38 22 -96 38 -130 68 -145 205 -228 377 -228 128 0 238 43
