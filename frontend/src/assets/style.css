@@ -12,6 +12,7 @@
   --theme-base-color: #fff;
   --theme-base-color-hover: rgba(128, 128, 128, .01);
   --view-more-select-border: rgba(0, 0, 0, .2);
+  --text-secondary: #757575;
 
   /*
   DARK THEME
@@ -41,6 +42,7 @@
   list-style: none;
   text-decoration: none;
   font-family: 'Asap', sans-serif;
+  transition: 0.2s;
 }
 
 @keyframes spin {
@@ -108,6 +110,10 @@ a:hover {
 }
 
 /* GENERAL UTILS */
+
+.text-secondary {
+  color: var(--text-secondary)!important;
+}
 
 .word-break {
   text-align: start;
