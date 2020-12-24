@@ -1,11 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import { SERVER_URL, LOGO_URL } from '../../config/settings'
+import { SERVER_URL } from '../../config/settings'
 import { csrftoken } from '../../config/utils'
+import Logo from '../../assets/icons/Logo'
 
 
 export default function Signup() {
+
+    document.title = 'Criar conta / Napker'
 
     return (
         <form
@@ -16,7 +19,7 @@ export default function Signup() {
         >
             <input type="hidden" name="csrfmiddlewaretoken" value={csrftoken} />
 
-            <img src={`${SERVER_URL}${LOGO_URL}`} style={{ width: '50px' }} />
+            <Logo />
             <h1 className="mt-3" style={{ fontSize: '30px' }}>Criar conta</h1>
 
             <div class="w-75 mt-3 d-flex justify-content-center">

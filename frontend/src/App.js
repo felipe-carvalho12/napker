@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 
-import { onExpandableTextareaInput, getTheme } from './config/utils'
+import { onExpandableTextareaInput, setTheme } from './config/utils'
 import { SERVER_URL } from './config/settings'
-import { ThemeContext } from './context/app/AppContext'
 
 import MainApp from './pages/main-app/Router'
 import Login from './pages/login/Login'
 import Signup from './pages/signup/Signup'
 import AddInterests from './pages/signup/Interests'
+import PageLoader from './pages/PageLoader'
 
 export default function App() {
     // global event listeners
@@ -21,15 +21,13 @@ export default function App() {
         }
     })
 
-    const [theme,] = useContext(ThemeContext)
-
     const [isLogged, setIsLogged] = useState(null)
 
     useEffect(() => {
         fetch(`${SERVER_URL}/profile-api/is-logged`)
             .then(response => response.json())
             .then(data => setIsLogged(data))
-        getTheme(theme)
+        setTheme(window.localStorage.getItem('theme') || 'light')
     }, [])
 
     return (
@@ -52,9 +50,7 @@ export default function App() {
                     }
                 </>
                 :
-                <div>
-                    Loading...
-                </div>
+                <PageLoader />
             }
         </>
     )

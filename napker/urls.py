@@ -49,6 +49,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
 
     # Main navigation
+    path('', TemplateView.as_view(template_name="index.html")),
     re_path('home', TemplateView.as_view(template_name="index.html")),
     re_path('notificações', TemplateView.as_view(template_name="index.html")),
     re_path('mensagens', TemplateView.as_view(template_name="index.html")),

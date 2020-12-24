@@ -63,12 +63,20 @@ export default function App() {
                 <SidebarLeft />
                 <div className="main-content">
                     <Switch>
+
                         <Route path="/" exact>
+                            <Redirect to="/home" />
+                        </Route>
+                        <Route path="/login" exact>
+                            <Redirect to="/home" />
+                        </Route>
+                        <Route path="/signup" exact>
                             <Redirect to="/home" />
                         </Route>
                         <Route path="/home" render={props => (
                             <Home {...props} />
                         )} />
+                        
                         <Route path="/notificações" render={props => (
                             <Notifications {...props} updateNotificationsNumber={updateNotificationsNumber} />
                         )} />

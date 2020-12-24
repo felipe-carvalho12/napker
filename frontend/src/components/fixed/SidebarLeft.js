@@ -1,17 +1,14 @@
 import React, { useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
 
-import Logo from '../../assets/icons/Logo' 
-import { SERVER_URL, LOGO_URL } from '../../config/settings'
-import { getActivePageOnLoad, switchPage, getTheme } from '../../config/utils'
+import { getActivePageOnLoad, switchPage, setTheme } from '../../config/utils'
 import {
     InvitesReceivedContext, UnvisualizedCommentsContext,
-    UnvisualizedLikesContext, UnreadMessagesContext, ThemeContext
+    UnvisualizedLikesContext, UnreadMessagesContext
 } from '../../context/app/AppContext'
+import Logo from '../../assets/icons/Logo' 
 
 export default function Sidebar() {
-    const [theme, setTheme] = useContext(ThemeContext)
-
     const [invitesReceivedNumber,] = useContext(InvitesReceivedContext)
     const [unvisualizedCommentsNumber,] = useContext(UnvisualizedCommentsContext)
     const [unvisualizedLikesNumber,] = useContext(UnvisualizedLikesContext)
@@ -20,16 +17,16 @@ export default function Sidebar() {
 
     let notificationsNumber = invitesReceivedNumber + unvisualizedLikesNumber + unvisualizedCommentsNumber
 
+    let theme = window.localStorage.getItem('theme') || 'light'
+
 
     useEffect(() => {
         document.getElementById('chk').checked = theme === 'dark'
         getActivePageOnLoad()
-        getTheme(theme)
     }, [])
 
     const switchTheme = () => {
         setTheme(theme === 'light' ? 'dark' : 'light')
-        getTheme(theme === 'light' ? 'dark' : 'light')
         window.localStorage.setItem('theme', theme === 'light' ? 'dark' : 'light')
     }
 

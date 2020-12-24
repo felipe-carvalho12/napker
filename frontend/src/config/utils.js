@@ -108,7 +108,7 @@ export function onExpandableTextareaInput({ target: elm }) {
 
 // THEME
 
-export const getTheme = theme => {
+export const setTheme = theme => {
   const cssVariables = document.documentElement.style
 
   if (theme === 'light') {

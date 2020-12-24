@@ -204,6 +204,10 @@ a:hover {
   animation: spin 0.7s linear infinite;
 }
 
+.spinner {
+  animation: spin 1s ease-in-out infinite;
+}
+
 .notification-text-container {
   display: inline-block;
   position: relative;
