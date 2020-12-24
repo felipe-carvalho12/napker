@@ -1,0 +1,93 @@
+.primary-form input {
+    flex-basis: unset!important;
+    width: 100%!important;
+    height: 45px;
+    font-size: 1rem!important;
+    border: none;
+    outline: none;
+    border-radius: 30px;
+    background: var(--border-color);
+    margin-bottom: 20px;
+    padding: 10px 20px 10px 20px;
+}
+
+.primary-form input:focus {
+    box-shadow: none!important;
+    border: 2px solid var(--primary-color);
+    background: var(--theme-base-color);
+}
+
+.primary-form input:-webkit-autofill,
+.primary-form input:-webkit-autofill:hover, 
+.primary-form input:-webkit-autofill:focus, 
+.primary-form input:-webkit-autofill:active  {
+    -webkit-box-shadow: 0 0 0 30px var(--secondary-grey) inset!important;
+}
+
+input:-webkit-autofill {
+    -webkit-text-fill-color: var(--primary-grey) !important;
+}
+
+.primary-form button {
+    border-radius: 30px!important;
+    height: 45px;
+}
+
+/* ADD INTERESTS */
+
+.interests-description {
+    padding: 15px;
+    background: var(--secondary-color);
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    color: var(--primary-grey);
+    font-size: 15px; 
+}
+
+.tag-container {
+    border-radius: 20px;
+    background: var(--background);
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    padding: 6px;
+}
+
+.tag-container:focus-within {
+    border: 2px solid var(--primary-color);
+    background: var(--theme-base-color);
+}
+
+.tag-container .tag {
+    height: 30px;
+    margin: 5px;
+    padding: 5px 6px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background: #eee;
+    display: flex;
+    align-items: center;
+    color: #333;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 1px 1px #fff;
+    cursor: default;
+}
+
+.tag i {
+    font-size: 16px;
+    color: #666;
+    margin-left: 5px;
+}
+
+.tag-container textarea {
+    padding: 5px;
+    font-size: 16px;
+    border: 0;
+    outline: none;
+    background: inherit!important;
+    color: var(--primary-grey);
+    flex: 1;
+}
+
+.tag-container textarea::placeholder {
+    color: var(--secondary-grey);
+}

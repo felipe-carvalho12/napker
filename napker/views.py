@@ -77,7 +77,7 @@ def signup_view(request):
         except:
             return render(request, 'pages/signup/signup.html', {'message': 'Informações inválidas!'})
 
-        return render(request, 'pages/signup/interests.html', {'user': user})
+        return redirect('/signup/interesses')
     else:
         return render(request, 'index.html')
 
@@ -113,7 +113,7 @@ def add_interests_view(request):
 
         return render(request, 'pages/signup/activation_link_sent.html')
     else:
-        return redirect('/')
+        return render(request, 'index.html')
 
 
 def activate_account_view(request, uidb64, token):
