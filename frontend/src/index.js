@@ -7,7 +7,7 @@ import './assets/commentModal.css'
 import './assets/explore.css'
 import './assets/animations.css'
 import './assets/home.css'
-import './assets/login.css'
+import './assets/form.css'
 import './assets/posts.css'
 import './assets/profile.css'
 import './assets/profiles.css'
@@ -19,4 +19,4 @@ import './assets/responsivity.css'
 import AppContextProvider from './context/app/AppContext'
 import App from './App'
 
-ReactDOM.render((<AppContextProvider><App /></AppContextProvider>), document.querySelector('#root'))
+ReactDOM.render((<AppContextProvider><App /></AppContextProvider>), document.querySelector('#react-root'))

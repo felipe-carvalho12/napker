@@ -46,6 +46,7 @@ urlpatterns = [
 
     # Profile utils
     path("signup", signup_view, name="signup"),
+    path("lekinho", TemplateView.as_view(template_name="pages/signup/interests.html")),
     path("signup/interesses", add_interests_view, name="interests"),
     path("update-profile", update_profile),
     path("change-password", change_password),

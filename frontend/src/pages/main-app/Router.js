@@ -59,63 +59,65 @@ export default function App() {
 
     return (
         <Router>
-            <SidebarLeft />
-            <div className="main-content">
-                <Switch>
-                    <Route path="/" exact>
-                        <Redirect to="/home" />
-                    </Route>
-                    <Route path="/home" render={props => (
-                        <Home {...props} />
-                    )} />
-                    <Route path="/notificações" render={props => (
-                        <Notifications {...props} updateNotificationsNumber={updateNotificationsNumber} />
-                    )} />
-                    <Route path="/mensagens" exact component={Messages} />
-                    <Route path="/mensagens/:slug" render={props => (
-                        <Messages {...props} updateUnreadMessagesNumber={updateUnreadMessagesNumber} />
-                    )} />
-                    <Route path="/perfil" exact render={props => (
-                        <EditProfileProvider>
-                            <MyProfile />
-                        </EditProfileProvider>
-                    )} />
-                    <Route path="/perfil/meus-interesses" component={EditInterests} />
-                    <Route path="/configurações" exact component={Settings} />
-                    <Route path="/configurações/perfis-bloqueados" exact render={props => (
-                        <Settings {...props} page={'blocked-profiles'} />
-                    )} />
-                    <Route path="/configurações/segurança" exact render={props => (
-                        <Settings {...props} page={'security'} />
-                    )} />
-                    <Route path="/configurações/alterar-senha" exact render={props => (
-                        <Settings {...props} page={'change-password'} />
-                    )} />
-                    <Route path="/configurações/deletar-conta" exact render={props => (
-                        <Settings {...props} page={'delete-account'} />
-                    )} />
-                    <Route path="/configurações/faq" exact render={props => (
-                        <Settings {...props} page={'faq'} />
-                    )} />
-                    <Route path="/configurações/fale-conosco" exact render={props => (
-                        <Settings {...props} page={'feedback'} />
-                    )} />
-                    <Route path="/user/:slug" exact render={props => (
-                        <Profile {...props} updateNotificationsNumber={updateNotificationsNumber} />
-                    )} />
-                    <Route path="/user/:slug/amigos" component={ProfileFriends} />
-                    <Route path="/post/:id" exact component={Post} />
-                    <Route path="/post/:id/comentar" render={props => (
-                        <Post {...props} commentModalIsOpen={true} />
-                    )} />
-                    <Route path="/interesses/:interest" component={InterestProfiles} />
+            <div className="wrapper">
+                <SidebarLeft />
+                <div className="main-content">
+                    <Switch>
+                        <Route path="/" exact>
+                            <Redirect to="/home" />
+                        </Route>
+                        <Route path="/home" render={props => (
+                            <Home {...props} />
+                        )} />
+                        <Route path="/notificações" render={props => (
+                            <Notifications {...props} updateNotificationsNumber={updateNotificationsNumber} />
+                        )} />
+                        <Route path="/mensagens" exact component={Messages} />
+                        <Route path="/mensagens/:slug" render={props => (
+                            <Messages {...props} updateUnreadMessagesNumber={updateUnreadMessagesNumber} />
+                        )} />
+                        <Route path="/perfil" exact render={props => (
+                            <EditProfileProvider>
+                                <MyProfile />
+                            </EditProfileProvider>
+                        )} />
+                        <Route path="/perfil/meus-interesses" component={EditInterests} />
+                        <Route path="/configurações" exact component={Settings} />
+                        <Route path="/configurações/perfis-bloqueados" exact render={props => (
+                            <Settings {...props} page={'blocked-profiles'} />
+                        )} />
+                        <Route path="/configurações/segurança" exact render={props => (
+                            <Settings {...props} page={'security'} />
+                        )} />
+                        <Route path="/configurações/alterar-senha" exact render={props => (
+                            <Settings {...props} page={'change-password'} />
+                        )} />
+                        <Route path="/configurações/deletar-conta" exact render={props => (
+                            <Settings {...props} page={'delete-account'} />
+                        )} />
+                        <Route path="/configurações/faq" exact render={props => (
+                            <Settings {...props} page={'faq'} />
+                        )} />
+                        <Route path="/configurações/fale-conosco" exact render={props => (
+                            <Settings {...props} page={'feedback'} />
+                        )} />
+                        <Route path="/user/:slug" exact render={props => (
+                            <Profile {...props} updateNotificationsNumber={updateNotificationsNumber} />
+                        )} />
+                        <Route path="/user/:slug/amigos" component={ProfileFriends} />
+                        <Route path="/post/:id" exact component={Post} />
+                        <Route path="/post/:id/comentar" render={props => (
+                            <Post {...props} commentModalIsOpen={true} />
+                        )} />
+                        <Route path="/interesses/:interest" component={InterestProfiles} />
 
-                    <Route path="/postar" component={PostFormPage} />
+                        <Route path="/postar" component={PostFormPage} />
+                    </Switch>
+                </div>
+                <Switch>
+                    <Route path="/:path" component={SidebarRight} />
                 </Switch>
             </div>
-            <Switch>
-                <Route path="/:path" component={SidebarRight} />
-            </Switch>
         </Router>
     )
 }

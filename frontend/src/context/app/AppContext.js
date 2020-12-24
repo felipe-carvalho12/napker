@@ -4,7 +4,8 @@ import { InvitesReceivedContext, InvitesReceivedProvider } from './invites-recei
 import { UnvisualizedCommentsContext, UnvisualizedCommentsProvider } from './unvisualized-comments-number/UnvisualizedCommentsContext'
 import { UnvisualizedLikesContext, UnvisualizedLikesProvider } from './unvisualized-likes-number/UnvisualizedLikesContext'
 import { UnreadMessagesContext, UnreadMessagesProvider } from './unread-messages-number/UnreadMessagesContext'
-export { InvitesReceivedContext, UnvisualizedCommentsContext, UnvisualizedLikesContext, UnreadMessagesContext }
+import { ThemeContext, ThemeProvider } from './theme/ThemeContext'
+export { InvitesReceivedContext, UnvisualizedCommentsContext, UnvisualizedLikesContext, UnreadMessagesContext, ThemeContext }
 
 export default function AppContextProvider(props) {
     return (
@@ -12,7 +13,9 @@ export default function AppContextProvider(props) {
             <UnvisualizedCommentsProvider>
                 <UnvisualizedLikesProvider>
                     <UnreadMessagesProvider>
-                        {props.children}
+                        <ThemeProvider>
+                            {props.children}
+                        </ThemeProvider>
                     </UnreadMessagesProvider>
                 </UnvisualizedLikesProvider>
             </UnvisualizedCommentsProvider>

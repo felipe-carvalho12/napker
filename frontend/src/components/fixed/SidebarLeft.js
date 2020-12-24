@@ -2,13 +2,15 @@ import React, { useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
 
 import { SERVER_URL, LOGO_URL } from '../../config/settings'
-import { getActivePageOnLoad, switchPage } from '../../config/utils'
+import { getActivePageOnLoad, switchPage, getTheme } from '../../config/utils'
 import {
     InvitesReceivedContext, UnvisualizedCommentsContext,
-    UnvisualizedLikesContext, UnreadMessagesContext
+    UnvisualizedLikesContext, UnreadMessagesContext, ThemeContext
 } from '../../context/app/AppContext'
 
 export default function Sidebar() {
+    const [theme, setTheme] = useContext(ThemeContext)
+
     const [invitesReceivedNumber,] = useContext(InvitesReceivedContext)
     const [unvisualizedCommentsNumber,] = useContext(UnvisualizedCommentsContext)
     const [unvisualizedLikesNumber,] = useContext(UnvisualizedLikesContext)
@@ -17,54 +19,17 @@ export default function Sidebar() {
 
     let notificationsNumber = invitesReceivedNumber + unvisualizedLikesNumber + unvisualizedCommentsNumber
 
-    let theme = window.localStorage.getItem('theme') || 'light'
-
 
     useEffect(() => {
         document.getElementById('chk').checked = theme === 'dark'
         getActivePageOnLoad()
-        getTheme()
+        getTheme(theme)
     }, [])
 
     const switchTheme = () => {
-        theme = theme === 'light' ? 'dark' : 'light'
-        getTheme()
-        window.localStorage.setItem('theme', theme)
-    }
-
-    const getTheme = () => {
-        const cssVariables = document.documentElement.style
-
-        if (theme === 'light') {
-            cssVariables.setProperty('--border-color', '#f3f3f3')
-            cssVariables.setProperty('--background', '#f3f3f3')
-            cssVariables.setProperty('--fixed-components-background', '#fcfdfc')
-            cssVariables.setProperty('--heart-color', '#E0245E')
-            cssVariables.setProperty('--heart-background-hover', 'rgba(224, 36, 94, .1)')
-            cssVariables.setProperty('--primary-color', '#48D1AF')
-            cssVariables.setProperty('--secondary-color', 'rgba(119, 147, 125, .1)')
-            cssVariables.setProperty('--primary-color-hover', '#3FB597')
-            cssVariables.setProperty('--primary-grey', '#363636')
-            cssVariables.setProperty('--loader-background', 'rgba(119, 147, 125, .3)')
-            cssVariables.setProperty('--theme-base-color', '#fff')
-            cssVariables.setProperty('--theme-base-color-hover', 'rgba(255, 255, 255, 0.5)')
-            cssVariables.setProperty('--view-more-select-border', 'rgba(0, 0, 0, .2)')
-
-        } else if (theme === 'dark') {
-            cssVariables.setProperty('--border-color', '#000')
-            cssVariables.setProperty('--background', '#000')
-            cssVariables.setProperty('--fixed-components-background', '#131313')
-            cssVariables.setProperty('--heart-color', '#E0245E')
-            cssVariables.setProperty('--heart-background-hover', 'rgba(224, 36, 94, .1)')
-            cssVariables.setProperty('--primary-color', '#48D1AF')
-            cssVariables.setProperty('--secondary-color', 'rgba(119, 147, 125, .1)')
-            cssVariables.setProperty('--primary-color-hover', '#3FB597')
-            cssVariables.setProperty('--primary-grey', '#D9D9D9')
-            cssVariables.setProperty('--loader-background', 'rgba(119, 147, 125, .3)')
-            cssVariables.setProperty('--theme-base-color', '#131313')
-            cssVariables.setProperty('--theme-base-color-hover', 'rgba(255, 255, 255, 0.1)')
-            cssVariables.setProperty('--view-more-select-border', 'rgba(255, 255, 255, .2)')
-        }
+        setTheme(theme === 'light' ? 'dark' : 'light')
+        getTheme(theme === 'light' ? 'dark' : 'light')
+        window.localStorage.setItem('theme', theme === 'light' ? 'dark' : 'light')
     }
 
     return (
