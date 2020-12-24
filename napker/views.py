@@ -24,17 +24,7 @@ from profiles.models import Profile, Interest
 
 
 def index_view(request):
-    if request.user.is_authenticated:
-        return redirect('/home')
-    else:
-        return redirect('/login')
-
-
-def pages_view(request, slug=None, id=None, query=None):
-    if request.user.is_authenticated:
-        return render(request, 'index.html')
-    else:
-        return redirect('/login')
+    return render(request, 'index.html')
 
 
 def login_view(request):
@@ -48,7 +38,7 @@ def login_view(request):
         else:
             return render(request, 'pages/login.html', {'message': 'Credenciais inválidas'})
     else:
-        return render(request, 'pages/login.html')
+        return render(request, 'index.html')
 
 
 def logout_view(request):
@@ -89,7 +79,7 @@ def signup_view(request):
 
         return render(request, 'pages/signup/interests.html', {'user': user})
     else:
-        return render(request, 'pages/signup/signup.html')
+        return render(request, 'index.html')
 
 
 def add_interests_view(request):
