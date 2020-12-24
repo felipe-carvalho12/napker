@@ -8,7 +8,7 @@ def get_post_relevance(profile, post):
     authors = post.views.exclude(user=profile.user).all() if len(post.views.exclude(user=profile.user).all()) else [profile]
     points = []
 
-    author_points = [author[1] for author in process_authors_relevance(profile, authors)]
+    author_points = process_authors_relevance(profile, authors)
 
     likes_authors = [like.profile for like in post.all_likes().all()]
 
@@ -30,7 +30,7 @@ def process_posts_relevance(profile):
     posts = Post.objects.all()
     authors = [post.author for post in posts]
 
-    authors_relevance = np.array([lekinho[1] for lekinho in process_authors_relevance(profile, authors)]) * WEIGHTS[0]
+    authors_relevance = process_authors_relevance(profile, authors) * WEIGHTS[0]
 
     like_points = np.array([get_post_relevance(profile, post) for post in posts])
     like_points = (like_points + abs(np.amin(like_points))) * WEIGHTS[1]
