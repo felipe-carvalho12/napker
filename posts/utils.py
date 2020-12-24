@@ -22,8 +22,8 @@ def get_post_relevance(profile, post):
 
 
 def process_posts_relevance(profile):
-    AUTHOR_WEIGHT = 1
-    LIKES_WEIGHT = 0
+    AUTHOR_WEIGHT = 0
+    LIKES_WEIGHT = 1
 
     WEIGHTS = [AUTHOR_WEIGHT, LIKES_WEIGHT]
 
@@ -34,6 +34,7 @@ def process_posts_relevance(profile):
 
     like_points = np.array([get_post_relevance(profile, post) for post in posts])
     like_points = (like_points + abs(np.amin(like_points))) * WEIGHTS[1]
+    like_points = like_points / np.amax(like_points)
 
     post_relevance = np.sum(np.vstack(tuple([like_points, authors_relevance])), axis=0)
 
