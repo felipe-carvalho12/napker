@@ -21,7 +21,8 @@
         display: initial;
     }
     .wrapper .main-content {
-        width: 100%;
+        width: 100vw;
+        height: 100vh;
     }
     .btn-primary:hover {
         background: var(--primary-color)!important;
