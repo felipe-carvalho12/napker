@@ -47,7 +47,7 @@ export default function Sidebar() {
             cssVariables.setProperty('--primary-grey', '#363636')
             cssVariables.setProperty('--loader-background', 'rgba(119, 147, 125, .3)')
             cssVariables.setProperty('--theme-base-color', '#fff')
-            cssVariables.setProperty('--theme-base-color-hover', 'rgba(128, 128, 128, .01)')
+            cssVariables.setProperty('--theme-base-color-hover', 'rgba(255, 255, 255, 0.5)')
             cssVariables.setProperty('--view-more-select-border', 'rgba(0, 0, 0, .2)')
 
         } else if (theme === 'dark') {
@@ -62,7 +62,7 @@ export default function Sidebar() {
             cssVariables.setProperty('--primary-grey', '#D9D9D9')
             cssVariables.setProperty('--loader-background', 'rgba(119, 147, 125, .3)')
             cssVariables.setProperty('--theme-base-color', '#131313')
-            cssVariables.setProperty('--theme-base-color-hover', 'rgba(128, 128, 128, .01)')
+            cssVariables.setProperty('--theme-base-color-hover', 'rgba(255, 255, 255, 0.1)')
             cssVariables.setProperty('--view-more-select-border', 'rgba(255, 255, 255, .2)')
         }
     }
