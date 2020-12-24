@@ -14,6 +14,13 @@ from .utils import *
 # Create your views here.
 
 @api_view(['GET'])
+def is_logged(request):
+    if request.user.is_authenticated:
+        return Response('True')
+    else:
+        return Response('False')
+
+@api_view(['GET'])
 def get_logged_user(request):
     serializer = UserSerializer(request.user)
     return Response(serializer.data)
