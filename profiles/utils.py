@@ -39,6 +39,7 @@ def get_profile_list(profile):
     profiles = []
 
     for p in Profile.objects.exclude(user=profile.user):
+        if not p.user.is_active: continue
         if p.user in profile.blocked_users.all(): continue
         if p.user in profile.friends.all(): continue
         if profile.user.id in p.blocked_users.all(): continue
