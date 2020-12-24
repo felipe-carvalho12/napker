@@ -1,7 +1,7 @@
 .profiles-filter-container {
     width: 100%;
     display: flex;
-    background: #fcfcfc;
+    background: var(--theme-base-color);
     padding: 15px 5.37%;
     border-bottom: 1px solid var(--border-color);
 }
@@ -11,7 +11,7 @@
     padding-left: 15px;
     border: none;
     border-radius: 20px;
-    background: #e3e5e9;
+    background: var(--background);
 }
 
 .profiles-filter-container .profiles-search-extra-options-icon {
@@ -24,12 +24,12 @@
     border-radius: 20px;
     font-weight: bold!important;
     margin: 4px;
-    background: #e3e5e9!important;
-    color: #666!important;
+    background: var(--background)!important;
+    color: var(--text-secondary)!important;
 }
 
 .profiles-filter-container .profiles-search-extra-options-icon:hover, .profiles-filter-container .profiles-search-extra-options-icon-active {
-    background: #d3d5d9!important;
+    background: var(--theme-base-color-hover)!important;
 }
 
 .profiles-filter-input:focus {

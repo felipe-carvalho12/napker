@@ -15,7 +15,7 @@ export default function ProfileListItem(props) {
             <li
                 className="position-relative border-0 b-bottom base-hover"
                 key={profile.id}
-                style={{ ...props.style, padding: '.75rem 1.25rem' }}
+                style={{ ...props.style, padding: '.75rem 1.25rem', background: 'var(--theme-base-color)'}}
                 onClick={props.onClick}
             >
                 <div className="d-flex">
