@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
 
+import Logo from '../../assets/icons/Logo' 
 import { SERVER_URL, LOGO_URL } from '../../config/settings'
 import { getActivePageOnLoad, switchPage, getTheme } from '../../config/utils'
 import {
@@ -37,7 +38,7 @@ export default function Sidebar() {
             <div>
                 <div className="logo-container">
                     <Link to="/home" style={{ textDecoration: 'none' }} onClick={e => switchPage(e, true)}>
-                        <img src={`${SERVER_URL}${LOGO_URL}`} style={{ width: '25px' }} />
+                        <Logo />
                     </Link>
                 </div>
                 <ul>
