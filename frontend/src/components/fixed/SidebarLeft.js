@@ -51,9 +51,9 @@ export default function Sidebar() {
             cssVariables.setProperty('--view-more-select-border', 'rgba(0, 0, 0, .2)')
 
         } else if (theme === 'dark') {
-            cssVariables.setProperty('--border-color', '#131313')
-            cssVariables.setProperty('--background', '#131313')
-            cssVariables.setProperty('--fixed-components-background', '#000')
+            cssVariables.setProperty('--border-color', '#000')
+            cssVariables.setProperty('--background', '#000')
+            cssVariables.setProperty('--fixed-components-background', '#131313')
             cssVariables.setProperty('--heart-color', '#E0245E')
             cssVariables.setProperty('--heart-background-hover', 'rgba(224, 36, 94, .1)')
             cssVariables.setProperty('--primary-color', '#48D1AF')
@@ -61,7 +61,7 @@ export default function Sidebar() {
             cssVariables.setProperty('--primary-color-hover', '#3FB597')
             cssVariables.setProperty('--primary-grey', '#D9D9D9')
             cssVariables.setProperty('--loader-background', 'rgba(119, 147, 125, .3)')
-            cssVariables.setProperty('--theme-base-color', '#000')
+            cssVariables.setProperty('--theme-base-color', '#131313')
             cssVariables.setProperty('--theme-base-color-hover', 'rgba(128, 128, 128, .01)')
             cssVariables.setProperty('--view-more-select-border', 'rgba(255, 255, 255, .2)')
         }
