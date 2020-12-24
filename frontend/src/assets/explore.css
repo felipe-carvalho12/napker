@@ -10,7 +10,7 @@
     justify-content: start;
     align-items: center;
     padding: 10px;
-    background: #fff;
+    background: var(--theme-base-color);
     border-bottom: 1px solid var(--border-color);
     overflow-x: scroll;
 }
@@ -18,23 +18,13 @@
 .explore-page-container .hashtag-container {
     padding: 5px 15px;
     margin-right: 10px;
-    border: 1px solid rgba(0, 0, 0, .3);
+    border: 1px solid var(--border-color);
     border-radius: 10px;
     font-weight: bold;
-    color: #444;
-}
-
-.explore-page-container .hashtag-container:hover {
-    background: var(--theme-base-color-hover);
-    cursor: pointer;
+    color: var(--primary-grey);
 }
 
 .explore-page-container .active {
-    background: #666!important;
-    color: #fff!important;
-}
-
-.explore-page-container .active:hover {
-    background: #555!important;
-    color: #fff!important;
+    background: var(--background)!important;
+    color: var(--primary-grey)!important;
 }

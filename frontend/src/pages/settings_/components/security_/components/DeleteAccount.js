@@ -39,7 +39,7 @@ export default function DeleteAccount() {
         <div className="settings-description-container">
             <div
                 className="d-flex justify-content-start align-items-center"
-                style={{ background: '#fff', padding: '15px', borderBottom: '1px solid var(--border-color)' }}
+                style={{ background: 'var(--theme-base-color)', padding: '15px', borderBottom: '1px solid var(--border-color)' }}
             >
                 <i
                     class="fas fa-arrow-left left-arrow-icon mr-2"

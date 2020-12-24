@@ -22,8 +22,8 @@ def get_post_relevance(profile, post):
 
 
 def process_posts_relevance(profile):
-    AUTHOR_WEIGHT = 0.5
-    LIKES_WEIGHT = 0.5
+    AUTHOR_WEIGHT = 1
+    LIKES_WEIGHT = 0
 
     WEIGHTS = [AUTHOR_WEIGHT, LIKES_WEIGHT]
 

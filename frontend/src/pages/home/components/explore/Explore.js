@@ -53,12 +53,12 @@ export default function Explore() {
             {myProfile !== null && posts !== null ?
                 <>
                     <div className="hashtags-header">
-                        <div className="hashtag-container active" onClick={switchPage}>
+                        <div className="hashtag-container active base-hover" onClick={switchPage}>
                             Todos
                         </div>
                         {myProfile.interests.map(interest => {
                             return (
-                                <div className="hashtag-container" onClick={switchPage}>
+                                <div className="hashtag-container base-hover" onClick={switchPage}>
                                     {interest.title}
                                 </div>
                             )
