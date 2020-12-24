@@ -3,7 +3,7 @@
     display: flex;
     background: var(--theme-base-color);
     padding: 15px 5.37%;
-    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 15px;
 }
 
 .profiles-filter-container .profiles-filter-input {
