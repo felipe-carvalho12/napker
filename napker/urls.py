@@ -16,37 +16,15 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, re_path, include
 from django.views.generic import TemplateView
 
 from .views import *
 
 urlpatterns = [
-    # Main navigation
-    path("", index_view, name="index"),
-    path("home", index_view),
-    path("notificações", index_view),
-    path("mensagens", index_view),
-    path("mensagens/<str:slug>", index_view),
-    path("perfil", index_view),
-    path("perfil/meus-interesses", index_view),
-    path("configurações", index_view),
-    path("configurações/segurança", index_view),
-    path("configurações/perfis-bloqueados", index_view),
-    path("configurações/alterar-senha", index_view),
-    path("configurações/deletar-conta", index_view),
-    path("configurações/faq", index_view),
-    path("configurações/fale-conosco", index_view),
-    path("user/<str:slug>", index_view),
-    path("user/<str:slug>/amigos", index_view),
-    path("post/<int:id>", index_view),
-    path("post/<int:id>/comentar", index_view),
-    path("postar", index_view),
-    path("interesses/<str:query>", index_view),
-
     # Profile utils
     path("signup", signup_view, name="signup"),
-    path("lekinho", TemplateView.as_view(template_name="pages/signup/interests.html")),
+    path("lekinho", TemplateView.as_view(template_name="pages/signup/activation_link_sent.html")),
     path("signup/interesses", add_interests_view, name="interests"),
     path("update-profile", update_profile),
     path("change-password", change_password),
@@ -69,6 +47,15 @@ urlpatterns = [
 
     # Admin
     path("admin/", admin.site.urls),
+
+    # Main navigation
+    re_path('home', TemplateView.as_view(template_name="index.html")),
+    re_path('notificações', TemplateView.as_view(template_name="index.html")),
+    re_path('mensagens', TemplateView.as_view(template_name="index.html")),
+    re_path('perfil', TemplateView.as_view(template_name="index.html")),
+    re_path('configurações', TemplateView.as_view(template_name="index.html")),
+    re_path('user', TemplateView.as_view(template_name="index.html")),
+    re_path('interesses', TemplateView.as_view(template_name="index.html")),
 ]
 
 if settings.DEBUG:
