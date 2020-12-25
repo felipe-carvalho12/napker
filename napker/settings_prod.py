@@ -163,7 +163,7 @@ EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "napkercontato@gmail.com"
-EMAIL_HOST_PASSWORD = "Fe12Fa20"
+EMAIL_HOST_PASSWORD = "dj@ng0Npkr8"
 
 # HTTPS => Only for production
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

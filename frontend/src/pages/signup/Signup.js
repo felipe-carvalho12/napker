@@ -17,7 +17,7 @@ export default function Signup() {
                 <SignupForm setSignupPage={setCurrentPage} setMyUserId={setMyUserId} />
             }
             {currentPage === 'interests' &&
-                <InterestsForm myUserId={myUserId} />
+                <InterestsForm setSignupPage={setCurrentPage} myUserId={myUserId} />
             }
             {currentPage === 'activation-link-sent' &&
                 <ActivationLinkSent />

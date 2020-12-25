@@ -11,7 +11,7 @@ export default function InterestsInput(props) {
     const interestsInput = useRef() //hidden input that stores the interests titles
 
     useEffect(() => {
-        let tags = myProfile.interests.filter(i => type === 'public' ? i.public : !i.public).map(i => i.title);
+        let tags = myProfile ? myProfile.interests.filter(i => type === 'public' ? i.public : !i.public).map(i => i.title) : []
         addTags()
 
         function createTag(label) {
@@ -74,7 +74,7 @@ export default function InterestsInput(props) {
 
     return (
         <>
-            <div ref={tagContainer} className="tag-container">
+            <div ref={tagContainer} className={`${props.className} tag-container`}>
                 <textarea
                     ref={input}
                     className="autoExpand"

@@ -41,9 +41,6 @@ export default function App() {
                             <Switch>
                                 <Route path="/login" component={Login} />
                                 <Route path="/signup" exact component={Signup} />
-                                <Route path="/link">
-                                    <ActivationLinkSent />
-                                </Route>
                                 <Route path="/">
                                     <Redirect to="/login" />
                                 </Route>

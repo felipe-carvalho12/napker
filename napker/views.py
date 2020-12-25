@@ -76,38 +76,36 @@ def signup_view(request):
     })
 
 
+@api_view(['POST'])
 def add_interests_view(request):
-    if request.method == 'POST':
-        user = User.objects.get(pk=request.POST['uid'])
-        profile = Profile.objects.get(user=user)
-        interests = request.POST['interests'].split(', ')
-        for title in interests:
-            if len(title) < 3:
-                continue
-            i, created = Interest.objects.get_or_create(title=title, public=False)
-            profile.interests.add(i)
-        profile.save()
+    user = User.objects.get(pk=request.data['uid'])
+    profile = Profile.objects.get(user=user)
+    interests = request.data['interests']
+    for title in interests:
+        if len(title) < 3:
+            continue
+        i, created = Interest.objects.get_or_create(title=title, public=False)
+        profile.interests.add(i)
+    profile.save()
 
-        current_site = get_current_site(request)
-        email_subject = 'Ative a sua conta'
-        message = render_to_string('auth/activate.html', {
-            'user': user,
-            'domain': current_site.domain,
-            'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-            'token': PasswordResetTokenGenerator().make_token(user)
-        })
-        email_message = EmailMessage(
-            email_subject,
-            message,
-            settings.EMAIL_HOST_USER,
-            [user.profile.email],
+    current_site = get_current_site(request)
+    email_subject = 'Ative a sua conta'
+    message = render_to_string('auth/activate.html', {
+        'user': user,
+        'domain': current_site.domain,
+        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+        'token': PasswordResetTokenGenerator().make_token(user)
+    })
+    email_message = EmailMessage(
+        email_subject,
+        message,
+        settings.EMAIL_HOST_USER,
+        [user.profile.email],
 
-        )
-        email_message.send(fail_silently=False)
+    )
+    email_message.send(fail_silently=False)
 
-        return render(request, 'pages/signup/activation_link_sent.html')
-    else:
-        return render(request, 'index.html')
+    return Response('activation link sent')
 
 
 def activate_account_view(request, uidb64, token):

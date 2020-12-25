@@ -24,7 +24,7 @@ from .views import *
 urlpatterns = [
     # Profile utils
     path("post-signup", signup_view),
-    path("signup/interesses", add_interests_view, name="interests"),
+    path("post-signup/interests", add_interests_view),
     path("update-profile", update_profile),
     path("change-password", change_password),
     path("post-login", login_view),
