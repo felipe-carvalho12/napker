@@ -1,0 +1,14 @@
+.modal-content {
+    background: var(--theme-base-color)!important;
+    border-color: var(--primary-grey)!important;
+    border-radius: 1rem!important;
+}
+  
+.modal-content .close {
+    color: var(--primary-grey);
+    opacity: 1;
+}
+  
+.modal-content .close:hover {
+    opacity: 1.5;
+}

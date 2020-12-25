@@ -18,3 +18,13 @@
     animation-fill-mode: forwards;
     animation-play-state: paused;
 }
+
+@keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+}
+
+.spinner {
+    animation: spin 1.3s ease-in-out infinite;
+}

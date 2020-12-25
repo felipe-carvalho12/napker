@@ -1,0 +1,60 @@
+.btn-primary {
+    background: var(--primary-color)!important;
+    color: #fff!important;
+    border: 1px solid rgba(0, 0, 0, 0.1)!important;
+    border-radius: 20px;
+    font-weight: bold!important;
+}
+  
+.btn-primary:hover {
+    background-color: var(--primary-color-hover)!important;
+    color: #fff!important;
+}
+  
+.btn-secondary {
+    background: rgba(0, 0, 0, 0)!important;
+    color: var(--primary-color)!important;
+    border: 1px solid var(--primary-color)!important;
+    border-radius: 20px!important;
+    font-weight: bold!important;
+}
+  
+.btn-secondary:hover {
+    background: var(--secondary-color)!important;
+}
+  
+.left-arrow-icon, .add-icon {
+    padding: 10px;
+    margin-right: 10px;
+    color: var(--primary-color);
+    border-radius: 50%;
+    font-size: 1.25rem;
+}
+  
+.left-arrow-icon:hover, .add-icon:hover {
+    background-color: var(--secondary-color);
+    color: var(--primary-color-hover);
+    cursor: pointer;
+}
+  
+.trash-icon:hover {
+    color: #f00!important;
+    cursor: pointer;
+}
+  
+.btn-grey {
+    background: #eee;
+    color: #444;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    font-weight: bold;
+}
+  
+.btn-grey:hover {
+    background: var(--theme-base-color-hover);
+}
+  
+.btn-primary:focus, .btn-secondary:focus, .btn-grey:focus {
+    outline: none;
+    box-shadow: none;
+}

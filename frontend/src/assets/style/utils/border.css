@@ -1,0 +1,15 @@
+.b-bottom {
+    border-bottom: 3px solid var(--border-color)!important;
+}
+
+.b-top {
+    border-top: 3px solid var(--border-color)!important;
+}
+
+.b-left {
+    border-left: 3px solid var(--border-color)!important;
+}
+
+.b-right {
+    border-right: 3px solid var(--border-color)!important;
+}
