@@ -26,8 +26,9 @@ export default function Sidebar() {
     }, [])
 
     const switchTheme = () => {
-        setTheme(theme === 'light' ? 'dark' : 'light')
-        window.localStorage.setItem('theme', theme === 'light' ? 'dark' : 'light')
+        theme = theme === 'light' ? 'dark' : 'light'
+        setTheme(theme)
+        window.localStorage.setItem('theme', theme)
     }
 
     return (

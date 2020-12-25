@@ -18,28 +18,25 @@ from django.core.mail import EmailMessage
 from django.conf import settings
 
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 
 from profiles.models import Profile, Interest
 
-
+@api_view(['POST'])
 def login_view(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('/home')
-        else:
-            return render(request, 'pages/login.html', {'message': 'Credenciais inválidas'})
+    username = request.data['username']
+    password = request.data['password']
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
+        login(request, user)
+        return Response('logged in')
     else:
-        return render(request, 'index.html')
+        return Response('Credenciais inválidas. Por favor verifique seus dados e tente novamente.')
 
 
 def logout_view(request):
     logout(request)
-    return redirect('/login')
+    return redirect(reverse('login'))
 
 
 def signup_view(request):

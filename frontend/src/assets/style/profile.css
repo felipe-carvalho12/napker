@@ -162,22 +162,6 @@
     border-bottom: 1px solid var(--border-color);
 }
 
-.interests-page-container {
-    background: #fff;
-    padding: 30px;
-    text-align: start;
-}
-
-.interest-item {
-    width: 100%;
-    min-height: 50px;
-    padding: 0 30px 0 30px;
-    font-size: large;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
 .tag-container .tag {
     width: fit-content;
     height: 30px;
@@ -214,22 +198,6 @@
     display: flex;
     justify-content: center;
     padding-top: 25px;
-}
-
-.interests-title-container {
-    width: 100%;
-    background: #fff;
-    padding: 15px;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.interest-profile-list {
-    width: 100%;
-}
-
-.interest-profile-row {
-    border: none!important;
-    border-bottom: 1px solid var(--border-color)!important;
 }
 
 /* FRIENDS */

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { SERVER_URL } from '../../config/settings'
@@ -7,32 +7,67 @@ import Logo from '../../assets/icons/Logo'
 
 
 export default function Login() {
+    const [errMessage, setErrMessage] = useState(null)
+
+    const usernameRef = useRef()
+    const passwordRef = useRef()
 
     document.title = 'Entrar / Napker'
 
+    const handleLogin = e => {
+        e.preventDefault()
+        fetch(`${SERVER_URL}/post-login`, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+                'X-CSRFToken': csrftoken,
+            },
+            body: JSON.stringify({
+                'username': usernameRef.current.value,
+                'password': passwordRef.current.value
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data === 'logged in') window.location.href = '/home'
+                else {
+                    usernameRef.current.value = ''
+                    passwordRef.current.value = ''
+                    setErrMessage(data)
+                }
+            })
+    }
+
     return (
         <form
-            action={`${SERVER_URL}/login`}
-            class="d-flex flex-column align-items-center primary-form"
-            method="POST"
+            className="d-flex flex-column align-items-center primary-form"
             style={{ width: '90vw', maxWidth: '600px', margin: '50px auto' }}
         >
-            <input type="hidden" name="csrfmiddlewaretoken" value={csrftoken} />
-
             <Logo />
             <h1 className="mt-3" style={{ fontSize: '30px' }}>Entrar no Napker</h1>
 
-            <div class="w-75 mt-3 d-flex justify-content-center">
-                <input class="form-control w-100" type="text" name="username" placeholder="Nome de usuário" />
+            {errMessage !== null &&
+                <div className="w-75 mt-1">
+                    <span className="word-break" style={{ color: '#f00' }}>{errMessage}</span>
+                </div>
+            }
+
+            <div className="w-75 mt-3 d-flex justify-content-center">
+                <input ref={usernameRef} className="form-control w-100" type="text" placeholder="Nome de usuário" />
             </div>
 
-            <div class="w-75 mt-2 d-flex justify-content-center">
-                <input class="form-control w-100" type="password" name="password" placeholder="Senha" />
+            <div className="w-75 mt-2 d-flex justify-content-center">
+                <input ref={passwordRef} className="form-control w-100" type="password" placeholder="Senha" />
             </div>
 
-            <button class="btn btn-primary w-75 mt-2 py-2" type="submit">Entrar</button>
+            <button
+                className="btn btn-primary w-75 mt-2 py-2"
+                disabled={usernameRef.current.value === passwordRef.current.value === ''}
+                onClick={handleLogin}
+            >Entrar
+            </button>
 
-            <ul class="w-100 d-flex justify-content-center text-center mt-3" style={{ listStyle: 'none' }}>
+            <ul className="w-100 d-flex justify-content-center text-center mt-3" style={{ listStyle: 'none' }}>
                 <li style={{ marginLeft: '12px' }}>
                     <Link to="/recuperar-senha">
                         <span>Esqueceu sua senha?</span>

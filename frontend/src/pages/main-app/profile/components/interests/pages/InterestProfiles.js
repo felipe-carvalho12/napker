@@ -29,10 +29,10 @@ export default function InterestProfiles() {
                 backArrow={true}
             />
             <div className="content">
-                <div className="interests-title-container">
+                <div className="w-100 b-bottom" style={{ background: 'var(--theme-base-color)', padding: '15px' }}>
                     <h3>Perfis interessados em "{interest}"</h3>
                 </div>
-                <div className="list-group interest-profile-list">
+                <div className="w-100 list-group">
                     {myProfile !== null && profiles !== null ?
                         profiles.map(profile => {
                             return (
