@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import { onExpandableTextareaInput, setTheme } from './config/utils'
 import { SERVER_URL } from './config/settings'
 
-import MainApp from './pages/main-app/Router'
-import Login from './pages/login/Login'
-import Signup from './pages/signup/Signup'
+import ResetPassword from './pages/auth/reset-password/ResetPassword'
 import PageLoader from './pages/PageLoader'
-import ActivationLinkSent from './pages/signup/components/ActivationLinkSent'
+import MainAppRouter from './pages/main-app/Router'
+import AuthRouter from './pages/auth/Router'
 
 export default function App() {
     // global event listeners
@@ -31,26 +30,25 @@ export default function App() {
     }, [])
 
     return (
-        <>
-            {isLogged !== null ?
-                <>
-                    {isLogged === 'True' ?
-                        <MainApp />
-                        :
-                        <Router>
-                            <Switch>
-                                <Route path="/login" component={Login} />
-                                <Route path="/signup" exact component={Signup} />
-                                <Route path="/">
-                                    <Redirect to="/login" />
-                                </Route>
-                            </Switch>
-                        </Router>
-                    }
-                </>
-                :
-                <PageLoader />
-            }
-        </>
+        <Router>
+            <Switch>
+                <Route path="/recuperar-senha">
+                    <ResetPassword />
+                </Route>
+                
+                {isLogged !== null ?
+                    <Route path="/">
+                        {isLogged === 'True' ?
+                            <MainAppRouter />
+                            :
+                            <AuthRouter />
+                        }
+                    </Route>
+                    :
+                    <PageLoader />
+                }
+                
+            </Switch>
+        </Router>
     )
 }

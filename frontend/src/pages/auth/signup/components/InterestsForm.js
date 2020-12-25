@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 
-import { SERVER_URL } from '../../../config/settings'
-import { csrftoken } from '../../../config/utils'
-import Logo from '../../../assets/icons/Logo'
-import PageLoader from '../../PageLoader'
-import InterestsInput from '../../main-app/profile/pages/edit_interests/components/InterestsInput'
+import { SERVER_URL } from '../../../../config/settings'
+import { csrftoken } from '../../../../config/utils'
+import Logo from '../../../../assets/icons/Logo'
+import PageLoader from '../../../PageLoader'
+import InterestsInput from '../../../main-app/profile/pages/edit_interests/components/InterestsInput'
 
 
 export default function InterestsForm(props) {
@@ -51,7 +51,7 @@ export default function InterestsForm(props) {
                         </div>
                     }
 
-                    <Logo />
+                    <Logo size="30pt" />
                     <h1 className="my-3" style={{ fontSize: '30px' }}>Quais os seus principais interesses?</h1>
 
                     <div class="w-75 mt-3 d-flex justify-content-center">

@@ -1,9 +1,9 @@
 import React, { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import { SERVER_URL } from '../../config/settings'
-import { csrftoken } from '../../config/utils'
-import Logo from '../../assets/icons/Logo'
+import { SERVER_URL } from '../../../config/settings'
+import { csrftoken } from '../../../config/utils'
+import Logo from '../../../assets/icons/Logo'
 
 
 export default function Login() {
@@ -50,7 +50,7 @@ export default function Login() {
             style={{ width: '90vw', maxWidth: '600px', margin: '50px auto' }}
             onSubmit={handleLogin}
         >
-            <Logo />
+            <Logo size="30pt" />
             <h1 className="mt-3" style={{ fontSize: '30px' }}>Entrar no Napker</h1>
 
             {errMessage !== null &&

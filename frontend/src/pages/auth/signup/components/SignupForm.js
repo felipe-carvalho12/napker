@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-import { SERVER_URL } from '../../../config/settings'
-import { csrftoken } from '../../../config/utils'
-import Logo from '../../../assets/icons/Logo'
+import { SERVER_URL } from '../../../../config/settings'
+import { csrftoken } from '../../../../config/utils'
+import Logo from '../../../../assets/icons/Logo'
 
 
 export default function SignupForm(props) {
@@ -109,7 +109,7 @@ export default function SignupForm(props) {
             style={{ width: '90vw', maxWidth: '600px', margin: '50px auto' }}
             onSubmit={handleSignup}
         >
-            <Logo />
+            <Logo size="30pt" />
             <h1 className="mt-3" style={{ fontSize: '30px' }}>Criar conta</h1>
 
             {errMessage !== null &&

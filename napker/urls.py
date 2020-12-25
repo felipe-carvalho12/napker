@@ -40,7 +40,7 @@ urlpatterns = [
     path("settings-api/", include("settings.urls")),
 
     # Reset password
-    path('recuperar-senha', reset_password, name="reset_password"),
+    path('post-reset-password', reset_password, name="reset_password"),
     path('reset/<uidb64>/<token>', reset_password_confirm, name="reset"),
     path('reset-password-complete', reset_password_complete, name="password_reset_complete"),
 
@@ -51,13 +51,14 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name="index.html")),
     path('login', TemplateView.as_view(template_name="index.html")),
     path('signup', TemplateView.as_view(template_name="index.html")),
+    path('recuperar-senha', TemplateView.as_view(template_name="index.html")),
 
     re_path('home', TemplateView.as_view(template_name="index.html")),
     re_path('notificações', TemplateView.as_view(template_name="index.html")),
     re_path('mensagens', TemplateView.as_view(template_name="index.html")),
     re_path('perfil', TemplateView.as_view(template_name="index.html")),
     re_path('configurações', TemplateView.as_view(template_name="index.html")),
-    
+
     re_path('user', TemplateView.as_view(template_name="index.html")),
     re_path('post', TemplateView.as_view(template_name="index.html")),
     re_path('interesses', TemplateView.as_view(template_name="index.html")),

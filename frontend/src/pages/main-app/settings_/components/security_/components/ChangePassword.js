@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 
 import { csrftoken } from '../../../../../../config/utils'
 import { SERVER_URL } from '../../../../../../config/settings'
+import { Link } from 'react-router-dom'
 
 export default function ChangePassword() {
     const [errorMessage, setErrorMessage] = useState(null)
@@ -78,7 +79,9 @@ export default function ChangePassword() {
             <form className="change-password-form">
                 <input id="password" type="password" placeholder="Senha atual" autoFocus />
                 <br />
-                <a href={`${SERVER_URL}/recuperar-senha`}>Esqueceu sua senha?</a>
+                <Link to="/recuperar-senha">
+                    Esqueceu sua senha?
+                </Link>
                 <hr />
                 <br />
                 <input id="new_password" type="password" placeholder="Nova senha" />

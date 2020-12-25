@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import SignupForm from './components/SignupForm'
 import InterestsForm from './components/InterestsForm'
 import ActivationLinkSent from './components/ActivationLinkSent'
-import PageLoader from '../PageLoader'
+import PageLoader from '../../PageLoader'
 
 
 export default function Signup() {
