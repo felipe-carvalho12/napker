@@ -57,9 +57,10 @@ urlpatterns = [
     re_path('mensagens', TemplateView.as_view(template_name="index.html")),
     re_path('perfil', TemplateView.as_view(template_name="index.html")),
     re_path('configurações', TemplateView.as_view(template_name="index.html")),
+    
     re_path('user', TemplateView.as_view(template_name="index.html")),
+    re_path('post', TemplateView.as_view(template_name="index.html")),
     re_path('interesses', TemplateView.as_view(template_name="index.html")),
-    re_path('link', TemplateView.as_view(template_name="index.html")),
 ]
 
 if settings.DEBUG:
