@@ -14,6 +14,7 @@ export default function InterestsForm(props) {
 
     const handleSubmit = e => {
         e.preventDefault()
+        props.setSignupPage('page-loader')
         fetch(`${SERVER_URL}/post-signup/interests`, {
             method: 'POST',
             headers: {

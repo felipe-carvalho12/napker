@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import SignupForm from './components/SignupForm'
 import InterestsForm from './components/InterestsForm'
 import ActivationLinkSent from './components/ActivationLinkSent'
+import PageLoader from '../PageLoader'
 
 
 export default function Signup() {
@@ -21,6 +22,9 @@ export default function Signup() {
             }
             {currentPage === 'activation-link-sent' &&
                 <ActivationLinkSent />
+            }
+            {currentPage === 'page-loader' &&
+                <PageLoader />
             }
         </>
     )

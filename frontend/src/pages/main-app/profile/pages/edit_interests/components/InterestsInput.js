@@ -74,10 +74,11 @@ export default function InterestsInput(props) {
 
     return (
         <>
-            <div ref={tagContainer} className={`${props.className} tag-container`}>
+            <div className={`${props.className} tag-container`}>
+                <div ref={tagContainer} className="w-100 d-flex flex-wrap"></div>
                 <textarea
                     ref={input}
-                    className="autoExpand"
+                    className="autoExpand m-0"
                     rows='3'
                     data-min-rows='3'
                     placeholder="Digite e pressione 'Enter'"
