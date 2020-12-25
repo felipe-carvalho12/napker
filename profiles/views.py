@@ -85,7 +85,7 @@ def myprofile_list_view(request, scroll_count):
 def profile_list_view(request, slug):
     profile = Profile.objects.get(slug=slug)
     profiles = get_profile_list(profile)
-    serializer = ProfileSerializer(profiles[:5], many=True)
+    serializer = ProfileSerializer(profiles[:4], many=True)
     return Response(serializer.data)
 
 

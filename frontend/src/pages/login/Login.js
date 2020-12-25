@@ -11,8 +11,13 @@ export default function Login() {
 
     const usernameRef = useRef()
     const passwordRef = useRef()
+    const submitButtonRef = useRef()
 
     document.title = 'Entrar / Napker'
+
+    const handleInputChange = () => {
+        submitButtonRef.current.disabled = usernameRef.current.value === ''  || passwordRef.current.value === ''
+    }
 
     const handleLogin = e => {
         e.preventDefault()
@@ -33,6 +38,7 @@ export default function Login() {
                 else {
                     usernameRef.current.value = ''
                     passwordRef.current.value = ''
+                    submitButtonRef.current.disabled = true
                     setErrMessage(data)
                 }
             })
@@ -42,6 +48,7 @@ export default function Login() {
         <form
             className="d-flex flex-column align-items-center primary-form"
             style={{ width: '90vw', maxWidth: '600px', margin: '50px auto' }}
+            onSubmit={handleLogin}
         >
             <Logo />
             <h1 className="mt-3" style={{ fontSize: '30px' }}>Entrar no Napker</h1>
@@ -53,17 +60,17 @@ export default function Login() {
             }
 
             <div className="w-75 mt-3 d-flex justify-content-center">
-                <input ref={usernameRef} className="form-control w-100" type="text" placeholder="Nome de usuário" />
+                <input ref={usernameRef} className="form-control w-100" type="text" placeholder="Nome de usuário" onChange={handleInputChange} />
             </div>
 
             <div className="w-75 mt-2 d-flex justify-content-center">
-                <input ref={passwordRef} className="form-control w-100" type="password" placeholder="Senha" />
+                <input ref={passwordRef} className="form-control w-100" type="password" placeholder="Senha" onChange={handleInputChange} />
             </div>
 
             <button
+                ref={submitButtonRef}
                 className="btn btn-primary w-75 mt-2 py-2"
-                disabled={usernameRef.current.value === passwordRef.current.value === ''}
-                onClick={handleLogin}
+                disabled
             >Entrar
             </button>
 

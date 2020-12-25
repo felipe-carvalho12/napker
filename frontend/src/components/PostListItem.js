@@ -115,7 +115,6 @@ export default function PostListItem(props) {
                 </div>
                 <div className="d-flex flex-column position-relative">
                     <div className="view-more-select" id={`post-view-more-select-${post.id}`} style={{ right: '0%' }}>
-                        <div className="popover-arrow" style={{ top: '-9px', right: '8%' }} />
                         {myProfile.id === post.author.id ?
                             <li
                                 style={{ color: '#f00' }}
@@ -136,6 +135,7 @@ export default function PostListItem(props) {
                                 </li>
                             </>
                         }
+                        <div className="popover-arrow" style={{ top: '-9px', right: '8%' }} />
                     </div>
                     <div className="d-flex justify-content-start word-break">
                         {post.content}

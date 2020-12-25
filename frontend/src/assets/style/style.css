@@ -148,6 +148,10 @@ a:hover {
   background: var(--theme-base-color);
 }
 
+.view-more-select li:first-of-type:hover ~ .popover-arrow {
+  background: var(--theme-base-color-hover);
+}
+
 .view-more-select {
   position: absolute;
   z-index: 1;

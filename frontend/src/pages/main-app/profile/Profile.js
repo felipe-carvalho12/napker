@@ -280,15 +280,14 @@ class Profile extends React.Component {
                                             onClick={this.openCloseExtraOptions}
                                         />
                                         <div className="view-more-select" id="profile-view-more-select" style={{ top: '60%', right: '10%' }}>
-                                            <div className="popover-arrow" style={{ top: '-9px', left: '30%' }} />
-                                            <Link to={`/mensagens/${this.state.profile.slug}`} style={{ color: '#000', textDecoration: 'none' }}>
-                                                {!this.state.myProfile.blocked_users.map(u => u.id).includes(this.state.profile.user.id) &&
-                                                    <li>
+                                            {!this.state.myProfile.blocked_users.map(u => u.id).includes(this.state.profile.user.id) &&
+                                                <li>
+                                                    <Link to={`/mensagens/${this.state.profile.slug}`} style={{ color: 'var(--primary-grey)', textDecoration: 'none' }}>
                                                         <i class="fas fa-envelope text-secondary" />
                                                         Enviar mensagem
-                                                    </li>
-                                                }
-                                            </Link>
+                                                    </Link>
+                                                </li>
+                                            }
                                             <li onClick={this.blockUnblockUser}>
                                                 <i class="fas fa-user-lock text-secondary" />
                                                 {this.state.myProfile.blocked_users.map(u => u.id).includes(this.state.profile.user.id) ?
@@ -297,6 +296,7 @@ class Profile extends React.Component {
                                                     'Bloquear'
                                                 }
                                             </li>
+                                            <div className="popover-arrow" style={{ top: '-9px', left: '30%' }} />
                                         </div>
                                         {!this.state.myProfile.blocked_users.map(u => u.id).includes(this.state.profile.user.id) &&
                                             <button className="btn d-none"

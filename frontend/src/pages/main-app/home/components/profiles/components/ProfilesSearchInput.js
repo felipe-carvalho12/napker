@@ -32,10 +32,8 @@ export default function ProfilesSearchInput(props) {
         const style = el.style
         if (!style.display) style.display = 'none'
         if (style.display === 'none') {
-            document.querySelector('#profiles-search-extra-options-icon').classList.add('profiles-search-extra-options-icon-active')
             style.display = 'flex'
         } else {
-            document.querySelector('#profiles-search-extra-options-icon').classList.remove('profiles-search-extra-options-icon-active')
             style.display = 'none'
         }
     }
@@ -59,7 +57,6 @@ export default function ProfilesSearchInput(props) {
                 </div>
                 <i
                     className="fas fa-ellipsis-h btn profiles-search-extra-options-icon view-more-icon"
-                    id="profiles-search-extra-options-icon"
                     onClick={openCloseSearchTypeSelector}
                 />
             </div>
@@ -71,19 +68,19 @@ export default function ProfilesSearchInput(props) {
             >
                 {searchType === 'byName' ?
                     <div className="position-relative">
-                        <div className="popover-arrow white-hover" style={{ top: '-9px', left: '75%' }} />
                         <li className="d-flex align-items-center">
                             <i class="fas fa-grin-hearts text-secondary" style={{ fontSize: 'large', marginRight: '5px' }} />
                             Pesquisar por interesse
                         </li>
+                        <div className="popover-arrow white-hover" style={{ top: '-9px', left: '75%' }} />
                     </div>
                     :
                     <div className="position-relative">
-                        <div className="popover-arrow white-hover" style={{ top: '-9px', left: '75%' }} />
                         <li className="d-flex align-items-center">
                             <i class="fas fa-user text-secondary" style={{ fontSize: 'large', marginRight: '5px' }} />
                             Pesquisar por nome
                         </li>
+                        <div className="popover-arrow white-hover" style={{ top: '-9px', left: '75%' }} />
                     </div>
                 }
             </div>
