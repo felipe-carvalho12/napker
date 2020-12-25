@@ -7,8 +7,8 @@ import { SERVER_URL } from './config/settings'
 import MainApp from './pages/main-app/Router'
 import Login from './pages/login/Login'
 import Signup from './pages/signup/Signup'
-import AddInterests from './pages/signup/Interests'
 import PageLoader from './pages/PageLoader'
+import ActivationLinkSent from './pages/signup/components/ActivationLinkSent'
 
 export default function App() {
     // global event listeners
@@ -41,7 +41,9 @@ export default function App() {
                             <Switch>
                                 <Route path="/login" component={Login} />
                                 <Route path="/signup" exact component={Signup} />
-                                <Route path="/signup/interesses" component={AddInterests} />
+                                <Route path="/link">
+                                    <ActivationLinkSent />
+                                </Route>
                                 <Route path="/">
                                     <Redirect to="/login" />
                                 </Route>

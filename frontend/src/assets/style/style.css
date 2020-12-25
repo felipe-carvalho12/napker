@@ -89,6 +89,10 @@ a:hover {
   cursor: pointer;
 }
 
+.hover-underline:hover {
+  text-decoration: underline;
+}
+
 .primary-hover, .secondary-hover  {
   transition: .2s;
 }

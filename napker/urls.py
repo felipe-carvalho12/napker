@@ -23,12 +23,11 @@ from .views import *
 
 urlpatterns = [
     # Profile utils
-    path("signup", signup_view, name="signup"),
-    path("lekinho", TemplateView.as_view(template_name="pages/signup/activation_link_sent.html")),
+    path("post-signup", signup_view),
     path("signup/interesses", add_interests_view, name="interests"),
     path("update-profile", update_profile),
     path("change-password", change_password),
-    path("post-login", login_view, name="login"),
+    path("post-login", login_view),
     path("logout", logout_view, name="logout"),
     path("delete-account", delete_account),
 
@@ -51,7 +50,8 @@ urlpatterns = [
     # Main navigation
     path('', TemplateView.as_view(template_name="index.html")),
     path('login', TemplateView.as_view(template_name="index.html")),
-    
+    path('signup', TemplateView.as_view(template_name="index.html")),
+
     re_path('home', TemplateView.as_view(template_name="index.html")),
     re_path('notificações', TemplateView.as_view(template_name="index.html")),
     re_path('mensagens', TemplateView.as_view(template_name="index.html")),
@@ -59,6 +59,7 @@ urlpatterns = [
     re_path('configurações', TemplateView.as_view(template_name="index.html")),
     re_path('user', TemplateView.as_view(template_name="index.html")),
     re_path('interesses', TemplateView.as_view(template_name="index.html")),
+    re_path('link', TemplateView.as_view(template_name="index.html")),
 ]
 
 if settings.DEBUG:

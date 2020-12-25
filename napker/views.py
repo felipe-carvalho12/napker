@@ -39,40 +39,41 @@ def logout_view(request):
     return redirect('/login')
 
 
+@api_view(['POST'])
 def signup_view(request):
-    if request.method == 'POST':
-        first_name = request.POST['first-name']
-        last_name = request.POST['last-name']
-        username = request.POST['username']
-        email = request.POST['email']
-        birth_date = request.POST['birth-date']
-        password = request.POST['password']
-        passwordc = request.POST['passwordc']
+    first_name = request.data['first-name']
+    last_name = request.data['last-name']
+    username = request.data['username']
+    email = request.data['email']
+    birth_date = request.data['birth-date']
+    password = request.data['password']
+    passwordc = request.data['passwordc']
 
-        if password != passwordc:
-            return render(request, 'pages/signup/signup.html', {'message': 'As senhas devem ser iguais!'})
-        if list(User.objects.filter(username=username)) != []:
-            return render(request, 'pages/signup/signup.html', {'message': 'Nome de usuário já existe!'})
-        if list(Profile.objects.filter(email=email, user__is_active=True)) != []:
-            return render(request, 'pages/signup/signup.html', {'message': 'Email já utilizado!'})
+    if password != passwordc:
+        return Response('As senhas devem ser iguais.')
+    if User.objects.filter(username=username).exists():
+        return Response('Nome de usuário indisponível.')
+    if Profile.objects.filter(email=email, user__is_active=True).exists():
+        return Response('Email já utilizado.')
 
-        try:
-            user = User.objects.create(username=username)
-            user.set_password(password)
-            user.is_active = False
-            user.save()
-            profile = Profile.objects.get(user=user)
-            profile.first_name = first_name
-            profile.last_name = last_name
-            profile.email = email
-            profile.birth_date = birth_date
-            profile.save()
-        except:
-            return render(request, 'pages/signup/signup.html', {'message': 'Informações inválidas!'})
+    try:
+        user = User.objects.create(username=username)
+        user.set_password(password)
+        user.is_active = False
+        user.save()
+        profile = Profile.objects.get(user=user)
+        profile.first_name = first_name
+        profile.last_name = last_name
+        profile.email = email
+        profile.birth_date = birth_date
+        profile.save()
+    except:
+        return Response('Informações inválidas!')
 
-        return redirect('/signup/interesses')
-    else:
-        return render(request, 'index.html')
+    return Response({
+        'message': 'account created',
+        'userId': user.id
+    })
 
 
 def add_interests_view(request):
