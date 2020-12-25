@@ -21,8 +21,8 @@
         display: initial;
     }
     .wrapper .main-content {
-        width: 100vw;
-        height: 100vh;
+        width: 100vw!important;
+        height: 100vh!important;
     }
     .btn-primary:hover {
         background: var(--primary-color)!important;
@@ -142,13 +142,10 @@
     .mobile-d-none {
         display: none!important;
     }
-    .settings-page-container .settings-page-menu {
-        width: 100%;
+    .settings-page-menu {
+        width: 100%!important;
     }
-    .settings-page-container .settings-page-menu .active {
-        background: #fff;
-    }
-    .settings-page-container .settings-description-container {
+    .settings-description-container {
         width: 100%;
         position: absolute;
         z-index: 1;

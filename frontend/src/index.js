@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import './assets/style/utils/color.css'
 import './assets/style/utils/hover.css'
 import './assets/style/utils/border.css'
 

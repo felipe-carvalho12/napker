@@ -12,15 +12,9 @@ import Feedback from './components/Feedback'
 
 
 export default function Settings(props) {
-    const defaultPage = 'blocked-profiles'
     if (!props.page) props.page = 'default'
 
     document.title = 'Configurações / Napker'
-
-    useEffect(() => {
-        document.getElementById(props.page !== 'default' ? props.page : defaultPage) &&
-            document.getElementById(props.page !== 'default' ? props.page : defaultPage).classList.add('active')
-    }, [])
 
     useEffect(() => {
         if (props.page !== 'default') {
@@ -31,13 +25,6 @@ export default function Settings(props) {
                 document.querySelector('.settings-description-container').classList.add('mobile-d-none')
         }
     }, [props.page])
-
-    const pageChange = page => {
-        document.querySelectorAll('.active').forEach(el => {
-            el.classList.remove('active')
-        })
-        document.getElementById(page).classList.add('active')
-    }
 
     return (
         <>
@@ -56,13 +43,14 @@ export default function Settings(props) {
             <div className="content">
                 <div className="settings-page-container">
 
-                    <SettingsMenu pageChange={pageChange} />
+                    <SettingsMenu />
+                    
                     {(props.page === 'blocked-profiles' || props.page === 'default') &&
                         <BlockedProfiles />
                     }
 
                     {props.page === 'security' &&
-                        <SecurityMenu pageChange={pageChange} />
+                        <SecurityMenu />
                     }
 
                     {props.page === 'change-password' &&

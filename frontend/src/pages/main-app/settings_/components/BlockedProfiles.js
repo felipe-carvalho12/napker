@@ -45,7 +45,7 @@ export default function BlockUser() {
                     }
                 </>
                 :
-                <div className="settings-loader-container">
+                <div className="loader-container">
                     <div className="loader" />
                 </div>
             }

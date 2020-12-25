@@ -136,12 +136,12 @@ export default function Feedback() {
                     </div>
                 </div>
                 <hr />
-                <div className="textarea-container">
-                    <textarea 
-                    class='autoExpand' 
-                    rows='3' 
-                    data-min-rows='3' 
-                    placeholder="Digite a sua mensagem aqui..."                     />
+                <div className="d-flex flex-column align-items-center textarea-container">
+                    <textarea
+                        class='autoExpand'
+                        rows='3'
+                        data-min-rows='3'
+                        placeholder="Digite a sua mensagem aqui..." />
                     <button className="btn btn-primary w-100" onClick={handleFeedbackSubmit}>Enviar</button>
                 </div>
             </div>
