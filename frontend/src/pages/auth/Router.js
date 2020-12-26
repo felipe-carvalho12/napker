@@ -16,7 +16,27 @@ export default function AuthRouter() {
                 <Signup />
             </Route>
 
-            <Route path="/" exact>
+            <Route path="/home" exact>
+                <Redirect to="/login" />
+            </Route>
+
+            <Route path="/notificações">
+                <Redirect to="/login" />
+            </Route>
+
+            <Route path="/mensagens">
+                <Redirect to="/login" />
+            </Route>
+
+            <Route path="/perfil">
+                <Redirect to="/login" />
+            </Route>
+
+            <Route path="/configurações">
+                <Redirect to="/login" />
+            </Route>
+
+            <Route path="/user">
                 <Redirect to="/login" />
             </Route>
         </Switch>
