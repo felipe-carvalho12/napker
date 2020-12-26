@@ -16,6 +16,7 @@
     outline: none;
     border-radius: 20px;
     background: var(--border-color);
+    color: var(--primary-grey);
     margin-bottom: 20px;
     padding: 10px 20px 10px 20px;
 }

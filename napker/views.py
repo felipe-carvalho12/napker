@@ -153,31 +153,29 @@ def update_profile(request):
         return redirect('/perfil')
 
 
+@api_view(['POST'])
 def reset_password(request):
-    if request.method == 'POST':
-        email = request.POST['email']
-        if not Profile.objects.filter(email=email).exists():
-            return render(request, 'reset_password/reset_password.html', {'message': 'Não existe nenhuma conta ligada a esse email!'})
-        profile = Profile.objects.get(email=email)
-        user = profile.user
-        current_site = get_current_site(request)
-        email_subject = 'Recupere a sua senha'
-        message = render_to_string('reset_password/email_message.html', {
-        'user': user,
-        'domain': current_site.domain,
-        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-        'token': PasswordResetTokenGenerator().make_token(user)
-        })
-        email_message = EmailMessage(
-            email_subject,
-            message,
-            settings.EMAIL_HOST_USER,
-            [user.profile.email],
-        )
-        email_message.send(fail_silently=False)
-        return render(request, 'reset_password/email_sent.html')
-    else:
-        return render(request, 'reset_password/reset_password.html')
+    email = request.data['email']
+    if not Profile.objects.filter(email=email).exists():
+        return Response('Não existe nenhuma conta ligada a esse email!')
+    profile = Profile.objects.get(email=email, user__is_active=True)
+    user = profile.user
+    current_site = get_current_site(request)
+    email_subject = 'Recupere a sua senha'
+    message = render_to_string('reset_password/email_message.html', {
+    'user': user,
+    'domain': current_site.domain,
+    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+    'token': PasswordResetTokenGenerator().make_token(user)
+    })
+    email_message = EmailMessage(
+        email_subject,
+        message,
+        settings.EMAIL_HOST_USER,
+        [user.profile.email],
+    )
+    email_message.send(fail_silently=False)
+    return Response('email sent')
 
 
 def reset_password_confirm(request, uidb64, token):
@@ -202,7 +200,7 @@ def reset_password_complete(request):
             return render(request, 'reset_password/new_password.html', {'message': 'As senhas devem ser iguais!'})
         user.set_password(password)
         user.save()
-        return render(request, 'pages/login.html', {'success_message': 'Senha alterada com sucesso!'})
+        return redirect('/')
 
 
 @api_view(['POST'])

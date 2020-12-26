@@ -1,11 +1,11 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 
+import { SERVER_URL } from '../../../../config/settings'
+import { csrftoken } from '../../../../config/utils'
 import Logo from '../../../../assets/icons/Logo'
 
 
 export default function ResetPasswordForm(props) {
-    const [errMessage, setErrMessage] = useState(null)
-
     const emailRef = useRef()
     const submitButtonRef = useRef()
 
@@ -15,6 +15,25 @@ export default function ResetPasswordForm(props) {
 
     const handleSubmit = e => {
         e.preventDefault()
+        props.setResetPasswordPage('page-loader')
+        fetch(`${SERVER_URL}/post-reset-password`, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+                'X-CSRFToken': csrftoken,
+            },
+            body: JSON.stringify({
+                'email': emailRef.current.value,
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data == 'email sent') {
+                    props.setResetPasswordPage('email-sent')
+                } else {
+                    props.setResetPasswordPage('email-does-not-exists')
+                }
+            })
     }
 
     return (
@@ -29,9 +48,9 @@ export default function ResetPasswordForm(props) {
 
                 <p>Por favor confirme o email ligado a sua conta.</p>
 
-                {errMessage !== null &&
-                    <div className="w-75 mt-1">
-                        <span className="word-break" style={{ color: '#f00' }}>{errMessage}</span>
+                {props.errMessage !== null &&
+                    <div className="w-75 d-flex justify-content-center">
+                        <span className="word-break" style={{ color: '#f00' }}>{props.errMessage}</span>
                     </div>
                 }
 

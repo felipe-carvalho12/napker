@@ -40,7 +40,7 @@ urlpatterns = [
     path("settings-api/", include("settings.urls")),
 
     # Reset password
-    path('post-reset-password', reset_password, name="reset_password"),
+    path('post-reset-password', reset_password),
     path('reset/<uidb64>/<token>', reset_password_confirm, name="reset"),
     path('reset-password-complete', reset_password_complete, name="password_reset_complete"),
 
