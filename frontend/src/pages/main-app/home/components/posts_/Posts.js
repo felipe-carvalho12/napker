@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { SERVER_URL } from '../../../../../config/settings'
-import LikesModal from '../../../../../components/likesmodal'
+import LikesModal from '../../../../../components/LikesModal'
 import PostForm from './components/PostForm'
 import PostListItem from '../../../../../components/PostListItem'
 

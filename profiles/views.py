@@ -15,6 +15,7 @@ from .utils import *
 
 @api_view(['GET'])
 def is_logged(request):
+    print(request.user)
     if request.user.is_authenticated:
         return Response('True')
     else:

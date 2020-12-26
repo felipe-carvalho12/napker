@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 import { SERVER_URL } from '../../../config/settings'
 import { csrftoken } from '../../../config/utils'
-import Header from '../../../components/fixed/header'
+import Header from '../../../components/fixed/Header'
 import Posts from './components/Posts'
 import Interests from './components/interests/Interests'
 import ProfileData from './components/ProfileData'

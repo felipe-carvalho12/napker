@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import { SERVER_URL } from '../../../../../config/settings'
 import { csrftoken } from '../../../../../config/utils'
-import Header from '../../../../../components/fixed/header'
+import Header from '../../../../../components/fixed/Header'
 import PublicInterests from './components/PublicInterests'
 import PrivateInterests from './components/PrivateInterests'
 import BottomMenu from '../../../../../components/fixed/bottom-menu/BottomMenu'

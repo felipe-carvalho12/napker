@@ -30,7 +30,7 @@ export default function App() {
     }, [])
 
     return (
-        <Router>
+        <Router>{console.log(isLogged)}
             <Switch>
                 <Route path="/recuperar-senha">
                     <ResetPassword />

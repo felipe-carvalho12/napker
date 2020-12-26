@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 import { csrftoken } from '../../../../../config/utils'
 import { SERVER_URL } from '../../../../../config/settings'
-import WebSocketInstance from '../../Websocket'
+import WebSocketInstance from '../../websocket'
 import SendMessageForm from './components/SendMessageForm'
 import MessageListItem from './components/MessageListItem'
 

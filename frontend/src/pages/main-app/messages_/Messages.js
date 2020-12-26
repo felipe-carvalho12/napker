@@ -1,13 +1,13 @@
 import React from 'react'
 
 import { SERVER_URL } from '../../../config/settings'
-import Header from '../../../components/fixed/header'
+import Header from '../../../components/fixed/Header'
 import ModalContactSearch from './components/ModalContactSearch'
 import Chat from './components/chat_/Chat'
 import ContactListItem from './components/ContactListItem'
 import ContactFilterInput from './components/ContactFilterInput'
 import BottomMenu from '../../../components/fixed/bottom-menu/BottomMenu'
-import WebSocketInstance from './Websocket'
+import WebSocketInstance from './websocket'
 
 export default class Messages extends React.Component {
     constructor(props) {
