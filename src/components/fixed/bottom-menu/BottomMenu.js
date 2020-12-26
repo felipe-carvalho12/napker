@@ -1,24 +1,19 @@
-import React, { useEffect, useContext } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useContext } from 'react'
+import { NavLink } from 'react-router-dom'
 
-import { getActivePageOnLoad, switchPage } from '../../../config/utils'
 import {
     InvitesReceivedContext, UnvisualizedCommentsContext,
     UnvisualizedLikesContext, UnreadMessagesContext
 } from '../../../context/app/AppContext'
 
 export default function BottomMenu(props) {
-    const [invitesReceivedNumber, setInvitesReceived] = useContext(InvitesReceivedContext)
-    const [unvisualizedCommentsNumber, setUnvisulaizedComments] = useContext(UnvisualizedCommentsContext)
-    const [unvisualizedLikesNumber, setUnvisulaizedLikes] = useContext(UnvisualizedLikesContext)
+    const [invitesReceivedNumber,] = useContext(InvitesReceivedContext)
+    const [unvisualizedCommentsNumber,] = useContext(UnvisualizedCommentsContext)
+    const [unvisualizedLikesNumber,] = useContext(UnvisualizedLikesContext)
 
-    const [unreadMessagesNumber, setUnreadMessagesNumber] = useContext(UnreadMessagesContext)
+    const [unreadMessagesNumber,] = useContext(UnreadMessagesContext)
 
     let notificationsNumber = invitesReceivedNumber + unvisualizedLikesNumber + unvisualizedCommentsNumber
-
-    useEffect(() => {
-        getActivePageOnLoad()
-    }, [])
 
     return (
         <>
@@ -27,13 +22,13 @@ export default function BottomMenu(props) {
             </div>
             <div className="bottom-menu fixed-bottom">
                 <ul>
-                    <Link to="/home" style={{ textDecoration: 'none' }}>
-                        <li className="sidebar-menu-item" id="bottom-home-menu" onClick={switchPage}>
+                    <li>
+                        <NavLink to="/home" className="bottom-menu-item" style={{ textDecoration: 'none' }} activeClassName="c-primary-color">
                             <i className="fas fa-home sidebar-menu-icon" />
-                        </li>
-                    </Link>
-                    <Link to="/notificações" style={{ textDecoration: 'none' }}>
-                        <li className="sidebar-menu-item" id="bottom-notifications-menu" onClick={switchPage}>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/notificações" className="bottom-menu-item" style={{ textDecoration: 'none' }} activeClassName="c-primary-color">
                             <i className="fas fa-bell sidebar-menu-icon" />
                             {!notificationsNumber ? '' :
                                 <div className="notification-text-container">
@@ -42,11 +37,11 @@ export default function BottomMenu(props) {
                                     </div>
                                 </div>
                             }
-                        </li>
-                    </Link>
-                    <Link to="/mensagens" style={{ textDecoration: 'none' }}>
-                        <li className="sidebar-menu-item" id="bottom-messages-menu" onClick={switchPage}>
-                            <i className="fas fa-envelope sidebar-menu-icon" />
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/mensagens" className="bottom-menu-item" style={{ textDecoration: 'none' }} activeClassName="c-primary-color">
+                            <i className="fas fa-envelope bottom-menu-icon" />
                             {!unreadMessagesNumber ? '' :
                                 <div className="notification-text-container">
                                     <div className="notification-text">
@@ -54,18 +49,18 @@ export default function BottomMenu(props) {
                                     </div>
                                 </div>
                             }
-                        </li>
-                    </Link>
-                    <Link to="/perfil" style={{ textDecoration: 'none' }}>
-                        <li className="sidebar-menu-item" id="bottom-profile-menu" onClick={switchPage}>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/perfil" className="bottom-menu-item" style={{ textDecoration: 'none' }} activeClassName="c-primary-color">
                             <i className="fas fa-user sidebar-menu-icon" />
-                        </li>
-                    </Link>
-                    <Link to="/configurações" style={{ textDecoration: 'none' }}>
-                        <li className="sidebar-menu-item" id="bottom-settings-menu" onClick={switchPage}>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/configurações" className="bottom-menu-item" style={{ textDecoration: 'none' }} activeClassName="c-primary-color">
                             <i className="fas fa-cog sidebar-menu-icon" />
-                        </li>
-                    </Link>
+                        </NavLink>
+                    </li>
                 </ul>
             </div>
         </>

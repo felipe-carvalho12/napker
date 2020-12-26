@@ -1,0 +1,119 @@
+.post-img {
+    min-width: 130px;
+    min-height: 70px;
+    max-width: 100%;
+    max-height: 100%;
+    margin-top: 15px;
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+}
+
+.create-post-form {
+    background: var(--theme-base-color);
+    padding: 15px 15px 10px 15px;
+    margin-bottom: 15px;
+}
+
+.post-img-container {
+    width: fit-content;
+    height: fit-content;
+    display: none;
+    position: relative;
+    margin-top: 15px;
+}
+
+.post-img-container .post-img-options {
+    width: 100%;
+    display: flex;
+    position: absolute;
+    justify-content: flex-end;
+    border-radius: 20px;
+    padding: 3px;
+}
+
+.post-img-container .post-img-options .far {
+    font-size: 30px;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 50%;
+}
+
+.post-img-container .post-img-options .far:hover {
+    background: rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.post-extra-options {
+    width: 20%;
+    display: flex;
+    position: relative;
+}
+
+.post-extra-options .far {
+    color: var(--primary-color);
+    font-size: 20px;
+    margin-right: 10px;
+    padding: 10px;
+    border-radius: 50%;
+}
+
+.post-extra-options .far:hover {
+    background: var(--secondary-color);
+    cursor: pointer;
+}
+
+.post-extra-options .emoji-list-container {
+    display: none;
+    position: absolute;
+    left: 60%;
+    top: -100%;
+    z-index: 1;
+    border: 1px solid rgba(20, 20, 20, 0.2);
+}
+
+.fa-comment, .fa-heart {
+    padding: 10px;
+    border-radius: 50%;
+}
+
+@keyframes heartExpand {
+    0% {
+        width: 34px;
+        height: 33.6px;
+    }
+
+    50% {
+        transform: scale(1.25);
+    }
+
+    100% {
+        width: 34px;
+        height: 33.6px;
+    }
+}
+
+.fas.fa-heart {
+    color: var(--heart-color);
+}
+
+.fas.fa-heart.animated {
+    animation: heartExpand .6s;
+}
+
+.fa-comment:hover {
+    background: var(--secondary-color);
+    color: var(--primary-color);
+    cursor: pointer;
+}
+
+.fa-heart:hover {
+    background: var(--heart-background-hover);
+    color: var(--heart-color);
+    cursor: pointer;
+}
+
+.likes-number:hover {
+    color: var(--heart-color);
+    text-decoration: underline;
+    cursor: pointer;
+}

@@ -1,0 +1,32 @@
+.c-primary-color {
+    color: var(--primary-color)!important;
+}
+
+.c-secondary-color {
+    color: var(--secondary-color)!important;
+}
+
+.c-primary-grey {
+    color: var(--primary-grey)!important;
+}
+
+.c-theme-base-color {
+    color: var(--theme-base-color)!important;
+}
+
+
+.b-primary-color {
+    background-color: var(--primary-color)!important;
+}
+
+.b-secondary-color {
+    background-color: var(--secondary-color)!important;
+}
+
+.b-primary-grey {
+    background-color: var(--primary-grey)!important;
+}
+
+.b-theme-base-color {
+    background-color: var(--theme-base-color)!important;
+}

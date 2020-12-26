@@ -42,49 +42,6 @@ export const openCloseEmojiList = (closing = false) => {
   }
 }
 
-// NAV AND BOTTOM MENU
-
-export const getActivePageOnLoad = () => {
-  document.querySelectorAll('.nav-menu-item-active').forEach(el => {
-    el.classList.remove('nav-menu-item-active')
-  })
-  const currentUrl = window.location.href.split('/')
-  if (currentUrl.includes('home')) {
-    document.querySelector('#home-menu') && document.querySelector('#home-menu').classList.add('nav-menu-item-active')
-    document.querySelector('#bottom-home-menu') && document.querySelector('#bottom-home-menu').classList.add('nav-menu-item-active')
-  }
-  else if (currentUrl.includes('notifica%C3%A7%C3%B5es')) {
-    document.querySelector('#notifications-menu') && document.querySelector('#notifications-menu').classList.add('nav-menu-item-active')
-    document.querySelector('#bottom-notifications-menu') && document.querySelector('#bottom-notifications-menu').classList.add('nav-menu-item-active')
-  }
-  else if (currentUrl.includes('mensagens')) {
-    document.querySelector('#messages-menu') && document.querySelector('#messages-menu').classList.add('nav-menu-item-active')
-    document.querySelector('#bottom-messages-menu') && document.querySelector('#bottom-messages-menu').classList.add('nav-menu-item-active')
-  }
-  else if (currentUrl.includes('perfil')) {
-    document.querySelector('#profile-menu') && document.querySelector('#profile-menu').classList.add('nav-menu-item-active')
-    document.querySelector('#bottom-profile-menu') && document.querySelector('#bottom-profile-menu').classList.add('nav-menu-item-active')
-  }
-  else if (currentUrl.includes('configura%C3%A7%C3%B5es')) {
-    document.querySelector('#settings-menu') && document.querySelector('#settings-menu').classList.add('nav-menu-item-active')
-    document.querySelector('#bottom-settings-menu') && document.querySelector('#bottom-settings-menu').classList.add('nav-menu-item-active')
-  }
-}
-
-export const switchPage = (e, isHome = false) => {
-  if (!isHome) {
-    document.querySelectorAll('.nav-menu-item-active').forEach(el => {
-      el.classList.remove('nav-menu-item-active')
-    })
-    e.target.classList.add('nav-menu-item-active')
-  } else {
-    document.querySelectorAll('.nav-menu-item-active').forEach(el => {
-      el.classList.remove('nav-menu-item-active')
-    })
-    document.querySelector('#home-menu').classList.add('nav-menu-item-active')
-  }
-}
-
 // EXPANDABLE TEXTAREA
 
 function getScrollHeight(elm) {
@@ -104,4 +61,41 @@ export function onExpandableTextareaInput({ target: elm }) {
   elm.rows = minRows
   rows = Math.ceil((elm.scrollHeight - elm._baseScrollHeight) / 16)
   elm.rows = minRows + rows
+}
+
+// THEME
+
+export const setTheme = theme => {
+  const cssVariables = document.documentElement.style
+
+  if (theme === 'light') {
+      cssVariables.setProperty('--border-color', '#f3f3f3')
+      cssVariables.setProperty('--background', '#f3f3f3')
+      cssVariables.setProperty('--fixed-components-background', '#fcfdfc')
+      cssVariables.setProperty('--heart-color', '#E0245E')
+      cssVariables.setProperty('--heart-background-hover', 'rgba(224, 36, 94, .1)')
+      cssVariables.setProperty('--primary-color', '#48D1AF')
+      cssVariables.setProperty('--secondary-color', 'rgba(119, 147, 125, .1)')
+      cssVariables.setProperty('--primary-color-hover', '#3FB597')
+      cssVariables.setProperty('--primary-grey', '#363636')
+      cssVariables.setProperty('--loader-background', 'rgba(119, 147, 125, .3)')
+      cssVariables.setProperty('--theme-base-color', '#fff')
+      cssVariables.setProperty('--theme-base-color-hover', 'rgba(250, 250, 250, 0.7)')
+      cssVariables.setProperty('--view-more-select-border', 'rgba(0, 0, 0, .2)')
+
+  } else if (theme === 'dark') {
+      cssVariables.setProperty('--border-color', '#000')
+      cssVariables.setProperty('--background', '#000')
+      cssVariables.setProperty('--fixed-components-background', '#131313')
+      cssVariables.setProperty('--heart-color', '#E0245E')
+      cssVariables.setProperty('--heart-background-hover', 'rgba(224, 36, 94, .1)')
+      cssVariables.setProperty('--primary-color', '#48D1AF')
+      cssVariables.setProperty('--secondary-color', 'rgba(119, 147, 125, .1)')
+      cssVariables.setProperty('--primary-color-hover', '#3FB597')
+      cssVariables.setProperty('--primary-grey', '#D9D9D9')
+      cssVariables.setProperty('--loader-background', 'rgba(119, 147, 125, .3)')
+      cssVariables.setProperty('--theme-base-color', '#131313')
+      cssVariables.setProperty('--theme-base-color-hover', 'rgba(255, 255, 255, 0.1)')
+      cssVariables.setProperty('--view-more-select-border', 'rgba(255, 255, 255, .2)')
+  }
 }

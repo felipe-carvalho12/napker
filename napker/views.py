@@ -18,37 +18,20 @@ from django.core.mail import EmailMessage
 from django.conf import settings
 
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 
 from profiles.models import Profile, Interest
 
-
-def index_view(request):
-    if request.user.is_authenticated:
-        return redirect('/home')
-    else:
-        return redirect('/login')
-
-
-def pages_view(request, slug=None, id=None, query=None):
-    if request.user.is_authenticated:
-        return render(request, 'index.html')
-    else:
-        return redirect('/login')
-
-
+@api_view(['POST'])
 def login_view(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('/home')
-        else:
-            return render(request, 'pages/login.html', {'message': 'Credenciais inválidas'})
+    username = request.data['username']
+    password = request.data['password']
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
+        login(request, user)
+        return Response('logged in')
     else:
-        return render(request, 'pages/login.html')
+        return Response('Credenciais inválidas. Por favor verifique seus dados e tente novamente.')
 
 
 def logout_view(request):
@@ -56,74 +39,73 @@ def logout_view(request):
     return redirect('/login')
 
 
+@api_view(['POST'])
 def signup_view(request):
-    if request.method == 'POST':
-        first_name = request.POST['first-name']
-        last_name = request.POST['last-name']
-        username = request.POST['username']
-        email = request.POST['email']
-        birth_date = request.POST['birth-date']
-        password = request.POST['password']
-        passwordc = request.POST['passwordc']
+    first_name = request.data['first-name']
+    last_name = request.data['last-name']
+    username = request.data['username']
+    email = request.data['email']
+    birth_date = request.data['birth-date']
+    password = request.data['password']
+    passwordc = request.data['passwordc']
 
-        if password != passwordc:
-            return render(request, 'pages/signup/signup.html', {'message': 'As senhas devem ser iguais!'})
-        if User.objects.filter(username=username).exists():
-            return render(request, 'pages/signup/signup.html', {'message': 'Nome de usuário já existe!'})
-        if Profile.objects.filter(email=email, user__is_active=True).exists():
-            return render(request, 'pages/signup/signup.html', {'message': 'Email já utilizado!'})
+    if password != passwordc:
+        return Response('As senhas devem ser iguais.')
+    if User.objects.filter(username=username).exists():
+        return Response('Nome de usuário indisponível.')
+    if Profile.objects.filter(email=email, user__is_active=True).exists():
+        return Response('Email já utilizado.')
 
-        try:
-            user = User.objects.create(username=username)
-            user.set_password(password)
-            user.is_active = False
-            user.save()
-            profile = Profile.objects.get(user=user)
-            profile.first_name = first_name
-            profile.last_name = last_name
-            profile.email = email
-            profile.birth_date = birth_date
-            profile.save()
-        except:
-            return render(request, 'pages/signup/signup.html', {'message': 'Informações inválidas!'})
-
-        return render(request, 'pages/signup/interests.html', {'user': user})
-    else:
-        return render(request, 'pages/signup/signup.html')
-
-
-def add_interests_view(request):
-    if request.method == 'POST':
-        user = User.objects.get(pk=request.POST['uid'])
+    try:
+        user = User.objects.create(username=username)
+        user.set_password(password)
+        user.is_active = False
+        user.save()
         profile = Profile.objects.get(user=user)
-        interests = request.POST['interests'].split(', ')
-        for title in interests:
-            if len(title) < 3:
-                continue
-            i, created = Interest.objects.get_or_create(title=title, public=False)
-            profile.interests.add(i)
+        profile.first_name = first_name
+        profile.last_name = last_name
+        profile.email = email
+        profile.birth_date = birth_date
         profile.save()
+    except:
+        return Response('Informações inválidas!')
 
-        current_site = get_current_site(request)
-        email_subject = 'Ative a sua conta'
-        message = render_to_string('auth/activate.html', {
-            'user': user,
-            'domain': current_site.domain,
-            'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-            'token': PasswordResetTokenGenerator().make_token(user)
-        })
-        email_message = EmailMessage(
-            email_subject,
-            message,
-            settings.EMAIL_HOST_USER,
-            [user.profile.email],
+    return Response({
+        'message': 'account created',
+        'userId': user.id
+    })
 
-        )
-        email_message.send(fail_silently=False)
 
-        return render(request, 'pages/signup/activation_link_sent.html')
-    else:
-        return redirect('/')
+@api_view(['POST'])
+def add_interests_view(request):
+    user = User.objects.get(pk=request.data['uid'])
+    profile = Profile.objects.get(user=user)
+    interests = request.data['interests']
+    for title in interests:
+        if len(title) < 3:
+            continue
+        i, created = Interest.objects.get_or_create(title=title, public=False)
+        profile.interests.add(i)
+    profile.save()
+
+    current_site = get_current_site(request)
+    email_subject = 'Ative a sua conta'
+    message = render_to_string('auth/activate.html', {
+        'user': user,
+        'domain': current_site.domain,
+        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+        'token': PasswordResetTokenGenerator().make_token(user)
+    })
+    email_message = EmailMessage(
+        email_subject,
+        message,
+        settings.EMAIL_HOST_USER,
+        [user.profile.email],
+
+    )
+    email_message.send(fail_silently=False)
+
+    return Response('activation link sent')
 
 
 def activate_account_view(request, uidb64, token):
@@ -171,31 +153,29 @@ def update_profile(request):
         return redirect('/perfil')
 
 
+@api_view(['POST'])
 def reset_password(request):
-    if request.method == 'POST':
-        email = request.POST['email']
-        if not Profile.objects.filter(email=email).exists():
-            return render(request, 'reset_password/reset_password.html', {'message': 'Não existe nenhuma conta ligada a esse email!'})
-        profile = Profile.objects.get(email=email)
-        user = profile.user
-        current_site = get_current_site(request)
-        email_subject = 'Recupere a sua senha'
-        message = render_to_string('reset_password/email_message.html', {
-        'user': user,
-        'domain': current_site.domain,
-        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-        'token': PasswordResetTokenGenerator().make_token(user)
-        })
-        email_message = EmailMessage(
-            email_subject,
-            message,
-            settings.EMAIL_HOST_USER,
-            [user.profile.email],
-        )
-        email_message.send(fail_silently=False)
-        return render(request, 'reset_password/email_sent.html')
-    else:
-        return render(request, 'reset_password/reset_password.html')
+    email = request.data['email']
+    if not Profile.objects.filter(email=email).exists():
+        return Response('Não existe nenhuma conta ligada a esse email!')
+    profile = Profile.objects.get(email=email, user__is_active=True)
+    user = profile.user
+    current_site = get_current_site(request)
+    email_subject = 'Recupere a sua senha'
+    message = render_to_string('reset_password/email_message.html', {
+    'user': user,
+    'domain': current_site.domain,
+    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+    'token': PasswordResetTokenGenerator().make_token(user)
+    })
+    email_message = EmailMessage(
+        email_subject,
+        message,
+        settings.EMAIL_HOST_USER,
+        [user.profile.email],
+    )
+    email_message.send(fail_silently=False)
+    return Response('email sent')
 
 
 def reset_password_confirm(request, uidb64, token):
@@ -220,7 +200,7 @@ def reset_password_complete(request):
             return render(request, 'reset_password/new_password.html', {'message': 'As senhas devem ser iguais!'})
         user.set_password(password)
         user.save()
-        return render(request, 'pages/login.html', {'success_message': 'Senha alterada com sucesso!'})
+        return redirect('/')
 
 
 @api_view(['POST'])

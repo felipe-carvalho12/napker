@@ -31,16 +31,15 @@ def process_authors_relevance(profile, authors):
     authors_relevance = np.vstack(tuple(get_author_relevance(profile, author) for author in authors))
 
     authors_relevance = np.sum(np.array([np.true_divide(authors_relevance.T[i], (np.amax(column) if np.amax(column) else 1) / WEIGHTS[i]) for i, column in enumerate(authors_relevance.T)]), axis=0)
-    
-    authors_relevance_list = list(zip(authors, authors_relevance))
 
-    return authors_relevance_list
+    return authors_relevance
 
     
 def get_profile_list(profile):
     profiles = []
 
     for p in Profile.objects.exclude(user=profile.user):
+        if not p.user.is_active: continue
         if p.user in profile.blocked_users.all(): continue
         if p.user in profile.friends.all(): continue
         if profile.user.id in p.blocked_users.all(): continue
@@ -48,7 +47,9 @@ def get_profile_list(profile):
         if p in [i.sender for i in Relationship.objects.invitations_received(profile)]: continue
         profiles.append(p)
 
-    profiles = process_authors_relevance(profile, profiles)
+    points = process_authors_relevance(profile, profiles)
+
+    profiles = list(zip(profiles, points))
 
     interest_profile_dict = {}
     for i_quantity in set([item[1] for item in profiles]):

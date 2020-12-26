@@ -16,40 +16,18 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, re_path, include
 from django.views.generic import TemplateView
 
 from .views import *
 
 urlpatterns = [
-    # Main navigation
-    path("", index_view, name="index"),
-    path("home", pages_view),
-    path("notificações", pages_view),
-    path("mensagens", pages_view),
-    path("mensagens/<str:slug>", pages_view),
-    path("perfil", pages_view),
-    path("perfil/meus-interesses", pages_view),
-    path("configurações", pages_view),
-    path("configurações/segurança", pages_view),
-    path("configurações/perfis-bloqueados", pages_view),
-    path("configurações/alterar-senha", pages_view),
-    path("configurações/deletar-conta", pages_view),
-    path("configurações/faq", pages_view),
-    path("configurações/fale-conosco", pages_view),
-    path("user/<str:slug>", pages_view),
-    path("user/<str:slug>/amigos", pages_view),
-    path("post/<int:id>", pages_view),
-    path("post/<int:id>/comentar", pages_view),
-    path("postar", pages_view),
-    path("interesses/<str:query>", pages_view),
-
     # Profile utils
-    path("signup", signup_view, name="signup"),
-    path("signup/interesses", add_interests_view, name="interests"),
+    path("post-signup", signup_view),
+    path("post-signup/interests", add_interests_view),
     path("update-profile", update_profile),
     path("change-password", change_password),
-    path("login", login_view, name="login"),
+    path("post-login", login_view),
     path("logout", logout_view, name="logout"),
     path("delete-account", delete_account),
 
@@ -62,12 +40,28 @@ urlpatterns = [
     path("settings-api/", include("settings.urls")),
 
     # Reset password
-    path('recuperar-senha', reset_password, name="reset_password"),
+    path('post-reset-password', reset_password),
     path('reset/<uidb64>/<token>', reset_password_confirm, name="reset"),
     path('reset-password-complete', reset_password_complete, name="password_reset_complete"),
 
     # Admin
     path("admin/", admin.site.urls),
+
+    # Main navigation
+    path('', TemplateView.as_view(template_name="index.html")),
+    path('login', TemplateView.as_view(template_name="index.html")),
+    path('signup', TemplateView.as_view(template_name="index.html")),
+    path('recuperar-senha', TemplateView.as_view(template_name="index.html")),
+
+    re_path('home', TemplateView.as_view(template_name="index.html")),
+    re_path('notificações', TemplateView.as_view(template_name="index.html")),
+    re_path('mensagens', TemplateView.as_view(template_name="index.html")),
+    re_path('perfil', TemplateView.as_view(template_name="index.html")),
+    re_path('configurações', TemplateView.as_view(template_name="index.html")),
+
+    re_path('user', TemplateView.as_view(template_name="index.html")),
+    re_path('post', TemplateView.as_view(template_name="index.html")),
+    re_path('interesses', TemplateView.as_view(template_name="index.html")),
 ]
 
 if settings.DEBUG:

@@ -14,6 +14,13 @@ from .utils import *
 # Create your views here.
 
 @api_view(['GET'])
+def is_logged(request):
+    if request.user.is_authenticated:
+        return Response('True')
+    else:
+        return Response('False')
+
+@api_view(['GET'])
 def get_logged_user(request):
     serializer = UserSerializer(request.user)
     return Response(serializer.data)
@@ -78,7 +85,7 @@ def myprofile_list_view(request, scroll_count):
 def profile_list_view(request, slug):
     profile = Profile.objects.get(slug=slug)
     profiles = get_profile_list(profile)
-    serializer = ProfileSerializer(profiles[:5], many=True)
+    serializer = ProfileSerializer(profiles[:4], many=True)
     return Response(serializer.data)
 
 
