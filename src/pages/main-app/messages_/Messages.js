@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { SERVER_URL } from '../../../config/settings'
-import Header from '../../../components/fixed/header'
+import Header from '../../../components/fixed/Header'
 import ModalContactSearch from './components/ModalContactSearch'
 import Chat from './components/chat_/Chat'
 import ContactListItem from './components/ContactListItem'
