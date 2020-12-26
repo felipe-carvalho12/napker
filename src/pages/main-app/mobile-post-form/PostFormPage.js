@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import { SERVER_URL } from '../../../config/settings'
-import Header from '../../../components/fixed/header'
+import Header from '../../../components/fixed/Header'
 import PostForm from '../home/components/posts_/components/PostForm'
 
 export default function Posts() {

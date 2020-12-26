@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { SERVER_URL } from '../../../../../../config/settings'
-import Header from '../../../../../../components/fixed/header'
+import Header from '../../../../../../components/fixed/Header'
 import ProfileListItem from '../../../../../../components/ProfileListItem'
 
 export default function InterestProfiles() {
