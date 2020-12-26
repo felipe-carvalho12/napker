@@ -39,7 +39,7 @@ export default function BlockUser() {
                             }
                         </div>
                         :
-                        <div className="no-blocked-profiles">
+                        <div className="mt-3 no-blocked-profiles">
                             <h3>Você não possui perfis bloqueados</h3>
                         </div>
                     }

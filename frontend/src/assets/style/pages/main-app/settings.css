@@ -81,7 +81,7 @@
     background: var(--theme-base-color);
     width: 100%;
     height: 60%;
-    padding-top: 20px;
+    padding: 20px 0;
 }
 
 .change-password-form button {
@@ -99,6 +99,7 @@
     justify-content: center;
     align-items: center;
     font-size: large;
+    padding: 20px 0;
     color: var(--primary-grey);
 }
 
