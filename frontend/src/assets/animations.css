@@ -1,0 +1,30 @@
+@keyframes hide {
+    0% {
+        opacity: 1;
+        max-height: 800px;
+    }
+    75% {
+        opacity: 0;
+        max-height: 800px;
+    }
+    100% {
+        opacity: 0;
+        max-height: 0px;
+    }
+}
+
+.hide-animation {
+    animation: hide 1.5s;
+    animation-fill-mode: forwards;
+    animation-play-state: paused;
+}
+
+@keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+}
+
+.spinner {
+    animation: spin 1.3s ease-in-out infinite;
+}

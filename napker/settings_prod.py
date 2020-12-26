@@ -1,6 +1,6 @@
 import os
-from pathlib import Path
 import django_heroku
+from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -15,7 +15,7 @@ SECRET_KEY = "gld^)fy0sgzfs=nd2tc0cz73(v8n9sa%m!-%@car9*$o(u9#dz"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["napker.herokuapp.com"]
+ALLOWED_HOSTS = ['https://napker.herokuapp.com/']
 
 
 # Application definition
@@ -178,3 +178,4 @@ SECURE_SSL_REDIRECT = True
 CONN_MAX_AGE = None
 
 django_heroku.settings(locals())
+

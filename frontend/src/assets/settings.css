@@ -1,0 +1,251 @@
+.settings-page-container {
+    width: 100%;
+    height: var(--content-height);
+    display: flex;
+}
+
+.settings-page-container .alert {
+    width: 100%;
+    margin: 0!important;
+    text-align: center;
+}
+
+.settings-page-container input[type=password] {
+    width: 60%;
+    border: none;
+    outline: none;
+    border-radius: 20px;
+    background: var(--border-color);
+    color: var(--primary-grey);
+    margin-bottom: 20px;
+    padding: 10px 20px 10px 20px;
+}
+
+.settings-page-container input[type=password]:focus {
+    border: 1px solid var(--primary-color);
+    background: var(--theme-base-color);
+}
+
+.settings-description-container {
+    width: 60%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: var(--background);
+}
+
+/* BLOCK USER */
+
+.settings-description-container .no-blocked-profiles {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.settings-description-container .blocked-profiles-list {
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+}
+
+.settings-description-container .blocked-profiles-list .blocked-profiles-title {
+    width: 100%;
+    position: sticky;
+    z-index: 1;
+    top: 0;
+    padding: 15px;
+    text-align: center;
+    background: var(--theme-base-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.settings-description-container .blocked-profiles-list .blocked-profile {
+    border: none;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.settings-page-title-container {
+    width: 100%;
+    height: 20%;
+    background: var(--theme-base-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* CHANGE PASSWORD */
+
+.change-password-form {
+    background: var(--theme-base-color);
+    width: 100%;
+    height: 60%;
+    padding: 20px 0;
+}
+
+.change-password-form button {
+    width: 60%;
+}
+
+/* DELETE ACCOUNT */
+
+.delete-account-confirmation {
+    background: var(--theme-base-color);
+    width: 100%;
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: large;
+    padding: 20px 0;
+    color: var(--primary-grey);
+}
+
+.delete-account-confirmation button {
+    margin-top: 20px;
+}
+
+/* FAQ */
+  
+.faq-content {
+    background: var(--theme-base-color);
+    display: flex;
+    align-items: center;
+}
+
+.faq-content .faq-center {
+    background: var(--theme-base-color);
+    width: 100%;
+}
+
+.faq-content details {
+    background: var(--theme-base-color);
+}
+
+.faq-content summary {
+    background: var(--theme-base-color);
+    transition: background .75s ease;
+    width: 100%;
+    outline: 0;
+    text-align: center;
+    font-size: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    border-bottom: 1px solid var(--border-color);
+    padding: 5px;
+}
+
+.faq-content h2 {
+    color: var(--primary-grey);
+    text-align: left;
+    margin-bottom: 0;
+    padding: 8px;
+    font: uni;
+    text-shadow: none;
+    font-size: 20px;
+    font-weight: 100;
+}
+
+.faq-content details p {
+    background: var(--theme-base-color);
+    padding: 0 25px 15px 25px;
+    margin: 0;
+    text-shadow: none;
+    text-align: justify;
+    line-height: 1.3em;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.faq-content summary::after {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f107";
+    display: inline-block;
+    padding-right: 15px;
+    font-size: 180%;
+    color: var(--primary-grey);
+}
+
+.faq-content details[open] summary::after {
+    content: '\f106';
+    display: inline-block;
+    padding-right: 15px;
+    font-size: 100%;
+}
+
+.faq-content details[open] summary:hover {
+    background:none;
+}
+
+.faq-content summary:hover {
+    background: var(--theme-base-color-hover);
+}
+
+.faq-content details summary::-webkit-details-marker {
+    display:none;
+}
+
+/* FEEDBACK */
+
+@keyframes selectface {
+    0% {
+        width: 70px;
+        height: 70px;
+    }
+
+    50% {
+        transform: scale(1.25);
+    }
+
+    100% {
+        width: 70px;
+        height: 70px;
+    }
+}
+
+.feedback-form {
+    padding: 20px;
+}
+
+.feedback-form h3 {
+    color: var(--primary-color);
+}
+.feedback-form .feedback-faces-container {
+    background: var(--body-background);
+    border-radius: 25px;
+    text-align: center;
+    padding: 20px;
+}
+
+.feedback-form .option-container {
+    font-size: 50px;
+    margin: 3px;
+}
+
+.feedback-form .option-container img {
+    width: 70px;
+    height: 70px;
+}
+
+.feedback-form .option-container .animated {
+    animation-name: selectface;
+    animation-duration: .5s;
+    animation-fill-mode: forwards;
+}
+
+.feedback-form .option-container img:hover {
+    cursor: pointer;
+}
+
+.feedback-form textarea {
+    width: 100%;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 10px;
+    outline: none;
+}

@@ -1,0 +1,72 @@
+.profiles-filter-container {
+    width: 100%;
+    display: flex;
+    background: var(--theme-base-color);
+    padding: 15px 5.37%;
+    margin-bottom: 15px;
+}
+
+.profiles-filter-container .profiles-filter-input {
+    height: 40px;
+    padding-left: 15px;
+    border: none;
+    border-radius: 20px;
+    background: var(--background);
+}
+
+.profiles-filter-container .profiles-search-extra-options-icon {
+    width: 50px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgba(0, 0, 0, 0.1)!important;
+    border-radius: 20px;
+    font-weight: bold!important;
+    margin: 4px;
+    background: var(--background)!important;
+    color: var(--text-secondary)!important;
+}
+
+.profiles-filter-container .profiles-search-extra-options-icon:hover, .profiles-filter-container .profiles-search-extra-options-icon-active {
+    background: var(--theme-base-color-hover)!important;
+}
+
+.profiles-filter-input:focus {
+    outline: none;
+    background: var(--theme-base-color);
+    border: 1px solid var(--primary-color)!important;
+}
+
+.profile-img-container:hover, .main-profile-data:hover {
+    cursor: pointer;
+    transform: scale(1.01);
+}
+
+.profile-img-container {
+    width: fit-content;
+    align-self: center;
+}
+
+.profile-row-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profile-row-bottom {
+    display: flex;
+    text-align: start;
+}
+
+.profile-col {
+    min-width: 20%;
+    align-self: center;
+    display: flex;
+}
+
+.main-profile-data {
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+}
