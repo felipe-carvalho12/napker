@@ -5,15 +5,11 @@ import { SERVER_URL } from '../../../../config/settings'
 export default function InviteListItem(props) {
     const invite = props.invite
     const replyRequest = props.replyRequest
-    
+
     return (
         <li
-            className="d-flex justify-content-between w-100"
-            style={{
-                padding: '30px',
-                borderBottom: '1px solid var(--border-color)',
-                backgroundColor: 'white',
-            }}
+            className="d-flex justify-content-between w-100 b-bottom"
+            style={{ padding: '30px', backgroundColor: 'var(--theme-base-color)' }}
             id={`fr-${invite.sender.id}`}
             key={invite.sender.id}
             onClick={() => window.location.href = `/user/${invite.sender.slug}`}

@@ -129,7 +129,7 @@ export default function Notifications(props) {
                                                 <>
                                                     {unvisualizedComments.map(comment => {
                                                         return (
-                                                            <NotificationContent notification={comment}>
+                                                            <NotificationContent notification={comment} type={"comment"}>
                                                                 <NewLabel />
                                                             </NotificationContent>
                                                         )
@@ -155,7 +155,7 @@ export default function Notifications(props) {
                                                 <>
                                                     {visualizedComments.map(comment => {
                                                         return (
-                                                            <NotificationContent notification={comment} />
+                                                            <NotificationContent notification={comment} type={"comment"} />
                                                         )
                                                     })}
                                                 </>

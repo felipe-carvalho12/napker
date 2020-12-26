@@ -80,7 +80,7 @@ export const setTheme = theme => {
       cssVariables.setProperty('--primary-grey', '#363636')
       cssVariables.setProperty('--loader-background', 'rgba(119, 147, 125, .3)')
       cssVariables.setProperty('--theme-base-color', '#fff')
-      cssVariables.setProperty('--theme-base-color-hover', 'rgba(255, 255, 255, 0.5)')
+      cssVariables.setProperty('--theme-base-color-hover', 'rgba(250, 250, 250, 0.7)')
       cssVariables.setProperty('--view-more-select-border', 'rgba(0, 0, 0, .2)')
 
   } else if (theme === 'dark') {

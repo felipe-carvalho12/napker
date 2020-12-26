@@ -11,7 +11,7 @@ export default function NotificationContent(props) {
         var content = notification.post.content
         var icon = "fas fa-heart"
         var color = 'var(--heart-color)'
-    } else {
+    } else if (props.type === 'comment') {
         var author = notification.author
         var content = notification.content
         var icon = "fas fa-comment"
@@ -19,7 +19,7 @@ export default function NotificationContent(props) {
     }
 
     return (
-        <li className="d-flex w-100 white-hover" style={{ padding: '15px 15px', background: '#fff', borderBottom: '1px solid var(--border-color)' }} 
+        <li className="d-flex w-100 white-hover b-bottom" style={{ padding: '15px 15px', background: 'var(--theme-base-color)' }} 
             key={author.id}
         >
             <div className="d-flex flex-column h-100" style={{ marginRight: '10px' }}>
