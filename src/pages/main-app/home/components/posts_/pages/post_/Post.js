@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { SERVER_URL } from '../../../../../../../config/settings'
-import CommentModal from '../../../../../../../components/CommentModal'
+import CommentModal from '../../../../../../../../components/CommentModal'
 import LikesModal from '../../../../../../../components/LikesModal'
 import Header from '../../../../../../../components/fixed/Header'
 import CommentListItem from './components/CommentListItem'
