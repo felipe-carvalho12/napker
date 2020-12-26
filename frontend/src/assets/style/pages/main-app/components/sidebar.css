@@ -22,11 +22,6 @@
     border-radius: 30px;
 }
 
-.sidebar ul .sidebar-menu-item .sidebar-menu-icon {
-    font-size: 1.25rem!important;
-    margin-right: 10px;
-}
-
 .sidebar .logo-container {
     display: flex;
     justify-content: start;
@@ -35,21 +30,22 @@
     margin-left: 10px;
 }
 
+.sidebar ul .sidebar-menu-item .sidebar-menu-icon {
+    font-size: 1.25rem!important;
+    margin-right: 10px;
+}
+
 .sidebar ul .sidebar-menu-item .fas {
     width: 25px;
 }
 
-.sidebar h2:hover {
-    cursor: pointer;
-}
-
-.sidebar ul li:hover {
+.sidebar ul a:hover > .sidebar-menu-item {
     background: var(--secondary-color);
     color: var(--primary-color);
     cursor: pointer;
 }
 
-.nav-menu-item-active {
+.sidebar a.active .sidebar-menu-item{
     color: var(--primary-color)!important;
 }
 

@@ -27,14 +27,14 @@
     border-top: 2px solid var(--border-color);
 }
 
-.bottom-menu ul li {
+.bottom-menu ul .bottom-menu-item {
     color: var(--primary-grey);
     font-size: 1.2rem;
     font-weight: bold;
     border-radius: 20px;
 }
 
-.bottom-menu ul li .bottom-menu-menu-icon {
+.bottom-menu ul .bottom-menu-item .bottom-menu-menu-icon {
     font-size: 1.25rem!important;
     margin-right: 10px;
 }
@@ -43,16 +43,6 @@
     color: var(--primary-color);
 }
 
-.bottom-menu ul li .fas {
+.bottom-menu ul .bottom-menu-item .fas {
     width: 25px;
-}
-
-.bottom-menu h2:hover {
-    cursor: pointer;
-}
-
-.bottom-menu ul li:hover {
-    background: var(--secondary-color);
-    color: var(--primary-color);
-    cursor: pointer;
 }

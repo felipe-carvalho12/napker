@@ -42,49 +42,6 @@ export const openCloseEmojiList = (closing = false) => {
   }
 }
 
-// NAV AND BOTTOM MENU
-
-export const getActivePageOnLoad = () => {
-  document.querySelectorAll('.nav-menu-item-active').forEach(el => {
-    el.classList.remove('nav-menu-item-active')
-  })
-  const currentUrl = window.location.href.split('/')
-  if (currentUrl.includes('home')) {
-    document.querySelector('#home-menu') && document.querySelector('#home-menu').classList.add('nav-menu-item-active')
-    document.querySelector('#bottom-home-menu') && document.querySelector('#bottom-home-menu').classList.add('nav-menu-item-active')
-  }
-  else if (currentUrl.includes('notifica%C3%A7%C3%B5es')) {
-    document.querySelector('#notifications-menu') && document.querySelector('#notifications-menu').classList.add('nav-menu-item-active')
-    document.querySelector('#bottom-notifications-menu') && document.querySelector('#bottom-notifications-menu').classList.add('nav-menu-item-active')
-  }
-  else if (currentUrl.includes('mensagens')) {
-    document.querySelector('#messages-menu') && document.querySelector('#messages-menu').classList.add('nav-menu-item-active')
-    document.querySelector('#bottom-messages-menu') && document.querySelector('#bottom-messages-menu').classList.add('nav-menu-item-active')
-  }
-  else if (currentUrl.includes('perfil')) {
-    document.querySelector('#profile-menu') && document.querySelector('#profile-menu').classList.add('nav-menu-item-active')
-    document.querySelector('#bottom-profile-menu') && document.querySelector('#bottom-profile-menu').classList.add('nav-menu-item-active')
-  }
-  else if (currentUrl.includes('configura%C3%A7%C3%B5es')) {
-    document.querySelector('#settings-menu') && document.querySelector('#settings-menu').classList.add('nav-menu-item-active')
-    document.querySelector('#bottom-settings-menu') && document.querySelector('#bottom-settings-menu').classList.add('nav-menu-item-active')
-  }
-}
-
-export const switchPage = (e, isHome = false) => {
-  if (!isHome) {
-    document.querySelectorAll('.nav-menu-item-active').forEach(el => {
-      el.classList.remove('nav-menu-item-active')
-    })
-    e.target.classList.add('nav-menu-item-active')
-  } else {
-    document.querySelectorAll('.nav-menu-item-active').forEach(el => {
-      el.classList.remove('nav-menu-item-active')
-    })
-    document.querySelector('#home-menu').classList.add('nav-menu-item-active')
-  }
-}
-
 // EXPANDABLE TEXTAREA
 
 function getScrollHeight(elm) {
