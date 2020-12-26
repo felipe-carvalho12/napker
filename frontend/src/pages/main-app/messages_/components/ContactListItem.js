@@ -27,9 +27,9 @@ export default function ContactListItem(props) {
             {profile !== undefined &&
                 <Link to={`/mensagens/${profile.slug}`} style={{ color: '#000', textDecoration: 'none' }}>
                     {resetUnreadMessagesCounter()}
-                    <li className="list-item profile-chat-item" style={{ whiteSpace: 'nowrap' }}>
+                    <li className="list-item d-flex justify-content-start p-2 b-bottom b-theme-base-color c-primary-grey base-hover" style={{ whiteSpace: 'nowrap' }}>
                         <img src={`${SERVER_URL}${profile.photo}`}
-                            className="profile-img-med"
+                            className="profile-img-sm"
                             style={{ marginRight: '10px' }}
                         />
                         <div className="d-flex flex-column align-items-start">

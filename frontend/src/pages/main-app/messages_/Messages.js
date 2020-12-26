@@ -121,9 +121,9 @@ export default class Messages extends React.Component {
                             setParentState={this.setState.bind(this)}
                             openModal={this.openModal}
                         />
-                        <div className="list-group chats-container">
-                            {this.state.renderedActiveChatsProfiles !== null ?
-                                this.state.renderedActiveChatsProfiles.map(profile => {
+                        {this.state.renderedActiveChatsProfiles !== null ?
+                            <div className="list-group chats-container" style={{ background: 'var(--background)' }}>
+                                {this.state.renderedActiveChatsProfiles.map(profile => {
                                     return (
                                         <ContactListItem
                                             profile={profile}
@@ -131,13 +131,13 @@ export default class Messages extends React.Component {
                                             activeChatsProfiles={this.state.activeChatsProfiles}
                                         />
                                     )
-                                })
-                                :
-                                <div className="loader-container">
-                                    <div className="loader" />
-                                </div>
-                            }
-                        </div>
+                                })}
+                            </div>
+                            :
+                            <div className="loader-container">
+                                <div className="loader" />
+                            </div>
+                        }
                     </div>
                     <Chat
                         username={this.state.username}

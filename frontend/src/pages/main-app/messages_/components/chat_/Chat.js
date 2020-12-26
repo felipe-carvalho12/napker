@@ -158,16 +158,13 @@ class Chat extends React.Component {
 
     render() {
         return (
-            <div
-                className="d-flex flex-column justify-content-between align-items-center h-100"
-                style={{ width: '60%' }}
-            >
+            <>
                 {this.state.otherProfile !== null || !this.props.otherUsername ?
                     <>
                         {this.state.otherProfile ?
                             <div
-                                className="d-flex flex-column justify-content-between align-items-center w-100 h-100"
-                                style={{ background: '#fcfcfc' }}
+                                className="d-flex flex-column justify-content-between align-items-center h-100 b-theme-base-color current-chat"
+                                style={{ width: '60%' }}
                             >
                                 <div className="current-chat-header">
                                     <i class="fas fa-arrow-left left-arrow-icon d-none" onClick={() => window.history.back()} />
@@ -200,7 +197,10 @@ class Chat extends React.Component {
                                 />
                             </div>
                             :
-                            <div className="d-flex flex-column justify-content-center align-items-center w-100 h-100">
+                            <div
+                                className="d-flex flex-column justify-content-center align-items-center h-100 no-chat-selected"
+                                style={{ width: '60%' }}
+                            >
                                 <div>
                                     <strong style={{ fontSize: 'larger' }}>Você não tem uma conversa selecionada</strong>
                                     <p className="text-secondary">Selecione uma existente ou comece uma nova</p>
@@ -210,11 +210,11 @@ class Chat extends React.Component {
                         }
                     </>
                     :
-                    <div className="loader-container">
+                    <div className="loader-container" style={{ width: '60%' }}>
                         <div className="loader" />
                     </div>
                 }
-            </div>
+            </>
         )
     }
 }

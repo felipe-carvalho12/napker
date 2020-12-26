@@ -54,12 +54,12 @@ export default function SendMessageForm(props) {
                 <Picker onEmojiClick={onEmojiSelect} />
             </div>
             <form
-                className="d-flex justify-content-center align-items-center w-100 p-1"
+                className="d-flex justify-content-center align-items-center w-100 px-1 py-3"
                 style={{ borderTop: '2px solid var(--border-color)' }}
                 onSubmit={sendMessageHandler}
             >
                 <label
-                    className="far fa-smile"
+                    className="far fa-smile mb-0"
                     id="emoji-button"
                     onClick={() => openCloseEmojiList(false)}
                 />

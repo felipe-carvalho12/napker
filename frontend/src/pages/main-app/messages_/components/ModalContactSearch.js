@@ -26,14 +26,17 @@ export default function ModalContactSearch(props) {
     }
 
     return (
-        <Modal show={addingNewChat}
+        <Modal
+            show={addingNewChat}
             onHide={() => setParentState({ addingNewChat: false })}
-            size="lg">
+            size="lg"
+        >
             <Modal.Header closeButton>
                 <Modal.Title><strong>Nova conversa</strong></Modal.Title>
             </Modal.Header>
             <Modal.Body style={{ padding: '0' }}>
-                <input className="modal-search-input"
+                <input
+                    className="modal-search-input"
                     placeholder="Pesquisar pessoas"
                     onChange={e => setModalSearch(e.target.value)}
                 />
@@ -41,19 +44,34 @@ export default function ModalContactSearch(props) {
                     {modalProfiles && modalProfiles.map(profile => {
                         return (
                             <Link to={`/mensagens/${profile.slug}`}
-                                style={{ color: '#000', textDecoration: 'none' }}
+                                style={{ color: 'var(--primary-grey)', textDecoration: 'none' }}
                                 onClick={() => setParentState({ addingNewChat: false })}
                             >
-                                <li className="list-group-item profile-row modal-profile-li" key={profile.id}>
-                                    <div className="d-flex justify-content-between">
-                                        <div className="profile-col">
+                                <li
+                                    className="position-relative border-0 b-bottom base-hover"
+                                    key={profile.id}
+                                    style={{ ...props.style, padding: '.75rem 1.25rem', background: 'var(--theme-base-color)' }}
+                                    onClick={props.onClick}
+                                >
+                                    <div className="d-flex">
+                                        <div className="profile-img-container">
                                             <img src={`${SERVER_URL}${profile.photo}`}
                                                 className="profile-img-med"
                                                 style={{ marginRight: '10px' }}
                                             />
-                                            <div className="main-profile-data">
-                                                <strong>{profile.first_name} {profile.last_name}</strong>
-                                                <p className="text-secondary">@{profile.user.username}</p>
+                                        </div>
+                                        <div className="d-flex flex-column w-100">
+                                            <div className="profile-row-top">
+                                                <div className="main-profile-data">
+                                                    <strong style={{ textAlign: 'start' }}>
+                                                        {profile.first_name} {profile.last_name}
+                                                    </strong>
+                                                    <p className="text-secondary">@{profile.user.username}</p>
+                                                </div>
+                                                {props.children}
+                                            </div>
+                                            <div className="profile-row-bottom">
+                                                {profile.bio}
                                             </div>
                                         </div>
                                     </div>

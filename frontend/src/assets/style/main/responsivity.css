@@ -36,7 +36,7 @@
         display: none;
     }
     .post-list, .profile-list-container, .comment-list, .interest-list-container, .interest-profile-list,
-    .interests-page-container, .settings-page-container, .settings-description-container, .notifications-container, .chats-container {
+    .interests-page-container, .settings-page-container, .settings-description-container, .notifications-container {
         padding-bottom: 10vh;
     }
     .list-group-item {
@@ -104,26 +104,25 @@
         width: 100%;
         border: none;
     }
-    .no-chat-selected, .chat-loader-container {
-        display: none;
+    .no-chat-selected, .messages-wrapper .loader-container {
+        display: none!important;
     }
     .current-chat {
-        width: 100vw;
+        width: 100vw!important;
         position: absolute;
-        bottom: 7.5vh;
     }
     .current-chat .current-chat-header {
         position: sticky;
-        top: 12vh;
+        top: var(--header-heigth);
     }
     .current-chat .current-chat-header .left-arrow-icon {
-        display: unset;
+        display: unset!important;
     }
     .current-chat .send-message-container {
         position: fixed;
         bottom: 0;
         height: 8vh;
-        background: #fff;
+        background: var(--theme-base-color);
         padding: 10px;
     }
     .messages-wrapper .current-chat-header .left-arrow-icon {
