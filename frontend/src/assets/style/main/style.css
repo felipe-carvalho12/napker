@@ -33,8 +33,8 @@
 
   --header-heigth: 8vh;
   --content-heigth: 91vh;
-  --sidebar-width: 15vw;
-  --main-content-width: 44vw
+  --sidebar-width: 16vw;
+  --main-content-width: 59vw
 }
 
 * {
@@ -132,11 +132,16 @@ a:hover {
 
 .wrapper .main-content {
   width: var(--main-content-width);
+  display: flex;
+}
+
+.wrapper .main-content .center {
+  width: 100%;
   height: 100%;
   margin: 0 1vw;
 }
 
-.wrapper .main-content .header {
+.wrapper .main-content .center .header {
   height: var(--header-heigth);
   position: sticky;
   display: flex;
@@ -148,12 +153,7 @@ a:hover {
   font-size: 1.2rem;
 }
 
-.wrapper .main-content .header .logout {
-  color: var(--primary-color);
-  cursor: pointer;
-}
-
-.wrapper .main-content .content {
+.wrapper .main-content .center .content {
   position: relative;
   text-align: center;
 }

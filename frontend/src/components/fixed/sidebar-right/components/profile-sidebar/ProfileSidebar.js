@@ -11,6 +11,7 @@ export default function ProfileSidebar(props) {
     const [myProfile, setMyProfile] = useState(null)
 
     useEffect(() => {
+        console.log('iside useeffect')
         const urlArr = window.location.href.split('/')
         if (myProfile) {
             const profileSlug = urlArr[urlArr.length - 2] === 'user' ? urlArr[urlArr.length - 1] : urlArr[urlArr.length - 1] === 'perfil' ? myProfile.slug : false
@@ -32,7 +33,7 @@ export default function ProfileSidebar(props) {
                     ])
                 })
         }
-    }, [props])
+    }, [props.parentProps])
 
     return (
         <>
