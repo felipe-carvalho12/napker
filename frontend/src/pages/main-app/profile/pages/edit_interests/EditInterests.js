@@ -41,7 +41,7 @@ export default function EditInterests() {
     return (
         <>
             <Header page="Meus interesses" backArrow={true} />
-            <div className="content">
+            <div className="sidebar-content">
                 <p
                     className="edit-interests-success-message b-bottom"
                     id="interests-updated-message"

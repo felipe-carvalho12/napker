@@ -132,6 +132,7 @@ a:hover {
 }
 
 .wrapper .main-content {
+  min-width: var(--sidebar-content-heigth);
   height: 100%;
   margin: 0 1vw;
 }
@@ -170,8 +171,8 @@ a:hover {
 
 .profile-img-med {
   border-radius: 50%;
-  width: 64px;
-  height: 64px;
+  width: 56px;
+  height: 56px;
 }
 
 .profile-img-big {

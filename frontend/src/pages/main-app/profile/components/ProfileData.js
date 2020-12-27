@@ -8,7 +8,7 @@ export default function ProfileData(props) {
 
     return (
         <div className="profile-data-container">
-            <div className="d-flex flex-column align-items-start" style={{ textAlign: 'start' }}>
+            <div className="d-flex flex-column align-items-start" style={{ textAlign: 'start', maxWidth: '50%' }}>
                 <p>
                     <img src={`${SERVER_URL}${profile.photo}`}
                         className="profile-img-big"
@@ -22,7 +22,7 @@ export default function ProfileData(props) {
                     <i className="far fa-calendar-alt"></i> Entrou em {profile.created.split('-').reverse().join('/')}
                 </p>
                 <p>
-                    <Link to={`/user/${profile.slug}/amigos`} style={{color:  "var(--primary-grey)"}}>
+                    <Link to={`/user/${profile.slug}/amigos`} style={{ color: "var(--primary-grey)" }}>
                         <strong>{profile.friends.length}</strong> <span className="text-secondary">{profile.friends.length === 1 ? 'amigo' : 'amigos'}</span>
                     </Link>
                 </p>

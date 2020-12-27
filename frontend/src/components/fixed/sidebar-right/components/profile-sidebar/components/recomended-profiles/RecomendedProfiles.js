@@ -26,7 +26,7 @@ export default function RecomendedProfiles(props) {
         <>
             <InfoModal isOpen={infoModalIsOpen} hideModal={() => setInfoModalIsOpen(false)} profileSlug={profileSlug} />
             <InfoIcon onClick={() => setInfoModalIsOpen(true)} />
-            <div className="d-flex flex-column justify-content-start align-items-center">
+            <div className="d-flex flex-column justify-content-start align-items-start">
                 <div className="b-bottom" style={{ marginTop: 'var(--header-heigth)', width: '100%' }}>
                     <h6 className="ml-2">Você pode gostar</h6>
                 </div>
@@ -34,7 +34,7 @@ export default function RecomendedProfiles(props) {
                     <>
                         {recomendedProfiles.map(profile => {
                             return (
-                                <ProfileListItem profile={profile} myProfile={myProfile} />
+                                <ProfileListItem profile={profile} myProfile={myProfile} imgSize="sm" bioLength={90} bool={false} />
                             )
                         })}
                     </>

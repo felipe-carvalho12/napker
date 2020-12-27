@@ -45,19 +45,9 @@
 
 .profile-img-container {
     width: fit-content;
-    align-self: center;
+    align-self: start;
 }
 
-.profile-row-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.profile-row-bottom {
-    display: flex;
-    text-align: start;
-}
 
 .profile-col {
     min-width: 20%;
