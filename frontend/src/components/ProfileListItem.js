@@ -9,8 +9,8 @@ export default function ProfileListItem(props) {
 
     const imgSize = props.imgSize || 'med'
     const bioLength = props.bioLength
-    const bool = props.bool || true
-
+    const bool = props.bool == undefined ? true : props.bool
+    console.log(bool)
     let bioWasRendered = false
 
     return (
