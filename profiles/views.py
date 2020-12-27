@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.db.models import Q
 from django.shortcuts import render
 
-from .serializers import ProfileSerializer, RelationshipSerializer, UserSerializer
+from .serializers import *
 from .models import *
 from .utils import *
 
@@ -110,6 +110,34 @@ def my_profile(request):
     profile = Profile.objects.get(user=request.user)
     serializer = ProfileSerializer(profile)
     return Response(serializer.data)
+
+
+@api_view(['GET'])
+def get_post_weights(request):
+    profile = Profile.objects.get(user=request.user)
+    if profile.post_weights:
+        serializer = PostWeightsSerializer(profile.post_weights)
+        return Response(serializer.data)
+    return Response({
+        'interest_weight': 50,
+        'age_weight': 50,
+        'friends_weight': 50,
+        'is_friend_weight': 50
+    })
+
+
+@api_view(['POST'])
+def set_post_weights(request):
+    new_weights, created = PostWeights.objects.get_or_create(
+        interest_weight=request.data['interest-weight'],
+        age_weight=request.data['age-weight'],
+        friends_weight=request.data['friends-weight'],
+        is_friend_weight=request.data['is_friend-weight']
+    )
+    profile = Profile.objects.get(user=request.user)
+    profile.post_weights = new_weights
+    profile.save()
+    return Response('weights updated')
 
 
 @api_view(['GET'])

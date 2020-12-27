@@ -30,7 +30,7 @@ export default function Home(props) {
     return (
         <>
             <Header page="Home" />
-            <div className="content">
+            <div className="sidebar-content">
                 <div className="desktop-home-menu">
                     <HomePageMenu
                         setPage={setPage}

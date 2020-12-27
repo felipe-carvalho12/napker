@@ -11,11 +11,15 @@
     background: var(--fixed-components-background);
 }
 
+.sidebar h6 {
+    font-size: 16px;
+}
+
 .sidebar .sidebar-menu-item {
     width: fit-content;
     color: var(--primary-grey);
     font-size: 1.1rem;
-    font-weight: bold;
+    font-weight: 400;
     display: block;
     padding: 10px;
     margin: 5px 0;

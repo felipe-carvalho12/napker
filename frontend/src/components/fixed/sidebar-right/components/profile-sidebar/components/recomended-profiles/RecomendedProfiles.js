@@ -25,16 +25,16 @@ export default function RecomendedProfiles(props) {
     return (
         <>
             <InfoModal isOpen={infoModalIsOpen} hideModal={() => setInfoModalIsOpen(false)} profileSlug={profileSlug} />
-            <div className="d-flex justify-content-center align-items-center m-0 b-bottom" style={{ height: 'var(--header-heigth)' }}>
-                <h5>Você pode gostar</h5>
-            </div>
             <InfoIcon onClick={() => setInfoModalIsOpen(true)} />
-            <div className="w-100" style={{ overflowY: 'hidden' }}>
+            <div className="d-flex flex-column justify-content-start align-items-start">
+                <div className="b-bottom" style={{ marginTop: 'var(--header-heigth)', width: '100%' }}>
+                    <h6 className="ml-2">Você pode gostar</h6>
+                </div>
                 {recomendedProfiles !== null ?
                     <>
                         {recomendedProfiles.map(profile => {
                             return (
-                                <ProfileListItem profile={profile} myProfile={myProfile} />
+                                <ProfileListItem profile={profile} myProfile={myProfile} imgSize="sm" bioLength={90} bool={false} />
                             )
                         })}
                     </>

@@ -102,12 +102,12 @@ export default function EditProfileModal(props) {
                         <div className="email-input-container">
                             <input
                                 className="profile-field-input-email"
-                                type="email"
+                                type="text"
                                 name="bio"
                                 id="bio"
                                 value={editingBioContent}
                                 placeholder={profile.bio}
-                                maxLength={100}
+                                maxLength={240}
                                 onChange={e => setEditingBioContent(e.target.value)}
                             />
                             <label

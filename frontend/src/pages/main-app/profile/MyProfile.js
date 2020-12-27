@@ -42,7 +42,7 @@ export default function MyProfile() {
     return (
         <>
             <Header page="Perfil" />
-            <div className="content">
+            <div className="sidebar-content">
                 {myProfile ?
                     <>
                         <EditProfile

@@ -260,7 +260,7 @@ class Profile extends React.Component {
                     backArrow={true}
                 />
                 {this.state.myProfile !== null && this.state.profile !== null ?
-                    <div className="content">
+                    <div className="sidebar-content">
                         {this.state.profile.blocked_users.map(u => u.id).includes(this.state.myProfile.user.id) ?
                             <div className="user-blocked-me-container">
                                 <h3>O usuário te bloqueou</h3>

@@ -34,7 +34,8 @@
   --header-heigth: 8vh;
   --content-heigth: 91vh;
   --sidebar-width: 16vw;
-  --main-content-width: 59vw
+  --sidebar-content-width: 43vw;
+  --content-width: 59vw;
 }
 
 * {
@@ -131,17 +132,12 @@ a:hover {
 }
 
 .wrapper .main-content {
-  width: var(--main-content-width);
-  display: flex;
-}
-
-.wrapper .main-content .center {
-  width: 100%;
+  min-width: var(--sidebar-content-heigth);
   height: 100%;
   margin: 0 1vw;
 }
 
-.wrapper .main-content .center .header {
+.wrapper .main-content .header {
   height: var(--header-heigth);
   position: sticky;
   display: flex;
@@ -153,7 +149,14 @@ a:hover {
   font-size: 1.2rem;
 }
 
-.wrapper .main-content .center .content {
+.wrapper .main-content .content {
+  width: var(--content-width);
+  position: relative;
+  text-align: center;
+}
+
+.wrapper .main-content .sidebar-content {
+  width: var(--sidebar-content-width);
   position: relative;
   text-align: center;
 }
@@ -168,8 +171,8 @@ a:hover {
 
 .profile-img-med {
   border-radius: 50%;
-  width: 64px;
-  height: 64px;
+  width: 56px;
+  height: 56px;
 }
 
 .profile-img-big {

@@ -13,6 +13,8 @@ urlpatterns = [
     path('profile-list/<str:slug>', profile_list_view),
     path('interest-profile-list/<str:interest>', interest_profile_list),
     path('myprofile', my_profile),
+    path('get-post-weights', get_post_weights),
+    path('set-post-weights', set_post_weights),
     path('get-friends-profiles/<str:slug>', friends_profiles),
     path('get-blocked-profiles', blocked_profiles),
     path('relationship/<str:slug>', get_relationship),

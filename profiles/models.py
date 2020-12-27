@@ -23,7 +23,7 @@ class PostWeights(models.Model):
     is_friend_weight = models.FloatField()
 
     def __str__(self):
-        return f'INTEREST: {self.interest}, AGE: {self.age}, FRIENDS: {self.friends}, IS_FRIEND: {self.is_friend}'
+        return f'INTEREST: {self.interest_weight}, AGE: {self.age_weight}, FRIENDS: {self.friends_weight}, IS_FRIEND: {self.is_friend_weight}'
 
 
 class Profile(models.Model):

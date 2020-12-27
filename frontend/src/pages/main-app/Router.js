@@ -1,10 +1,10 @@
-import React, { useContext, useEffect } from 'react'
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
+import React, { useContext, useEffect, useRef } from 'react'
+import { Switch, Route, Redirect } from 'react-router-dom'
 
 import { SERVER_URL } from '../../config/settings'
 import {
     InvitesReceivedContext, UnvisualizedCommentsContext,
-    UnvisualizedLikesContext, UnreadMessagesContext
+    UnvisualizedLikesContext, UnreadMessagesContext, AlgorithmWeightsContext
 } from '../../context/app/AppContext'
 
 import SidebarLeft from '../../components/fixed/SidebarLeft'
@@ -25,6 +25,8 @@ import PostFormPage from './mobile-post-form/PostFormPage'
 import EditProfileProvider from '../../context/edit-profile/EditProfileContext'
 
 export default function MainAppRouter() {
+    const [, setWeights] = useContext(AlgorithmWeightsContext)
+
     const [, setInvitesReceived] = useContext(InvitesReceivedContext)
     const [, setUnvisulaizedComments] = useContext(UnvisualizedCommentsContext)
     const [, setUnvisulaizedLikes] = useContext(UnvisualizedLikesContext)
@@ -38,6 +40,10 @@ export default function MainAppRouter() {
             updateNotificationsNumber()
             updateUnreadMessagesNumber()
         }, 6000)
+
+        fetch(`${SERVER_URL}/profile-api/get-post-weights`)
+            .then(response => response.json())
+            .then(data => setWeights(data))
     }, [])
 
     const updateNotificationsNumber = () => {
@@ -62,79 +68,77 @@ export default function MainAppRouter() {
         <div className="wrapper">
             <SidebarLeft />
             <div className="main-content">
-                <div className="center">
-                    <Switch>
-                        <Route path="/" exact>
-                            <Redirect to="/home" />
-                        </Route>
-                        <Route path="/login" exact>
-                            <Redirect to="/home" />
-                        </Route>
-                        <Route path="/signup" exact>
-                            <Redirect to="/home" />
-                        </Route>
-
-                        <Route path="/home">
-                            <Home />
-                        </Route>
-
-                        <Route path="/notificações" render={props => (
-                            <Notifications {...props} updateNotificationsNumber={updateNotificationsNumber} />
-                        )} />
-                        <Route path="/mensagens" exact component={Messages} />
-                        <Route path="/mensagens/:slug" render={props => (
-                            <Messages {...props} updateUnreadMessagesNumber={updateUnreadMessagesNumber} />
-                        )} />
-                        <Route path="/perfil" exact render={props => (
-                            <EditProfileProvider>
-                                <MyProfile />
-                            </EditProfileProvider>
-                        )} />
-                        <Route path="/perfil/meus-interesses" component={EditInterests} />
-                        <Route path="/configurações" exact component={Settings} />
-                        <Route path="/configurações/perfis-bloqueados" exact render={props => (
-                            <Settings {...props} page={'blocked-profiles'} />
-                        )} />
-                        <Route path="/configurações/segurança" exact render={props => (
-                            <Settings {...props} page={'security'} />
-                        )} />
-                        <Route path="/configurações/alterar-senha" exact render={props => (
-                            <Settings {...props} page={'change-password'} />
-                        )} />
-                        <Route path="/configurações/deletar-conta" exact render={props => (
-                            <Settings {...props} page={'delete-account'} />
-                        )} />
-                        <Route path="/configurações/faq" exact render={props => (
-                            <Settings {...props} page={'faq'} />
-                        )} />
-                        <Route path="/configurações/fale-conosco" exact render={props => (
-                            <Settings {...props} page={'feedback'} />
-                        )} />
-                        <Route path="/user/:slug" exact render={props => (
-                            <Profile {...props} updateNotificationsNumber={updateNotificationsNumber} />
-                        )} />
-                        <Route path="/user/:slug/amigos" component={ProfileFriends} />
-                        <Route path="/post/:id" exact component={Post} />
-                        <Route path="/post/:id/comentar" render={props => (
-                            <Post {...props} commentModalIsOpen={true} />
-                        )} />
-                        <Route path="/interesses/:interest" component={InterestProfiles} />
-
-                        <Route path="/postar" component={PostFormPage} />
-                    </Switch>
-                </div>
                 <Switch>
+                    <Route path="/" exact>
+                        <Redirect to="/home" />
+                    </Route>
+                    <Route path="/login" exact>
+                        <Redirect to="/home" />
+                    </Route>
+                    <Route path="/signup" exact>
+                        <Redirect to="/home" />
+                    </Route>
+
                     <Route path="/home">
-                        <SidebarRight page="home" />
+                        <Home />
                     </Route>
-                    <Route path="/perfil">
-                        <SidebarRight page="profile" />
-                    </Route>
-                    <Route path="/user/:slug">
-                        <SidebarRight page="profile" />
-                    </Route>
+
+                    <Route path="/notificações" render={props => (
+                        <Notifications {...props} updateNotificationsNumber={updateNotificationsNumber} />
+                    )} />
+                    <Route path="/mensagens" exact component={Messages} />
+                    <Route path="/mensagens/:slug" render={props => (
+                        <Messages {...props} updateUnreadMessagesNumber={updateUnreadMessagesNumber} />
+                    )} />
+                    <Route path="/perfil" exact render={props => (
+                        <EditProfileProvider>
+                            <MyProfile />
+                        </EditProfileProvider>
+                    )} />
+                    <Route path="/perfil/meus-interesses" component={EditInterests} />
+                    <Route path="/configurações" exact component={Settings} />
+                    <Route path="/configurações/perfis-bloqueados" exact render={props => (
+                        <Settings {...props} page={'blocked-profiles'} />
+                    )} />
+                    <Route path="/configurações/segurança" exact render={props => (
+                        <Settings {...props} page={'security'} />
+                    )} />
+                    <Route path="/configurações/alterar-senha" exact render={props => (
+                        <Settings {...props} page={'change-password'} />
+                    )} />
+                    <Route path="/configurações/deletar-conta" exact render={props => (
+                        <Settings {...props} page={'delete-account'} />
+                    )} />
+                    <Route path="/configurações/faq" exact render={props => (
+                        <Settings {...props} page={'faq'} />
+                    )} />
+                    <Route path="/configurações/fale-conosco" exact render={props => (
+                        <Settings {...props} page={'feedback'} />
+                    )} />
+                    <Route path="/user/:slug" exact render={props => (
+                        <Profile {...props} updateNotificationsNumber={updateNotificationsNumber} />
+                    )} />
+                    <Route path="/user/:slug/amigos" component={ProfileFriends} />
+                    <Route path="/post/:id" exact component={Post} />
+                    <Route path="/post/:id/comentar" render={props => (
+                        <Post {...props} commentModalIsOpen={true} />
+                    )} />
+                    <Route path="/interesses/:interest" component={InterestProfiles} />
+
+                    <Route path="/postar" component={PostFormPage} />
                 </Switch>
             </div>
+            <Switch>
+                <Route path="/home">
+                    <SidebarRight page="home" />
+                </Route>
+                <Route path="/perfil">
+                    <SidebarRight page="profile" />
+                </Route>
+                <Route path="/user/:slug">
+                    <SidebarRight page="profile" />
+                </Route>
+            </Switch>
         </div>
     )
 }
