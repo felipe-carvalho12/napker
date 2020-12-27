@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from 'react'
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
+import { Switch, Route, Redirect } from 'react-router-dom'
 
 import { SERVER_URL } from '../../config/settings'
 import {
     InvitesReceivedContext, UnvisualizedCommentsContext,
-    UnvisualizedLikesContext, UnreadMessagesContext
+    UnvisualizedLikesContext, UnreadMessagesContext, AlgorithmWeightsContext
 } from '../../context/app/AppContext'
 
 import SidebarLeft from '../../components/fixed/SidebarLeft'
@@ -25,6 +25,8 @@ import PostFormPage from './mobile-post-form/PostFormPage'
 import EditProfileProvider from '../../context/edit-profile/EditProfileContext'
 
 export default function MainAppRouter() {
+    const [, setWeights] = useContext(AlgorithmWeightsContext)
+
     const [, setInvitesReceived] = useContext(InvitesReceivedContext)
     const [, setUnvisulaizedComments] = useContext(UnvisualizedCommentsContext)
     const [, setUnvisulaizedLikes] = useContext(UnvisualizedLikesContext)
@@ -38,6 +40,10 @@ export default function MainAppRouter() {
             updateNotificationsNumber()
             updateUnreadMessagesNumber()
         }, 6000)
+
+        fetch(`${SERVER_URL}/profile-api/get-post-weights`)
+            .then(response => response.json())
+            .then(data => setWeights(data))
     }, [])
 
     const updateNotificationsNumber = () => {

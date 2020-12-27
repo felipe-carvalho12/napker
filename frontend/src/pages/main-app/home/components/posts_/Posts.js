@@ -1,78 +1,74 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import { SERVER_URL } from '../../../../../config/settings'
+import { AlgorithmWeightsContext } from '../../../../../context/app/AppContext'
 import LikesModal from '../../../../../components/LikesModal'
 import PostForm from './components/PostForm'
 import PostListItem from '../../../../../components/PostListItem'
 
-export default class Posts extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            myProfile: null,
-            posts: null,
-            likesModal: {
-                isOpen: false,
-                likes: null
-            },
-            postContent: '',
-            postFormImagePreview: null
-        }
-        this.scrollCount = 1
+export default function Posts() {
+    const [weights,] = useContext(AlgorithmWeightsContext)
 
-        window.onscroll = () => {
-            if (Math.ceil(window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-                this.scrollCount++
-                this.fetchPosts()
-            }
+    const [myProfile, setMyProfile] = useState(null)
+    const [posts, setPosts] = useState(null)
+    const [likesModal, setLikesModal] = useState({ isOpen: false, likes: null })
+
+    let scrollCount = 1
+
+    window.onscroll = () => {
+        if (Math.ceil(window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+            scrollCount++
+            fetchPosts()
         }
     }
 
-    componentWillMount() {
+    useEffect(() => {
         fetch(`${SERVER_URL}/profile-api/myprofile`)
             .then(response => response.json())
-            .then(data => this.setState({ myProfile: data }))
-        this.fetchPosts()
-    }
+            .then(data => setMyProfile(data))
+        fetchPosts()
+    }, [])
 
-    fetchPosts = () => {
-        fetch(`${SERVER_URL}/post-api/post-list/${this.scrollCount}`)
+    useEffect(() => {
+        fetchPosts()
+    }, [weights])
+
+    const fetchPosts = () => {
+        fetch(`${SERVER_URL}/post-api/post-list/${scrollCount}`)
             .then(response => response.json())
-            .then(data => this.setState({ posts: data }))
+            .then(data => setPosts(data))
     }
 
 
-    render() {
-        return (
-            <>
-                <LikesModal
-                    isOpen={this.state.likesModal.isOpen}
-                    likes={this.state.likesModal.likes}
-                    hideModal={() => this.setState({ likesModal: { isOpen: false, likes: null } })}
-                />
-                {this.state.myProfile &&
-                    <div className="feed-create-post-form">
-                        <PostForm myProfile={this.state.myProfile} />
-                    </div>
-                }
-                <div className="d-flex flex-column justify-content-center align-items-center w-100 h-100">
-                    {this.state.posts && this.state.myProfile &&
-                        this.state.posts.map(post => {
-                            return (
-                                <PostListItem
-                                    post={post}
-                                    myProfile={this.state.myProfile}
-                                    renderParent={this.fetchPosts}
-                                    openLikesModal={likes => this.setState({ likesModal: { isOpen: true, likes: likes } })}
-                                />
-                            )
-                        })
-                    }
-                    <div className="loader-container" >
-                        <div className="loader" />
-                    </div>
+    return (
+        <>
+            <LikesModal
+                isOpen={likesModal.isOpen}
+                likes={likesModal.likes}
+                hideModal={() => setLikesModal({ isOpen: false, likes: null })}
+            />
+            {myProfile &&
+                <div className="feed-create-post-form">
+                    <PostForm myProfile={myProfile} />
                 </div>
-            </>
-        )
-    }
+            }
+            <div className="d-flex flex-column justify-content-center align-items-center w-100 h-100">
+                {posts && myProfile &&
+                    posts.map(post => {
+                        return (
+                            <PostListItem
+                                post={post}
+                                myProfile={myProfile}
+                                renderParent={fetchPosts}
+                                openLikesModal={likes => setLikesModal({ isOpen: true, likes: likes })}
+                            />
+                        )
+                    })
+                }
+                <div className="loader-container" >
+                    <div className="loader" />
+                </div>
+            </div>
+        </>
+    )
 }
