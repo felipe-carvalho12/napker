@@ -20,7 +20,11 @@
     .wrapper .main-content .bottom-menu, .bottom-menu-action-icon {
         display: initial;
     }
-    .wrapper .main-content {
+    .wrapper .main-content .content {
+        width: 100vw!important;
+        height: 100vh!important;
+    }
+    .wrapper .main-content .sidebar-content {
         width: 100vw!important;
         height: 100vh!important;
     }

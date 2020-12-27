@@ -55,7 +55,7 @@ export default function FeedAlgorithm() {
 
     return (
         <>
-            {interestsValue && ageValue && friendsValue && isFriendValue ?
+            {interestsValue !== null  && ageValue !== null  && friendsValue !== null  && isFriendValue !== null  ?
                 <>
                     <InfoModal isOpen={infoModalIsOpen} hideModal={() => setInfoModalIsOpen(false)} />
                     <InfoIcon onClick={() => setInfoModalIsOpen(true)} />
