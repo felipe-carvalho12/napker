@@ -1,0 +1,225 @@
+@import url('https://kodhus.com/kodhus-ui/kodhus-0.1.0.min.css');
+.profile-page-loader-container {
+    width: 100%;
+    height: 600px;
+    display: flex;
+    justify-content: center;
+    padding-top: 60px;
+}
+
+.user-blocked-me-container {
+    width: 100%;
+    height: 580px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-page-alert-success {
+    width: 100%;
+    margin: 0!important;
+    text-align: center;
+}
+
+.profile-data-container {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--theme-base-color);
+    padding: 1.5% 8.7%;
+}
+
+.profile-data-container .myprofile-btn-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-data-container .profile-btn-wrapper {
+    display: flex;
+}
+
+.profile-data-container .friend-btn:hover {
+    background: #f00!important;
+}
+
+.bio-emoji-list {
+    left: 60%!important;
+    top: 22%!important;
+}
+
+.d-flex .profile-field-label {
+    width: 20%;
+}
+
+.d-flex .profile-field-input {
+    width: 80%!important;
+    flex-basis: auto!important;
+    border: 1px solid rgba(0, 0, 0, 0.2)!important;
+    border-radius: 5px!important;
+    padding: 10px!important;
+    color: #444!important;
+    outline: none!important;
+    margin: 0!important;
+    margin-bottom: 4px!important;
+}
+
+.d-flex .email-input-container {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    flex-basis: auto;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    padding: 10px;
+    color: #444;
+    outline: none;
+    margin: 0;
+    margin-bottom: 4px;
+}
+
+.d-flex .email-input-container .profile-field-input-email {
+    width: 95%;
+    height: 100%;
+    border: none;
+    outline: none;
+}
+
+.d-flex .email-input-container .fa-smile {
+    color: var(--primary-color);
+    font-size: 25px;
+    margin-left: 10px;
+    margin-bottom: 0!important;
+    border-radius: 50%;
+}
+
+.d-flex .email-input-container .fa-smile:hover {
+    background: var(--secondary-color);
+    cursor: pointer;
+}
+
+.form-control {
+    display: inline-block;
+    margin-bottom: 5px;
+    width: 80%;
+}
+
+#username-taken, #email-taken {
+    display: none;
+    color: #f00;
+}
+
+.profile-page-menu {
+    width: 100%;
+    background: var(--theme-base-color);
+    color: #666;
+    font-weight: bold;
+    display: flex;
+}
+
+.profile-page-menu .profile-page-menu-item {
+    width: 50%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-page-menu .profile-page-menu-item:hover {
+    background: var(--secondary-color);
+    color: var(--primary-color);
+    cursor: pointer;
+}
+
+.profile-page-menu .profile-page-menu-item-active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color)!important;
+}
+
+.edit-profile-input {
+    display: flex;
+    align-items: center;
+}
+
+/* POSTS */
+
+.no-posts-container {
+    width: 100%;
+    margin-top: 2px
+}
+
+/* INTERESTS */
+
+.edit-interests-success-message {
+    width: 100%;
+    background: var(--theme-base-color);
+    color: rgba(0, 255, 0, 0.8);
+    display: none;
+    margin: 0;
+    padding: 5px;
+    font-size: large;
+    font-weight: bold;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.tag-container {
+    border-radius: 20px;
+    background: var(--background);
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding: 6px;
+}
+
+.tag-container:focus-within {
+    border: 2px solid var(--primary-color);
+    background: var(--theme-base-color);
+}
+
+.tag-container .tag {
+    width: fit-content;
+    height: 30px;
+    margin: 5px;
+    padding: 5px 6px;
+    border-radius: 4px;
+    background: rgba(128, 128, 128, 0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--secondary-grey);
+    box-shadow: 0 0 2px rgba(128, 128, 128, 0.5), inset 0 1px 1px var(--theme-base-color);
+    cursor: default;
+}
+
+.tag-container .tag i {
+    font-size: 16px;
+    color: #666;
+    margin-left: 5px;
+    margin-bottom: 10px;
+}
+
+.tag-container textarea {
+    padding: 5px;
+    font-size: 16px;
+    outline: none;
+    border: none;
+    color: var(--primary-grey);
+    background: inherit;
+    flex: 1;
+}
+
+.tag-container textarea::placeholder {
+    color: var(--secondary-grey);
+}
+
+/* FRIENDS */
+
+.profile-friends-container {
+    width: 100%;
+}
+
+.profile-friends-container .profile-friend-list-item {
+    border: none;
+    border-bottom: 1px solid var(--border-color);
+}

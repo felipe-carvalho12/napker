@@ -6,7 +6,7 @@ venv
 __pycache__
 
 # react app
-/frontend/build
+/build
 node_modules
 
 # db

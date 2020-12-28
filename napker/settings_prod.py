@@ -1,6 +1,6 @@
 import os
-from pathlib import Path
 import django_heroku
+from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -15,7 +15,7 @@ SECRET_KEY = "gld^)fy0sgzfs=nd2tc0cz73(v8n9sa%m!-%@car9*$o(u9#dz"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["napker.herokuapp.com"]
+ALLOWED_HOSTS = ['https://napker.herokuapp.com/']
 
 
 # Application definition
@@ -141,10 +141,8 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
     os.path.join(BASE_DIR, "frontend/build/static"),
-    os.path.join(BASE_DIR, './media_root'),
+    os.path.join(BASE_DIR, 'media_root'),
 ]
-
-STATIC_ROOT = os.path.join(BASE_DIR, "static_root")
 
 MEDIA_URL = "/media/"
 
@@ -180,6 +178,7 @@ CONN_MAX_AGE = None
 
 django_heroku.settings(locals())
 
+
 # S3
 
 AWS_ACCESS_KEY_ID = 'AKIA3JPIE5VUE4STWZP7'
@@ -192,4 +191,5 @@ AWS_S3_OBJECT_PARAMETERS = {
 AWS_LOCATION = 'media_root'
 
 STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage' 
+DEFAULT_FILE_STORAGE = 'napker.storage_backends.MediaStorage'
