@@ -15,7 +15,7 @@ export default function CommentListItem(props) {
 
     const colors = ['#5454fe', '#33fe66', '#fe4545', '#fefe45', 'var(--primary-grey)']
     const borderLeft = comment.layer ?
-        `5px solid ${colors[comment.layer - 1 >= colors.length ? colors.length - 1 : comment.layer - 1]}`
+        `5px solid ${colors[comment.layer - 1 >= colors.length ? (comment.layer - 1) % colors.length : comment.layer - 1]}`
         : 'unset'
 
     const showHideComments = e => {
