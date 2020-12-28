@@ -64,7 +64,6 @@ export default function PostForm(props) {
         const postImage = postFormImagePreview
         setPostContent('')
         setPostFormImagePreview('')
-        hideForm && hideForm()
         document.querySelector('.create-post-form textarea').rows = 3
 
         fetch(`${SERVER_URL}/post-api/create-${type === 'post' ? type : 'comment'}`, {
@@ -89,6 +88,7 @@ export default function PostForm(props) {
                 if (data.message) {
                     setErrMessage(data.message)
                 } else {
+                    hideForm && hideForm()
                     posts ?
                         setPosts([data, ...posts])
                         :

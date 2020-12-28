@@ -10,7 +10,7 @@ export default function CommentListItem(props) {
     const myProfile = props.myProfile
     const renderParent = props.renderParent
 
-    const [displayingComments, setDisplayingComments] = useState(true)
+    const [displayingComments, setDisplayingComments] = useState(false)
     const [displayingForm, setDisplayingForm] = useState(false)
 
     const colors = ['#5454fe', '#33fe66', '#fe4545', '#fefe45', 'var(--primary-grey)']
