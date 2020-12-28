@@ -15,7 +15,6 @@ export default function Post() {
     const [myProfile, setMyProfile] = useState(null)
 
     const [displayingForm, setDisplayingForm] = useState(false)
-    const [comments, setComments] = useState(null)
 
     const [postLikesModal, setPostLikesModal] = useState({ isOpen: false, likes: null })
     const [commentLikesModal, setCommentLikesModal] = useState({ isOpen: false, likes: null })
@@ -32,10 +31,7 @@ export default function Post() {
     const fetchPost = () => {
         fetch(`${SERVER_URL}/post-api/post/${id}`)
             .then(response => response.json())
-            .then(data => {
-                setPost(data)
-                setComments(data.first_layer_comments)
-            })
+            .then(data => setPost(data))
     }
 
     const hidePostLikesModal = () => {
@@ -81,11 +77,11 @@ export default function Post() {
                                     type='first-layer-comment'
                                     postId={post.id}
                                     myProfile={myProfile}
-                                    usePosts={() => [comments, setComments]}
+                                    renderParent={fetchPost}
                                     hideForm={() => setDisplayingForm(false)}
                                 />
                             }
-                            {comments.map(comment => {
+                            {post.first_layer_comments.map(comment => {
                                 return (
                                     <CommentListItem
                                         post={post}

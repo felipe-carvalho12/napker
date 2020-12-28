@@ -12,7 +12,6 @@ export default function CommentListItem(props) {
 
     const [displayingComments, setDisplayingComments] = useState(true)
     const [displayingForm, setDisplayingForm] = useState(false)
-    const [comments, setComments] = useState(comment.comments)
 
     const colors = ['#5454fe', '#33fe66', '#fe4545', '#fefe45', 'var(--primary-grey)']
     const borderLeft = comment.layer ?
@@ -25,7 +24,7 @@ export default function CommentListItem(props) {
     }
 
     return (
-        <div style={{ marginLeft: `${comment.layer * 20}px` }}>
+        <div style={{ marginLeft: `${comment.layer ? '20px' : '0'}` }}>
             <PostListItem
                 type='comment'
                 post={comment}
@@ -41,14 +40,13 @@ export default function CommentListItem(props) {
                 <PostForm
                     type='comment'
                     myProfile={myProfile}
-                    usePosts={() => [comments, setComments]}
+                    renderParent={renderParent}
                     postId={post.id}
                     parentCommentId={comment.id}
                     hideForm={() => setDisplayingForm(false)}
                 />
             }
-            {(comments && displayingComments) && comments.map(c => {
-                console.log(comment, comment.comments)
+            {(comment.comments && displayingComments) && comment.comments.map(c => {
                 return (
                     <CommentListItem
                         post={post}

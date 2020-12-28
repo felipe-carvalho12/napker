@@ -7,7 +7,7 @@ import { csrftoken, openCloseEmojiList } from '../../../../../../config/utils'
 
 export default function PostForm(props) {
     const myProfile = props.myProfile
-    const usePosts = props.usePosts
+    const usePosts = props.usePosts || (() => [null, null])
     const type = props.type === undefined ? 'post' : props.type
     const postId = props.postId
     const parentCommentId = props.parentCommentId
@@ -16,6 +16,7 @@ export default function PostForm(props) {
     const isMobile = visualViewport.width <= 980
 
     const [posts, setPosts] = usePosts()
+    const renderParent = props.renderParent
     const [errMessage, setErrMessage] = useState(null)
 
     const [hashtags, setHashtags] = useState([])
@@ -88,7 +89,10 @@ export default function PostForm(props) {
                 if (data.message) {
                     setErrMessage(data.message)
                 } else {
-                    setPosts([data, ...posts])
+                    posts ?
+                        setPosts([data, ...posts])
+                        :
+                        renderParent()
                 }
             })
     }
