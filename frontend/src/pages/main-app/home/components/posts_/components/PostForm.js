@@ -104,7 +104,7 @@ export default function PostForm(props) {
                     <label htmlFor="post-image" class="far fa-image" />
                     <input
                         type="file"
-                        accept="image/png, image/jpg, image/jpeg"
+                        accept="image/png, image/jpg, image/jpeg, image/gif"
                         name="post-image"
                         id="post-image"
                         style={{ display: 'none' }}

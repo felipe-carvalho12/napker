@@ -79,7 +79,7 @@ export default function Post(props) {
             <div className="content">
                 {post && myProfile ?
                     <>
-                        <PostListItem post={post} myProfile={myProfile} />
+                        <PostListItem post={post} myProfile={myProfile} isLink={false} />
                         <div className="comment-list">
                             {post.comments.map(comment => {
                                 return (

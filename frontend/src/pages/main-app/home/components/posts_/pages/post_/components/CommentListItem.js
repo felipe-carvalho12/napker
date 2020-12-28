@@ -58,10 +58,10 @@ export default function CommentListItem(props) {
 
     return (
         <li
-            className="d-flex w-100 white-hover hide-animation"
+            className="d-flex w-100 py-2 px-3 b-theme-base-color c-primary-grey b-bottom white-hover hide-animation"
             id={`post-comment-${comment.id}`}
             key={comment.id}
-            style={{ padding: '5px 15px', background: '#fff', borderBottom: '1px solid var(--border-color)' }}
+            style={{ padding: '5px 15px' }}
         >
             <div className="d-flex flex-column h-100" style={{ marginRight: '10px' }}>
                 <Link to={comment.author.id === myProfile.id ?
@@ -77,7 +77,7 @@ export default function CommentListItem(props) {
                     <div>
                         <Link to={comment.author.id === myProfile.id ?
                             '/perfil' : `/user/${comment.author.slug}`}
-                            style={{ color: '#000' }}
+                            style={{ color: 'var(--prmary-grey)' }}
                         >
                             <strong style={{ marginRight: '5px' }}>
                                 {comment.author.first_name} {comment.author.last_name}
