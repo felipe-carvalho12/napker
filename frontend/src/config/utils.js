@@ -30,17 +30,13 @@ export const openCloseEmojiList = (closing = false) => {
   const style = el.style
   if (closing) {
     style.display = 'none'
-    document.querySelector('#emoji-button').classList.remove('emoji-button-active')
+  } else if (!style.display || style.display === 'none') {
+    style.display = 'initial'
   } else {
-    if (!style.display || style.display === 'none') {
-      style.display = 'initial'
-      document.querySelector('#emoji-button').classList.add('emoji-button-active')
-    } else {
-      style.display = 'none'
-      document.querySelector('#emoji-button').classList.remove('emoji-button-active')
-    }
+    style.display = 'none'
   }
 }
+
 
 // EXPANDABLE TEXTAREA
 
@@ -69,33 +65,33 @@ export const setTheme = theme => {
   const cssVariables = document.documentElement.style
 
   if (theme === 'light') {
-      cssVariables.setProperty('--border-color', '#f3f3f3')
-      cssVariables.setProperty('--background', '#f3f3f3')
-      cssVariables.setProperty('--fixed-components-background', '#fcfdfc')
-      cssVariables.setProperty('--heart-color', '#E0245E')
-      cssVariables.setProperty('--heart-background-hover', 'rgba(224, 36, 94, .1)')
-      cssVariables.setProperty('--primary-color', '#48D1AF')
-      cssVariables.setProperty('--secondary-color', 'rgba(119, 147, 125, .1)')
-      cssVariables.setProperty('--primary-color-hover', '#3FB597')
-      cssVariables.setProperty('--primary-grey', '#363636')
-      cssVariables.setProperty('--loader-background', 'rgba(119, 147, 125, .3)')
-      cssVariables.setProperty('--theme-base-color', '#fff')
-      cssVariables.setProperty('--theme-base-color-hover', 'rgba(250, 250, 250, 0.7)')
-      cssVariables.setProperty('--view-more-select-border', 'rgba(0, 0, 0, .2)')
+    cssVariables.setProperty('--border-color', '#f3f3f3')
+    cssVariables.setProperty('--background', '#f3f3f3')
+    cssVariables.setProperty('--fixed-components-background', '#fcfdfc')
+    cssVariables.setProperty('--heart-color', '#E0245E')
+    cssVariables.setProperty('--heart-background-hover', 'rgba(224, 36, 94, .1)')
+    cssVariables.setProperty('--primary-color', '#48D1AF')
+    cssVariables.setProperty('--secondary-color', 'rgba(119, 147, 125, .1)')
+    cssVariables.setProperty('--primary-color-hover', '#3FB597')
+    cssVariables.setProperty('--primary-grey', '#363636')
+    cssVariables.setProperty('--loader-background', 'rgba(119, 147, 125, .3)')
+    cssVariables.setProperty('--theme-base-color', '#fff')
+    cssVariables.setProperty('--theme-base-color-hover', 'rgba(250, 250, 250, 0.7)')
+    cssVariables.setProperty('--view-more-select-border', 'rgba(0, 0, 0, .2)')
 
   } else if (theme === 'dark') {
-      cssVariables.setProperty('--border-color', '#000')
-      cssVariables.setProperty('--background', '#000')
-      cssVariables.setProperty('--fixed-components-background', '#131313')
-      cssVariables.setProperty('--heart-color', '#E0245E')
-      cssVariables.setProperty('--heart-background-hover', 'rgba(224, 36, 94, .1)')
-      cssVariables.setProperty('--primary-color', '#48D1AF')
-      cssVariables.setProperty('--secondary-color', 'rgba(119, 147, 125, .1)')
-      cssVariables.setProperty('--primary-color-hover', '#3FB597')
-      cssVariables.setProperty('--primary-grey', '#D9D9D9')
-      cssVariables.setProperty('--loader-background', 'rgba(119, 147, 125, .3)')
-      cssVariables.setProperty('--theme-base-color', '#131313')
-      cssVariables.setProperty('--theme-base-color-hover', 'rgba(255, 255, 255, 0.1)')
-      cssVariables.setProperty('--view-more-select-border', 'rgba(255, 255, 255, .2)')
+    cssVariables.setProperty('--border-color', '#000')
+    cssVariables.setProperty('--background', '#000')
+    cssVariables.setProperty('--fixed-components-background', '#131313')
+    cssVariables.setProperty('--heart-color', '#E0245E')
+    cssVariables.setProperty('--heart-background-hover', 'rgba(224, 36, 94, .1)')
+    cssVariables.setProperty('--primary-color', '#48D1AF')
+    cssVariables.setProperty('--secondary-color', 'rgba(119, 147, 125, .1)')
+    cssVariables.setProperty('--primary-color-hover', '#3FB597')
+    cssVariables.setProperty('--primary-grey', '#D9D9D9')
+    cssVariables.setProperty('--loader-background', 'rgba(119, 147, 125, .3)')
+    cssVariables.setProperty('--theme-base-color', '#131313')
+    cssVariables.setProperty('--theme-base-color-hover', 'rgba(255, 255, 255, 0.1)')
+    cssVariables.setProperty('--view-more-select-border', 'rgba(255, 255, 255, .2)')
   }
 }

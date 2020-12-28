@@ -18,6 +18,11 @@ export default function App() {
                 el.style.display = 'none'
             })
         }
+        if (!e.target.classList.contains('emoji-list-container')) {
+            document.querySelectorAll('.emoji-list-container').forEach(el => {
+                el.style.display = 'none'
+            })
+        }
     })
 
     const [isLogged, setIsLogged] = useState(null)
