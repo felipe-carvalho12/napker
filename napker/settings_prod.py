@@ -141,6 +141,7 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
     os.path.join(BASE_DIR, "frontend/build/static"),
+    os.path.join(BASE_DIR, './media_root'),
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static_root")
@@ -182,10 +183,6 @@ django_heroku.settings(locals())
 
 # S3
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, './media_root'),
-]
-
 AWS_ACCESS_KEY_ID = 'AKIA3JPIE5VUE4STWZP7'
 AWS_SECRET_ACCESS_KEY = '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'
 AWS_STORAGE_BUCKET_NAME = 'napker-bucket'
@@ -195,8 +192,5 @@ AWS_S3_OBJECT_PARAMETERS = {
 }
 AWS_LOCATION = 'media_root'
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, './media_root'),
-]
 STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage' 
