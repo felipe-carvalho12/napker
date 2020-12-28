@@ -182,7 +182,7 @@ django_heroku.settings(locals())
 # S3
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, '/media_root'),
+    os.path.join(BASE_DIR, './media_root'),
 ]
 
 AWS_ACCESS_KEY_ID = 'AKIA3JPIE5VUE4STWZP7'
@@ -195,7 +195,7 @@ AWS_S3_OBJECT_PARAMETERS = {
 AWS_LOCATION = 'media_root'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, '/media_root'),
+    os.path.join(BASE_DIR, './media_root'),
 ]
 STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
