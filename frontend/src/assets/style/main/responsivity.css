@@ -39,7 +39,7 @@
     .fa-smile {
         display: none;
     }
-    .post-list, .profile-list-container, .comment-list, .interest-list-container, .interest-profile-list,
+    .post-list, .profile-list-container, .interest-list-container, .interest-profile-list,
     .interests-page-container, .settings-page-container, .settings-description-container, .notifications-container {
         padding-bottom: 10vh;
     }

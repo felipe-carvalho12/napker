@@ -7,6 +7,8 @@ import { csrftoken } from '../config/utils'
 export default function PostListItem(props) {
     const post = props.post
     const myProfile = props.myProfile
+    const type = props.type === undefined ? 'post' : props.type
+    const renderParent = props.renderParent
 
     const history = useHistory()
     const isLink = props.isLink !== undefined ?  props.isLink : true
@@ -17,11 +19,11 @@ export default function PostListItem(props) {
         if (likeBtn.classList.contains('fas')) {
             likeBtn.classList.remove('fas') //border heart
             likeBtn.classList.add('far')  //filled heart
-            fetch(`${SERVER_URL}/post-api/unlike-post/${likeBtn.dataset.postid}`)
+            fetch(`${SERVER_URL}/post-api/unlike-${type}/${likeBtn.dataset.postid}`)
                 .then(response => response.json())
                 .then(data => {
                     console.log(data)
-                    props.renderParent()
+                    renderParent !== undefined && renderParent()
                 })
         } else {
             likeBtn.classList.remove('far') //border heart
@@ -30,11 +32,11 @@ export default function PostListItem(props) {
             likeBtn.onanimationend = () => {
                 likeBtn.classList.remove('animated')
             }
-            fetch(`${SERVER_URL}/post-api/like-post/${likeBtn.dataset.postid}`)
+            fetch(`${SERVER_URL}/post-api/like-${type}/${likeBtn.dataset.postid}`)
                 .then(response => response.json())
                 .then(data => {
                     console.log(data)
-                    props.renderParent()
+                    renderParent !== undefined && renderParent()
                 })
         }
     }
@@ -57,9 +59,9 @@ export default function PostListItem(props) {
         if (window.confirm('Tem certeza que deseja apagar o post?\nEssa ação é irreversível.')) {
             el.style.animationPlayState = 'running'
             el.addEventListener('animationend', () => {
-                this.fetchPosts()
+                renderParent !== undefined && renderParent()
             })
-            fetch(`${SERVER_URL}/post-api/delete-post/${postId}`, {
+            fetch(`${SERVER_URL}/post-api/delete-${type}/${postId}`, {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json',
@@ -69,6 +71,7 @@ export default function PostListItem(props) {
                 .then(response => response.json())
                 .then(data => {
                     console.log(data)
+                    renderParent !== undefined && renderParent()
                 })
         }
     }
@@ -78,7 +81,7 @@ export default function PostListItem(props) {
             className="d-flex w-100 base-hover hide-animation b-bottom"
             id={`profile-post-${post.id}`}
             key={post.id}
-            style={{ padding: '5px 15px', background: 'var(--theme-base-color)' }}
+            style={{ ...props.style, padding: '5px 15px', background: 'var(--theme-base-color)' }}
             onClick={() => isLink && history.push(`/post/${post.id}`)}
         >
             <div className="d-flex flex-column h-100" style={{ marginRight: '10px' }}>

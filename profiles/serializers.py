@@ -4,6 +4,11 @@ from rest_framework import serializers
 from posts.models import *
 from .models import *
 
+class RecursiveField(serializers.Serializer):
+    def to_representation(self, value):
+        serializer = self.parent.parent.__class__(value, context=self.context)
+        return serializer.data
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -20,11 +25,6 @@ class CommentLikeUnrelatedSerializer(serializers.ModelSerializer):
         model = CommentLike
         fields = '__all__'
 
-class CommentUnrelatedSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Comment
-        fields = '__all__'
-
 class PostUnrelatedSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
@@ -35,6 +35,17 @@ class ProfileUnrelatedSerializer(serializers.ModelSerializer):
     user = UserSerializer()
     class Meta:
         model = Profile
+        fields = '__all__'
+
+
+class CommentUnrelatedSerializer(serializers.ModelSerializer):
+    author = ProfileUnrelatedSerializer()
+    post = PostUnrelatedSerializer()
+    likes = CommentLikeUnrelatedSerializer(many=True)
+    comments = RecursiveField(many=True)
+
+    class Meta:
+        model = Comment
         fields = '__all__'
 #------------------------------------------
 
@@ -50,12 +61,13 @@ class CommentLikeSerializer(CommentLikeUnrelatedSerializer):
 
 class CommentSerializer(CommentUnrelatedSerializer):
     likes = CommentLikeSerializer(source='all_likes', many=True)
-    author = ProfileUnrelatedSerializer()
-    post = PostUnrelatedSerializer()
+    comments = CommentUnrelatedSerializer(source='all_comments', many=True)
+
 
 class PostSerializer(PostUnrelatedSerializer):
     likes = PostLikeSerializer(source='all_likes', many=True)
     comments = CommentSerializer(source='all_comments', many=True)
+    first_layer_comments = CommentSerializer(many=True)
     author = ProfileUnrelatedSerializer()
 
 # PROFILES APP SERIALIZERS

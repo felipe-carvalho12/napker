@@ -27,6 +27,9 @@ class Post(models.Model):
     def all_comments(self):
         return self.comments
 
+    def first_layer_comments(self):
+        return self.comments.filter(layer=0)
+
 
 class Hashtag(models.Model):
     title = models.CharField(max_length=50)
@@ -50,8 +53,9 @@ class PostLike(models.Model):
 class Comment(models.Model):
     content = models.TextField(max_length=300)
     author = models.ForeignKey(Profile, related_name='comments', on_delete=models.CASCADE)
-    post = models.ForeignKey(
-        Post, related_name='comments', on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)
+    comments = models.ManyToManyField('self', related_name='related_comments', through='CommentRelationship', blank=True)
+    layer = models.IntegerField(default=0)
     updated = models.DateField(auto_now=True)
     created = models.DateField(auto_now_add=True)
     visualized = models.BooleanField(default=False)
@@ -65,12 +69,21 @@ class Comment(models.Model):
     def all_likes(self):
         return self.likes
 
+    def all_comments(self):
+        return self.comments.filter(comment_relationship__base_comment=self)
+
+
+class CommentRelationship(models.Model):
+    base_comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='base_comment_relationship')
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='comment_relationship')
+
+    def __str__(self):
+        return f'base-author: {self.base_comment.author.user.username} | comment-author: {self.comment.author.user.username}'
+
 
 class CommentLike(models.Model):
-    profile = models.ForeignKey(
-        Profile, related_name='comment_likes', blank=True, on_delete=models.CASCADE)
-    comment = models.ForeignKey(
-        Comment, related_name='likes', on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile, related_name='comment_likes', blank=True, on_delete=models.CASCADE)
+    comment = models.ForeignKey(Comment, related_name='likes', on_delete=models.CASCADE)
     visualized = models.BooleanField(default=False)
     timestamp = models.DateField(auto_now_add=True)
 

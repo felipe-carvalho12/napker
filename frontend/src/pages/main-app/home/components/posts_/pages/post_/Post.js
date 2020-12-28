@@ -5,10 +5,10 @@ import { SERVER_URL } from '../../../../../../../config/settings'
 import CommentModal from '../../../../../../../components/CommentModal'
 import LikesModal from '../../../../../../../components/LikesModal'
 import Header from '../../../../../../../components/fixed/Header'
-import CommentListItem from './components/CommentListItem'
 import BottomMenu from '../../../../../../../components/fixed/bottom-menu/BottomMenu'
 import CommentIcon from '../../../../../../../components/fixed/bottom-menu/components/CommentIcon'
 import PostListItem from '../../../../../../../components/PostListItem'
+import CommentListItem from './components/CommentListItem'
 
 export default function Post(props) {
     const [post, setPost] = useState(null)
@@ -79,15 +79,14 @@ export default function Post(props) {
             <div className="content">
                 {post && myProfile ?
                     <>
-                        <PostListItem post={post} myProfile={myProfile} isLink={false} />
-                        <div className="comment-list">
-                            {post.comments.map(comment => {
+                        <PostListItem post={post} myProfile={myProfile} isLink={false} renderParent={fetchPost} />
+                        <div className="mt-2">
+                            {post.first_layer_comments.map(comment => {
                                 return (
                                     <CommentListItem
                                         comment={comment}
                                         myProfile={myProfile}
-                                        fetchPost={fetchPost}
-                                        setPostLikesModal={setPostLikesModal}
+                                        renderParent={fetchPost}
                                     />
                                 )
                             })
