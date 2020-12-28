@@ -179,8 +179,7 @@ CONN_MAX_AGE = None
 
 django_heroku.settings(locals())
 
-<<<<<<< HEAD
-=======
+
 # S3
 
 STATICFILES_DIRS = [
@@ -200,5 +199,4 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, '/media_root'),
 ]
 STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
->>>>>>> master
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage' 
