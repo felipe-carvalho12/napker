@@ -178,3 +178,24 @@ SECURE_SSL_REDIRECT = True
 CONN_MAX_AGE = None
 
 django_heroku.settings(locals())
+
+# S3
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, '/media_root'),
+]
+
+AWS_ACCESS_KEY_ID = 'AKIA3JPIE5VUE4STWZP7'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'napker-s3'
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+AWS_LOCATION = 'media_root'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, '/media_root'),
+]
+STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
