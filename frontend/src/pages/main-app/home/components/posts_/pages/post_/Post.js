@@ -34,7 +34,7 @@ export default function Post() {
             .then(response => response.json())
             .then(data => {
                 setPost(data)
-                setComments(data.comments)
+                setComments(data.first_layer_comments)
             })
     }
 
@@ -77,11 +77,18 @@ export default function Post() {
                         />
                         <div className="mt-2">
                             {displayingForm &&
-                                <PostForm type='comment' myProfile={myProfile} usePosts={() => [comments, setComments]} />
+                                <PostForm
+                                    type='first-layer-comment'
+                                    postId={post.id}
+                                    myProfile={myProfile}
+                                    usePosts={() => [comments, setComments]}
+                                    hideForm={() => setDisplayingForm(false)}
+                                />
                             }
-                            {post.first_layer_comments.map(comment => {
+                            {comments.map(comment => {
                                 return (
                                     <CommentListItem
+                                        post={post}
                                         comment={comment}
                                         myProfile={myProfile}
                                         renderParent={fetchPost}

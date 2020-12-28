@@ -59,7 +59,7 @@ export default function PostListItem(props) {
     const deletePost = (e, postId) => {
         e.stopPropagation()
         const el = document.querySelector(`#profile-post-${postId}`)
-        if (window.confirm('Tem certeza que deseja apagar o post?\nEssa ação é irreversível.')) {
+        if (window.confirm(`Tem certeza que deseja apagar o ${type === 'post' ? type : 'comentário'}?\nEssa ação é irreversível.`)) {
             el.style.animationPlayState = 'running'
             el.addEventListener('animationend', () => {
                 renderParent !== undefined && renderParent()

@@ -157,13 +157,21 @@ def delete_post(request, post_id):
         if posts.exists(): posts.first().delete()
         return JsonResponse(f'Deleted post #{post_id}', safe=False)
 
-def comment_post(request, post_id):
-    if request.method == 'POST':
-        profile = Profile.objects.get(user=request.user)
-        content = request.POST['comment-content']
-        post = Post.objects.get(id=post_id)
-        Comment.objects.create(content=content, author=profile, post=post)
-        return redirect(f'/post/{post_id}')
+@api_view(['POST'])
+def create_comment(request):
+    profile = Profile.objects.get(user=request.user)
+    content = request.data['content']
+    post = Post.objects.get(id=request.data['post-id'])
+
+    if request.data['type'] == 'comment':
+        parent_comment = Comment.objects.get(id=request.data['parent-comment-id'])
+        comment = Comment.objects.create(content=content, author=profile, post=post, layer=parent_comment.layer + 1)
+        CommentRelationship.objects.create(parent_comment=parent_comment, comment=comment)
+    elif request.data['type'] == 'first-layer-comment':
+        comment = Comment.objects.create(content=content, author=profile, post=post, layer=0)
+
+    serializer = CommentSerializer(comment)
+    return Response(serializer.data)
 
 def delete_comment(request, comment_id):
     if request.method == 'POST':

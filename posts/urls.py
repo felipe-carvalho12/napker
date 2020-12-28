@@ -15,7 +15,7 @@ urlpatterns = [
     path('visualize-comments', visualize_comments),
     path('create-post', create_post),
     path('delete-post/<int:post_id>', delete_post),
-    path('comment-post/<int:post_id>', comment_post),
+    path('create-comment', create_comment),
     path('delete-comment/<int:comment_id>', delete_comment),
     path('like-post/<int:post_id>', like_post),
     path('unlike-post/<int:post_id>', unlike_post),

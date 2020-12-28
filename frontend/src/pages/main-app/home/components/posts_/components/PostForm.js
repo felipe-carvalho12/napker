@@ -9,6 +9,9 @@ export default function PostForm(props) {
     const myProfile = props.myProfile
     const usePosts = props.usePosts
     const type = props.type === undefined ? 'post' : props.type
+    const postId = props.postId
+    const parentCommentId = props.parentCommentId
+    const hideForm = props.hideForm
 
     const isMobile = visualViewport.width <= 980
 
@@ -60,8 +63,10 @@ export default function PostForm(props) {
         const postImage = postFormImagePreview
         setPostContent('')
         setPostFormImagePreview('')
+        hideForm && hideForm()
         document.querySelector('.create-post-form textarea').rows = 3
-        fetch(`${SERVER_URL}/post-api/create-${type}`, {
+
+        fetch(`${SERVER_URL}/post-api/create-${type === 'post' ? type : 'comment'}`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
@@ -69,6 +74,9 @@ export default function PostForm(props) {
             },
             body: JSON.stringify({
                 'content': postContent,
+                'post-id': postId || '',
+                'parent-comment-id': parentCommentId || '',
+                'type': type,
                 'post-image': postImage,
                 'hashtags': hashtags,
                 'tagged-usernames': taggedUsernames

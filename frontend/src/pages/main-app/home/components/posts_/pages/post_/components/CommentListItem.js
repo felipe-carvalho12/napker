@@ -5,6 +5,7 @@ import PostForm from '../../../components/PostForm'
 
 
 export default function CommentListItem(props) {
+    const post = props.post
     const comment = props.comment
     const myProfile = props.myProfile
     const renderParent = props.renderParent
@@ -37,11 +38,20 @@ export default function CommentListItem(props) {
                 style={{ borderLeft: borderLeft }}
             />
             {displayingForm &&
-                <PostForm type='comment' myProfile={myProfile} usePosts={() => [comments, setComments]} />
+                <PostForm
+                    type='comment'
+                    myProfile={myProfile}
+                    usePosts={() => [comments, setComments]}
+                    postId={post.id}
+                    parentCommentId={comment.id}
+                    hideForm={() => setDisplayingForm(false)}
+                />
             }
             {(comments && displayingComments) && comments.map(c => {
+                console.log(comment, comment.comments)
                 return (
                     <CommentListItem
+                        post={post}
                         comment={c}
                         myProfile={myProfile}
                         renderParent={renderParent}

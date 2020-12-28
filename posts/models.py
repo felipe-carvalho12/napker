@@ -77,20 +77,20 @@ class Comment(models.Model):
                 comment_list.append(comment)
                 append_comments(comment.comments.all())
 
-        append_comments(self.comments.filter(comment_relationship__base_comment=self).all())
+        append_comments(self.comments.filter(comment_relationship__parent_comment=self).all())
 
         return comment_list
 
     def child_comments(self):
-        return self.comments.filter(comment_relationship__base_comment=self)
+        return self.comments.filter(comment_relationship__parent_comment=self)
 
 
 class CommentRelationship(models.Model):
-    base_comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='base_comment_relationship')
-    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='comment_relationship')
+    parent_comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='parent_comment_relationship', null=True)
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='comment_relationship', null=True)
 
     def __str__(self):
-        return f'base-author: {self.base_comment.author.user.username} | comment-author: {self.comment.author.user.username}'
+        return f'parent-author: {self.parent_comment.author.user.username} | comment-author: {self.comment.author.user.username}'
 
 
 class CommentLike(models.Model):
