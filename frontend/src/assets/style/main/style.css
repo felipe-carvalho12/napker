@@ -81,6 +81,14 @@ a:hover {
 
 /* GENERAL UTILS */
 
+.icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border-radius: 50%;
+}
+
 .text-secondary {
   color: var(--secondary-grey)!important;
 }

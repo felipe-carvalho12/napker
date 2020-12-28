@@ -9,9 +9,11 @@ export default function PostListItem(props) {
     const myProfile = props.myProfile
     const type = props.type === undefined ? 'post' : props.type
     const renderParent = props.renderParent
+    const showComments = props.showComments
+    const showHideComments = props.showHideComments
 
     const history = useHistory()
-    const isLink = props.isLink !== undefined ?  props.isLink : true
+    const isLink = props.isLink !== undefined ? props.isLink : true
 
     const likeUnlikePost = e => {
         e.stopPropagation()
@@ -84,7 +86,7 @@ export default function PostListItem(props) {
             style={{ ...props.style, padding: '5px 15px', background: 'var(--theme-base-color)' }}
             onClick={() => isLink && history.push(`/post/${post.id}`)}
         >
-            <div className="d-flex flex-column h-100" style={{ marginRight: '10px' }}>
+            <div className="d-flex flex-column justify-content-between" style={{ marginRight: '10px' }}>
                 <Link
                     to={post.author.id === myProfile.id ?
                         '/perfil' : `/user/${post.author.slug}`}
@@ -94,6 +96,23 @@ export default function PostListItem(props) {
                         className="profile-img-sm"
                     />
                 </Link>
+                {(type === 'comment' && post.comments.length !== 0) &&
+                    <>
+                        {showComments ?
+                            <i
+                                className="fas fa-caret-down align-self-start icon base-hover"
+                                style={{ width: '25px', height: '25px' }}
+                                onClick={showHideComments}
+                            />
+                            :
+                            <i
+                                className="fas fa-caret-right align-self-start icon base-hover"
+                                style={{ width: '25px', height: '25px' }}
+                                onClick={showHideComments}
+                            />
+                        }
+                    </>
+                }
             </div>
             <div className="d-flex flex-column h-100 w-100" style={{ marginRight: '10px' }}>
                 <div className="d-flex justify-content-between w-100">
@@ -159,7 +178,7 @@ export default function PostListItem(props) {
                             onClick={e => e.stopPropagation()}
                         >
                             <i
-                                class="far fa-comment mr-1"
+                                class="far fa-comment mr-1 icon"
                             />
                             <p style={{ margin: '0' }}>
                                 {post.comments.length}
@@ -167,12 +186,12 @@ export default function PostListItem(props) {
                         </Link>
                         <div className="d-flex align-items-center">
                             {post.likes.map(like => like.profile.id).includes(myProfile.id) ?
-                                <i class="fas fa-heart expand-animation mr-1  ml-2"
+                                <i class="fas fa-heart expand-animation mr-1  ml-2 icon"
                                     data-postid={post.id}
                                     onClick={likeUnlikePost}
                                 />
                                 :
-                                <i class="far fa-heart mr-1 ml-2"
+                                <i class="far fa-heart mr-1 ml-2 icon"
                                     data-postid={post.id}
                                     onClick={likeUnlikePost}
                                 />

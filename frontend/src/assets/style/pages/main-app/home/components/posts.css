@@ -71,11 +71,6 @@
     border: 1px solid rgba(20, 20, 20, 0.2);
 }
 
-.fa-comment, .fa-heart {
-    padding: 10px;
-    border-radius: 50%;
-}
-
 @keyframes heartExpand {
     0% {
         width: 34px;
