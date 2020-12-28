@@ -24,7 +24,7 @@ export default function CommentListItem(props) {
     }
 
     return (
-        <div style={{ marginLeft: `${comment.layer ? '20px' : '0'}` }}>
+        <div style={{ marginLeft: '20px' }}>
             <PostListItem
                 type='comment'
                 post={comment}
