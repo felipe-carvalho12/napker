@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { SERVER_URL } from '../../../../../../../config/settings'
-import CommentModal from '../../../../../../../components/CommentModal'
+import PostForm from '../../components/PostForm'
 import LikesModal from '../../../../../../../components/LikesModal'
 import Header from '../../../../../../../components/fixed/Header'
 import BottomMenu from '../../../../../../../components/fixed/bottom-menu/BottomMenu'
@@ -10,10 +10,13 @@ import CommentIcon from '../../../../../../../components/fixed/bottom-menu/compo
 import PostListItem from '../../../../../../../components/PostListItem'
 import CommentListItem from './components/CommentListItem'
 
-export default function Post(props) {
+export default function Post() {
     const [post, setPost] = useState(null)
     const [myProfile, setMyProfile] = useState(null)
-    const [commentModalIsOpen, setCommentModalIsOpen] = useState(props.commentModalIsOpen)
+
+    const [displayingForm, setDisplayingForm] = useState(false)
+    const [comments, setComments] = useState(null)
+
     const [postLikesModal, setPostLikesModal] = useState({ isOpen: false, likes: null })
     const [commentLikesModal, setCommentLikesModal] = useState({ isOpen: false, likes: null })
 
@@ -26,20 +29,13 @@ export default function Post(props) {
             .then(data => setMyProfile(data))
     }, [])
 
-    useEffect(() => {
-        console.log('got here')
-        setCommentModalIsOpen(!!props.commentModalIsOpen)
-    }, [props.commentModalIsOpen])
-
     const fetchPost = () => {
         fetch(`${SERVER_URL}/post-api/post/${id}`)
             .then(response => response.json())
-            .then(data => setPost(data))
-    }
-
-    const hideCommentModal = () => {
-        setCommentModalIsOpen(false)
-        window.history.back()
+            .then(data => {
+                setPost(data)
+                setComments(data.comments)
+            })
     }
 
     const hidePostLikesModal = () => {
@@ -58,13 +54,6 @@ export default function Post(props) {
 
     return (
         <div className="w-100">
-            {post &&
-                <CommentModal
-                    isOpen={commentModalIsOpen}
-                    hideModal={hideCommentModal}
-                    post={post}
-                />
-            }
             <LikesModal
                 isOpen={postLikesModal.isOpen}
                 likes={postLikesModal.likes}
@@ -79,8 +68,17 @@ export default function Post(props) {
             <div className="content">
                 {post && myProfile ?
                     <>
-                        <PostListItem post={post} myProfile={myProfile} isLink={false} renderParent={fetchPost} />
+                        <PostListItem
+                            post={post}
+                            myProfile={myProfile}
+                            isLink={false}
+                            renderParent={fetchPost}
+                            showHideForm={() => setDisplayingForm(!displayingForm)}
+                        />
                         <div className="mt-2">
+                            {displayingForm &&
+                                <PostForm type='comment' myProfile={myProfile} usePosts={() => [comments, setComments]} />
+                            }
                             {post.first_layer_comments.map(comment => {
                                 return (
                                     <CommentListItem

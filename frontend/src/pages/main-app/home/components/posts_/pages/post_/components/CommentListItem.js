@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 import PostListItem from '../../../../../../../../components/PostListItem'
+import PostForm from '../../../components/PostForm'
 
 
 export default function CommentListItem(props) {
@@ -8,7 +9,9 @@ export default function CommentListItem(props) {
     const myProfile = props.myProfile
     const renderParent = props.renderParent
 
-    const [showComments, setShowComments] = useState(true)
+    const [displayingComments, setDisplayingComments] = useState(true)
+    const [displayingForm, setDisplayingForm] = useState(false)
+    const [comments, setComments] = useState(comment.comments)
 
     const colors = ['#5454fe', '#33fe66', '#fe4545', '#fefe45', 'var(--primary-grey)']
     const borderLeft = comment.layer ?
@@ -17,7 +20,7 @@ export default function CommentListItem(props) {
 
     const showHideComments = e => {
         e.stopPropagation()
-        setShowComments(!showComments)
+        setDisplayingComments(!displayingComments)
     }
 
     return (
@@ -28,11 +31,15 @@ export default function CommentListItem(props) {
                 myProfile={myProfile}
                 isLink={false}
                 renderParent={renderParent}
-                showComments={showComments}
+                displayingComments={displayingComments}
+                showHideForm={() => setDisplayingForm(!displayingForm)}
                 showHideComments={showHideComments}
                 style={{ borderLeft: borderLeft }}
             />
-            {(comment.comments && showComments) && comment.comments.map(c => {
+            {displayingForm &&
+                <PostForm type='comment' myProfile={myProfile} usePosts={() => [comments, setComments]} />
+            }
+            {(comments && displayingComments) && comments.map(c => {
                 return (
                     <CommentListItem
                         comment={c}

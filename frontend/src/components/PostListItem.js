@@ -9,8 +9,9 @@ export default function PostListItem(props) {
     const myProfile = props.myProfile
     const type = props.type === undefined ? 'post' : props.type
     const renderParent = props.renderParent
-    const showComments = props.showComments
+    const displayingComments = props.displayingComments
     const showHideComments = props.showHideComments
+    const showHideForm = props.showHideForm
 
     const history = useHistory()
     const isLink = props.isLink !== undefined ? props.isLink : true
@@ -98,7 +99,7 @@ export default function PostListItem(props) {
                 </Link>
                 {(type === 'comment' && post.comments.length !== 0) &&
                     <>
-                        {showComments ?
+                        {displayingComments ?
                             <i
                                 className="fas fa-caret-down align-self-start icon base-hover"
                                 style={{ width: '25px', height: '25px' }}
@@ -171,11 +172,10 @@ export default function PostListItem(props) {
                         </div>
                     }
                     <div className="d-flex justify-content-start align-items-start text-secondary mt-2 mb-1">
-                        <Link
-                            to={`/post/${post.id}`}
+                        <div
                             className="d-flex align-items-center text-secondary"
                             style={{ outline: 'none', textDecoration: 'none' }}
-                            onClick={e => e.stopPropagation()}
+                            onClick={showHideForm && showHideForm}
                         >
                             <i
                                 class="far fa-comment mr-1 icon"
@@ -183,7 +183,7 @@ export default function PostListItem(props) {
                             <p style={{ margin: '0' }}>
                                 {post.all_comments.length}
                             </p>
-                        </Link>
+                        </div>
                         <div className="d-flex align-items-center">
                             {post.likes.map(like => like.profile.id).includes(myProfile.id) ?
                                 <i class="fas fa-heart expand-animation mr-1  ml-2 icon"

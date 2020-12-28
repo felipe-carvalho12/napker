@@ -8,6 +8,8 @@ import { csrftoken, openCloseEmojiList } from '../../../../../../config/utils'
 export default function PostForm(props) {
     const myProfile = props.myProfile
     const usePosts = props.usePosts
+    const type = props.type === undefined ? 'post' : props.type
+
     const isMobile = visualViewport.width <= 980
 
     const [posts, setPosts] = usePosts()
@@ -59,14 +61,14 @@ export default function PostForm(props) {
         setPostContent('')
         setPostFormImagePreview('')
         document.querySelector('.create-post-form textarea').rows = 3
-        fetch(`${SERVER_URL}/post-api/create-post`, {
+        fetch(`${SERVER_URL}/post-api/create-${type}`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
                 'X-CSRFToken': csrftoken,
             },
             body: JSON.stringify({
-                'post-content': postContent,
+                'content': postContent,
                 'post-image': postImage,
                 'hashtags': hashtags,
                 'tagged-usernames': taggedUsernames
@@ -134,14 +136,18 @@ export default function PostForm(props) {
             <hr />
             <div className="d-flex justify-content-between" style={{ margin: '0px 70px 0 70px' }}>
                 <div className="post-extra-options">
-                    <label htmlFor="post-image" class="far fa-image" />
-                    <input
-                        type="file"
-                        accept="image/png, image/jpg, image/jpeg, image/gif"
-                        id="post-image"
-                        style={{ display: 'none' }}
-                        onChange={handlePostImageChange}
-                    />
+                    {type === 'post' &&
+                        <>
+                            <label htmlFor="post-image" class="far fa-image" />
+                            <input
+                                type="file"
+                                accept="image/png, image/jpg, image/jpeg, image/gif"
+                                id="post-image"
+                                style={{ display: 'none' }}
+                                onChange={handlePostImageChange}
+                            />
+                        </>
+                    }
                     {!isMobile &&
                         <>
                             <label
@@ -162,7 +168,11 @@ export default function PostForm(props) {
                     style={{ height: '40px' }}
                     disabled
                 >
-                    Postar
+                    {type === 'post' ?
+                        'Postar'
+                        :
+                        'Comentar'
+                    }
                 </button>
             </div>
         </form>

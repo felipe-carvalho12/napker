@@ -119,7 +119,7 @@ def visualize_comments(request):
 @api_view(['POST'])
 def create_post(request):
     profile = Profile.objects.get(user=request.user)
-    content = request.data['post-content']
+    content = request.data['content']
     hashtags = request.data['hashtags']
     tagged_usernames = request.data['tagged-usernames']
 
