@@ -49,7 +49,7 @@ export default function Posts() {
             />
             {myProfile &&
                 <div className="feed-create-post-form">
-                    <PostForm myProfile={myProfile} />
+                    <PostForm myProfile={myProfile} usePosts={() => [posts, setPosts]} />
                 </div>
             }
             <div className="d-flex flex-column justify-content-center align-items-center w-100 h-100">

@@ -1,10 +1,14 @@
 import json
 import datetime
+import base64
+
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+
 from django.contrib.auth import authenticate
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
+from django.core.files.base import ContentFile
 
 from profiles.views import get_profile_list
 from profiles.serializers import PostSerializer, PostLikeSerializer, CommentSerializer, CommentLikeSerializer
@@ -111,31 +115,35 @@ def visualize_comments(request):
             comments.save()
     return JsonResponse('Comments visualized with success', safe=False)
 
+
+@api_view(['POST'])
 def create_post(request):
-    if request.method == 'POST':
-        profile = Profile.objects.get(user=request.user)
-        content = request.POST['post-content']
-        hashtags = request.POST['hashtags']
-        tagged_usernames = request.POST['tagged-usernames']
+    profile = Profile.objects.get(user=request.user)
+    content = request.data['post-content']
+    hashtags = request.data['hashtags']
+    tagged_usernames = request.data['tagged-usernames']
 
-        if len(request.FILES):
-            image = request.FILES['post-image']
-            post = Post.objects.create(content=content, author=profile, image=image)
-        else:
-            post = Post.objects.create(content=content, author=profile)
-        
-        for hashtag_title in hashtags:
-            hashtag, created = Hashtag.objects.get_or_create(title=hashtag_title.lower())
-            hashtag.posts.add(post)
-            hashtag.save()
+    if len(request.data['post-image']):
+        format, imgstr = request.data['post-image'].split(';base64,') 
+        img_format = format.split('/')[-1] 
+        image = ContentFile(base64.b64decode(imgstr), name=profile.user.username + img_format)
+        post = Post.objects.create(content=content, author=profile, image=image)
+    else:
+        post = Post.objects.create(content=content, author=profile)
+    
+    for hashtag_title in hashtags:
+        hashtag, created = Hashtag.objects.get_or_create(title=hashtag_title.lower())
+        hashtag.posts.add(post)
+        hashtag.save()
 
-        for username in tagged_usernames:
-            if User.objects.filter(username=username).exists():
-                user = User.objects.get(username=username)
-                post.tagged_profiles.add(Profile.objects.get(user=user))
-                post.save()
+    for username in tagged_usernames:
+        if User.objects.filter(username=username).exists():
+            user = User.objects.get(username=username)
+            post.tagged_profiles.add(Profile.objects.get(user=user))
+            post.save()
 
-        return redirect('/')
+    serializer = PostSerializer(post)
+    return Response(serializer.data)
 
 def delete_post(request, post_id):
     if request.method == 'POST':
