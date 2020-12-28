@@ -7,12 +7,16 @@ import { csrftoken, openCloseEmojiList } from '../../../../../../config/utils'
 
 export default function PostForm(props) {
     const myProfile = props.myProfile
+    const usePosts = props.usePosts
     const isMobile = visualViewport.width <= 980
 
+    const [posts, setPosts] = usePosts()
+
     const [hashtags, setHashtags] = useState([])
-    const [taggedUsers, setTaggedUsers] = useState([])
+    const [taggedUsernames, setTaggedUsernames] = useState([])
+
     const [postContent, setPostContent] = useState('')
-    const [postFormImagePreview, setPostFormImagePreview] = useState(null)
+    const [postFormImagePreview, setPostFormImagePreview] = useState('')
 
     const handlePostContentChange = e => {
         setPostContent(e.target.value)
@@ -48,17 +52,34 @@ export default function PostForm(props) {
         document.querySelector('#post-form-submit-btn').disabled = false
     }
 
+    const handleSubmit = e => {
+        e.preventDefault()
+        const postImage = postFormImagePreview
+        setPostContent('')
+        setPostFormImagePreview('')
+        fetch(`${SERVER_URL}/post-api/create-post`, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+                'X-CSRFToken': csrftoken,
+            },
+            body: JSON.stringify({
+                'post-content': postContent,
+                'post-image': postImage,
+                'hashtags': hashtags,
+                'tagged-usernames': taggedUsernames
+
+            })
+        })
+            .then(response => response.json())
+            .then(data => setPosts([data, ...posts]))
+    }
+
     return (
         <form
-            action={`${SERVER_URL}/post-api/create-post`}
-            method="POST"
             className="create-post-form"
-            encType="multipart/form-data"
+            onSubmit={handleSubmit}
         >
-            <input type="hidden" name="csrfmiddlewaretoken" value={csrftoken} />
-            <input type="hidden" name="hashtags" value={hashtags} />
-            <input type="hidden" name="tagged-usernames" value={taggedUsers} />
-
             <div className="d-flex">
                 <Link to="/perfil">
                     <img
@@ -70,7 +91,6 @@ export default function PostForm(props) {
                     className='autoExpand'
                     rows='3'
                     data-min-rows='3'
-                    name="post-content"
                     value={postContent}
                     placeholder="O que passa pela sua cabeça?"
                     maxLength={300}
@@ -105,7 +125,6 @@ export default function PostForm(props) {
                     <input
                         type="file"
                         accept="image/png, image/jpg, image/jpeg, image/gif"
-                        name="post-image"
                         id="post-image"
                         style={{ display: 'none' }}
                         onChange={handlePostImageChange}
