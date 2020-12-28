@@ -150,7 +150,7 @@ export default function PostListItem(props) {
                     }
                     <div className="d-flex justify-content-start align-items-start text-secondary mt-2 mb-1">
                         <Link
-                            to={`/post/${post.id}/comentar`}
+                            to={`/post/${post.id}`}
                             className="d-flex align-items-center text-secondary"
                             style={{ outline: 'none', textDecoration: 'none' }}
                             onClick={e => e.stopPropagation()}

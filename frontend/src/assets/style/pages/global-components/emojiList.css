@@ -1,0 +1,6 @@
+aside.emoji-picker-react {
+    background: var(--theme-base-color)!important;
+    color: var(--secondary-grey)!important;
+    border-color: var(--border-color)!important;
+    box-shadow: 0 5px 10px var(--theme-base-color)!important;
+}

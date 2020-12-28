@@ -123,27 +123,32 @@ def create_post(request):
     hashtags = request.data['hashtags']
     tagged_usernames = request.data['tagged-usernames']
 
-    if len(request.data['post-image']):
-        format, imgstr = request.data['post-image'].split(';base64,') 
-        img_format = format.split('/')[-1] 
-        image = ContentFile(base64.b64decode(imgstr), name=profile.user.username + img_format)
-        post = Post.objects.create(content=content, author=profile, image=image)
+    if len(content) <= 500:
+        if len(request.data['post-image']):
+            format, imgstr = request.data['post-image'].split(';base64,') 
+            img_format = format.split('/')[-1] 
+            image = ContentFile(base64.b64decode(imgstr), name=profile.user.username + img_format)
+            post = Post.objects.create(content=content, author=profile, image=image)
+        else:
+            post = Post.objects.create(content=content, author=profile)
+        
+        for hashtag_title in hashtags:
+            hashtag, created = Hashtag.objects.get_or_create(title=hashtag_title.lower())
+            hashtag.posts.add(post)
+            hashtag.save()
+
+        for username in tagged_usernames:
+            if User.objects.filter(username=username).exists():
+                user = User.objects.get(username=username)
+                post.tagged_profiles.add(Profile.objects.get(user=user))
+                post.save()
+
+        serializer = PostSerializer(post)
+        return Response(serializer.data)
     else:
-        post = Post.objects.create(content=content, author=profile)
-    
-    for hashtag_title in hashtags:
-        hashtag, created = Hashtag.objects.get_or_create(title=hashtag_title.lower())
-        hashtag.posts.add(post)
-        hashtag.save()
-
-    for username in tagged_usernames:
-        if User.objects.filter(username=username).exists():
-            user = User.objects.get(username=username)
-            post.tagged_profiles.add(Profile.objects.get(user=user))
-            post.save()
-
-    serializer = PostSerializer(post)
-    return Response(serializer.data)
+        return Response({
+            'message': 'Servidor custa caro! (:'
+        })
 
 def delete_post(request, post_id):
     if request.method == 'POST':

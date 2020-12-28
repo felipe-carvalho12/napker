@@ -34,7 +34,7 @@ export default function RecomendedProfiles(props) {
                     <>
                         {recomendedProfiles.map(profile => {
                             return (
-                                <ProfileListItem profile={profile} myProfile={myProfile} imgSize="sm" bioLength={90} bool={false} />
+                                <ProfileListItem profile={profile} myProfile={myProfile} imgSize="sm" bioLength={90} breakText={0} bool={false} />
                             )
                         })}
                     </>

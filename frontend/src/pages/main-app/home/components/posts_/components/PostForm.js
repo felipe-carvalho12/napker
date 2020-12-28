@@ -11,6 +11,7 @@ export default function PostForm(props) {
     const isMobile = visualViewport.width <= 980
 
     const [posts, setPosts] = usePosts()
+    const [errMessage, setErrMessage] = useState(null)
 
     const [hashtags, setHashtags] = useState([])
     const [taggedUsernames, setTaggedUsernames] = useState([])
@@ -57,6 +58,7 @@ export default function PostForm(props) {
         const postImage = postFormImagePreview
         setPostContent('')
         setPostFormImagePreview('')
+        document.querySelector('.create-post-form textarea').rows = 3
         fetch(`${SERVER_URL}/post-api/create-post`, {
             method: 'POST',
             headers: {
@@ -72,7 +74,13 @@ export default function PostForm(props) {
             })
         })
             .then(response => response.json())
-            .then(data => setPosts([data, ...posts]))
+            .then(data => {
+                if (data.message) {
+                    setErrMessage(data.message)
+                } else {
+                    setPosts([data, ...posts])
+                }
+            })
     }
 
     return (
@@ -80,6 +88,11 @@ export default function PostForm(props) {
             className="create-post-form"
             onSubmit={handleSubmit}
         >
+            {errMessage !== null &&
+                <div className="w-100 mt-1">
+                    <span className="word-break" style={{ color: '#f00' }}>{errMessage}</span>
+                </div>
+            }
             <div className="d-flex">
                 <Link to="/perfil">
                     <img
@@ -93,7 +106,7 @@ export default function PostForm(props) {
                     data-min-rows='3'
                     value={postContent}
                     placeholder="O que passa pela sua cabeça?"
-                    maxLength={300}
+                    maxLength={500}
                     autoFocus
                     style={{ color: 'var(--primary-grey)', background: 'var(--theme-base-color)' }}
                     onChange={handlePostContentChange}

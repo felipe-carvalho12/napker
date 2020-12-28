@@ -38,7 +38,7 @@ export default function EditProfileModal(props) {
             <Modal.Body>
                 <form
                     action={`${SERVER_URL}/update-profile`}
-                    className="d-flex flex-column justify-content-center"
+                    className="d-flex flex-column align-items-center primary-form"
                     id="update-profile-form"
                     method="POST"
                     encType="multipart/form-data"
@@ -64,57 +64,64 @@ export default function EditProfileModal(props) {
                     <div className="d-flex justify-content-center">
                         Email: {profile.email}
                     </div>
-                    <hr />
-                    <div className="edit-profile-input">
-                        <label htmlFor="first-name" className="profile-field-label">Nome:</label>
-                        <input className="profile-field-input" type="text" name="first-name" id="first-name" placeholder={profile.first_name} />
-                    </div>
-                    <div className="edit-profile-input">
-                        <label htmlFor="last-name" className="profile-field-label">Sobrenome:</label>
-                        <input className="profile-field-input" type="text" name="last-name" id="last-name" placeholder={profile.last_name} />
-                    </div>
-                    <div className="edit-profile-input">
-                        <label htmlFor="username" className="profile-field-label">Nome de usuário:</label>
-                        <input
-                            className="profile-field-input"
-                            type="text"
-                            name="username"
-                            id="username"
-                            placeholder={`@${profile.user.username}`}
-                            onChange={handleUsernameChange}
-                        />
-                    </div>
-                    <div
-                        id="username-taken"
-                        style={{ display: 'none', width: '100%', textAlign: 'center', padding: '3px' }}
-                    >
-                        <span>Nome de usuário já existe</span>
-                    </div>
-                    <div className="edit-profile-input">
-                        <label htmlFor="birth-date" className="profile-field-label">Data de nascimento:</label>
-                        <input className="profile-field-input" type="date" name="birth-date" id="birth-date" defaultValue={profile.birth_date} />
-                    </div>
-                    <div className="emoji-list-container bio-emoji-list" id="emoji-list-container">
-                        <Picker onEmojiClick={onEmojiSelect} />
-                    </div>
-                    <div className="edit-profile-input">
-                        <label htmlFor="bio" className="profile-field-label">Bio:</label>
-                        <div className="email-input-container">
-                            <input
-                                className="profile-field-input-email"
-                                type="text"
-                                name="bio"
-                                id="bio"
-                                value={editingBioContent}
-                                placeholder={profile.bio}
-                                maxLength={240}
-                                onChange={e => setEditingBioContent(e.target.value)}
-                            />
-                            <label
-                                className="far fa-smile"
-                                id="emoji-button"
-                                onClick={() => openCloseEmojiList(false)}
-                            />
+                    <div className="w-100 b-bottom my-1" />
+                    <div className="w-100 d-flex flex-column align-items-center">
+                        <div class="w-75 mt-3 d-flex justify-content-between">
+                            <div className="d-flex flex-column align-items-start" style={{ width: '45%' }}>
+                                <label htmlFor="first-name" className="text-secondary m-0 ml-1">Nome:</label>
+                                <input className="profile-field-input" type="text" name="first-name" id="first-name" placeholder={profile.first_name} />
+                            </div>
+                            <div className="d-flex flex-column align-items-start" style={{ width: '45%' }}>
+                                <label htmlFor="last-name" className="text-secondary m-0 ml-1">Sobrenome:</label>
+                                <input className="profile-field-input" type="text" name="last-name" id="last-name" placeholder={profile.last_name} />
+                            </div>
+                        </div>
+                        <div class="w-75 mt-3 d-flex justify-content-between">
+                            <div className="d-flex flex-column align-items-start" style={{ width: "45%" }}>
+                                <label htmlFor="username" className="text-secondary m-0 ml-1">Nome de usuário:</label>
+                                <div
+                                    id="username-taken"
+                                    style={{ display: 'none', width: '100%', textAlign: 'center', padding: '3px' }}
+                                >
+                                    <span>Nome de usuário já existe</span>
+                                </div>
+                                <input
+                                    className="m-0 profile-field-input"
+                                    type="text"
+                                    name="username"
+                                    id="username"
+                                    placeholder={`@${profile.user.username}`}
+                                    onChange={handleUsernameChange}
+                                />
+                            </div>
+                            <div className="d-flex flex-column align-items-start" style={{ width: "45%" }}>
+                                <label htmlFor="birth-date" className="text-secondary m-0 ml-1">Data de nascimento:</label>
+                                <input className="profile-field-input" type="date" name="birth-date" id="birth-date" defaultValue={profile.birth_date} />
+                            </div>
+                        </div>
+                        <div className="emoji-list-container bio-emoji-list" id="emoji-list-container">
+                            <Picker onEmojiClick={onEmojiSelect} />
+                        </div>
+                        <div className="w-75">
+                            <label htmlFor="bio" className="text-secondary m-0 ml-1">Bio:</label>
+                            <div className="d-flex position-relative">
+                                <textarea
+                                    type="text"
+                                    className="autoExpand"
+                                    name="bio"
+                                    id="bio"
+                                    value={editingBioContent}
+                                    placeholder={profile.bio}
+                                    maxLength={240}
+                                    onChange={e => setEditingBioContent(e.target.value)}
+                                />
+                                <label
+                                    className="far fa-smile m-0 position-absolute"
+                                    id="emoji-button"
+                                    style={{ right: '10px', top: '10px' }}
+                                    onClick={() => openCloseEmojiList(false)}
+                                />
+                            </div>
                         </div>
                     </div>
                 </form>

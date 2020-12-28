@@ -11,7 +11,15 @@
     padding: 10px 20px 10px 20px!important;
 }
 
-.primary-form input:focus {
+.primary-form textarea {
+    margin: 0!important;
+    background: var(--border-color)!important;
+    color: var(--primary-grey)!important;
+    border-radius: 30px!important;
+    padding: 10px 25px 10px 20px!important;
+}
+
+.primary-form input:focus, .primary-form textarea:focus {
     box-shadow: none!important;
     border: 2px solid var(--primary-color)!important;
     background: var(--theme-base-color)!important;
