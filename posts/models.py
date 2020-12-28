@@ -68,8 +68,20 @@ class Comment(models.Model):
 
     def all_likes(self):
         return self.likes
+    
+    def all_child_comments(self):
+        comment_list = []
 
-    def all_comments(self):
+        def append_comments(comments):
+            for comment in comments:
+                comment_list.append(comment)
+                append_comments(comment.comments.all())
+
+        append_comments(self.comments.filter(comment_relationship__base_comment=self).all())
+
+        return comment_list
+
+    def child_comments(self):
         return self.comments.filter(comment_relationship__base_comment=self)
 
 

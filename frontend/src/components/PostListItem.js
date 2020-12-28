@@ -181,7 +181,7 @@ export default function PostListItem(props) {
                                 class="far fa-comment mr-1 icon"
                             />
                             <p style={{ margin: '0' }}>
-                                {post.comments.length}
+                                {post.all_comments.length}
                             </p>
                         </Link>
                         <div className="d-flex align-items-center">

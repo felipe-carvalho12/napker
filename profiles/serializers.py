@@ -42,7 +42,6 @@ class CommentUnrelatedSerializer(serializers.ModelSerializer):
     author = ProfileUnrelatedSerializer()
     post = PostUnrelatedSerializer()
     likes = CommentLikeUnrelatedSerializer(many=True)
-    comments = RecursiveField(many=True)
 
     class Meta:
         model = Comment
@@ -61,12 +60,13 @@ class CommentLikeSerializer(CommentLikeUnrelatedSerializer):
 
 class CommentSerializer(CommentUnrelatedSerializer):
     likes = CommentLikeSerializer(source='all_likes', many=True)
-    comments = CommentUnrelatedSerializer(source='all_comments', many=True)
+    comments = RecursiveField(source='child_comments', many=True)
+    all_comments = RecursiveField(source='all_child_comments', many=True)
 
 
 class PostSerializer(PostUnrelatedSerializer):
     likes = PostLikeSerializer(source='all_likes', many=True)
-    comments = CommentSerializer(source='all_comments', many=True)
+    all_comments = CommentSerializer(many=True)
     first_layer_comments = CommentSerializer(many=True)
     author = ProfileUnrelatedSerializer()
 
