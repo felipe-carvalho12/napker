@@ -46,24 +46,11 @@ urlpatterns = [
 
     # Admin
     path("admin/", admin.site.urls),
-
-    # Main navigation
-    path('', TemplateView.as_view(template_name="index.html")),
-    path('login', TemplateView.as_view(template_name="index.html")),
-    path('signup', TemplateView.as_view(template_name="index.html")),
-    path('recuperar-senha', TemplateView.as_view(template_name="index.html")),
-
-    re_path('home', TemplateView.as_view(template_name="index.html")),
-    re_path('notificações', TemplateView.as_view(template_name="index.html")),
-    re_path('mensagens', TemplateView.as_view(template_name="index.html")),
-    re_path('perfil', TemplateView.as_view(template_name="index.html")),
-    re_path('configurações', TemplateView.as_view(template_name="index.html")),
-
-    re_path('user', TemplateView.as_view(template_name="index.html")),
-    re_path('post', TemplateView.as_view(template_name="index.html")),
-    re_path('interesses', TemplateView.as_view(template_name="index.html")),
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+
+urlpatterns += [re_path('.*', TemplateView.as_view(template_name="index.html"))]

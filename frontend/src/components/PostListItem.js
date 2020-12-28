@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 import { SERVER_URL } from '../config/settings'
 import { csrftoken } from '../config/utils'
@@ -7,6 +7,9 @@ import { csrftoken } from '../config/utils'
 export default function PostListItem(props) {
     const post = props.post
     const myProfile = props.myProfile
+
+    const history = useHistory()
+    const isLink = props.isLink !== undefined ?  props.isLink : true
 
     const likeUnlikePost = e => {
         e.stopPropagation()
@@ -76,7 +79,7 @@ export default function PostListItem(props) {
             id={`profile-post-${post.id}`}
             key={post.id}
             style={{ padding: '5px 15px', background: 'var(--theme-base-color)' }}
-            onClick={() => window.location.href = `/post/${post.id}`}
+            onClick={() => isLink && history.push(`/post/${post.id}`)}
         >
             <div className="d-flex flex-column h-100" style={{ marginRight: '10px' }}>
                 <Link

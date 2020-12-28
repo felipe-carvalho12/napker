@@ -39,6 +39,10 @@ export default function AuthRouter() {
             <Route path="/user">
                 <Redirect to="/login" />
             </Route>
+
+            <Route path="/" exact>
+                <Redirect to="/login" />
+            </Route>
         </Switch>
     )
 }
