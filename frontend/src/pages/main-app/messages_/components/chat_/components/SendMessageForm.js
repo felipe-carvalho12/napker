@@ -59,7 +59,7 @@ export default function SendMessageForm(props) {
                 onSubmit={sendMessageHandler}
             >
                 <label
-                    className="far fa-smile mb-0"
+                    className="far fa-smile mb-0 smile"
                     id="emoji-button"
                     onClick={() => openCloseEmojiList(false)}
                 />
