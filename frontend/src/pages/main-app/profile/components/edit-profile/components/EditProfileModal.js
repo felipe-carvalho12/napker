@@ -81,14 +81,14 @@ export default function EditProfileModal(props) {
                     <div className="d-flex flex-column justify-content-center align-items-center mb-2">
                         <img src={profileImage ? profileImage : `${SERVER_URL}${profile.photo}`}
                             className="profile-img-big"
-                            style={{ marginBottom: '25px' }}
+                            style={{ marginBottom: '25px', filter: 'brightness(.7)' }}
                         />
-                        <label htmlFor="profile-photo" className="material-icons-outlined position-absolute icon" style={{ top: '40px', opacity: '.85' }}>
+                        <label htmlFor="profile-photo" className="material-icons-outlined position-absolute icon" style={{ top: '40px', color: '#fefefe' }}>
                             add_a_photo
                         </label>
                         <input
                             type="file"
-                            accept="image/png, image/jpg, image/jpeg"
+                            accept="image/png, image/jpg, image/jpeg, image/webp"
                             className="d-none"
                             id="profile-photo"
                             onChange={props.handleProfileImageChange}
@@ -161,11 +161,12 @@ export default function EditProfileModal(props) {
                                 <textarea
                                     ref={bioRef}
                                     type="text"
-                                    className="autoExpand"
+                                    className="w-100 border-0 autoExpand"
                                     id="bio"
                                     value={editingBioContent}
                                     placeholder={profile.bio}
                                     maxLength={240}
+                                    style={{ padding: '10px', outline: 'none' }}
                                     onChange={e => setEditingBioContent(e.target.value)}
                                 />
                                 <label
