@@ -43,8 +43,8 @@
 }
   
 .btn-grey {
-    background: #eee;
-    color: #444;
+    background: var(--secondary-color);
+    color: var(--primary-grey);
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 20px;
     font-weight: bold;
@@ -52,6 +52,7 @@
   
 .btn-grey:hover {
     background: var(--theme-base-color-hover);
+    color: var(--primary-grey);
 }
   
 .btn-primary:focus, .btn-secondary:focus, .btn-grey:focus {
