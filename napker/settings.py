@@ -10,9 +10,4 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
-STATE = 'production'
-
-if STATE == 'production':
-    from .settings_prod import *
-elif STATE == 'development':
-    from .settings_dev import *
+from .settings_prod import *
