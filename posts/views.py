@@ -137,11 +137,11 @@ def create_post(request):
             hashtag.posts.add(post)
             hashtag.save()
 
-        for username in tagged_usernames:
+        '''for username in tagged_usernames:
             if User.objects.filter(username=username).exists():
                 user = User.objects.get(username=username)
                 post.tagged_profiles.add(Profile.objects.get(user=user))
-                post.save()
+                post.save()'''
 
         serializer = PostSerializer(post)
         return Response(serializer.data)
