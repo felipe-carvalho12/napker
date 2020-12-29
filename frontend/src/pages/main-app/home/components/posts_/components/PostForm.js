@@ -115,14 +115,14 @@ export default function PostForm(props) {
                     />
                 </Link>
                 <textarea
-                    className='autoExpand'
+                    className='w-100 border-0 autoExpand'
                     rows='3'
                     data-min-rows='3'
                     value={postContent}
                     placeholder="O que passa pela sua cabeça?"
                     maxLength={500}
                     autoFocus
-                    style={{ color: 'var(--primary-grey)', background: 'var(--theme-base-color)' }}
+                    style={{ color: 'var(--primary-grey)', background: 'var(--theme-base-color)', padding: '10px', paddingBottom: '0', outline: 'none' }}
                     onChange={handlePostContentChange}
                 />
             </div>
@@ -163,10 +163,11 @@ export default function PostForm(props) {
                     {!isMobile &&
                         <>
                             <label
-                                className="far fa-smile"
+                                className="far fa-smile smile"
                                 id="emoji-button"
                                 onClick={() => openCloseEmojiList(false)}
-                            />
+                            >
+                            </label>
                             <div className="emoji-list-container" id="emoji-list-container">
                                 <Picker onEmojiClick={onEmojiSelect} />
                             </div>

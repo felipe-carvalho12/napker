@@ -36,7 +36,7 @@
         background: #fff!important;
         color: var(--primary-color)!important;
     }
-    .fa-smile {
+    .smile {
         display: none;
     }
     .post-list, .profile-list-container, .interest-list-container, .interest-profile-list,

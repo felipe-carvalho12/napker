@@ -169,7 +169,7 @@ export default function EditProfileModal(props) {
                                     onChange={e => setEditingBioContent(e.target.value)}
                                 />
                                 <label
-                                    className="far fa-smile m-0 position-absolute"
+                                    className="far fa-smile smile m-0 position-absolute"
                                     id="emoji-button"
                                     style={{ right: '10px', top: '10px' }}
                                     onClick={() => openCloseEmojiList(false)}

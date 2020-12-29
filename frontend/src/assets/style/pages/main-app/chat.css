@@ -98,7 +98,7 @@
     top: 30%!important;
 }
 
-.fa-smile {
+.smile {
     color: var(--primary-color);
     font-size: 25px;
     margin-right: 10px;
@@ -106,7 +106,7 @@
     border-radius: 50%;
 }
 
-.fa-smile:hover, .emoji-button-active {
+.smile:hover, .emoji-button-active {
     background: var(--secondary-color);
     cursor: pointer;
 }
