@@ -66,7 +66,7 @@ export default function FeedAlgorithm() {
                         <div className="b-bottom py-3" style={{ width: '100%' }}>
                             <div className="d-flex justify-content-between" style={{ padding: '5px' }}>
                                 <h6>Interesses em comum</h6>
-                                <div>{interestsValue}</div>
+                                <strong>{interestsValue}</strong>
                             </div>
                             <div class="range">
                                 <input type="range" min="0" max="100" value={interestsValue} onInput={e => setInterestsValue(e.target.value)} onMouseUp={handleMouseUp} />
@@ -75,7 +75,7 @@ export default function FeedAlgorithm() {
                         <div className="b-bottom py-3" style={{ width: '100%' }}>
                             <div className="d-flex justify-content-between" style={{ padding: '5px' }}>
                                 <h6>Semelhança de idade</h6>
-                                <div>{ageValue}</div>
+                                <strong>{ageValue}</strong>
                             </div>
                             <div class="range">
                                 <input type="range" min="0" max="100" value={ageValue} onInput={e => setAgeValue(e.target.value)} onMouseUp={handleMouseUp} />
@@ -84,7 +84,7 @@ export default function FeedAlgorithm() {
                         <div className="b-bottom py-3" style={{ width: '100%' }}>
                             <div className="d-flex justify-content-between" style={{ padding: '5px' }}>
                                 <h6>Amigos em comum</h6>
-                                <div>{friendsValue}</div>
+                                <strong>{friendsValue}</strong>
                             </div>
                             <div class="range">
                                 <input type="range" min="0" max="100" value={friendsValue} onInput={e => setFriendsValue(e.target.value)} onMouseUp={handleMouseUp} />
@@ -93,7 +93,7 @@ export default function FeedAlgorithm() {
                         <div className="py-3" style={{ width: '100%' }}>
                             <div className="d-flex justify-content-between" style={{ padding: '5px' }}>
                                 <h6>Ser meu amigo</h6>
-                                <div>{isFriendValue}</div>
+                                <strong>{isFriendValue}</strong>
                             </div>
                             <div class="range">
                                 <input type="range" min="0" max="100" value={isFriendValue} onInput={e => setIsFriendValue(e.target.value)} onMouseUp={handleMouseUp} />

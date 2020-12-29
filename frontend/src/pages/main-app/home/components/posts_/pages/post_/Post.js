@@ -73,13 +73,15 @@ export default function Post() {
                         />
                         <div className="mt-2">
                             {displayingForm &&
-                                <PostForm
-                                    type='first-layer-comment'
-                                    postId={post.id}
-                                    myProfile={myProfile}
-                                    renderParent={fetchPost}
-                                    hideForm={() => setDisplayingForm(false)}
-                                />
+                                <div style={{ marginLeft: '30px' }}>
+                                    <PostForm
+                                        type='first-layer-comment'
+                                        postId={post.id}
+                                        myProfile={myProfile}
+                                        renderParent={fetchPost}
+                                        hideForm={() => setDisplayingForm(false)}
+                                    />
+                                </div>
                             }
                             {post.first_layer_comments.map(comment => {
                                 return (
@@ -88,6 +90,7 @@ export default function Post() {
                                         comment={comment}
                                         myProfile={myProfile}
                                         renderParent={fetchPost}
+                                        style={{ borderLeft: "5px solid var(--background)"}}
                                     />
                                 )
                             })

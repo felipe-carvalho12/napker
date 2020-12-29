@@ -75,7 +75,7 @@ export default function PostForm(props) {
             body: JSON.stringify({
                 'content': postContent,
                 'post-id': postId || '',
-                'parent-comment-id': parentComment.id || '',
+                'parent-comment-id': parentComment ? parentComment.id : '',
                 'type': type,
                 'post-image': postImage,
                 'hashtags': hashtags,
