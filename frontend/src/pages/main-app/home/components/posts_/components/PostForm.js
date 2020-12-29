@@ -10,7 +10,7 @@ export default function PostForm(props) {
     const usePosts = props.usePosts || (() => [null, null])
     const type = props.type === undefined ? 'post' : props.type
     const postId = props.postId
-    const parentCommentId = props.parentCommentId
+    const parentComment = props.parentComment
     const hideForm = props.hideForm
 
     const isMobile = visualViewport.width <= 980
@@ -75,7 +75,7 @@ export default function PostForm(props) {
             body: JSON.stringify({
                 'content': postContent,
                 'post-id': postId || '',
-                'parent-comment-id': parentCommentId || '',
+                'parent-comment-id': parentComment.id || '',
                 'type': type,
                 'post-image': postImage,
                 'hashtags': hashtags,
@@ -119,7 +119,7 @@ export default function PostForm(props) {
                     rows='3'
                     data-min-rows='3'
                     value={postContent}
-                    placeholder="O que passa pela sua cabeça?"
+                    placeholder={parentComment ? `Responder ${parentComment.author.first_name}` : "O que passa pela sua cabeça?"}
                     maxLength={500}
                     autoFocus
                     style={{ color: 'var(--primary-grey)', background: 'var(--theme-base-color)', padding: '10px', paddingBottom: '0', outline: 'none' }}

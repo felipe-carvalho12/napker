@@ -40,7 +40,7 @@ export default function CommentListItem(props) {
                     myProfile={myProfile}
                     renderParent={renderParent}
                     postId={post.id}
-                    parentCommentId={comment.id}
+                    parentComment={comment}
                     hideForm={() => setDisplayingForm(false)}
                 />
             }
