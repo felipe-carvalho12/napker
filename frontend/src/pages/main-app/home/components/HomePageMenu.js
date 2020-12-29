@@ -32,9 +32,9 @@ export default function HomePageMenu(props) {
                     style={{ margin: '10px 0', borderRadius: '20px' }}
                     onClick={e => setPage('Feed')}
                     onMouseEnter={e => handleMouseIn(e, feedPageTitle)}
-                    onMouseOut={e => handleMouseOut(e, '<i class="fas fa-home ml-1 mr-1" />')}
+                    onMouseOut={e => handleMouseOut(e, '<i class="material-icons-sharp" style="font-size: 21px; vertical-align: text-bottom;">home</i>')}
                 >
-                    <i class="fas fa-home ml-1 mr-1" />
+                    <i className="material-icons-sharp" style={{ fontSize: "21px", verticalAlign: "text-bottom"}}>home</i>
                 </button>
             </div>
             <div className="home-menu-btn-container b-bottom b-right profiles">
@@ -44,9 +44,9 @@ export default function HomePageMenu(props) {
                     style={{ margin: '10px 0', borderRadius: '20px' }}
                     onClick={e => setPage('Profiles')}
                     onMouseEnter={e => handleMouseIn(e, profilesPageTitle)}
-                    onMouseOut={e => handleMouseOut(e, '<i class="fas fa-user-friends ml-1 mr-1" />')}
+                    onMouseOut={e => handleMouseOut(e, '<i class="material-icons-sharp" style="font-size: 21px; vertical-align: text-bottom;">person_search</i>')}
                 >
-                    <i class="fas fa-user-friends ml-1 mr-1" />
+                    <i className="material-icons-sharp" style={{ fontSize: "21px", verticalAlign: "text-bottom"}}>person_search</i>
                 </button>
             </div>
             <div className="home-menu-btn-container b-bottom b-right explore">
@@ -56,9 +56,9 @@ export default function HomePageMenu(props) {
                     style={{ margin: '10px 0', borderRadius: '20px' }}
                     onClick={e => setPage('Explore')}
                     onMouseEnter={e => handleMouseIn(e, explorePageTitle)}
-                    onMouseOut={e => handleMouseOut(e, '<i class="fas fa-search ml-1 mr-1" />')}
+                    onMouseOut={e => handleMouseOut(e, '<i class="material-icons-sharp" style="font-size: 21px; vertical-align: text-bottom;">search</i>')}
                 >
-                    <i class="fas fa-search ml-1 mr-1" />
+                    <i className="material-icons-sharp" style={{ fontSize: "21px", verticalAlign: "text-bottom"}}>search</i>
                 </button>
             </div>
             <div className="home-menu-btn-container b-bottom trending">
@@ -68,9 +68,9 @@ export default function HomePageMenu(props) {
                     style={{ margin: '10px 0', borderRadius: '20px' }}
                     onClick={e => setPage('Trending')}
                     onMouseEnter={e => handleMouseIn(e, trendsPageTitle)}
-                    onMouseOut={e => handleMouseOut(e, '<i class="fas fa-chart-line ml-1 mr-1" />')}
+                    onMouseOut={e => handleMouseOut(e, '<i class="material-icons-sharp" style="font-size: 21px; vertical-align: text-bottom;">trending_up</i>')}
                 >
-                    <i class="fas fa-chart-line ml-1 mr-1" />
+                    <i className="material-icons-sharp" style={{ fontSize: "21px", verticalAlign: "text-bottom"}}>trending_up</i>
                 </button>
             </div>
         </div>
