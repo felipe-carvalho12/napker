@@ -170,7 +170,7 @@ export default function PostListItem(props) {
                     </div>
                     {post.image &&
                         <div className="d-flex justify-content-start w-100">
-                            <img src={`${SERVER_URL}${post.image}`} className="post-img" />
+                            <img src={post.image} className="post-img" />
                         </div>
                     }
                     <div className="d-flex justify-content-start align-items-start text-secondary mt-2 mb-1">
