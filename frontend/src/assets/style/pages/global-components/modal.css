@@ -4,8 +4,16 @@
 
 .modal-content {
     background: var(--theme-base-color)!important;
-    border-color: var(--primary-grey)!important;
+    border-color: var(--border-color)!important;
     border-radius: 1rem!important;
+}
+
+.modal-content .modal-header  {
+    border-bottom: 3px solid var(--border-color)!important;
+}
+
+.modal-content .modal-footer {
+    border-top: 3px solid var(--border-color)!important;
 }
   
 .modal-content .close {

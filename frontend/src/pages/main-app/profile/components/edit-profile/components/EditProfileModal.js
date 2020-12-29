@@ -1,4 +1,5 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext, useRef } from 'react'
+import { useHistory } from 'react-router-dom'
 import Modal from 'react-bootstrap/Modal'
 import Picker from 'emoji-picker-react'
 
@@ -11,6 +12,9 @@ export default function EditProfileModal(props) {
     const profile = props.profile
     const [profileImage, setProfileImage] = useContext(ProfileImageContext)
     const [editingBioContent, setEditingBioContent] = useState('')
+    const [errMessage, setErrMessage] = useState(null)
+
+    const history = useHistory()
 
     const handleUsernameChange = e => {
         if (e.target.value.trim() !== '') {
@@ -30,6 +34,39 @@ export default function EditProfileModal(props) {
         setEditingBioContent(editingBioContent + emojiObject.emoji)
     }
 
+    const firstNameRef = useRef()
+    const lastNameRef = useRef()
+    const userameRef = useRef()
+    const birthDateRef = useRef()
+    const bioRef = useRef()
+
+    const handleSubmit = e => {
+        e.preventDefault()
+        fetch(`${SERVER_URL}/update-profile`, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+                'X-CSRFToken': csrftoken,
+            },
+            body: JSON.stringify({
+                'profile-photo': profileImage || '',
+                'first-name': firstNameRef.current.value,
+                'last-name': lastNameRef.current.value,
+                'username': userameRef.current.value,
+                'birth-date': birthDateRef.current.value,
+                'bio': bioRef.current.value
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data === 'profile updated') {
+                    props.closeModal()
+                    props.fetchProfile()
+                }
+                else setErrMessage(data)
+            })
+    }
+
     return (
         <>
             <Modal.Header closeButton>
@@ -37,43 +74,58 @@ export default function EditProfileModal(props) {
             </Modal.Header>
             <Modal.Body>
                 <form
-                    action={`${SERVER_URL}/update-profile`}
                     className="d-flex flex-column align-items-center primary-form"
                     id="update-profile-form"
-                    method="POST"
-                    encType="multipart/form-data"
+                    onSubmit={handleSubmit}
                 >
-                    <input type="hidden" name="csrfmiddlewaretoken" value={csrftoken} />
                     <div className="d-flex flex-column justify-content-center align-items-center mb-2">
                         <img src={profileImage ? profileImage : `${SERVER_URL}${profile.photo}`}
                             className="profile-img-big"
-                            style={{ marginBottom: '25px' }}
+                            style={{ marginBottom: '25px', filter: 'brightness(.7)' }}
                         />
+                        <label htmlFor="profile-photo" className="material-icons-outlined position-absolute icon" style={{ top: '40px', color: '#fefefe' }}>
+                            add_a_photo
+                        </label>
                         <input
                             type="file"
-                            accept="image/png, image/jpg, image/jpeg"
-                            className="profile-photo-input"
+                            accept="image/png, image/jpg, image/jpeg, image/webp"
+                            className="d-none"
+                            id="profile-photo"
                             onChange={props.handleProfileImageChange}
-                        />
-                        <input
-                            type="hidden"
-                            name="profile-photo"
-                            value={profileImage}
                         />
                     </div>
                     <div className="d-flex justify-content-center">
                         Email: {profile.email}
                     </div>
+                    {errMessage !== null &&
+                        <div className="w-75 mt-1">
+                            <span className="word-break" style={{ color: '#f00' }}>{errMessage}</span>
+                        </div>
+                    }
                     <div className="w-100 b-bottom my-1" />
                     <div className="w-100 d-flex flex-column align-items-center">
                         <div class="w-75 mt-3 d-flex justify-content-between">
                             <div className="d-flex flex-column align-items-start" style={{ width: '45%' }}>
                                 <label htmlFor="first-name" className="text-secondary m-0 ml-1">Nome:</label>
-                                <input className="profile-field-input" type="text" name="first-name" id="first-name" placeholder={profile.first_name} />
+                                <input
+                                    ref={firstNameRef}
+                                    className="profile-field-input"
+                                    type="text"
+                                    id="first-name"
+                                    maxLength={50}
+                                    placeholder={profile.first_name}
+                                />
                             </div>
                             <div className="d-flex flex-column align-items-start" style={{ width: '45%' }}>
                                 <label htmlFor="last-name" className="text-secondary m-0 ml-1">Sobrenome:</label>
-                                <input className="profile-field-input" type="text" name="last-name" id="last-name" placeholder={profile.last_name} />
+                                <input
+                                    ref={lastNameRef}
+                                    className="profile-field-input"
+                                    type="text"
+                                    id="last-name"
+                                    maxLength={50}
+                                    placeholder={profile.last_name}
+                                />
                             </div>
                         </div>
                         <div class="w-75 mt-3 d-flex justify-content-between">
@@ -86,17 +138,18 @@ export default function EditProfileModal(props) {
                                     <span>Nome de usuário já existe</span>
                                 </div>
                                 <input
+                                    ref={userameRef}
                                     className="m-0 profile-field-input"
                                     type="text"
-                                    name="username"
                                     id="username"
                                     placeholder={`@${profile.user.username}`}
+                                    maxLength={50}
                                     onChange={handleUsernameChange}
                                 />
                             </div>
                             <div className="d-flex flex-column align-items-start" style={{ width: "45%" }}>
                                 <label htmlFor="birth-date" className="text-secondary m-0 ml-1">Data de nascimento:</label>
-                                <input className="profile-field-input" type="date" name="birth-date" id="birth-date" defaultValue={profile.birth_date} />
+                                <input ref={birthDateRef} className="text-secondary profile-field-input" type="date" id="birth-date" defaultValue={profile.birth_date} />
                             </div>
                         </div>
                         <div className="emoji-list-container bio-emoji-list" id="emoji-list-container">
@@ -106,17 +159,18 @@ export default function EditProfileModal(props) {
                             <label htmlFor="bio" className="text-secondary m-0 ml-1">Bio:</label>
                             <div className="d-flex position-relative">
                                 <textarea
+                                    ref={bioRef}
                                     type="text"
-                                    className="autoExpand"
-                                    name="bio"
+                                    className="w-100 border-0 autoExpand"
                                     id="bio"
                                     value={editingBioContent}
                                     placeholder={profile.bio}
                                     maxLength={240}
+                                    style={{ padding: '10px', outline: 'none' }}
                                     onChange={e => setEditingBioContent(e.target.value)}
                                 />
                                 <label
-                                    className="far fa-smile m-0 position-absolute"
+                                    className="far fa-smile smile m-0 position-absolute"
                                     id="emoji-button"
                                     style={{ right: '10px', top: '10px' }}
                                     onClick={() => openCloseEmojiList(false)}
@@ -128,7 +182,7 @@ export default function EditProfileModal(props) {
             </Modal.Body>
             <Modal.Footer>
                 <button className="btn btn-grey" onClick={props.closeModal}>Fechar</button>
-                <button className="btn btn-primary" onClick={() => document.querySelector('form#update-profile-form').submit()}>Salvar</button>
+                <button className="btn btn-primary" onClick={handleSubmit}>Salvar</button>
             </Modal.Footer>
         </>
     )

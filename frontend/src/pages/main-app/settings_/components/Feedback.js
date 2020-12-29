@@ -77,7 +77,7 @@ export default function Feedback() {
 
     return (
         <div className="settings-description-container">
-            <div className="feedback-form">
+            <div className="primary-form b-theme-base-color feedback-form">
                 <h3>Nos ajude a melhorar</h3>
                 <hr />
                 <div className="feedback-faces-container">
@@ -142,7 +142,7 @@ export default function Feedback() {
                         rows='3'
                         data-min-rows='3'
                         placeholder="Digite a sua mensagem aqui..." />
-                    <button className="btn btn-primary w-100" onClick={handleFeedbackSubmit}>Enviar</button>
+                    <button className="btn btn-primary w-100 mt-2" onClick={handleFeedbackSubmit}>Enviar</button>
                 </div>
             </div>
         </div>

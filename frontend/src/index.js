@@ -15,7 +15,6 @@ import './assets/style/pages/global-components/emojiList.css'
 
 import './assets/style/pages/main-app/components/bottomMenu.css'
 import './assets/style/pages/main-app/chat.css'
-import './assets/style/pages/main-app/components/commentModal.css'
 import './assets/style/pages/main-app/home/components/explore.css'
 import './assets/style/pages/main-app/home/home.css'
 import './assets/style/pages/main-app/home/components/posts.css'

@@ -123,34 +123,48 @@ def activate_account_view(request, uidb64, token):
         return render(request, 'auth/activation_failed.html')
 
 
+@api_view(['POST'])
 def update_profile(request):
-    if request.method == 'POST':
-        profile = Profile.objects.get(user=request.user)
+    profile = Profile.objects.get(user=request.user)
 
-        if request.POST.get('profile-photo', False):
-            format, imgstr = request.POST['profile-photo'].split(';base64,') 
-            img_format = format.split('/')[-1] 
-            photo = ContentFile(base64.b64decode(imgstr), name=profile.user.username + img_format)
-        else:
-            photo = profile.photo
+    if len(request.data['profile-photo']):
+        format, imgstr = request.data['profile-photo'].split(';base64,') 
+        img_format = format.split('/')[-1] 
+        photo = ContentFile(base64.b64decode(imgstr), name=profile.user.username + img_format)
+    else:
+        photo = profile.photo
 
-        first_name = request.POST['first-name'] if request.POST['first-name'] != '' else profile.first_name
-        last_name = request.POST['last-name'] if request.POST['last-name'] != '' else profile.last_name
-        username = request.POST['username'] if request.POST['username'] != '' else profile.user.username
-        birth_date = request.POST['birth-date'] if request.POST['birth-date'] != '' else profile.birth_date
-        bio = request.POST['bio'] if request.POST['bio'] != '' else profile.bio
-        try:
-            profile.photo = photo
-            profile.first_name = first_name
-            profile.last_name = last_name
-            profile.user.username = username if not User.objects.filter(username=username).exists() else profile.user.username
-            profile.birth_date = birth_date
-            profile.bio = bio
-            profile.user.save()
-            profile.save()
-        except:
-            pass
-        return redirect('/perfil')
+    first_name = request.data['first-name'] if len(request.data['first-name']) else profile.first_name
+    last_name = request.data['last-name'] if len(request.data['last-name']) else profile.last_name
+    username = request.data['username'] if len(request.data['username']) else profile.user.username
+    birth_date = request.data['birth-date'] if len(request.data['birth-date']) else profile.birth_date
+    bio = request.data['bio'] if len(request.data['bio']) else profile.bio
+
+    if User.objects.filter(username=username).exclude(profile=profile).exists():
+        return Response('Nome de usuário indisponível')
+    
+    if len(first_name) > 50:
+        return Response('Servidor custa caro! (:')
+
+    if len(last_name) > 50:
+        return Response('Servidor custa caro! (:')
+
+    if len(username) > 50:
+        return Response('Servidor custa caro! (:')
+
+    if len(bio) > 240:
+        return Response('Servidor custa caro! (:')
+
+    profile.photo = photo
+    profile.first_name = first_name
+    profile.last_name = last_name
+    profile.user.username = username
+    profile.birth_date = birth_date
+    profile.bio = bio
+    profile.user.save()
+    profile.save()
+
+    return Response('profile updated')
 
 
 @api_view(['POST'])

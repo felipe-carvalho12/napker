@@ -28,8 +28,8 @@ class PostWeights(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
-    first_name = models.CharField(max_length=100, blank=True)
-    last_name = models.CharField(max_length=100, blank=True)
+    first_name = models.CharField(max_length=50, blank=True)
+    last_name = models.CharField(max_length=50, blank=True)
     email = models.EmailField(max_length=100, blank=True, null=True)
     birth_date = models.DateField(blank=True, null=True)
     photo = models.ImageField(default='profile_avatar.jpeg', upload_to='profile/')

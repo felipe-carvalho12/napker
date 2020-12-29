@@ -44,8 +44,7 @@ export default function GlobalChat() {
                 </li>
             </div>
             <div
-                className="d-flex justify-content-center align-items-center w-100 px-1 pt-2 pb-4 my-3 border-bottom"
-                style={{ borderTop: '2px solid var(--border-color)', background: '#fff' }}
+                className="d-flex justify-content-center align-items-center w-100 px-1 pt-2 pb-4 my-3 b-bottom b-top b-theme-base-color"
             >
                 <input
                     placeholder="Mensagem"

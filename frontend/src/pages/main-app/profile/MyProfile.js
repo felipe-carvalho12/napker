@@ -49,6 +49,7 @@ export default function MyProfile() {
                             profile={myProfile}
                             isOpen={isEditing}
                             closeModal={() => setIsEditing(false)}
+                            fetchProfile={fetchProfile}
                         />
 
                         <ProfileData profile={myProfile}>
