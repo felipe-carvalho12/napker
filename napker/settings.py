@@ -16,5 +16,3 @@ if STATE == 'production':
     from .settings_prod import *
 elif STATE == 'development':
     from .settings_dev import *
-
-ALLOWED_HOSTS = ['napker.herokuapp.com']
