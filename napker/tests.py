@@ -27,18 +27,15 @@ class RouteTests(TestCase):
         Post.objects.create(content='Hello, world!', author=self.other_user.profile)
 
     def test_login(self):   
-        response = self.client.get('/login')
+        response = self.client.post('/post-login', {'username': self.test_user.username , 'password': 'secret'})
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'pages/login.html')
-        self.assertContains(response, 'Entrar / Napker')
+        self.assertEqual(self.test_user.is_authenticated, True)
+        self.assertEqual(response.data, 'logged in')
 
-        response = self.client.post('/login', {'username': 'fred', 'password': 'secret'}, follow=True)
-        self.assertEqual(response.redirect_chain[-1], ('/home', 302))
-
-        response = self.client.post('/login', {'username': 'fred', 'password': 'wrong'})
+        response = self.client.post('/post-login', {'username': self.test_user.username, 'password': 'wrong'})
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'pages/login.html') 
-        self.assertEqual(response.context['message'], 'Credenciais inválidas')
+        self.assertEqual(self.test_user.is_authenticated, False)
+        self.assertEqual(response.data, 'Credenciais inválidas. Por favor verifique seus dados e tente novamente.')
 
 
     def test_logout(self):
@@ -46,12 +43,8 @@ class RouteTests(TestCase):
         response = self.client.get('/logout', follow=True)
         self.assertEqual(response.redirect_chain[-1], ('/login', 302))
 
-    def test_signup(self):  
-        response = self.client.get('/signup')
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'pages/signup/signup.html')
-        self.assertContains(response, 'Criar conta / Napker')
 
+    def test_signup(self):  
         post_data = {
             'first-name': 'John',
             'last-name': 'Smith',
@@ -61,25 +54,22 @@ class RouteTests(TestCase):
             'password': 'secret',
             'passwordc': 'secret'
         }
-        response = self.client.post('/signup', { **post_data, 'passwordc': 'different_than_password' })
+        response = self.client.post('/post-signup', { **post_data, 'passwordc': 'different_than_password' })
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'pages/signup/signup.html')
-        self.assertEqual(response.context['message'], 'As senhas devem ser iguais!')
+        self.assertEqual(response.data, 'As senhas devem ser iguais.')
 
-        response = self.client.post('/signup', { **post_data, 'username': self.test_user.username })
+        response = self.client.post('/post-signup', { **post_data, 'username': self.test_user.username })
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'pages/signup/signup.html')
-        self.assertEqual(response.context['message'], 'Nome de usuário já existe!')
+        self.assertEqual(response.data, 'Nome de usuário indisponível.')
 
-        response = self.client.post('/signup', { **post_data, 'email': self.test_user.profile.email })
+        response = self.client.post('/post-signup', { **post_data, 'email': self.test_user.profile.email })
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'pages/signup/signup.html')
-        self.assertEqual(response.context['message'], 'Email já utilizado!')
+        self.assertEqual(response.data, 'Email já utilizado.')
 
-        response = self.client.post('/signup', post_data)
+        response = self.client.post('/post-signup', post_data)
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'pages/signup/interests.html')
-        self.assertContains(response, 'Quais os seus principais interesses?')
+        self.assertEqual(response.data['message'], 'account created')
+        self.assertEqual(response.data['userId'], User.objects.last().id)
 
         user = User.objects.get(username='john_smith123')
         self.assertEqual(user.profile.first_name, 'John')
@@ -88,17 +78,18 @@ class RouteTests(TestCase):
         self.assertEqual(user.profile.email, 'john@fakemail.com')
         self.assertEqual(user.profile.birth_date, datetime.date(2000, 7, 14))
 
-        response = self.client.post('/signup/interesses', {'uid': user.pk, 'interests': 'futebol, viajar'})
+        response = self.client.post('/post-signup/interesses', {'uid': user.id, 'interests': 'futebol, viajar'})
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse(user.is_active)
+        self.assertEqual([(i.title, i.public) for i in user.profile.interests.all()], [('futebol', False), ('viajar', False)])
+        self.assertEqual(response.data, 'activation link sent')
+
+        response = self.client.post('/post-signup/interesses', {'uid': user.id, 'interests': 'ab, futebol, viajar'})
+        self.assertEqual(response.status_code, 200)
         self.assertFalse(user.is_active)
         self.assertEqual([(i.title, i.public) for i in user.profile.interests.all()], [('futebol', False), ('viajar', False)])
 
-        response = self.client.post('/signup/interesses', {'uid': user.pk, 'interests': 'ab, futebol, viajar'})
-        self.assertEqual([(i.title, i.public) for i in user.profile.interests.all()], [('futebol', False), ('viajar', False)])
-
-        response = self.client.get('/', follow=True)
-        self.assertEqual(response.redirect_chain[-1], ('/login', 302))
-
-        uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
+        uidb64 = urlsafe_base64_encode(force_bytes(user.id))
         token = PasswordResetTokenGenerator().make_token(user)
         response = self.client.get(f'/activate/{uidb64}/{token}', follow=True)
         self.assertEqual(response.redirect_chain[-1], ('/home', 302))
@@ -123,29 +114,54 @@ class RouteTests(TestCase):
         }
 
         self.client.force_login(user=self.test_user)
-        response = self.client.post('/update-profile', post_data, follow=True)
-        self.assertEqual(response.redirect_chain[-1], ('/perfil', 302))
-    
+
+        response = self.client.post('/update-profile', post_data)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, 'profile updated')
+
+        response = self.client.post('/update-profile', {**post_data, 'profile-photo': ''})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, 'profile updated')
+
+        response = self.client.post('/update-profile', {**post_data, 'username': self.other_user.username})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, 'Nome de usuário indisponível')
+
+        response = self.client.post('/update-profile', {**post_data, 'first-name': 'a' * 51})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, 'Servidor custa caro! (:')
+
+        response = self.client.post('/update-profile', {**post_data, 'last-name': 'a' * 51})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, 'Servidor custa caro! (:')
+
+        response = self.client.post('/update-profile', {**post_data, 'username': 'a' * 51})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, 'Servidor custa caro! (:')
+
+        response = self.client.post('/update-profile', {**post_data, 'bio': 'a' * 241})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, 'Servidor custa caro! (:')
+
+        self.assertEqual(self.test_user.profile.first_name, 'Fred')
+        self.assertEqual(self.test_user.profile.last_name, 'Santos')
+        self.assertEqual(self.test_user.username, 'fred.santos')
+        self.assertEqual(self.test_user.profile.birth_date, datetime.date(2000, 8, 14))
+        self.assertEqual(self.test_user.profile.bio, 'Hello, world!')
+
 
     def test_reset_password(self):
-        response = self.client.get('/recuperar-senha')
+        response = self.client.post('/post-reset-password', {'email': 'unexistent_email'})
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'reset_password/reset_password.html')
-        self.assertContains(response, 'Recuperar senha / Napker')
+        self.assertEqual(response.data, 'Não existe nenhuma conta ligada a esse email!')
 
-        response = self.client.post('/recuperar-senha', {'email': 'unexistent_email'})
+        response = self.client.post('/post-reset-password', {'email': self.test_user.profile.email})
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'reset_password/reset_password.html')
-        self.assertEqual(response.context['message'], 'Não existe nenhuma conta ligada a esse email!')
-        self.assertContains(response, 'Recuperar senha / Napker')
-
-        response = self.client.post('/recuperar-senha', {'email': self.test_user.profile.email})
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'reset_password/email_sent.html')
-        self.assertContains(response, 'Recuperar senha / Napker')
+        self.assertEqual(response.data, 'email sent')
 
         uidb64 = urlsafe_base64_encode(force_bytes(self.test_user.pk))
         token = PasswordResetTokenGenerator().make_token(self.test_user)
+
         response = self.client.get(f'/reset/{uidb64}/{token}')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'reset_password/new_password.html')
@@ -160,145 +176,57 @@ class RouteTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'reset_password/failed.html')
 
-        response = self.client.post('/reset-password-complete', {'uid': self.test_user.pk, 'password': 'test', 'passwordc': 'different'})
+        response = self.client.post('/reset-password-complete', {'uid': self.test_user.id, 'password': 'test', 'passwordc': 'different'})
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'reset_password/new_password.html')
         self.assertEqual(response.context['message'], 'As senhas devem ser iguais!')
         self.assertContains(response, 'Recuperar senha / Napker')
 
-        response = self.client.post('/reset-password-complete', {'uid': self.test_user.pk, 'password': 'test', 'passwordc': 'test'})
+        response = self.client.post('/reset-password-complete', {'uid': self.test_user.id, 'password': 'test', 'passwordc': 'test'}, follow=True)
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'pages/login.html')
-        self.assertEqual(response.context['success_message'], 'Senha alterada com sucesso!')
-        self.assertContains(response, 'Entrar / Napker')
+        self.assertEqual(response.redirect_chain[-1], ('/login', 302))
+        self.assertTrue(self.client.login(username=self.test_user.username, password='test'))
 
     
     def test_change_password(self):
         user = User.objects.create(username='felipe')
         user.set_password('password098')
         user.save()
-        request_body = {
+        request_data = {
             'password': 'password098',
             'new_password': 'test',
             'new_passwordc': 'test'
         }
         self.client.force_login(user)
 
-        response = self.client.post('/change-password', {**request_body, 'password': 'wrong'}, format='json')
+        response = self.client.post('/change-password', {**request_data, 'password': 'wrong'})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data, 'Senha incorreta!')
 
-        response = self.client.post('/change-password', request_body, format='json')
+        response = self.client.post('/change-password', {**request_data, 'password': 'password098', 'new_password': 'different'})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, 'Os campos "Nova senha" e "Confirmar nova senha" devem ter o mesmo valor!')
+
+        response = self.client.post('/change-password', request_data)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data, 'success')
 
-        response = self.client.post('/change-password', {**request_body, 'password': 'test', 'new_password': 'different'}, format='json')
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data, 'Os campos "Nova senha" e "Confirmar nova senha" devem ter o mesmo valor!')
+        self.assertTrue(user.is_authenticated)
 
 
     def test_delete_account(self):
         user = User.objects.create(username='felipe')
         user.set_password('password098')
         user.save()
-        users_count = User.objects.all().count()
         self.client.force_login(user)
 
         response = self.client.post('/delete-account', {'password': 'wrong'})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data, 'Wrong password')
-        self.assertEqual(users_count, User.objects.all().count())
+        self.assertTrue(User.objects.filter(username='felipe').exists())
 
         response = self.client.post('/delete-account', {'password': 'password098'})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data, 'Account deleted')
-        self.assertEqual(users_count - 1, User.objects.all().count())
+        self.assertFalse(User.objects.filter(username='felipe').exists())
 
-
-    # REACT APP ROUTES
-
-    def test_home_route(self):
-        self.client.force_login(user=self.test_user)
-        response = self.client.get('/home')
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'index.html')
-
-    def test_notifications_route(self):
-        self.client.force_login(user=self.test_user)
-        response = self.client.get('/notificações')
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'index.html')
-    
-    def test_messages_route(self):
-        self.client.force_login(user=self.test_user)
-
-        response = self.client.get('/mensagens')
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'index.html')
-
-        response = self.client.get('/mensagens/fred')
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'index.html')
-    
-    def test_profile_route(self):
-        self.client.force_login(user=self.test_user)
-
-        response = self.client.get('/perfil')
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'index.html')
-
-        response = self.client.get('/perfil/meus-interesses')
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'index.html')
-
-    def test_settings_route(self):
-        self.client.force_login(user=self.test_user)
-
-        response = self.client.get('/configurações')
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'index.html')
-
-        response = self.client.get('/configurações/perfis-bloqueados')
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'index.html')
-
-        response = self.client.get('/configurações/alterar-senha')
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'index.html')
-
-        response = self.client.get('/configurações/deletar-conta')
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'index.html')
-    
-    def test_user_route(self):
-        self.client.force_login(user=self.test_user)
-
-        response = self.client.get('/user/mark')
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'index.html')
-
-        response = self.client.get('/user/mark/amigos')
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'index.html')
-    
-    def test_post_route(self):
-        self.client.force_login(user=self.test_user)
-
-        response = self.client.get('/post/1')
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'index.html')
-
-        response = self.client.get('/post/1/comentar')
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'index.html')
-
-        response = self.client.get('/postar')
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'index.html')
-    
-
-    def test_interests_route(self):
-        self.client.force_login(user=self.test_user)
-        response = self.client.get('/interesses/napker')
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'index.html')

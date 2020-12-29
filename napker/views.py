@@ -78,7 +78,7 @@ def signup_view(request):
 
 @api_view(['POST'])
 def add_interests_view(request):
-    user = User.objects.get(pk=request.data['uid'])
+    user = User.objects.get(id=request.data['uid'])
     profile = Profile.objects.get(user=user)
     interests = request.data['interests']
     for title in interests:
@@ -118,7 +118,7 @@ def activate_account_view(request, uidb64, token):
         user.is_active = True
         user.save()
         login(request, user)
-        return redirect('/')
+        return redirect('/home')
     else:
         return render(request, 'auth/activation_failed.html')
 
@@ -214,7 +214,7 @@ def reset_password_complete(request):
             return render(request, 'reset_password/new_password.html', {'message': 'As senhas devem ser iguais!'})
         user.set_password(password)
         user.save()
-        return redirect('/')
+        return redirect('/login')
 
 
 @api_view(['POST'])
