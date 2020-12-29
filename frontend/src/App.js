@@ -35,7 +35,7 @@ export default function App() {
     }, [])
 
     return (
-        <Router>{console.log(isLogged)}
+        <Router>
             <Switch>
                 <Route path="/recuperar-senha">
                     <ResetPassword />

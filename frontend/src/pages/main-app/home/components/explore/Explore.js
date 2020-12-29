@@ -43,7 +43,7 @@ export default function Explore() {
         fetchPosts()
     }
 
-    return (
+    const pageInDevelopment = (
         <div className="explore-page-container">
             <LikesModal
                 isOpen={likesModal.isOpen}
@@ -82,6 +82,12 @@ export default function Explore() {
                     <div className="loader" />
                 </div>
             }
+        </div>
+    )
+
+    return (
+        <div className="w-100 d-flex justify-content-center align-items-center pt-3">
+            <h4 style={{ color: 'var(--primary-grey)' }}>Em breve...</h4>
         </div>
     )
 }

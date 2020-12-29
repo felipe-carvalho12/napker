@@ -6,6 +6,8 @@ import LikesModal from '../../../../../components/LikesModal'
 import PostForm from './components/PostForm'
 import PostListItem from '../../../../../components/PostListItem'
 
+let fetching = false
+
 export default function Posts() {
     const [weights,] = useContext(AlgorithmWeightsContext)
 
@@ -16,8 +18,9 @@ export default function Posts() {
     let scrollCount = 1
 
     window.onscroll = () => {
-        if (Math.ceil(window.innerHeight + window.scrollY) >= document.body.offsetHeight * 0.9) {
+        if (Math.ceil(window.innerHeight + window.scrollY) >= document.body.offsetHeight * 0.9 && !fetching) {
             scrollCount++
+            fetching = true
             fetchPosts()
         }
     }
@@ -36,7 +39,10 @@ export default function Posts() {
     const fetchPosts = () => {
         fetch(`${SERVER_URL}/post-api/post-list/${scrollCount}`)
             .then(response => response.json())
-            .then(data => setPosts(data))
+            .then(data => {
+                fetching = false
+                setPosts(data)
+            })
     }
 
 
