@@ -11,25 +11,8 @@
   --primary-grey: #363636;
   --loader-background: rgba(119, 147, 125, .3);
   --theme-base-color: #fff;
-  --theme-base-color-hover: rgba(250, 250, 250, 0.7);
+  --theme-base-color-hover: rgb(248, 248, 248);
   --view-more-select-border: rgba(0, 0, 0, .2);
-
-  /*
-  DARK THEME
-  --border-color: #131313;
-  --background: #131313;
-  --fixed-components-background: #000;
-  --heart-color: #E0245E;
-  --heart-background-hover: rgba(224,36,94, .1);
-  --primary-color: #48D1AF;
-  --secondary-color: rgba(119, 147, 125, .1);
-  --secondary-grey: #757575;
-  --primary-color-hover: #3FB597;
-  --primary-grey: #D9D9D9;
-  --loader-background: rgba(119, 147, 125, .3);
-  --theme-base-color: #000;
-  --view-more-select-border: rgba(255, 255, 255, .2);
-  */
 
   --header-heigth: 8vh;
   --content-heigth: 91vh;
@@ -89,6 +72,11 @@ a:hover {
     border-radius: 50%;
 }
 
+.icon:hover {
+  cursor: pointer;
+  background: rgba(255, 255, 255, .2);
+}
+
 .text-secondary {
   color: var(--secondary-grey)!important;
 }
@@ -140,7 +128,7 @@ a:hover {
 }
 
 .wrapper .main-content {
-  min-width: var(--sidebar-content-heigth);
+  min-width: var(--sidebar-content-width);
   height: 100%;
   margin: 0 1vw;
 }

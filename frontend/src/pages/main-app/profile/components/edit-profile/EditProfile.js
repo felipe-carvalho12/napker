@@ -40,6 +40,7 @@ export default function EditProfile(props) {
                     profile={props.profile}
                     handleProfileImageChange={e => handleProfileImageChange(e, true)}
                     closeModal={props.closeModal}
+                    fetchProfile={props.fetchProfile}
                 />
             }
         </Modal>
