@@ -194,5 +194,5 @@ STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
 '''STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage' 
-DEFAULT_FILE_STORAGE = 'napker.storage_backends.MediaStorage''''
+DEFAULT_FILE_STORAGE = 'napker.storage_backends.MediaStorage'''
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
