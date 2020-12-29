@@ -14,9 +14,12 @@ export default function CommentListItem(props) {
     const [displayingForm, setDisplayingForm] = useState(false)
 
     const colors = ['#5454fe', '#33fe66', '#fe4545', '#fefe45', 'var(--primary-grey)']
-    const borderLeft = comment.layer ?
-        `5px solid ${colors[comment.layer - 1 >= colors.length ? (comment.layer - 1) % colors.length : comment.layer - 1]}`
-        : 'unset'
+    
+    const borderLeft = i => {
+        return (
+            `5px solid ${comment.layer != undefined ? colors[comment.layer - i >= colors.length ? (comment.layer - i) % colors.length : comment.layer - i] : "var(--background)"}`
+        )
+    }
 
     const showHideComments = e => {
         e.stopPropagation()
@@ -24,7 +27,7 @@ export default function CommentListItem(props) {
     }
 
     return (
-        <div style={{ marginLeft: '20px' }}>
+        <div style={{ marginLeft: '30px' }}>
             <PostListItem
                 type='comment'
                 post={comment}
@@ -34,17 +37,19 @@ export default function CommentListItem(props) {
                 displayingComments={displayingComments}
                 showHideForm={() => setDisplayingForm(!displayingForm)}
                 showHideComments={showHideComments}
-                style={{ borderLeft: borderLeft }}
+                style={{ borderLeft: borderLeft(1) }}
             />
             {displayingForm &&
-                <PostForm
-                    type='comment'
-                    myProfile={myProfile}
-                    renderParent={renderParent}
-                    postId={post.id}
-                    parentCommentId={comment.id}
-                    hideForm={() => setDisplayingForm(false)}
-                />
+                <div style={{ marginLeft: "30px", borderLeft: borderLeft(0) }}>
+                    <PostForm
+                        type='comment'
+                        myProfile={myProfile}
+                        renderParent={renderParent}
+                        postId={post.id}
+                        parentComment={comment}
+                        hideForm={() => setDisplayingForm(false)}
+                    />
+                </div>
             }
             {(comment.comments && displayingComments) && comment.comments.map(c => {
                 return (

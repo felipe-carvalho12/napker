@@ -81,10 +81,10 @@ export default function PostListItem(props) {
 
     return (
         <li
-            className="d-flex w-100 base-hover hide-animation b-bottom"
+            className="d-flex w-100 base-hover hide-animation"
             id={`profile-post-${post.id}`}
             key={post.id}
-            style={{ ...props.style, padding: '5px 15px', background: 'var(--theme-base-color)' }}
+            style={{ ...props.style, padding: '5px 15px', background: 'var(--theme-base-color)', marginBottom: "2px"}}
             onClick={() => isLink && history.push(`/post/${post.id}`)}
         >
             <div className="d-flex flex-column justify-content-between" style={{ marginRight: '10px' }}>
@@ -93,7 +93,7 @@ export default function PostListItem(props) {
                         '/perfil' : `/user/${post.author.slug}`}
                     onClick={e => e.stopPropagation()}
                 >
-                    <img src={`${SERVER_URL}${post.author.photo}`}
+                    <img src={post.author.photo}
                         className="profile-img-sm"
                     />
                 </Link>
@@ -101,16 +101,18 @@ export default function PostListItem(props) {
                     <>
                         {displayingComments ?
                             <i
-                                className="fas fa-caret-down align-self-start icon base-hover"
+                                className="material-icons-sharp align-self-start icon base-hover text-secondary"
                                 style={{ width: '25px', height: '25px' }}
                                 onClick={showHideComments}
-                            />
+                            >
+                            keyboard_arrow_down</i>
                             :
                             <i
-                                className="fas fa-caret-right align-self-start icon base-hover"
+                                className="material-icons-sharp align-self-start icon base-hover text-secondary"
                                 style={{ width: '25px', height: '25px' }}
                                 onClick={showHideComments}
-                            />
+                            >
+                            keyboard_arrow_right</i>
                         }
                     </>
                 }
@@ -168,7 +170,7 @@ export default function PostListItem(props) {
                     </div>
                     {post.image &&
                         <div className="d-flex justify-content-start w-100">
-                            <img src={`${SERVER_URL}${post.image}`} className="post-img" />
+                            <img src={post.image} className="post-img" />
                         </div>
                     }
                     <div className="d-flex justify-content-start align-items-start text-secondary mt-2 mb-1">

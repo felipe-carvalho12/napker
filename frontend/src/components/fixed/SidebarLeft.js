@@ -41,13 +41,13 @@ export default function Sidebar() {
                 <ul>
                     <NavLink to="/home" style={{ textDecoration: 'none' }} activeClassName="active">
                         <li className="sidebar-menu-item">
-                            <i className="fas fa-home sidebar-menu-icon" />
+                            <i className="material-icons-outlined" style={{ margin: "5px 10px 5px 0px", fontSize: "30px" }}>home</i>
                             <span>Home</span>
                         </li>
                     </NavLink>
                     <NavLink to="/notificações" style={{ textDecoration: 'none' }} activeClassName="active">
                         <li className="sidebar-menu-item">
-                            <i className="fas fa-bell sidebar-menu-icon" />
+                        <i className="material-icons-outlined" style={{ margin: "5px 10px 5px 0px", fontSize: "30px" }}>notifications</i>
                             <span>Notificações</span>
                             {!notificationsNumber ? '' :
                                 <div className="notification-text-container">
@@ -60,7 +60,7 @@ export default function Sidebar() {
                     </NavLink>
                     <NavLink to="/mensagens" style={{ textDecoration: 'none' }} activeClassName="active">
                         <li className="sidebar-menu-item">
-                            <i className="fas fa-envelope sidebar-menu-icon" />
+                            <i className="material-icons-outlined" style={{ margin: "5px 10px 5px 0px", fontSize: "30px" }}>email</i>
                             <span>Mensagens</span>
                             {!unreadMessagesNumber ? '' :
                                 <div className="notification-text-container">
@@ -73,13 +73,13 @@ export default function Sidebar() {
                     </NavLink>
                     <NavLink to="/perfil" style={{ textDecoration: 'none' }} activeClassName="active">
                         <li className="sidebar-menu-item">
-                            <i className="fas fa-user sidebar-menu-icon" />
+                            <i className="material-icons-outlined" style={{ margin: "5px 10px 5px 0px", fontSize: "30px" }}>perm_identity</i>
                             <span>Perfil</span>
                         </li>
                     </NavLink>
                     <NavLink to="/configurações" style={{ textDecoration: 'none' }} activeClassName="active">
                         <li className="sidebar-menu-item">
-                            <i className="fas fa-cog sidebar-menu-icon" />
+                            <i className="material-icons-outlined" style={{ margin: "5px 10px 5px 0px", fontSize: "30px" }}>settings</i>
                             <span>Configurações</span>
                         </li>
                     </NavLink>

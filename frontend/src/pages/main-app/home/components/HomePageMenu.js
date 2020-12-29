@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 
 export default function HomePageMenu(props) {
@@ -11,16 +11,28 @@ export default function HomePageMenu(props) {
 
     const isMobile = visualViewport.width <= 980
 
-    function handleMouseIn(e, text) {
+    const handleMouseIn = (e, text) => {
         if (!isMobile) {
             e.target.innerHTML = text
         }
     }
 
-    function handleMouseOut(e, icon) {
+    const handleMouseOut = (e, icon) => {
         if (!isMobile) {
             e.target.innerHTML = icon
         }
+    }
+
+    const handleClick = (e, page) => {
+        document.querySelectorAll('.btn-home').forEach(btn => {
+            if (btn.classList.contains('btn-primary')) {
+                btn.classList.remove('btn-primary')
+                btn.classList.add('btn-grey')
+            }
+        })
+        e.target.classList.remove('btn-grey')
+        e.target.classList.add('btn-primary')
+        setPage(page)
     }
 
     return (
@@ -28,49 +40,49 @@ export default function HomePageMenu(props) {
             <div className="home-menu-btn-container b-bottom home-menu-btn-container-active b-right feed">
                 <button
                     type="button"
-                    className="btn btn-primary"
+                    className="btn btn-primary btn-home"
                     style={{ margin: '10px 0', borderRadius: '20px' }}
-                    onClick={e => setPage('Feed')}
+                    onClick={e => handleClick(e, 'Feed')}
                     onMouseEnter={e => handleMouseIn(e, feedPageTitle)}
-                    onMouseOut={e => handleMouseOut(e, '<i class="fas fa-home ml-1 mr-1" />')}
+                    onMouseOut={e => handleMouseOut(e, '<i class="material-icons-sharp" style="font-size: 21px; vertical-align: text-bottom;">home</i>')}
                 >
-                    <i class="fas fa-home ml-1 mr-1" />
+                    <i className="material-icons-sharp" style={{ fontSize: "21px", verticalAlign: "text-bottom"}}>home</i>
                 </button>
             </div>
             <div className="home-menu-btn-container b-bottom b-right profiles">
                 <button
                     type="button"
-                    className="btn btn-primary"
+                    className="btn btn-grey btn-home"
                     style={{ margin: '10px 0', borderRadius: '20px' }}
-                    onClick={e => setPage('Profiles')}
+                    onClick={e => handleClick(e, 'Profiles')}
                     onMouseEnter={e => handleMouseIn(e, profilesPageTitle)}
-                    onMouseOut={e => handleMouseOut(e, '<i class="fas fa-user-friends ml-1 mr-1" />')}
+                    onMouseOut={e => handleMouseOut(e, '<i class="material-icons-sharp" style="font-size: 21px; vertical-align: text-bottom;">person_search</i>')}
                 >
-                    <i class="fas fa-user-friends ml-1 mr-1" />
+                    <i className="material-icons-sharp" style={{ fontSize: "21px", verticalAlign: "text-bottom"}}>person_search</i>
                 </button>
             </div>
             <div className="home-menu-btn-container b-bottom b-right explore">
                 <button
                     type="button"
-                    className="btn btn-primary"
+                    className="btn btn-grey btn-home"
                     style={{ margin: '10px 0', borderRadius: '20px' }}
-                    onClick={e => setPage('Explore')}
+                    onClick={e => handleClick(e, 'Explore')}
                     onMouseEnter={e => handleMouseIn(e, explorePageTitle)}
-                    onMouseOut={e => handleMouseOut(e, '<i class="fas fa-search ml-1 mr-1" />')}
+                    onMouseOut={e => handleMouseOut(e, '<i class="material-icons-sharp" style="font-size: 21px; vertical-align: text-bottom;">search</i>')}
                 >
-                    <i class="fas fa-search ml-1 mr-1" />
+                    <i className="material-icons-sharp" style={{ fontSize: "21px", verticalAlign: "text-bottom"}}>search</i>
                 </button>
             </div>
             <div className="home-menu-btn-container b-bottom trending">
                 <button
                     type="button"
-                    className="btn btn-primary"
+                    className="btn btn-grey btn-home"
                     style={{ margin: '10px 0', borderRadius: '20px' }}
-                    onClick={e => setPage('Trending')}
+                    onClick={e => handleClick(e, 'Trending')}
                     onMouseEnter={e => handleMouseIn(e, trendsPageTitle)}
-                    onMouseOut={e => handleMouseOut(e, '<i class="fas fa-chart-line ml-1 mr-1" />')}
+                    onMouseOut={e => handleMouseOut(e, '<i class="material-icons-sharp" style="font-size: 21px; vertical-align: text-bottom;">trending_up</i>')}
                 >
-                    <i class="fas fa-chart-line ml-1 mr-1" />
+                    <i className="material-icons-sharp" style={{ fontSize: "21px", verticalAlign: "text-bottom"}}>trending_up</i>
                 </button>
             </div>
         </div>

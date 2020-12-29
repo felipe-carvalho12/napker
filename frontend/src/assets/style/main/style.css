@@ -52,6 +52,12 @@ h3 {
   color: var(--primary-grey);
 }
 
+h6 {
+  font-weight: 400;
+  color: var(--primary-grey);
+  opacity: 0.9;
+}
+
 a {
   font-weight: 400;
   color:  var(--primary-color);

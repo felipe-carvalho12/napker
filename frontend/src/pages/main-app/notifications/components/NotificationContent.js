@@ -28,7 +28,7 @@ export default function NotificationContent(props) {
             <div className="d-flex flex-column justify-content-start align-items-start h-100 w-100">
                 <div className="d-flex justify-content-center align-items-center">
                     <Link to={`/user/${author.slug}`}>
-                        <img src={`${SERVER_URL}${author.photo}`}
+                        <img src={author.photo}
                             className="profile-img-med"
                             style={{ marginRight: '10px' }}
                         />

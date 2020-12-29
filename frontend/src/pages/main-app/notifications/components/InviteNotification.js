@@ -16,7 +16,7 @@ export default function InviteListItem(props) {
         >
             <div className="d-flex">
                 <div className="profile-img-container">
-                    <img src={`${SERVER_URL}${invite.sender.photo}`}
+                    <img src={invite.sender.photo}
                         className="profile-img-med"
                         style={{ marginRight: '10px' }}
                     />

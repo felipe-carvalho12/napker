@@ -10,7 +10,7 @@ export default function ProfileData(props) {
         <div className="profile-data-container">
             <div className="d-flex flex-column align-items-start" style={{ textAlign: 'start', maxWidth: '50%' }}>
                 <p>
-                    <img src={`${SERVER_URL}${profile.photo}`}
+                    <img src={profile.photo}
                         className="profile-img-big"
                         style={{ marginBottom: '25px' }}
                     />
