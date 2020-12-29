@@ -45,6 +45,7 @@ def get_profile_list(profile):
         if profile.user.id in p.blocked_users.all(): continue
         if p.id in [i.receiver for i in Relationship.objects.invitations_sent(profile)]: continue
         if p in [i.sender for i in Relationship.objects.invitations_received(profile)]: continue
+        if p.user.is_superuser: continue
         profiles.append(p)
 
     points = process_authors_relevance(profile, profiles)
