@@ -138,7 +138,7 @@ export default function Feedback() {
                 <hr />
                 <div className="d-flex flex-column align-items-center textarea-container">
                     <textarea
-                        class='autoExpand'
+                        class='autoExpand focus'
                         rows='3'
                         data-min-rows='3'
                         placeholder="Digite a sua mensagem aqui..." />
