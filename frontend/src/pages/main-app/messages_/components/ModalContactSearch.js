@@ -55,7 +55,7 @@ export default function ModalContactSearch(props) {
                                 >
                                     <div className="d-flex">
                                         <div className="profile-img-container">
-                                            <img src={`${SERVER_URL}${profile.photo}`}
+                                            <img src={profile.photo}
                                                 className="profile-img-med"
                                                 style={{ marginRight: '10px' }}
                                             />

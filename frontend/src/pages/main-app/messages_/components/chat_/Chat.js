@@ -169,7 +169,7 @@ class Chat extends React.Component {
                                 <div className="current-chat-header">
                                     <i class="fas fa-arrow-left left-arrow-icon d-none" onClick={() => window.history.back()} />
                                     <Link to={`/user/${this.state.otherProfile.slug}`}>
-                                        <img src={`${SERVER_URL}${this.state.otherProfile.photo}`}
+                                        <img src={this.state.otherProfile.photo}
                                             className="profile-img-sm"
                                             style={{ marginRight: '5px' }}
                                         />

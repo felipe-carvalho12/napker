@@ -27,7 +27,7 @@ export default function ProfileListItem(props) {
             >
                 <div className="d-flex">
                     <div className="profile-img-container">
-                        <img src={`${SERVER_URL}${profile.photo}`}
+                        <img src={profile.photo}
                             className={`profile-img-${imgSize}`}
                             style={{ marginRight: '10px' }}
                         />

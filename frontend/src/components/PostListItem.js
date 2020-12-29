@@ -93,7 +93,7 @@ export default function PostListItem(props) {
                         '/perfil' : `/user/${post.author.slug}`}
                     onClick={e => e.stopPropagation()}
                 >
-                    <img src={`${SERVER_URL}${post.author.photo}`}
+                    <img src={post.author.photo}
                         className="profile-img-sm"
                     />
                 </Link>

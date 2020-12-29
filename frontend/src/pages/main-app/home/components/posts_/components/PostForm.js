@@ -110,7 +110,7 @@ export default function PostForm(props) {
             <div className="d-flex">
                 <Link to="/perfil">
                     <img
-                        src={`${SERVER_URL}${myProfile.photo}`}
+                        src={myProfile.photo}
                         className="profile-img-sm"
                     />
                 </Link>

@@ -79,7 +79,7 @@ export default function EditProfileModal(props) {
                     onSubmit={handleSubmit}
                 >
                     <div className="d-flex flex-column justify-content-center align-items-center mb-2">
-                        <img src={profileImage ? profileImage : `${SERVER_URL}${profile.photo}`}
+                        <img src={profileImage ? profileImage : profile.photo}
                             className="profile-img-big"
                             style={{ marginBottom: '25px', filter: 'brightness(.7)' }}
                         />
