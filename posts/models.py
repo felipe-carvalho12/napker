@@ -27,6 +27,9 @@ class Post(models.Model):
     def all_comments(self):
         return self.comments
 
+    def all_child_comments_length(self):
+        return len(self.comments.all())
+
     def first_layer_comments(self):
         return self.comments.filter(layer=0)
 
@@ -68,7 +71,7 @@ class Comment(models.Model):
 
     def all_likes(self):
         return self.likes
-    
+
     def all_child_comments(self):
         comment_list = []
 
@@ -80,6 +83,9 @@ class Comment(models.Model):
         append_comments(self.comments.filter(comment_relationship__parent_comment=self).all())
 
         return comment_list
+    
+    def all_child_comments_length(self):
+        return len(self.all_child_comments())
 
     def child_comments(self):
         return self.comments.filter(comment_relationship__parent_comment=self)

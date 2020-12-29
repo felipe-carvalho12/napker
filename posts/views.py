@@ -22,11 +22,11 @@ from .utils import *
 def post_list_view(request, scroll_count):
     profile = Profile.objects.get(user=request.user)
     posts = sort_posts_by_relevance(profile)
-    for post in posts[:5 * scroll_count]:
+    for post in posts[:15 * scroll_count]:
         if profile in post.views.all(): continue
         post.views.add(profile)
         post.save()
-    serializer = PostSerializer(posts[:5 * scroll_count], many=True)
+    serializer = PostSerializer(posts[:15 * scroll_count], many=True)
     return Response(serializer.data)
 
 @api_view(['GET'])
@@ -177,7 +177,11 @@ def delete_comment(request, comment_id):
     if request.method == 'POST':
         profile = Profile.objects.get(user=request.user)
         comments = Comment.objects.filter(id=comment_id, author=profile)
-        if comments.exists(): comments.first().delete()
+        if comments.exists():
+            comment = comments.first()
+            for c in comment.all_child_comments():
+                c.delete()
+            comment.delete()
         return JsonResponse(f'Deleted comment #{comment_id}', safe=False)
 
 def like_post(request, post_id):

@@ -97,7 +97,7 @@ export default function PostListItem(props) {
                         className="profile-img-sm"
                     />
                 </Link>
-                {(type === 'comment' && post.comments.length !== 0) &&
+                {(type === 'comment' && post.all_child_comments_length !== 0) &&
                     <>
                         {displayingComments ?
                             <i
@@ -181,7 +181,7 @@ export default function PostListItem(props) {
                                 class="far fa-comment mr-1 icon"
                             />
                             <p style={{ margin: '0' }}>
-                                {post.all_comments.length}
+                                {post.all_child_comments_length}
                             </p>
                         </div>
                         <div className="d-flex align-items-center">

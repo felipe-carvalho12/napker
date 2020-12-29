@@ -16,7 +16,7 @@ export default function Posts() {
     let scrollCount = 1
 
     window.onscroll = () => {
-        if (Math.ceil(window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+        if (Math.ceil(window.innerHeight + window.scrollY) >= document.body.offsetHeight * 0.9) {
             scrollCount++
             fetchPosts()
         }
