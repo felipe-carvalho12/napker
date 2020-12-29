@@ -101,16 +101,18 @@ export default function PostListItem(props) {
                     <>
                         {displayingComments ?
                             <i
-                                className="fas fa-caret-down align-self-start icon base-hover"
+                                className="material-icons-sharp align-self-start icon base-hover text-secondary"
                                 style={{ width: '25px', height: '25px' }}
                                 onClick={showHideComments}
-                            />
+                            >
+                            keyboard_arrow_down</i>
                             :
                             <i
-                                className="fas fa-caret-right align-self-start icon base-hover"
+                                className="material-icons-sharp align-self-start icon base-hover text-secondary"
                                 style={{ width: '25px', height: '25px' }}
                                 onClick={showHideComments}
-                            />
+                            >
+                            keyboard_arrow_right</i>
                         }
                     </>
                 }
