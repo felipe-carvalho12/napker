@@ -11,9 +11,9 @@ export default function FeedSidebar() {
     const pages = [<FeedAlgorithm />, <GlobalChat />, 'Em breve...']
 
     return (
-        <>
+        <div className="d-flex flex-column justify-content-between align-items-center h-100" style={{ marginLeft: '10%' }}>
             {pages[pageIndex]}
             <SidebarSlider handlePageChange={e => setPageIndex(e.target.id)} />
-        </>
+        </div>
     )
 }

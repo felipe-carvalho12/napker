@@ -55,52 +55,77 @@ export default function FeedAlgorithm() {
 
     return (
         <>
-            {interestsValue !== null  && ageValue !== null  && friendsValue !== null  && isFriendValue !== null  ?
-                <>
-                    <InfoModal isOpen={infoModalIsOpen} hideModal={() => setInfoModalIsOpen(false)} />
-                    <InfoIcon onClick={() => setInfoModalIsOpen(true)} />
-                    <div className="d-flex flex-column justify-content-start align-items-center" style={{ marginLeft: '10%' }}>
-                        <div className="b-bottom" style={{ marginTop: 'var(--header-heigth)', width: '100%' }}>
-                            <h6>Personalize o algoritmo que calcula o quão relevante um perfil é para você.</h6>
-                        </div>
-                        <div className="b-bottom py-3" style={{ width: '100%' }}>
-                            <div className="d-flex justify-content-between" style={{ padding: '5px' }}>
-                                <h6>Interesses em comum</h6>
-                                <strong>{interestsValue}</strong>
-                            </div>
-                            <div class="range">
-                                <input type="range" min="0" max="100" value={interestsValue} onInput={e => setInterestsValue(e.target.value)} onMouseUp={handleMouseUp} />
-                            </div>
-                        </div>
-                        <div className="b-bottom py-3" style={{ width: '100%' }}>
-                            <div className="d-flex justify-content-between" style={{ padding: '5px' }}>
-                                <h6>Semelhança de idade</h6>
-                                <strong>{ageValue}</strong>
-                            </div>
-                            <div class="range">
-                                <input type="range" min="0" max="100" value={ageValue} onInput={e => setAgeValue(e.target.value)} onMouseUp={handleMouseUp} />
-                            </div>
-                        </div>
-                        <div className="b-bottom py-3" style={{ width: '100%' }}>
-                            <div className="d-flex justify-content-between" style={{ padding: '5px' }}>
-                                <h6>Amigos em comum</h6>
-                                <strong>{friendsValue}</strong>
-                            </div>
-                            <div class="range">
-                                <input type="range" min="0" max="100" value={friendsValue} onInput={e => setFriendsValue(e.target.value)} onMouseUp={handleMouseUp} />
-                            </div>
-                        </div>
-                        <div className="py-3" style={{ width: '100%' }}>
-                            <div className="d-flex justify-content-between" style={{ padding: '5px' }}>
-                                <h6>Ser meu amigo</h6>
-                                <strong>{isFriendValue}</strong>
-                            </div>
-                            <div class="range">
-                                <input type="range" min="0" max="100" value={isFriendValue} onInput={e => setIsFriendValue(e.target.value)} onMouseUp={handleMouseUp} />
-                            </div>
-                        </div>
+            <InfoModal isOpen={infoModalIsOpen} hideModal={() => setInfoModalIsOpen(false)} />
+            <InfoIcon onClick={() => setInfoModalIsOpen(true)} />
+
+            {interestsValue !== null && ageValue !== null && friendsValue !== null && isFriendValue !== null ?
+                <div className="d-flex flex-column justify-content-start align-items-center">
+                    <div className="" style={{ marginTop: 'var(--header-heigth)', width: '100%' }}>
+                        <h6>Personalize o algoritmo que calcula o quão relevante um perfil é para você.</h6>
                     </div>
-                </>
+                    <div className="w-100 p-2 b-ternary-grey">
+                        <details open>
+                            <summary className="b-theme-base-color">
+                                <i
+                                    className="material-icons-sharp align-self-start icon base-hover text-secondary"
+                                    style={{ width: '25px', height: '25px' }}
+                                >
+                                    keyboard_arrow_down</i>
+                                <h6>Perfil</h6>
+                            </summary>
+                            <div>
+                                <div className="pt-1" style={{ width: '100%' }}>
+                                    <div className="d-flex justify-content-between">
+                                        <spam className="text-secondary">Interesses em comum</spam>
+                                        <strong>{interestsValue}</strong>
+                                    </div>
+                                    <div class="range">
+                                        <input type="range" min="0" max="100" value={interestsValue} onInput={e => setInterestsValue(e.target.value)} onMouseUp={handleMouseUp} />
+                                    </div>
+                                </div>
+                                <div className="pt-1" style={{ width: '100%' }}>
+                                    <div className="d-flex justify-content-between">
+                                        <spam className="text-secondary">Semelhança de idade</spam>
+                                        <strong>{ageValue}</strong>
+                                    </div>
+                                    <div class="range">
+                                        <input type="range" min="0" max="100" value={ageValue} onInput={e => setAgeValue(e.target.value)} onMouseUp={handleMouseUp} />
+                                    </div>
+                                </div>
+                            </div>
+                        </details>
+                        <details>
+                            <summary className="b-theme-base-color">
+                                <i
+                                    className="material-icons-sharp align-self-start icon base-hover text-secondary"
+                                    style={{ width: '25px', height: '25px' }}
+                                >
+                                    keyboard_arrow_down</i>
+                                <h6>Post</h6>
+                            </summary>
+                            <div>
+                                <div className="pt-1" style={{ width: '100%' }}>
+                                    <div className="d-flex justify-content-between">
+                                        <spam className="text-secondary">Interesses em comum</spam>
+                                        <strong>{interestsValue}</strong>
+                                    </div>
+                                    <div class="range">
+                                        <input type="range" min="0" max="100" value={interestsValue} onInput={e => setInterestsValue(e.target.value)} onMouseUp={handleMouseUp} />
+                                    </div>
+                                </div>
+                                <div className="pt-1" style={{ width: '100%' }}>
+                                    <div className="d-flex justify-content-between">
+                                        <spam className="text-secondary">Semelhança de idade</spam>
+                                        <strong>{ageValue}</strong>
+                                    </div>
+                                    <div class="range">
+                                        <input type="range" min="0" max="100" value={ageValue} onInput={e => setAgeValue(e.target.value)} onMouseUp={handleMouseUp} />
+                                    </div>
+                                </div>
+                            </div>
+                        </details>
+                    </div>
+                </div>
                 :
                 <div className="loader-container">
                     <div className="loader" />

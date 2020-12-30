@@ -12,6 +12,7 @@ import './assets/style/pages/global-components/modal.css'
 import './assets/style/pages/global-components/buttons.css'
 import './assets/style/pages/global-components/viewMoreSelect.css'
 import './assets/style/pages/global-components/emojiList.css'
+import './assets/style/pages/global-components/summary.css'
 
 import './assets/style/pages/main-app/components/bottomMenu.css'
 import './assets/style/pages/main-app/chat.css'
