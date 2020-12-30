@@ -8,6 +8,7 @@ export default function ProfileSettings(props) {
     const [interestsValue, setInterestsValue] = useState(50)
     const [ageValue, setAgeValue] = useState(50)
     const [friendsValue, setFriendsValue] = useState(50)
+    const [isFriendValue, setIsFriendValue] = useState(50)
 
     return (
         <div className="w-100">
@@ -19,7 +20,7 @@ export default function ProfileSettings(props) {
                     onClick={handleDetailClick}
                 >
                     keyboard_arrow_down</i>
-                <h6>Perfil</h6>
+                <h6 style={{margin: "0", lineHeight: "1.5"}}>Perfil</h6>
             </div>
             <div className={`mb-2 ${!open && 'd-none'}`}>
                 <div className="pt-1" style={{ width: '100%' }}>
@@ -47,6 +48,15 @@ export default function ProfileSettings(props) {
                     </div>
                     <div class="range">
                         <input type="range" min="0" max="100" value={friendsValue} onInput={e => setFriendsValue(e.target.value)} />
+                    </div>
+                </div>
+                <div className="pt-1" style={{ width: '100%' }}>
+                    <div className="d-flex justify-content-between">
+                        <spam className="text-secondary">Ser meu amigo</spam>
+                        <strong>{isFriendValue}</strong>
+                    </div>
+                    <div class="range">
+                        <input type="range" min="0" max="100" value={isFriendValue} onInput={e => setIsFriendValue(e.target.value)} />
                     </div>
                 </div>
             </div>
