@@ -78,15 +78,18 @@ def signup_view(request):
 
 @api_view(['POST'])
 def add_interests_view(request):
+
     user = User.objects.get(id=request.data['uid'])
     profile = Profile.objects.get(user=user)
-    interests = request.data['interests']
+    interests = dict(request.data)['interests']
+    
     for title in interests:
         if len(title) < 3:
             continue
         i, created = Interest.objects.get_or_create(title=title, public=False)
         profile.interests.add(i)
     profile.save()
+
 
     current_site = get_current_site(request)
     email_subject = 'Ative a sua conta'

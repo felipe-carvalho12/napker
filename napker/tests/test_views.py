@@ -10,7 +10,7 @@ from posts.models import Post
 from profiles.models import Interest
 
 
-class RouteTests(TestCase):
+class TestViews(TestCase):
     def setUp(self):
         self.client = Client()
         self.test_user = User.objects.create(username='fred')
@@ -27,15 +27,16 @@ class RouteTests(TestCase):
         Post.objects.create(content='Hello, world!', author=self.other_user.profile)
 
     def test_login(self):   
-        response = self.client.post('/post-login', {'username': self.test_user.username , 'password': 'secret'})
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(self.test_user.is_authenticated, True)
-        self.assertEqual(response.data, 'logged in')
-
         response = self.client.post('/post-login', {'username': self.test_user.username, 'password': 'wrong'})
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(self.test_user.is_authenticated, False)
+        self.assertRaises(KeyError, lambda: self.client.session['_auth_user_id'])
         self.assertEqual(response.data, 'Credenciais inválidas. Por favor verifique seus dados e tente novamente.')
+
+        response = self.client.post('/post-login', {'username': self.test_user.username , 'password': 'secret'})
+        self.test_user.refresh_from_db()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(int(self.client.session['_auth_user_id']), self.test_user.id)
+        self.assertEqual(response.data, 'logged in')
 
 
     def test_logout(self):
@@ -78,13 +79,23 @@ class RouteTests(TestCase):
         self.assertEqual(user.profile.email, 'john@fakemail.com')
         self.assertEqual(user.profile.birth_date, datetime.date(2000, 7, 14))
 
-        response = self.client.post('/post-signup/interesses', {'uid': user.id, 'interests': 'futebol, viajar'})
+        post_data = {
+            'uid': user.id,
+            'interests': ['futebol', 'viajar']
+        }
+
+        response = self.client.post('/post-signup/interests', post_data)
+        user.profile.refresh_from_db()
         self.assertEqual(response.status_code, 200)
         self.assertFalse(user.is_active)
         self.assertEqual([(i.title, i.public) for i in user.profile.interests.all()], [('futebol', False), ('viajar', False)])
         self.assertEqual(response.data, 'activation link sent')
 
-        response = self.client.post('/post-signup/interesses', {'uid': user.id, 'interests': 'ab, futebol, viajar'})
+        self.test_user.profile.interests.clear()
+        self.test_user.profile.save()
+
+        response = self.client.post('/post-signup/interests', {**post_data, 'interests': ['ab', 'futebol', 'viajar']})
+        user.profile.refresh_from_db()
         self.assertEqual(response.status_code, 200)
         self.assertFalse(user.is_active)
         self.assertEqual([(i.title, i.public) for i in user.profile.interests.all()], [('futebol', False), ('viajar', False)])
@@ -143,6 +154,7 @@ class RouteTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data, 'Servidor custa caro! (:')
 
+        self.test_user.refresh_from_db()
         self.assertEqual(self.test_user.profile.first_name, 'Fred')
         self.assertEqual(self.test_user.profile.last_name, 'Santos')
         self.assertEqual(self.test_user.username, 'fred.santos')
