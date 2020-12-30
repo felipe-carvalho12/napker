@@ -21,8 +21,8 @@ def get_author_relevance(profile, author):
 
 
 def process_authors_relevance(profile, authors):
-    if profile.post_weights is not None:
-        raw_weights = np.array([profile.post_weights.interest_weight, profile.post_weights.age_weight, profile.post_weights.friends_weight, profile.post_weights.is_friend_weight])
+    if profile.weights is not None:
+        raw_weights = np.array([profile.weights.profile.interest_weight, profile.weights.profile.age_weight, profile.weights.profile.friends_weight, profile.weights.profile.is_friend_weight])
     else:
         raw_weights = np.array([0.25, 0.25, 0.25, 0.25])
 

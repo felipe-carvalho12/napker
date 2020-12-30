@@ -41,7 +41,7 @@ export default function MainAppRouter() {
             updateUnreadMessagesNumber()
         }, 6000)
 
-        fetch(`${SERVER_URL}/profile-api/get-post-weights`)
+        fetch(`${SERVER_URL}/profile-api/get-weights`)
             .then(response => response.json())
             .then(data => setWeights(data))
     }, [])

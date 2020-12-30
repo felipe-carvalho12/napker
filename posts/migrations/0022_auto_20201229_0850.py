@@ -17,11 +17,6 @@ class Migration(migrations.Migration):
             options={'ordering': ['-created']},
         ),
         migrations.AddField(
-            model_name='comment',
-            name='layer',
-            field=models.IntegerField(default=0),
-        ),
-        migrations.AddField(
             model_name='post',
             name='views',
             field=models.ManyToManyField(related_name='post_views', to='profiles.Profile'),
@@ -38,18 +33,5 @@ class Migration(migrations.Migration):
                 ('title', models.CharField(max_length=50)),
                 ('posts', models.ManyToManyField(related_name='hashtags', to='posts.Post')),
             ],
-        ),
-        migrations.CreateModel(
-            name='CommentRelationship',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('comment', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='comment_relationship', to='posts.comment')),
-                ('parent_comment', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='parent_comment_relationship', to='posts.comment')),
-            ],
-        ),
-        migrations.AddField(
-            model_name='comment',
-            name='comments',
-            field=models.ManyToManyField(blank=True, related_name='_comment_comments_+', through='posts.CommentRelationship', to='posts.Comment'),
         ),
     ]
