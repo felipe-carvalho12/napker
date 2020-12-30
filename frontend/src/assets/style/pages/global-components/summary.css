@@ -9,7 +9,6 @@ summary {
     align-items: center;
     justify-content: space-between;
     cursor: pointer;
-    border-bottom: 1px solid var(--border-color);
     padding: 5px;
 }
 

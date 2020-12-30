@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import SidebarSlider from '../SidebarSlider'
 
-import FeedAlgorithm from './components/algorithm-settings/AlgorithmSettings'
+import AlgorithmSettings from './components/algorithm-settings/AlgorithmSettings'
 import GlobalChat from './components/GlobalChat'
 
 
 export default function FeedSidebar() {
     const [pageIndex, setPageIndex] = useState(0)
 
-    const pages = [<FeedAlgorithm />, <GlobalChat />, 'Em breve...']
+    const pages = [<AlgorithmSettings />, <GlobalChat />, 'Em breve...']
 
     return (
         <div className="d-flex flex-column justify-content-between align-items-center h-100" style={{ marginLeft: '10%' }}>
