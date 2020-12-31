@@ -6,29 +6,26 @@ import { SERVER_URL } from '../../../../config/settings'
 
 export default function ModalContactSearch(props) {
     const modalProfiles = props.modalProfiles
-    const setParentState = props.setParentState
+    const setModalProfiles = props.setModalProfiles
+    const setAddingNewChat = props.setAddingNewChat
     const addingNewChat = props.addingNewChat
 
     const setModalSearch = query => {
         if (query === '') {
-            setParentState({
-                modalProfiles: []
-            })
+            setModalProfiles([])
             return
         }
         fetch(`${SERVER_URL}/profile-api/users/${query}`)
             .then(response => response.json())
             .then(data => {
-                setParentState({
-                    modalProfiles: data
-                })
+                setModalProfiles(data)
             })
     }
 
     return (
         <Modal
             show={addingNewChat}
-            onHide={() => setParentState({ addingNewChat: false })}
+            onHide={() => setAddingNewChat(false)}
             size="lg"
         >
             <Modal.Header closeButton>
@@ -45,7 +42,7 @@ export default function ModalContactSearch(props) {
                         return (
                             <Link to={`/mensagens/${profile.slug}`}
                                 style={{ color: 'var(--primary-grey)', textDecoration: 'none' }}
-                                onClick={() => setParentState({ addingNewChat: false })}
+                                onClick={() => setAddingNewChat(false)}
                             >
                                 <li
                                     className="position-relative border-0 b-bottom base-hover"

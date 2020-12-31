@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { SERVER_URL } from '../../../config/settings'
 import Header from '../../../components/fixed/Header'
@@ -9,149 +9,130 @@ import ContactFilterInput from './components/ContactFilterInput'
 import BottomMenu from '../../../components/fixed/bottom-menu/BottomMenu'
 import WebSocketInstance from './websocket'
 
-export default class Messages extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            myProfile: null,
-            username: null,
-            chatId: null,
-            activeChats: null,
-            activeChatsProfiles: null,
-            renderedActiveChatsProfiles: null,
-            addingNewChat: false,
-            modalProfiles: [],
-        }
-        this.rerenderingInterval = null
-        this.hasFilteredProfiles = false
-    }
+export default function Messages(props) {
+    const [username, setUsername] = useState(null)
+    const [otherUsername, setOtherUsername] = useState(props.match.params.slug)
+    const [chatId, setChatId] = useState(null)
+    const [activeChats, setActiveChats] = useState(null)
+    const [activeChatsProfiles, setActiveChatsProfiles] = useState(null)
+    const [renderedActiveChatsProfiles, setRenderedActiveChatsProfiles] = useState(null)
+    const [addingNewChat, setAddingNewChat] = useState(false)
+    const [modalProfiles, setModalProfiles] = useState([])
 
-    handleReceiveProps = props => {
+    let rerenderingInterval = null
+    let hasFilteredProfiles = false
+
+    document.title = 'Mensagens / Napker'
+
+    const handleReceiveProps = props => {
         if (props.match.params.slug) {
-            if (props.match.params.slug !== this.props.match.params.slug && WebSocketInstance.state() === 1) {
+            if (props.match.params.slug !== otherUsername && WebSocketInstance.state() === 1) {
                 WebSocketInstance.disconnect()
+                setOtherUsername(props.match.params.slug)
             }
-            const participants = { username: this.state.username, other_username: props.match.params.slug }
-            fetch(`${SERVER_URL}/chat-api/chat-id/${JSON.stringify(participants)}`)
+            fetch(`${SERVER_URL}/chat-api/chat-id/${props.match.params.slug}`)
                 .then(response => response.json())
                 .then(data => {
-                    this.setState({ chatId: data['chat_id'] })
+                    setChatId(data['chat_id'])
                 })
-        } else if (this.state.chatId) {
-            this.setState({
-                chatId: null
-            })
-
+        } else if (chatId) {
+            setChatId(null)
         }
     }
 
-    componentWillReceiveProps(newProps) {
-        if (newProps === this.props) return
-        this.handleReceiveProps(newProps)
-    }
+    useEffect(() => {
+        handleReceiveProps(props)
+    }, [props])
 
-    handleComponentChange() {
-        if (!this.state.username) {
+    const handleComponentChange = () => {
+        if (!username) {
             fetch(`${SERVER_URL}/profile-api/logged-user`)
                 .then(response => response.json())
                 .then(data => {
-                    this.setState({
-                        username: data.username
-                    })
-                    if (this.props.match.params.slug) {
-                        this.handleReceiveProps(this.props)
-                    }
+                    setUsername(data.username)
                 })
         }
-        if (!this.state.activeChatsProfiles && this.state.activeChatsProfiles !== []) {
-            this.fetchActiveChatProfiles()
+        if (!activeChatsProfiles && activeChatsProfiles !== []) {
+            fetchActiveChatProfiles()
         }
     }
 
-    componentWillMount() {
-        document.title = 'Mensagens / Napker'
-        this.handleComponentChange()
-        this.rerenderingInterval = window.setInterval(this.fetchActiveChatProfiles, 4000)
-    }
+    useEffect(() => {
+        handleComponentChange()
+        rerenderingInterval = window.setInterval(fetchActiveChatProfiles, 4000)
+        return window.clearInterval(rerenderingInterval)
+    }, [])
 
-    componentWillUnmount() {
-        window.clearInterval(this.rerenderingInterval)
-    }
 
-    componentDidUpdate() {
-        this.handleComponentChange()
-    }
+    useEffect(() => {
+        handleComponentChange()
+    })
 
-    fetchActiveChatProfiles = () => {
+    const fetchActiveChatProfiles = () => {
         fetch(`${SERVER_URL}/chat-api/active-chats-profiles`)
             .then(response => response.json())
             .then(data => {
-                if (!this.state.username) return
-                if (!this.hasFilteredProfiles) {
-                    this.setState({
-                        activeChats: data.chats,
-                        activeChatsProfiles: data.profiles,
-                        renderedActiveChatsProfiles: data.profiles
-                    })
+                if (!username) return
+                if (!hasFilteredProfiles) {
+                    setActiveChats(data.chats)
+                    setActiveChatsProfiles(data.profiles)
+                    setRenderedActiveChatsProfiles(data.profiles)
                 }
             })
     }
 
-    openModal = () => {
-        this.setState({
-            addingNewChat: true
-        })
+    const openModal = () => {
+        setAddingNewChat(true)
     }
 
-    render() {
-        return (
-            <>
-                <Header page="Mensagens" />
-                <div className="content d-flex messages-wrapper">
-                    <ModalContactSearch
-                        addingNewChat={this.state.addingNewChat}
-                        setParentState={this.setState.bind(this)}
-                        modalProfiles={this.state.modalProfiles}
+    return (
+        <>
+            <Header page="Mensagens" />
+            <div className="content d-flex messages-wrapper">
+                <ModalContactSearch
+                    addingNewChat={addingNewChat}
+                    setModalProfiles={setModalProfiles}
+                    setAddingNewChat={setAddingNewChat}
+                    modalProfiles={modalProfiles}
+                />
+                <div className="chats-list h-100">
+                    <ContactFilterInput
+                        activeChatsProfiles={activeChatsProfiles}
+                        setHasFilteredProfiles={bool => hasFilteredProfiles = bool}
+                        fetchActiveChatProfiles={fetchActiveChatProfiles}
+                        setRenderedActiveChatsProfiles={setRenderedActiveChatsProfiles}
+                        openModal={openModal}
                     />
-                    <div className="chats-list h-100">
-                        <ContactFilterInput
-                            activeChatsProfiles={this.state.activeChatsProfiles}
-                            setHasFilteredProfiles={bool => this.hasFilteredProfiles = bool}
-                            fetchActiveChatProfiles={this.fetchActiveChatProfiles}
-                            setParentState={this.setState.bind(this)}
-                            openModal={this.openModal}
-                        />
-                        {this.state.renderedActiveChatsProfiles !== null ?
-                            <div className="list-group chats-container" style={{ background: 'var(--background)' }}>
-                                {this.state.renderedActiveChatsProfiles.map(profile => {
-                                    return (
-                                        <ContactListItem
-                                            profile={profile}
-                                            activeChats={this.state.activeChats}
-                                            activeChatsProfiles={this.state.activeChatsProfiles}
-                                        />
-                                    )
-                                })}
-                            </div>
-                            :
-                            <div className="loader-container">
-                                <div className="loader" />
-                            </div>
-                        }
-                    </div>
-                    <Chat
-                        username={this.state.username}
-                        otherUsername={this.props.match.params.slug}
-                        chatId={this.state.chatId}
-                        openModal={this.openModal}
-                        updateUnreadMessagesNumber={this.props.updateUnreadMessagesNumber}
-                        updateMessagesComponent={this.fetchActiveChatProfiles}
-                    />
+                    {renderedActiveChatsProfiles !== null ?
+                        <div className="list-group chats-container" style={{ background: 'var(--background)' }}>
+                            {renderedActiveChatsProfiles.map(profile => {
+                                return (
+                                    <ContactListItem
+                                        profile={profile}
+                                        activeChats={activeChats}
+                                        activeChatsProfiles={activeChatsProfiles}
+                                    />
+                                )
+                            })}
+                        </div>
+                        :
+                        <div className="loader-container">
+                            <div className="loader" />
+                        </div>
+                    }
                 </div>
-                {!this.props.match.params.slug &&
-                    <BottomMenu />
-                }
-            </>
-        )
-    }
+                <Chat
+                    username={username}
+                    otherUsername={props.match.params.slug}
+                    chatId={chatId}
+                    openModal={openModal}
+                    updateUnreadMessagesNumber={props.updateUnreadMessagesNumber}
+                    updateMessagesComponent={fetchActiveChatProfiles}
+                />
+            </div>
+            {!props.match.params.slug &&
+                <BottomMenu />
+            }
+        </>
+    )
 }
