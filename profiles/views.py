@@ -135,16 +135,15 @@ def get_weights(request):
 
 @api_view(['POST'])
 def set_weights(request):
-    print(request.data)
     profile_data = request.data['profile']
     post_data = request.data['post']
 
     profile_weights, created = ProfileWeights.objects.get_or_create(
-        interest_weight=profile_data['interest-weight'], age_weight=profile_data['age-weight'],
-        friends_weight=profile_data['friends-weight'], is_friend_weight=profile_data['is-friend-weight']
+        interest_weight=profile_data['interest_weight'], age_weight=profile_data['age_weight'],
+        friends_weight=profile_data['friends_weight'], is_friend_weight=profile_data['is_friend_weight']
     )
     post_weights, created = PostWeights.objects.get_or_create(
-        date_weight=post_data['date-weight'], author_weight=post_data['author-weight'], likes_weight=post_data['likes-weight']
+        date_weight=post_data['date_weight'], author_weight=post_data['author_weight'], likes_weight=post_data['likes_weight']
     )
 
     new_weights, created = Weights.objects.get_or_create(profile=profile_weights, post=post_weights)

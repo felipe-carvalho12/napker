@@ -26,10 +26,10 @@ export default function ProfileSettings(props) {
 
     useEffect(() => {
         setCurrentWeights({
-            'interest-weight': parseInt(interestsValue),
-            'age-weight': parseInt(ageValue),
-            'friends-weight': parseInt(friendsValue),
-            'is-friend-weight': parseInt(isFriendValue),
+            'interest_weight': parseInt(interestsValue),
+            'age_weight': parseInt(ageValue),
+            'friends_weight': parseInt(friendsValue),
+            'is_friend_weight': parseInt(isFriendValue),
         })
     }, [interestsValue, ageValue, friendsValue, isFriendValue])
 

@@ -24,9 +24,9 @@ export default function PostSettings(props) {
 
     useEffect(() => {
         setCurrentWeights({
-            'date-weight': parseInt(dateValue),
-            'author-weight': parseInt(authorValue),
-            'likes-weight': parseInt(likesValue),
+            'date_weight': parseInt(dateValue),
+            'author_weight': parseInt(authorValue),
+            'likes_weight': parseInt(likesValue),
         })
     }, [dateValue, authorValue, likesValue])
 
