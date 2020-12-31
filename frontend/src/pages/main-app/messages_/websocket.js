@@ -46,10 +46,14 @@ class WebSocketService {
       return;
     }
     if (command === "messages") {
-      this.callbacks[command](parsedData.messages);
+      this.callbacks[command](parsedData.messages)
     }
     if (command === "new_message") {
-      this.callbacks[command](parsedData.message);
+      this.callbacks[command](parsedData.message)
+    }
+    if (command === "typing") {
+      console.log(parsedData)
+      this.callbacks[command](parsedData.userId)
     }
   }
 
@@ -74,12 +78,20 @@ class WebSocketService {
     this.sendMessage({
       command: "read_messages",
       chatId: chatId
-    });
+    })
   }
 
-  addCallbacks(messagesCallback, newMessageCallback) {
+  setIsTyping(userId) {
+    this.sendMessage({
+      command: "typing",
+      userId: userId
+    })
+  }
+
+  addCallbacks(messagesCallback, newMessageCallback, setTypingCallback) {
     this.callbacks["messages"] = messagesCallback
     this.callbacks["new_message"] = newMessageCallback
+    this.callbacks["typing"] = setTypingCallback
   }
 
   sendMessage(data) {
