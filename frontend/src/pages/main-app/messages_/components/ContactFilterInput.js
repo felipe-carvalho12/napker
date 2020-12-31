@@ -27,6 +27,7 @@ export default function ContactFilterInput(props) {
                 className="search-input contact-filter-input"
                 id="contact-filter-input"
                 placeholder="Pesquisar pessoas"
+                style={{ color: 'var(--primary-grey)' }}
                 onChange={e => setContactSearch(e.target.value)}
             />
             <i className="fas fa-plus add-icon" onClick={openModal}></i>

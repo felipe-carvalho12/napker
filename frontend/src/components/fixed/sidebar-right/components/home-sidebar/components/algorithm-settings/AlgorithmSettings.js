@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 
 import { AlgorithmWeightsContext } from '../../../../../../../context/app/AppContext'
 import { SERVER_URL } from '../../../../../../../config/settings'
@@ -14,6 +14,8 @@ export default function AlgorithmSettings() {
 
     const [profileWeights, setProfileWeights] = useState(null)
     const [postWeights, setPostWeights] = useState(null)
+    let previousProfileWeights = null
+    let previousPostWeights = null
 
     const [infoModalIsOpen, setInfoModalIsOpen] = useState(false)
 
@@ -24,6 +26,22 @@ export default function AlgorithmSettings() {
         'profile': setProfileSettingsIsOpen,
         'post': setPostSettingsIsOpen
     }
+
+    const buttonRef = useRef()
+    let bool = true
+
+    useEffect(() => {
+        if (previousProfileWeights && previousPostWeights) {
+            console.log('2', previousProfileWeights, profileWeights, previousPostWeights, postWeights)
+            buttonRef.current.disabled = previousProfileWeights === profileWeights && previousPostWeights === postWeights
+        }
+        if (bool && profileWeights && postWeights) {
+            console.log(previousProfileWeights, profileWeights, previousPostWeights, postWeights)
+            previousProfileWeights = profileWeights
+            previousPostWeights = postWeights
+            bool = false
+        }
+    }, [profileWeights, postWeights])
 
     const handleDetailClick = e => {
         const isClosing = e.target.innerHTML === 'keyboard_arrow_down'
@@ -40,6 +58,7 @@ export default function AlgorithmSettings() {
     }
 
     const handleSave = () => {
+        bool = true
         fetch(`${SERVER_URL}/profile-api/set-weights`, {
             method: 'POST',
             headers: {
@@ -82,8 +101,10 @@ export default function AlgorithmSettings() {
                             />
                         </div>
                         <button
+                            ref={buttonRef}
                             className="btn btn-primary d-flex justify-content-center align-items-center align-self-end"
                             style={{ width: '70px', height: '30px' }}
+                            disabled
                             onClick={handleSave}
                         >
                             Salvar
