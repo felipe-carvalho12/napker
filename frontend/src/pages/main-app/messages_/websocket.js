@@ -84,9 +84,14 @@ class WebSocketService {
 
   sendMessage(data) {
     try {
-      if (this.state() === 1) {
-        this.socketRef.send(JSON.stringify({ ...data }))
-      }
+      setTimeout(() => {
+        if (WebSocketInstance.state() === 1) {
+          this.socketRef.send(JSON.stringify({ ...data }))
+          return
+        } else {
+          this.sendMessage(data)
+        }
+      }, 100)
     } catch (err) {
       console.log(err.message)
     }
