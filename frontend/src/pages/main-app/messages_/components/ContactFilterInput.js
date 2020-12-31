@@ -4,7 +4,7 @@ export default function ContactFilterInput(props) {
     const activeChatsProfiles = props.activeChatsProfiles
     const setHasFilteredProfiles = props.setHasFilteredProfiles
     const fetchActiveChatProfiles = props.fetchActiveChatProfiles
-    const setParentState = props.setParentState
+    const setRenderedActiveChatsProfiles = props.setRenderedActiveChatsProfiles
     const openModal = props.openModal
 
     const setContactSearch = query => {
@@ -17,9 +17,7 @@ export default function ContactFilterInput(props) {
             console.log(activeChatsProfiles)
             const filteredProfiles = activeChatsProfiles.filter(p => p.user.username.includes(query))
             setHasFilteredProfiles(true)
-            setParentState({
-                renderedActiveChatsProfiles: filteredProfiles
-            })
+            setRenderedActiveChatsProfiles(filteredProfiles)
         }
     }
 
@@ -29,6 +27,7 @@ export default function ContactFilterInput(props) {
                 className="search-input contact-filter-input"
                 id="contact-filter-input"
                 placeholder="Pesquisar pessoas"
+                style={{ color: 'var(--primary-grey)' }}
                 onChange={e => setContactSearch(e.target.value)}
             />
             <i className="fas fa-plus add-icon" onClick={openModal}></i>

@@ -16,7 +16,7 @@ class Interest(models.Model):
         return self.title
 
 
-class PostWeights(models.Model):
+class ProfileWeights(models.Model):
     interest_weight = models.FloatField()
     age_weight = models.FloatField()
     friends_weight = models.FloatField()
@@ -24,6 +24,20 @@ class PostWeights(models.Model):
 
     def __str__(self):
         return f'INTEREST: {self.interest_weight}, AGE: {self.age_weight}, FRIENDS: {self.friends_weight}, IS_FRIEND: {self.is_friend_weight}'
+
+
+class PostWeights(models.Model):
+    date_weight = models.FloatField()
+    author_weight = models.FloatField()
+    likes_weight = models.FloatField()
+
+    def __str__(self):
+        return f'DATE: {self.date_weight}, AUTHOR: {self.author_weight}, LIKES: {self.likes_weight}'
+
+
+class Weights(models.Model):
+    profile = models.ForeignKey(ProfileWeights, on_delete=models.CASCADE)
+    post = models.ForeignKey(PostWeights, on_delete=models.CASCADE)
 
 
 class Profile(models.Model):
@@ -40,7 +54,7 @@ class Profile(models.Model):
     friends = models.ManyToManyField(User, blank=True, related_name='friends')
     blocked_users = models.ManyToManyField(User, blank=True, related_name='blocked_me')
     interests = models.ManyToManyField(Interest, related_name='profiles')
-    post_weights = models.ForeignKey(PostWeights, on_delete=models.SET_NULL, related_name='profiles', default=None, blank=True, null=True)
+    weights = models.ForeignKey(Weights, on_delete=models.SET_NULL, related_name='profiles', default=None, blank=True, null=True)
 
     def __str__(self):
         return f'{self.user.username}'

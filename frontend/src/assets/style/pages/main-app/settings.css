@@ -125,21 +125,6 @@
     background: var(--theme-base-color);
 }
 
-.faq-content summary {
-    background: var(--theme-base-color);
-    transition: background .75s ease;
-    width: 100%;
-    outline: 0;
-    text-align: center;
-    font-size: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
-    border-bottom: 1px solid var(--border-color);
-    padding: 5px;
-}
-
 .faq-content h2 {
     color: var(--primary-grey);
     text-align: left;
@@ -159,35 +144,6 @@
     text-align: justify;
     line-height: 1.3em;
     border-bottom: 1px solid var(--border-color);
-}
-
-.faq-content summary::after {
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
-    content: "\f107";
-    display: inline-block;
-    padding-right: 15px;
-    font-size: 180%;
-    color: var(--primary-grey);
-}
-
-.faq-content details[open] summary::after {
-    content: '\f106';
-    display: inline-block;
-    padding-right: 15px;
-    font-size: 100%;
-}
-
-.faq-content details[open] summary:hover {
-    background:none;
-}
-
-.faq-content summary:hover {
-    background: var(--theme-base-color-hover);
-}
-
-.faq-content details summary::-webkit-details-marker {
-    display:none;
 }
 
 /* FEEDBACK */

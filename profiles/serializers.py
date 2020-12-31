@@ -76,9 +76,22 @@ class InterestSerializer(serializers.ModelSerializer):
         model = Interest
         fields = '__all__'
 
+class ProfileWeightsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProfileWeights
+        fields = '__all__'
+
 class PostWeightsSerializer(serializers.ModelSerializer):
     class Meta:
         model = PostWeights
+        fields = '__all__'
+
+class WeightsSerializer(serializers.ModelSerializer):
+    profile = ProfileWeightsSerializer()
+    post = PostWeightsSerializer()
+
+    class Meta:
+        model = Weights
         fields = '__all__'
 
 class ProfileSerializer(ProfileUnrelatedSerializer):
@@ -86,7 +99,7 @@ class ProfileSerializer(ProfileUnrelatedSerializer):
     friends = UserSerializer(many=True)
     blocked_users = UserSerializer(many=True)
     posts = PostSerializer(source='get_all_posts', many=True)
-    post_weights = PostWeightsSerializer()
+    weights = WeightsSerializer()
 
 class RelationshipSerializer(serializers.ModelSerializer):
     sender = ProfileSerializer()

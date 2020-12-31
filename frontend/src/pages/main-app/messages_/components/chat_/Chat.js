@@ -14,6 +14,7 @@ class Chat extends React.Component {
             WebSocketInstance.addCallbacks(
                 this.getMessages.bind(this),
                 this.addMessage.bind(this),
+                this.setTyping.bind(this),
             )
             WebSocketInstance.fetchMessages(
                 this.props.username,
@@ -30,7 +31,8 @@ class Chat extends React.Component {
             scrolledToBottom: false,
             myProfile: null,
             otherUsername: this.props.otherUsername,
-            otherProfile: null
+            otherProfile: null,
+            otherUserIsTyping: false,
         }
         this.initialiseChat();
     }
@@ -146,6 +148,14 @@ class Chat extends React.Component {
         this.readMessages(this.props)
     }
 
+    setTyping(userId) {
+        if (userId !== this.state.myProfile.user.id) {
+            this.setState({
+                otherUserIsTyping: true
+            })
+        }
+    }
+
     scrollToBottom = () => {
         if (document.querySelector('#chat-log')) {
             const chatLog = document.querySelector('#chat-log')
@@ -158,7 +168,7 @@ class Chat extends React.Component {
 
     render() {
         return (
-            <>
+            <>{console.log(this.state.otherUserIsTyping)}
                 {this.state.otherProfile !== null || !this.props.otherUsername ?
                     <>
                         {this.state.otherProfile ?
@@ -176,17 +186,30 @@ class Chat extends React.Component {
                                     </Link>
                                     <div className="d-flex flex-column align-items-start" style={{ height: '52px' }}>
                                         <strong>{this.state.otherProfile.first_name} {this.state.otherProfile.last_name}</strong>
-                                        <p className="text-secondary">@{this.state.otherProfile.user.username}</p>
+                                        {this.state.otherUserIsTyping ?
+                                            <p className="text-secondary d-flex">
+                                                <strong>@{this.state.otherProfile.user.username}</strong>
+                                                <spam className="ml-1">está digitando...</spam>
+                                            </p>
+                                            :
+                                            <p className="text-secondary">@{this.state.otherProfile.user.username}</p>
+                                        }
                                     </div>
                                 </div>
-                                <div id="chat-log" className="chat-log">
-                                    {this.state.messages.map(message => {
-                                        return (
-                                            <MessageListItem message={message} currentUser={this.props.username} />
-                                        )
-                                    })
-                                    }
-                                </div>
+                                {WebSocketInstance.state() === 1 ?
+                                    <div id="chat-log" className="chat-log" style={{ background: 'var(--tertiary-grey)' }}>
+                                        {this.state.messages.map(message => {
+                                            return (
+                                                <MessageListItem message={message} currentUser={this.props.username} />
+                                            )
+                                        })
+                                        }
+                                    </div>
+                                    :
+                                    <div className="loader-container">
+                                        <div className="loader" />
+                                    </div>
+                                }
                                 <SendMessageForm
                                     WebSocketInstance={WebSocketInstance}
                                     chatId={this.props.chatId}
@@ -194,6 +217,7 @@ class Chat extends React.Component {
                                     otherProfile={this.state.otherProfile}
                                     myProfile={this.state.myProfile}
                                     updateMessagesComponent={this.props.updateMessagesComponent}
+                                    setOtherUserIsTyping={bool => this.setState({ otherUserIsTyping: bool })}
                                 />
                             </div>
                             :

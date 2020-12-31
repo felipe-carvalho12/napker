@@ -113,29 +113,43 @@ def my_profile(request):
 
 
 @api_view(['GET'])
-def get_post_weights(request):
+def get_weights(request):
     profile = Profile.objects.get(user=request.user)
-    if profile.post_weights:
-        serializer = PostWeightsSerializer(profile.post_weights)
+    if profile.weights:
+        serializer = WeightsSerializer(profile.weights)
         return Response(serializer.data)
     return Response({
-        'interest_weight': 50,
-        'age_weight': 50,
-        'friends_weight': 50,
-        'is_friend_weight': 50
+        'profile': {
+            'interest_weight': 50,
+            'age_weight': 50,
+            'friends_weight': 50,
+            'is_friend_weight': 50
+        },
+        'post': {
+            'date_weight': 50,
+            'author_weight': 50,
+            'likes_weight': 50,
+        }
     })
 
 
 @api_view(['POST'])
-def set_post_weights(request):
-    new_weights, created = PostWeights.objects.get_or_create(
-        interest_weight=request.data['interest-weight'],
-        age_weight=request.data['age-weight'],
-        friends_weight=request.data['friends-weight'],
-        is_friend_weight=request.data['is_friend-weight']
+def set_weights(request):
+    profile_data = request.data['profile']
+    post_data = request.data['post']
+
+    profile_weights, created = ProfileWeights.objects.get_or_create(
+        interest_weight=profile_data['interest_weight'], age_weight=profile_data['age_weight'],
+        friends_weight=profile_data['friends_weight'], is_friend_weight=profile_data['is_friend_weight']
     )
+    post_weights, created = PostWeights.objects.get_or_create(
+        date_weight=post_data['date_weight'], author_weight=post_data['author_weight'], likes_weight=post_data['likes_weight']
+    )
+
+    new_weights, created = Weights.objects.get_or_create(profile=profile_weights, post=post_weights)
+
     profile = Profile.objects.get(user=request.user)
-    profile.post_weights = new_weights
+    profile.weights = new_weights
     profile.save()
     return Response('weights updated')
 

@@ -23,26 +23,23 @@ from .views import *
 
 urlpatterns = [
     # Profile utils
-    path("post-signup", signup_view),
-    path("post-signup/interests", add_interests_view),
-    path("update-profile", update_profile),
-    path("change-password", change_password),
     path("post-login", login_view),
     path("logout", logout_view, name="logout"),
-    path("delete-account", delete_account),
-
+    path("post-signup", signup_view),
+    path("post-signup/interests", add_interests_view),
     path("activate/<uidb64>/<token>", activate_account_view, name="activate"),
+    path("update-profile", update_profile),
+    path('post-reset-password', reset_password),
+    path('reset/<uidb64>/<token>', reset_password_confirm, name="reset"),
+    path('reset-password-complete', reset_password_complete, name="password_reset_complete"),
+    path("change-password", change_password),
+    path("delete-account", delete_account),
 
     # APIs
     path("profile-api/", include("profiles.urls")),
     path("chat-api/", include("chat.urls")),
     path("post-api/", include("posts.urls")),
     path("settings-api/", include("settings.urls")),
-
-    # Reset password
-    path('post-reset-password', reset_password),
-    path('reset/<uidb64>/<token>', reset_password_confirm, name="reset"),
-    path('reset-password-complete', reset_password_complete, name="password_reset_complete"),
 
     # Admin
     path("admin/", admin.site.urls),

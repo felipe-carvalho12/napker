@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Contact(models.Model):
-    user = models.ForeignKey(User, related_name='contacts', on_delete=models.CASCADE)
+    user = models.OneToOneField(User, related_name='contact', on_delete=models.CASCADE)
     contacts = models.ManyToManyField('self', blank=True)
 
     def __str__(self):

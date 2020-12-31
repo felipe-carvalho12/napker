@@ -6,10 +6,11 @@ import LikesModal from '../../../../../components/LikesModal'
 import PostForm from './components/PostForm'
 import PostListItem from '../../../../../components/PostListItem'
 
-let fetching = false
+let isFetching_scroll = false
 
 export default function Posts() {
     const [weights,] = useContext(AlgorithmWeightsContext)
+    const [isFetching_weights, setIsFetching_weights] = useState(false)
 
     const [myProfile, setMyProfile] = useState(null)
     const [posts, setPosts] = useState(null)
@@ -18,9 +19,9 @@ export default function Posts() {
     let scrollCount = 1
 
     window.onscroll = () => {
-        if (Math.ceil(window.innerHeight + window.scrollY) >= document.body.offsetHeight * 0.9 && !fetching) {
+        if (Math.ceil(window.innerHeight + window.scrollY) >= document.body.offsetHeight * 0.9 && !isFetching_scroll) {
             scrollCount++
-            fetching = true
+            isFetching_scroll = true
             fetchPosts()
         }
     }
@@ -33,6 +34,7 @@ export default function Posts() {
     }, [])
 
     useEffect(() => {
+        setIsFetching_weights(true)
         fetchPosts()
     }, [weights])
 
@@ -40,7 +42,8 @@ export default function Posts() {
         fetch(`${SERVER_URL}/post-api/post-list/${scrollCount}`)
             .then(response => response.json())
             .then(data => {
-                fetching = false
+                isFetching_scroll = false
+                setIsFetching_weights(false)
                 setPosts(data)
             })
     }
@@ -59,7 +62,7 @@ export default function Posts() {
                 </div>
             }
             <div className="d-flex flex-column justify-content-center align-items-center w-100 h-100">
-                {posts && myProfile &&
+                {(posts && myProfile && !isFetching_weights) &&
                     posts.map(post => {
                         return (
                             <PostListItem

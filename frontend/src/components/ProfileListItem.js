@@ -9,7 +9,6 @@ export default function ProfileListItem(props) {
     const bioLength = props.bioLength
     const breakText = props.breakText == undefined ? 60 : props.breakText
     const bool = props.bool == undefined ? true : props.bool
-    console.log(bool)
     let bioWasRendered = false
 
     return (

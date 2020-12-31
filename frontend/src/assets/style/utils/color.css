@@ -10,8 +10,16 @@
     color: var(--primary-grey)!important;
 }
 
+.c-ternary-grey {
+    color: var(--ternary-grey)!important;
+}
+
 .c-theme-base-color {
     color: var(--theme-base-color)!important;
+}
+
+.c-background {
+    color: var(--background)!important;
 }
 
 
@@ -27,6 +35,14 @@
     background-color: var(--primary-grey)!important;
 }
 
+.b-ternary-grey {
+    background-color: var(--ternary-grey)!important;
+}
+
 .b-theme-base-color {
     background-color: var(--theme-base-color)!important;
+}
+
+.b-background {
+    background: var(--background)!important;
 }
