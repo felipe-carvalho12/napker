@@ -11,50 +11,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.CreateModel(
-            name='ProfileWeights',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('interest_weight', models.FloatField()),
-                ('age_weight', models.FloatField()),
-                ('friends_weight', models.FloatField()),
-                ('is_friend_weight', models.FloatField()),
-            ],
-        ),
-        migrations.RenameField(
-            model_name='postweights',
-            old_name='age_weight',
-            new_name='author_weight',
-        ),
-        migrations.RenameField(
-            model_name='postweights',
-            old_name='friends_weight',
-            new_name='date_weight',
-        ),
-        migrations.RenameField(
-            model_name='postweights',
-            old_name='interest_weight',
-            new_name='likes_weight',
-        ),
-        migrations.RemoveField(
-            model_name='postweights',
-            name='is_friend_weight',
-        ),
-        migrations.RemoveField(
-            model_name='profile',
-            name='post_weights',
-        ),
-        migrations.CreateModel(
-            name='Weights',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('post_weights', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='profiles.postweights')),
-                ('profile_weights', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='profiles.profileweights')),
-            ],
-        ),
-        migrations.AddField(
-            model_name='profile',
-            name='weights',
-            field=models.ForeignKey(blank=True, default=None, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='profiles', to='profiles.weights'),
-        ),
+        
     ]

@@ -10,14 +10,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RenameField(
-            model_name='weights',
-            old_name='post_weights',
-            new_name='post',
-        ),
-        migrations.RenameField(
-            model_name='weights',
-            old_name='profile_weights',
-            new_name='profile',
-        ),
+        
     ]

@@ -11,15 +11,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterField(
-            model_name='weights',
-            name='post',
-            field=models.ForeignKey(default=None, on_delete=django.db.models.deletion.CASCADE, to='profiles.postweights'),
-            preserve_default=False,
-        ),
-        migrations.AlterField(
-            model_name='weights',
-            name='profile',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='profiles.profileweights'),
-        ),
+        
     ]
