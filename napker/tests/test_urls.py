@@ -44,7 +44,3 @@ class TestUrls(TestCase):
 
     def test_delete_account_url(self):
         self.assertEqual(resolve('/delete-account').func, delete_account)
-
-    def test_api_urls(self):
-        pass
-
