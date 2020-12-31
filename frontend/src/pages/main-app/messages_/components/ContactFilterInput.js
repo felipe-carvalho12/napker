@@ -4,7 +4,7 @@ export default function ContactFilterInput(props) {
     const activeChatsProfiles = props.activeChatsProfiles
     const setHasFilteredProfiles = props.setHasFilteredProfiles
     const fetchActiveChatProfiles = props.fetchActiveChatProfiles
-    const setParentState = props.setParentState
+    const setRenderedActiveChatsProfiles = props.setRenderedActiveChatsProfiles
     const openModal = props.openModal
 
     const setContactSearch = query => {
@@ -17,9 +17,7 @@ export default function ContactFilterInput(props) {
             console.log(activeChatsProfiles)
             const filteredProfiles = activeChatsProfiles.filter(p => p.user.username.includes(query))
             setHasFilteredProfiles(true)
-            setParentState({
-                renderedActiveChatsProfiles: filteredProfiles
-            })
+            setRenderedActiveChatsProfiles(filteredProfiles)
         }
     }
 
