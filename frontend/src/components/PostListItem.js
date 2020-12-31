@@ -153,11 +153,11 @@ export default function PostListItem(props) {
                             </li>
                             :
                             <>
-                                <li>
+                                <li onClick={e => {e.stopPropagation(); window.alert('Ainda estamos desenvolvendo essa funcionalidade... (:')}}>
                                     <i class="fas fa-exclamation-triangle text-secondary" />
                                     Denunciar fake news
                                 </li>
-                                <li>
+                                <li onClick={e => {e.stopPropagation(); window.alert('Ainda estamos desenvolvendo essa funcionalidade... (:')}}>
                                     <i class="fas fa-exclamation-circle text-secondary" />
                                     Denunciar conteúdo impróprio
                                 </li>
