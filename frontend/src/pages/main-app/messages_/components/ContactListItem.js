@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import { SERVER_URL } from '../../../../config/settings'
 
 export default function ContactListItem(props) {
     const profile = props.profile

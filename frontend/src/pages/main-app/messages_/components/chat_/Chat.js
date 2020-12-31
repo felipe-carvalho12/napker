@@ -179,14 +179,20 @@ class Chat extends React.Component {
                                         <p className="text-secondary">@{this.state.otherProfile.user.username}</p>
                                     </div>
                                 </div>
-                                <div id="chat-log" className="chat-log">
-                                    {this.state.messages.map(message => {
-                                        return (
-                                            <MessageListItem message={message} currentUser={this.props.username} />
-                                        )
-                                    })
-                                    }
-                                </div>
+                                {WebSocketInstance.state() === 1 ?
+                                    <div id="chat-log" className="chat-log" style={{ background: 'var(--tertiary-grey)' }}>
+                                        {this.state.messages.map(message => {
+                                            return (
+                                                <MessageListItem message={message} currentUser={this.props.username} />
+                                            )
+                                        })
+                                        }
+                                    </div>
+                                    :
+                                    <div className="loader-container">
+                                        <div className="loader" />
+                                    </div>
+                                }
                                 <SendMessageForm
                                     WebSocketInstance={WebSocketInstance}
                                     chatId={this.props.chatId}

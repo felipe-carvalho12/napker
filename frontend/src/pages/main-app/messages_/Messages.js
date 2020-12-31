@@ -31,8 +31,7 @@ export default class Messages extends React.Component {
             if (props.match.params.slug !== this.props.match.params.slug && WebSocketInstance.state() === 1) {
                 WebSocketInstance.disconnect()
             }
-            const participants = { username: this.state.username, other_username: props.match.params.slug }
-            fetch(`${SERVER_URL}/chat-api/chat-id/${JSON.stringify(participants)}`)
+            fetch(`${SERVER_URL}/chat-api/chat-id/${props.match.params.slug}`)
                 .then(response => response.json())
                 .then(data => {
                     this.setState({ chatId: data['chat_id'] })

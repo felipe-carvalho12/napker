@@ -25,27 +25,19 @@ def get_current_chat(chatId):
 
 
 @api_view(['GET'])
-def get_chat_id(request, participants):
-    data = json.loads(participants)
-    username = data['username']
-    other_username = data['other_username']
-    user = User.objects.get(username=username)
-    other_user = User.objects.get(username=other_username)
+def get_chat_id(request, username):
+    user = request.user
+    other_user = User.objects.get(username=username)
     contact, created = Contact.objects.get_or_create(user=user)
     other_contact, created = Contact.objects.get_or_create(user=other_user)
-    chat = Chat.objects.filter(participants__id=contact.id)
+    chat = Chat.objects.filter(participants__id=contact.id).filter(participants__id=other_contact.id)
     if chat.exists():
-        chat = chat.filter(participants__id=other_contact.id)
-        if chat.exists():
-            chat = chat.first()
-        else:
-            chat = Chat.objects.create()
-            chat.participants.add(contact)
-            chat.participants.add(other_contact)
+        chat = chat.first()
     else:
         chat = Chat.objects.create()
         chat.participants.add(contact)
         chat.participants.add(other_contact)
+        chat.save()
     return Response({'chat_id': chat.id})
 
 
