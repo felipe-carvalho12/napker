@@ -168,13 +168,13 @@ class Chat extends React.Component {
 
     render() {
         return (
-            <>{console.log(this.state.otherUserIsTyping)}
+            <>
                 {this.state.otherProfile !== null || !this.props.otherUsername ?
                     <>
                         {this.state.otherProfile ?
                             <div
                                 className="d-flex flex-column justify-content-between align-items-center h-100 b-theme-base-color current-chat"
-                                style={{ width: '60%' }}
+                                style={{ width: '60%', background: 'var(--tertiary-grey)' }}
                             >
                                 <div className="current-chat-header">
                                     <i class="fas fa-arrow-left left-arrow-icon d-none" onClick={() => window.history.back()} />
@@ -197,7 +197,7 @@ class Chat extends React.Component {
                                     </div>
                                 </div>
                                 {WebSocketInstance.state() === 1 ?
-                                    <div id="chat-log" className="chat-log" style={{ background: 'var(--tertiary-grey)' }}>
+                                    <div id="chat-log" className="chat-log">
                                         {this.state.messages.map(message => {
                                             return (
                                                 <MessageListItem message={message} currentUser={this.props.username} />

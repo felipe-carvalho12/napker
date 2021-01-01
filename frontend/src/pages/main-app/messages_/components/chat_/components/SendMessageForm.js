@@ -74,7 +74,7 @@ export default function SendMessageForm(props) {
                 <Picker onEmojiClick={onEmojiSelect} />
             </div>
             <form
-                className="d-flex justify-content-center align-items-center w-100 px-1 py-3"
+                className="d-flex justify-content-center align-items-center w-100 px-1 py-3 b-theme-base-color"
                 style={{ borderTop: '2px solid var(--border-color)' }}
                 onSubmit={sendMessageHandler}
             >
