@@ -1,48 +1,60 @@
 from django.contrib.auth.models import User
 from django.test import TestCase, Client
 
-from .views import get_profile_list
+from profiles.views import get_profile_list
 
-from .models import Interest, Profile
+from profiles.models import Interest, Profile
 
 
 # Create your tests here.
-class ProfilesTests(TestCase):
+class TestViews(TestCase):
     def setUp(self):
         self.client = Client()
-        self.test_user = User.objects.create(username='fred')
+        self.test_user = User.objects.create(username='mark')
         self.test_user.set_password('secret1')
         self.test_user.is_active = True
         self.test_user.save()
-        self.test_user.profile.email = 'fred@fakemail.com'
+        self.test_user.profile.email = 'mark@fakemail.com'
         self.test_user.profile.save()
 
-        self.test_user_2 = User.objects.create(username='mark')
-        self.test_user_2.set_password('secret2')
+        self.test_user_2 = User.objects.create(username='daniel')
+        self.test_user_2.set_password('secret3')
         self.test_user_2.is_active = True
         self.test_user_2.save()
 
-        self.test_user_3 = User.objects.create(username='jon')
-        self.test_user_3.set_password('secret3')
+        self.test_user_3 = User.objects.create(username='pedro')
+        self.test_user_3.set_password('secret2')
         self.test_user_3.is_active = True
         self.test_user_3.save()
+
+        self.test_user_4 = User.objects.create(username='david')
+        self.test_user_4.set_password('secret3')
+        self.test_user_4.is_active = True
+        self.test_user_4.save()
     
+
+    def test_is_logged_view(self):
+        response = self.client.get('/profile-api/is-logged')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, 'False')
+
+        self.client.force_login(self.test_user)
+        response = self.client.get('/profile-api/is-logged')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, 'True')
+
 
     def test_get_logged_user_view(self):
         self.client.force_login(self.test_user)
         response = self.client.get('/profile-api/logged-user')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data['id'], self.test_user.pk)
+        self.assertEqual(response.data['id'], self.test_user.id)
 
     
     def test_get_profile_view(self):
-        response = self.client.get(f'/profile-api/user/{self.test_user.profile.slug}')
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data['id'], self.test_user.profile.pk)
-
         response = self.client.get(f'/profile-api/user/{self.test_user_2.profile.slug}')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data['id'], self.test_user_2.profile.pk)
+        self.assertEqual(response.data['id'], self.test_user_2.profile.id)
 
         response = self.client.get(f'/profile-api/user/nonexistent')
         self.assertEqual(response.status_code, 200)
@@ -52,43 +64,34 @@ class ProfilesTests(TestCase):
     def test_get_profile_by_email_view(self):
         response = self.client.get(f'/profile-api/profile-by-email/{self.test_user.profile.email}')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data['id'], self.test_user.profile.pk)
+        self.assertEqual(response.data['id'], self.test_user.profile.id)
 
-        self.test_user.is_active = False
-        self.test_user.save()
-        response = self.client.get(f'/profile-api/profile-by-email/{self.test_user.profile.email}')
+        response = self.client.get(f'/profile-api/profile-by-email/nonexistent')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data['bool'], 'false')
 
-        self.test_user.is_active = True
+        self.test_user.is_active = False
         self.test_user.save()
-        response = self.client.get(f'/profile-api/profile-by-email/nonexistent')
+
+        response = self.client.get(f'/profile-api/profile-by-email/{self.test_user.profile.email}')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data['bool'], 'false')
 
 
     def test_filter_profiles_view(self):
-        u1 = User.objects.create(username='daniel')
-        u2 = User.objects.create(username='davie')
-        u3 = User.objects.create(username='david')
-
         self.client.force_login(self.test_user)
 
+        response = self.client.get(f'/profile-api/users/d')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual([p['slug'] for p in response.data], ['daniel', 'david', 'pedro'])
+        
         response = self.client.get(f'/profile-api/users/da')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.data), 3)
+        self.assertEqual([p['slug'] for p in response.data], ['daniel', 'david'])
 
-        self.test_user.profile.blocked_users.add(u1)
-        response = self.client.get(f'/profile-api/users/da')
+        response = self.client.get(f'/profile-api/users/mark')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.data), 2)
-        self.assertEqual([profile['user']['id'] for profile in response.data], [u2.id, u3.id])
-
-        u2.profile.blocked_users.add(self.test_user)
-        response = self.client.get(f'/profile-api/users/da')
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.data), 1)
-        self.assertEqual(response.data[0]['id'], u3.id)
+        self.assertEqual([p['slug'] for p in response.data], ['mark'])
 
     
     def test_filter_profiles_by_interest_view(self):

@@ -1,4 +1,5 @@
 import random
+import re
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -15,7 +16,6 @@ from .utils import *
 
 @api_view(['GET'])
 def is_logged(request):
-    print(request.user)
     if request.user.is_authenticated:
         return Response('True')
     else:
@@ -29,9 +29,10 @@ def get_logged_user(request):
 
 @api_view(['GET'])
 def get_profile(request, slug):
-    if User.objects.filter(username=slug).exists():
-        user = User.objects.get(username=slug)
-        serializer = ProfileSerializer(Profile.objects.get(user=user))
+    profiles = Profile.objects.filter(slug=slug)
+    if profiles.exists():
+        profile = profiles.first()
+        serializer = ProfileSerializer(profile)
         return Response(serializer.data)
     else:
         return Response({'bool': 'false'})
@@ -39,8 +40,9 @@ def get_profile(request, slug):
 
 @api_view(['GET'])
 def get_profile_by_email(request, email):
-    if Profile.objects.filter(email=email, user__is_active=True).exists():
-        profile = Profile.objects.get(email=email, user__is_active=True)
+    profiles =  Profile.objects.filter(email=email, user__is_active=True)
+    if profiles.exists():
+        profile = profiles.first()
         serializer = ProfileSerializer(profile)
         return Response(serializer.data)
     else:
@@ -50,15 +52,14 @@ def get_profile_by_email(request, email):
 @api_view(['GET'])
 def filter_profiles(request, query):
     profile = Profile.objects.get(user=request.user)
-    profiles = []
-    for p in Profile.objects.all().exclude(user=profile.user):
-        if query.lower() not in p.user.username:
-            continue
-        if profile.user in p.blocked_users.all():
-            continue
-        if p.user in profile.blocked_users.all():
-            continue
-        profiles.append(p)
+    all_profiles = Profile.objects.all()
+
+    profiles = [p for p in all_profiles if len(re.findall(f'^{query.lower()}', p.slug))]
+
+    for p in all_profiles.exclude(id__in=[p.id for p in profiles]):
+        if query.lower() in p.slug:
+            profiles.append(p)
+
     serializer = ProfileSerializer(profiles, many=True)
     return Response(serializer.data)
 
