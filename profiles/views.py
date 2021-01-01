@@ -169,8 +169,7 @@ def friends_profiles(request, slug):
 @api_view(['GET'])
 def blocked_profiles(request):
     profile = Profile.objects.get(user=request.user)
-    profiles = [
-        blocked_user.profile for blocked_user in profile.blocked_users.all()]
+    profiles = [blocked_user.profile for blocked_user in profile.blocked_users.all()]
     serializer = ProfileSerializer(profiles, many=True)
     return Response(serializer.data)
 
@@ -182,7 +181,7 @@ def get_relationship(request, slug):
     if profile.friends.filter(username=slug).exists():
         return Response({'relationship': 'friends'})
     else:
-        relationships = [r for r in profile.sender.all() if r.status == 'sent']
+        relationships = Relationship.objects.invitations_sent(profile)
         for r in relationships:
             if other_profile == r.receiver:
                 return Response({'relationship': 'invite-sent'})
@@ -190,7 +189,8 @@ def get_relationship(request, slug):
         for r in relationships:
             if other_profile == r.sender:
                 return Response({'relationship': 'invite-received'})
-        return Response({'relationship': 'none'})
+
+    return Response({'relationship': 'none'})
 
 
 @api_view(['GET'])
@@ -201,46 +201,33 @@ def friend_requests_received(request):
     return Response(serializer.data)
 
 
-@api_view(['GET'])
-def pending_sent_friend_requests(request):
-    profile = Profile.objects.get(user=request.user)
-    relationships = [r for r in profile.sender.all() if r.status == 'sent']
-    serializer = RelationshipSerializer(relationships, many=True)
-    return Response(serializer.data)
-
-
 @api_view(['POST'])
 def remove_from_friends(request):
-    if request.method == 'POST':
-        profile = Profile.objects.get(user=request.user)
-        other_profile = Profile.objects.get(id=int(request.data))
-        relationship = Relationship.objects.filter(Q(sender=profile) | Q(sender=other_profile), Q(
-            receiver=profile) | Q(receiver=other_profile), status='accepted').first()
-        relationship.delete()
-        return Response('Removed from friends with success')
+    profile = Profile.objects.get(user=request.user)
+    other_profile = Profile.objects.get(id=int(request.data))
+    relationship = Relationship.objects.filter(Q(sender=profile) | Q(sender=other_profile), Q(
+        receiver=profile) | Q(receiver=other_profile), status='accepted').first()
+    relationship.delete()
+    return Response('Removed from friends with success')
 
 
 @api_view(['POST'])
-def send_friends_request(request):
-    if request.method == 'POST':
-        sender = Profile.objects.get(user=request.user)
-        receiver = Profile.objects.get(id=int(request.data))
-        if Relationship.objects.filter(Q(sender=sender) | Q(sender=receiver), Q(receiver=sender) | Q(receiver=receiver)).exists():
-            return Response('Users already have a relationship')
-        Relationship.objects.create(
-            sender=sender, receiver=receiver, status='sent')
-        return Response('Friend request sent')
+def send_friend_request(request):
+    sender = Profile.objects.get(user=request.user)
+    receiver = Profile.objects.get(id=int(request.data))
+    if Relationship.objects.filter(Q(sender=sender) | Q(sender=receiver), Q(receiver=sender) | Q(receiver=receiver)).exists():
+        return Response('Users already have a relationship')
+    Relationship.objects.create(sender=sender, receiver=receiver, status='sent')
+    return Response('Friend request sent')
 
 
 @api_view(['POST'])
 def cancel_friend_request(request):
-    if request.method == 'POST':
-        sender = Profile.objects.get(user=request.user)
-        receiver = Profile.objects.get(id=int(request.data))
-        r = Relationship.objects.get(
-            sender=sender, receiver=receiver, status='sent')
-        r.delete()
-        return Response('Friend request canceled')
+    sender = Profile.objects.get(user=request.user)
+    receiver = Profile.objects.get(id=int(request.data))
+    r = Relationship.objects.get(sender=sender, receiver=receiver, status='sent')
+    r.delete()
+    return Response('Friend request canceled')
 
 
 @api_view(['POST'])
@@ -248,8 +235,7 @@ def reply_friend_request(request):
     profile = Profile.objects.get(user=request.user)
     sender = Profile.objects.get(id=int(request.data['senderid']))
     reply = request.data['reply']
-    r = Relationship.objects.get(
-        sender=sender, receiver=profile, status='sent')
+    r = Relationship.objects.get(sender=sender, receiver=profile, status='sent')
     if reply == 'accept':
         r.status = 'accepted'
         r.save()

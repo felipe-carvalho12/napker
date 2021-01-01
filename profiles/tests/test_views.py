@@ -231,3 +231,123 @@ class TestViews(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data, 'weights updated')
         self.assertEqual(self.test_user.profile.weights, weights)
+
+    
+    def test_friends_profiles_view(self):
+        self.test_user.profile.friends.add(self.test_user_2)
+        self.test_user.profile.friends.add(self.test_user_3)
+        self.test_user.profile.save()
+
+        response = self.client.get(f'/profile-api/get-friends-profiles/{self.test_user}')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, ProfileSerializer([self.test_user_2.profile, self.test_user_3.profile], many=True).data)
+
+    
+    def test_blocked_profiles_view(self):
+        self.test_user.profile.blocked_users.add(self.test_user_2)
+        self.test_user.profile.blocked_users.add(self.test_user_3)
+        self.test_user.profile.save()
+
+        self.client.force_login(self.test_user)
+
+        response = self.client.get(f'/profile-api/get-blocked-profiles')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, ProfileSerializer([self.test_user_2.profile, self.test_user_3.profile], many=True).data)
+
+        self.test_user.profile.blocked_users.clear()
+        self.test_user.profile.save()
+
+        response = self.client.get(f'/profile-api/get-blocked-profiles')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, [])
+
+
+    def test_get_relationship_view(self):
+        Relationship.objects.create(sender=self.test_user.profile, receiver=self.test_user_2.profile, status='accepted')
+
+        self.client.force_login(self.test_user)
+
+        response = self.client.get(f'/profile-api/relationship/{self.test_user_2.username}')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, {'relationship': 'friends'})
+
+        Relationship.objects.create(sender=self.test_user.profile, receiver=self.test_user_3.profile, status='sent')
+
+        response = self.client.get(f'/profile-api/relationship/{self.test_user_3.username}')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, {'relationship': 'invite-sent'})
+
+        relationship = Relationship.objects.create(sender=self.test_user_4.profile, receiver=self.test_user.profile, status='sent')
+
+        response = self.client.get(f'/profile-api/relationship/{self.test_user_4.username}')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, {'relationship': 'invite-received'})
+
+        relationship.delete()
+
+        response = self.client.get(f'/profile-api/relationship/{self.test_user_4.username}')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, {'relationship': 'none'})
+
+
+    def test_friend_requests_received_view(self):
+        rel1 = Relationship.objects.create(sender=self.test_user_2.profile, receiver=self.test_user.profile, status='sent')
+        rel2 = Relationship.objects.create(sender=self.test_user_3.profile, receiver=self.test_user.profile, status='sent')
+
+        self.client.force_login(self.test_user)
+
+        response = self.client.get(f'/profile-api/myinvites')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, RelationshipSerializer([rel1, rel2], many=True).data)
+
+        rel1.delete()
+        rel2.delete()
+
+        response = self.client.get(f'/profile-api/myinvites')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, [])
+
+    
+    def test_remove_from_friends_view(self):
+        Relationship.objects.create(sender=self.test_user_2.profile, receiver=self.test_user.profile, status='accepted')
+        Relationship.objects.create(sender=self.test_user.profile, receiver=self.test_user_3.profile, status='accepted')
+
+        self.client.force_login(self.test_user)
+
+        response = self.client.post(f'/profile-api/remove-from-friends', self.test_user_2.profile.id, content_type='application/json')
+        self.test_user.profile.refresh_from_db()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, 'Removed from friends with success')
+        self.assertEqual(list(self.test_user.profile.friends.all()), [self.test_user_3])
+
+        response = self.client.post(f'/profile-api/remove-from-friends', self.test_user_3.profile.id, content_type='application/json')
+        self.test_user.profile.refresh_from_db()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, 'Removed from friends with success')
+        self.assertEqual(list(self.test_user.profile.friends.all()), [])
+
+
+    def test_send_friend_request_view(self):
+        self.client.force_login(self.test_user)
+
+        response = self.client.post(f'/profile-api/send-friend-request', self.test_user_2.profile.id, content_type='application/json')
+        self.test_user.profile.refresh_from_db()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, 'Friend request sent')
+        self.assertTrue(Relationship.objects.filter(sender=self.test_user.profile, receiver=self.test_user_2.profile, status='sent').exists())
+
+        response = self.client.post(f'/profile-api/send-friend-request', self.test_user_2.profile.id, content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, 'Users already have a relationship')
+
+        Relationship.objects.create(sender=self.test_user.profile, receiver=self.test_user_3.profile, status='accepted')
+
+        response = self.client.post(f'/profile-api/send-friend-request', self.test_user_3.profile.id, content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, 'Users already have a relationship')
+
+        Relationship.objects.create(sender=self.test_user_4.profile, receiver=self.test_user.profile, status='sent')
+
+        response = self.client.post(f'/profile-api/send-friend-request', self.test_user_4.profile.id, content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, 'Users already have a relationship')
