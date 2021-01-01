@@ -84,7 +84,7 @@ class TestViews(TestCase):
         response = self.client.get(f'/profile-api/users/d')
         self.assertEqual(response.status_code, 200)
         self.assertEqual([p['slug'] for p in response.data], ['daniel', 'david', 'pedro'])
-        
+
         response = self.client.get(f'/profile-api/users/da')
         self.assertEqual(response.status_code, 200)
         self.assertEqual([p['slug'] for p in response.data], ['daniel', 'david'])
@@ -137,7 +137,7 @@ class TestViews(TestCase):
         self.assertEqual(len(response.data), 0)
 
 
-    def get_profile_list_function(self):
+    def test_myprofile_list_view(self):
         pass
     
 
@@ -159,17 +159,16 @@ class TestViews(TestCase):
         self.client.force_login(self.test_user)
         response = self.client.get('/profile-api/interest-profile-list/napker')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.data), 1)
-        self.assertEqual(response.data[0]['user']['username'], self.test_user_2.username)
+        self.assertEqual([p['slug'] for p in response.data], [self.test_user_2.username])
 
         response = self.client.get('/profile-api/interest-profile-list/Napker')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data), 1)
-        self.assertEqual(response.data[0]['user']['username'], self.test_user_2.username)
+        self.assertEqual([p['slug'] for p in response.data], [self.test_user_2.username])
 
         response = self.client.get('/profile-api/interest-profile-list/nonexistent')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.data), 0)
+        self.assertEqual([p['slug'] for p in response.data], [])
 
 
     def test_my_profile_view(self):

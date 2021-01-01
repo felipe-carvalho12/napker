@@ -68,7 +68,7 @@ def filter_profiles(request, query):
 def filter_profiles_by_interests(request, query):
     interests = [i.strip() for i in query.split(',')]
     profiles = []
-    for profile in Profile.objects.filter(interests__title__contains=interests[0]).exclude(user=request.user):
+    for profile in Profile.objects.filter(interests__title=interests[0]).exclude(user=request.user):
         if all(inter in [i.title for i in profile.interests.filter(public=True)] for inter in interests) and profile not in profiles:
             profiles.append(profile)
     serializer = ProfileSerializer(profiles, many=True)
@@ -93,13 +93,16 @@ def profile_list_view(request, slug):
 
 @api_view(['GET'])
 def interest_profile_list(request, interest):
-    profile = Profile.objects.get(user=request.user)
     profiles = []
-    for p in [prof for prof in Profile.objects.all() if prof.interests.filter(title=interest.lower(), public=True).exists()]:
-        if p == profile:
-            continue
-        if p in profiles:
-            continue
+    interest = Interest.objects.filter(title=interest.lower(), public=True)
+
+    if interest.exists():
+        interest = interest.first()
+    else:
+        return Response([])
+
+    profiles_id = [p.id for p in profiles]
+    for p in Profile.objects.filter(interests__id=interest.id).exclude(user=request.user).exclude(id__in=profiles_id):
         profiles.append(p)
     random.shuffle(profiles)
     serializer = ProfileSerializer(profiles[:50], many=True)
