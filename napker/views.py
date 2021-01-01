@@ -81,7 +81,7 @@ def add_interests_view(request):
 
     user = User.objects.get(id=request.data['uid'])
     profile = Profile.objects.get(user=user)
-    interests = dict(request.data)['interests']
+    interests = request.data['interests']
     
     for title in interests:
         if len(title) < 3:

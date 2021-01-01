@@ -190,6 +190,7 @@ class TestViews(TestCase):
 
         self.client.force_login(self.test_user_2)
         response = self.client.get('/profile-api/get-weights')
+        self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data, {
             'profile': {
                 'interest_weight': 50,
@@ -203,3 +204,30 @@ class TestViews(TestCase):
                 'likes_weight': 50,
             }
         })
+
+
+    def test_set_weights_view(self):
+        profile_w = ProfileWeights.objects.create(interest_weight=85, age_weight=5, friends_weight=52, is_friend_weight=10)
+        post_w = PostWeights.objects.create(date_weight=99, author_weight=51, likes_weight=8)
+        weights = Weights.objects.create(profile=profile_w, post=post_w)
+
+        post_data = {
+           'profile': {
+                'interest_weight': 85,
+                'age_weight': 5,
+                'friends_weight': 52,
+                'is_friend_weight': 10
+            },
+            'post': {
+                'date_weight': 99,
+                'author_weight': 51,
+                'likes_weight': 8,
+            }
+        }
+
+        self.client.force_login(self.test_user)
+        response = self.client.post('/profile-api/set-weights', post_data, content_type='application/json')
+        self.test_user.refresh_from_db()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, 'weights updated')
+        self.assertEqual(self.test_user.profile.weights, weights)
