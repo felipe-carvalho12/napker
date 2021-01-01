@@ -37,7 +37,7 @@ export default function AlgorithmSettings() {
             previousPostWeights = weights.post
             bool = false
         }
-        if (previousProfileWeights && previousPostWeights) {
+        if (previousProfileWeights && previousPostWeights && profileWeights && postWeights) {
             buttonRef.current.disabled = areSameWeights(previousProfileWeights, previousPostWeights, profileWeights, postWeights)
         }
     }, [profileWeights, postWeights])
