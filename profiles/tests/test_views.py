@@ -1,9 +1,8 @@
 from django.contrib.auth.models import User
 from django.test import TestCase, Client
 
-from profiles.views import get_profile_list
-
-from profiles.models import Interest, Profile
+from profiles.models import *
+from profiles.serializers import *
 
 
 # Create your tests here.
@@ -48,13 +47,13 @@ class TestViews(TestCase):
         self.client.force_login(self.test_user)
         response = self.client.get('/profile-api/logged-user')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data['id'], self.test_user.id)
+        self.assertEqual(response.data, UserSerializer(self.test_user).data)
 
     
     def test_get_profile_view(self):
         response = self.client.get(f'/profile-api/user/{self.test_user_2.profile.slug}')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data['id'], self.test_user_2.profile.id)
+        self.assertEqual(response.data, ProfileSerializer(self.test_user_2.profile).data)
 
         response = self.client.get(f'/profile-api/user/nonexistent')
         self.assertEqual(response.status_code, 200)
@@ -64,7 +63,7 @@ class TestViews(TestCase):
     def test_get_profile_by_email_view(self):
         response = self.client.get(f'/profile-api/profile-by-email/{self.test_user.profile.email}')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data['id'], self.test_user.profile.id)
+        self.assertEqual(response.data, ProfileSerializer(self.test_user.profile).data)
 
         response = self.client.get(f'/profile-api/profile-by-email/nonexistent')
         self.assertEqual(response.status_code, 200)
@@ -109,32 +108,31 @@ class TestViews(TestCase):
         self.client.force_login(self.test_user)
         response = self.client.get('/profile-api/users-by-interest/napker')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.data), 1)
-        self.assertEqual(response.data[0]['user']['username'], self.test_user_2.username)
+        self.assertEqual(response.data, ProfileSerializer([self.test_user_2.profile], many=True).data)
 
         self.test_user_3.profile.interests.add(interest_public_1)
+
         response = self.client.get('/profile-api/users-by-interest/napker')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.data), 2)
+        self.assertEqual(response.data, ProfileSerializer([self.test_user_2.profile, self.test_user_3.profile], many=True).data)
 
         self.test_user_2.profile.interests.add(interest_public_2)
+
         response = self.client.get('/profile-api/users-by-interest/napker,tecnologia')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.data), 1)
-        self.assertEqual(response.data[0]['user']['username'], self.test_user_2.username)
+        self.assertEqual(response.data, ProfileSerializer([self.test_user_2.profile], many=True).data)
 
         response = self.client.get('/profile-api/users-by-interest/napker, tecnologia')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.data), 1)
-        self.assertEqual(response.data[0]['user']['username'], self.test_user_2.username)
+        self.assertEqual(response.data, ProfileSerializer([self.test_user_2.profile], many=True).data)
 
         response = self.client.get('/profile-api/users-by-interest/napker, tecnologia, nonexistent')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.data), 0)
+        self.assertEqual(response.data, [])
 
         response = self.client.get('/profile-api/users-by-interest/nonexistent')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.data), 0)
+        self.assertEqual(response.data, [])
 
 
     def test_myprofile_list_view(self):
@@ -159,20 +157,49 @@ class TestViews(TestCase):
         self.client.force_login(self.test_user)
         response = self.client.get('/profile-api/interest-profile-list/napker')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual([p['slug'] for p in response.data], [self.test_user_2.username])
+        self.assertEqual(response.data, ProfileSerializer([self.test_user_2.profile], many=True).data)
 
         response = self.client.get('/profile-api/interest-profile-list/Napker')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data), 1)
-        self.assertEqual([p['slug'] for p in response.data], [self.test_user_2.username])
+        self.assertEqual(response.data, ProfileSerializer([self.test_user_2.profile], many=True).data)
 
         response = self.client.get('/profile-api/interest-profile-list/nonexistent')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual([p['slug'] for p in response.data], [])
+        self.assertEqual(response.data, [])
 
 
     def test_my_profile_view(self):
         self.client.force_login(self.test_user)
         response = self.client.get('/profile-api/myprofile')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data['user']['username'], self.test_user.username)
+        self.assertEqual(response.data, ProfileSerializer(self.test_user.profile).data)
+
+    
+    def test_get_weights_views(self):
+        profile_w = ProfileWeights.objects.create(interest_weight=30, age_weight=55, friends_weight=10, is_friend_weight=100)
+        post_w = PostWeights.objects.create(date_weight=78, author_weight=40, likes_weight=95)
+        weights = Weights.objects.create(profile=profile_w, post=post_w)
+
+        self.test_user.profile.weights = weights
+        self.test_user.profile.save()
+
+        self.client.force_login(self.test_user)
+        response = self.client.get('/profile-api/get-weights')
+        self.assertEqual(response.data, WeightsSerializer(weights).data)
+
+        self.client.force_login(self.test_user_2)
+        response = self.client.get('/profile-api/get-weights')
+        self.assertEqual(response.data, {
+            'profile': {
+                'interest_weight': 50,
+                'age_weight': 50,
+                'friends_weight': 50,
+                'is_friend_weight': 50
+            },
+            'post': {
+                'date_weight': 50,
+                'author_weight': 50,
+                'likes_weight': 50,
+            }
+        })
