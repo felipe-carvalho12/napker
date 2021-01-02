@@ -25,18 +25,6 @@ export const handleLogout = () => {
   }
 }
 
-export const openCloseEmojiList = (closing = false) => {
-  const el = document.querySelector('#emoji-list-container')
-  const style = el.style
-  if (closing) {
-    style.display = 'none'
-  } else if (!style.display || style.display === 'none') {
-    style.display = 'initial'
-  } else {
-    style.display = 'none'
-  }
-}
-
 
 // EXPANDABLE TEXTAREA
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import Picker from 'emoji-picker-react'
 
-import { openCloseEmojiList } from '../../../../../../config/utils'
+import EmojiPicker from '../../../../../../components/EmojiPicker'
+
 
 export default function SendMessageForm(props) {
     const WebSocketInstance = props.WebSocketInstance
@@ -39,11 +39,6 @@ export default function SendMessageForm(props) {
         counter = 5
     }
 
-    const onEmojiSelect = (event, emojiObject) => {
-        setMessage(message + emojiObject.emoji)
-        document.querySelector('#chat-message-submit').disabled = false
-    }
-
     const sendMessageHandler = e => {
         e.preventDefault()
         const messageObject = {
@@ -64,25 +59,17 @@ export default function SendMessageForm(props) {
         }
         WebSocketInstance.newChatMessage(messageObject)
         document.querySelector('#chat-message-submit').disabled = true
-        openCloseEmojiList(true)
         updateMessagesComponent()
     }
 
     return (
         <>
-            <div className="emoji-list-container chat-emoji-list" id="emoji-list-container">
-                <Picker onEmojiClick={onEmojiSelect} />
-            </div>
             <form
                 className="d-flex justify-content-center align-items-center w-100 px-1 py-3 b-theme-base-color"
                 style={{ borderTop: '2px solid var(--border-color)' }}
                 onSubmit={sendMessageHandler}
             >
-                <label
-                    className="far fa-smile mb-0 smile"
-                    id="emoji-button"
-                    onClick={() => openCloseEmojiList(false)}
-                />
+                <EmojiPicker />
                 <input
                     placeholder="Mensagem"
                     className="message-input"

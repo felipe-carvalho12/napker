@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import Picker from 'emoji-picker-react'
 import { Link } from 'react-router-dom'
+import EmojiPicker from '../../../../../../components/emojiPicker'
 
 import { SERVER_URL } from '../../../../../../config/settings'
-import { csrftoken, openCloseEmojiList } from '../../../../../../config/utils'
+import { csrftoken } from '../../../../../../config/utils'
 
 export default function PostForm(props) {
     const myProfile = props.myProfile
@@ -52,11 +52,6 @@ export default function PostForm(props) {
         document.querySelector('#post-image').value = ''
         if (postContent.trim() === '') document.querySelector('#post-form-submit-btn').disabled = true
         setPostFormImagePreview(null)
-    }
-
-    const onEmojiSelect = (event, emojiObject) => {
-        setPostContent(postContent + emojiObject.emoji)
-        document.querySelector('#post-form-submit-btn').disabled = false
     }
 
     const handleSubmit = e => {
@@ -163,17 +158,7 @@ export default function PostForm(props) {
                         </>
                     }
                     {!isMobile &&
-                        <>
-                            <label
-                                className="far fa-smile smile"
-                                id="emoji-button"
-                                onClick={() => openCloseEmojiList(false)}
-                            >
-                            </label>
-                            <div className="emoji-list-container" id="emoji-list-container">
-                                <Picker onEmojiClick={onEmojiSelect} />
-                            </div>
-                        </>
+                        <EmojiPicker />
                     }
                 </div>
                 <button
