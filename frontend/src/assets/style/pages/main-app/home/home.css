@@ -10,6 +10,7 @@
 
 .home-page-menu {
     width: 100%;
+    height: var(--home-page-menu-height);
     display: flex;
     align-items: center;
     background: var(--fixed-components-background);

@@ -12,7 +12,7 @@ class RecursiveField(serializers.Serializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'password']
+        fields = ['id', 'username']
 
 # UNRELATED SERIALIZERS - AVOID CIRCULAR RELATIONSHIP ISSUE
 class PostLikeUnrelatedSerializer(serializers.ModelSerializer):
@@ -52,7 +52,6 @@ class CommentUnrelatedSerializer(serializers.ModelSerializer):
 # POSTS APP SERIALIZERS
 class PostLikeSerializer(PostLikeUnrelatedSerializer):
     profile = ProfileUnrelatedSerializer()
-    post = PostUnrelatedSerializer()
 
 class CommentLikeSerializer(CommentLikeUnrelatedSerializer):
     profile = ProfileUnrelatedSerializer()
@@ -63,12 +62,12 @@ class CommentSerializer(CommentUnrelatedSerializer):
     comments = RecursiveField(source='child_comments', many=True)
     all_child_comments_length = serializers.IntegerField()
 
-
 class PostSerializer(PostUnrelatedSerializer):
     likes = PostLikeSerializer(source='all_likes', many=True)
     all_child_comments_length = serializers.IntegerField()
     first_layer_comments = CommentSerializer(many=True)
     author = ProfileUnrelatedSerializer()
+
 
 # PROFILES APP SERIALIZERS
 class InterestSerializer(serializers.ModelSerializer):

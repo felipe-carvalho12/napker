@@ -1,11 +1,7 @@
-from django.test import TestCase, Client
+from django.test import TestCase
 from django.urls import resolve, reverse
 
-from napker.views import (
-    login_view, logout_view, signup_view, add_interests_view, activate_account_view,
-    update_profile, reset_password, reset_password_confirm, reset_password_complete,
-    change_password, delete_account
-)
+from napker.views import *
 
 
 class TestUrls(TestCase):

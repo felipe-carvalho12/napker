@@ -84,7 +84,7 @@ class TestViews(TestCase):
             'interests': ['futebol', 'viajar']
         }
 
-        response = self.client.post('/post-signup/interests', post_data)
+        response = self.client.post('/post-signup/interests', post_data, content_type='application/json')
         user.profile.refresh_from_db()
         self.assertEqual(response.status_code, 200)
         self.assertFalse(user.is_active)

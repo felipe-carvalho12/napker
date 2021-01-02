@@ -31,20 +31,22 @@ export default function Home(props) {
         <>
             <Header page="Home" />
             <div className="sidebar-content">
-                <div className="desktop-home-menu">
-                    <HomePageMenu
-                        setPage={setPage}
-                        feedPageTitle='Feed'
-                        profilesPageTitle='Encontrar perfis'
-                        explorePageTitle='Descobrir'
-                        newsPageTitle='Notícias'
-                        trendsPageTitle='Tendências'
-                    />
+                <div className="w-100 h-100 home-page">
+                    <div className="desktop-home-menu">
+                        <HomePageMenu
+                            setPage={setPage}
+                            feedPageTitle='Feed'
+                            profilesPageTitle='Encontrar perfis'
+                            explorePageTitle='Descobrir'
+                            newsPageTitle='Notícias'
+                            trendsPageTitle='Tendências'
+                        />
+                    </div>
+                    <div className="mobile-home-menu">
+                        <HomePageMenu setPage={setPage} />
+                    </div>
+                    {pages[page]}
                 </div>
-                <div className="mobile-home-menu">
-                    <HomePageMenu setPage={setPage} />
-                </div>
-                {pages[page]}
             </div>
             <BottomMenu>
                 <PostIcon />

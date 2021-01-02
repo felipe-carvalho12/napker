@@ -22,10 +22,12 @@ def get_post_relevance(profile, post):
 
 
 def process_posts_relevance(profile):
-    AUTHOR_WEIGHT = 0
-    LIKES_WEIGHT = 1
+    if profile.weights.post is not None:
+        raw_weights = np.array([profile.weights.post.author_weight, profile.weights.post.likes_weight])
+    else:
+        raw_weights = np.array([0.5, 0.5])
 
-    WEIGHTS = [AUTHOR_WEIGHT, LIKES_WEIGHT]
+    WEIGHTS = raw_weights / np.sum(raw_weights)
 
     posts = Post.objects.all()
     authors = [post.author for post in posts]
