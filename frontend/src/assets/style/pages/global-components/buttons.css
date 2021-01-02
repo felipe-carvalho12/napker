@@ -6,21 +6,12 @@
     font-weight: bold!important;
 }
   
-.btn-primary:hover {
-    background-color: var(--primary-color-hover)!important;
-    color: #fff!important;
-}
-  
 .btn-secondary {
     background: rgba(0, 0, 0, 0)!important;
     color: var(--primary-color)!important;
     border: 1px solid var(--primary-color)!important;
     border-radius: 20px!important;
     font-weight: bold!important;
-}
-  
-.btn-secondary:hover {
-    background: var(--secondary-color)!important;
 }
   
 .left-arrow-icon, .add-icon {
@@ -31,28 +22,12 @@
     font-size: 1.25rem;
 }
   
-.left-arrow-icon:hover, .add-icon:hover {
-    background-color: var(--secondary-color);
-    color: var(--primary-color-hover);
-    cursor: pointer;
-}
-  
-.trash-icon:hover {
-    color: #f00!important;
-    cursor: pointer;
-}
-  
 .btn-grey {
     background: var(--secondary-color);
     color: var(--primary-grey);
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 20px;
     font-weight: bold;
-}
-  
-.btn-grey:hover {
-    background: var(--theme-base-color-hover);
-    color: var(--primary-grey);
 }
   
 .btn-primary:focus, .btn-secondary:focus, .btn-grey:focus {
