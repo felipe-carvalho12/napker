@@ -30,7 +30,7 @@ export default function Posts(props) {
                 likes={likesModal.likes}
                 hideModal={hideLikesModal}
             />
-            <div className="d-flex flex-column justify-content-center align-items-center w-100 h-100">
+            <div className="d-flex flex-column justify-content-start align-items-center w-100 h-100">
                 {profile && myProfile ?
                     <>
                         {profile.posts.length ? profile.posts.map(post => {

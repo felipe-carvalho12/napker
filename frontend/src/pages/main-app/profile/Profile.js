@@ -331,7 +331,7 @@ class Profile extends React.Component {
                         }
                     </div>
                     :
-                    <div className="profile-page-loader-container">
+                    <div className="loader-container">
                         <div className="loader" />
                     </div>
                 }

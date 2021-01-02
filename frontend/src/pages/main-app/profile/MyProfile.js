@@ -89,7 +89,7 @@ export default function MyProfile() {
                             <Interests profile={myProfile} />
                         }
                     </> :
-                    <div className="profile-page-loader-container">
+                    <div className="loader-container">
                         <div className="loader" />
                     </div>
                 }

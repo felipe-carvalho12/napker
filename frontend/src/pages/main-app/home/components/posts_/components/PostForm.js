@@ -126,25 +126,27 @@ export default function PostForm(props) {
                     onChange={handlePostContentChange}
                 />
             </div>
-            <div className="w-100 d-flex justify-content-center">
-                <div
-                    className="post-img-container"
-                    id="post-img-container">
+            {postFormImagePreview !== '' &&
+                <div className="w-100 d-flex justify-content-center">
                     <div
-                        className="post-img-options"
-                    >
-                        <i
-                            className="far fa-times-circle"
-                            onClick={handleCloseImage}
+                        className="post-img-container"
+                        id="post-img-container">
+                        <div
+                            className="post-img-options"
+                        >
+                            <i
+                                className="far fa-times-circle"
+                                onClick={handleCloseImage}
+                            />
+                        </div>
+                        <img
+                            src={postFormImagePreview}
+                            className="post-img mt-0"
+                            id="post-form-img-preview"
                         />
                     </div>
-                    <img
-                        src={postFormImagePreview}
-                        className="post-img mt-0"
-                        id="post-form-img-preview"
-                    />
                 </div>
-            </div>
+            }
             <hr />
             <div className="d-flex justify-content-between" style={{ margin: '0px 70px 0 70px' }}>
                 <div className="post-extra-options">
