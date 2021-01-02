@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
+import Slider from '@material-ui/core/Slider'
 
 import { AlgorithmWeightsContext } from '../../../../../../../../context/app/AppContext'
 
@@ -51,7 +52,10 @@ export default function PostSettings(props) {
                                 <strong>{dateValue}</strong>
                             </div>
                             <div class="range">
-                                <input type="range" min="0" max="100" value={dateValue} onInput={e => setDateValue(e.target.value)} />
+                                <Slider
+                                    defaultValue={dateValue}
+                                    onChange={(e, value) => setDateValue(value)}
+                                />
                             </div>
                         </div>
                         <div className="pt-1" style={{ width: '100%' }}>
@@ -60,7 +64,10 @@ export default function PostSettings(props) {
                                 <strong>{authorValue}</strong>
                             </div>
                             <div class="range">
-                                <input type="range" min="0" max="100" value={authorValue} onInput={e => setAuthorValue(e.target.value)} />
+                                <Slider
+                                    defaultValue={authorValue}
+                                    onChange={(e, value) => setAuthorValue(value)}
+                                />
                             </div>
                         </div>
                         <div className="pt-1" style={{ width: '100%' }}>
@@ -69,7 +76,10 @@ export default function PostSettings(props) {
                                 <strong>{likesValue}</strong>
                             </div>
                             <div class="range">
-                                <input type="range" min="0" max="100" value={likesValue} onInput={e => setLikesValue(e.target.value)} />
+                                <Slider
+                                    defaultValue={likesValue}
+                                    onChange={(e, value) => setLikesValue(value)}
+                                />
                             </div>
                         </div>
                     </div>

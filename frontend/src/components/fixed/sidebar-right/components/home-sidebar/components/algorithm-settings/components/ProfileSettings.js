@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react'
+import Slider from '@material-ui/core/Slider'
 
 import { AlgorithmWeightsContext } from '../../../../../../../../context/app/AppContext'
 
@@ -54,7 +55,10 @@ export default function ProfileSettings(props) {
                                 <strong>{interestsValue}</strong>
                             </div>
                             <div class="range">
-                                <input type="range" min="0" max="100" value={interestsValue} onInput={e => setInterestsValue(e.target.value)} />
+                                <Slider
+                                    defaultValue={interestsValue}
+                                    onChange={(e, value) => setInterestsValue(value)}
+                                />
                             </div>
                         </div>
                         <div className="pt-1" style={{ width: '100%' }}>
@@ -63,7 +67,10 @@ export default function ProfileSettings(props) {
                                 <strong>{ageValue}</strong>
                             </div>
                             <div class="range">
-                                <input type="range" min="0" max="100" value={ageValue} onInput={e => setAgeValue(e.target.value)} />
+                                <Slider
+                                    defaultValue={ageValue}
+                                    onChange={(e, value) => setAgeValue(value)}
+                                />
                             </div>
                         </div>
                         <div className="pt-1" style={{ width: '100%' }}>
@@ -72,7 +79,10 @@ export default function ProfileSettings(props) {
                                 <strong>{friendsValue}</strong>
                             </div>
                             <div class="range">
-                                <input type="range" min="0" max="100" value={friendsValue} onInput={e => setFriendsValue(e.target.value)} />
+                                <Slider
+                                    defaultValue={friendsValue}
+                                    onChange={(e, value) => setFriendsValue(value)}
+                                />
                             </div>
                         </div>
                         <div className="pt-1" style={{ width: '100%' }}>
@@ -81,7 +91,10 @@ export default function ProfileSettings(props) {
                                 <strong>{isFriendValue}</strong>
                             </div>
                             <div class="range">
-                                <input type="range" min="0" max="100" value={isFriendValue} onInput={e => setIsFriendValue(e.target.value)} />
+                                <Slider
+                                    defaultValue={isFriendValue}
+                                    onChange={(e, value) => setIsFriendValue(value)}
+                                />
                             </div>
                         </div>
                     </div>
