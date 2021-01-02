@@ -30,7 +30,6 @@ export default function HomePageMenu(props) {
                 btn.classList.add('btn-grey')
             }
         })
-        console.log(e.target, e.target.nodeName)
         if (e.target.nodeName === 'I') {
             e.target.parentElement.classList.remove('btn-grey')
             e.target.parentElement.classList.add('btn-primary')
