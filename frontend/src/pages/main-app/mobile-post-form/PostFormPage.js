@@ -20,7 +20,7 @@ export default function Posts() {
                 {myProfile !== null ?
                     <PostForm myProfile={myProfile} />
                     :
-                    <div className="posts-loader-container" >
+                    <div className="loader-container" >
                         <div className="loader" />
                     </div>
                 }

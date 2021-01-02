@@ -6,7 +6,6 @@ import PostForm from '../../components/PostForm'
 import LikesModal from '../../../../../../../components/LikesModal'
 import Header from '../../../../../../../components/fixed/Header'
 import BottomMenu from '../../../../../../../components/fixed/bottom-menu/BottomMenu'
-import CommentIcon from '../../../../../../../components/fixed/bottom-menu/components/CommentIcon'
 import PostListItem from '../../../../../../../components/PostListItem'
 import CommentListItem from './components/CommentListItem'
 
@@ -90,7 +89,7 @@ export default function Post() {
                                         comment={comment}
                                         myProfile={myProfile}
                                         renderParent={fetchPost}
-                                        style={{ borderLeft: "5px solid var(--background)"}}
+                                        style={{ borderLeft: "5px solid var(--background)" }}
                                     />
                                 )
                             })
@@ -102,9 +101,7 @@ export default function Post() {
                     </div>
                 }
             </div>
-            <BottomMenu>
-                <CommentIcon postId={id} />
-            </BottomMenu>
+            <BottomMenu />
         </div>
     )
 }
