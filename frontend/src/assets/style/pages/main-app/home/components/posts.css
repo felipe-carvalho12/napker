@@ -94,21 +94,3 @@
 .fas.fa-heart.animated {
     animation: heartExpand .6s;
 }
-
-.fa-comment:hover {
-    background: var(--secondary-color);
-    color: var(--primary-color);
-    cursor: pointer;
-}
-
-.fa-heart:hover {
-    background: var(--heart-background-hover);
-    color: var(--heart-color);
-    cursor: pointer;
-}
-
-.likes-number:hover {
-    color: var(--heart-color);
-    text-decoration: underline;
-    cursor: pointer;
-}

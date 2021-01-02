@@ -1,28 +1,83 @@
-.hover-pointer:hover {
-    cursor: pointer;
-  }
-  
-.hover-underline:hover {
-    text-decoration: underline;
-}
+@media (min-width: 981px) {
+    /* GLOBAL */
 
-.primary-hover, .secondary-hover  {
-    transition: .2s;
-}
+    .hover-pointer:hover {
+        cursor: pointer;
+      }
+      
+    .hover-underline:hover {
+        text-decoration: underline;
+    }
+    
+    .primary-hover, .secondary-hover  {
+        transition: .2s;
+    }
+    
+    .base-hover:hover {
+        cursor: pointer;
+        background: var(--theme-base-color-hover)!important;
+    }
+    
+    .primary-hover:hover {
+        cursor: pointer;
+        background: var(--primary-color-hover)!important;
+    }
+    
+    .secondary-hover:hover {
+        cursor: pointer;
+        background: var(--secondary-color);
+        color: var(--primary-color)!important;
+        transition: .2s;
+    }
 
-.base-hover:hover {
-    cursor: pointer;
-    background: var(--theme-base-color-hover)!important;
-}
+    /* SPECIFIC */
 
-.primary-hover:hover {
-    cursor: pointer;
-    background: var(--primary-color-hover)!important;
-}
+    a:hover {
+        font-weight: 400;
+        color: var(--primary-color-hover);
+    }
 
-.secondary-hover:hover {
-    cursor: pointer;
-    background: var(--secondary-color);
-    color: var(--primary-color)!important;
-    transition: .2s;
+    .icon:hover {
+        cursor: pointer;
+        background: rgba(255, 255, 255, .2);
+    }
+
+    .btn-primary:hover {
+        background-color: var(--primary-color-hover)!important;
+        color: #fff!important;
+    }
+
+    .btn-secondary:hover {
+        background: var(--secondary-color)!important;
+    }
+
+    .btn-grey:hover {
+        background: var(--theme-base-color-hover);
+        color: var(--primary-grey);
+    }
+
+    .left-arrow-icon:hover, .add-icon:hover {
+        background-color: var(--secondary-color);
+        color: var(--primary-color-hover);
+        cursor: pointer;
+    }
+
+    .fa-comment:hover {
+        background: var(--secondary-color);
+        color: var(--primary-color);
+        cursor: pointer;
+    }
+    
+    .fa-heart:hover {
+        background: var(--heart-background-hover);
+        color: var(--heart-color);
+        cursor: pointer;
+    }
+    
+    .likes-number:hover {
+        color: var(--heart-color);
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
 }
