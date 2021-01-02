@@ -1,12 +1,12 @@
 import React, { useEffect, useContext } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 
-import { setTheme } from '../../config/utils'
 import {
     InvitesReceivedContext, UnvisualizedCommentsContext,
     UnvisualizedLikesContext, UnreadMessagesContext
 } from '../../context/app/AppContext'
 import Logo from '../../assets/icons/Logo'
+import ThemeSwitcher from '../ThemeSwitcher'
 
 export default function Sidebar() {
     const [invitesReceivedNumber,] = useContext(InvitesReceivedContext)
@@ -16,19 +16,6 @@ export default function Sidebar() {
     const [unreadMessagesNumber,] = useContext(UnreadMessagesContext)
 
     let notificationsNumber = invitesReceivedNumber + unvisualizedLikesNumber + unvisualizedCommentsNumber
-
-    let theme = window.localStorage.getItem('theme') || 'light'
-
-
-    useEffect(() => {
-        document.getElementById('chk').checked = theme === 'dark'
-    }, [])
-
-    const switchTheme = () => {
-        theme = theme === 'light' ? 'dark' : 'light'
-        setTheme(theme)
-        window.localStorage.setItem('theme', theme)
-    }
 
     return (
         <div className="sidebar" style={{ left: '0' }}>
@@ -85,17 +72,7 @@ export default function Sidebar() {
                     </NavLink>
                 </ul>
             </div>
-            <div class="d-flex justify-content-start sidebar-menu-item">
-                <div class="one-quarter" id="switch">
-                    <input type="checkbox" class="checkbox" id="chk" onChange={switchTheme} />
-                    <label class="label m-0" for="chk">
-                        <i class="fas fa-sun"></i>
-                        <i class="fas fa-moon"></i>
-                        <div class="ball"></div>
-                    </label>
-                </div>
-                <span style={{ marginLeft: '10px' }}>Tema</span>
-            </div>
+            <ThemeSwitcher id="sidebar-switcher" />
         </div>
     )
 }

@@ -24,12 +24,12 @@ export default function BottomMenu(props) {
                 <ul>
                     <li>
                         <NavLink to="/home" className="bottom-menu-item" style={{ textDecoration: 'none' }} activeClassName="c-primary-color">
-                            <i className="fas fa-home sidebar-menu-icon" />
+                            <i className="material-icons-outlined" style={{ margin: "5px 10px 5px 0px", fontSize: "30px" }}>home</i>
                         </NavLink>
                     </li>
                     <li>
                         <NavLink to="/notificações" className="bottom-menu-item" style={{ textDecoration: 'none' }} activeClassName="c-primary-color">
-                            <i className="fas fa-bell sidebar-menu-icon" />
+                            <i className="material-icons-outlined" style={{ margin: "5px 10px 5px 0px", fontSize: "30px" }}>notifications</i>
                             {!notificationsNumber ? '' :
                                 <div className="notification-text-container">
                                     <div className="notification-text">
@@ -41,7 +41,7 @@ export default function BottomMenu(props) {
                     </li>
                     <li>
                         <NavLink to="/mensagens" className="bottom-menu-item" style={{ textDecoration: 'none' }} activeClassName="c-primary-color">
-                            <i className="fas fa-envelope bottom-menu-icon" />
+                            <i className="material-icons-outlined" style={{ margin: "5px 10px 5px 0px", fontSize: "30px" }}>email</i>
                             {!unreadMessagesNumber ? '' :
                                 <div className="notification-text-container">
                                     <div className="notification-text">
@@ -53,12 +53,12 @@ export default function BottomMenu(props) {
                     </li>
                     <li>
                         <NavLink to="/perfil" className="bottom-menu-item" style={{ textDecoration: 'none' }} activeClassName="c-primary-color">
-                            <i className="fas fa-user sidebar-menu-icon" />
+                            <i className="material-icons-outlined" style={{ margin: "5px 10px 5px 0px", fontSize: "30px" }}>perm_identity</i>
                         </NavLink>
                     </li>
                     <li>
                         <NavLink to="/configurações" className="bottom-menu-item" style={{ textDecoration: 'none' }} activeClassName="c-primary-color">
-                            <i className="fas fa-cog sidebar-menu-icon" />
+                            <i className="material-icons-outlined" style={{ margin: "5px 10px 5px 0px", fontSize: "30px" }}>settings</i>
                         </NavLink>
                     </li>
                 </ul>
