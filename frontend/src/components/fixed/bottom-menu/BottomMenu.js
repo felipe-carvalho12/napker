@@ -28,10 +28,10 @@ export default function BottomMenu(props) {
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/notificações" className="bottom-menu-item" style={{ textDecoration: 'none' }} activeClassName="c-primary-color">
+                        <NavLink to="/notificações" className="bottom-menu-item d-flex justify-content-center align-items-center" style={{ textDecoration: 'none' }} activeClassName="c-primary-color">
                             <i className="material-icons-outlined" style={{ margin: "5px 10px 5px 0px", fontSize: "30px" }}>notifications</i>
                             {!notificationsNumber ? '' :
-                                <div className="notification-text-container">
+                                <div className="notification-text-container position-absolute" style={{ bottom: '31px', left:'31%' }}>
                                     <div className="notification-text">
                                         {notificationsNumber}
                                     </div>
@@ -40,10 +40,10 @@ export default function BottomMenu(props) {
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/mensagens" className="bottom-menu-item" style={{ textDecoration: 'none' }} activeClassName="c-primary-color">
+                        <NavLink to="/mensagens" className="bottom-menu-item d-flex justify-content-center align-items-center" style={{ textDecoration: 'none' }} activeClassName="c-primary-color">
                             <i className="material-icons-outlined" style={{ margin: "5px 10px 5px 0px", fontSize: "30px" }}>email</i>
                             {!unreadMessagesNumber ? '' :
-                                <div className="notification-text-container">
+                                <div className="notification-text-container position-absolute" style={{ bottom: '30px', left:'49%' }}>
                                     <div className="notification-text">
                                         {unreadMessagesNumber}
                                     </div>
