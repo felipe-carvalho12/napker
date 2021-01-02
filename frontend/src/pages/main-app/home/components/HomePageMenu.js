@@ -30,8 +30,14 @@ export default function HomePageMenu(props) {
                 btn.classList.add('btn-grey')
             }
         })
-        e.target.classList.remove('btn-grey')
-        e.target.classList.add('btn-primary')
+        console.log(e.target, e.target.nodeName)
+        if (e.target.nodeName === 'I') {
+            e.target.parentElement.classList.remove('btn-grey')
+            e.target.parentElement.classList.add('btn-primary')
+        } else {
+            e.target.classList.remove('btn-grey')
+            e.target.classList.add('btn-primary')
+        }
         setPage(page)
     }
 
@@ -46,7 +52,7 @@ export default function HomePageMenu(props) {
                     onMouseEnter={e => handleMouseIn(e, feedPageTitle)}
                     onMouseOut={e => handleMouseOut(e, '<i class="material-icons-sharp" style="font-size: 21px; vertical-align: text-bottom;">home</i>')}
                 >
-                    <i className="material-icons-sharp" style={{ fontSize: "21px", verticalAlign: "text-bottom"}}>home</i>
+                    <i className="material-icons-sharp" style={{ fontSize: "21px", verticalAlign: "text-bottom" }}>home</i>
                 </button>
             </div>
             <div className="home-menu-btn-container b-bottom b-right profiles">
@@ -58,7 +64,7 @@ export default function HomePageMenu(props) {
                     onMouseEnter={e => handleMouseIn(e, profilesPageTitle)}
                     onMouseOut={e => handleMouseOut(e, '<i class="material-icons-sharp" style="font-size: 21px; vertical-align: text-bottom;">person_search</i>')}
                 >
-                    <i className="material-icons-sharp" style={{ fontSize: "21px", verticalAlign: "text-bottom"}}>person_search</i>
+                    <i className="material-icons-sharp" style={{ fontSize: "21px", verticalAlign: "text-bottom" }}>person_search</i>
                 </button>
             </div>
             <div className="home-menu-btn-container b-bottom b-right explore">
@@ -70,7 +76,7 @@ export default function HomePageMenu(props) {
                     onMouseEnter={e => handleMouseIn(e, explorePageTitle)}
                     onMouseOut={e => handleMouseOut(e, '<i class="material-icons-sharp" style="font-size: 21px; vertical-align: text-bottom;">search</i>')}
                 >
-                    <i className="material-icons-sharp" style={{ fontSize: "21px", verticalAlign: "text-bottom"}}>search</i>
+                    <i className="material-icons-sharp" style={{ fontSize: "21px", verticalAlign: "text-bottom" }}>search</i>
                 </button>
             </div>
             <div className="home-menu-btn-container b-bottom trending">
@@ -82,7 +88,7 @@ export default function HomePageMenu(props) {
                     onMouseEnter={e => handleMouseIn(e, trendsPageTitle)}
                     onMouseOut={e => handleMouseOut(e, '<i class="material-icons-sharp" style="font-size: 21px; vertical-align: text-bottom;">trending_up</i>')}
                 >
-                    <i className="material-icons-sharp" style={{ fontSize: "21px", verticalAlign: "text-bottom"}}>trending_up</i>
+                    <i className="material-icons-sharp" style={{ fontSize: "21px", verticalAlign: "text-bottom" }}>trending_up</i>
                 </button>
             </div>
         </div>

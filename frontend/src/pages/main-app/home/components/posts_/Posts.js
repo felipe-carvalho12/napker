@@ -61,7 +61,7 @@ export default function Posts() {
                     <PostForm myProfile={myProfile} usePosts={() => [posts, setPosts]} />
                 </div>
             }
-            <div className="d-flex flex-column justify-content-center align-items-center w-100 h-100">
+            <div className="d-flex flex-column justify-content-start align-items-center w-100 h-100">
                 {(posts && myProfile && !isFetching_weights) &&
                     posts.map(post => {
                         return (
