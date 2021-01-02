@@ -22,7 +22,7 @@ def get_post_relevance(profile, post):
 
 
 def process_posts_relevance(profile):
-    if profile.weights.post is not None:
+    if profile.weights is not None:
         raw_weights = np.array([profile.weights.post.author_weight, profile.weights.post.likes_weight])
     else:
         raw_weights = np.array([0.5, 0.5])
