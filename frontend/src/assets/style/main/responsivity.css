@@ -24,11 +24,11 @@
     .wrapper .main-content .home-page {
         padding-top: var(--home-page-menu-height);
     }
-    .wrapper .sidebar, .wrapper .main-content .feed-create-post-form {
+    .wrapper .sidebar, .wrapper .main-content .feed-create-post-form, .smile {
         display: none;
     }
     .wrapper .main-content .bottom-menu, .bottom-menu-action-icon {
-        display: initial;
+        display: initial!important;
     }
     .wrapper .main-content .sidebar-content, .wrapper .main-content .content {
         width: 100vw!important;
@@ -42,9 +42,6 @@
     .btn-secondary:hover {
         background: #fff!important;
         color: var(--primary-color)!important;
-    }
-    .smile {
-        display: none;
     }
     .post-list, .profile-list-container, .interest-list-container, .interest-profile-list,
     .interests-page-container, .settings-page-container, .settings-description-container, .notifications-container {
@@ -79,6 +76,9 @@
     }
     .home-menu-btn-container .btn {
         font-size: 1rem;
+    }
+    .settings-page-theme-switcher {
+        display: flex!important;
     }
 }
 
