@@ -272,12 +272,10 @@ def set_myinterests(request):
     profile = Profile.objects.get(user=request.user)
     profile.interests.clear()
     for title in request.data['public_interests']:
-        public_i, created = Interest.objects.get_or_create(
-            title=title.lower(), public=True)
+        public_i, created = Interest.objects.get_or_create(title=title.lower(), public=True)
         profile.interests.add(public_i)
     for title in request.data['private_interests']:
-        private_i, created = Interest.objects.get_or_create(
-            title=title.lower(), public=False)
+        private_i, created = Interest.objects.get_or_create(title=title.lower(), public=False)
         profile.interests.add(private_i)
     profile.save()
     return Response('Interests updated')

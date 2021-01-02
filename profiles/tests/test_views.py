@@ -351,3 +351,100 @@ class TestViews(TestCase):
         response = self.client.post(f'/profile-api/send-friend-request', self.test_user_4.profile.id, content_type='application/json')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data, 'Users already have a relationship')
+
+    
+    def test_cancel_friend_request_view(self):
+        Relationship.objects.create(sender=self.test_user.profile, receiver=self.test_user_2.profile, status='sent')
+
+        self.client.force_login(self.test_user)
+        response = self.client.post(f'/profile-api/cancel-friend-request', self.test_user_2.profile.id, content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, 'Friend request canceled')
+        self.assertFalse(Relationship.objects.filter(sender=self.test_user.profile, receiver=self.test_user_2.profile, status='sent').exists())
+
+
+    def test_reply_friend_request_view(self):
+        rel1 = Relationship.objects.create(sender=self.test_user_2.profile, receiver=self.test_user.profile, status='sent')
+        Relationship.objects.create(sender=self.test_user_3.profile, receiver=self.test_user.profile, status='sent')
+        
+        self.client.force_login(self.test_user)
+
+        response = self.client.post(f'/profile-api/reply-friend-request', {'senderid': self.test_user_2.profile.id, 'reply': 'accept'}, content_type='application/json')
+        rel1.refresh_from_db()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, 'Replied with success')
+        self.assertEqual(rel1.status, 'accepted')
+
+        response = self.client.post(f'/profile-api/reply-friend-request', {'senderid': self.test_user_3.profile.id, 'reply': 'decline'}, content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, 'Replied with success')
+        self.assertFalse(Relationship.objects.filter(sender=self.test_user_2.profile, receiver=self.test_user.profile, status='sent').exists())
+
+
+    def test_block_profile_view(self):
+        Relationship.objects.create(sender=self.test_user.profile, receiver=self.test_user_2.profile, status='sent')
+
+        self.client.force_login(self.test_user)
+
+        response = self.client.post(f'/profile-api/block-user', {'id': self.test_user_2.profile.id}, content_type='application/json')
+        self.test_user.profile.refresh_from_db()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, 'Profile blocked')
+        self.assertFalse(Relationship.objects.filter(sender=self.test_user.profile, receiver=self.test_user_2.profile, status='sent').exists())
+        self.assertIn(self.test_user_2, self.test_user.profile.blocked_users.all())
+
+        Relationship.objects.create(sender=self.test_user_3.profile, receiver=self.test_user.profile, status='sent')
+
+        response = self.client.post(f'/profile-api/block-user', {'id': self.test_user_3.profile.id}, content_type='application/json')
+        self.test_user.profile.refresh_from_db()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, 'Profile blocked')
+        self.assertFalse(Relationship.objects.filter(sender=self.test_user_3.profile, receiver=self.test_user.profile, status='sent').exists())
+        self.assertIn(self.test_user_3, self.test_user.profile.blocked_users.all())
+
+        Relationship.objects.create(sender=self.test_user.profile, receiver=self.test_user_4.profile, status='accepted')
+
+        response = self.client.post(f'/profile-api/block-user', {'id': self.test_user_4.profile.id}, content_type='application/json')
+        self.test_user.profile.refresh_from_db()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, 'Profile blocked')
+        self.assertFalse(Relationship.objects.filter(sender=self.test_user.profile, receiver=self.test_user_4.profile, status='accepted').exists())
+        self.assertIn(self.test_user_3, self.test_user.profile.blocked_users.all())
+
+        response = self.client.post(f'/profile-api/block-user', {'id': self.test_user.profile.id}, content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, 'You can\'t block yourself')
+
+
+    def test_unblock_profile_view(self):
+        self.test_user.profile.blocked_users.add(self.test_user_2)
+        self.test_user.profile.save()
+
+        self.assertIn(self.test_user_2, self.test_user.profile.blocked_users.all())
+
+        self.client.force_login(self.test_user)
+        response = self.client.post(f'/profile-api/unblock-user', {'id': self.test_user_2.profile.id}, content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        self.assertNotIn(self.test_user_2, self.test_user.profile.blocked_users.all())
+        self.assertEqual(response.data, 'Profile unblocked')
+
+
+    def test_set_myinterests_view(self):
+        int1 = Interest.objects.create(title='tech', public=True)
+        int2 = Interest.objects.create(title='ai', public=False)
+        self.test_user.profile.interests.add(int1)
+        self.test_user.profile.interests.add(int2)
+        self.test_user.profile.save()
+
+        post_data = {
+            'public_interests': ['napker', 'rede social', 'Programação'],
+            'private_interests': ['Django', 'react']
+        }
+
+        self.client.force_login(self.test_user)
+
+        response = self.client.post(f'/profile-api/set-myinterests', post_data, content_type='application/json')
+        self.test_user.profile.refresh_from_db()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual([i.title for i in self.test_user.profile.interests.all() if i.public], ['napker', 'programação', 'rede social'])
+        self.assertEqual([i.title for i in self.test_user.profile.interests.all() if not i.public], ['django', 'react'])
