@@ -66,7 +66,7 @@
     .home-menu-btn-container .btn {
         font-size: 1rem;
     }
-    .settings-page-theme-switcher {
+    .settings-page-theme-switcher, .header-view-more-icon {
         display: flex!important;
     }
 }

@@ -10,8 +10,8 @@
     color: var(--primary-grey)!important;
 }
 
-.c-ternary-grey {
-    color: var(--ternary-grey)!important;
+.c-tertiary-grey {
+    color: var(--tertiary-grey)!important;
 }
 
 .c-theme-base-color {
@@ -35,8 +35,8 @@
     background-color: var(--primary-grey)!important;
 }
 
-.b-ternary-grey {
-    background-color: var(--ternary-grey)!important;
+.b-tertiary-grey {
+    background-color: var(--tertiary-grey)!important;
 }
 
 .b-theme-base-color {

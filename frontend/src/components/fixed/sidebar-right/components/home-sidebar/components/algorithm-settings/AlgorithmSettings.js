@@ -13,7 +13,7 @@ let previousProfileWeights = null
 let previousPostWeights = null
 let bool = true
 
-export default function AlgorithmSettings() {
+export default function AlgorithmSettings(props) {
     const [weights, setWeights] = useContext(AlgorithmWeightsContext)
 
     const [profileWeights, setProfileWeights] = useState(null)
@@ -23,6 +23,8 @@ export default function AlgorithmSettings() {
 
     const [profileSettingsIsOpen, setProfileSettingsIsOpen] = useState(true)
     const [postSettingsIsOpen, setPostSettingsIsOpen] = useState(false)
+
+    const isMobile = props.isMobile
 
     const setPages = {
         'profile': setProfileSettingsIsOpen,
@@ -70,7 +72,6 @@ export default function AlgorithmSettings() {
     }
 
     const handleSave = () => {
-        console.log('got here')
         fetch(`${SERVER_URL}/profile-api/set-weights`, {
             method: 'POST',
             headers: {
@@ -89,6 +90,7 @@ export default function AlgorithmSettings() {
                     'post': postWeights
                 })
                 bool = true
+                props.saveCallBack && props.saveCallBack()
             })
     }
 
@@ -96,14 +98,14 @@ export default function AlgorithmSettings() {
     return (
         <>
             <InfoModal isOpen={infoModalIsOpen} hideModal={() => setInfoModalIsOpen(false)} />
-            <InfoIcon onClick={() => setInfoModalIsOpen(true)} />
-            <div className="d-flex flex-column justify-content-start align-items-center" style={{ height: '85%' }}>
-                <div className="" style={{ marginTop: 'var(--header-heigth)', width: '100%' }}>
-                    <h6>Personalize o algoritmo que calcula o quão relevante um perfil é para você.</h6>
+            <InfoIcon className={!isMobile && 'py-3'} onClick={() => setInfoModalIsOpen(true)} />
+            <div className={`d-flex flex-column justify-content-start align-items-center ${props.className}`} style={{ height: '85%', ...props.style }}>
+                <div style={{ marginTop: !isMobile && 'var(--header-heigth)', width: '100%' }}>
+                    <h5 className={isMobile && 'm-2'}>Personalize nosso algoritmo.</h5>
                 </div>
                 {weights ?
-                    <div className="w-100 h-100 p-2 d-flex flex-column justify-content-between b-ternary-grey" style={{ borderRadius: '15px' }}>
-                        <div>
+                    <div className={`w-100 ${isMobile ? 'p-2' : 'h-100'} d-flex flex-column justify-content-between`} style={{ borderRadius: '15px' }}>
+                        <div className="mt-3">
                             <ProfileSettings
                                 open={profileSettingsIsOpen}
                                 handleDetailClick={handleDetailClick}

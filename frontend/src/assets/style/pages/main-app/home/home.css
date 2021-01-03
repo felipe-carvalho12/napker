@@ -5,7 +5,7 @@
 .mobile-home-menu, .desktop-home-menu , .home-page-menu{
     position: sticky;
     top: var(--header-heigth);
-    z-index: 1031;
+    z-index: 1029;
 }
 
 .home-page-menu {

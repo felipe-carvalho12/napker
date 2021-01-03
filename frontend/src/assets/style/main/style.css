@@ -134,10 +134,8 @@ a {
 .wrapper .main-content .header {
   height: var(--header-heigth);
   position: sticky;
-  display: flex;
-  align-items: center;
   top: 0;
-  padding: 20px 16% 20px 20px;
+  padding: 20px;
   background: var(--fixed-components-background);
   color: var(--primary-grey);
   font-size: 1.2rem;

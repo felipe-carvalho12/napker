@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import Header from '../../../components/fixed/Header'
+import MobileAlgorithmSettingsIcon from './components/MobileAlgorithmSettingsIcon'
 import Posts from './components/posts_/Posts'
 import Profiles from './components/profiles/Profiles'
 import Explore from './components/explore/Explore'
@@ -9,8 +10,10 @@ import PostIcon from '../../../components/fixed/bottom-menu/components/PostIcon'
 import BottomMenu from '../../../components/fixed/bottom-menu/BottomMenu'
 import HomePageMenu from './components/HomePageMenu'
 
+
 export default function Home(props) {
     const [page, setPage] = useState('Feed')
+    const [algorithmSettingsIsOpen, setAlgorithmSettingsIsOpen] = useState(false)
 
     const pages = {
         'Feed': <Posts />,
@@ -29,7 +32,9 @@ export default function Home(props) {
 
     return (
         <>
-            <Header page="Home" />
+            <Header page="Home">
+                <MobileAlgorithmSettingsIcon useIsOpen={[algorithmSettingsIsOpen, setAlgorithmSettingsIsOpen]} />
+            </Header>
             <div className="sidebar-content">
                 <div className="w-100 h-100 home-page">
                     <div className="desktop-home-menu">
@@ -49,7 +54,9 @@ export default function Home(props) {
                 </div>
             </div>
             <BottomMenu>
-                <PostIcon />
+                {!algorithmSettingsIsOpen &&
+                    <PostIcon />
+                }
             </BottomMenu>
         </>
     )
