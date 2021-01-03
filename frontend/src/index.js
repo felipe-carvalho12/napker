@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import './assets/style/utils/color.css'
 import './assets/style/utils/hover.css'
 import './assets/style/utils/border.css'
+import './assets/style/utils/focus.css'
 
 import './assets/style/pages/auth/auth.css'
 

@@ -154,15 +154,15 @@ export default function EditProfileModal(props) {
                                 <textarea
                                     ref={bioRef}
                                     type="text"
-                                    className="w-100 border-0 autoExpand"
+                                    className="w-100 border-0 autoExpand textarea-focus"
                                     id="bio"
                                     value={editingBioContent}
                                     placeholder={profile.bio}
                                     maxLength={240}
-                                    style={{ padding: '10px', outline: 'none' }}
+                                    style={{ padding: '10px', outline: 'none', paddingRight: '35px' }}
                                     onChange={e => setEditingBioContent(e.target.value)}
                                 />
-                                <EmojiPicker />
+                                <EmojiPicker style={{ position: 'absolute', margin: '0', right: '0', top: '10%' }} />
                             </div>
                         </div>
                     </div>
