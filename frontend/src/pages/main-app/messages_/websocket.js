@@ -52,7 +52,6 @@ class WebSocketService {
       this.callbacks[command](parsedData.message)
     }
     if (command === "typing") {
-      console.log(parsedData)
       this.callbacks[command](parsedData.userId)
     }
   }

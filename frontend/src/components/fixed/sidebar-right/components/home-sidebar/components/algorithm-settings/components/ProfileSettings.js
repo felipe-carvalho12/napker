@@ -57,6 +57,7 @@ export default function ProfileSettings(props) {
                             <div class="range">
                                 <Slider
                                     defaultValue={interestsValue}
+                                    className='c-primary-color'
                                     onChange={(e, value) => setInterestsValue(value)}
                                 />
                             </div>
@@ -69,6 +70,7 @@ export default function ProfileSettings(props) {
                             <div class="range">
                                 <Slider
                                     defaultValue={ageValue}
+                                    className='c-primary-color'
                                     onChange={(e, value) => setAgeValue(value)}
                                 />
                             </div>
@@ -81,6 +83,7 @@ export default function ProfileSettings(props) {
                             <div class="range">
                                 <Slider
                                     defaultValue={friendsValue}
+                                    className='c-primary-color'
                                     onChange={(e, value) => setFriendsValue(value)}
                                 />
                             </div>
@@ -93,6 +96,7 @@ export default function ProfileSettings(props) {
                             <div class="range">
                                 <Slider
                                     defaultValue={isFriendValue}
+                                    className='c-primary-color'
                                     onChange={(e, value) => setIsFriendValue(value)}
                                 />
                             </div>

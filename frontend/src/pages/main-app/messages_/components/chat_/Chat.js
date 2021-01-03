@@ -146,6 +146,7 @@ class Chat extends React.Component {
             scrolledToBottom: false
         })
         this.readMessages(this.props)
+        this.setState({ otherUserIsTyping: false })
     }
 
     setTyping(userId) {

@@ -54,6 +54,7 @@ export default function PostSettings(props) {
                             <div class="range">
                                 <Slider
                                     defaultValue={dateValue}
+                                    className='c-primary-color'
                                     onChange={(e, value) => setDateValue(value)}
                                 />
                             </div>
@@ -66,6 +67,7 @@ export default function PostSettings(props) {
                             <div class="range">
                                 <Slider
                                     defaultValue={authorValue}
+                                    className='c-primary-color'
                                     onChange={(e, value) => setAuthorValue(value)}
                                 />
                             </div>
@@ -78,6 +80,7 @@ export default function PostSettings(props) {
                             <div class="range">
                                 <Slider
                                     defaultValue={likesValue}
+                                    className='c-primary-color'
                                     onChange={(e, value) => setLikesValue(value)}
                                 />
                             </div>
