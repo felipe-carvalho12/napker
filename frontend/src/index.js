@@ -7,6 +7,7 @@ import './assets/style/utils/border.css'
 import './assets/style/utils/focus.css'
 
 import './assets/style/pages/auth/auth.css'
+import './assets/style/pages/auth/landing-page.css'
 
 import './assets/style/pages/global-components/materialUi.css'
 import './assets/style/pages/global-components/loader.css'

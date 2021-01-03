@@ -33,7 +33,7 @@
 .primary-form input:-webkit-autofill:hover, 
 .primary-form input:-webkit-autofill:focus, 
 .primary-form input:-webkit-autofill:active  {
-    -webkit-box-shadow: 0 0 0 30px var(--secondary-grey) inset!important;
+    -webkit-box-shadow: 0 0 0 30px var(--tertiary-grey) inset!important;
 }
 
 input:-webkit-autofill {

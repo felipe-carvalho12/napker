@@ -3,11 +3,17 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 
 import Login from './login/Login'
 import Signup from './signup/Signup'
+import LandingPage from './landing-page/LandingPage'
 
 export default function AuthRouter() {
 
     return (
         <Switch>
+
+            <Route path="/bem-vindo">
+                <LandingPage />
+            </Route>
+
             <Route path="/login">
                 <Login />
             </Route>
@@ -17,31 +23,31 @@ export default function AuthRouter() {
             </Route>
 
             <Route path="/home" exact>
-                <Redirect to="/login" />
+                <Redirect to="/bem-vindo" />
             </Route>
 
             <Route path="/notificações">
-                <Redirect to="/login" />
+                <Redirect to="/bem-vindo" />
             </Route>
 
             <Route path="/mensagens">
-                <Redirect to="/login" />
+                <Redirect to="/bem-vindo" />
             </Route>
 
             <Route path="/perfil">
-                <Redirect to="/login" />
+                <Redirect to="/bem-vindo" />
             </Route>
 
             <Route path="/configurações">
-                <Redirect to="/login" />
+                <Redirect to="/bem-vindo" />
             </Route>
 
             <Route path="/user">
-                <Redirect to="/login" />
+                <Redirect to="/bem-vindo" />
             </Route>
 
             <Route path="/" exact>
-                <Redirect to="/login" />
+                <Redirect to="/bem-vindo" />
             </Route>
         </Switch>
     )
