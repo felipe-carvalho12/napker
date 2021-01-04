@@ -53,13 +53,15 @@ export default function AlgorithmSettings(props) {
     const buttonRef = useRef()
 
     useEffect(() => {
-        if (bool && weights) {
-            previousProfileWeights = weights.profile
-            previousPostWeights = weights.post
-            bool = false
-        }
-        if (previousProfileWeights && previousPostWeights && profileWeights && postWeights) {
-            buttonRef.current.disabled = areSameWeights(previousProfileWeights, previousPostWeights, profileWeights, postWeights)
+        if (!props.isDemo) {
+            if (bool && weights) {
+                previousProfileWeights = weights.profile
+                previousPostWeights = weights.post
+                bool = false
+            }
+            if (previousProfileWeights && previousPostWeights && profileWeights && postWeights) {
+                buttonRef.current.disabled = areSameWeights(previousProfileWeights, previousPostWeights, profileWeights, postWeights)
+            }
         }
     }, [profileWeights, postWeights])
 
@@ -91,28 +93,26 @@ export default function AlgorithmSettings(props) {
     }
 
     const handleSave = () => {
-        if (!props.isDemo) {
-            fetch(`${SERVER_URL}/profile-api/set-weights`, {
-                method: 'POST',
-                headers: {
-                    'Content-type': 'application/json',
-                    'X-CSRFToken': csrftoken,
-                },
-                body: JSON.stringify({
+        fetch(`${SERVER_URL}/profile-api/set-weights`, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+                'X-CSRFToken': csrftoken,
+            },
+            body: JSON.stringify({
+                'profile': profileWeights,
+                'post': postWeights
+            })
+        })
+            .then(response => response.json())
+            .then(() => {
+                setWeights({
                     'profile': profileWeights,
                     'post': postWeights
                 })
+                bool = true
+                props.saveCallBack && props.saveCallBack()
             })
-                .then(response => response.json())
-                .then(() => {
-                    setWeights({
-                        'profile': profileWeights,
-                        'post': postWeights
-                    })
-                    bool = true
-                    props.saveCallBack && props.saveCallBack()
-                })
-        }
     }
 
 
@@ -140,14 +140,16 @@ export default function AlgorithmSettings(props) {
                                 useCurrentWeights={[postWeights, setPostWeights]}
                             />
                         </div>
-                        <button
-                            ref={buttonRef}
-                            className="btn btn-primary d-flex justify-content-center align-items-center justify-self-end align-self-end"
-                            style={{ width: '70px', height: '30px' }}
-                            onClick={handleSave}
-                        >
-                            Salvar
-                        </button>
+                        {!props.isDemo &&
+                            <button
+                                ref={buttonRef}
+                                className="btn btn-primary d-flex justify-content-center align-items-center justify-self-end align-self-end"
+                                style={{ width: '70px', height: '30px' }}
+                                onClick={handleSave}
+                            >
+                                Salvar
+                            </button>
+                        }
                     </div>
                     :
                     <div className="loader-container">

@@ -14,8 +14,8 @@ export default function DemoAlgorithmSettings() {
                 <div>
                     <p className="mt-2">
                         Os dados gerados nas redes sociais são valiosos pois permitem que quem tiver controle sobre
-                        eles possa de maneira muito precisa criar modelos de usuários (baseado nos interesses, idade, etc)
-                        e direcionar anúncios/conteúdo que condizem com esse modelo. No Napker você tem controle sobre os dados gerados na plataforma,
+                        eles possa criar modelos de usuários de maneira muito precisa (baseado nos interesses, idade, etc)
+                        e direcionar anúncios/conteúdos que condizem com esse modelo. No Napker você tem controle sobre os dados gerados na plataforma,
                         você pode customizar o algoritmo que cria esses "modelos" de usuários.
                     </p>
                     <p className="mt-2">
@@ -26,7 +26,7 @@ export default function DemoAlgorithmSettings() {
                     </p>
                     <p className="mt-2">
                         Ao lado temos um exemplo de como funciona essa customização do algoritmo. Para calcular a relevância de um post ou perfil para você
-                        utilizamos um sistema de pesos, ou seja, é levado em consideração alguns critérios (como os que estão aqui ao lado) e quanto maior o peso do critério,
+                        utilizamos um sistema de pesos, ou seja, são levado em consideração alguns critérios (como os que estão aqui ao lado) e quanto maior o peso do critério,
                         mais relevante ele será na hora de calcularmos a relevância de um usuário ou post para a você. Os pesos são divididos em duas categorias: perfis (pesos utilizados
                         para calcular a relevância de um perfil) e posts (pesos utilizados para calcular a relevância de um post).
                     </p>

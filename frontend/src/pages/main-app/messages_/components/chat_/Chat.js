@@ -198,7 +198,7 @@ class Chat extends React.Component {
                                     </div>
                                 </div>
                                 {WebSocketInstance.state() === 1 ?
-                                    <div id="chat-log" className="chat-log">
+                                    <div id="chat-log" className="h-100 chat-log">
                                         {this.state.messages.map(message => {
                                             return (
                                                 <MessageListItem message={message} currentUser={this.props.username} />

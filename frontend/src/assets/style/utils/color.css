@@ -10,6 +10,10 @@
     color: var(--primary-grey)!important;
 }
 
+.c-secondary-grey {
+    color: var(--secondary-grey)!important;
+}
+
 .c-tertiary-grey {
     color: var(--tertiary-grey)!important;
 }
@@ -33,6 +37,10 @@
 
 .b-primary-grey {
     background-color: var(--primary-grey)!important;
+}
+
+.b-secondary-grey {
+    background-color: var(--secondary-grey)!important;
 }
 
 .b-tertiary-grey {

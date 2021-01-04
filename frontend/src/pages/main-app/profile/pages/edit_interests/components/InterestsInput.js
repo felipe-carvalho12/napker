@@ -43,7 +43,7 @@ export default function InterestsInput(props) {
             tags.slice().reverse().forEach(tag => {
                 tagContainer.current.prepend(createTag(tag));
             });
-            setInterests(tags)
+            props.setInterests && setInterests(tags)
         }
 
         input.current.addEventListener('keydown', (e) => {
