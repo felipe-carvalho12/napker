@@ -25,6 +25,25 @@ export default function AlgorithmSettings(props) {
     const [postSettingsIsOpen, setPostSettingsIsOpen] = useState(false)
 
     const isMobile = props.isMobile
+    const renderInfoIcon = props.renderInfoIcon === undefined ? true : props.renderInfoIcon
+
+    useEffect(() => {
+        if (props.isDemo) {
+            setWeights({
+                'profile': {
+                    'interest_weight': 50,
+                    'age_weight': 50,
+                    'friends_weight': 50,
+                    'is_friend_weight': 50
+                },
+                'post': {
+                    'date_weight': 50,
+                    'author_weight': 50,
+                    'likes_weight': 50,
+                }
+            })
+        }
+    }, [])
 
     const setPages = {
         'profile': setProfileSettingsIsOpen,
@@ -72,39 +91,43 @@ export default function AlgorithmSettings(props) {
     }
 
     const handleSave = () => {
-        fetch(`${SERVER_URL}/profile-api/set-weights`, {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json',
-                'X-CSRFToken': csrftoken,
-            },
-            body: JSON.stringify({
-                'profile': profileWeights,
-                'post': postWeights
-            })
-        })
-            .then(response => response.json())
-            .then(() => {
-                setWeights({
+        if (!props.isDemo) {
+            fetch(`${SERVER_URL}/profile-api/set-weights`, {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json',
+                    'X-CSRFToken': csrftoken,
+                },
+                body: JSON.stringify({
                     'profile': profileWeights,
                     'post': postWeights
                 })
-                bool = true
-                props.saveCallBack && props.saveCallBack()
             })
+                .then(response => response.json())
+                .then(() => {
+                    setWeights({
+                        'profile': profileWeights,
+                        'post': postWeights
+                    })
+                    bool = true
+                    props.saveCallBack && props.saveCallBack()
+                })
+        }
     }
 
 
     return (
         <>
             <InfoModal isOpen={infoModalIsOpen} hideModal={() => setInfoModalIsOpen(false)} />
-            <InfoIcon className={!isMobile && 'py-3'} onClick={() => setInfoModalIsOpen(true)} />
+            {renderInfoIcon &&
+                <InfoIcon className={!isMobile && 'py-3'} onClick={() => setInfoModalIsOpen(true)} />
+            }
             <div className={`d-flex flex-column justify-content-start align-items-center ${props.className}`} style={{ height: '85%', ...props.style }}>
                 <div style={{ marginTop: !isMobile && 'var(--header-heigth)', width: '100%' }}>
-                    <h5 className={isMobile && 'm-2'}>Personalize nosso algoritmo.</h5>
+                    <h5 className={isMobile && 'm-2'}>Personalize seu algoritmo.</h5>
                 </div>
                 {weights ?
-                    <div className={`w-100 ${isMobile ? 'p-2' : 'h-100'} d-flex flex-column justify-content-between`} style={{ borderRadius: '15px' }}>
+                    <div className={`w-100 ${isMobile ? 'p-2' : 'h-100'} d-flex flex-column justify-content-between`} style={{ borderRadius: '15px', minHeight: props.minHeight }}>
                         <div className="mt-3">
                             <ProfileSettings
                                 open={profileSettingsIsOpen}
@@ -119,7 +142,7 @@ export default function AlgorithmSettings(props) {
                         </div>
                         <button
                             ref={buttonRef}
-                            className="btn btn-primary d-flex justify-content-center align-items-center align-self-end"
+                            className="btn btn-primary d-flex justify-content-center align-items-center justify-self-end align-self-end"
                             style={{ width: '70px', height: '30px' }}
                             onClick={handleSave}
                         >
