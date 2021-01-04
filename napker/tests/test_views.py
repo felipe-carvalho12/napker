@@ -81,24 +81,33 @@ class TestViews(TestCase):
 
         post_data = {
             'uid': user.id,
-            'interests': ['futebol', 'viajar']
+            'public_interests': ['napker', 'rede social', 'Programação'],
+            'private_interests': ['Django', 'react']
         }
 
         response = self.client.post('/post-signup/interests', post_data, content_type='application/json')
         user.profile.refresh_from_db()
         self.assertEqual(response.status_code, 200)
         self.assertFalse(user.is_active)
-        self.assertEqual([(i.title, i.public) for i in user.profile.interests.all()], [('futebol', False), ('viajar', False)])
+        self.assertEqual([i.title for i in user.profile.interests.filter(public=True)], ['napker', 'programação', 'rede social'])
+        self.assertEqual([i.title for i in user.profile.interests.filter(public=False)], ['django', 'react'])
         self.assertEqual(response.data, 'activation link sent')
 
-        self.test_user.profile.interests.clear()
-        self.test_user.profile.save()
+        user.profile.interests.clear()
+        user.profile.save()
 
-        response = self.client.post('/post-signup/interests', {**post_data, 'interests': ['ab', 'futebol', 'viajar']})
+        post_data = {
+            'uid': user.id,
+            'public_interests': ['ab', 'napker', 'rede social', 'Programação'],
+            'private_interests': ['ab', 'Django', 'react']
+        }
+
+        response = self.client.post('/post-signup/interests', post_data, content_type='application/json')
         user.profile.refresh_from_db()
         self.assertEqual(response.status_code, 200)
         self.assertFalse(user.is_active)
-        self.assertEqual([(i.title, i.public) for i in user.profile.interests.all()], [('futebol', False), ('viajar', False)])
+        self.assertEqual([i.title for i in user.profile.interests.filter(public=True)], ['napker', 'programação', 'rede social'])
+        self.assertEqual([i.title for i in user.profile.interests.filter(public=False)], ['django', 'react'])
 
         uidb64 = urlsafe_base64_encode(force_bytes(user.id))
         token = PasswordResetTokenGenerator().make_token(user)

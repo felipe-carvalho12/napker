@@ -446,5 +446,19 @@ class TestViews(TestCase):
         response = self.client.post(f'/profile-api/set-myinterests', post_data, content_type='application/json')
         self.test_user.profile.refresh_from_db()
         self.assertEqual(response.status_code, 200)
-        self.assertEqual([i.title for i in self.test_user.profile.interests.all() if i.public], ['napker', 'programação', 'rede social'])
-        self.assertEqual([i.title for i in self.test_user.profile.interests.all() if not i.public], ['django', 'react'])
+        self.assertEqual([i.title for i in self.test_user.profile.interests.filter(public=True)], ['napker', 'programação', 'rede social'])
+        self.assertEqual([i.title for i in self.test_user.profile.interests.filter(public=False)], ['django', 'react'])
+
+        self.test_user.profile.interests.clear()
+        self.test_user.profile.save()
+
+        post_data = {
+             'public_interests': ['ab', 'napker', 'rede social', 'Programação'],
+             'private_interests': ['ab', 'Django', 'react']
+        }
+
+        response = self.client.post('/profile-api/set-myinterests', post_data, content_type='application/json')
+        self.test_user.profile.refresh_from_db()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual([i.title for i in self.test_user.profile.interests.filter(public=True)], ['napker', 'programação', 'rede social'])
+        self.assertEqual([i.title for i in self.test_user.profile.interests.filter(public=False)], ['django', 'react'])

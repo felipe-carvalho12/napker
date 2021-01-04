@@ -1,11 +1,11 @@
 import React, { useState, useContext, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
 import Modal from 'react-bootstrap/Modal'
-import Picker from 'emoji-picker-react'
 
 import { SERVER_URL } from '../../../../../../config/settings'
-import { csrftoken, openCloseEmojiList } from '../../../../../../config/utils'
+import { csrftoken } from '../../../../../../config/utils'
 import { ProfileImageContext } from '../../../../../../context/edit-profile/EditProfileContext'
+import EmojiPicker from '../../../../../../components/emojiPicker'
 
 
 export default function EditProfileModal(props) {
@@ -28,10 +28,6 @@ export default function EditProfileModal(props) {
                     }
                 })
         }
-    }
-
-    const onEmojiSelect = (event, emojiObject) => {
-        setEditingBioContent(editingBioContent + emojiObject.emoji)
     }
 
     const firstNameRef = useRef()
@@ -152,29 +148,21 @@ export default function EditProfileModal(props) {
                                 <input ref={birthDateRef} className="text-secondary profile-field-input" type="date" id="birth-date" defaultValue={profile.birth_date} />
                             </div>
                         </div>
-                        <div className="emoji-list-container bio-emoji-list" id="emoji-list-container">
-                            <Picker onEmojiClick={onEmojiSelect} />
-                        </div>
                         <div className="w-75">
                             <label htmlFor="bio" className="text-secondary m-0 ml-1">Bio:</label>
                             <div className="d-flex position-relative">
                                 <textarea
                                     ref={bioRef}
                                     type="text"
-                                    className="w-100 border-0 autoExpand"
+                                    className="w-100 border-0 autoExpand textarea-focus"
                                     id="bio"
                                     value={editingBioContent}
                                     placeholder={profile.bio}
                                     maxLength={240}
-                                    style={{ padding: '10px', outline: 'none' }}
+                                    style={{ padding: '10px', outline: 'none', paddingRight: '35px' }}
                                     onChange={e => setEditingBioContent(e.target.value)}
                                 />
-                                <label
-                                    className="far fa-smile smile m-0 position-absolute"
-                                    id="emoji-button"
-                                    style={{ right: '10px', top: '10px' }}
-                                    onClick={() => openCloseEmojiList(false)}
-                                />
+                                <EmojiPicker style={{ position: 'absolute', margin: '0', right: '0', top: '10%' }} />
                             </div>
                         </div>
                     </div>

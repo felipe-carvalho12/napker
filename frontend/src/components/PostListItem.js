@@ -60,10 +60,6 @@ export default function PostListItem(props) {
         e.stopPropagation()
         const el = document.querySelector(`#profile-post-${postId}`)
         if (window.confirm(`Tem certeza que deseja apagar o ${type === 'post' ? type : 'comentário'}?\nEssa ação é irreversível.`)) {
-            el.style.animationPlayState = 'running'
-            el.addEventListener('animationend', () => {
-                renderParent !== undefined && renderParent()
-            })
             fetch(`${SERVER_URL}/post-api/delete-${type}/${postId}`, {
                 method: 'POST',
                 headers: {

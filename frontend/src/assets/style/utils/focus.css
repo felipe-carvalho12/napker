@@ -1,0 +1,4 @@
+.textarea-focus:focus {
+    background: var(--theme-base-color);
+    border: 2px solid var(--primary-color)!important;
+}

@@ -29,13 +29,13 @@ export default function Sidebar() {
                     <NavLink to="/home" style={{ textDecoration: 'none' }} activeClassName="active">
                         <li className="sidebar-menu-item">
                             <i className="material-icons-outlined" style={{ margin: "5px 10px 5px 0px", fontSize: "30px" }}>home</i>
-                            <span>Home</span>
+                            <span style={{ fontWeight: "500" }}>Home</span>
                         </li>
                     </NavLink>
                     <NavLink to="/notificações" style={{ textDecoration: 'none' }} activeClassName="active">
                         <li className="sidebar-menu-item">
                         <i className="material-icons-outlined" style={{ margin: "5px 10px 5px 0px", fontSize: "30px" }}>notifications</i>
-                            <span>Notificações</span>
+                            <span style={{ fontWeight: "500" }}>Notificações</span>
                             {!notificationsNumber ? '' :
                                 <div className="notification-text-container">
                                     <div className="notification-text">
@@ -48,7 +48,7 @@ export default function Sidebar() {
                     <NavLink to="/mensagens" style={{ textDecoration: 'none' }} activeClassName="active">
                         <li className="sidebar-menu-item">
                             <i className="material-icons-outlined" style={{ margin: "5px 10px 5px 0px", fontSize: "30px" }}>email</i>
-                            <span>Mensagens</span>
+                            <span style={{ fontWeight: "500" }}>Mensagens</span>
                             {!unreadMessagesNumber ? '' :
                                 <div className="notification-text-container">
                                     <div className="notification-text">
@@ -61,13 +61,13 @@ export default function Sidebar() {
                     <NavLink to="/perfil" style={{ textDecoration: 'none' }} activeClassName="active">
                         <li className="sidebar-menu-item">
                             <i className="material-icons-outlined" style={{ margin: "5px 10px 5px 0px", fontSize: "30px" }}>perm_identity</i>
-                            <span>Perfil</span>
+                            <span style={{ fontWeight: "500" }}>Perfil</span>
                         </li>
                     </NavLink>
                     <NavLink to="/configurações" style={{ textDecoration: 'none' }} activeClassName="active">
                         <li className="sidebar-menu-item">
                             <i className="material-icons-outlined" style={{ margin: "5px 10px 5px 0px", fontSize: "30px" }}>settings</i>
-                            <span>Configurações</span>
+                            <span style={{ fontWeight: "500" }}>Configurações</span>
                         </li>
                     </NavLink>
                 </ul>

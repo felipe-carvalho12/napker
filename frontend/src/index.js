@@ -4,9 +4,12 @@ import ReactDOM from 'react-dom';
 import './assets/style/utils/color.css'
 import './assets/style/utils/hover.css'
 import './assets/style/utils/border.css'
+import './assets/style/utils/focus.css'
 
 import './assets/style/pages/auth/auth.css'
+import './assets/style/pages/auth/landing-page.css'
 
+import './assets/style/pages/global-components/materialUi.css'
 import './assets/style/pages/global-components/loader.css'
 import './assets/style/pages/global-components/modal.css'
 import './assets/style/pages/global-components/buttons.css'
