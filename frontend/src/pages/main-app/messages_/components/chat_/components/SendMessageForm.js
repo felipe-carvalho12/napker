@@ -11,6 +11,7 @@ export default function SendMessageForm(props) {
     const myProfile = props.myProfile
     const updateMessagesComponent = props.updateMessagesComponent
     const setOtherUserIsTyping = props.setOtherUserIsTyping
+    const addMessage = props.addMessage
 
     const [message, setMessage] = useState('')
 
@@ -41,6 +42,13 @@ export default function SendMessageForm(props) {
 
     const sendMessageHandler = e => {
         e.preventDefault()
+        addMessage({
+            author: username,
+            content: message,
+            id: Math.round(Math.random() * -1000000),
+            read: false,
+            timestamp: Date.now()
+        })
         const messageObject = {
             from: username,
             content: message,

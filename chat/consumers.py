@@ -14,7 +14,7 @@ class ChatConsumer(WebsocketConsumer):
             'command': 'messages',
             'messages': self.messages_to_json(messages)
         }
-        self.send_message(content)
+        self.send_messages(content)
 
     def new_message(self, data):
         user_contact = get_user_contact(data['from'])
@@ -102,8 +102,8 @@ class ChatConsumer(WebsocketConsumer):
             }
         )
 
-    def send_message(self, message):
-        self.send(text_data=json.dumps(message))
+    def send_messages(self, messages):
+        self.send(text_data=json.dumps(messages))
 
     def send_typing(self, userId):
         async_to_sync(self.channel_layer.group_send)(
