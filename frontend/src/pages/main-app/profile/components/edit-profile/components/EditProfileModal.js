@@ -5,7 +5,7 @@ import Modal from 'react-bootstrap/Modal'
 import { SERVER_URL } from '../../../../../../config/settings'
 import { csrftoken } from '../../../../../../config/utils'
 import { ProfileImageContext } from '../../../../../../context/edit-profile/EditProfileContext'
-import EmojiPicker from '../../../../../../components/emojiPicker'
+import EmojiPicker from '../../../../../../components/EmojiPicker'
 
 
 export default function EditProfileModal(props) {
