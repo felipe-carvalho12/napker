@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import EmojiPicker from '../../../../../../components/emojiPicker'
+import EmojiPicker from '../../../../../../components/EmojiPicker'
 
 import { SERVER_URL } from '../../../../../../config/settings'
 import { csrftoken } from '../../../../../../config/utils'
