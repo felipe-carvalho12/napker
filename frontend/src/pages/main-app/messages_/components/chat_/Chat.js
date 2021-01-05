@@ -142,7 +142,7 @@ class Chat extends React.Component {
 
     addMessage(message) {
         this.setState({
-            messages: [...this.state.messages, message],
+            messages: [...this.state.messages.slice(0, this.state.messages.length - 1), message],
             scrolledToBottom: false
         })
         this.readMessages(this.props)
@@ -219,6 +219,10 @@ class Chat extends React.Component {
                                     myProfile={this.state.myProfile}
                                     updateMessagesComponent={this.props.updateMessagesComponent}
                                     setOtherUserIsTyping={bool => this.setState({ otherUserIsTyping: bool })}
+                                    addMessage={message => this.setState({
+                                        messages: [...this.state.messages, message],
+                                        scrolledToBottom: false
+                                    })}
                                 />
                             </div>
                             :
