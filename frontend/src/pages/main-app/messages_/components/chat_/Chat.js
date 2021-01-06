@@ -85,7 +85,7 @@ class Chat extends React.Component {
 
             this.props.updateMessagesComponent()
             this.setState({
-                messages: [],
+                messages: newProps.chatsMessages[newProps.chatId] ? newProps.chatsMessages[newProps.chatId] : [],
                 scrolledToBottom: false,
             })
         }
@@ -138,6 +138,11 @@ class Chat extends React.Component {
 
     getMessages(messages) {
         this.setState({ messages: messages.reverse() })
+
+        const key = this.props.chatId.toString()
+        const obj = { ...this.props.chatsMessages }
+        obj[key] = this.state.messages
+        this.props.setChatsMessages(obj)
     }
 
     addMessage(message) {
@@ -197,7 +202,7 @@ class Chat extends React.Component {
                                         }
                                     </div>
                                 </div>
-                                {WebSocketInstance.state() === 1 ?
+                                {WebSocketInstance.state() === 1 || this.state.messages.length ?
                                     <div id="chat-log" className="h-100 chat-log">
                                         {this.state.messages.map(message => {
                                             return (

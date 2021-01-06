@@ -18,6 +18,7 @@ export default function Messages(props) {
     const [renderedActiveChatsProfiles, setRenderedActiveChatsProfiles] = useState(null)
     const [addingNewChat, setAddingNewChat] = useState(false)
     const [modalProfiles, setModalProfiles] = useState([])
+    const [chatsMessages, setChatsMessages] = useState({})
 
     let rerenderingInterval = null
     let hasFilteredProfiles = false
@@ -128,6 +129,8 @@ export default function Messages(props) {
                     openModal={openModal}
                     updateUnreadMessagesNumber={props.updateUnreadMessagesNumber}
                     updateMessagesComponent={fetchActiveChatProfiles}
+                    chatsMessages={chatsMessages}
+                    setChatsMessages={setChatsMessages}
                 />
             </div>
             {!props.match.params.slug &&
