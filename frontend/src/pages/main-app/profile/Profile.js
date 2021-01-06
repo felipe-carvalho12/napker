@@ -307,7 +307,7 @@ class Profile extends React.Component {
                                         }
                                     </div>
                                 </ProfileData>
-                                <div className="profile-page-menu b-bottom">
+                                <div className="profile-page-menu b-bottom b-bottom-radius" style={{ marginBottom: '10px' }}>
                                     <div
                                         className="profile-page-menu-item profile-page-menu-item-active"
                                         id="profile-posts-page-menu-item"

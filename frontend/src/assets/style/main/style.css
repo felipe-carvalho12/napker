@@ -65,62 +65,6 @@ a {
   color:  var(--primary-color);
 }
 
-/* GENERAL UTILS */
-
-.box {
-    padding: 20px;
-    margin-bottom: 10px;
-    border-radius: 20px;
-    box-shadow: 0 2px 10px rgba(0,0,0,.1);
-}
-
-.icon {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    border-radius: 50%;
-}
-
-.text-secondary {
-  color: var(--secondary-grey)!important;
-}
-
-.word-break {
-  text-align: start;
-  word-wrap: break-word;
-  word-break: break-all;
-}
-
-.notification-text-container {
-  display: inline-block;
-  position: relative;
-  bottom: 10px;
-  min-width: 17px;
-  height: 17px;
-  border-radius: 50%;
-}
-
-.notification-text-container .notification-text {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #fff!important;
-  background-color: #f00!important;
-  font-size: 0.75rem!important;
-  border-radius: 50%;
-  padding: 2px;
-}
-
-.emoji-list-container {
-  display: none;
-  position: absolute;
-  left: 20px;
-  z-index: 1;
-  border: 2px solid rgba(20, 20, 20, 0.3);
-}
 
 /* DOCUMENT MAIN STRUCTURE */
 

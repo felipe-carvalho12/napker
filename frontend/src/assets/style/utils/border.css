@@ -13,3 +13,13 @@
 .b-right {
     border-right: 3px solid var(--border-color)!important;
 }
+
+.b-bottom-radius {
+    border-bottom-left-radius: 20px!important;
+    border-bottom-right-radius: 20px!important;
+}
+
+.b-bottom-radius:hover {
+    border-bottom-left-radius: 20px!important;
+    border-bottom-right-radius: 20px!important;
+}
