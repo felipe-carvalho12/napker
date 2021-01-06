@@ -68,10 +68,10 @@ def post_notifications(request):
         likes = []
         comments = []
         for like in post.likes.all():
-            if not like.visualized or now - datetime.timedelta(2) < like.updated:
+            if (like.profile != profile) and (not like.visualized or now - datetime.timedelta(2) < like.updated):
                 likes.append(like)
         for comment in post.comments.all():
-            if not comment.visualized or now - datetime.timedelta(2) < comment.updated:
+            if (comment.author != profile) and (not comment.visualized or now - datetime.timedelta(2) < comment.updated):
                 comments.append(comment)
 
         if notification.likes.all() != post.likes.all() or notification.comments.all() != post.comments.all():
@@ -88,22 +88,26 @@ def post_notifications(request):
     return Response(serializer.data)
 
 
+
+@api_view(['GET'])
 def visualize_likes(request):
     profile = Profile.objects.get(user=request.user)
     for post in profile.posts.all():
         for like in post.likes.filter(visualized=False):
             like.visualized = True
             like.save()
-    return JsonResponse('Likes visualized with success', safe=False)
+    return Response('Likes visualized with success')
 
 
+
+@api_view(['GET'])
 def visualize_comments(request):
     profile = Profile.objects.get(user=request.user)
     for post in profile.posts.all():
         for comments in post.comments.filter(visualized=False):
             comments.visualized = True
             comments.save()
-    return JsonResponse('Comments visualized with success', safe=False)
+    return Response('Comments visualized with success')
 
 
 @api_view(['POST'])
