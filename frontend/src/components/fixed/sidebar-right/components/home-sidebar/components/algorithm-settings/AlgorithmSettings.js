@@ -127,7 +127,7 @@ export default function AlgorithmSettings(props) {
                     <h5 className={isMobile ? 'm-2' : 'ml-2'}>Personalize seu algoritmo.</h5>
                 </div>
                 {weights ?
-                    <div className={`w-100 ${isMobile ? 'p-2' : 'h-100'} d-flex flex-column justify-content-between box b-theme-base-color`} style={{ minHeight: props.minHeight }}>
+                    <div className={`w-100 ${isMobile ? 'p-2' : 'h-100'} d-flex flex-column justify-content-between box-med b-theme-base-color`} style={{ minHeight: props.minHeight }}>
                         <div className="mt-3">
                             <ProfileSettings
                                 open={profileSettingsIsOpen}

@@ -14,10 +14,10 @@ export default function CommentListItem(props) {
     const [displayingForm, setDisplayingForm] = useState(false)
 
     const colors = ['#5454fe', '#33fe66', '#fe4545', '#fefe45', 'var(--primary-grey)']
-    
+
     const borderLeft = i => {
         return (
-            `5px solid ${comment.layer != undefined ? colors[comment.layer - i >= colors.length ? (comment.layer - i) % colors.length : comment.layer - i] : "var(--background)"}`
+            `20px solid ${comment.layer != undefined ? colors[comment.layer - i >= colors.length ? (comment.layer - i) % colors.length : comment.layer - i] : "var(--background)"}`
         )
     }
 
@@ -40,16 +40,16 @@ export default function CommentListItem(props) {
                 style={{ borderLeft: borderLeft(1) }}
             />
             {displayingForm &&
-                <div style={{ marginLeft: "30px", borderLeft: borderLeft(0) }}>
-                    <PostForm
-                        type='comment'
-                        myProfile={myProfile}
-                        renderParent={renderParent}
-                        postId={post.id}
-                        parentComment={comment}
-                        hideForm={() => setDisplayingForm(false)}
-                    />
-                </div>
+                <PostForm
+                    type='comment'
+                    myProfile={myProfile}
+                    renderParent={renderParent}
+                    postId={post.id}
+                    parentComment={comment}
+                    hideForm={() => setDisplayingForm(false)}
+                    className="box-med"
+                    style={{ marginLeft: "30px", borderLeft: borderLeft(0) }}
+                />
             }
             {(comment.comments && displayingComments) && comment.comments.map(c => {
                 return (

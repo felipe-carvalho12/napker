@@ -94,7 +94,8 @@ export default function PostForm(props) {
 
     return (
         <form
-            className="create-post-form b-bottom-radius box-shadow"
+            className={`create-post-form b-bottom-radius box-shadow ${props.className}`}
+            style={props.style}
             onSubmit={handleSubmit}
         >
             {errMessage !== null &&

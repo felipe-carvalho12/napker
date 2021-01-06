@@ -5,7 +5,7 @@ export default function Interests(props) {
     const profile = props.profile
 
     return (
-        <div style={{ background: 'var(--theme-base-color)' }}>
+        <div className="b-top-radius b-bottom-radius" style={{ background: 'var(--theme-base-color)' }}>
             <h3 className="p-3 b-bottom">Interesses públicos de {profile.first_name}</h3>
             <div className="interest-list-container">
                 {profile && profile.interests.filter(i => i.public).map(interest => {

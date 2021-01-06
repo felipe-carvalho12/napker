@@ -77,10 +77,10 @@ export default function PostListItem(props) {
 
     return (
         <li
-            className="d-flex w-100 base-hover hide-animation box"
+            className="d-flex w-100 base-hover hide-animation box-med"
             id={`profile-post-${post.id}`}
             key={post.id}
-            style={{ ...props.style, background: 'var(--theme-base-color)'}}
+            style={{ ...props.style, background: 'var(--theme-base-color)', marginBottom: type === 'comment' && '10px' }}
             onClick={() => isLink && history.push(`/post/${post.id}`)}
         >
             <div className="d-flex flex-column justify-content-between" style={{ marginRight: '10px' }}>
