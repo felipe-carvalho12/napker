@@ -89,11 +89,12 @@ export default function Notifications(props) {
                                 <div className="notifications-container">
                                     {!!invites.length &&
                                         <div>
-                                            {invites.map(invite => {
+                                            {invites.map((invite, index) => {
                                                 return (
                                                     <InviteNotification
                                                         invite={invite}
                                                         replyRequest={replyRequest}
+                                                        style={{ borderTopLeftRadius: !index && '0', borderTopRightRadius: !index && '0' }}
                                                     />
                                                 )
                                             })}
