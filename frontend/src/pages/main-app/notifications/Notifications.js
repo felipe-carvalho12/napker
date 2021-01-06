@@ -100,7 +100,6 @@ export default function Notifications(props) {
                                         </div>
                                     }
 
-
                                     {!!postNotifications.length &&
                                         <div>
                                             {postNotifications.map(notification => {

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import NotificationContent from './components/NotificationContent'
@@ -11,15 +11,16 @@ export default function PostNotification(props) {
     useEffect(() => {
         renderLabel(notification.likes, 'like')
         renderLabel(notification.comments, 'comment')
-    }, [])
+    }, [props.notification])
 
     const renderLabel = (arr, type) => {
-        const el = document.getElementById(type)
+        const el = document.getElementById(`${notification.id}${type}`)
+        if (!el) return
         let str = ''
         const len = arr.length < 3 ? arr.length : 3
 
-        for (let i = 1; i <= len; i++) {
-            const author = arr[arr.length - i].author || arr[arr.length - i].profile
+        for (let i = 0; i < len; i++) {
+            const author = arr[i].author || arr[i].profile
             if (type === 'comment') {
                 var typeLabel = arr.length === 1 ? 'comentou' : 'comentaram'
             } else if (type === 'like') {
@@ -27,7 +28,7 @@ export default function PostNotification(props) {
             }
             str += `
             <strong>@${author.user.username}</strong>
-            ${i < len ? ', ' : (arr.length > 3 ? 'e outras <strong>' + (arr.length - 3).toString() + '</strong> pessoas ' : '') + typeLabel + ' seu post.'}
+            ${i < len - 1 ? ', ' : (arr.length > 3 ? 'e outras <strong>' + (arr.length - 3).toString() + '</strong> pessoas ' : '') + typeLabel + ' seu post.'}
             `
         }
 
@@ -51,14 +52,20 @@ export default function PostNotification(props) {
                     <div className="d-flex flex-column">
                         <div className="d-flex flex-column align-items-start mb-2">
                             {!!notification.likes.length &&
-                                <span id="like"></span>
+                                <span id={`${notification.id}like`}></span>
                             }
                             {!!notification.comments.length &&
-                                <span id="comment"></span>
+                                <span id={`${notification.id}comment`}></span>
                             }
                         </div>
                         <span style={{ textAlign: 'start' }}>
-                            {`${post.content.slice(0, 240)}${post.content.length > 240 && '...'}`}
+                            {post.content ?
+                                <>
+                                    {`${post.content.slice(0, 240)}${post.content.length > 240 && '...'}`}
+                                </>
+                                :
+                                <img src={post.image} style={{ maxWidth: '90%', maxHeight: '100px', borderRadius: '20px' }} />
+                            }
                         </span>
                         <div className="d-flex justify-content-end w-100">
                             <Link to={`/post/${post.id}`}>
