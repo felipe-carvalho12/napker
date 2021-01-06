@@ -50,7 +50,7 @@ export default function MainAppRouter() {
             .then(data => setInvitesReceived(data.length))
         fetch(`${SERVER_URL}/post-api/post-notifications`)
             .then(response => response.json())
-            .then(data => setPostNotifications(data.map(obj => obj.notifications_number).reduce((accumulator, current) => accumulator + current), 0))
+            .then(data => setPostNotifications(data.map(obj => obj.notifications_number).reduce((accumulator, current) => accumulator + current, 0)))
     }
 
     const updateUnreadMessagesNumber = () => {
