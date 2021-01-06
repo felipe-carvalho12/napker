@@ -38,12 +38,12 @@ export default function Friends() {
                 <div className="list-group profile-friends-container">
                     {friends !== null && myProfile !== null ?
                         <>
-                            {friends.length ? friends.map(friend => {
+                            {friends.length ? friends.map((friend, index) => {
                                 return (
                                     <ProfileListItem
                                         profile={friend}
                                         myProfile={myProfile}
-                                        style={{ borderTop: 'none', borderLeft: 'none', borderRight: 'none' }}
+                                        style={{ borderTop: 'none', borderLeft: 'none', borderRight: 'none', borderTopLeftRadius: !index && '0', borderTopRightRadius: !index && '0' }}
                                     />
                                 )
                             }) :
