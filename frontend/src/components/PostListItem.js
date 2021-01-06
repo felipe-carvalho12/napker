@@ -83,39 +83,18 @@ export default function PostListItem(props) {
             style={{ ...props.style, background: 'var(--theme-base-color)', marginBottom: type === 'comment' && '10px' }}
             onClick={() => isLink && history.push(`/post/${post.id}`)}
         >
-            <div className="d-flex flex-column justify-content-between" style={{ marginRight: '10px' }}>
-                <Link
-                    to={post.author.id === myProfile.id ?
-                        '/perfil' : `/user/${post.author.slug}`}
-                    onClick={e => e.stopPropagation()}
-                >
-                    <img src={post.author.photo}
-                        className="profile-img-sm"
-                    />
-                </Link>
-                {(type === 'comment' && post.all_child_comments_length !== 0) &&
-                    <>
-                        {displayingComments ?
-                            <i
-                                className="material-icons-sharp align-self-start icon base-hover text-secondary"
-                                style={{ width: '25px', height: '25px' }}
-                                onClick={showHideComments}
-                            >
-                            keyboard_arrow_down</i>
-                            :
-                            <i
-                                className="material-icons-sharp align-self-start icon base-hover text-secondary"
-                                style={{ width: '25px', height: '25px' }}
-                                onClick={showHideComments}
-                            >
-                            keyboard_arrow_right</i>
-                        }
-                    </>
-                }
-            </div>
             <div className="d-flex flex-column h-100 w-100" style={{ marginRight: '10px' }}>
-                <div className="d-flex justify-content-between w-100">
-                    <div>
+                <div className="d-flex justify-content-between align-items-start w-100 mb-2">
+                    <div className="d-flex align-items-center">
+                        <Link
+                            to={post.author.id === myProfile.id ?
+                                '/perfil' : `/user/${post.author.slug}`}
+                            onClick={e => e.stopPropagation()}
+                        >
+                            <img src={post.author.photo}
+                                className="profile-img-sm mr-2"
+                            />
+                        </Link>
                         <Link
                             to={post.author.id === myProfile.id ? '/perfil' : `/user/${post.author.slug}`}
                             className="d-flex justify-content-start align-items-start post-author-data-wrapper"
@@ -125,9 +104,9 @@ export default function PostListItem(props) {
                             <strong className="mr-2" style={{ color: 'var(--primary-grey)' }}>
                                 {post.author.first_name} {post.author.last_name}
                             </strong>
-                            <p className="text-secondary">
+                            <span className="text-secondary">
                                 @{post.author.user.username} • {post.created.split('-').reverse().join('/')}
-                            </p>
+                            </span>
                         </Link>
                     </div>
                     <i
@@ -169,7 +148,26 @@ export default function PostListItem(props) {
                             <img src={post.image} className="post-img" />
                         </div>
                     }
-                    <div className="d-flex justify-content-start align-items-start text-secondary mt-2 mb-1">
+                    <div className="d-flex justify-content-start align-items-center text-secondary">
+                        {(type === 'comment' && post.all_child_comments_length !== 0) &&
+                            <>
+                                {displayingComments ?
+                                    <i
+                                        className="material-icons-sharp icon base-hover text-secondary"
+                                        style={{ width: '25px', height: '25px' }}
+                                        onClick={showHideComments}
+                                    >
+                                    keyboard_arrow_down</i>
+                                    :
+                                    <i
+                                        className="material-icons-sharp icon base-hover text-secondary"
+                                        style={{ width: '25px', height: '25px' }}
+                                        onClick={showHideComments}
+                                    >
+                                    keyboard_arrow_right</i>
+                                }
+                            </>
+                        }
                         <div
                             className="d-flex align-items-center text-secondary"
                             style={{ outline: 'none', textDecoration: 'none' }}
