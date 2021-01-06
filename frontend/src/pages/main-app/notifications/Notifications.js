@@ -4,18 +4,17 @@ import { SERVER_URL } from '../../../config/settings'
 import { csrftoken } from '../../../config/utils'
 import Header from '../../../components/fixed/Header'
 import InviteNotification from './components/InviteNotification'
-import NotificationContent from './components/NotificationContent'
-import NewLabel from './components/NewLabel'
+import PostNotification from './components/post-notification/PostNotification'
 import BottomMenu from '../../../components/fixed/bottom-menu/BottomMenu'
+
+
+let didVisualizedLikes = false
+let didVisualizedComments = false
+let notificationsFetchInterval
 
 export default function Notifications(props) {
     const [invites, setInvites] = useState(null)
-    const [unvisualizedPostLikes, setUnvisualizedPostLikes] = useState(null)
-    const [visualizedPostLikes, setVisualizedPostLikes] = useState(null)
-    const [unvisualizedComments, setUnvisualizedComments] = useState(null)
-    const [visualizedComments, setVisualizedComments] = useState(null)
-
-    let notificationsFetchInterval
+    const [postNotifications, setPostNotifications] = useState(null)
 
     document.title = 'Notificações / Napker'
 
@@ -23,18 +22,9 @@ export default function Notifications(props) {
         fetch(`${SERVER_URL}/profile-api/myinvites`)
             .then(response => response.json())
             .then(data => setInvites(data))
-        fetch(`${SERVER_URL}/post-api/unvisualized-post-likes`)
+        fetch(`${SERVER_URL}/post-api/post-notifications`)
             .then(response => response.json())
-            .then(data => setUnvisualizedPostLikes(data))
-        fetch(`${SERVER_URL}/post-api/unvisualized-post-comments`)
-            .then(response => response.json())
-            .then(data => setUnvisualizedComments(data))
-        fetch(`${SERVER_URL}/post-api/post-likes-visualized-last-2-days`)
-            .then(response => response.json())
-            .then(data => setVisualizedPostLikes(data))
-        fetch(`${SERVER_URL}/post-api/post-comments-visualized-last-2-days`)
-            .then(response => response.json())
-            .then(data => setVisualizedComments(data))
+            .then(data => setPostNotifications(data))
     }
 
     useEffect(() => {
@@ -44,26 +34,25 @@ export default function Notifications(props) {
     }, [])
 
     useEffect(() => {
-        if (unvisualizedPostLikes && unvisualizedPostLikes.length) {
+        if (!didVisualizedLikes && postNotifications && postNotifications[0].likes && postNotifications[0].likes.length) {
             fetch(`${SERVER_URL}/post-api/visualize-likes`)
                 .then(response => response.json())
                 .then(data => {
                     console.log(data)
+                    didVisualizedLikes = true
                     props.updateNotificationsNumber()
                 })
         }
-    }, [unvisualizedPostLikes])
-
-    useEffect(() => {
-        if (unvisualizedComments && unvisualizedComments.length) {
+        if (!didVisualizedComments && postNotifications && postNotifications[0].comments && postNotifications[0].comments.length) {
             fetch(`${SERVER_URL}/post-api/visualize-comments`)
                 .then(response => response.json())
                 .then(data => {
                     console.log(data)
+                    didVisualizedComments = true
                     props.updateNotificationsNumber()
                 })
         }
-    }, [unvisualizedComments])
+    }, [postNotifications])
 
     const replyRequest = e => {
         e.stopPropagation()
@@ -94,9 +83,9 @@ export default function Notifications(props) {
             <Header page="Notificações" />
             <div className="content">
                 <div>
-                    {invites !== null && unvisualizedPostLikes && visualizedPostLikes !== null && unvisualizedComments !== null && visualizedComments !== null ?
+                    {invites !== null && postNotifications !== null ?
                         <div>
-                            {invites.length || unvisualizedPostLikes.length || visualizedPostLikes.length || unvisualizedComments.length || !!visualizedComments.length ?
+                            {invites.length || postNotifications.length ?
                                 <div className="notifications-container">
                                     {!!invites.length &&
                                         <div>
@@ -111,56 +100,15 @@ export default function Notifications(props) {
                                         </div>
                                     }
 
-                                    {(!!unvisualizedPostLikes.length || !!unvisualizedComments.length) &&
-                                        <>
-                                            {!!unvisualizedPostLikes.length &&
-                                                <>
-                                                    {unvisualizedPostLikes.map(like => {
-                                                        return (
-                                                            <NotificationContent notification={like} type={"like"}>
-                                                                <NewLabel />
-                                                            </NotificationContent>
-                                                        )
-                                                    })}
-                                                </>
-                                            }
 
-                                            {!!unvisualizedComments.length &&
-                                                <>
-                                                    {unvisualizedComments.map(comment => {
-                                                        return (
-                                                            <NotificationContent notification={comment} type={"comment"}>
-                                                                <NewLabel />
-                                                            </NotificationContent>
-                                                        )
-                                                    })}
-                                                </>
-                                            }
-                                        </>
-                                    }
-
-                                    {(!!visualizedPostLikes.length || !!visualizedComments.length) &&
-                                        <>
-                                            {!!visualizedPostLikes.length &&
-                                                <>
-                                                    {visualizedPostLikes.map(like => {
-                                                        return (
-                                                            <NotificationContent notification={like} type={"like"}/>
-                                                        )
-                                                    })}
-                                                </>
-                                            }
-
-                                            {!!visualizedComments.length &&
-                                                <>
-                                                    {visualizedComments.map(comment => {
-                                                        return (
-                                                            <NotificationContent notification={comment} type={"comment"} />
-                                                        )
-                                                    })}
-                                                </>
-                                            }
-                                        </>
+                                    {!!postNotifications.length &&
+                                        <div>
+                                            {postNotifications.map(notification => {
+                                                return (
+                                                    <PostNotification notification={notification} />
+                                                )
+                                            })}
+                                        </div>
                                     }
 
                                 </div> :

@@ -1,6 +1,7 @@
 import json
 import datetime
 import base64
+import pytz
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -11,7 +12,7 @@ from django.shortcuts import render, redirect
 from django.core.files.base import ContentFile
 
 from profiles.views import get_profile_list
-from profiles.serializers import PostSerializer, PostLikeSerializer, CommentSerializer, CommentLikeSerializer
+from profiles.serializers import PostSerializer, PostLikeSerializer, CommentSerializer, CommentLikeSerializer, NotificationSerializer
 from profiles.models import Profile
 from .models import *
 from .utils import *
@@ -53,41 +54,39 @@ def explore_post_list(request):
     serializer = PostSerializer(posts, many=True)
     return Response(serializer.data)
 
+
 @api_view(['GET'])
-def post_likes_visualized_on_last_2_days(request):
+def post_notifications(request):
     profile = Profile.objects.get(user=request.user)
-    today = datetime.date.today()
-    likes = []
-    for post in profile.posts.all():
-        for like in post.likes.filter(visualized=True).exclude(profile=profile):
-            start_date = today - datetime.timedelta(days=2)
-            if like.updated >= start_date and like not in likes:
+    posts = Post.objects.filter(author=profile)
+    notifications = []
+    now = datetime.datetime.now()
+    now = pytz.utc.localize(now)
+
+    for post in posts:
+        notification, created = Notification.objects.get_or_create(post=post)
+        likes = []
+        comments = []
+        for like in post.likes.all():
+            if not like.visualized or now - datetime.timedelta(2) < like.updated:
                 likes.append(like)
-    serializer = PostLikeSerializer(likes, many=True)
-    return Response(serializer.data)
-
-@api_view(['GET'])
-def post_comments_visualized_on_last_2_days(request):
-    profile = Profile.objects.get(user=request.user)
-    today = datetime.date.today()
-    comments = []
-    for post in profile.posts.all():
-        for comment in post.comments.filter(visualized=True).exclude(author=profile):
-            start_date = today - datetime.timedelta(days=2)
-            if comment.updated >= start_date and comment not in comments:
+        for comment in post.comments.all():
+            if not comment.visualized or now - datetime.timedelta(2) < comment.updated:
                 comments.append(comment)
-    serializer = CommentSerializer(comments, many=True)
+
+        if notification.likes.all() != post.likes.all() or notification.comments.all() != post.comments.all():
+            notification.likes.set(post.likes.all())
+            notification.comments.set(post.comments.all())
+            notification.notifications_number = len([like for like in likes if not like.visualized]) + len([comment for comment in comments if not comment.visualized])
+            notification.save()
+
+        if len(likes) or len(comments):
+            notifications.append(notification)
+
+    serializer = NotificationSerializer(notifications, many=True)
+
     return Response(serializer.data)
 
-@api_view(['GET'])
-def unvisualized_post_likes(request):
-    profile = Profile.objects.get(user=request.user)
-    likes = []
-    for post in profile.posts.all():
-        for like in post.likes.filter(visualized=False).exclude(profile=profile):
-            likes.append(like)
-    serializer = PostLikeSerializer(likes, many=True)
-    return Response(serializer.data)
 
 def visualize_likes(request):
     profile = Profile.objects.get(user=request.user)
@@ -97,15 +96,6 @@ def visualize_likes(request):
             like.save()
     return JsonResponse('Likes visualized with success', safe=False)
 
-@api_view(['GET'])
-def unvisualized_post_comments(request):
-    profile = Profile.objects.get(user=request.user)
-    comments = []
-    for post in profile.posts.all():
-        for comment in post.comments.filter(visualized=False).exclude(author=profile):
-            comments.append(comment)
-    serializer = CommentSerializer(comments, many=True)
-    return Response(serializer.data)
 
 def visualize_comments(request):
     profile = Profile.objects.get(user=request.user)

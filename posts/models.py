@@ -45,8 +45,8 @@ class PostLike(models.Model):
     profile = models.ForeignKey(Profile, related_name='likes', blank=True, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, related_name='likes', on_delete=models.CASCADE)
     visualized = models.BooleanField(default=False)
-    updated = models.DateField(auto_now=True)
-    created = models.DateField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f'{self.profile} liked {self.post}'
@@ -58,8 +58,8 @@ class Comment(models.Model):
     post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)
     comments = models.ManyToManyField('self', related_name='related_comments', through='CommentRelationship', blank=True)
     layer = models.IntegerField(default=0)
-    updated = models.DateField(auto_now=True)
-    created = models.DateField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
     visualized = models.BooleanField(default=False)
 
     class Meta:
@@ -106,3 +106,10 @@ class CommentLike(models.Model):
 
     def __str__(self):
         return f'{self.profile} liked {self.comment}'
+
+
+class Notification(models.Model):
+    post = models.OneToOneField(Post, on_delete=models.CASCADE, related_name='notification')
+    likes = models.ManyToManyField(PostLike)
+    comments = models.ManyToManyField(Comment)
+    notifications_number = models.IntegerField(default=0) 
