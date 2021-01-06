@@ -17,7 +17,7 @@ export default function ProfileListItem(props) {
             style={{ color: 'var(--primary-grey)', textDecoration: 'none', width: '100%' }}
         >
             <li
-                className="position-relative d-flex flex-column border-0 b-bottom base-hover box-sm"
+                className="position-relative d-flex flex-column border-0 base-hover box-sm"
                 key={profile.id}
                 style={{ ...props.style, background: 'var(--theme-base-color)' }}
                 onClick={props.onClick}

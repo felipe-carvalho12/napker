@@ -42,7 +42,7 @@ export default function PostNotification(props) {
                 key={notification.id}
             >
                 <div
-                    className="d-flex flex-column w-100 white-hover b-theme-base-color b-bottom"
+                    className="d-flex flex-column w-100 white-hover b-theme-base-color box-sm"
                     style={{ padding: '15px 15px' }}
                 >
                     <div className="d-flex justify-content-between align-items-center mb-2">

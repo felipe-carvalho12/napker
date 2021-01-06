@@ -1,6 +1,5 @@
 import React from 'react'
 
-import { SERVER_URL } from '../../../../config/settings'
 
 export default function InviteListItem(props) {
     const invite = props.invite
@@ -8,8 +7,8 @@ export default function InviteListItem(props) {
 
     return (
         <li
-            className="d-flex justify-content-between w-100 b-bottom"
-            style={{ padding: '30px', backgroundColor: 'var(--theme-base-color)' }}
+            className="d-flex justify-content-between w-100 box-sm"
+            style={{ padding: '30px', backgroundColor: 'var(--theme-base-color)', ...props.style }}
             id={`fr-${invite.sender.id}`}
             key={invite.sender.id}
             onClick={() => window.location.href = `/user/${invite.sender.slug}`}
