@@ -119,16 +119,18 @@ export default function AlgorithmSettings(props) {
     return (
         <>
             <InfoModal isOpen={infoModalIsOpen} hideModal={() => setInfoModalIsOpen(false)} />
-            {renderInfoIcon &&
-                <InfoIcon className={!isMobile && 'py-3'} onClick={() => setInfoModalIsOpen(true)} />
-            }
             <div className={`d-flex flex-column justify-content-start align-items-center ${props.className}`} style={{ height: '85%', ...props.style }}>
                 <div style={{ marginTop: !isMobile && 'var(--header-heigth)', width: '100%' }}>
                     <h5 className={isMobile ? 'm-2' : 'ml-2'}>Personalize seu algoritmo.</h5>
                 </div>
                 {weights ?
                     <div className={`w-100 ${isMobile ? 'p-2' : 'h-100'} d-flex flex-column justify-content-between box-med b-theme-base-color`} style={{ minHeight: props.minHeight }}>
-                        <div className="mt-3">
+                        <div>
+                            <div className="d-flex align-items-end justify-content-end">
+                                {renderInfoIcon &&
+                                    <InfoIcon onClick={() => setInfoModalIsOpen(true)} />
+                                }
+                            </div>
                             <ProfileSettings
                                 open={profileSettingsIsOpen}
                                 handleDetailClick={handleDetailClick}

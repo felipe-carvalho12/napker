@@ -83,7 +83,7 @@ export const setTheme = theme => {
   } else if (theme === 'dark') {
     cssVariables.setProperty('--border-color', '#000')
     cssVariables.setProperty('--background', '#000')
-    cssVariables.setProperty('--fixed-components-background', '#131313')
+    cssVariables.setProperty('--fixed-components-background', '#0c0c0c')
     cssVariables.setProperty('--heart-color', '#E0245E')
     cssVariables.setProperty('--heart-background-hover', 'rgba(224, 36, 94, .1)')
     cssVariables.setProperty('--primary-color', '#48D1AF')
