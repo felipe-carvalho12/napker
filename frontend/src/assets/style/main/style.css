@@ -67,6 +67,13 @@ a {
 
 /* GENERAL UTILS */
 
+.box {
+    padding: 20px;
+    margin-bottom: 10px;
+    border-radius: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.1);
+}
+
 .icon {
     display: flex;
     justify-content: center;

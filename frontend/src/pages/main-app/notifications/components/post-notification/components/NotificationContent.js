@@ -61,7 +61,7 @@ export default function NotificationContent(props) {
                                         <p className="text-secondary d-inline-block" style={{ margin: '0' }}>
                                             {renderTimestamp(item.created)}
                                             {" • "}
-                                            <Link to={`/user/${author.slug}`} style={{ color: "#000" }}>
+                                            <Link to={`/user/${author.slug}`} style={{ color: "var(--primary-grey)" }}>
                                                 @{author.user.username}
                                             </Link> {type === 'likes' ? 'curtiu' : 'comentou' } seu post.
                                         </p>

@@ -69,7 +69,6 @@ export default function InterestsInput(props) {
             }
         })
 
-        input.current.focus()
     })
 
     return (
