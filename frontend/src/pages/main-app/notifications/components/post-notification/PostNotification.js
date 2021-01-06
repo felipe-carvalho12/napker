@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import NotificationContent from './components/NotificationContent'
@@ -11,12 +11,11 @@ export default function PostNotification(props) {
     useEffect(() => {
         renderLabel(notification.likes, 'like')
         renderLabel(notification.comments, 'comment')
-    }, [])
+    }, [props.notification])
 
     const renderLabel = (arr, type) => {
         const el = document.getElementById(`${notification.id}${type}`)
         if (!el) return
-
         let str = ''
         const len = arr.length < 3 ? arr.length : 3
 
