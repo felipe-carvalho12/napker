@@ -12,6 +12,7 @@ export default function PostListItem(props) {
     const displayingComments = props.displayingComments
     const showHideComments = props.showHideComments
     const showHideForm = props.showHideForm
+    const color = props.level
 
     const history = useHistory()
     const isLink = props.isLink !== undefined ? props.isLink : true
@@ -83,6 +84,9 @@ export default function PostListItem(props) {
             style={{ ...props.style, background: 'var(--theme-base-color)', marginBottom: type === 'comment' && '10px', padding: "0" }}
             onClick={() => isLink && history.push(`/post/${post.id}`)}
         >
+            {color !== undefined && 
+                <div style={{ marginLeft: "20px", width: "5px", background: color }} />
+            }
             <div className="d-flex flex-column h-100 w-100">
                 <div className="d-flex flex-column h-100 w-100" style={{ padding: "20px 20px 0" }}>
                     <div className="d-flex justify-content-between align-items-start w-100 mb-2">

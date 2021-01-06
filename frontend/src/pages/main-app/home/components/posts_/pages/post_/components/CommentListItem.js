@@ -15,9 +15,9 @@ export default function CommentListItem(props) {
 
     const colors = ['#5454fe', '#33fe66', '#fe4545', '#fefe45', 'var(--primary-grey)']
 
-    const borderLeft = i => {
+    const color = i => {
         return (
-            `20px solid ${comment.layer != undefined ? colors[comment.layer - i >= colors.length ? (comment.layer - i) % colors.length : comment.layer - i] : "var(--background)"}`
+            colors[comment.layer - i >= colors.length ? (comment.layer - i) % colors.length : comment.layer - i]
         )
     }
 
@@ -37,7 +37,7 @@ export default function CommentListItem(props) {
                 displayingComments={displayingComments}
                 showHideForm={() => setDisplayingForm(!displayingForm)}
                 showHideComments={showHideComments}
-                style={{ borderLeft: borderLeft(1) }}
+                level={color(1)}
             />
             {displayingForm &&
                 <PostForm
@@ -48,7 +48,8 @@ export default function CommentListItem(props) {
                     parentComment={comment}
                     hideForm={() => setDisplayingForm(false)}
                     className="box-med"
-                    style={{ marginLeft: "30px", borderLeft: borderLeft(0) }}
+                    style={{ marginLeft: "30px" }}
+                    level={color(0)}
                 />
             }
             {(comment.comments && displayingComments) && comment.comments.map(c => {
