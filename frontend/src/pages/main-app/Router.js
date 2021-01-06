@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useRef } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 
 import { SERVER_URL } from '../../config/settings'
 import {
-    InvitesReceivedContext, UnvisualizedCommentsContext,
-    UnvisualizedLikesContext, UnreadMessagesContext, AlgorithmWeightsContext
+    InvitesReceivedContext, PostNotificationsContext, UnreadMessagesContext, AlgorithmWeightsContext
 } from '../../context/app/AppContext'
 
 import SidebarLeft from '../../components/fixed/SidebarLeft'
@@ -28,8 +27,7 @@ export default function MainAppRouter() {
     const [, setWeights] = useContext(AlgorithmWeightsContext)
 
     const [, setInvitesReceived] = useContext(InvitesReceivedContext)
-    const [, setUnvisulaizedComments] = useContext(UnvisualizedCommentsContext)
-    const [, setUnvisulaizedLikes] = useContext(UnvisualizedLikesContext)
+    const [, setPostNotifications] = useContext(PostNotificationsContext)
 
     const [, setUnreadMessagesNumber] = useContext(UnreadMessagesContext)
 
@@ -50,12 +48,9 @@ export default function MainAppRouter() {
         fetch(`${SERVER_URL}/profile-api/myinvites`)
             .then(response => response.json())
             .then(data => setInvitesReceived(data.length))
-        fetch(`${SERVER_URL}/post-api/unvisualized-post-likes`)
+        fetch(`${SERVER_URL}/post-api/post-notifications`)
             .then(response => response.json())
-            .then(data => setUnvisulaizedLikes(data.length))
-        fetch(`${SERVER_URL}/post-api/unvisualized-post-comments`)
-            .then(response => response.json())
-            .then(data => setUnvisulaizedComments(data.length))
+            .then(data => setPostNotifications(data.map(obj => obj.notifications_number).reduce((accumulator, current) => accumulator + current)))
     }
 
     const updateUnreadMessagesNumber = () => {

@@ -68,6 +68,15 @@ class PostSerializer(PostUnrelatedSerializer):
     first_layer_comments = CommentSerializer(many=True)
     author = ProfileUnrelatedSerializer()
 
+class NotificationSerializer(serializers.ModelSerializer):
+    post = PostUnrelatedSerializer()
+    likes = PostLikeSerializer(many=True)
+    comments = CommentUnrelatedSerializer(many=True)
+
+    class Meta:
+        model = Notification
+        fields = '__all__'
+
 
 # PROFILES APP SERIALIZERS
 class InterestSerializer(serializers.ModelSerializer):
