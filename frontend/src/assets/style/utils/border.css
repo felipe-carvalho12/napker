@@ -14,12 +14,17 @@
     border-right: 3px solid var(--border-color)!important;
 }
 
+/* BORDER RADIUS */
+
 .b-bottom-radius {
     border-bottom-left-radius: 20px!important;
     border-bottom-right-radius: 20px!important;
 }
 
-.b-bottom-radius:hover {
-    border-bottom-left-radius: 20px!important;
+.b-bottom-right-radius-hover:hover {
     border-bottom-right-radius: 20px!important;
+}
+
+.b-bottom-left-radius-hover:hover {
+    border-bottom-left-radius: 20px!important;
 }
