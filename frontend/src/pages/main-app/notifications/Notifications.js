@@ -34,7 +34,7 @@ export default function Notifications(props) {
     }, [])
 
     useEffect(() => {
-        if (!didVisualizedLikes && postNotifications && postNotifications[0].likes && postNotifications[0].likes.length) {
+        if (!didVisualizedLikes && postNotifications && postNotifications[0] && postNotifications[0].likes && postNotifications[0].likes.length) {
             fetch(`${SERVER_URL}/post-api/visualize-likes`)
                 .then(response => response.json())
                 .then(data => {
@@ -43,7 +43,7 @@ export default function Notifications(props) {
                     props.updateNotificationsNumber()
                 })
         }
-        if (!didVisualizedComments && postNotifications && postNotifications[0].comments && postNotifications[0].comments.length) {
+        if (!didVisualizedComments && postNotifications && postNotifications[0] && postNotifications[0].comments && postNotifications[0].comments.length) {
             fetch(`${SERVER_URL}/post-api/visualize-comments`)
                 .then(response => response.json())
                 .then(data => {
