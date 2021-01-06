@@ -5,6 +5,7 @@
     padding-bottom: 5%;
     position: sticky;
     top: 0;
+    z-index: 1100;
     height: 100vh;
     width: var(--sidebar-width);
     box-sizing: border-box;
