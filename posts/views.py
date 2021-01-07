@@ -123,6 +123,8 @@ def create_post(request):
             img_format = format.split('/')[-1] 
             image = ContentFile(base64.b64decode(imgstr), name=profile.user.username + img_format)
             post = Post.objects.create(content=content, author=profile, image=image)
+        elif request.data['post-video'] != '':
+            post = Post.objects.create(content=content, author=profile, video=request.data['post-video'])
         else:
             post = Post.objects.create(content=content, author=profile)
         

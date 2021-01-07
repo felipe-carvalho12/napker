@@ -3,6 +3,7 @@ import { Link, useHistory } from 'react-router-dom'
 
 import { SERVER_URL } from '../config/settings'
 import { csrftoken } from '../config/utils'
+import VideoIframe from './videoIframe'
 
 export default function PostListItem(props) {
     const post = props.post
@@ -152,6 +153,9 @@ export default function PostListItem(props) {
                     <div className="d-flex justify-content-start w-100">
                         <img src={post.image} className="post-img" style={{ borderRadius: "0" }}/>
                     </div>
+                }
+                {post.video &&
+                    <VideoIframe src={post.video} />
                 }
                 <div className="d-flex justify-content-start align-items-center text-secondary" style={{ padding: "0 20px 20px" }}>
                     {(type === 'comment' && post.all_child_comments_length !== 0) &&
