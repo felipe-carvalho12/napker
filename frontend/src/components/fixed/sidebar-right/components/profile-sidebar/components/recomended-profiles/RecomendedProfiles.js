@@ -27,7 +27,7 @@ export default function RecomendedProfiles(props) {
             <InfoModal isOpen={infoModalIsOpen} hideModal={() => setInfoModalIsOpen(false)} profileSlug={profileSlug} />
             <div className="d-flex flex-column justify-content-start align-items-start" style={{ marginTop: 'var(--header-heigth)', padding: '10px' }}>
                 <InfoIcon className="align-self-end" onClick={() => setInfoModalIsOpen(true)} />
-                <div className="b-bottom" style={{ width: '100%' }}>
+                <div style={{ width: '100%' }}>
                     <h6 className="ml-2">Você pode gostar</h6>
                 </div>
                 {recomendedProfiles !== null ?
