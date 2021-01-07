@@ -49,19 +49,6 @@
     position: relative;
 }
 
-.post-extra-options .far {
-    color: var(--primary-color);
-    font-size: 20px;
-    margin-right: 10px;
-    padding: 10px;
-    border-radius: 50%;
-}
-
-.post-extra-options .far:hover {
-    background: var(--secondary-color);
-    cursor: pointer;
-}
-
 .post-extra-options .emoji-list-container {
     display: none;
     position: absolute;
