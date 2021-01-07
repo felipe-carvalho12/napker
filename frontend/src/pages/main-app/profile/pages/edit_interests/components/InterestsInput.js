@@ -46,18 +46,20 @@ export default function InterestsInput(props) {
             props.setInterests && setInterests(tags)
         }
 
-        input.current.addEventListener('keydown', (e) => {
+        input.current.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
+                let willAlert = false
                 input.current.value.split(',').forEach(tag => {
+                    console.log(tag)
                     if (tag.length < 3) {
-                        window.alert('Os interesses devem ter no mínimo 3 caracteres!')
+                        willAlert = true
                     } else {
                         tags.push(tag)
                     }
                 })
-
+                willAlert && window.alert('Os interesses devem ter no mínimo 3 caracteres!')
                 addTags()
-                input.current.value = ''
+                window.setTimeout(() => input.current.value = '', 1)
             }
         })
         document.addEventListener('click', (e) => {
@@ -69,7 +71,7 @@ export default function InterestsInput(props) {
             }
         })
 
-    })
+    }, [])
 
     return (
         <>
@@ -78,9 +80,9 @@ export default function InterestsInput(props) {
                 <textarea
                     ref={input}
                     className="autoExpand m-0"
-                    rows='3'
-                    data-min-rows='3'
-                    placeholder="Digite e pressione 'Enter'"
+                    rows={props.rows || "3"}
+                    data-min-rows={props.rows || "3"}
+                    placeholder={props.placeholder || "Digite e pressione 'Enter'"}
                 />
                 <input ref={interestsInput} type="hidden" />
             </div>

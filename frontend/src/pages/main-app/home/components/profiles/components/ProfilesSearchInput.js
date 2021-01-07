@@ -1,11 +1,27 @@
 import React, { useEffect, useState } from 'react'
 import { SERVER_URL } from '../../../../../../config/settings'
+import InterestsInput from '../../../../profile/pages/edit_interests/components/InterestsInput'
 
 
 export default function ProfilesSearchInput(props) {
     const setFilteredProfiles = props.setFilteredProfiles
     const [search, setSearch] = useState('')
     const [searchType, setSearchType] = useState('byName')
+
+
+    const isMobile = visualViewport.width <= 980
+
+    const handleMouseIn = (e, text) => {
+        if (!isMobile) {
+            e.target.innerHTML = text
+        }
+    }
+
+    const handleMouseOut = (e, icon) => {
+        if (!isMobile) {
+            e.target.innerHTML = icon
+        }
+    }
 
     useEffect(() => {
         if (search.trim() === '') {
@@ -27,61 +43,57 @@ export default function ProfilesSearchInput(props) {
         }
     }, [search])
 
-    const openCloseSearchTypeSelector = () => {
-        const el = document.querySelector('#profiles-search-type-selector')
-        const style = el.style
-        if (!style.display) style.display = 'none'
-        if (style.display === 'none') {
-            style.display = 'flex'
-        } else {
-            style.display = 'none'
-        }
+    const handleSearchTypeSelection = (e, text) => {
+        setSearchType(searchType === 'byName' ? 'byInterest' : 'byName')
+        e.target.innerHTML = text
     }
 
-    const handleSearchTypeSelection = () => {
-        setSearchType(searchType === 'byName' ? 'byInterest' : 'byName')
-        openCloseSearchTypeSelector()
-    }
+    let [interests, setInterests] = [[], arr => interests = arr]
 
     return (
         <>
             <div className="profiles-filter-container b-bottom-radius">
-                <div style={{ width: '89%' }}>
-                    <input
+                <div style={{ width: '60%' }}>
+                    {searchType === 'byInterest' ?
+                        <InterestsInput
+                            placeholder={'Digite um ou mais interesses'}
+                            type="public"
+                            rows="1"
+                            setInterests={setInterests}
+                        />
+                        :
+                        <input
                         type="text"
                         className="profiles-filter-input"
-                        placeholder={searchType === 'byName' ? 'Pesquisar perfil' : 'Digite um ou mais interesses'}
+                        placeholder={'Pesquisar perfil'}
                         value={search}
                         onChange={e => setSearch(e.target.value)}
-                    />
+                        />
+                    }
                 </div>
-                <i
-                    className="fas fa-ellipsis-h btn profiles-search-extra-options-icon view-more-icon"
-                    onClick={openCloseSearchTypeSelector}
-                />
-            </div>
-            <div
-                className="view-more-select"
-                id="profiles-search-type-selector"
-                style={{ right: '5%', top: '130px' }}
-                onClick={handleSearchTypeSelection}
-            >
+
                 {searchType === 'byName' ?
-                    <div className="position-relative">
-                        <li className="d-flex align-items-center">
-                            <i class="fas fa-grin-hearts text-secondary" style={{ fontSize: 'large', marginRight: '5px' }} />
-                            Pesquisar por interesse
-                        </li>
-                        <div className="popover-arrow white-hover" style={{ top: '-9px', left: '75%' }} />
-                    </div>
+                    <button
+                        type="button"
+                        className="btn btn-grey btn-home"
+                        style={{ margin: '4px 0', borderRadius: '20px', height: "40px" }}
+                        onClick={e => handleSearchTypeSelection(e, "Pesquisar por nome")}
+                        onMouseEnter={e => handleMouseIn(e, "Pesquisar por interesse")}
+                        onMouseOut={e => handleMouseOut(e, '<i class="fas fa-grin-hearts text-secondary" style="font-size: large;"/>')}
+                    >
+                        <i className="fas fa-grin-hearts text-secondary" style={{ fontSize: 'large' }} />
+                    </button>
                     :
-                    <div className="position-relative">
-                        <li className="d-flex align-items-center">
-                            <i class="fas fa-user text-secondary" style={{ fontSize: 'large', marginRight: '5px' }} />
-                            Pesquisar por nome
-                        </li>
-                        <div className="popover-arrow white-hover" style={{ top: '-9px', left: '75%' }} />
-                    </div>
+                    <button
+                        type="button"
+                        className="btn btn-grey btn-home"
+                        style={{ margin: '4px 0', borderRadius: '20px', height: "40px" }}
+                        onClick={e => handleSearchTypeSelection(e, "Pesquisar por interesse")}
+                        onMouseEnter={e => handleMouseIn(e, "Pesquisar por nome")}
+                        onMouseOut={e => handleMouseOut(e, '<i class="fas fa-user text-secondary" style="font-size: large;"/>')}
+                    >
+                        <i className="fas fa-user text-secondary" style={{ fontSize: 'large' }} />
+                    </button>
                 }
             </div>
         </>
