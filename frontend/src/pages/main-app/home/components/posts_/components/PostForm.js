@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import EmojiPicker from '../../../../../../components/EmojiPicker'
 
@@ -11,7 +11,7 @@ export default function PostForm(props) {
     const type = props.type === undefined ? 'post' : props.type
     const postId = props.postId
     const parentComment = props.parentComment
-    const hideForm = props.hideFormconst 
+    const hideForm = props.hideFormconst
     const color = props.level
 
     const isMobile = visualViewport.width <= 980
@@ -25,6 +25,19 @@ export default function PostForm(props) {
 
     const [postContent, setPostContent] = useState('')
     const [postFormImagePreview, setPostFormImagePreview] = useState('')
+    const [videoLink, setVideoLink] = useState('')
+
+    useEffect(() => {
+        if (postFormImagePreview !== '') {
+            setVideoLink('')
+        }
+    }, [postFormImagePreview])
+
+    useEffect(() => {
+        if (videoLink !== '') {
+            setPostFormImagePreview('')
+        }
+    }, [videoLink])
 
     const handlePostContentChange = e => {
         setPostContent(e.target.value)
@@ -46,6 +59,13 @@ export default function PostForm(props) {
         } catch {
 
         }
+    }
+
+    const getEmbedVideoUrl = () => {
+        if (!videoLink) return
+
+        const videoId = /watch\?v=(.*)/.exec(videoLink.includes('&') ? videoLink.split('&')[0] : videoLink)[1]
+        return `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1`
     }
 
     const handleCloseImage = () => {
@@ -100,7 +120,7 @@ export default function PostForm(props) {
             onSubmit={handleSubmit}
         >
             <div className="d-flex">
-                {color !== undefined && 
+                {color !== undefined &&
                     <div style={{ marginLeft: "20px", width: "5px", background: color }} />
                 }
                 <div className="d-flex flex-column w-100" style={{ padding: "20px" }}>
@@ -128,7 +148,7 @@ export default function PostForm(props) {
                             onChange={handlePostContentChange}
                         />
                     </div>
-                    {postFormImagePreview !== '' &&
+                    {(postFormImagePreview && postFormImagePreview !== '') &&
                         <div className="w-100 d-flex justify-content-center">
                             <div
                                 className="post-img-container"
@@ -149,19 +169,33 @@ export default function PostForm(props) {
                             </div>
                         </div>
                     }
+                    {(videoLink && videoLink !== '') &&
+                        <iframe width="620" height="315"
+                            src={getEmbedVideoUrl()}>
+                        </iframe>
+                    }
                     <hr />
                     <div className="d-flex justify-content-between" style={{ margin: '0px 70px 0 70px' }}>
                         <div className="post-extra-options">
                             {type === 'post' &&
                                 <>
-                                    <label htmlFor="post-image" class="far fa-image" />
-                                    <input
-                                        type="file"
-                                        accept="image/png, image/jpg, image/jpeg, image/gif"
-                                        id="post-image"
-                                        style={{ display: 'none' }}
-                                        onChange={handlePostImageChange}
-                                    />
+                                    <div>
+                                        <label htmlFor="post-image" className="far fa-image m-0 icon c-primary-color secondary-hover" style={{ fontSize: '25px' }} />
+                                        <input
+                                            type="file"
+                                            accept="image/png, image/jpg, image/jpeg, image/gif"
+                                            id="post-image"
+                                            style={{ display: 'none' }}
+                                            onChange={handlePostImageChange}
+                                        />
+                                    </div>
+                                    <i
+                                        className="material-icons-outlined m-0 icon c-primary-color secondary-hover"
+                                        style={{ fontSize: '27px' }}
+                                        onClick={() => setVideoLink(window.prompt('Copie e cole o link de um vídeo do YouTube: '))}
+                                    >
+                                        slow_motion_video
+                                    </i>
                                 </>
                             }
                             {!isMobile &&

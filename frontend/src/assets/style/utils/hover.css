@@ -10,7 +10,7 @@
     }
     
     .primary-hover, .secondary-hover  {
-        transition: .2s;
+        transition: .2s!important;
     }
     
     .base-hover:hover {
@@ -24,10 +24,10 @@
     }
     
     .secondary-hover:hover {
-        cursor: pointer;
-        background: var(--secondary-color);
-        color: var(--primary-color)!important;
-        transition: .2s;
+        cursor: pointer!important;
+        background: var(--secondary-color)!important;
+        color: var(--primary-color-hover)!important;
+        transition: .2s!important;
     }
 
     /* SPECIFIC */
