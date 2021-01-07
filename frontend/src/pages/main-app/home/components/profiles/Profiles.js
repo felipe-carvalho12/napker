@@ -78,7 +78,7 @@ export default function Profiles() {
             <ProfilesSearchInput setFilteredProfiles={setFilteredProfiles} />
             <div className="list-group">
                 {myProfile && (profiles || filteredProfiles) &&
-                    <div className="w-100" style={{ overflowY: 'hidden' }}>
+                    <div className="w-100">
                         {filteredProfiles ? filteredProfiles.map(profile => {
                             return (
                                 <ProfileListItem profile={profile} myProfile={myProfile} />
