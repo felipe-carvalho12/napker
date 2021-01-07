@@ -20,7 +20,7 @@ export default function NotificationContent(props) {
 
     return (
         <div style={{ marginLeft: '20px' }}>
-            <div className="d-flex flex-column align-items-start w-100 b-theme-base-color b-bottom" style={{ fontSize: '20px', fontWeight: 'bold' }}>
+            <div className="d-flex flex-column align-items-start w-100 b-theme-base-color box-sm" style={{ fontSize: '20px', fontWeight: 'bold' }}>
                 <span className="p-2">{type === 'likes' ? 'Curtidas' : 'Comentários'} ({arr.length})</span>
                 {isOpen ?
                     <i
@@ -44,7 +44,7 @@ export default function NotificationContent(props) {
                         const author = item.author || item.profile
 
                         return (
-                            <li className="d-flex w-100 white-hover b-bottom b-theme-base-color" style={{ padding: '15px 15px' }}
+                            <li className="d-flex w-100 white-hover box-med b-theme-base-color" style={{ padding: '15px 15px' }}
                                 key={author.id}
                             >
                                 <div className="d-flex flex-column h-100" style={{ marginRight: '10px' }}>
@@ -61,7 +61,7 @@ export default function NotificationContent(props) {
                                         <p className="text-secondary d-inline-block" style={{ margin: '0' }}>
                                             {renderTimestamp(item.created)}
                                             {" • "}
-                                            <Link to={`/user/${author.slug}`} style={{ color: "#000" }}>
+                                            <Link to={`/user/${author.slug}`} style={{ color: "var(--primary-grey)" }}>
                                                 @{author.user.username}
                                             </Link> {type === 'likes' ? 'curtiu' : 'comentou' } seu post.
                                         </p>

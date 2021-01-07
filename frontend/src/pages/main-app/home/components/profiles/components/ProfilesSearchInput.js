@@ -45,7 +45,7 @@ export default function ProfilesSearchInput(props) {
 
     return (
         <>
-            <div className="profiles-filter-container">
+            <div className="profiles-filter-container b-bottom-radius">
                 <div style={{ width: '89%' }}>
                     <input
                         type="text"

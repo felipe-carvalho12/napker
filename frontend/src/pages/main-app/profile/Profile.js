@@ -307,16 +307,16 @@ class Profile extends React.Component {
                                         }
                                     </div>
                                 </ProfileData>
-                                <div className="profile-page-menu b-bottom">
+                                <div className="profile-page-menu b-bottom b-bottom-radius" style={{ marginBottom: '10px' }}>
                                     <div
-                                        className="profile-page-menu-item profile-page-menu-item-active"
+                                        className="profile-page-menu-item profile-page-menu-item-active b-bottom-left-radius-hover"
                                         id="profile-posts-page-menu-item"
                                         onClick={this.switchPage}
                                     >
                                         Posts ({this.state.profile.posts.length})
                                     </div>
                                     <div
-                                        className="profile-page-menu-item"
+                                        className="profile-page-menu-item b-bottom-right-radius-hover"
                                         id="profile-interests-page-menu-item"
                                         onClick={this.switchPage}
                                     >

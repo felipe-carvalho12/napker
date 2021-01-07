@@ -69,6 +69,7 @@ export default function Post() {
                             isLink={false}
                             renderParent={fetchPost}
                             showHideForm={() => setDisplayingForm(!displayingForm)}
+                            style={{ borderTopLeftRadius: '0', borderTopRightRadius: '0' }}
                         />
                         <div className="mt-2">
                             {displayingForm &&
@@ -79,6 +80,7 @@ export default function Post() {
                                         myProfile={myProfile}
                                         renderParent={fetchPost}
                                         hideForm={() => setDisplayingForm(false)}
+                                        className="box-med"
                                     />
                                 </div>
                             }

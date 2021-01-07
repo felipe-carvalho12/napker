@@ -12,6 +12,7 @@ export default function PostListItem(props) {
     const displayingComments = props.displayingComments
     const showHideComments = props.showHideComments
     const showHideForm = props.showHideForm
+    const color = props.level
 
     const history = useHistory()
     const isLink = props.isLink !== undefined ? props.isLink : true
@@ -77,67 +78,49 @@ export default function PostListItem(props) {
 
     return (
         <li
-            className="d-flex w-100 base-hover hide-animation"
+            className="d-flex w-100 base-hover hide-animation box-med"
             id={`profile-post-${post.id}`}
             key={post.id}
-            style={{ ...props.style, padding: '5px 15px', background: 'var(--theme-base-color)', marginBottom: "2px"}}
+            style={{ ...props.style, background: 'var(--theme-base-color)', marginBottom: type === 'comment' && '10px', padding: "0" }}
             onClick={() => isLink && history.push(`/post/${post.id}`)}
         >
-            <div className="d-flex flex-column justify-content-between" style={{ marginRight: '10px' }}>
-                <Link
-                    to={post.author.id === myProfile.id ?
-                        '/perfil' : `/user/${post.author.slug}`}
-                    onClick={e => e.stopPropagation()}
-                >
-                    <img src={post.author.photo}
-                        className="profile-img-sm"
-                    />
-                </Link>
-                {(type === 'comment' && post.all_child_comments_length !== 0) &&
-                    <>
-                        {displayingComments ?
-                            <i
-                                className="material-icons-sharp align-self-start icon base-hover text-secondary"
-                                style={{ width: '25px', height: '25px' }}
-                                onClick={showHideComments}
+            {color !== undefined && 
+                <div style={{ marginLeft: "20px", width: "5px", background: color }} />
+            }
+            <div className="d-flex flex-column h-100 w-100">
+                <div className="d-flex flex-column h-100 w-100" style={{ padding: "20px 20px 0" }}>
+                    <div className="d-flex justify-content-between align-items-start w-100 mb-2">
+                        <div className="d-flex align-items-center">
+                            <Link
+                                to={post.author.id === myProfile.id ?
+                                    '/perfil' : `/user/${post.author.slug}`}
+                                onClick={e => e.stopPropagation()}
                             >
-                            keyboard_arrow_down</i>
-                            :
-                            <i
-                                className="material-icons-sharp align-self-start icon base-hover text-secondary"
-                                style={{ width: '25px', height: '25px' }}
-                                onClick={showHideComments}
+                                <img src={post.author.photo}
+                                    className="profile-img-sm mr-2"
+                                />
+                            </Link>
+                            <Link
+                                to={post.author.id === myProfile.id ? '/perfil' : `/user/${post.author.slug}`}
+                                className="d-flex justify-content-start align-items-start post-author-data-wrapper"
+                                style={{ color: '#000' }}
+                                onClick={e => e.stopPropagation()}
                             >
-                            keyboard_arrow_right</i>
-                        }
-                    </>
-                }
-            </div>
-            <div className="d-flex flex-column h-100 w-100" style={{ marginRight: '10px' }}>
-                <div className="d-flex justify-content-between w-100">
-                    <div>
-                        <Link
-                            to={post.author.id === myProfile.id ? '/perfil' : `/user/${post.author.slug}`}
-                            className="d-flex justify-content-start align-items-start post-author-data-wrapper"
-                            style={{ color: '#000' }}
-                            onClick={e => e.stopPropagation()}
-                        >
-                            <strong className="mr-2" style={{ color: 'var(--primary-grey)' }}>
-                                {post.author.first_name} {post.author.last_name}
-                            </strong>
-                            <p className="text-secondary">
-                                @{post.author.user.username} • {post.created.split('-').reverse().join('/')}
-                            </p>
-                        </Link>
+                                <strong className="mr-2" style={{ color: 'var(--primary-grey)' }}>
+                                    {post.author.first_name} {post.author.last_name}
+                                </strong>
+                                <span className="text-secondary">
+                                    @{post.author.user.username} • {post.created.split('-').reverse().join('/')}
+                                </span>
+                            </Link>
+                        </div>
+                        <i
+                            className="fas fa-ellipsis-h d-flex justify-content-center align-items-center text-secondary secondary-hover view-more-icon"
+                            id={`post-view-more-icon-${post.id}`}
+                            style={{ textDecoration: 'none', width: '30px', height: '30px', borderRadius: '30px' }}
+                            onClick={e => openCloseExtraOptions(e, post.id)}
+                        />
                     </div>
-                    <i
-                        className="fas fa-ellipsis-h d-flex justify-content-center align-items-center text-secondary secondary-hover view-more-icon"
-                        id={`post-view-more-icon-${post.id}`}
-                        style={{ textDecoration: 'none', width: '30px', height: '30px', borderRadius: '30px' }}
-                        onClick={e => openCloseExtraOptions(e, post.id)}
-                    />
-                </div>
-                <div className="d-flex flex-column position-relative">
                     <div className="view-more-select" id={`post-view-more-select-${post.id}`} style={{ right: '0%' }}>
                         {myProfile.id === post.author.id ?
                             <li
@@ -149,11 +132,11 @@ export default function PostListItem(props) {
                             </li>
                             :
                             <>
-                                <li onClick={e => {e.stopPropagation(); window.alert('Ainda estamos desenvolvendo essa funcionalidade... (:')}}>
+                                <li onClick={e => { e.stopPropagation(); window.alert('Ainda estamos desenvolvendo essa funcionalidade... (:') }}>
                                     <i class="fas fa-exclamation-triangle text-secondary" />
                                     Denunciar fake news
                                 </li>
-                                <li onClick={e => {e.stopPropagation(); window.alert('Ainda estamos desenvolvendo essa funcionalidade... (:')}}>
+                                <li onClick={e => { e.stopPropagation(); window.alert('Ainda estamos desenvolvendo essa funcionalidade... (:') }}>
                                     <i class="fas fa-exclamation-circle text-secondary" />
                                     Denunciar conteúdo impróprio
                                 </li>
@@ -164,46 +147,65 @@ export default function PostListItem(props) {
                     <div className="d-flex justify-content-start word-break">
                         {post.content}
                     </div>
-                    {post.image &&
-                        <div className="d-flex justify-content-start w-100">
-                            <img src={post.image} className="post-img" />
-                        </div>
-                    }
-                    <div className="d-flex justify-content-start align-items-start text-secondary mt-2 mb-1">
-                        <div
-                            className="d-flex align-items-center text-secondary"
-                            style={{ outline: 'none', textDecoration: 'none' }}
-                            onClick={showHideForm && showHideForm}
-                        >
-                            <i
-                                class="far fa-comment mr-1 icon"
-                            />
-                            <p style={{ margin: '0' }}>
-                                {post.all_child_comments_length}
-                            </p>
-                        </div>
-                        <div className="d-flex align-items-center">
-                            {post.likes.map(like => like.profile.id).includes(myProfile.id) ?
-                                <i class="fas fa-heart expand-animation mr-1  ml-2 icon"
-                                    data-postid={post.id}
-                                    onClick={likeUnlikePost}
-                                />
+                </div>
+                {post.image &&
+                    <div className="d-flex justify-content-start w-100">
+                        <img src={post.image} className="post-img" style={{ borderRadius: "0" }}/>
+                    </div>
+                }
+                <div className="d-flex justify-content-start align-items-center text-secondary" style={{ padding: "0 20px 20px" }}>
+                    {(type === 'comment' && post.all_child_comments_length !== 0) &&
+                        <>
+                            {displayingComments ?
+                                <i
+                                    className="material-icons-sharp icon base-hover text-secondary"
+                                    style={{ width: '25px', height: '25px' }}
+                                    onClick={showHideComments}
+                                >
+                                    keyboard_arrow_down</i>
                                 :
-                                <i class="far fa-heart mr-1 ml-2 icon"
-                                    data-postid={post.id}
-                                    onClick={likeUnlikePost}
-                                />
+                                <i
+                                    className="material-icons-sharp icon base-hover text-secondary"
+                                    style={{ width: '25px', height: '25px' }}
+                                    onClick={showHideComments}
+                                >
+                                    keyboard_arrow_right</i>
                             }
-                            <p className="m-0 likes-number"
-                                onClick={e => {
-                                    e.stopPropagation()
-                                    props.openLikesModal(post.likes)
-                                }
-                                }
-                            >
-                                {post.likes.length}
-                            </p>
-                        </div>
+                        </>
+                    }
+                    <div
+                        className="d-flex align-items-center text-secondary"
+                        style={{ outline: 'none', textDecoration: 'none' }}
+                        onClick={showHideForm && showHideForm}
+                    >
+                        <i
+                            class="far fa-comment mr-1 icon"
+                        />
+                        <p style={{ margin: '0' }}>
+                            {post.all_child_comments_length}
+                        </p>
+                    </div>
+                    <div className="d-flex align-items-center">
+                        {post.likes.map(like => like.profile.id).includes(myProfile.id) ?
+                            <i class="fas fa-heart expand-animation mr-1  ml-2 icon"
+                                data-postid={post.id}
+                                onClick={likeUnlikePost}
+                            />
+                            :
+                            <i class="far fa-heart mr-1 ml-2 icon"
+                                data-postid={post.id}
+                                onClick={likeUnlikePost}
+                            />
+                        }
+                        <p className="m-0 likes-number"
+                            onClick={e => {
+                                e.stopPropagation()
+                                props.openLikesModal(post.likes)
+                            }
+                            }
+                        >
+                            {post.likes.length}
+                        </p>
                     </div>
                 </div>
             </div>
