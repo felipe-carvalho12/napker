@@ -18,20 +18,6 @@ export default function PostListItem(props) {
     const history = useHistory()
     const isLink = props.isLink !== undefined ? props.isLink : true
 
-    const handleMouseEnter = () => {
-        const el = document.querySelector(`#img-container${post.id}`)
-        if (!el) return
-        
-        el.style.background = 'var(--img-background-hover)'
-    }
-
-    const handleMouseOut = () => {
-        const el = document.querySelector(`#img-container${post.id}`)
-        if (!el) return
-        
-        el.style.background = 'var(--img-background)'
-    }
-
     const likeUnlikePost = e => {
         e.stopPropagation()
         const likeBtn = e.target
@@ -93,13 +79,11 @@ export default function PostListItem(props) {
 
     return (
         <li
-            className="d-flex w-100 base-hover hide-animation box-med"
+            className="d-flex w-100 base-hover hide-animation box-med post-container"
             id={`profile-post-${post.id}`}
             key={post.id}
             style={{ ...props.style, background: 'var(--theme-base-color)', marginBottom: type === 'comment' && '10px', padding: "0" }}
             onClick={() => isLink && history.push(`/post/${post.id}`)}
-            onMouseEnter={handleMouseEnter}
-            onMouseOut={handleMouseOut}
         >
             {color !== undefined &&
                 <div style={{ marginLeft: "20px", width: "5px", background: color }} />
@@ -166,7 +150,7 @@ export default function PostListItem(props) {
                     </div>
                 </div>
                 {post.image &&
-                    <div className="d-flex justify-content-center w-100" id={`img-container${post.id}`} style={{ background: 'var(--img-background)' }}>
+                    <div className="d-flex justify-content-center w-100 post-img-background" style={{ background: 'var(--img-background)' }}>
                         <img src={post.image} className="post-img m-0 border-0" style={{ borderRadius: "0" }} />
                     </div>
                 }
