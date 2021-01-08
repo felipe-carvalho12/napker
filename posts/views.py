@@ -99,7 +99,6 @@ def visualize_likes(request):
     return Response('Likes visualized with success')
 
 
-
 @api_view(['GET'])
 def visualize_comments(request):
     profile = Profile.objects.get(user=request.user)
@@ -146,12 +145,16 @@ def create_post(request):
             'message': 'Servidor custa caro! (:'
         })
 
+
+@api_view(['DELETE'])
 def delete_post(request, post_id):
-    if request.method == 'POST':
-        profile = Profile.objects.get(user=request.user)
-        posts = Post.objects.filter(id=post_id, author=profile)
-        if posts.exists(): posts.first().delete()
-        return JsonResponse(f'Deleted post #{post_id}', safe=False)
+    profile = Profile.objects.get(user=request.user)
+    posts = Post.objects.filter(id=post_id, author=profile)
+    if posts.exists():
+        posts.first().delete()
+        return Response(f'Deleted post #{post_id}')
+    return Response(f"Post #{post_id} doesn't belongs to you")
+
 
 @api_view(['POST'])
 def create_comment(request):
@@ -169,23 +172,28 @@ def create_comment(request):
     serializer = CommentSerializer(comment)
     return Response(serializer.data)
 
-def delete_comment(request, comment_id):
-    if request.method == 'POST':
-        profile = Profile.objects.get(user=request.user)
-        comments = Comment.objects.filter(id=comment_id, author=profile)
-        if comments.exists():
-            comment = comments.first()
-            for c in comment.all_child_comments():
-                c.delete()
-            comment.delete()
-        return JsonResponse(f'Deleted comment #{comment_id}', safe=False)
 
+@api_view(['DELETE'])
+def delete_comment(request, comment_id):
+    profile = Profile.objects.get(user=request.user)
+    comments = Comment.objects.filter(id=comment_id, author=profile)
+    if comments.exists():
+        comment = comments.first()
+        for c in comment.all_child_comments():
+            c.delete()
+        comment.delete()
+        return Response(f'Deleted comment #{comment_id}')
+    return Response(f"Comment #{comment_id} doesn't belongs to you")
+
+
+@api_view(['GET'])
 def like_post(request, post_id):
     profile = Profile.objects.get(user=request.user)
     post = Post.objects.get(id=post_id)
     if not PostLike.objects.filter(profile=profile, post=post).exists():
         PostLike.objects.create(profile=profile, post=post)
-    return JsonResponse(f'Liked post #{post.id}', safe=False)
+        return Response(f'Liked post #{post.id}')
+    return Response(f'You have already liked post #{post.id}')
 
 def unlike_post(request, post_id):
     profile = Profile.objects.get(user=request.user)

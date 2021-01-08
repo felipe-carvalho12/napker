@@ -63,7 +63,7 @@ export default function PostListItem(props) {
         const el = document.querySelector(`#profile-post-${postId}`)
         if (window.confirm(`Tem certeza que deseja apagar o ${type === 'post' ? type : 'comentário'}?\nEssa ação é irreversível.`)) {
             fetch(`${SERVER_URL}/post-api/delete-${type}/${postId}`, {
-                method: 'POST',
+                method: 'DELETE',
                 headers: {
                     'Content-type': 'application/json',
                     'X-CSRFToken': csrftoken,

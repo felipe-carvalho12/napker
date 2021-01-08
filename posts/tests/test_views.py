@@ -153,3 +153,91 @@ class TestViews(TestCase):
         self.assertTrue(comment1.visualized)
         self.assertTrue(comment2.visualized)
         self.assertTrue(comment3.visualized)
+
+
+    def test_create_post_view(self):
+        pass
+
+
+    def test_delete_post_view(self):
+        pk = self.test_post.id
+
+        self.client.force_login(self.test_user_2)
+        response = self.client.delete(f'/post-api/delete-post/{self.test_post.id}')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, f"Post #{self.test_post.id} doesn't belongs to you")
+        self.assertTrue(Post.objects.filter(id=pk).exists())
+
+        self.client.force_login(self.test_user)
+        response = self.client.delete(f'/post-api/delete-post/{self.test_post.id}')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, f'Deleted post #{self.test_post.id}')
+        self.assertFalse(Post.objects.filter(id=pk).exists())
+
+    
+    def test_create_comment_view(self):
+        pass
+
+
+    def test_delete_comment_view(self):
+        pk1 = Comment.objects.create(author=self.test_user.profile, post=self.test_post, content='Hello, world!').id
+        pk2 = Comment.objects.create(author=self.test_user_2.profile, post=self.test_post, content='Lorem ipsum', layer=1).id
+        pk3 = Comment.objects.create(author=self.test_user_2.profile, post=self.test_post, content='Lorem ipsum dolor sit amet', layer=2).id
+        CommentRelationship.objects.create(comment=Comment.objects.get(id=pk2), parent_comment=Comment.objects.get(id=pk1))
+        CommentRelationship.objects.create(comment=Comment.objects.get(id=pk3), parent_comment=Comment.objects.get(id=pk2))
+
+        self.client.force_login(self.test_user_2)
+        response = self.client.delete(f'/post-api/delete-comment/{pk1}')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, f"Comment #{pk1} doesn't belongs to you")
+        self.assertTrue(Comment.objects.filter(id=pk1).exists())
+        self.assertTrue(Comment.objects.filter(id=pk2).exists())
+        self.assertTrue(Comment.objects.filter(id=pk3).exists())
+
+        self.client.force_login(self.test_user)
+        response = self.client.delete(f'/post-api/delete-comment/{pk1}')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, f'Deleted comment #{pk1}')
+        self.assertFalse(Comment.objects.filter(id=pk1).exists())
+        self.assertFalse(Comment.objects.filter(id=pk2).exists())
+        self.assertFalse(Comment.objects.filter(id=pk3).exists())
+
+
+    def test_like_post_view(self):
+        self.assertEqual(len(self.test_post.likes.all()), 0)
+
+        self.client.force_login(self.test_user)
+
+        response = self.client.get(f'/post-api/like-post/{self.test_post.id}')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, f"Liked post #{self.test_post.id}")
+        self.assertEqual(len(self.test_post.likes.all()), 1)
+
+        response = self.client.get(f'/post-api/like-post/{self.test_post.id}')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, f"You have already liked post #{self.test_post.id}")
+        self.assertEqual(len(self.test_post.likes.all()), 1)
+
+        self.client.force_login(self.test_user_2)
+
+        response = self.client.get(f'/post-api/like-post/{self.test_post.id}')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, f"Liked post #{self.test_post.id}")
+        self.assertEqual(len(self.test_post.likes.all()), 2)
+
+        response = self.client.get(f'/post-api/like-post/{self.test_post.id}')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, f"You have already liked post #{self.test_post.id}")
+        self.assertEqual(len(self.test_post.likes.all()), 2)
+
+
+    def test_unlike_post_view(self):
+        pass
+
+    
+    def test_like_comment_view(self):
+        pass
+
+
+    def test_unlike_comment_view(self):
+        pass
