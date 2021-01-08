@@ -50,7 +50,7 @@ def explore_post_list(request):
     posts = []
     for interest in profile.interests.all():
         if Hashtag.objects.filter(title=interest.title).exists():
-            posts.extend([post for post in Hashtag.objects.get(title=interest.title).posts.all() if post.image])
+            posts.extend(list(Hashtag.objects.get(title=interest.title).posts.all()))
     serializer = PostSerializer(posts, many=True)
     return Response(serializer.data)
 

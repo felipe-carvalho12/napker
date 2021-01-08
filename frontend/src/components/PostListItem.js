@@ -79,7 +79,7 @@ export default function PostListItem(props) {
 
     return (
         <li
-            className="d-flex w-100 base-hover hide-animation box-med post-container"
+            className={`d-flex w-100 base-hover hide-animation box-med post-container ${props.className}`}
             id={`profile-post-${post.id}`}
             key={post.id}
             style={{ ...props.style, background: 'var(--theme-base-color)', marginBottom: type === 'comment' && '10px', padding: "0" }}

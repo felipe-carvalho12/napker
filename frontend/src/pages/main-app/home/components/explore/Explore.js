@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { SERVER_URL } from '../../../../../config/settings'
 import PostListItem from '../../../../../components/PostListItem'
 import LikesModal from '../../../../../components/LikesModal'
+import InterestSearchInput from '../profiles/components/InterestSearchInput'
 
 
 export default function Explore() {
@@ -43,7 +44,7 @@ export default function Explore() {
         fetchPosts()
     }
 
-    const pageInDevelopment = (
+    return (
         <div className="explore-page-container">
             <LikesModal
                 isOpen={likesModal.isOpen}
@@ -52,6 +53,9 @@ export default function Explore() {
             />
             {myProfile !== null && posts !== null ?
                 <>
+                    <div className="w-100 d-flex justify-content-center align-items-center p-2 b-theme-base-color">
+                        <InterestSearchInput className="mt-1" style={{ width: '90%' }} />
+                    </div>
                     <div className="hashtags-header">
                         <div className="hashtag-container active base-hover" onClick={switchPage}>
                             Todos
@@ -64,17 +68,33 @@ export default function Explore() {
                             )
                         })}
                     </div>
-                    <div className="post-list">
-                        {posts.map(post => {
-                            return (
-                                <PostListItem
-                                    post={post}
-                                    myProfile={myProfile}
-                                    renderParent={fetchPosts}
-                                    openLikesModal={likes => setLikesModal({ isOpen: true, likes: likes })}
-                                />
-                            )
-                        })}
+                    <div className="d-flex justify-content-between">
+                        <div className="post-list" style={{ width: '49%' }}>
+                            {posts.filter((post, index) => !(index % 2)).map(post => {
+                                return (
+                                    <PostListItem
+                                        post={post}
+                                        myProfile={myProfile}
+                                        renderParent={fetchPosts}
+                                        openLikesModal={likes => setLikesModal({ isOpen: true, likes: likes })}
+                                    />
+                                )
+                            })
+                            }
+                        </div>
+                        <div className="post-list" style={{ width: '49%' }}>
+                            {posts.filter((post, index) => index % 2).map(post => {
+                                return (
+                                    <PostListItem
+                                        post={post}
+                                        myProfile={myProfile}
+                                        renderParent={fetchPosts}
+                                        openLikesModal={likes => setLikesModal({ isOpen: true, likes: likes })}
+                                    />
+                                )
+                            })
+                            }
+                        </div>
                     </div>
                 </>
                 :
@@ -82,12 +102,6 @@ export default function Explore() {
                     <div className="loader" />
                 </div>
             }
-        </div>
-    )
-
-    return (
-        <div className="w-100 d-flex justify-content-center align-items-center pt-3">
-            <h4 style={{ color: 'var(--primary-grey)' }}>Em breve...</h4>
         </div>
     )
 }

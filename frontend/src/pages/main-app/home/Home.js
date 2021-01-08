@@ -11,7 +11,7 @@ import BottomMenu from '../../../components/fixed/bottom-menu/BottomMenu'
 import HomePageMenu from './components/HomePageMenu'
 
 
-export default function Home(props) {
+export default function Home() {
     const [page, setPage] = useState('Feed')
     const [algorithmSettingsIsOpen, setAlgorithmSettingsIsOpen] = useState(false)
 

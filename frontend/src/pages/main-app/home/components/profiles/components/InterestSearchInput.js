@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 
+
 export default function InterestSearchInput(props) {
 
     let query = ''
@@ -71,7 +72,7 @@ export default function InterestSearchInput(props) {
 
     return (
         <>
-            <div className={`${props.className} tag-container`}>
+            <div className={`${props.className} tag-container`} style={props.style}>
                 <div ref={tagContainer} className="w-100 d-flex flex-wrap"></div>
                 <textarea
                     ref={input}
