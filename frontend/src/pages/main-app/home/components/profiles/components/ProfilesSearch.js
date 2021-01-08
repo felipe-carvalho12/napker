@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { SERVER_URL } from '../../../../../../config/settings'
-import InterestsInput from '../../../../profile/pages/edit_interests/components/InterestsInput'
+import InterestSearchInput from './InterestSearchInput'
 
 
 export default function ProfilesSearchInput(props) {
@@ -48,26 +48,19 @@ export default function ProfilesSearchInput(props) {
         e.target.innerHTML = text
     }
 
-    let [interests, setInterests] = [[], arr => interests = arr]
-
     return (
         <>
             <div className="profiles-filter-container b-bottom-radius">
                 <div style={{ width: '60%' }}>
                     {searchType === 'byInterest' ?
-                        <InterestsInput
-                            placeholder={'Digite um ou mais interesses'}
-                            type="public"
-                            rows="1"
-                            setInterests={setInterests}
-                        />
+                        <InterestSearchInput />
                         :
                         <input
-                        type="text"
-                        className="profiles-filter-input"
-                        placeholder={'Pesquisar perfil'}
-                        value={search}
-                        onChange={e => setSearch(e.target.value)}
+                            type="text"
+                            className="profiles-filter-input"
+                            placeholder={'Pesquisar perfil'}
+                            value={search}
+                            onChange={e => setSearch(e.target.value)}
                         />
                     }
                 </div>

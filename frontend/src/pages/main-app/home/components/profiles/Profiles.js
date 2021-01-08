@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { SERVER_URL } from '../../../../../config/settings'
 import { csrftoken } from '../../../../../config/utils'
 import ProfileListItem from '../../../../../components/ProfileListItem'
-import ProfilesSearchInput from './components/ProfilesSearchInput'
+import ProfilesSearch from './components/ProfilesSearch'
 
 export default function Profiles() {
     const [myProfile, setMyProfile] = useState(null)
@@ -75,7 +75,7 @@ export default function Profiles() {
 
     return (
         <>
-            <ProfilesSearchInput setFilteredProfiles={setFilteredProfiles} />
+            <ProfilesSearch setFilteredProfiles={setFilteredProfiles} />
             <div className="list-group">
                 {myProfile && (profiles || filteredProfiles) &&
                     <div className="w-100">
