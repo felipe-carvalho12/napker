@@ -16,7 +16,7 @@
     background: var(--border-color)!important;
     color: var(--primary-grey)!important;
     border-radius: 30px!important;
-    padding: 10px 25px 10px 20px!important;
+    padding: 10px 25px 10px 20px;
 }
 
 .primary-form textarea:focus {

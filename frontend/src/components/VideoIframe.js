@@ -2,9 +2,11 @@ import React from 'react'
 
 
 export default function VideoIframe(props) {
+    const width  = props.width || '620'
+    const heigth = props.heigth || '315'
 
     return (
-        <iframe width="620" height="315" src={props.src}
+        <iframe width={width} height={heigth} src={props.src}
             frameborder='0'
             allow='autoplay; encrypted-media'
         />

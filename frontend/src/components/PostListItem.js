@@ -15,6 +15,9 @@ export default function PostListItem(props) {
     const showHideForm = props.showHideForm
     const color = props.level
 
+    const videoWidth = props.videoWidth
+    const videoHeigth = props.videoHeigth
+
     const history = useHistory()
     const isLink = props.isLink !== undefined ? props.isLink : true
 
@@ -155,7 +158,7 @@ export default function PostListItem(props) {
                     </div>
                 }
                 {post.video &&
-                    <VideoIframe src={post.video} />
+                    <VideoIframe src={post.video} width={videoWidth} height={videoHeigth} />
                 }
                 <div className="d-flex justify-content-start align-items-center text-secondary" style={{ padding: "0 20px 20px" }}>
                     {(type === 'comment' && post.all_child_comments_length !== 0) &&

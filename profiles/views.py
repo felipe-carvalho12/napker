@@ -52,7 +52,7 @@ def get_profile_by_email(request, email):
 @api_view(['GET'])
 def filter_profiles(request, query):
     profile = Profile.objects.get(user=request.user)
-    all_profiles = Profile.objects.all()
+    all_profiles = Profile.objects.filter(user__is_active=True)
 
     profiles = [p for p in all_profiles if len(re.findall(f'^{query.lower()}', p.slug))]
 
