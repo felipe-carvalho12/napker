@@ -118,6 +118,7 @@ export default function PostForm(props) {
                 if (data.message) {
                     setErrMessage(data.message)
                 } else {
+                    errMessage && setErrMessage('')
                     hideForm && hideForm()
                     posts ?
                         setPosts([data, ...posts])

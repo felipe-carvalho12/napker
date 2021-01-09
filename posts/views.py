@@ -116,7 +116,7 @@ def create_post(request):
     hashtags = request.data['hashtags']
     tagged_usernames = request.data['tagged-usernames']
 
-    if len(content) <= 500:
+    if len(content) and len(content) <= 500:
         if len(request.data['post-image']):
             format, imgstr = request.data['post-image'].split(';base64,') 
             img_format = format.split('/')[-1] 
@@ -140,9 +140,13 @@ def create_post(request):
 
         serializer = PostSerializer(post)
         return Response(serializer.data)
-    else:
+    elif len(content) > 500:
         return Response({
             'message': 'Servidor custa caro! (:'
+        })
+    else:
+        return Response({
+            'message': 'Pare de brincar com o HTML! (:'
         })
 
 
