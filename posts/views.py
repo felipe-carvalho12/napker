@@ -116,14 +116,17 @@ def create_post(request):
     hashtags = request.data['hashtags']
     tagged_usernames = request.data['tagged-usernames']
 
-    if len(content) and len(content) <= 500:
+    if len(content) <= 500:
+        has_image_or_video = False
         if len(request.data['post-image']):
             format, imgstr = request.data['post-image'].split(';base64,') 
             img_format = format.split('/')[-1] 
             image = ContentFile(base64.b64decode(imgstr), name=profile.user.username + img_format)
             post = Post.objects.create(content=content, author=profile, image=image)
+            has_image_or_video = True
         elif request.data['post-video'] != '':
             post = Post.objects.create(content=content, author=profile, video=request.data['post-video'])
+            has_image_or_video = True
         else:
             post = Post.objects.create(content=content, author=profile)
         
@@ -139,14 +142,15 @@ def create_post(request):
                 post.save()'''
 
         serializer = PostSerializer(post)
-        return Response(serializer.data)
-    elif len(content) > 500:
-        return Response({
-            'message': 'Servidor custa caro! (:'
-        })
+        if len(content) or has_image_or_video:
+            return Response(serializer.data)
+        else:
+            return Response({
+            'message': 'Pare de brincar com o HTML! (:'
+            })
     else:
         return Response({
-            'message': 'Pare de brincar com o HTML! (:'
+            'message': 'Servidor custa caro! (:'
         })
 
 
