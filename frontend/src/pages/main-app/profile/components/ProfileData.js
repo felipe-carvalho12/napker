@@ -1,14 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import { SERVER_URL } from '../../../../config/settings'
 
 export default function ProfileData(props) {
     const profile = props.profile
 
     return (
         <div className="profile-data-container">
-            <div className="d-flex flex-column align-items-start" style={{ textAlign: 'start', maxWidth: '50%' }}>
+            <div className="d-flex flex-column align-items-start word-break" style={{ textAlign: 'start', maxWidth: '50%' }}>
                 <p>
                     <img src={profile.photo}
                         className="profile-img-big"

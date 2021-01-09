@@ -14,6 +14,8 @@
   --theme-base-color-hover: rgb(248, 248, 248);
   --tertiary-grey: #f2f2f2;
   --view-more-select-border: rgba(0, 0, 0, .2);
+  --img-background: rgba(0, 0, 0, .9);
+  --img-background-hover: rgb(0, 0, 0, .8);
 
   --header-heigth: 9vh;
   --home-page-menu-height: 60px;

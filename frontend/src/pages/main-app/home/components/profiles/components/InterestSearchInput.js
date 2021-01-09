@@ -1,27 +1,25 @@
 import React, { useEffect, useRef } from 'react'
 
-export default function InterestsInput(props) {
 
-    const type = props.type
-    const myProfile = props.myProfile
-    const setInterests = props.setInterests
+export default function InterestSearchInput(props) {
+
+    let query = ''
 
     const tagContainer = useRef()
     const input = useRef()  //input where the interests are submitted
     const interestsInput = useRef() //hidden input that stores the interests titles
 
     useEffect(() => {
-        let tags = myProfile ? myProfile.interests.filter(i => type === 'public' ? i.public : !i.public).map(i => i.title) : []
+        let tags = []
         addTags()
 
         function createTag(label) {
             const div = document.createElement('div');
             div.classList.add('tag');
-            div.classList.add(`${type}-tag`);
             const span = document.createElement('span');
             span.innerHTML = label;
             const closeIcon = document.createElement('i');
-            closeIcon.classList.add(`${type}-close-icon`)
+            closeIcon.classList.add(`close-icon`)
             closeIcon.innerHTML = '×';
             closeIcon.classList.add('material-icons')
             closeIcon.setAttribute('data-item', label);
@@ -32,7 +30,7 @@ export default function InterestsInput(props) {
         }
 
         function clearTags() {
-            document.querySelectorAll(`.${type}-tag`).forEach(tag => {
+            document.querySelectorAll(`.tag`).forEach(tag => {
                 tag.parentElement.removeChild(tag);
             });
         }
@@ -41,9 +39,9 @@ export default function InterestsInput(props) {
             clearTags();
             tags.sort()
             tags.slice().reverse().forEach(tag => {
-                tagContainer.current.prepend(createTag(tag));
-            });
-            props.setInterests && setInterests(tags)
+                tagContainer.current.prepend(createTag(tag))
+            })
+            query += tags[tags.length - 1]
         }
 
         input.current.addEventListener('keypress', (e) => {
@@ -62,7 +60,7 @@ export default function InterestsInput(props) {
             }
         })
         document.addEventListener('click', (e) => {
-            if (e.target.classList.contains(`${type}-close-icon`)) {
+            if (e.target.classList.contains(`close-icon`)) {
                 const tagLabel = e.target.getAttribute('data-item')
                 const index = tags.indexOf(tagLabel)
                 tags = [...tags.slice(0, index), ...tags.slice(index + 1)]
@@ -74,14 +72,14 @@ export default function InterestsInput(props) {
 
     return (
         <>
-            <div className={`${props.className} tag-container`}>
+            <div className={`${props.className} tag-container`} style={props.style}>
                 <div ref={tagContainer} className="w-100 d-flex flex-wrap"></div>
                 <textarea
                     ref={input}
                     className="autoExpand m-0"
-                    rows="3"
-                    data-min-rows="3"
-                    placeholder={"Digite e pressione 'Enter'"}
+                    rows="1"
+                    data-min-rows="1"
+                    placeholder={"Digite um ou mais interesses"}
                 />
                 <input ref={interestsInput} type="hidden" />
             </div>

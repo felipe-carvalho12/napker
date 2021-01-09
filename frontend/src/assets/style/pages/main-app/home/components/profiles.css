@@ -1,6 +1,8 @@
 .profiles-filter-container {
     width: 100%;
     display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
     background: var(--theme-base-color);
     padding: 15px 5.37%;
     margin-bottom: 15px;

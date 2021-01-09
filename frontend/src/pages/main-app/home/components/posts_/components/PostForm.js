@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import EmojiPicker from '../../../../../../components/EmojiPicker'
+import VideoIframe from '../../../../../../components/videoIframe'
 
 import { SERVER_URL } from '../../../../../../config/settings'
 import { csrftoken } from '../../../../../../config/utils'
@@ -25,24 +26,30 @@ export default function PostForm(props) {
 
     const [postContent, setPostContent] = useState('')
     const [postFormImagePreview, setPostFormImagePreview] = useState('')
-    const [videoLink, setVideoLink] = useState('')
+    const [videoUrl, setVideoUrl] = useState('')
 
     useEffect(() => {
         if (postFormImagePreview !== '') {
-            setVideoLink('')
+            setVideoUrl('')
         }
     }, [postFormImagePreview])
 
     useEffect(() => {
-        if (videoLink !== '') {
+        if (videoUrl === null) {
+            setVideoUrl('')
+            return
+        }
+        if (videoUrl) {
             setPostFormImagePreview('')
         }
-    }, [videoLink])
+        const el = document.querySelector('#post-form-submit-btn')
+        el.disabled = !videoUrl.trim() && !postFormImagePreview && !videoUrl
+    }, [videoUrl])
 
     const handlePostContentChange = e => {
         setPostContent(e.target.value)
         const el = document.querySelector('#post-form-submit-btn')
-        el.disabled = e.target.value.trim() === '' && !postFormImagePreview
+        el.disabled = !e.target.value.trim() && !postFormImagePreview && !videoUrl
     }
 
     const handlePostImageChange = e => {
@@ -62,17 +69,22 @@ export default function PostForm(props) {
     }
 
     const getEmbedVideoUrl = () => {
-        if (!videoLink) return
+        if (!videoUrl) return
 
-        const videoId = /watch\?v=(.*)/.exec(videoLink.includes('&') ? videoLink.split('&')[0] : videoLink)[1]
+        const videoId = /watch\?v=(.*)/.exec(videoUrl.includes('&') ? videoUrl.split('&')[0] : videoUrl)[1]
         return `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1`
     }
 
     const handleCloseImage = () => {
         document.querySelector('#post-img-container').style.display = 'none'
         document.querySelector('#post-image').value = ''
-        if (postContent.trim() === '') document.querySelector('#post-form-submit-btn').disabled = true
+        if (!postContent.trim() && !videoUrl.trim()) document.querySelector('#post-form-submit-btn').disabled = true
         setPostFormImagePreview(null)
+    }
+
+    const handleCloseVideo = () => {
+        setVideoUrl('')
+        if (!postContent.trim() && !postFormImagePreview.trim()) document.querySelector('#post-form-submit-btn').disabled = true
     }
 
     const handleSubmit = e => {
@@ -80,6 +92,7 @@ export default function PostForm(props) {
         const postImage = postFormImagePreview
         setPostContent('')
         setPostFormImagePreview('')
+        setVideoUrl('')
         document.querySelector('.create-post-form textarea').rows = 3
 
         fetch(`${SERVER_URL}/post-api/create-${type === 'post' ? type : 'comment'}`, {
@@ -93,7 +106,8 @@ export default function PostForm(props) {
                 'post-id': postId || '',
                 'parent-comment-id': parentComment ? parentComment.id : '',
                 'type': type,
-                'post-image': postImage,
+                'post-image': postImage || '',
+                'post-video': getEmbedVideoUrl() || '',
                 'hashtags': hashtags,
                 'tagged-usernames': taggedUsernames
 
@@ -104,6 +118,7 @@ export default function PostForm(props) {
                 if (data.message) {
                     setErrMessage(data.message)
                 } else {
+                    errMessage && setErrMessage('')
                     hideForm && hideForm()
                     posts ?
                         setPosts([data, ...posts])
@@ -169,10 +184,18 @@ export default function PostForm(props) {
                             </div>
                         </div>
                     }
-                    {(videoLink && videoLink !== '') &&
-                        <iframe width="620" height="315"
-                            src={getEmbedVideoUrl()}>
-                        </iframe>
+                    {(videoUrl && videoUrl !== '') &&
+                        <div className="position-relative">
+                            <div
+                                className="post-img-options"
+                            >
+                                <i
+                                    className="far fa-times-circle"
+                                    onClick={handleCloseVideo}
+                                />
+                            </div>
+                            <VideoIframe src={getEmbedVideoUrl()} />
+                        </div>
                     }
                     <hr />
                     <div className="d-flex justify-content-between" style={{ margin: '0px 70px 0 70px' }}>
@@ -192,7 +215,7 @@ export default function PostForm(props) {
                                     <i
                                         className="material-icons-outlined m-0 icon c-primary-color secondary-hover"
                                         style={{ fontSize: '27px' }}
-                                        onClick={() => setVideoLink(window.prompt('Copie e cole o link de um vídeo do YouTube: '))}
+                                        onClick={() => setVideoUrl(window.prompt('Copie e cole o link de um vídeo do YouTube: '))}
                                     >
                                         slow_motion_video
                                     </i>

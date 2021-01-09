@@ -78,6 +78,7 @@ class TestViews(TestCase):
 
 
     def test_filter_profiles_view(self):
+        User.objects.create(username='davy', is_active=False)
         self.client.force_login(self.test_user)
 
         response = self.client.get(f'/profile-api/users/d')

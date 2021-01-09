@@ -79,6 +79,8 @@ export const setTheme = theme => {
     cssVariables.setProperty('--tertiary-grey', '#f2f2f2')
     cssVariables.setProperty('--theme-base-color-hover', 'rgb(248, 248, 248)')
     cssVariables.setProperty('--view-more-select-border', 'rgba(0, 0, 0, .2)')
+    cssVariables.setProperty('--img-background', 'rgba(0, 0, 0, .9)')
+    cssVariables.setProperty('--img-background-hover', 'rgba(0, 0, 0, .8)')
 
   } else if (theme === 'dark') {
     cssVariables.setProperty('--border-color', '#000')
@@ -96,5 +98,7 @@ export const setTheme = theme => {
     cssVariables.setProperty('--tertiary-grey', '#202020')
     cssVariables.setProperty('--theme-base-color-hover', 'rgb(30, 30, 30)')
     cssVariables.setProperty('--view-more-select-border', 'rgba(255, 255, 255, .2)')
+    cssVariables.setProperty('--img-background',  'rgba(0, 0, 0, .3)')
+    cssVariables.setProperty('--img-background-hover', 'rgba(0, 0, 0, .3)')
   }
 }

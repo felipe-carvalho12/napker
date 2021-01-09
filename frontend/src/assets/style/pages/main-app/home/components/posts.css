@@ -8,6 +8,10 @@
     border: 1px solid var(--border-color);
 }
 
+.post-container:hover .post-img-background {
+    background: var(--img-background-hover)!important;
+}
+
 .create-post-form {
     background: var(--theme-base-color);
     padding: 15px 15px 10px 15px;
@@ -22,7 +26,7 @@
     margin-top: 15px;
 }
 
-.post-img-container .post-img-options {
+.post-img-options {
     width: 100%;
     display: flex;
     position: absolute;
@@ -31,14 +35,14 @@
     padding: 3px;
 }
 
-.post-img-container .post-img-options .far {
+.post-img-options .far {
     font-size: 30px;
     color: #fff;
     background: rgba(0, 0, 0, 0.7);
     border-radius: 50%;
 }
 
-.post-img-container .post-img-options .far:hover {
+.post-img-options .far:hover {
     background: rgba(0, 0, 0, 0.2);
     cursor: pointer;
 }

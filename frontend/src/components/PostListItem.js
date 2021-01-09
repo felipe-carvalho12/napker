@@ -3,6 +3,7 @@ import { Link, useHistory } from 'react-router-dom'
 
 import { SERVER_URL } from '../config/settings'
 import { csrftoken } from '../config/utils'
+import VideoIframe from './videoIframe'
 
 export default function PostListItem(props) {
     const post = props.post
@@ -13,6 +14,9 @@ export default function PostListItem(props) {
     const showHideComments = props.showHideComments
     const showHideForm = props.showHideForm
     const color = props.level
+
+    const videoWidth = props.videoWidth
+    const videoHeigth = props.videoHeigth
 
     const history = useHistory()
     const isLink = props.isLink !== undefined ? props.isLink : true
@@ -62,7 +66,7 @@ export default function PostListItem(props) {
         const el = document.querySelector(`#profile-post-${postId}`)
         if (window.confirm(`Tem certeza que deseja apagar o ${type === 'post' ? type : 'comentário'}?\nEssa ação é irreversível.`)) {
             fetch(`${SERVER_URL}/post-api/delete-${type}/${postId}`, {
-                method: 'POST',
+                method: 'DELETE',
                 headers: {
                     'Content-type': 'application/json',
                     'X-CSRFToken': csrftoken,
@@ -78,13 +82,13 @@ export default function PostListItem(props) {
 
     return (
         <li
-            className="d-flex w-100 base-hover hide-animation box-med"
+            className={`d-flex w-100 base-hover hide-animation box-med post-container ${props.className}`}
             id={`profile-post-${post.id}`}
             key={post.id}
             style={{ ...props.style, background: 'var(--theme-base-color)', marginBottom: type === 'comment' && '10px', padding: "0" }}
             onClick={() => isLink && history.push(`/post/${post.id}`)}
         >
-            {color !== undefined && 
+            {color !== undefined &&
                 <div style={{ marginLeft: "20px", width: "5px", background: color }} />
             }
             <div className="d-flex flex-column h-100 w-100">
@@ -149,9 +153,12 @@ export default function PostListItem(props) {
                     </div>
                 </div>
                 {post.image &&
-                    <div className="d-flex justify-content-start w-100">
-                        <img src={post.image} className="post-img" style={{ borderRadius: "0" }}/>
+                    <div className="d-flex justify-content-center w-100 post-img-background" style={{ background: 'var(--img-background)' }}>
+                        <img src={post.image} className="post-img m-0 border-0" style={{ borderRadius: "0" }} />
                     </div>
+                }
+                {post.video &&
+                    <VideoIframe src={post.video} width={videoWidth} height={videoHeigth} />
                 }
                 <div className="d-flex justify-content-start align-items-center text-secondary" style={{ padding: "0 20px 20px" }}>
                     {(type === 'comment' && post.all_child_comments_length !== 0) &&

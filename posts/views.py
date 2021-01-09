@@ -50,7 +50,7 @@ def explore_post_list(request):
     posts = []
     for interest in profile.interests.all():
         if Hashtag.objects.filter(title=interest.title).exists():
-            posts.extend([post for post in Hashtag.objects.get(title=interest.title).posts.all() if post.image])
+            posts.extend(list(Hashtag.objects.get(title=interest.title).posts.all()))
     serializer = PostSerializer(posts, many=True)
     return Response(serializer.data)
 
@@ -99,7 +99,6 @@ def visualize_likes(request):
     return Response('Likes visualized with success')
 
 
-
 @api_view(['GET'])
 def visualize_comments(request):
     profile = Profile.objects.get(user=request.user)
@@ -117,12 +116,14 @@ def create_post(request):
     hashtags = request.data['hashtags']
     tagged_usernames = request.data['tagged-usernames']
 
-    if len(content) <= 500:
+    if len(content) and len(content) <= 500:
         if len(request.data['post-image']):
             format, imgstr = request.data['post-image'].split(';base64,') 
             img_format = format.split('/')[-1] 
             image = ContentFile(base64.b64decode(imgstr), name=profile.user.username + img_format)
             post = Post.objects.create(content=content, author=profile, image=image)
+        elif request.data['post-video'] != '':
+            post = Post.objects.create(content=content, author=profile, video=request.data['post-video'])
         else:
             post = Post.objects.create(content=content, author=profile)
         
@@ -139,17 +140,25 @@ def create_post(request):
 
         serializer = PostSerializer(post)
         return Response(serializer.data)
-    else:
+    elif len(content) > 500:
         return Response({
             'message': 'Servidor custa caro! (:'
         })
+    else:
+        return Response({
+            'message': 'Pare de brincar com o HTML! (:'
+        })
 
+
+@api_view(['DELETE'])
 def delete_post(request, post_id):
-    if request.method == 'POST':
-        profile = Profile.objects.get(user=request.user)
-        posts = Post.objects.filter(id=post_id, author=profile)
-        if posts.exists(): posts.first().delete()
-        return JsonResponse(f'Deleted post #{post_id}', safe=False)
+    profile = Profile.objects.get(user=request.user)
+    posts = Post.objects.filter(id=post_id, author=profile)
+    if posts.exists():
+        posts.first().delete()
+        return Response(f'Deleted post #{post_id}')
+    return Response(f"Post #{post_id} doesn't belongs to you")
+
 
 @api_view(['POST'])
 def create_comment(request):
@@ -167,23 +176,28 @@ def create_comment(request):
     serializer = CommentSerializer(comment)
     return Response(serializer.data)
 
-def delete_comment(request, comment_id):
-    if request.method == 'POST':
-        profile = Profile.objects.get(user=request.user)
-        comments = Comment.objects.filter(id=comment_id, author=profile)
-        if comments.exists():
-            comment = comments.first()
-            for c in comment.all_child_comments():
-                c.delete()
-            comment.delete()
-        return JsonResponse(f'Deleted comment #{comment_id}', safe=False)
 
+@api_view(['DELETE'])
+def delete_comment(request, comment_id):
+    profile = Profile.objects.get(user=request.user)
+    comments = Comment.objects.filter(id=comment_id, author=profile)
+    if comments.exists():
+        comment = comments.first()
+        for c in comment.all_child_comments():
+            c.delete()
+        comment.delete()
+        return Response(f'Deleted comment #{comment_id}')
+    return Response(f"Comment #{comment_id} doesn't belongs to you")
+
+
+@api_view(['GET'])
 def like_post(request, post_id):
     profile = Profile.objects.get(user=request.user)
     post = Post.objects.get(id=post_id)
     if not PostLike.objects.filter(profile=profile, post=post).exists():
         PostLike.objects.create(profile=profile, post=post)
-    return JsonResponse(f'Liked post #{post.id}', safe=False)
+        return Response(f'Liked post #{post.id}')
+    return Response(f'You have already liked post #{post.id}')
 
 def unlike_post(request, post_id):
     profile = Profile.objects.get(user=request.user)
