@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom'
 
 import { SERVER_URL } from '../config/settings'
 import { csrftoken } from '../config/utils'
-import VideoIframe from './videoIframe'
+import VideoIframe from './VideoIframe'
 
 export default function PostListItem(props) {
     const post = props.post
