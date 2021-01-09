@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import EmojiPicker from '../../../../../../components/EmojiPicker'
-import VideoIframe from '../../../../../../components/videoIframe'
+import VideoIframe from '../../../../../../components/VideoIframe'
 
 import { SERVER_URL } from '../../../../../../config/settings'
 import { csrftoken } from '../../../../../../config/utils'
