@@ -5,6 +5,7 @@ import VideoIframe from '../../../../../../components/VideoIframe'
 
 import { SERVER_URL } from '../../../../../../config/settings'
 import { csrftoken } from '../../../../../../config/utils'
+import AdvancedPostModal from './components/AdvancedPostModal'
 
 export default function PostForm(props) {
     const myProfile = props.myProfile
@@ -27,6 +28,8 @@ export default function PostForm(props) {
     const [postContent, setPostContent] = useState('')
     const [postFormImagePreview, setPostFormImagePreview] = useState('')
     const [videoUrl, setVideoUrl] = useState('')
+
+    const [advancedModalIsOpen, setAdvancedModalIsOpen] = useState(false)
 
     useEffect(() => {
         if (postFormImagePreview !== '') {
@@ -129,118 +132,128 @@ export default function PostForm(props) {
     }
 
     return (
-        <form
-            className={`create-post-form b-bottom-radius box-shadow p-0 ${props.className}`}
-            style={props.style}
-            onSubmit={handleSubmit}
-        >
-            <div className="d-flex">
-                {color !== undefined &&
-                    <div style={{ marginLeft: "20px", width: "5px", background: color }} />
-                }
-                <div className="d-flex flex-column w-100" style={{ padding: "20px" }}>
-                    {errMessage !== null &&
-                        <div className="w-100 mt-1">
-                            <span className="word-break" style={{ color: '#f00' }}>{errMessage}</span>
-                        </div>
+        <>
+            <AdvancedPostModal isOpen={advancedModalIsOpen} closeModal={() => setAdvancedModalIsOpen(false)} />
+            <form
+                className={`create-post-form b-bottom-radius box-shadow p-0 ${props.className}`}
+                style={props.style}
+                onSubmit={handleSubmit}
+            >
+                <div className="d-flex">
+                    {color !== undefined &&
+                        <div style={{ marginLeft: "20px", width: "5px", background: color }} />
                     }
-                    <div className="d-flex">
-                        <Link to="/perfil">
-                            <img
-                                src={myProfile.photo}
-                                className="profile-img-sm"
+                    <div className="d-flex flex-column w-100" style={{ padding: "20px" }}>
+                        {errMessage !== null &&
+                            <div className="w-100 mt-1">
+                                <span className="word-break" style={{ color: '#f00' }}>{errMessage}</span>
+                            </div>
+                        }
+                        <div className="d-flex">
+                            <Link to="/perfil">
+                                <img
+                                    src={myProfile.photo}
+                                    className="profile-img-sm"
+                                />
+                            </Link>
+                            <textarea
+                                className='w-100 border-0 autoExpand'
+                                rows='3'
+                                data-min-rows='3'
+                                value={postContent}
+                                placeholder={parentComment ? `Responder ${parentComment.author.first_name}` : "O que passa pela sua cabeça?"}
+                                maxLength={500}
+                                autoFocus
+                                style={{ color: 'var(--primary-grey)', background: 'var(--theme-base-color)', padding: '10px', paddingBottom: '0', outline: 'none' }}
+                                onChange={handlePostContentChange}
                             />
-                        </Link>
-                        <textarea
-                            className='w-100 border-0 autoExpand'
-                            rows='3'
-                            data-min-rows='3'
-                            value={postContent}
-                            placeholder={parentComment ? `Responder ${parentComment.author.first_name}` : "O que passa pela sua cabeça?"}
-                            maxLength={500}
-                            autoFocus
-                            style={{ color: 'var(--primary-grey)', background: 'var(--theme-base-color)', padding: '10px', paddingBottom: '0', outline: 'none' }}
-                            onChange={handlePostContentChange}
-                        />
-                    </div>
-                    {(postFormImagePreview && postFormImagePreview !== '') &&
-                        <div className="w-100 d-flex justify-content-center">
-                            <div
-                                className="post-img-container"
-                                id="post-img-container">
+                        </div>
+                        {(postFormImagePreview && postFormImagePreview !== '') &&
+                            <div className="w-100 d-flex justify-content-center">
+                                <div
+                                    className="post-img-container"
+                                    id="post-img-container">
+                                    <div
+                                        className="post-img-options"
+                                    >
+                                        <i
+                                            className="far fa-times-circle"
+                                            onClick={handleCloseImage}
+                                        />
+                                    </div>
+                                    <img
+                                        src={postFormImagePreview}
+                                        className="post-img mt-0"
+                                        id="post-form-img-preview"
+                                    />
+                                </div>
+                            </div>
+                        }
+                        {(videoUrl && videoUrl !== '') &&
+                            <div className="position-relative">
                                 <div
                                     className="post-img-options"
                                 >
                                     <i
                                         className="far fa-times-circle"
-                                        onClick={handleCloseImage}
+                                        onClick={handleCloseVideo}
                                     />
                                 </div>
-                                <img
-                                    src={postFormImagePreview}
-                                    className="post-img mt-0"
-                                    id="post-form-img-preview"
-                                />
+                                <VideoIframe src={getEmbedVideoUrl()} />
                             </div>
-                        </div>
-                    }
-                    {(videoUrl && videoUrl !== '') &&
-                        <div className="position-relative">
-                            <div
-                                className="post-img-options"
+                        }
+                        <hr />
+                        <div className="d-flex justify-content-between" style={{ margin: '0px 70px 0 70px' }}>
+                            <div className="post-extra-options">
+                                {type === 'post' &&
+                                    <>
+                                        <div>
+                                            <label htmlFor="post-image" className="far fa-image m-0 icon c-primary-color secondary-hover" style={{ fontSize: '25px' }} />
+                                            <input
+                                                type="file"
+                                                accept="image/png, image/jpg, image/jpeg, image/gif"
+                                                id="post-image"
+                                                style={{ display: 'none' }}
+                                                onChange={handlePostImageChange}
+                                            />
+                                        </div>
+                                        <i
+                                            className="material-icons-outlined m-0 icon c-primary-color secondary-hover"
+                                            style={{ fontSize: '27px' }}
+                                            onClick={() => setVideoUrl(window.prompt('Copie e cole o link de um vídeo do YouTube: '))}
+                                        >
+                                            slow_motion_video
+                                        </i>
+                                        <i
+                                            className="material-icons-outlined m-0 icon c-primary-color secondary-hover"
+                                            style={{ fontSize: '27px' }}
+                                            onClick={() => setAdvancedModalIsOpen(true)}
+                                        >
+                                            outbound
+                                        </i>
+                                    </>
+                                }
+                                {!isMobile &&
+                                    <EmojiPicker />
+                                }
+                            </div>
+                            <button
+                                type="submit"
+                                className="btn btn-primary"
+                                id="post-form-submit-btn"
+                                style={{ height: '40px' }}
+                                disabled
                             >
-                                <i
-                                    className="far fa-times-circle"
-                                    onClick={handleCloseVideo}
-                                />
-                            </div>
-                            <VideoIframe src={getEmbedVideoUrl()} />
+                                {type === 'post' ?
+                                    'Postar'
+                                    :
+                                    'Comentar'
+                                }
+                            </button>
                         </div>
-                    }
-                    <hr />
-                    <div className="d-flex justify-content-between" style={{ margin: '0px 70px 0 70px' }}>
-                        <div className="post-extra-options">
-                            {type === 'post' &&
-                                <>
-                                    <div>
-                                        <label htmlFor="post-image" className="far fa-image m-0 icon c-primary-color secondary-hover" style={{ fontSize: '25px' }} />
-                                        <input
-                                            type="file"
-                                            accept="image/png, image/jpg, image/jpeg, image/gif"
-                                            id="post-image"
-                                            style={{ display: 'none' }}
-                                            onChange={handlePostImageChange}
-                                        />
-                                    </div>
-                                    <i
-                                        className="material-icons-outlined m-0 icon c-primary-color secondary-hover"
-                                        style={{ fontSize: '27px' }}
-                                        onClick={() => setVideoUrl(window.prompt('Copie e cole o link de um vídeo do YouTube: '))}
-                                    >
-                                        slow_motion_video
-                                    </i>
-                                </>
-                            }
-                            {!isMobile &&
-                                <EmojiPicker />
-                            }
-                        </div>
-                        <button
-                            type="submit"
-                            className="btn btn-primary"
-                            id="post-form-submit-btn"
-                            style={{ height: '40px' }}
-                            disabled
-                        >
-                            {type === 'post' ?
-                                'Postar'
-                                :
-                                'Comentar'
-                            }
-                        </button>
                     </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </>
     )
 }
