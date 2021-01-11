@@ -19,7 +19,7 @@ class Post(models.Model):
     views = models.ManyToManyField(Profile, related_name='post_views')
     updated = models.DateField(auto_now=True)
     created = models.DateField(auto_now_add=True)
-    interests = models.ManyToManyField(Interest, related_name='posts', blank=True, null=True)
+    interests = models.ManyToManyField(Interest, related_name='posts', blank=True)
 
     class Meta:
         ordering = ['-created']
