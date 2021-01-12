@@ -6,7 +6,7 @@ export default function DemoAlgorithmSettings() {
 
     return (
         <>
-            <div className="p-3 w-25 mr-3 align-self-end b-secondary-color" style={{ borderRadius: '40px', minHeight: '450px' }}>
+            <div className="p-3 w-25 mr-3 align-self-end b-lp-b-01" style={{ borderRadius: '40px', minHeight: '450px' }}>
                 <AlgorithmSettings renderInfoIcon={false} isDemo={true} isMobile={true} minHeight='400px' />
             </div>
             <div className="w-50 h-100 ml-3">
