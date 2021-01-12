@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import ContentEditable from '../../../../../../components/content-editable/ContentEditable'
+import PostTextbox from './components/PostTextbox'
 import EmojiPicker from '../../../../../../components/EmojiPicker'
 import VideoIframe from '../../../../../../components/VideoIframe'
 
@@ -157,11 +157,9 @@ export default function PostForm(props) {
                                     className="profile-img-sm"
                                 />
                             </Link>
-                            <ContentEditable
-                                className='w-100 border-0 autoExpand'
+                            <PostTextbox
                                 placeholder={parentComment ? `Responder ${parentComment.author.first_name}` : "O que passa pela sua cabeça?"}
                                 maxLength={500}
-                                style={{ color: 'var(--primary-grey)', background: 'var(--theme-base-color)', padding: '10px', paddingBottom: '0', outline: 'none' }}
                             />
                         </div>
                         {(postFormImagePreview && postFormImagePreview !== '') &&
