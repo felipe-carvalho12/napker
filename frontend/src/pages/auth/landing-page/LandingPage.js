@@ -12,23 +12,23 @@ export default function LandingPage() {
     document.title = 'Bem Vindo / Napker'
 
     return (
-        <div className="d-flex flex-column align-items-center" style={{ color: 'var(--lp-b-12)', background: 'var(--lp-w-12)' }}>
+        <div className="d-flex flex-column align-items-center c-lp-b-12 b-lp-w-12" style={{ color: 'var(--lp-b-12)', background: 'var(--lp-w-12)' }}>
             <div
-                className="position-fixed d-flex justify-content-center align-items-center w-100"
-                style={{ top: '0', left: '0', zIndex: '10000', background: "var(--lp-b-02)" }}
+                className="position-fixed d-flex justify-content-center align-items-center w-100 b-lp-w-01 b-b blur"
+                style={{ top: '0', left: '0', zIndex: '10000', height: "50px" }}
             >
-                <div className="d-flex justify-content-between align-items-center w-75 p-3">
-                    <Logo />
-                    <div className="d-flex justify-content-between">
+                <div className="d-flex justify-content-between align-items-center w-75">
+                    <Logo size="30px" />
+                    <div className="d-flex justify-content-between align-items-center">
                         <Link to="/login">
-                            <button className="btn btn-primary m-0 mr-2">
+                            <span className="c-lp-b-09 fw-300 mr-2">
                                 Já tem uma conta?
-                        </button>
+                            </span>
                         </Link>
-                        <Link to="/signup">
-                            <button className="btn btn-primary m-0">
+                        <Link to="/signup" >
+                            <button className="p-b-s b-primary-color c-lp-w-12">
                                 Inscrever-se
-                        </button>
+                            </button>
                         </Link>
                     </div>
                 </div>
@@ -49,14 +49,14 @@ export default function LandingPage() {
                             </h4>
                             <div className="d-flex justify-content-between p-3" style={{ width: "50%" }}>
                                 <Link to="/login">
-                                    <button className="btn-call" style={{ color: "var(--lp-b-09)", background: "var(--lp-w-12)" }}>
+                                    <button className="s-b-l c-lp-b-09 b-lp-w-12">
                                         Já tem uma conta?
-                                </button>
+                                    </button>
                                 </Link>
                                 <Link to="/signup">
-                                    <button className="btn-call" style={{ color: "var(--lp-w-12)", background: "var(--lp-b-09)" }}>
+                                    <button className="s-b-l c-lp-w-12 b-lp-b-09">
                                         Inscrever-se
-                                </button>
+                                    </button>
                                 </Link>
                             </div>
                         </div>
@@ -64,23 +64,25 @@ export default function LandingPage() {
                 </div>
             </div>
             <div className="w-100 d-flex flex-column justify-content-center align-items-center">
-                <div className="w-100 d-flex flex-column justify-content-center align-items-center b-theme-base-color">
-                    <div className="w-100 px-2 d-flex justify-content-center" style={{ padding: '120px 0 90px', color: 'var(--lp-b-09)' }}>
-                        <DemoAlgorithmSettings />
-                    </div>
-                    <Wave color="var(--lp-b-02)" />
+                <div className="position-sticky w-100 px-2 d-flex justify-content-center" style={{ top: '0', left: '0', zIndex: '0', padding: '120px 0 90px', color: 'var(--lp-b-09)' }}>
+                    <DemoAlgorithmSettings />
                 </div>
-                <div className="w-100 d-flex flex-column justify-content-center align-items-center b-tertiary-grey">
-                    <div className="w-100 px-2 d-flex justify-content-center" style={{ padding: '120px 0 90px', color: 'var(--lp-b-09)' }}>
-                        <DemoAddInterests />
+                <div className="position-sticky w-100" style={{ top: '0', left: '0', zIndex: '1' }}>
+                    <Wave color="var(--lp-s-b-01)" />
+                    <div className="w-100 d-flex flex-column justify-content-center align-items-center b-lp-s-b-01">
+                        <div className="w-100 px-2 d-flex justify-content-center" style={{ padding: '120px 0 90px', color: 'var(--lp-b-09)' }}>
+                            <DemoAddInterests />
+                        </div>
                     </div>
+                </div>
+                <div className="position-sticky w-100" style={{ top: '0', left: '0', zIndex: '2' }}>
                     <Wave color="var(--theme-base-color)" />
-                </div>
-                <div className="w-100 d-flex justify-content-center b-theme-base-color">
-                    <div className="w-100 d-flex justify-content-center" style={{ padding: '120px 12.5% 90px', color: 'vvar(--lp-b-09)' }}>
-                        <DemoSearchProfiles />
+                    <div className="w-100 d-flex justify-content-center b-theme-base-color">
+                        <div className="w-100 d-flex justify-content-center" style={{ padding: '120px 12.5% 90px', color: 'var(--lp-b-09)' }}>
+                            <DemoSearchProfiles />
+                        </div>
+                        <Wave color="var(--primary-color)" />
                     </div>
-                    <Wave color="var(--primary-color)" />
                 </div>
             </div>
             <div
@@ -94,11 +96,11 @@ export default function LandingPage() {
                     </h4>
                     <div className="d-flex justify-content-between mt-2" style={{ width: "80%" }}>
                         <Link to="/signup">
-                            <button className="btn-call" style={{ color: "var(--theme-base-color)", background: "var(--primary-grey)" }}>
+                            <button className="s-b-l b-lp-b-09 c-lp-w-12">
                                 Inscrever-se no Napker
                             </button>
                         </Link>
-                        <button className="btn-call" style={{ color: "var(--primary-grey)", background: "var(--theme-base-color)" }}>
+                        <button className="s-b-l c-lp-w-12 b-lp-b-09">
                             Entrar no grupo
                         </button>
                     </div>

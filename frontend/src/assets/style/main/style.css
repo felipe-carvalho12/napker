@@ -33,6 +33,7 @@
   text-decoration: none;
   font-family: 'IBM Plex Sans', sans-serif;
   transition: .1s!important;
+  -webkit-font-smoothing: antialiased
 }
 
 html {
