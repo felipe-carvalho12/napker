@@ -37,8 +37,8 @@ export default function LandingPage() {
                 className="d-flex flex-column w-100 justify-content-center align-items-center position-relative b-primary-color"
                 style={{ zIndex: '20000' }}
             >
-                <div className="w-100" style={{ background: "linear-gradient(180deg,var(--lp-c-b4) -.45%,var(--primary-color) 40%)", padding: "50px" }}>
-                    <div className="d-flex flex-column w-150 justify-content-center align-items-center" style={{ textAlign: "center", padding: "20px" }}>
+                <div className="d-flex justify-content-center w-100" style={{ background: "linear-gradient(180deg,var(--lp-b-07) -.45%,var(--primary-color) 60%)", padding: "50px" }}>
+                    <div className="d-flex flex-column w-50 justify-content-center align-items-center" style={{ textAlign: "center", padding: "20px" }}>
                         <h2 style={{ color: "var(--lp-b-09)", fontSize: "60px", fontWeight: "700" }}>Por que usar o Napker?</h2>
                         <div className="d-flex flex-column align-items-center">
                             <h4 style={{ color: "var(--lp-b-08)", fontSize: "20px" }}>
@@ -47,14 +47,14 @@ export default function LandingPage() {
                                 para vender para anunciantes. O Napker foi pensado como uma alternativa a essas redes sociais. Com um algoritmo personalizável e um
                                 sistema de interesses públicos e privados, o usuário tem total controle sobre a sua experiência na plataforma
                             </h4>
-                            <div className="d-flex justify-content-between p-3" style={{ width: "50%" }}>
+                            <div className="d-flex justify-content-between p-3">
                                 <Link to="/login">
-                                    <button className="s-b-l c-lp-b-09 b-lp-w-12">
+                                    <button className="s-b-l c-lp-b-09 b-lp-w-12 mr-3">
                                         Já tem uma conta?
                                     </button>
                                 </Link>
                                 <Link to="/signup">
-                                    <button className="s-b-l c-lp-w-12 b-lp-b-09">
+                                    <button className="s-b-l c-lp-w-12 b-lp-b-09 ml-3">
                                         Inscrever-se
                                     </button>
                                 </Link>
