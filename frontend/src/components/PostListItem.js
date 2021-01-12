@@ -152,7 +152,7 @@ export default function PostListItem(props) {
                         {post.content}
                     </div>
                 </div>
-                <div className={`d-flex justify-content-center w-100 post-img-background ${post.video || post.image && "my-2"}`} style={{ background: 'var(--img-background)' }}>
+                <div className={`d-flex justify-content-center w-100 post-img-background ${(post.video || post.image) && "my-2"}`} style={{ background: 'var(--img-background)' }}>
                     {post.image &&
                         <img src={post.image} className="post-img m-0 border-0" style={{ borderRadius: "0" }} />
                     }
