@@ -3,7 +3,7 @@ const insertAfter = (newNode, referenceNode) => {
 };
 
 export const appendEl = (el, index, inputs, addEventListener, kwargs) => {
-    const newEl = document.createElement("span");
+    const newEl = document.createElement("span") ;
     newEl.setAttribute("contentEditable", true);
     newEl.classList.add("subinput", kwargs.blue && "c-primary-color");
     inputs.splice(index + 1, 0, newEl);
