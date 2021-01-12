@@ -11,6 +11,7 @@
 }
 
 @media (max-width: 980px) {
+
     .wrapper .main-content .header {
         position: fixed!important;
         top: 0!important;
@@ -19,6 +20,7 @@
     .wrapper .main-content .mobile-home-menu, .wrapper .main-content .desktop-home-menu , .wrapper .main-content .home-page-menu {
         position: fixed!important;
         top: var(--header-heigth)!important;
+        padding-top: 0;
         left: 0!important;
     }
     .wrapper .main-content .home-page {
