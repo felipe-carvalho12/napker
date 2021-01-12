@@ -148,18 +148,18 @@ export default function PostListItem(props) {
                         }
                         <div className="popover-arrow" style={{ top: '-9px', right: '8%' }} />
                     </div>
-                    <div className="d-flex justify-content-start word-break">
+                    <div className="d-flex justify-content-start word-break mb-2">
                         {post.content}
                     </div>
                 </div>
-                {post.image &&
-                    <div className="d-flex justify-content-center w-100 post-img-background" style={{ background: 'var(--img-background)' }}>
+                <div className={`d-flex justify-content-center w-100 post-img-background ${post.video || post.image && "my-2"}`} style={{ background: 'var(--img-background)' }}>
+                    {post.image &&
                         <img src={post.image} className="post-img m-0 border-0" style={{ borderRadius: "0" }} />
-                    </div>
-                }
-                {post.video &&
-                    <VideoIframe src={post.video} width={videoWidth} height={videoHeigth} />
-                }
+                    }
+                    {post.video &&
+                        <VideoIframe src={post.video} width={videoWidth} height={videoHeigth} />
+                    }
+                </div>
                 <div className="d-flex justify-content-start align-items-center text-secondary" style={{ padding: "0 20px 20px" }}>
                     {(type === 'comment' && post.all_child_comments_length !== 0) &&
                         <>
