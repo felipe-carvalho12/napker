@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 import NotificationContent from './components/NotificationContent'
 
@@ -7,6 +7,8 @@ import NotificationContent from './components/NotificationContent'
 export default function PostNotification(props) {
     const notification = props.notification
     const post = notification.post
+
+    const history = useHistory()
 
     useEffect(() => {
         renderLabel(notification.likes, 'like')
@@ -28,7 +30,7 @@ export default function PostNotification(props) {
             }
             str += `
             <strong>@${author.user.username}</strong>
-            ${i < len - 1 ? ', ' : (arr.length > 3 ? 'e outras <strong>' + (arr.length - 3).toString() + '</strong> pessoas ' : '') + typeLabel + ' seu post.'}
+            ${i < len - 1 ? ', ' : (arr.length > 3 ? 'e outras <strong>' + (arr.length - 3).toString() + '</strong> pessoas ' : '') + typeLabel + ' seu post. '}
             `
         }
 
@@ -38,41 +40,38 @@ export default function PostNotification(props) {
     return (
         <div>
             <li
-                className="d-flex flex-column w-100 white-hover"
+                className="d-flex flex-column w-100"
                 key={notification.id}
             >
                 <div
-                    className="d-flex flex-column w-100 white-hover b-theme-base-color box-sm"
+                    className="d-flex flex-column w-100 base-hover b-theme-base-color box-sm"
                     style={{ padding: '15px 15px' }}
+                    onClick={() => history.push(`/post/${post.id}`)}
                 >
                     <div className="d-flex justify-content-between align-items-center mb-2">
-                        <strong>POST</strong>
+                        <Link to={`/post/${post.id}`}>
+                            <strong style={{ fontSize: "20px", color: "var(--primary-grey)" }}>POST</strong>
+                        </Link>   
                         <span>{post.created.split('-').reverse().join('/')}</span>
                     </div>
-                    <div className="d-flex flex-column">
-                        <div className="d-flex flex-column align-items-start mb-2">
-                            {!!notification.likes.length &&
-                                <span id={`${notification.id}like`}></span>
-                            }
-                            {!!notification.comments.length &&
-                                <span id={`${notification.id}comment`}></span>
-                            }
-                        </div>
-                        <span style={{ textAlign: 'start' }}>
-                            {post.content ?
-                                <>
+                    <div className="d-flex">
+                        <div className="d-flex flex-column justify-content-between w-100">
+                            <div className="d-flex justify-content-between w-100">
+                                <span className="mb-2" style={{ textAlign: 'start' }}>
                                     {`${post.content.slice(0, 240)}${post.content.length > 240 && '...'}`}
-                                </>
-                                :
-                                <img src={post.image} style={{ maxWidth: '90%', maxHeight: '100px', borderRadius: '20px' }} />
-                            }
-                        </span>
-                        <div className="d-flex justify-content-end w-100">
-                            <Link to={`/post/${post.id}`}>
-                                <button className="btn btn-primary" style={{ height: '37px', width: '100px' }}>
-                                    Ver Post
-                                </button>
-                            </Link>
+                                </span>
+                                <img src={post.image} className="mb-2" style={{ maxWidth: '100px', maxHeight: '100px', borderRadius: '20px' }} />
+                            </div>
+                            <div className="d-flex justify-content-between w-100">
+                                <div className="d-flex align-items-start mb-2 notification-authors-container">
+                                    {!!notification.likes.length &&
+                                        <span className="mr-1" id={`${notification.id}like`}></span>
+                                    }
+                                    {!!notification.comments.length &&
+                                        <span className="mr-1" id={`${notification.id}comment`}></span>
+                                    }
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
