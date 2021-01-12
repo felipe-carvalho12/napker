@@ -75,6 +75,9 @@
     .home-menu-btn-container .btn {
         font-size: .86rem;
     }
+    .notification-authors-container {
+        flex-direction: column;
+    }
 }
 
 @media (max-width: 790px) {
