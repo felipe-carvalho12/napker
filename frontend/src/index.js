@@ -21,6 +21,7 @@ import './assets/style/pages/global-components/emojiList.css'
 import './assets/style/pages/global-components/summary.css'
 
 import './assets/style/pages/main-app/components/bottomMenu.css'
+import './assets/style/pages/main-app/components/draft-js-editor.css'
 import './assets/style/pages/main-app/components/themeSwitcher.css'
 import './assets/style/pages/main-app/components/sidebar.css'
 import './assets/style/pages/main-app/chat.css'

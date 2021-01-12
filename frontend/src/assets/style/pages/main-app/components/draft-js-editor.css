@@ -1,0 +1,13 @@
+.public-DraftEditorPlaceholder-inner {
+    position: absolute!important;
+}
+
+
+/* MENTIONS */
+
+a.draftJsMentionPlugin__mention__29BEd {
+    color: var(--primary-color)!important;
+    background: none!important;
+    text-decoration: none!important;
+    font-weight: bold!important;
+}
