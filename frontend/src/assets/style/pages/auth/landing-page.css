@@ -1,32 +1,52 @@
 :root {
+
+    /* B&W tones */
     
-    --lp-b-00: rgba(000, 000, 000, .04);
-    --lp-b-01: rgba(000, 000, 000, .08);
-    --lp-b-02: rgba(000, 000, 000, .12);
-    --lp-b-03: rgba(000, 000, 000, .16);
-    --lp-b-04: rgba(000, 000, 000, .20);
-    --lp-b-05: rgba(000, 000, 000, .30);
-    --lp-b-06: rgba(000, 000, 000, .40);
-    --lp-b-07: rgba(000, 000, 000, .50);
-    --lp-b-08: rgba(000, 000, 000, .60);
-    --lp-b-09: rgba(000, 000, 000, .70);
-    --lp-b-10: rgba(000, 000, 000, .80);
-    --lp-b-11: rgba(000, 000, 000, .90);
-    --lp-b-12: rgba(000, 000, 000, 1.0);
-                                         ;
-    --lp-w-00: rgba(255, 255, 255, .04);
-    --lp-w-01: rgba(255, 255, 255, .08);
-    --lp-w-02: rgba(255, 255, 255, .12);
-    --lp-w-03: rgba(255, 255, 255, .16);
-    --lp-w-04: rgba(255, 255, 255, .20);
-    --lp-w-05: rgba(255, 255, 255, .30);
-    --lp-w-06: rgba(255, 255, 255, .40);
-    --lp-w-07: rgba(255, 255, 255, .50);
-    --lp-w-08: rgba(255, 255, 255, .60);
-    --lp-w-09: rgba(255, 255, 255, .70);
-    --lp-w-10: rgba(255, 255, 255, .80);
-    --lp-w-11: rgba(255, 255, 255, .90);
-    --lp-w-12: rgba(255, 255, 255, 1.0);
+    --lp-b-00: rgba(000, 000, 000, .04); --lp-s-b-00: rgb(245, 245, 245);
+    --lp-b-01: rgba(000, 000, 000, .08); --lp-s-b-01: rgb(235, 235, 235);
+    --lp-b-02: rgba(000, 000, 000, .12); --lp-s-b-02: rgb(225, 225, 225);
+    --lp-b-03: rgba(000, 000, 000, .16); --lp-s-b-03: rgb(215, 215, 215);
+    --lp-b-04: rgba(000, 000, 000, .20); --lp-s-b-04: rgb(205, 205, 205);
+    --lp-b-05: rgba(000, 000, 000, .30); --lp-s-b-05: rgb(180, 180, 180);
+    --lp-b-06: rgba(000, 000, 000, .40); --lp-s-b-06: rgb(153, 153, 153);
+    --lp-b-07: rgba(000, 000, 000, .50); --lp-s-b-07: rgb(128, 128, 128);
+    --lp-b-08: rgba(000, 000, 000, .60); --lp-s-b-08: rgb(102, 102, 102);
+    --lp-b-09: rgba(000, 000, 000, .70); --lp-s-b-09: rgb(077, 077, 077);
+    --lp-b-10: rgba(000, 000, 000, .80); --lp-s-b-10: rgb(051, 051, 051);
+    --lp-b-11: rgba(000, 000, 000, .90); --lp-s-b-11: rgb(026, 026, 026);
+    --lp-b-12: rgba(000, 000, 000, 1.0); --lp-s-b-12: rgb(000, 000, 000);
+                                         ;                                   
+    --lp-w-00: rgba(255, 255, 255, .04); --lp-s-w-00: rgb(010, 010, 010);
+    --lp-w-01: rgba(255, 255, 255, .08); --lp-s-w-01: rgb(020, 020, 020);
+    --lp-w-02: rgba(255, 255, 255, .12); --lp-s-w-02: rgb(030, 030, 030);
+    --lp-w-03: rgba(255, 255, 255, .16); --lp-s-w-03: rgb(040, 040, 040);
+    --lp-w-04: rgba(255, 255, 255, .20); --lp-s-w-04: rgb(050, 050, 050);
+    --lp-w-05: rgba(255, 255, 255, .30); --lp-s-w-05: rgb(075, 075, 075);
+    --lp-w-06: rgba(255, 255, 255, .40); --lp-s-w-06: rgb(102, 102, 102);
+    --lp-w-07: rgba(255, 255, 255, .50); --lp-s-w-07: rgb(127, 127, 127);
+    --lp-w-08: rgba(255, 255, 255, .60); --lp-s-w-08: rgb(153, 153, 153);
+    --lp-w-09: rgba(255, 255, 255, .70); --lp-s-w-09: rgb(178, 178, 178);
+    --lp-w-10: rgba(255, 255, 255, .80); --lp-s-w-10: rgb(203, 203, 203);
+    --lp-w-11: rgba(255, 255, 255, .90); --lp-s-w-11: rgb(228, 228, 228);
+    --lp-w-12: rgba(255, 255, 255, 1.0); --lp-s-w-12: rgb(255, 255, 255);
+
+    
+    /* Button Sizes */
+
+    --s-b-r:  15px; 
+    --s-h  :  30px; 
+    --s-w  : 144px;
+    --s-f-s:  16px;
+
+    --m-b-r:  20px; 
+    --m-h  :  40px; 
+    --m-w  : 192px;
+    --m-f-s:  18px;
+
+    --l-b-r:  25px; 
+    --l-h  :  50px; 
+    --l-w  : 240px;
+    --l-f-s:  20px;
 
 }
 
@@ -88,22 +108,171 @@
 .b-lp-w-11 { background: var(--lp-w-11) }
 .b-lp-w-12 { background: var(--lp-w-12) }
 
+.c-lp-s-b-00 { color     : var(--lp-s-b-00) }
+.c-lp-s-b-01 { color     : var(--lp-s-b-01) }
+.c-lp-s-b-02 { color     : var(--lp-s-b-02) }
+.c-lp-s-b-03 { color     : var(--lp-s-b-03) }
+.c-lp-s-b-04 { color     : var(--lp-s-b-04) }
+.c-lp-s-b-05 { color     : var(--lp-s-b-05) }
+.c-lp-s-b-06 { color     : var(--lp-s-b-06) }
+.c-lp-s-b-07 { color     : var(--lp-s-b-07) }
+.c-lp-s-b-08 { color     : var(--lp-s-b-08) }
+.c-lp-s-b-09 { color     : var(--lp-s-b-09) }
+.c-lp-s-b-10 { color     : var(--lp-s-b-10) }
+.c-lp-s-b-11 { color     : var(--lp-s-b-11) }
+.c-lp-s-b-12 { color     : var(--lp-s-b-12) }
+          
+.c-lp-s-w-00 { color     : var(--lp-s-w-00) }
+.c-lp-s-w-01 { color     : var(--lp-s-w-01) }
+.c-lp-s-w-02 { color     : var(--lp-s-w-02) }
+.c-lp-s-w-03 { color     : var(--lp-s-w-03) }
+.c-lp-s-w-04 { color     : var(--lp-s-w-04) }
+.c-lp-s-w-05 { color     : var(--lp-s-w-05) }
+.c-lp-s-w-06 { color     : var(--lp-s-w-06) }
+.c-lp-s-w-07 { color     : var(--lp-s-w-07) }
+.c-lp-s-w-08 { color     : var(--lp-s-w-08) }
+.c-lp-s-w-09 { color     : var(--lp-s-w-09) }
+.c-lp-s-w-10 { color     : var(--lp-s-w-10) }
+.c-lp-s-w-11 { color     : var(--lp-s-w-11) }
+.c-lp-s-w-12 { color     : var(--lp-s-w-12) }
+
+.b-lp-s-b-00 { background: var(--lp-s-b-00) }
+.b-lp-s-b-01 { background: var(--lp-s-b-01) }
+.b-lp-s-b-02 { background: var(--lp-s-b-02) }
+.b-lp-s-b-03 { background: var(--lp-s-b-03) }
+.b-lp-s-b-04 { background: var(--lp-s-b-04) }
+.b-lp-s-b-05 { background: var(--lp-s-b-05) }
+.b-lp-s-b-06 { background: var(--lp-s-b-06) }
+.b-lp-s-b-07 { background: var(--lp-s-b-07) }
+.b-lp-s-b-08 { background: var(--lp-s-b-08) }
+.b-lp-s-b-09 { background: var(--lp-s-b-09) }
+.b-lp-s-b-10 { background: var(--lp-s-b-10) }
+.b-lp-s-b-11 { background: var(--lp-s-b-11) }
+.b-lp-s-b-12 { background: var(--lp-s-b-12) }
+
+.b-lp-s-w-00 { background: var(--lp-s-w-00) }
+.b-lp-s-w-01 { background: var(--lp-s-w-01) }
+.b-lp-s-w-02 { background: var(--lp-s-w-02) }
+.b-lp-s-w-03 { background: var(--lp-s-w-03) }
+.b-lp-s-w-04 { background: var(--lp-s-w-04) }
+.b-lp-s-w-05 { background: var(--lp-s-w-05) }
+.b-lp-s-w-06 { background: var(--lp-s-w-06) }
+.b-lp-s-w-07 { background: var(--lp-s-w-07) }
+.b-lp-s-w-08 { background: var(--lp-s-w-08) }
+.b-lp-s-w-09 { background: var(--lp-s-w-09) }
+.b-lp-s-w-10 { background: var(--lp-s-w-10) }
+.b-lp-s-w-11 { background: var(--lp-s-w-11) }
+.b-lp-s-w-12 { background: var(--lp-s-w-12) }
+
+
+/* Font Styles */
+
+.fw-300 { font-weight: 300 }
+.fw-400 { font-weight: 400 }
+.fw-500 { font-weight: 500 }
+.fw-600 { font-weight: 600 }
+.fw-700 { font-weight: 700 }
+
 /* Buttons */
 
-.btn-call {
-    border-radius: 25px; 
-    height: 50px; 
-    width: 240px;
-    font-size: 20px;
-    font-weight: 500;
-    border: none!important 
+
+/* Button Styles */
+
+.p-b-s, .p-b-m, .p-b-l, .s-b-s, .s-b-m, .s-b-l {
+    font-weight  : 500;
+    border       : none!important
 }
 
-.btn-call:focus {
+.p-b-s {
+    border-radius: var(--s-b-r); 
+    height       : var(--s-h  ); 
+    width        : var(--s-w  );
+    font-size    : var(--s-f-s);
+}
+
+.p-b-m {
+    border-radius: var(--m-b-r); 
+    height       : var(--m-h  ); 
+    width        : var(--m-w  );
+    font-size    : var(--m-f-s);
+}
+
+.p-b-l {
+    border-radius: var(--l-b-r); 
+    height       : var(--l-h  ); 
+    width        : var(--l-w  );
+    font-size    : var(--l-f-s);
+}
+
+.s-b-s {
+    border-radius: var(--s-b-r); 
+    height       : var(--s-h  ); 
+    width        : var(--s-w  );
+    font-size    : var(--s-f-s);
+}
+
+.s-b-m {
+    border-radius: var(--m-b-r); 
+    height       : var(--m-h  ); 
+    width        : var(--m-w  );
+    font-size    : var(--m-f-s);
+}
+
+.s-b-l {
+    border-radius: var(--l-b-r); 
+    height       : var(--l-h  ); 
+    width        : var(--l-w  );
+    font-size    : var(--l-f-s);
+}
+
+/* Button Actions */
+
+.s-b-s:focus, .s-b-m:focus, .s-b-l:focus, .p-b-s:hover, .p-b-m:hover, .p-b-l:hover {
     outline: none!important
 }
 
-.btn-call:hover {
+.p-b-s:hover, .p-b-m:hover, .p-b-l:hover {
+    background-color: var(--primary-color-hover)!important;
+    box-shadow: 0 8px 15px rgba(0,0,0,.2)
+}
+
+.s-b-s:hover, .s-b-m:hover, .s-b-l:hover {
     color: var(--primary-color)!important;
     box-shadow: 0 8px 15px rgba(0,0,0,.2)
+}
+
+/* Utils */
+
+.blur {
+    backdrop-filter: saturate(180%) blur(20px);
+}
+
+.b-all {
+    border: 1px solid var(--lp-b-04);
+}
+
+.b-t {
+    border-top: 1px solid var(--lp-b-04);
+}
+
+.b-r {
+    border-right: 1px solid var(--lp-b-04);
+}
+
+.b-b {
+    border-bottom: 1px solid var(--lp-b-04);
+}
+
+.b-l {
+    border-left: 1px solid var(--lp-b-04);
+}
+
+.b-x {
+    border-right: 1px solid var(--lp-b-04);
+    border-left: 1px solid var(--lp-b-04);
+}
+
+.b-y {
+    border-top: 1px solid var(--lp-b-04);
+    border-bottom: 1px solid var(--lp-b-04);
 }
