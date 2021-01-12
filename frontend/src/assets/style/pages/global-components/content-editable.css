@@ -3,7 +3,7 @@
     display: flex;
     min-width: 200px;
     width: fit-content;
-    heigth: 30px;
+    height: 30px;
     padding: 10px;
     border: 1px solid #000;
     border-radius: 20px;
@@ -11,7 +11,7 @@
   
   #placeholder {
     position:absolute;
-    color: rgba(0, 0, 0, .7)
+    color: var(--secondary-grey);
   }
   
   .subinput {
