@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import {
     testRemoveElement,
     testDisplayPlaceholder,
+    testIsWhitespace,
     getCaretIndex,
     setCaret
 } from "./utils";
@@ -17,7 +18,7 @@ export default function ContentEditable(props) {
 
         const addEventListener = (el) => {
             el.onkeydown = (e) => {
-                const index = inputs.indexOf(el);
+                const index = inputs.indexOf(el, inputs);
                 if (!testRemoveElement(el, inputs)) {
                     if (
                         e.key === "ArrowLeft" &&
@@ -36,8 +37,30 @@ export default function ContentEditable(props) {
                         if (testRemoveElement(el, inputs)) {
                             inputs[index].focus();
                             setCaret(inputs[index], inputs[index].innerText.length);
-                        } else if (el.innerText === "@") {
+                        } else if (
+                            el.innerText === "@" ||
+                            el.innerText[getCaretIndex(el) - 1] === "@"
+                        ) {
                             el.classList.remove("c-primary-color");
+                        } else if (
+                            testIsWhitespace(el.innerText, { beginning: true }) &&
+                            getCaretIndex(el) === 1 &&
+                            inputs[inputs.indexOf(el) - 1].classList.contains(
+                                "c-primary-color"
+                            )
+                        ) {
+                            const textHolder = el.innerText.trim();
+                            const index = inputs.indexOf(el);
+                            el.innerText = "";
+                            testRemoveElement(el, inputs);
+                            inputs[index - 1].innerText +=
+                                inputs[index - 1].innerText[
+                                inputs[index - 1].innerText.length - 1
+                                ] + textHolder;
+                            setCaret(
+                                inputs[index - 1],
+                                inputs[index - 1].innerText.length - textHolder.length
+                            );
                         }
                     }
 
@@ -59,11 +82,12 @@ export default function ContentEditable(props) {
         //focus first subinput on placeholder click
         inputsContainer.onclick = (e) => {
             if (e.target === inputsContainer || e.target === placeholderEl) {
-                inputsContainer.querySelector(".subinput").focus();
+                const el = inputs[inputs.length - 1];
+                el.focus();
+                el.innerText.length > 1 && setCaret(el, el.innerText.length);
             }
         };
     }, []);
-
     return (
         <div
             className={`inputs-container ${props.className}`}
@@ -74,7 +98,7 @@ export default function ContentEditable(props) {
                 className="subinput"
                 id="input0"
                 contentEditable
-                style={{ minWidth: "20px" }}
+                style={{ minWidth: "1px" }}
             ></span>
         </div>
     );

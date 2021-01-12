@@ -3,7 +3,7 @@ const insertAfter = (newNode, referenceNode) => {
 };
 
 export const appendEl = (el, index, inputs, addEventListener, kwargs) => {
-    const newEl = document.createElement("span") ;
+    const newEl = document.createElement("span");
     newEl.setAttribute("contentEditable", true);
     newEl.classList.add("subinput", kwargs.blue && "c-primary-color");
     inputs.splice(index + 1, 0, newEl);
@@ -11,15 +11,19 @@ export const appendEl = (el, index, inputs, addEventListener, kwargs) => {
     kwargs.focus && newEl.focus();
     if (kwargs.text) newEl.innerText = kwargs.text;
     addEventListener(newEl);
-    testRemoveElement(el);
+    testRemoveElement(el, inputs);
 };
 
 export const testRemoveElement = (el, inputs) => {
-    if (el.innerText.length === 0 && inputs.indexOf(el) > 0) {
+    if (
+        el.innerText.length === 0 &&
+        (inputs.indexOf(el) > 0 || inputs.length > 1)
+    ) {
         const index = inputs.indexOf(el);
         if (document.activeElement === el) {
             inputs[index - 1] && inputs[index - 1].focus();
-            setCaret(inputs[index - 1], inputs[index - 1].innerText.length);
+            inputs[index - 1] &&
+                setCaret(inputs[index - 1], inputs[index - 1].innerText.length);
         }
         inputs.splice(index, 1);
         el.remove();
@@ -34,6 +38,13 @@ export const testDisplayPlaceholder = (placeholderEl, inputs) => {
         if (el.innerText.length) return;
     }
     placeholderEl.style.display = "unset";
+};
+
+export const testIsWhitespace = (str, kwargs) => {
+    return (
+        str.trim()[kwargs.end ? str.length - 1 : 0] !==
+        str[kwargs.end ? str.length - 1 : 0]
+    );
 };
 
 export const getCaretIndex = (element) => {
@@ -55,8 +66,10 @@ export const getCaretIndex = (element) => {
 export const setCaret = (el, i) => {
     var range = document.createRange();
     var sel = window.getSelection();
-    range.setStart(el.childNodes[0], i);
-    range.collapse(true);
+    try {
+        range.setStart(el.childNodes[0], i);
+        range.collapse(true);
+    } catch { }
 
     sel.removeAllRanges();
     sel.addRange(range);

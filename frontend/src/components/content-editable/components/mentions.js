@@ -1,11 +1,10 @@
-import { appendEl, getCaretIndex } from "../utils";
+import { appendEl, getCaretIndex, testIsWhitespace } from "../utils";
 
 export function mention(el, index, key, inputs, addEventListener) {
     const caretIndex = getCaretIndex(el);
     const textBeforeCaret = el.innerText.slice(0, caretIndex);
     if (
-        textBeforeCaret.trim()[textBeforeCaret.trim().length - 1] !==
-        textBeforeCaret[textBeforeCaret.length - 1] ||
+        testIsWhitespace(textBeforeCaret, { end: true }) ||
         (!index && !getCaretIndex(el))
     ) {
         if (!el.classList.contains("c-primary-color")) {
@@ -32,6 +31,16 @@ export function mention(el, index, key, inputs, addEventListener) {
 
 export function space(el, index, inputs, addEventListener) {
     if (el.classList.contains("c-primary-color")) {
-        appendEl(el, index, inputs, addEventListener, { focus: true });
+        const caretIndex = getCaretIndex(el);
+        if (caretIndex !== el.innerText.length) {
+            const textHolder = el.innerText.slice(caretIndex, el.innerText.length);
+            el.innerHTML = el.innerText.slice(0, caretIndex);
+            appendEl(el, index, inputs, addEventListener, {
+                text: textHolder,
+                focus: true
+            });
+        } else {
+            appendEl(el, index, inputs, addEventListener, { focus: true });
+        }
     }
 }
