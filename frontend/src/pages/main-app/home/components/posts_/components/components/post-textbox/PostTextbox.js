@@ -7,9 +7,9 @@ import Editor from "draft-js-plugins-editor";
 import createMentionPlugin, { defaultSuggestionsFilter } from "draft-js-mention-plugin";
 import createHashtagPlugin from "draft-js-hashtag-plugin";
 import createInlineToolbarPlugin from "draft-js-inline-toolbar-plugin";
+import createEmojiPlugin from "draft-js-emoji-plugin"
 
 import "draft-js-hashtag-plugin/lib/plugin.css";
-import "draft-js-inline-toolbar-plugin/lib/plugin.css";
 
 import { SERVER_URL } from '../../../../../../../../config/settings'
 import MentionComponent from './components/MentionComponent'
@@ -36,7 +36,7 @@ export default class SimpleMentionEditor extends Component {
                 hashtag: 'hashtag'
             }
         });
-        
+
         this.inlineToolbarPlugin = createInlineToolbarPlugin({
             theme: {
                 toolbarStyles: {
@@ -49,6 +49,41 @@ export default class SimpleMentionEditor extends Component {
                 },
             }
         });
+
+        this.emojiPlugin = createEmojiPlugin({
+            theme: {
+                emoji: 'emoji',
+                emojiSuggestions: 'emojiSuggestions',
+                emojiSuggestionsEntry: 'emojiSuggestionsEntry',
+                emojiSuggestionsEntryFocused: 'emojiSuggestionsEntryFocused',
+                emojiSuggestionsEntryText: 'emojiSuggestionsEntryText',
+                emojiSuggestionsEntryIcon: 'emojiSuggestionsEntryIcon',
+                emojiSelect: 'emojiSelect',
+                emojiSelectButton: 'smile',
+                emojiSelectButtonPressed: 'emojiSelectButtonPressed',
+                emojiSelectPopover: 'emojiSelectPopover',
+                emojiSelectPopoverClosed: 'emojiSelectPopoverClosed',
+                emojiSelectPopoverTitle: 'emojiSelectPopoverTitle',
+                emojiSelectPopoverGroups: 'emojiSelectPopoverGroups',
+                emojiSelectPopoverGroup: 'emojiSelectPopoverGroup',
+                emojiSelectPopoverGroupTitle: 'emojiSelectPopoverGroupTitle',
+                emojiSelectPopoverGroupList: 'emojiSelectPopoverGroupList',
+                emojiSelectPopoverGroupItem: 'emojiSelectPopoverGroupItem',
+                emojiSelectPopoverToneSelect: 'emojiSelectPopoverToneSelect',
+                emojiSelectPopoverToneSelectList: 'emojiSelectPopoverToneSelectList',
+                emojiSelectPopoverToneSelectItem: 'emojiSelectPopoverToneSelectItem',
+                emojiSelectPopoverEntry: 'emojiSelectPopoverEntry',
+                emojiSelectPopoverEntryFocused: 'emojiSelectPopoverEntryFocused',
+                emojiSelectPopoverEntryIcon: 'emojiSelectPopoverEntryIcon',
+                emojiSelectPopoverNav: 'emojiSelectPopoverNav',
+                emojiSelectPopoverNavItem: 'emojiSelectPopoverNavItem',
+                emojiSelectPopoverNavEntry: 'emojiSelectPopoverNavEntry',
+                emojiSelectPopoverNavEntryActive: 'emojiSelectPopoverNavEntryActive',
+                emojiSelectPopoverScrollbarOuter: 'emojiSelectPopoverScrollbarOuter',
+                emojiSelectPopoverScrollbar: 'emojiSelectPopoverScrollbar',
+                emojiSelectPopoverScrollbarThumb: 'emojiSelectPopoverScrollbarThumb'
+            }
+        })
     }
 
     state = {
@@ -98,11 +133,17 @@ export default class SimpleMentionEditor extends Component {
         return JSON.stringify(raw, null, 2);
     }
 
+    componentDidMount() {
+        const { EmojiSelect } = this.emojiPlugin;
+        !this.props.emojiSelector && this.props.setEmojiSelector(<EmojiSelect />);
+    }
+
     render() {
-        const plugins = [this.mentionPlugin, this.hashtagPlugin, this.inlineToolbarPlugin];
+        const plugins = [this.mentionPlugin, this.hashtagPlugin, this.inlineToolbarPlugin, this.emojiPlugin];
 
         const { MentionSuggestions } = this.mentionPlugin;
         const { InlineToolbar } = this.inlineToolbarPlugin;
+        const { EmojiSuggestions } = this.emojiPlugin;
 
         return (
             <div className="w-100" style={{ textAlign: 'start' }} onClick={this.focus}>
@@ -132,6 +173,7 @@ export default class SimpleMentionEditor extends Component {
                     suggestions={this.state.suggestions}
                     onAddMention={this.onAddMention}
                 />
+                <EmojiSuggestions />
             </div>
         );
     }
