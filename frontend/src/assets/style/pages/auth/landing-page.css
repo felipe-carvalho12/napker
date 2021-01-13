@@ -30,7 +30,12 @@
     --lp-w-11: rgba(255, 255, 255, .90); --lp-s-w-11: rgb(228, 228, 228);
     --lp-w-12: rgba(255, 255, 255, 1.0); --lp-s-w-12: rgb(255, 255, 255);
 
-    
+
+    /* Custom Backgrounds */
+
+    --p-g: linear-gradient(0deg,rgba(0,152,136,0.8) -0.45%,rgba(0,192,136,0.8) 50%);
+
+
     /* Button Sizes */
 
     --s-b-r:  15px; 

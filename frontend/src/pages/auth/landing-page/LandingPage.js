@@ -37,11 +37,11 @@ export default function LandingPage() {
                 className="d-flex flex-column w-100 justify-content-center align-items-center position-relative b-primary-color"
                 style={{ zIndex: '20000' }}
             >
-                <div className="d-flex justify-content-center w-100" style={{ background: "linear-gradient(180deg,var(--lp-b-04) -.45%,var(--primary-color) 60%)", padding: "50px" }}>
+                <div className="d-flex justify-content-center w-100" style={{ background: "var(--p-g)", padding: "50px" }}>
                     <div className="d-flex flex-column w-75 justify-content-center align-items-center" style={{ textAlign: "center", padding: "20px" }}>
-                        <h2 style={{ color: "var(--lp-b-09)", fontSize: "60px", fontWeight: "700" }}>Por que usar o Napker?</h2>
+                        <h2 style={{ color: "var(--lp-w-10)", fontSize: "60px", fontWeight: "700" }}>Por que usar o Napker?</h2>
                         <div className="d-flex flex-column align-items-center">
-                            <h4 style={{ color: "var(--lp-b-08)", fontSize: "20px" }}>
+                            <h4 style={{ color: "var(--lp-w-10)", fontSize: "20px" }}>
                             As grandes redes socias utilizam o gigantesco volume de dados gerados pelos usuários para alimentar algoritmos misteriosos. 
                             Estes controlam a experiêcia do usuário visando mantê-lo o máximo de tempo possível na rede social e criam modelos de usuários para vender para anunciantes. 
                             O Napker foi pensado como uma alternativa a essas plataformas. Com um algoritmo personalizável e um sistema de interesses públicos e privados, 
@@ -49,7 +49,7 @@ export default function LandingPage() {
                             </h4>
                             <div className="d-flex justify-content-between p-3">
                                 <Link to="/login">
-                                    <button className="s-b-l c-lp-b-09 b-lp-w-12 mr-3">
+                                    <button className="s-b-l c-lp-b-09 b-lp-w-10 mr-3">
                                         Já tem uma conta?
                                     </button>
                                 </Link>
@@ -67,17 +67,17 @@ export default function LandingPage() {
                 <div className="position-sticky w-100 px-2 d-flex justify-content-center" style={{ top: '0', left: '0', zIndex: '0', padding: '120px 0 90px', color: 'var(--lp-b-09)' }}>
                     <DemoAlgorithmSettings />
                 </div>
-                <div className="position-sticky w-100" style={{ top: '0', left: '0', zIndex: '1' }}>
+                <div className="position-sticky w-100" style={{ top: '-100px', left: '0', zIndex: '1' }}>
                     <Wave color="var(--lp-s-b-00)" />
-                    <div className="w-100 d-flex flex-column justify-content-center align-items-center b-lp-s-b-00">
+                    <div className="vh-100 w-100 d-flex flex-column justify-content-center align-items-center b-lp-s-b-00">
                         <div className="w-100 px-2 d-flex justify-content-center" style={{ padding: '120px 0 90px', color: 'var(--lp-b-09)' }}>
                             <DemoAddInterests />
                         </div>
                     </div>
                 </div>
-                <div className="position-sticky w-100" style={{ top: '0', left: '0', zIndex: '2' }}>
+                <div className="position-sticky w-100" style={{ top: '-100px', left: '0', zIndex: '2' }}>
                     <Wave color="var(--lp-s-b-01)" />
-                    <div className="w-100 d-flex justify-content-center b-lp-s-b-01">
+                    <div className="vh-100 w-100 d-flex justify-content-center b-lp-s-b-01">
                         <div className="w-100 d-flex justify-content-center" style={{ padding: '120px 12.5% 90px', color: 'var(--lp-b-09)' }}>
                             <DemoSearchProfiles />
                         </div>
@@ -85,8 +85,8 @@ export default function LandingPage() {
                     </div>
                 </div>
                 <div
-                    className="position-sticky d-flex flex-column w-100 justify-content-start align-items-center"
-                    style={{ top: '0', left: '0', zIndex: '3', background: "linear-gradient(0deg,var(--primary-color-hover) -.45%,var(--primary-color) 50%)", padding: "50px", height: "100vh" }}
+                    className="position-sticky d-flex flex-column w-100 justify-content-start align-items-center blur"
+                    style={{ top: '0', left: '0', zIndex: '3', background: "var(--p-g)", padding: "50px", height: "100vh" }}
                 >
                     <h2 style={{ color: "var(--theme-base-color)", fontSize: "40px", fontWeight: "700" }}>Gostou do que viu?</h2>
                     <div className="d-flex flex-column align-items-center">
@@ -99,7 +99,7 @@ export default function LandingPage() {
                                     Inscrever-se no Napker
                                 </button>
                             </Link>
-                            <button className="s-b-l c-lp-w-12 b-lp-b-09">
+                            <button className="s-b-l c-lp-b-09 b-lp-w-10">
                                 Entrar no grupo
                             </button>
                         </div>
