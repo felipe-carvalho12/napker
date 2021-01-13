@@ -49,7 +49,9 @@
 
 .post-extra-options {
     width: 20%;
+    height: 50px;
     display: flex;
+    align-items: center;
     position: relative;
 }
 

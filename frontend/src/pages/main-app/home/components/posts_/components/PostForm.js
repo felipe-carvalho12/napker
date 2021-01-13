@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+
 import PostTextbox from './components/post-textbox/PostTextbox'
-import EmojiPicker from '../../../../../../components/EmojiPicker'
 import VideoIframe from '../../../../../../components/VideoIframe'
 
 import { SERVER_URL } from '../../../../../../config/settings'
@@ -31,6 +31,7 @@ export default function PostForm(props) {
     const [videoUrl, setVideoUrl] = useState('')
 
     const [advancedModalIsOpen, setAdvancedModalIsOpen] = useState(false)
+    const [emojiSelector, setEmojiSelector] = useState(null)
 
     useEffect(() => {
         if (postFormImagePreview !== '') {
@@ -159,6 +160,8 @@ export default function PostForm(props) {
                             </Link>
                             <PostTextbox
                                 placeholder={parentComment ? `Responder ${parentComment.author.first_name}` : "O que passa pela sua cabeça?"}
+                                emojiSelector={emojiSelector}
+                                setEmojiSelector={setEmojiSelector}
                                 maxLength={500}
                             />
                         </div>
@@ -227,8 +230,8 @@ export default function PostForm(props) {
                                         </i>
                                     </>
                                 }
-                                {!isMobile &&
-                                    <EmojiPicker />
+                                {(!isMobile && emojiSelector !== null) &&
+                                   emojiSelector
                                 }
                             </div>
                             <button

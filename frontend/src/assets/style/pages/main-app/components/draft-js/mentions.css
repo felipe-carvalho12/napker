@@ -6,7 +6,7 @@
     min-width: 220px;
     max-width: 440px;
     border-radius: 2px;
-    box-shadow: 0px 0px 20px 0px rgba(60, 60, 60, 0.35);
+    box-shadow: var(--box-shaddow-draftjs);
     cursor: pointer;
     padding-top: 8px;
     padding-bottom: 8px;
