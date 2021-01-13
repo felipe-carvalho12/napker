@@ -1,3 +1,7 @@
+:root {
+    --box-shaddow-draftjs: 0px 0px 20px 0px rgba(60, 60, 60, 0.35);
+}
+
 .public-DraftEditorPlaceholder-inner {
     position: absolute!important;
 }
