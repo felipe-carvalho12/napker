@@ -37,15 +37,15 @@ export default function LandingPage() {
                 className="d-flex flex-column w-100 justify-content-center align-items-center position-relative b-primary-color"
                 style={{ zIndex: '20000' }}
             >
-                <div className="d-flex justify-content-center w-100" style={{ background: "linear-gradient(180deg,var(--lp-b-07) -.45%,var(--primary-color) 60%)", padding: "50px" }}>
-                    <div className="d-flex flex-column w-50 justify-content-center align-items-center" style={{ textAlign: "center", padding: "20px" }}>
+                <div className="d-flex justify-content-center w-100" style={{ background: "linear-gradient(180deg,var(--lp-b-04) -.45%,var(--primary-color) 60%)", padding: "50px" }}>
+                    <div className="d-flex flex-column w-75 justify-content-center align-items-center" style={{ textAlign: "center", padding: "20px" }}>
                         <h2 style={{ color: "var(--lp-b-09)", fontSize: "60px", fontWeight: "700" }}>Por que usar o Napker?</h2>
                         <div className="d-flex flex-column align-items-center">
                             <h4 style={{ color: "var(--lp-b-08)", fontSize: "20px" }}>
-                                As grandes redes socias utilizam o gigantesco volume de dados gerados pelos usuários para alimentar algoritmos misteriosos que não temos acesso.
-                                Esses algoritmos controlam a experiêcia do usuário na rede social visando mantê-lo o máximo de tempo possível no aplicativo, e criam modelos de usuários
-                                para vender para anunciantes. O Napker foi pensado como uma alternativa a essas redes sociais. Com um algoritmo personalizável e um
-                                sistema de interesses públicos e privados, o usuário tem total controle sobre a sua experiência na plataforma
+                            As grandes redes socias utilizam o gigantesco volume de dados gerados pelos usuários para alimentar algoritmos misteriosos. 
+                            Estes controlam a experiêcia do usuário visando mantê-lo o máximo de tempo possível na rede social e criam modelos de usuários para vender para anunciantes. 
+                            O Napker foi pensado como uma alternativa a essas plataformas. Com um algoritmo personalizável e um sistema de interesses públicos e privados, 
+                            o usuário tem total controle sobre a sua experiência no aplicativo.
                             </h4>
                             <div className="d-flex justify-content-between p-3">
                                 <Link to="/login">
