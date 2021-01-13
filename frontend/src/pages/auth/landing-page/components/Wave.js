@@ -49,7 +49,7 @@ export default function Wave(props) {
             <div class="wave">
                 {svg(colors[2], colors[3], blur[1])}
             </div>
-            <div class="wave">
+            <div className="wave">
                 {svg(colors[0], colors[1], blur[0])}
             </div>
         </div>

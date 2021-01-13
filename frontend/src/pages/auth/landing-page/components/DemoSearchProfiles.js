@@ -5,7 +5,7 @@ export default function DemoSearchProfiles() {
 
     return (
         <>
-            <div className="p-3 w-50 mr-3 d-flex flex-column b-lp-b-01" style={{ borderRadius: '40px', minHeight: '450px' }}>
+            <div className="p-3 w-50 mr-3 d-flex flex-column b-lp-b-01" style={{ borderRadius: '40px', }}>
                 <div>
                     <div
                         className="mt-2 d-flex flex-row align-items-center w-100 p-2 b-theme-base-color tag-container"

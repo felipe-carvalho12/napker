@@ -67,17 +67,21 @@ export default function LandingPage() {
                 <div className="position-sticky w-100 px-2 d-flex justify-content-center" style={{ top: '0', left: '0', zIndex: '0', padding: '120px 0 90px', color: 'var(--lp-b-09)' }}>
                     <DemoAlgorithmSettings />
                 </div>
-                <div className="position-sticky w-100" style={{ top: '-100px', left: '0', zIndex: '1' }}>
-                    <Wave colors={["var(--lp-s-b-00)", "var(--lp-b-01)"]} blur={[true, true]}/>
-                    <div className="vh-100 w-100 d-flex flex-column justify-content-center align-items-center b-lp-s-b-00">
+                <div className="position-sticky w-100 b-t blur" style={{ top: '0', left: '0', zIndex: '1' }}>
+                    {
+                        //<Wave colors={["var(--lp-s-b-00)", "var(--lp-b-01)"]} blur={[true, true]}/>
+                    }
+                    <div className="vh-100 w-100 d-flex flex-column justify-content-start align-items-center b-lp-b-00">
                         <div className="w-100 px-2 d-flex justify-content-center" style={{ padding: '120px 0 90px', color: 'var(--lp-b-09)' }}>
                             <DemoAddInterests />
                         </div>
                     </div>
                 </div>
-                <div className="position-sticky w-100" style={{ top: '-100px', left: '0', zIndex: '2' }}>
-                    <Wave colors={["var(--lp-s-b-01)", "var(--lp-b-02)"]} blur={[true, true]} />
-                    <div className="vh-100 w-100 d-flex justify-content-center b-lp-s-b-01">
+                <div className="position-sticky w-100 b-t blur" style={{ top: '0', left: '0', zIndex: '2' }}>
+                    {
+                        //<Wave colors={["var(--lp-s-b-01)", "var(--lp-b-02)"]} blur={[true, true]} />
+                    }
+                    <div className="vh-100 w-100 d-flex justify-content-center b-lp-b-01">
                         <div className="w-100 d-flex justify-content-center" style={{ padding: '120px 12.5% 90px', color: 'var(--lp-b-09)' }}>
                             <DemoSearchProfiles />
                         </div>
@@ -87,9 +91,9 @@ export default function LandingPage() {
                     className="position-sticky d-flex flex-column w-100 justify-content-start align-items-center blur"
                     style={{ top: '0', left: '0', zIndex: '3', background: "var(--p-g)", padding: "50px", height: "100vh" }}
                 >
-                    <h2 style={{ color: "var(--theme-base-color)", fontSize: "40px", fontWeight: "700" }}>Gostou do que viu?</h2>
+                    <h2 style={{ color: "var(--lp-w-10)", fontSize: "40px", fontWeight: "700" }}>Gostou do que viu?</h2>
                     <div className="d-flex flex-column align-items-center">
-                        <h4 style={{ color: "var(--background)", fontSize: "20px", padding: '25px' }}>
+                        <h4 style={{ color: "var(--lp-w-10)", fontSize: "20px", padding: '25px' }}>
                             Entre no grupo de testadores no Discord para acompanhar as novidades e discutir novas mudanças.
                         </h4>
                         <div className="d-flex justify-content-between mt-2" style={{ width: "80%" }}>
@@ -102,6 +106,15 @@ export default function LandingPage() {
                                 Entrar no grupo
                             </button>
                         </div>
+                    </div>
+                </div>
+                <div
+                    className="position-sticky d-flex flex-column w-100 justify-content-start align-items-center blur"
+                    style={{ top: '0', left: '0', zIndex: '4' }}
+                >
+                    <Wave colors={["var(--lp-w-11)", "var(--lp-w-10)"]} blur={[false, false]} />
+                    <div className="vh-50 w-100 d-flex flex-column justify-content-start align-items-center b-lp-s-w-10">
+
                     </div>
                 </div>
             </div>
