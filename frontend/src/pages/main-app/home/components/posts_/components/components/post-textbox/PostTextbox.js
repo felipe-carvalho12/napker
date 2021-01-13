@@ -59,7 +59,7 @@ export default class SimpleMentionEditor extends Component {
                 emojiSuggestionsEntryText: 'emojiSuggestionsEntryText',
                 emojiSuggestionsEntryIcon: 'emojiSuggestionsEntryIcon',
                 emojiSelect: 'emojiSelect',
-                emojiSelectButton: 'smile',
+                emojiSelectButton: 'emojiSelectButton',
                 emojiSelectButtonPressed: 'emojiSelectButtonPressed',
                 emojiSelectPopover: 'emojiSelectPopover',
                 emojiSelectPopoverClosed: 'emojiSelectPopoverClosed',
@@ -82,7 +82,10 @@ export default class SimpleMentionEditor extends Component {
                 emojiSelectPopoverScrollbarOuter: 'emojiSelectPopoverScrollbarOuter',
                 emojiSelectPopoverScrollbar: 'emojiSelectPopoverScrollbar',
                 emojiSelectPopoverScrollbarThumb: 'emojiSelectPopoverScrollbarThumb'
-            }
+            },
+            selectButtonContent: (
+                <i className="far fa-smile icon smile m-0" />
+            )
         })
     }
 

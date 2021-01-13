@@ -1,16 +1,18 @@
-.smile, .emojiSelectButtonPressed, .smile:focus, .emojiSelectButtonPressed:focus {
-    color: var(--primary-color);
+.emojiSelect:focus, .emojiSelectButton, .emojiSelectButton:focus, .emojiSelectButtonPressed, .emojiSelectButtonPressed:focus  {
     background: none;
     border: none;
-    font-size: 37px;
-    margin: 0;
+    outline: none;
+}
+
+.smile, .smile:focus{
+    color: var(--primary-color);
+    font-size: 25px;
+    margin-right: 10px;
     padding: 10px;
-    width: 50px;
     border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    outline: 0;
+    background: none;
+    border: none;
+    outline: none;
 }
 
 .smile:hover {
@@ -233,6 +235,7 @@
 }
 
 .emojiSuggestionsEntry:active {
+    padding: 5px 10px 1px 10px;
     background-color: var(--theme-base-color-hover);
 }
 
