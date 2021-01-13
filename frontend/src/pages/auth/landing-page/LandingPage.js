@@ -42,10 +42,10 @@ export default function LandingPage() {
                         <h2 style={{ color: "var(--lp-w-10)", fontSize: "60px", fontWeight: "700" }}>Por que usar o Napker?</h2>
                         <div className="d-flex flex-column align-items-center">
                             <h4 style={{ color: "var(--lp-w-10)", fontSize: "20px" }}>
-                            As grandes redes socias utilizam o gigantesco volume de dados gerados pelos usuários para alimentar algoritmos misteriosos. 
-                            Estes controlam a experiêcia do usuário visando mantê-lo o máximo de tempo possível na rede social e criam modelos de usuários para vender para anunciantes. 
-                            O Napker foi pensado como uma alternativa a essas plataformas. Com um algoritmo personalizável e um sistema de interesses públicos e privados, 
-                            o usuário tem total controle sobre a sua experiência no aplicativo.
+                                As grandes redes socias utilizam o gigantesco volume de dados gerados pelos usuários para alimentar algoritmos misteriosos.
+                                Estes controlam a experiêcia do usuário visando mantê-lo o máximo de tempo possível na rede social e criam modelos de usuários para vender para anunciantes.
+                                O Napker foi pensado como uma alternativa a essas plataformas. Com um algoritmo personalizável e um sistema de interesses públicos e privados,
+                                o usuário tem total controle sobre a sua experiência no aplicativo.
                             </h4>
                             <div className="d-flex justify-content-between p-3">
                                 <Link to="/login">
@@ -68,7 +68,7 @@ export default function LandingPage() {
                     <DemoAlgorithmSettings />
                 </div>
                 <div className="position-sticky w-100" style={{ top: '-100px', left: '0', zIndex: '1' }}>
-                    <Wave color="var(--lp-s-b-00)" />
+                    <Wave colors={["var(--lp-s-b-00)", "var(--lp-b-01)"]} blur={[true, true]}/>
                     <div className="vh-100 w-100 d-flex flex-column justify-content-center align-items-center b-lp-s-b-00">
                         <div className="w-100 px-2 d-flex justify-content-center" style={{ padding: '120px 0 90px', color: 'var(--lp-b-09)' }}>
                             <DemoAddInterests />
@@ -76,12 +76,11 @@ export default function LandingPage() {
                     </div>
                 </div>
                 <div className="position-sticky w-100" style={{ top: '-100px', left: '0', zIndex: '2' }}>
-                    <Wave color="var(--lp-s-b-01)" />
+                    <Wave colors={["var(--lp-s-b-01)", "var(--lp-b-02)"]} blur={[true, true]} />
                     <div className="vh-100 w-100 d-flex justify-content-center b-lp-s-b-01">
                         <div className="w-100 d-flex justify-content-center" style={{ padding: '120px 12.5% 90px', color: 'var(--lp-b-09)' }}>
                             <DemoSearchProfiles />
                         </div>
-                        <Wave color="var(--primary-color)" />
                     </div>
                 </div>
                 <div
