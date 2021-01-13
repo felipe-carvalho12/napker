@@ -12,7 +12,7 @@ from django.shortcuts import render, redirect
 from django.core.files.base import ContentFile
 
 from profiles.views import get_profile_list
-from profiles.serializers import PostSerializer, PostLikeSerializer, CommentSerializer, CommentLikeSerializer, NotificationSerializer
+from profiles.serializers import *
 from profiles.models import Profile
 from .models import *
 from .utils import *
@@ -221,3 +221,9 @@ def unlike_comment(request, comment_id):
     comment = Comment.objects.get(id=comment_id)
     CommentLike.objects.get(profile=profile, comment=comment).delete()
     return JsonResponse(f'Unliked comment #{comment.id}', safe=False)
+
+
+@api_view(['GET'])
+def get_mentions(request):
+    serializer = ProfileMentionSerializer(Profile.objects.exclude(user=request.user), many=True)
+    return Response(serializer.data)

@@ -14,6 +14,7 @@ import HomePageMenu from './components/HomePageMenu'
 export default function Home() {
     const [page, setPage] = useState('Feed')
     const [algorithmSettingsIsOpen, setAlgorithmSettingsIsOpen] = useState(false)
+    const isMobile = visualViewport.width <= 980
 
     const pages = {
         'Feed': <Posts />,
@@ -32,24 +33,26 @@ export default function Home() {
 
     return (
         <>
-            <Header page="Home">
-                <MobileAlgorithmSettingsIcon useIsOpen={[algorithmSettingsIsOpen, setAlgorithmSettingsIsOpen]} />
-            </Header>
+            {isMobile &&
+                <Header page="Home">
+                    <MobileAlgorithmSettingsIcon useIsOpen={[algorithmSettingsIsOpen, setAlgorithmSettingsIsOpen]} />
+                </Header>
+            }
+            <div className="desktop-home-menu">
+                <HomePageMenu
+                    setPage={setPage}
+                    feedPageTitle='Feed'
+                    profilesPageTitle='Encontrar perfis'
+                    explorePageTitle='Descobrir'
+                    newsPageTitle='Notícias'
+                    trendsPageTitle='Tendências'
+                />
+            </div>
+            <div className="mobile-home-menu">
+                <HomePageMenu setPage={setPage} />
+            </div>
             <div className="sidebar-content">
                 <div className="w-100 h-100 home-page">
-                    <div className="desktop-home-menu">
-                        <HomePageMenu
-                            setPage={setPage}
-                            feedPageTitle='Feed'
-                            profilesPageTitle='Encontrar perfis'
-                            explorePageTitle='Descobrir'
-                            newsPageTitle='Notícias'
-                            trendsPageTitle='Tendências'
-                        />
-                    </div>
-                    <div className="mobile-home-menu">
-                        <HomePageMenu setPage={setPage} />
-                    </div>
                     {pages[page]}
                 </div>
             </div>

@@ -29,8 +29,20 @@
     border-radius: 20px;
     font-weight: bold;
 }
+
+.btn-home {
+    background: none;
+    color: inherit;
+    border: none;
+    border-radius: none;
+    font-weight: bold;
+}
+
+.btn-home:hover {
+    color: inherit;
+}
   
-.btn-primary:focus, .btn-secondary:focus, .btn-grey:focus {
+.btn-primary:focus, .btn-secondary:focus, .btn-grey:focus, .btn-home:focus {
     outline: none;
     box-shadow: none;
 }

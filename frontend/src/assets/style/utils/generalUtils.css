@@ -37,11 +37,3 @@
   border-radius: 50%;
   padding: 2px;
 }
-
-.emoji-list-container {
-  display: none;
-  position: absolute;
-  left: 20px;
-  z-index: 1;
-  border: 2px solid rgba(20, 20, 20, 0.3);
-}
