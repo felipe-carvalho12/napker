@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import PostTextbox from './components/PostTextbox'
+import PostTextbox from './components/post-textbox/PostTextbox'
 import EmojiPicker from '../../../../../../components/EmojiPicker'
 import VideoIframe from '../../../../../../components/VideoIframe'
 

@@ -13,7 +13,6 @@ import './assets/style/pages/auth/landing-page.css'
 
 import './assets/style/pages/global-components/materialUi.css'
 import './assets/style/pages/global-components/loader.css'
-import './assets/style/pages/global-components/content-editable.css'
 import './assets/style/pages/global-components/modal.css'
 import './assets/style/pages/global-components/buttons.css'
 import './assets/style/pages/global-components/viewMoreSelect.css'

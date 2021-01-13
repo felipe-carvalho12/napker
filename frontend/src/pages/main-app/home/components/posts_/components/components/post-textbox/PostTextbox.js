@@ -3,19 +3,25 @@ import { EditorState } from "draft-js";
 import Editor from "draft-js-plugins-editor";
 import createMentionPlugin, { defaultSuggestionsFilter } from "draft-js-mention-plugin";
 import { convertToRaw } from "draft-js";
-import mentions from "./mentions";
 import "draft-js-mention-plugin/lib/plugin.css";
+
+import { SERVER_URL } from '../../../../../../../../config/settings'
+import MentionComponent from './components/MentionComponent'
 
 export default class SimpleMentionEditor extends Component {
     constructor(props) {
         super(props);
 
-        this.mentionPlugin = createMentionPlugin();
+        this.mentionPlugin = createMentionPlugin({
+            mentionPrefix: '@',
+            mentionComponent: MentionComponent
+        });
     }
 
     state = {
         editorState: EditorState.createEmpty(),
-        suggestions: mentions
+        mentions: null,
+        suggestions: []
     };
 
     onChange = (editorState) => {
@@ -25,10 +31,24 @@ export default class SimpleMentionEditor extends Component {
     };
 
     onSearchChange = ({ value }) => {
-        this.setState({
-            suggestions: defaultSuggestionsFilter(value, mentions)
-        });
+        this.state.mentions ?
+            this.setState({
+                suggestions: defaultSuggestionsFilter(value, this.state.mentions).slice(0, 6)
+            })
+            :
+            this.fetchMentions()
     };
+
+    fetchMentions = () => {
+        fetch(`${SERVER_URL}/post-api/get-mentions`)
+        .then(response => response.json())
+        .then(data => {
+            this.setState({
+                mentions: data,
+                suggestions: data.slice(0, 6)
+            })
+        })
+    }
 
     onAddMention = () => {
         //get the selected element
@@ -50,7 +70,7 @@ export default class SimpleMentionEditor extends Component {
         const plugins = [this.mentionPlugin];
 
         return (
-            <div onClick={this.focus}>
+            <div className="w-100" style={{ textAlign: 'start' }} onClick={this.focus}>
                 <div
                     className="w-100 border-0 pb-0 c-primary-grey"
                     style={{ background: 'var(--theme-base-color)', padding: '10px', outline: 'none' }}
@@ -62,12 +82,12 @@ export default class SimpleMentionEditor extends Component {
                         ref={(element) => this.editor = element}
                         placeholder={this.props.placeholder}
                     />
-                    <MentionSuggestions
-                        onSearchChange={this.onSearchChange}
-                        suggestions={this.state.suggestions}
-                        onAddMention={this.onAddMention}
-                    />
                 </div>
+                <MentionSuggestions
+                    onSearchChange={this.onSearchChange}
+                    suggestions={this.state.suggestions}
+                    onAddMention={this.onAddMention}
+                />
             </div>
         );
     }
