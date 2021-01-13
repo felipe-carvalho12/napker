@@ -9,6 +9,8 @@
     "@testing-library/user-event": "^7.2.1",
     "cropperjs": "^1.5.9",
     "draft-js": "^0.11.7",
+    "draft-js-hashtag-plugin": "^2.0.4",
+    "draft-js-inline-toolbar-plugin": "^3.0.1",
     "draft-js-mention-plugin": "^3.1.5",
     "draft-js-plugins-editor": "^3.0.0",
     "jquery": "^3.5.1",

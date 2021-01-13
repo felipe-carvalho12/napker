@@ -1,9 +1,13 @@
 import React, { Component } from "react";
-import { EditorState } from "draft-js";
+import { EditorState, convertToRaw } from "draft-js";
 import Editor from "draft-js-plugins-editor";
 import createMentionPlugin, { defaultSuggestionsFilter } from "draft-js-mention-plugin";
-import { convertToRaw } from "draft-js";
+import createHashtagPlugin from "draft-js-hashtag-plugin";
+import createInlineToolbarPlugin from "draft-js-inline-toolbar-plugin";
+
 import "draft-js-mention-plugin/lib/plugin.css";
+import "draft-js-hashtag-plugin/lib/plugin.css";
+import "draft-js-inline-toolbar-plugin/lib/plugin.css";
 
 import { SERVER_URL } from '../../../../../../../../config/settings'
 import MentionComponent from './components/MentionComponent'
@@ -16,6 +20,8 @@ export default class SimpleMentionEditor extends Component {
             mentionPrefix: '@',
             mentionComponent: MentionComponent
         });
+        this.hashtagPlugin = createHashtagPlugin();
+        this.inlineToolbarPlugin = createInlineToolbarPlugin();
     }
 
     state = {
@@ -41,13 +47,13 @@ export default class SimpleMentionEditor extends Component {
 
     fetchMentions = () => {
         fetch(`${SERVER_URL}/post-api/get-mentions`)
-        .then(response => response.json())
-        .then(data => {
-            this.setState({
-                mentions: data,
-                suggestions: data.slice(0, 6)
+            .then(response => response.json())
+            .then(data => {
+                this.setState({
+                    mentions: data,
+                    suggestions: data.slice(0, 6)
+                })
             })
-        })
     }
 
     onAddMention = () => {
@@ -66,8 +72,10 @@ export default class SimpleMentionEditor extends Component {
     }
 
     render() {
+        const plugins = [this.mentionPlugin, this.hashtagPlugin, this.inlineToolbarPlugin];
+
         const { MentionSuggestions } = this.mentionPlugin;
-        const plugins = [this.mentionPlugin];
+        const { InlineToolbar } = this.inlineToolbarPlugin;
 
         return (
             <div className="w-100" style={{ textAlign: 'start' }} onClick={this.focus}>
@@ -83,6 +91,7 @@ export default class SimpleMentionEditor extends Component {
                         placeholder={this.props.placeholder}
                     />
                 </div>
+                <InlineToolbar />
                 <MentionSuggestions
                     onSearchChange={this.onSearchChange}
                     suggestions={this.state.suggestions}
