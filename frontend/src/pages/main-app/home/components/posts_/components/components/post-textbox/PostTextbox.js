@@ -1,11 +1,13 @@
 import React, { Component } from "react";
+
 import { EditorState, convertToRaw } from "draft-js";
+import { ItalicButton, BoldButton, UnderlineButton } from "@draft-js-plugins/buttons";
 import Editor from "draft-js-plugins-editor";
+
 import createMentionPlugin, { defaultSuggestionsFilter } from "draft-js-mention-plugin";
 import createHashtagPlugin from "draft-js-hashtag-plugin";
 import createInlineToolbarPlugin from "draft-js-inline-toolbar-plugin";
 
-import "draft-js-mention-plugin/lib/plugin.css";
 import "draft-js-hashtag-plugin/lib/plugin.css";
 import "draft-js-inline-toolbar-plugin/lib/plugin.css";
 
@@ -18,10 +20,35 @@ export default class SimpleMentionEditor extends Component {
 
         this.mentionPlugin = createMentionPlugin({
             mentionPrefix: '@',
-            mentionComponent: MentionComponent
+            mentionComponent: MentionComponent,
+            theme: {
+                mention: "mention",
+                mentionSuggestions: "mentionSuggestions",
+                mentionSuggestionsEntry: "mentionSuggestionsEntry",
+                mentionSuggestionsEntryFocused: "mentionSuggestionsEntryFocused",
+                mentionSuggestionsEntryText: "mentionSuggestionsEntryText",
+                mentionSuggestionsEntryAvatar: "mentionSuggestionsEntryAvatar"
+            }
         });
-        this.hashtagPlugin = createHashtagPlugin();
-        this.inlineToolbarPlugin = createInlineToolbarPlugin();
+
+        this.hashtagPlugin = createHashtagPlugin({
+            theme: {
+                hashtag: 'hashtag'
+            }
+        });
+        
+        this.inlineToolbarPlugin = createInlineToolbarPlugin({
+            theme: {
+                toolbarStyles: {
+                    toolbar: 'inline-toolbar',
+                },
+                buttonStyles: {
+                    button: 'inline-toolbar-button',
+                    buttonWrapper: 'inline-toolbar-button-wrapper',
+                    active: 'inline-toolbar-button-active',
+                },
+            }
+        });
     }
 
     state = {
@@ -91,7 +118,15 @@ export default class SimpleMentionEditor extends Component {
                         placeholder={this.props.placeholder}
                     />
                 </div>
-                <InlineToolbar />
+                <InlineToolbar>
+                    {(externalProps) => (
+                        <div>
+                            <BoldButton {...externalProps} />
+                            <ItalicButton {...externalProps} />
+                            <UnderlineButton {...externalProps} />
+                        </div>
+                    )}
+                </InlineToolbar>
                 <MentionSuggestions
                     onSearchChange={this.onSearchChange}
                     suggestions={this.state.suggestions}

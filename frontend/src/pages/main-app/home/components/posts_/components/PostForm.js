@@ -144,7 +144,7 @@ export default function PostForm(props) {
                     {color !== undefined &&
                         <div style={{ marginLeft: "20px", width: "5px", background: color }} />
                     }
-                    <div className="d-flex flex-column w-100" style={{ padding: "20px" }}>
+                    <div className="d-flex flex-column w-100" style={{ padding: "35px 20px 20px" }}>
                         {errMessage !== null &&
                             <div className="w-100 mt-1">
                                 <span className="word-break" style={{ color: '#f00' }}>{errMessage}</span>
