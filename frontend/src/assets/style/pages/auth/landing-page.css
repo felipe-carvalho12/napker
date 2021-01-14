@@ -288,23 +288,23 @@
     display: flex;
   }
   
-  .wave {
-    position: absolute;
-    bottom: 0;
-    width: 100vw;
-    transform: translate3d(0, 0, 0);
-  }
-  
-  .wave:nth-of-type(1) {
-    animation: swell 7s ease -1.25s infinite;
-    opacity: 1;
-  }
-  
-  @keyframes swell {
-    0%, 100% {
-      transform: translate3d(0,-25px,0);
-    }
-    50% {
-      transform: translate3d(0,-5px,0);
-    }
-  }
+.wave {
+position: absolute;
+bottom: 0;
+width: 100%;
+transform: translate3d(0, 0, 0);
+}
+
+.wave:nth-of-type(1) {
+animation: swell 7s ease -1.25s infinite;
+opacity: 1;
+}
+
+@keyframes swell {
+0%, 100% {
+    transform: translate3d(0,-25px,0);
+}
+50% {
+    transform: translate3d(0,-5px,0);
+}
+}
