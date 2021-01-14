@@ -15,7 +15,7 @@ export default function PostForm(props) {
     const type = props.type === undefined ? 'post' : props.type
     const postId = props.postId
     const parentComment = props.parentComment
-    const hideForm = props.hideFormconst
+    const hideForm = props.hideForm
     const color = props.level
 
     const isMobile = visualViewport.width <= 980
