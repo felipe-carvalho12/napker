@@ -158,6 +158,7 @@ export default function PostForm(props) {
                                 />
                             </Link>
                             <PostTextbox
+                                editable={true}
                                 placeholder={parentComment ? `Responder ${parentComment.author.first_name}` : "O que passa pela sua cabeça?"}
                                 emojiSelector={emojiSelector}
                                 setEmojiSelector={setEmojiSelector}

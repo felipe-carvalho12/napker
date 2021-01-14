@@ -1,10 +1,10 @@
 import React from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import { convertFromRaw } from "draft-js";
 
 import { SERVER_URL } from '../config/settings'
 import { csrftoken } from '../config/utils'
 import VideoIframe from './VideoIframe'
+import PostTextbox from '../pages/main-app/home/components/posts_/components/components/post-textbox/PostTextbox'
 
 export default function PostListItem(props) {
     const post = props.post
@@ -21,11 +21,6 @@ export default function PostListItem(props) {
 
     const history = useHistory()
     const isLink = props.isLink !== undefined ? props.isLink : true
-    try {
-        var postContent = convertFromRaw(JSON.parse(post.content))
-    } catch {
-        var postContent = post.content
-    }
 
     const likeUnlikePost = e => {
         e.stopPropagation()
@@ -155,7 +150,10 @@ export default function PostListItem(props) {
                         <div className="popover-arrow" style={{ top: '-9px', right: '8%' }} />
                     </div>
                     <div className="d-flex justify-content-start word-break mb-2">
-                        {post.content}
+                        <PostTextbox
+                            editable={false}
+                            postContent={JSON.parse(post.content)}
+                        />
                     </div>
                 </div>
                 <div className={`d-flex justify-content-center w-100 post-img-background ${(post.video || post.image) && "my-2"}`} style={{ background: 'var(--img-background)' }}>

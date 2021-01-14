@@ -12,6 +12,10 @@
     background: var(--img-background-hover)!important;
 }
 
+.post-container:hover .post-textbox {
+    background: var(--theme-base-color-hover)!important;
+}
+
 .create-post-form {
     background: var(--theme-base-color);
     padding: 15px 15px 10px 15px;
