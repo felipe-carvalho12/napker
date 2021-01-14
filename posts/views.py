@@ -2,6 +2,7 @@ import json
 import datetime
 import base64
 import pytz
+import re
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -113,7 +114,7 @@ def visualize_comments(request):
 def create_post(request):
     profile = Profile.objects.get(user=request.user)
     content = request.data['content']
-    hashtags = request.data['hashtags']
+    hashtags = re.findall(r' \#(\w+) ', ''.join([block['text'] for block in json.loads(content)['blocks']]))
     tagged_usernames = request.data['tagged-usernames']
 
     if len(content) <= 500:
@@ -135,11 +136,11 @@ def create_post(request):
             hashtag.posts.add(post)
             hashtag.save()
 
-        '''for username in tagged_usernames:
+        for username in tagged_usernames:
             if User.objects.filter(username=username).exists():
                 user = User.objects.get(username=username)
-                post.tagged_profiles.add(Profile.objects.get(user=user))
-                post.save()'''
+                post.tagged_users.add(user)
+                post.save()
 
         serializer = PostSerializer(post)
         if len(content) or has_image_or_video:

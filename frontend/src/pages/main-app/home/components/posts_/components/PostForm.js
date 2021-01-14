@@ -8,6 +8,7 @@ import { SERVER_URL } from '../../../../../../config/settings'
 import { csrftoken } from '../../../../../../config/utils'
 import AdvancedPostModal from './components/AdvancedPostModal'
 
+
 export default function PostForm(props) {
     const myProfile = props.myProfile
     const usePosts = props.usePosts || (() => [null, null])
@@ -23,10 +24,10 @@ export default function PostForm(props) {
     const renderParent = props.renderParent
     const [errMessage, setErrMessage] = useState(null)
 
-    const [hashtags, setHashtags] = useState([])
     const [taggedUsernames, setTaggedUsernames] = useState([])
 
     const [postContent, setPostContent] = useState('')
+    const [contentLength, setContentLength] = useState(0)
     const [postFormImagePreview, setPostFormImagePreview] = useState('')
     const [videoUrl, setVideoUrl] = useState('')
 
@@ -51,11 +52,11 @@ export default function PostForm(props) {
         el.disabled = !videoUrl.trim() && !postFormImagePreview && !videoUrl
     }, [videoUrl])
 
-    const handlePostContentChange = e => {
-        setPostContent(e.target.value)
+    useEffect(() => {
         const el = document.querySelector('#post-form-submit-btn')
-        el.disabled = !e.target.value.trim() && !postFormImagePreview && !videoUrl
-    }
+        el.disabled = !contentLength && !postFormImagePreview && !videoUrl
+        console.log(taggedUsernames)
+    }, [contentLength])
 
     const handlePostImageChange = e => {
         const reader = new FileReader()
@@ -98,7 +99,6 @@ export default function PostForm(props) {
         setPostContent('')
         setPostFormImagePreview('')
         setVideoUrl('')
-        document.querySelector('.create-post-form textarea').rows = 3
 
         fetch(`${SERVER_URL}/post-api/create-${type === 'post' ? type : 'comment'}`, {
             method: 'POST',
@@ -113,7 +113,6 @@ export default function PostForm(props) {
                 'type': type,
                 'post-image': postImage || '',
                 'post-video': getEmbedVideoUrl() || '',
-                'hashtags': hashtags,
                 'tagged-usernames': taggedUsernames
 
             })
@@ -162,6 +161,9 @@ export default function PostForm(props) {
                                 placeholder={parentComment ? `Responder ${parentComment.author.first_name}` : "O que passa pela sua cabeça?"}
                                 emojiSelector={emojiSelector}
                                 setEmojiSelector={setEmojiSelector}
+                                setPostContent={setPostContent}
+                                setContentLength={setContentLength}
+                                addTaggedUsernames={taggedUsername => setTaggedUsernames([...taggedUsernames, taggedUsername])}
                                 maxLength={500}
                             />
                         </div>
@@ -231,7 +233,7 @@ export default function PostForm(props) {
                                     </>
                                 }
                                 {(!isMobile && emojiSelector !== null) &&
-                                   emojiSelector
+                                    emojiSelector
                                 }
                             </div>
                             <button

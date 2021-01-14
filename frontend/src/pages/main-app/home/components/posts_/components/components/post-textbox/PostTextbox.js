@@ -96,9 +96,13 @@ export default class SimpleMentionEditor extends Component {
     };
 
     onChange = (editorState) => {
-        this.setState({
-            editorState
-        });
+        if (editorState.getCurrentContent().getPlainText().length <= this.props.maxLength) {
+            this.setState({
+                editorState
+            });
+            this.props.setContentLength(editorState.getCurrentContent().getPlainText().length)
+            this.props.setPostContent(this.renderContentAsRawJs())
+        }
     };
 
     onSearchChange = ({ value }) => {
@@ -121,8 +125,8 @@ export default class SimpleMentionEditor extends Component {
             })
     }
 
-    onAddMention = () => {
-        //get the selected element
+    onAddMention = mention => {
+        this.props.addTaggedUsernames(mention.name)
     };
 
     focus = () => {
@@ -133,7 +137,7 @@ export default class SimpleMentionEditor extends Component {
         const contentState = this.state.editorState.getCurrentContent();
         const raw = convertToRaw(contentState);
 
-        return JSON.stringify(raw, null, 2);
+        return JSON.stringify(raw);
     }
 
     componentDidMount() {
@@ -151,8 +155,8 @@ export default class SimpleMentionEditor extends Component {
         return (
             <div className="w-100" style={{ textAlign: 'start' }} onClick={this.focus}>
                 <div
-                    className="w-100 border-0 pb-0 c-primary-grey"
-                    style={{ background: 'var(--theme-base-color)', padding: '10px', outline: 'none' }}
+                    className="border-0 pb-0 c-primary-grey b-theme-base-color"
+                    style={{ width: '90%', padding: '10px', outline: 'none' }}
                 >
                     <Editor
                         editorState={this.state.editorState}

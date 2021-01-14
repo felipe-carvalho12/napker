@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link, useHistory } from 'react-router-dom'
+import { convertFromRaw } from "draft-js";
 
 import { SERVER_URL } from '../config/settings'
 import { csrftoken } from '../config/utils'
@@ -20,6 +21,11 @@ export default function PostListItem(props) {
 
     const history = useHistory()
     const isLink = props.isLink !== undefined ? props.isLink : true
+    try {
+        var postContent = convertFromRaw(JSON.parse(post.content))
+    } catch {
+        var postContent = post.content
+    }
 
     const likeUnlikePost = e => {
         e.stopPropagation()
