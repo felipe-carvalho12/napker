@@ -109,6 +109,13 @@ class ProfileSerializer(ProfileUnrelatedSerializer):
     posts = PostSerializer(source='get_all_posts', many=True)
     weights = WeightsSerializer()
 
+class ProfileMentionSerializer(serializers.ModelSerializer):
+    name = serializers.CharField(source='slug')
+    avatar = serializers.ImageField(source='photo')
+    class Meta:
+        model = Profile
+        fields = ['name', 'avatar']
+
 class RelationshipSerializer(serializers.ModelSerializer):
     sender = ProfileSerializer()
     receiver = ProfileSerializer()

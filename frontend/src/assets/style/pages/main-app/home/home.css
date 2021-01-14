@@ -4,16 +4,16 @@
 
 .mobile-home-menu, .desktop-home-menu , .home-page-menu{
     position: sticky;
-    top: var(--header-heigth);
+    top: 0;
     z-index: 1029;
 }
 
 .home-page-menu {
     width: 100%;
-    height: var(--home-page-menu-height);
     display: flex;
     align-items: center;
     background: var(--fixed-components-background);
+    padding-top: 50px;
     font-size: 1.2rem;
 }
 
@@ -22,9 +22,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    border-bottom: 3px solid rgba(0, 0, 0, 0);
 }
 
 .home-page-menu .home-menu-btn-container-active {
+    color: var(--primary-color)!important;
     border-bottom-color: var(--primary-color)!important;
 }
 

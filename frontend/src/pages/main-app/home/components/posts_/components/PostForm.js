@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import EmojiPicker from '../../../../../../components/EmojiPicker'
+
+import PostTextbox from './components/post-textbox/PostTextbox'
 import VideoIframe from '../../../../../../components/VideoIframe'
 
 import { SERVER_URL } from '../../../../../../config/settings'
@@ -30,6 +31,7 @@ export default function PostForm(props) {
     const [videoUrl, setVideoUrl] = useState('')
 
     const [advancedModalIsOpen, setAdvancedModalIsOpen] = useState(false)
+    const [emojiSelector, setEmojiSelector] = useState(null)
 
     useEffect(() => {
         if (postFormImagePreview !== '') {
@@ -143,7 +145,7 @@ export default function PostForm(props) {
                     {color !== undefined &&
                         <div style={{ marginLeft: "20px", width: "5px", background: color }} />
                     }
-                    <div className="d-flex flex-column w-100" style={{ padding: "20px" }}>
+                    <div className="d-flex flex-column w-100" style={{ padding: "35px 20px 20px" }}>
                         {errMessage !== null &&
                             <div className="w-100 mt-1">
                                 <span className="word-break" style={{ color: '#f00' }}>{errMessage}</span>
@@ -156,16 +158,11 @@ export default function PostForm(props) {
                                     className="profile-img-sm"
                                 />
                             </Link>
-                            <textarea
-                                className='w-100 border-0 autoExpand'
-                                rows='3'
-                                data-min-rows='3'
-                                value={postContent}
+                            <PostTextbox
                                 placeholder={parentComment ? `Responder ${parentComment.author.first_name}` : "O que passa pela sua cabeça?"}
+                                emojiSelector={emojiSelector}
+                                setEmojiSelector={setEmojiSelector}
                                 maxLength={500}
-                                autoFocus
-                                style={{ color: 'var(--primary-grey)', background: 'var(--theme-base-color)', padding: '10px', paddingBottom: '0', outline: 'none' }}
-                                onChange={handlePostContentChange}
                             />
                         </div>
                         {(postFormImagePreview && postFormImagePreview !== '') &&
@@ -233,8 +230,8 @@ export default function PostForm(props) {
                                         </i>
                                     </>
                                 }
-                                {!isMobile &&
-                                    <EmojiPicker />
+                                {(!isMobile && emojiSelector !== null) &&
+                                   emojiSelector
                                 }
                             </div>
                             <button

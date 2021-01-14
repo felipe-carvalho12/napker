@@ -33,6 +33,7 @@
   text-decoration: none;
   font-family: 'IBM Plex Sans', sans-serif;
   transition: .1s!important;
+  -webkit-font-smoothing: antialiased
 }
 
 html {
@@ -81,7 +82,6 @@ a {
 .wrapper .main-content {
   min-width: var(--sidebar-content-width);
   height: 100%;
-  margin: 0 1vw;
 }
 
 .wrapper .main-content .header {
@@ -98,12 +98,14 @@ a {
   width: var(--content-width);
   position: relative;
   text-align: center;
+  margin: 0 1vw;
 }
 
 .wrapper .main-content .sidebar-content {
   width: var(--sidebar-content-width);
   position: relative;
   text-align: center;
+  margin: 0 1vw;
 }
 
 /* PROFILE-IMAGE */

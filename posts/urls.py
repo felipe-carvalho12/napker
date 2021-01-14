@@ -18,4 +18,5 @@ urlpatterns = [
     path('unlike-post/<int:post_id>', unlike_post),
     path('like-comment/<int:comment_id>', like_comment),
     path('unlike-comment/<int:comment_id>', unlike_comment),
+    path('get-mentions', get_mentions)
 ]

@@ -1,0 +1,75 @@
+.inline-toolbar {
+    left: 50%;
+    -webkit-transform: translate(-50%) scale(0);
+    transform: translate(-50%) scale(0);
+    position: absolute;
+    border: 1px solid var(--border-color);
+    background: var(--theme-base-color);
+    border-radius: 2px;
+    box-shadow: var(--box-shaddow-draftjs);
+    z-index: 2;
+    box-sizing: border-box;
+}
+  
+.inline-toolbar:after,
+.inline-toolbar:before {
+    top: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.inline-toolbar:after {
+    border-color: rgba(255, 255, 255, 0);
+    border-top-color: var(--theme-base-color);
+    border-width: 4px;
+    margin-left: -4px;
+}
+.inline-toolbar:before {
+    border-color: rgba(221, 221, 221, 0);
+    border-top-color: var(--border-color);
+    border-width: 6px;
+    margin-left: -6px;
+}
+
+.inline-toolbar-button-wrapper {
+    display: inline-block;
+    border-right: 1px solid var(--border-color);
+}
+
+.inline-toolbar-button-wrapper:last-of-type {
+    border-right: none;
+}
+
+.inline-toolbar-button {
+    background: var(--theme-base-color);
+    color: var(--secondary-grey);
+    font-size: 18px;
+    border: 0;
+    padding-top: 5px;
+    vertical-align: bottom;
+    height: 34px;
+    width: 36px;
+}
+
+.inline-toolbar-button svg {
+    fill: var(--secondary-grey);
+}
+
+.inline-toolbar-button-wrapper :hover,
+.inline-toolbar-button-wrapper :focus {
+    background: var(--theme-base-color-hover);
+    outline: 0; /* reset for :focus */
+}
+
+.inline-toolbar-button-active {
+    color: var(--primary-grey);
+}
+
+.inline-toolbar-button-active svg {
+    fill: var(--primary-grey);
+}

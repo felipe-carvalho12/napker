@@ -98,19 +98,6 @@
     top: 30%!important;
 }
 
-.smile {
-    color: var(--primary-color);
-    font-size: 25px;
-    margin-right: 10px;
-    padding: 10px;
-    border-radius: 50%;
-}
-
-.smile:hover, .emoji-button-active {
-    background: var(--secondary-color);
-    cursor: pointer;
-}
-
 .message-input {
     width: 70%;
     height: 35px;
