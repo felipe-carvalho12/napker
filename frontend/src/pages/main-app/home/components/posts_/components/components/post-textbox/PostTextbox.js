@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { EditorState, convertToRaw, convertFromRaw } from "draft-js";
+import { EditorState, ContentState, convertToRaw, convertFromRaw } from "draft-js";
 import { ItalicButton, BoldButton, UnderlineButton } from "@draft-js-plugins/buttons";
 import Editor from "draft-js-plugins-editor";
 
@@ -97,6 +97,13 @@ export default class SimpleMentionEditor extends Component {
         if (this.props.editable) {
             const { EmojiSelect } = this.emojiPlugin;
             !this.props.emojiSelector && this.props.setEmojiSelector(<EmojiSelect />);
+        }
+    }
+
+    componentWillReceiveProps(newProps) {
+        if (newProps.shouldClearEditor) {
+            const editorState = EditorState.push(this.state.editorState, ContentState.createFromText(''));
+            this.setState({ editorState });
         }
     }
 

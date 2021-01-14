@@ -84,7 +84,7 @@ export default function PostForm(props) {
     const handleCloseImage = () => {
         document.querySelector('#post-img-container').style.display = 'none'
         document.querySelector('#post-image').value = ''
-        if (!postContent.trim() && !videoUrl.trim()) document.querySelector('#post-form-submit-btn').disabled = true
+        if (!postContent.trim() && !videoUrl.trim())
         setPostFormImagePreview(null)
     }
 
@@ -99,6 +99,8 @@ export default function PostForm(props) {
         setPostContent('')
         setPostFormImagePreview('')
         setVideoUrl('')
+
+        document.querySelector('#post-form-submit-btn').disabled = true
 
         fetch(`${SERVER_URL}/post-api/create-${type === 'post' ? type : 'comment'}`, {
             method: 'POST',
@@ -165,6 +167,7 @@ export default function PostForm(props) {
                                 setPostContent={setPostContent}
                                 setContentLength={setContentLength}
                                 addTaggedUsernames={taggedUsername => setTaggedUsernames([...taggedUsernames, taggedUsername])}
+                                shouldClearEditor={postContent === ''}
                                 maxLength={500}
                             />
                         </div>

@@ -113,8 +113,9 @@ def visualize_comments(request):
 @api_view(['POST'])
 def create_post(request):
     profile = Profile.objects.get(user=request.user)
-    content = request.data['content']
-    hashtags = re.findall(r' \#(\w+) ', ''.join([block['text'] for block in json.loads(content)['blocks']]))
+    raw_content = request.data['content']
+    content = ''.join([block['text'] for block in json.loads(raw_content)['blocks']])
+    hashtags = re.findall(r' \#(\w+) ', content)
     tagged_usernames = request.data['tagged-usernames']
 
     if len(content) <= 500:
@@ -123,13 +124,13 @@ def create_post(request):
             format, imgstr = request.data['post-image'].split(';base64,') 
             img_format = format.split('/')[-1] 
             image = ContentFile(base64.b64decode(imgstr), name=profile.user.username + img_format)
-            post = Post.objects.create(content=content, author=profile, image=image)
+            post = Post.objects.create(content=raw_content, author=profile, image=image)
             has_image_or_video = True
         elif request.data['post-video'] != '':
-            post = Post.objects.create(content=content, author=profile, video=request.data['post-video'])
+            post = Post.objects.create(content=raw_content, author=profile, video=request.data['post-video'])
             has_image_or_video = True
         else:
-            post = Post.objects.create(content=content, author=profile)
+            post = Post.objects.create(content=raw_content, author=profile)
         
         for hashtag_title in hashtags:
             hashtag, created = Hashtag.objects.get_or_create(title=hashtag_title.lower())
