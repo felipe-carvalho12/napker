@@ -6,6 +6,7 @@ import PostForm from '../home/components/posts_/components/PostForm'
 
 export default function Posts() {
     const [myProfile, setMyProfile] = useState(null)
+    const [mobilePostButton, setMobilePostButton] = useState(null)
 
     useEffect(() => {
         fetch(`${SERVER_URL}/profile-api/myprofile`)
@@ -15,10 +16,12 @@ export default function Posts() {
 
     return (
         <div className="content">
-            <Header page="Novo post" backArrow={true} />
+            <Header page="Novo post" backArrow={true}>
+                {mobilePostButton !== null && mobilePostButton}
+            </Header>
             <div className="post-form-page-container">
                 {myProfile !== null ?
-                    <PostForm myProfile={myProfile} />
+                    <PostForm myProfile={myProfile} setMobilePostButton={setMobilePostButton} />
                     :
                     <div className="loader-container" >
                         <div className="loader" />

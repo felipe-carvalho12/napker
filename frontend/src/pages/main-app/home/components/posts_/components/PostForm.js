@@ -19,6 +19,7 @@ export default function PostForm(props) {
     const color = props.level
 
     const isMobile = visualViewport.width <= 980
+    const setMobilePostButton = props.setMobilePostButton
 
     const [posts, setPosts] = usePosts()
     const renderParent = props.renderParent
@@ -35,6 +36,24 @@ export default function PostForm(props) {
     const [emojiSelector, setEmojiSelector] = useState(null)
 
     useEffect(() => {
+        isMobile && setMobilePostButton && setMobilePostButton((
+            <button
+                type="submit"
+                className="btn btn-primary"
+                id="post-form-submit-btn"
+                style={{ height: '40px' }}
+                disabled
+            >
+                {type === 'post' ?
+                    'Postar'
+                    :
+                    'Comentar'
+                }
+            </button>
+        ))
+    }, [])
+
+    useEffect(() => {
         if (postFormImagePreview !== '') {
             setVideoUrl('')
         }
@@ -49,13 +68,12 @@ export default function PostForm(props) {
             setPostFormImagePreview('')
         }
         const el = document.querySelector('#post-form-submit-btn')
-        el.disabled = !videoUrl.trim() && !postFormImagePreview && !videoUrl
+        if (el) el.disabled = !videoUrl.trim() && !postFormImagePreview && !videoUrl
     }, [videoUrl])
 
     useEffect(() => {
         const el = document.querySelector('#post-form-submit-btn')
-        el.disabled = !contentLength && !postFormImagePreview && !videoUrl
-        console.log(taggedUsernames)
+        if (el) el.disabled = !contentLength && !postFormImagePreview && !videoUrl
     }, [contentLength])
 
     const handlePostImageChange = e => {
@@ -85,7 +103,7 @@ export default function PostForm(props) {
         document.querySelector('#post-img-container').style.display = 'none'
         document.querySelector('#post-image').value = ''
         if (!postContent.trim() && !videoUrl.trim())
-        setPostFormImagePreview(null)
+            setPostFormImagePreview(null)
     }
 
     const handleCloseVideo = () => {
@@ -240,19 +258,21 @@ export default function PostForm(props) {
                                     emojiSelector
                                 }
                             </div>
-                            <button
-                                type="submit"
-                                className="btn btn-primary"
-                                id="post-form-submit-btn"
-                                style={{ height: '40px' }}
-                                disabled
-                            >
-                                {type === 'post' ?
-                                    'Postar'
-                                    :
-                                    'Comentar'
-                                }
-                            </button>
+                            {(!isMobile || type === 'comment') &&
+                                <button
+                                    type="submit"
+                                    className="btn btn-primary"
+                                    id="post-form-submit-btn"
+                                    style={{ height: '40px' }}
+                                    disabled
+                                >
+                                    {type === 'post' ?
+                                        'Postar'
+                                        :
+                                        'Comentar'
+                                    }
+                                </button>
+                            }
                         </div>
                     </div>
                 </div>
