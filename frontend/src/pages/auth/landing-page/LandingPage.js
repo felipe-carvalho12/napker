@@ -71,9 +71,6 @@ export default function LandingPage() {
                     <DemoAlgorithmSettings />
                 </div>
                 <div className="position-sticky w-100 b-t blur" style={{ top: '0', left: '0', zIndex: '1' }}>
-                    {
-                        //<Wave colors={["var(--lp-s-b-00)", "var(--lp-b-01)"]} blur={[true, true]}/>
-                    }
                     <div className="vh-100 w-100 d-flex flex-column justify-content-start align-items-center b-lp-b-00">
                         <div className="w-100 px-2 d-flex justify-content-center" style={{ padding: '120px 0 90px', color: 'var(--lp-b-09)' }}>
                             <DemoAddInterests />
@@ -81,9 +78,6 @@ export default function LandingPage() {
                     </div>
                 </div>
                 <div className="position-sticky w-100 b-t blur" style={{ top: '0', left: '0', zIndex: '2' }}>
-                    {
-                        //<Wave colors={["var(--lp-s-b-01)", "var(--lp-b-02)"]} blur={[true, true]} />
-                    }
                     <div className="vh-100 w-100 d-flex justify-content-center b-lp-b-01">
                         <div className="w-100 d-flex justify-content-center" style={{ padding: '120px 12.5% 90px', color: 'var(--lp-b-09)' }}>
                             <DemoSearchProfiles />
@@ -115,15 +109,16 @@ export default function LandingPage() {
                             </div>
                         </div>
                     </div>
-                    <Wave colors={["var(--lp-w-10)", "var(--lp-w-10)"]}/>
-                </div>
-                <div
-                    className="position-sticky d-flex flex-column w-100 justify-content-start align-items-center blur"
-                    style={{ top: '0', left: '0', zIndex: '4' }}
-                >
-                    {/*<Wave colors={["var(--lp-w-11)", "var(--lp-w-10)"]} blur={[false, false]} />*/}
-                    <div className="vh-50 w-100 d-flex flex-column justify-content-start align-items-center b-lp-s-w-10">
+                    <div
+                            className="position-sticky d-flex vw-50 flex-column w-100 justify-content-start align-items-center"
+                            style={{ top: '0', left: '0', zIndex: '4' }}
+                        >
+                            <Wave colors={["var(--lp-w-10)", "var(--lp-w-10)"]}/>
+                            <div className="vh-50 w-100 d-flex flex-column justify-content-start align-items-center b-lp-w-10">
+                                <div className="vh-50 w-100 d-flex flex-column justify-content-start align-items-center b-lp-w-10">
 
+                                </div>
+                            </div>
                     </div>
                 </div>
             </div>
