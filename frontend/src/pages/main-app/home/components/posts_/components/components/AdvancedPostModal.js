@@ -12,7 +12,7 @@ export default function AdvancedPostModal(props) {
                 <Modal.Title>Post avançado</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-
+                {props.children}
             </Modal.Body>
             <Modal.Footer>
                 <button className="btn btn-grey" onClick={props.closeModal}>Fechar</button>
