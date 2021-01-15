@@ -17,7 +17,7 @@
 }
 
 .theme-switcher .label .ball {
-	background-color: var(--theme-base-color);
+	background-color: var(--background);
 	border-radius: 50%;
 	position: absolute;
 	top: 2px;
