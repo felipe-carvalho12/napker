@@ -34,7 +34,7 @@ export default function Home() {
     return (
         <>
             {isMobile ?
-                <div className="fixed w-100 b-theme-base-color blur b-b" style={{ zIndex: "2000" }}>
+                <div className="fixed w-100 b-theme-base-color blur b-b" style={{ zIndex: "1000" }}>
                     <Header page="Home">
                         <MobileAlgorithmSettingsIcon useIsOpen={[algorithmSettingsIsOpen, setAlgorithmSettingsIsOpen]} />
                     </Header>
@@ -42,7 +42,7 @@ export default function Home() {
                 </div>
                 :
                 <>
-                    <div className="b-theme-base-color box-med blur" style={{ position: "sticky", top: "1vw", padding: "10px 20px 0", zIndex: "2000" }}>
+                    <div className="b-theme-base-color box-med blur" style={{ position: "sticky", top: "1vw", padding: "10px 20px 0", zIndex: "1000" }}>
                         <HomePageMenu
                             setPage={setPage}
                             feedPageTitle='Feed'
