@@ -10,10 +10,10 @@ export default function PostForm(props) {
     return (
         <>
             <AdvancedPostModal isOpen={advancedModalIsOpen} closeModal={() => setAdvancedModalIsOpen(false)}>
-                <Form  advanced={true} myProfile={props.myProfile} usePosts={props.usePosts} setMobilePostButton={props.setMobilePostButton} />
+                <Form  advanced={true} myProfile={props.myProfile} usePosts={props.usePosts} setAdvancedModalIsOpen={setAdvancedModalIsOpen} setMobilePostButton={props.setMobilePostButton} />
             </AdvancedPostModal>
 
-            <Form  advanced={false} myProfile={props.myProfile} usePosts={props.usePosts} openModal={() => setAdvancedModalIsOpen(true)} setMobilePostButton={props.setMobilePostButton} />
+            <Form advanced={false} myProfile={props.myProfile} usePosts={props.usePosts} setAdvancedModalIsOpen={setAdvancedModalIsOpen} setMobilePostButton={props.setMobilePostButton} />
         </>
     )
 }

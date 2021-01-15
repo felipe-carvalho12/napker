@@ -117,6 +117,7 @@ export default function PostForm(props) {
         setPostContent('')
         setPostFormImagePreview('')
         setVideoUrl('')
+        props.setAdvancedModalIsOpen(false)
 
         document.querySelector(`#${advanced ? 'advanced' : 'regular'}-post-form-submit-btn`).disabled = true
 
@@ -172,7 +173,7 @@ export default function PostForm(props) {
                                 <i
                                     className="material-icons-outlined m-0 icon c-primary-color secondary-hover"
                                     style={{ fontSize: '27px' }}
-                                    onClick={props.openModal}
+                                    onClick={() => props.setAdvancedModalIsOpen(true)}
                                 >
                                     outbound
                                 </i>
