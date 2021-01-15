@@ -8,7 +8,7 @@ export default {
     emojiSelect: 'emojiSelect',
     emojiSelectButton: 'emojiSelectButton',
     emojiSelectButtonPressed: 'emojiSelectButtonPressed',
-    emojiSelectPopover: 'emojiSelectPopover',
+    emojiSelectPopover: 'emojiSelectPopover blur',
     emojiSelectPopoverClosed: 'emojiSelectPopoverClosed',
     emojiSelectPopoverTitle: 'emojiSelectPopoverTitle',
     emojiSelectPopoverGroups: 'emojiSelectPopoverGroups',

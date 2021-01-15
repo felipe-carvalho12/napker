@@ -1,6 +1,6 @@
 export default {
     mention: "mention",
-    mentionSuggestions: "mentionSuggestions",
+    mentionSuggestions: "mentionSuggestions blur",
     mentionSuggestionsEntry: "mentionSuggestionsEntry",
     mentionSuggestionsEntryFocused: "mentionSuggestionsEntryFocused",
     mentionSuggestionsEntryText: "mentionSuggestionsEntryText",
