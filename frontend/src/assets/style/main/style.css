@@ -1,21 +1,4 @@
 :root {
-  --border-color: #f3f3f3;
-  --background: #f3f3f3;
-  --fixed-components-background: #fcfdfc;
-  --heart-color: #E0245E;
-  --heart-background-hover: rgba(224, 36, 94, .1);
-  --primary-color: #48D1AF;
-  --secondary-color: rgba(119, 147, 125, .1);
-  --secondary-grey: #757575;
-  --primary-color-hover: #3FB597;
-  --primary-grey: #363636;
-  --loader-background: rgba(119, 147, 125, .3);
-  --theme-base-color: #fff;
-  --theme-base-color-hover: rgb(248, 248, 248);
-  --tertiary-grey: #f2f2f2;
-  --view-more-select-border: rgba(0, 0, 0, .2);
-  --img-background: rgba(0, 0, 0, .9);
-  --img-background-hover: rgb(0, 0, 0, .8);
 
   --header-heigth: 9vh;
   --home-page-menu-height: 60px;
@@ -41,7 +24,7 @@ html {
 }
 
 body {
-  background: var(--fixed-components-background);
+  background: var(--background);
   color: var(--primary-grey);
   display: flex;
   justify-content: center;
@@ -76,7 +59,6 @@ a {
   display: flex;
   justify-content: center;
   width: fit-content;
-  background: var(--background);
 }
 
 .wrapper .main-content {
@@ -85,11 +67,10 @@ a {
 }
 
 .wrapper .main-content .header {
-  height: var(--header-heigth);
+  height: 50px;
   position: sticky;
   top: 0;
   padding: 20px;
-  background: var(--fixed-components-background);
   color: var(--primary-grey);
   font-size: 1.2rem;
 }

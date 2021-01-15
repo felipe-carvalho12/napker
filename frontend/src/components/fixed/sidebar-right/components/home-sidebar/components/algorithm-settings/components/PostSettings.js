@@ -35,7 +35,7 @@ export default function PostSettings(props) {
         <>
             {(dateValue !== null && authorValue !== null && likesValue !== null) &&
                 <div className="w-100">
-                    <div className="w-100 d-flex b-theme-base-color">
+                    <div className="w-100 d-flex">
                         <i
                             className="material-icons-sharp align-self-start icon base-hover text-secondary algorithm-settings-details"
                             data-type='post'

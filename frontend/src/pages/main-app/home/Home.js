@@ -33,24 +33,27 @@ export default function Home() {
 
     return (
         <>
-            {isMobile &&
-                <Header page="Home">
-                    <MobileAlgorithmSettingsIcon useIsOpen={[algorithmSettingsIsOpen, setAlgorithmSettingsIsOpen]} />
-                </Header>
+            {isMobile ?
+                <div className="fixed w-100 b-theme-base-color blur b-b" style={{ zIndex: "2000" }}>
+                    <Header page="Home">
+                        <MobileAlgorithmSettingsIcon useIsOpen={[algorithmSettingsIsOpen, setAlgorithmSettingsIsOpen]} />
+                    </Header>
+                    <HomePageMenu setPage={setPage} />
+                </div>
+                :
+                <>
+                    <div className="b-theme-base-color box-med blur" style={{ position: "sticky", top: "1vw", padding: "10px 20px 0", zIndex: "2000" }}>
+                        <HomePageMenu
+                            setPage={setPage}
+                            feedPageTitle='Feed'
+                            profilesPageTitle='Encontrar perfis'
+                            explorePageTitle='Descobrir'
+                            newsPageTitle='Notícias'
+                            trendsPageTitle='Tendências'
+                        />
+                    </div>
+                </>
             }
-            <div className="desktop-home-menu">
-                <HomePageMenu
-                    setPage={setPage}
-                    feedPageTitle='Feed'
-                    profilesPageTitle='Encontrar perfis'
-                    explorePageTitle='Descobrir'
-                    newsPageTitle='Notícias'
-                    trendsPageTitle='Tendências'
-                />
-            </div>
-            <div className="mobile-home-menu">
-                <HomePageMenu setPage={setPage} />
-            </div>
             <div className="sidebar-content">
                 <div className="w-100 h-100 home-page">
                     {pages[page]}

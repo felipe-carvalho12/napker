@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 export default function Wave(props) {
     const height = props.height ? props.height: 200
     const width = props.width ? props.width : "100%"
-    const colors = props.colors ? props.colors : ["var(--lp-w-10)", "var(--lp-w-10)"]
+    const colors = props.colors ? props.colors : ["var(--w-10)", "var(--w-10)"]
 
     useEffect(() => {
         let xs = []
@@ -17,7 +17,7 @@ export default function Wave(props) {
         let t2 = 0
 
         const points = i => xs.map(x => {
-            let y = (50 + 10 * (i-1) + 20 * (Math.sin((x + t1) / 100)) * (Math.sin((x + t2) / 200)))
+            let y = (50 + 10 * (i-1) + 20 * (Math.sin((x + t1) / (50 + 50 * Math.abs(Math.sin((x + t2) / 1000))))) * (Math.sin((x + t2) / (100 + 100 * Math.abs(Math.sin((x + t1) / 1000))))))
             
             return [10 * x, y]
             })

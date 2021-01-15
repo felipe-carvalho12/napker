@@ -38,7 +38,7 @@ export default function ProfileSettings(props) {
         <>
             {(interestsValue !== null && ageValue !== null && friendsValue !== null && isFriendValue !== null) &&
                 <div className="w-100">
-                    <div className="w-100 d-flex mb-1 b-theme-base-color">
+                    <div className="w-100 d-flex mb-1">
                         <i
                             className="material-icons-sharp align-self-start icon base-hover text-secondary algorithm-settings-details"
                             data-type='profile'

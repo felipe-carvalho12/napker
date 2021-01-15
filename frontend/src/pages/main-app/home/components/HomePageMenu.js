@@ -28,7 +28,7 @@ export default function HomePageMenu(props) {
     }
 
     return (
-        <div className="home-page-menu">
+        <div className={!isMobile ? "desktop-home-menu" : "mobile-home-menu"}>
             <div className="home-menu-btn-container home-menu-btn-container-active feed">
                 <button
                     type="button"

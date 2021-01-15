@@ -37,3 +37,15 @@
   border-radius: 50%;
   padding: 2px;
 }
+
+.sticky {
+  position: sticky!important;
+  top: 0!important;
+}
+
+.fixed {
+  position: fixed!important;
+  top: 0!important;
+}
+
+.m-vw-t { margin-top: 1vw; }
