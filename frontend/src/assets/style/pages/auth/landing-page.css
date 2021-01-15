@@ -253,31 +253,31 @@
 }
 
 .b-all {
-    border: 1px solid var(--b-04);
+    border: 1px solid var(--b-c);
 }
 
 .b-t {
-    border-top: 1px solid var(--b-04);
+    border-top: 1px solid var(--b-c);
 }
 
 .b-r {
-    border-right: 1px solid var(--b-04);
+    border-right: 1px solid var(--b-c);
 }
 
 .b-b {
-    border-bottom: 1px solid var(--b-04);
+    border-bottom: 1px solid var(--b-c);
 }
 
 .b-l {
-    border-left: 1px solid var(--b-04);
+    border-left: 1px solid var(--b-c);
 }
 
 .b-x {
-    border-right: 1px solid var(--b-04);
-    border-left: 1px solid var(--b-04);
+    border-right: 1px solid var(--b-c);
+    border-left: 1px solid var(--b-c);
 }
 
 .b-y {
-    border-top: 1px solid var(--b-04);
-    border-bottom: 1px solid var(--b-04);
+    border-top: 1px solid var(--b-c);
+    border-bottom: 1px solid var(--b-c);
 }
