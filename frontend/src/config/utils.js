@@ -65,7 +65,7 @@ export const setTheme = theme => {
 
   if (theme === 'light') {
     cssVariables.setProperty('--border-color'               ,                 'var(--w-07)')
-    cssVariables.setProperty('--background'                 ,                       'beige')
+    cssVariables.setProperty('--background'                 ,                'var(--p-c-6)')
     cssVariables.setProperty('--fixed-components-background',                 'var(--w-07)')
     cssVariables.setProperty('--b-c'                        ,                 'var(--b-04)')
     cssVariables.setProperty('--heart-color'                ,                     '#E0245E')
