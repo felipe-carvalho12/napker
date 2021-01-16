@@ -45,14 +45,14 @@ export default function EditInterests() {
             </div>
             <div className="sidebar-content">
                 <p
-                    className="edit-interests-success-message b-bottom"
+                    className="edit-interests-success-message"
                     id="interests-updated-message"
                 >
                     Interesses atualizados com sucesso
                 </p>
                 {myProfile ?
-                    <div className="pb-3" style={{ background: 'var(--theme-base-color)', textAlign: 'start' }}>
-                        <div className="w-100 p-3 b-bottom">
+                    <div className="pb-3" style={{ textAlign: 'start' }}>
+                        <div className="w-100 p-3">
                             <button
                                 className="btn btn-primary"
                                 onClick={submitInterests}
@@ -64,9 +64,6 @@ export default function EditInterests() {
                             myProfile={myProfile}
                             setInterests={setPublicInterests}
                         />
-
-                        <div className="w-100 my-2 b-bottom" />
-
                         <PrivateInterests
                             myProfile={myProfile}
                             setInterests={setPrivateInterests}
