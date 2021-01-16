@@ -49,3 +49,9 @@
 }
 
 .m-vw-t { margin-top: 1vw; }
+.m-vw-b { margin-bottom: 1vw; }
+.m-vw-l { margin-left: 1vw; }
+.m-vw-r { margin-right: 1vw; }
+.m-vw { margin: 1vw; }
+.m-vw-x { margin-left: 1vw; margin-right: 1vw; }
+.m-vw-y { margin-top: 1vw; margin-bottom: 1vw; }

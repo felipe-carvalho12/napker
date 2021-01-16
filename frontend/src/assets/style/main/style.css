@@ -73,7 +73,6 @@ a {
 
 .wrapper .main-content {
   min-width: var(--sidebar-content-width);
-  height: 100%;
 }
 
 .wrapper .main-content .header {

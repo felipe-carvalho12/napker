@@ -8,7 +8,7 @@ export default function VideoIframe(props) {
     return (
         <iframe width={width} height={heigth} src={props.src}
             frameborder='0'
-            allow='autoplay; encrypted-media'
+            allow='autoplay; encrypted-media; fullscreen'
         />
     )
 }

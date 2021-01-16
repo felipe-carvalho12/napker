@@ -27,8 +27,8 @@ export default function Settings(props) {
     }, [props.page])
 
     return (
-        <>
-            {visualViewport.width < 635 ?
+        <div className="b-theme-base-color box-med m-vw-t p-0" style={{ height: '90vh' }}>
+            {visualViewport.width < 635 &&
                 <>
                     {props.page !== 'change-password' && props.page !== 'delete-account' ?
                         < Header page="Configurações" backArrow={props.page !== 'default'} />
@@ -37,14 +37,12 @@ export default function Settings(props) {
                         </>
                     }
                 </>
-                :
-                < Header page="Configurações" />
             }
-            <div className="content">
-                <div className="settings-page-container">
+            <div className="content m-0 h-100">
+                <div className="settings-page-container h-100">
 
                     <SettingsMenu />
-                    
+
                     {(props.page === 'blocked-profiles' || props.page === 'default') &&
                         <BlockedProfiles />
                     }
@@ -72,6 +70,6 @@ export default function Settings(props) {
                 </div>
             </div>
             <BottomMenu />
-        </>
+        </div>
     )
 }

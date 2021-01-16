@@ -26,9 +26,9 @@ export default function AddNewChatSearch(props) {
                     placeholder="Nova conversa"
                     onChange={e => setModalSearch(e.target.value)}
                 />
-                <i 
-                    className="material-icons-sharp c-primary-color"
-                    style={{ fontSize: "32px" }}
+                <i
+                    className="material-icons-sharp c-primary-color add-icon"
+                    style={{ fontSize: "32px", padding: '5px' }}
                     onClick={() => setAddingNewChat(false)}
                 >
                     close
