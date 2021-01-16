@@ -1,3 +1,4 @@
+import { green, grey } from '@material-ui/core/colors'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
@@ -63,7 +64,7 @@ export default function LandingPage() {
                             </div>
                         </div>
                     </div>
-                    <Wave colors={["var(--s-b-00)", "var(--w-10)"]}/>
+                    <Wave colors={["var(--s-b-00)", "var(--w-10)"]} />
                 </div>
             </div>
             <div className="w-100 d-flex flex-column justify-content-center align-items-center">
@@ -89,8 +90,8 @@ export default function LandingPage() {
                     style={{ top: '0', left: '0', zIndex: '3', height: "50vh", background: "var(--p-g)" }}
                 >
                     <div
-                    className="position-sticky d-flex flex-column w-100 justify-content-start align-items-center"
-                    style={{  padding: "50px", height: "100%" }}
+                        className="position-sticky d-flex flex-column w-100 justify-content-start align-items-center"
+                        style={{ padding: "50px", height: "100%" }}
                     >
                         <h2 style={{ color: "var(--w-10)", fontSize: "40px", fontWeight: "700" }}>Gostou do que viu?</h2>
                         <div className="d-flex flex-column align-items-center">
@@ -110,18 +111,16 @@ export default function LandingPage() {
                         </div>
                     </div>
                     <div
-                            className="position-sticky d-flex vw-50 flex-column w-100 justify-content-start align-items-center"
-                            style={{ top: '0', left: '0', zIndex: '4' }}
-                        >
-                            <Wave colors={["var(--s-w-12)", "var(--w-10)"]}/>
-                            <div className="vh-50 w-100 d-flex flex-column justify-content-start align-items-center b-w-10">
-                                <div className="vh-50 w-100 d-flex flex-column justify-content-start align-items-center b-w-10">
-
-                                </div>
+                        className="position-sticky d-flex vw-50 flex-column w-100 justify-content-start align-items-center"
+                        style={{ top: '0', left: '0', zIndex: '4' }}
+                    >
+                        <Wave colors={["var(--s-w-12)", "var(--w-10)"]} />
+                        <div className="vh-50 w-100 d-flex flex-column justify-content-start align-items-center b-w-10">
+                            <div className="vh-50 w-100 d-flex flex-column justify-content-start align-items-center b-w-10"></div>
                             </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
     )
 }
