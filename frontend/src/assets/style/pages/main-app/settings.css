@@ -90,7 +90,6 @@
 /* DELETE ACCOUNT */
 
 .delete-account-confirmation {
-    background: var(--theme-base-color);
     width: 100%;
     height: 40%;
     display: flex;
