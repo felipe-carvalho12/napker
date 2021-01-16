@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 export default function ProfileListItem(props) {
     const profile = props.profile
     const myProfile = props.myProfile
+    const onClick = props.onClick
 
     const imgSize = props.imgSize || 'med'
     const bioLength = props.bioLength
@@ -12,9 +13,10 @@ export default function ProfileListItem(props) {
     let bioWasRendered = false
 
     return (
-        <Link to={profile.id === myProfile.id ?
+        <Link to={myProfile != undefined && profile.id === myProfile.id ?
             '/perfil' : `/user/${profile.slug}`}
             style={{ color: 'var(--primary-grey)', textDecoration: 'none', width: '100%' }}
+            onClick={() => onClick}
         >
             <li
                 className="position-relative d-flex flex-column border-0 base-hover box-sm"

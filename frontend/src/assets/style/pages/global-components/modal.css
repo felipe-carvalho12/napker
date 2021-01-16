@@ -28,12 +28,3 @@
 .modal-content .close:hover {
     opacity: 1.5;
 }
-
-.modal-content .modal-search-input {
-    background: var(--border-color);
-    color: var(--primary-grey);
-    width: 100%;
-    padding: 15px;
-    border: none;
-    outline: none;
-}

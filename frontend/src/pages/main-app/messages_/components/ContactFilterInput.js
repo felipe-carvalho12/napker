@@ -5,7 +5,7 @@ export default function ContactFilterInput(props) {
     const setHasFilteredProfiles = props.setHasFilteredProfiles
     const fetchActiveChatProfiles = props.fetchActiveChatProfiles
     const setRenderedActiveChatsProfiles = props.setRenderedActiveChatsProfiles
-    const openModal = props.openModal
+    const addNewChat = props.addNewChat
 
     const setContactSearch = query => {
         if (query === '') {
@@ -30,7 +30,7 @@ export default function ContactFilterInput(props) {
                 style={{ color: 'var(--primary-grey)' }}
                 onChange={e => setContactSearch(e.target.value)}
             />
-            <i className="fas fa-plus add-icon" onClick={openModal}></i>
+            <i className="fas fa-plus add-icon" onClick={addNewChat}></i>
         </div>
     )
 }
