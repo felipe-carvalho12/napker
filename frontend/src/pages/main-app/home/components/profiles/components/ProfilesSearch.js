@@ -45,7 +45,7 @@ export default function ProfilesSearchInput(props) {
 
     const handleSearchTypeSelection = (e, text) => {
         setSearchType(searchType === 'byName' ? 'byInterest' : 'byName')
-        e.target.innerHTML = text
+        if (!isMobile) e.target.innerHTML = text
     }
 
     return (
