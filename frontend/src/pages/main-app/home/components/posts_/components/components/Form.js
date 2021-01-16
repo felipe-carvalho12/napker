@@ -94,9 +94,13 @@ export default function PostForm(props) {
 
     const getEmbedVideoUrl = () => {
         if (!videoUrl) return
-
-        const videoId = /watch\?v=(.*)/.exec(videoUrl.includes('&') ? videoUrl.split('&')[0] : videoUrl)[1]
-        return `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1`
+        try {
+            const videoId = /watch\?v=(.*)/.exec(videoUrl.includes('&') ? videoUrl.split('&')[0] : videoUrl)[1]
+            return `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1`
+        } catch {
+            setVideoUrl('')
+            window.alert('Link inválido')
+        }
     }
 
     const handleCloseImage = () => {
