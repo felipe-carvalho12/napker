@@ -105,11 +105,8 @@
     margin-right: 5px;
 }
 
-
-.message-input:focus { background: var(--background); }
-
 .messages-wrapper .chats-list .search-input:focus, .message-input:focus {
     outline: none;
-    background: var(--theme-base-color);
+    background: var(--background);
     border: 1px solid var(--primary-color);
 }
