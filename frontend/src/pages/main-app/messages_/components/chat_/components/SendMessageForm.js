@@ -82,7 +82,6 @@ export default function SendMessageForm(props) {
                     className="message-input box-shadow"
                     id="chat-message-input"
                     value={message}
-                    autoFocus={document.querySelector('#contact-filter-input').value === ''}
                     onChange={messageChangeHandler}
                 />
                 <button

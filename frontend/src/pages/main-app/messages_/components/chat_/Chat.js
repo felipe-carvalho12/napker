@@ -238,7 +238,7 @@ class Chat extends React.Component {
                                 <div>
                                     <strong style={{ fontSize: 'larger' }}>Você não tem uma conversa selecionada</strong>
                                     <p className="text-secondary">Selecione uma existente ou comece uma nova</p>
-                                    <button className="btn btn-primary" onClick={() => this.props.openModal()}>Nova conversa</button>
+                                    <button className="btn btn-primary" onClick={() => this.props.addNewChat()}>Nova conversa</button>
                                 </div>
                             </div>
                         }
