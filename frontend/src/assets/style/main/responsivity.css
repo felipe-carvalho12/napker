@@ -43,6 +43,10 @@
     .profile-list-container .profile-row:hover {
         background: initial;
     }
+    .profile-page-menu .profile-page-menu-item-active {
+        color: var(--primary-color);
+        border-bottom: 2px solid var(--primary-color)!important;
+    }
     .post-container:hover {
         background: initial;
     }

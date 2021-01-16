@@ -19,6 +19,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 1.5% 8.7%;
+    margin-top: 70px;
 }
 
 .profile-data-container .myprofile-btn-wrapper {
@@ -72,11 +73,6 @@
     background: var(--secondary-color);
     color: var(--primary-color);
     cursor: pointer;
-}
-
-.profile-page-menu .profile-page-menu-item-active {
-    color: var(--primary-color);
-    border-bottom-color: var(--primary-color)!important;
 }
 
 

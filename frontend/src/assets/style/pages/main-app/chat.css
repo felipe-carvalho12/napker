@@ -45,7 +45,6 @@
     display: flex;
     padding: 15px;
     width: 100%;
-    border-bottom: 2px solid var(--border-color);
 }
 
 .chat-log {
