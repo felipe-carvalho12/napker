@@ -75,14 +75,13 @@ export default function Post() {
                         />
                         <div className="mt-2">
                             {displayingForm &&
-                                <div className="box-med b-theme-base-color b-vw-t" style={{ marginLeft: '30px' }}>
+                                <div className="feed-create-post-form box-med b-theme-base-color b-vw-t" style={{ marginLeft: '30px' }}>
                                     <PostForm
                                         type='first-layer-comment'
                                         postId={post.id}
                                         myProfile={myProfile}
                                         renderParent={fetchPost}
                                         hideForm={() => setDisplayingForm(false)}
-                                        className="box-med"
                                     />
                                 </div>
                             }
