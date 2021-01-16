@@ -44,21 +44,21 @@ export default function EditInterests() {
                 <Header page="Meus interesses" backArrow={true} />
             </div>
             <div className="sidebar-content">
-                <p
-                    className="edit-interests-success-message"
-                    id="interests-updated-message"
-                >
-                    Interesses atualizados com sucesso
-                </p>
                 {myProfile ?
                     <div className="pb-3" style={{ textAlign: 'start' }}>
-                        <div className="w-100 p-3">
+                        <div className="w-100 p-3 d-flex ">
                             <button
                                 className="btn btn-primary"
                                 onClick={submitInterests}
                             >
                                 Salvar
                             </button>
+                            <p
+                                className="edit-interests-success-message ml-2"
+                                id="interests-updated-message"
+                            >
+                                Interesses atualizados com sucesso
+                            </p>
                         </div>
                         <PublicInterests
                             myProfile={myProfile}

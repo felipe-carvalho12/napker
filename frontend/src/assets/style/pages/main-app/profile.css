@@ -91,14 +91,12 @@
 
 .edit-interests-success-message {
     width: 100%;
-    background: var(--theme-base-color);
-    color: rgba(0, 255, 0, 0.8);
+    color: var(--primary-color);
     display: none;
     margin: 0;
     padding: 5px;
     font-size: large;
     font-weight: bold;
-    border-bottom: 1px solid var(--border-color);
 }
 
 .tag-container {
