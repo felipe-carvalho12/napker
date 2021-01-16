@@ -19,6 +19,7 @@ class Profile extends React.Component {
             relationshipButtonLabel: '',
             currentPageIsPosts: true,
         }
+        this.isMobile = visualViewport.width <= 980
         this.slug = this.props.match.params.slug
         this.baseState = this.state
     }
@@ -256,12 +257,15 @@ class Profile extends React.Component {
     render() {
         return (
             <>  
-                <div className="b-theme-base-color box-med blur" style={{ position: "sticky", top: "1vw", padding: "0 20px 0", zIndex: "1000" }}>
+                <div 
+                    className={!this.isMobile ? "b-theme-base-color box-med blur" : "fixed w-100 b-theme-base-color blur b-b"} 
+                    style={!this.isMobile ? { position: "sticky", top: "1vw", padding: "0", zIndex: "1000" } : { zIndex: "1000" }}
+                >
                     <Header page={this.state.profile ? `${this.state.profile.first_name} ${this.state.profile.last_name}` : 'Perfil'}
                         backArrow={true}
                     />
                     {this.state.myProfile !== null && this.state.profile !== null &&
-                        <div className="profile-page-menu" style={{ marginBottom: '10px' }}>
+                        <div className="profile-page-menu" style={{ marginBottom: '10px', paddingTop: `${this.isMobile && "50px"}` }}>
                             <div
                                 className="profile-page-menu-item profile-page-menu-item-active"
                                 id="profile-posts-page-menu-item"
