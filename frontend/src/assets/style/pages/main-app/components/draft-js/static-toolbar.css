@@ -1,0 +1,56 @@
+.draftJsToolbar__buttonWrapper__1Dmqh {
+    display: inline-block;
+}
+
+.draftJsToolbar__buttonWrapper__1Dmqh:first-of-type, .draftJsToolbar__buttonWrapper__1Dmqh:first-of-type .draftJsToolbar__button__qi1gf {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+  
+.draftJsToolbar__button__qi1gf {
+    background: var(--theme-base-color);
+    color: var(--secondary-grey);
+    font-size: 18px;
+    border: 0;
+    padding-top: 5px;
+    vertical-align: bottom;
+    height: 34px;
+    width: 36px;
+}
+
+.draftJsToolbar__button__qi1gf svg {
+    fill: var(--secondary-grey);
+}
+
+.draftJsToolbar__button__qi1gf:hover, .draftJsToolbar__button__qi1gf:focus {
+    background: var(--theme-base-color-hover);
+    outline: 0; /* reset for :focus */
+}
+
+.draftJsToolbar__active__3qcpF {
+    background: var(--theme-base-color-hover);
+    color: var(--primary-grey);
+}
+
+.draftJsToolbar__active__3qcpF svg {
+    fill: var(--primary-grey);
+}
+
+.draftJsToolbar__separator__3U7qt {
+    display: inline-block;
+    border-right: 1px solid #ddd;
+    height: 24px;
+    margin: 0 0.5em;
+}
+.draftJsToolbar__toolbar__dNtBH {
+    background: var(--theme-base-color);
+    border-radius: 10px;
+    box-shadow: var(--box-shaddow-draftjs);
+    z-index: 2;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 5px;
+}
+
+  

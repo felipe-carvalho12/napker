@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react'
 
 export default function InterestsInput(props) {
 
-    const type = props.type
+    const type = props.type !== undefined ? props.type : 'public'
     const myProfile = props.myProfile
     const setInterests = props.setInterests
 
@@ -11,7 +11,7 @@ export default function InterestsInput(props) {
     const interestsInput = useRef() //hidden input that stores the interests titles
 
     useEffect(() => {
-        let tags = myProfile ? myProfile.interests.filter(i => type === 'public' ? i.public : !i.public).map(i => i.title) : []
+        let tags = myProfile && !props.startEmpty ? myProfile.interests.filter(i => type === 'public' ? i.public : !i.public).map(i => i.title) : []
         addTags()
 
         function createTag(label) {
@@ -74,14 +74,15 @@ export default function InterestsInput(props) {
 
     return (
         <>
-            <div className={`${props.className} tag-container`}>
+            <div className={`tag-container ${props.className}`} style={props.style}>
+                {props.children}
                 <div ref={tagContainer} className="w-100 d-flex flex-wrap"></div>
                 <textarea
                     ref={input}
                     className="autoExpand m-0"
-                    rows="3"
-                    data-min-rows="3"
-                    placeholder={"Digite e pressione 'Enter'"}
+                    rows={props.minRows ? props.minRows : '3'}
+                    data-min-rows={props.minRows ? props.minRows : '3'}
+                    placeholder={props.placeholder ? props.placeholder : "Digite e pressione 'Enter'"}
                 />
                 <input ref={interestsInput} type="hidden" />
             </div>

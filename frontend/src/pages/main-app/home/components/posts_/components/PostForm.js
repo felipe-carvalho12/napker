@@ -6,6 +6,8 @@ import VideoIframe from '../../../../../../components/VideoIframe'
 
 import { SERVER_URL } from '../../../../../../config/settings'
 import { csrftoken } from '../../../../../../config/utils'
+import InterestsInput from '../../../../profile/pages/edit_interests/components/InterestsInput'
+import InfoIcon from '../../../../../../components/fixed/sidebar-right/components/InfoIcon'
 
 
 export default function PostForm(props) {
@@ -30,6 +32,7 @@ export default function PostForm(props) {
     const [contentLength, setContentLength] = useState(0)
     const [postFormImagePreview, setPostFormImagePreview] = useState('')
     const [videoUrl, setVideoUrl] = useState('')
+    const [postInterests, setPostsInterests] = useState([])
 
     const [emojiSelector, setEmojiSelector] = useState(null)
     const [toolbar, setToolbar] = useState(null)
@@ -136,7 +139,8 @@ export default function PostForm(props) {
                 'type': type,
                 'post-image': postImage || '',
                 'post-video': getEmbedVideoUrl() || '',
-                'tagged-usernames': taggedUsernames
+                'tagged-usernames': taggedUsernames,
+                'interests': postInterests
 
             })
         })
@@ -154,9 +158,6 @@ export default function PostForm(props) {
 
     return (
         <>
-            {(isAdvanced && toolbar !== null) &&
-                toolbar
-            }
             <form
                 className={`create-post-form p-0 ${props.className}`}
                 style={props.style}
@@ -187,6 +188,9 @@ export default function PostForm(props) {
                                     outbound
                                 </i>
                             </div>
+                        }
+                        {(isAdvanced && toolbar !== null) &&
+                            toolbar
                         }
                         <div className="d-flex flex-column w-100" style={{ padding: `${isAdvanced ? '20' : '0'}px 0 0` }}>
                             {errMessage !== null &&
@@ -275,7 +279,7 @@ export default function PostForm(props) {
                                         emojiSelector
                                     }
                                 </div>
-                                {(!isMobile || type === 'comment') && isAdvanced !== true &&
+                                {(!isMobile || type === 'comment') && !isAdvanced &&
                                     <button
                                         type="submit"
                                         className="btn btn-primary"
@@ -291,6 +295,34 @@ export default function PostForm(props) {
                                     </button>
                                 }
                             </div>
+                            {isAdvanced &&
+                                <InterestsInput
+                                    myProfile={myProfile}
+                                    setInterests={setPostsInterests}
+                                    placeholder="Adicione interesses ao seu post"
+                                    startEmpty={true}
+                                    minRows='1'
+                                    className="mt-3 position-relative b-a"
+                                    style={{ background: 'none' }}
+                                >
+                                    <InfoIcon onClick={() => window.alert('Olá')} style={{ width: 'fit-content', position: 'absolute', top: '5px' }} />
+                                </InterestsInput>
+                            }
+                            {(!isMobile || type === 'comment') && isAdvanced &&
+                                <button
+                                    type="submit"
+                                    className="btn btn-primary mt-3 align-self-end"
+                                    id={`${isAdvanced ? 'advanced' : 'regular'}-post-form-submit-btn`}
+                                    style={{ height: '40px' }}
+                                    disabled
+                                >
+                                    {type === 'post' ?
+                                        'Postar'
+                                        :
+                                        'Comentar'
+                                    }
+                                </button>
+                            }
                         </div>
                     </div>
                 </div>

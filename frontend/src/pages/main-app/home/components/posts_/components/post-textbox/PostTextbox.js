@@ -20,10 +20,8 @@ import createInlineToolbarPlugin from "draft-js-inline-toolbar-plugin"
 import createEmojiPlugin from "draft-js-emoji-plugin"
 import createToolbarPlugin from 'draft-js-static-toolbar-plugin'
 
-import "draft-js-static-toolbar-plugin/lib/plugin.css"
-
 import { SERVER_URL } from '../../../../../../../config/settings'
-import { mentionTheme, hashtagTheme, toolbarTheme, emojiTheme } from './themes/index'
+import { mentionTheme, hashtagTheme, inlineToolbarTheme, emojiTheme } from './themes/index'
 import StrongMention from './components/StrongMention'
 import LinkMention from './components/LinkMention'
 
@@ -42,7 +40,7 @@ export default class SimpleMentionEditor extends Component {
         })
 
         this.inlineToolbarPlugin = createInlineToolbarPlugin({
-            theme: toolbarTheme
+            theme: inlineToolbarTheme
         })
 
         this.emojiPlugin = createEmojiPlugin({
@@ -163,7 +161,7 @@ export default class SimpleMentionEditor extends Component {
                 </div>
                 {this.props.editable &&
                     <>
-                        {!this.props.advanced &&
+                        {!this.props.isAdvanced &&
                             <InlineToolbar>
                                 {(externalProps) => (
                                     <div>

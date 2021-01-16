@@ -117,6 +117,7 @@ def create_post(request):
     content = ''.join([block['text'] for block in json.loads(raw_content)['blocks']])
     hashtags = re.findall(r' \#(\w+) ', content)
     tagged_usernames = request.data['tagged-usernames']
+    interests = request.data['interests']
 
     if len(content) <= 500:
         if len(request.data['post-image']):
@@ -141,6 +142,11 @@ def create_post(request):
                 user = User.objects.get(username=username)
                 post.tagged_users.add(user)
                 post.save()
+
+        for int_title in interests:
+            interest = PostInterest.objects.create(title=int_title)
+            post.interests.add(interest)
+            post.save()
 
         serializer = PostSerializer(post)
         return Response(serializer.data)

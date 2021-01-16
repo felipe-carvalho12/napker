@@ -4,7 +4,7 @@ from django.db import models
 from profiles.models import Profile
 
 # Create your models here.
-class Interest(models.Model):
+class PostInterest(models.Model):
     title = models.CharField(max_length=50)
     
     def __str__(self): 
@@ -20,7 +20,7 @@ class Post(models.Model):
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
     tagged_users = models.ManyToManyField(User, related_name='my_mentions', blank=True)
-    interests = models.ManyToManyField(Interest, related_name='posts', blank=True)
+    interests = models.ManyToManyField(PostInterest, related_name='posts', blank=True)
 
     class Meta:
         ordering = ['-created']
