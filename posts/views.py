@@ -221,5 +221,5 @@ def unlike_comment(request, comment_id):
 
 @api_view(['GET'])
 def get_mentions(request):
-    serializer = ProfileMentionSerializer(Profile.objects.exclude(user=request.user), many=True)
+    serializer = ProfileMentionSerializer(Profile.objects.filter(user__is_active=True).exclude(user=request.user), many=True)
     return Response(serializer.data)

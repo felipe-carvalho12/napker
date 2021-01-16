@@ -33,7 +33,7 @@
 }
 
 .theme-switcher .fa-moon {
-	color: var(--theme-base-color);
+	color: var(--background);
 }
 
 .theme-switcher .fa-sun {

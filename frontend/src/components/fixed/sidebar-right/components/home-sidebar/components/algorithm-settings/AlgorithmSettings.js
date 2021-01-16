@@ -125,10 +125,10 @@ export default function AlgorithmSettings(props) {
             >
                 {weights ?
                     <div
-                        className={`w-100 ${isMobile ? 'p-2' : 'h-100'} d-flex flex-column justify-content-between box-med b-theme-base-color`}
+                        className={`w-100 ${isMobile ? 'p-2' : 'h-100'} d-flex flex-column justify-content-start box-med b-theme-base-color`}
                         style={{ marginTop: !isMobile && 'var(--header-heigth)', minHeight: props.minHeight }}
                     >
-                        <div className="w-100 d-flex justify-content-between align-items-start">
+                        <div className="w-100 d-flex justify-content-between align-items-start mb-3">
                             <h6 className={isMobile ? 'm-2' : 'ml-2'}>Personalize seu algoritmo.</h6>
                             {renderInfoIcon &&
                                 <InfoIcon onClick={() => setInfoModalIsOpen(true)} />
@@ -158,7 +158,7 @@ export default function AlgorithmSettings(props) {
                         }
                     </div>
                     :
-                    <div className="loader-container">
+                    <div className="loader-container" style={{ marginTop: '20px' }}>
                         <div className="loader" />
                     </div>
                 }
