@@ -68,7 +68,6 @@
 .settings-page-title-container {
     width: 100%;
     height: 20%;
-    background: var(--theme-base-color);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -78,7 +77,6 @@
 /* CHANGE PASSWORD */
 
 .change-password-form {
-    background: var(--theme-base-color);
     width: 100%;
     height: 60%;
     padding: 20px 0;

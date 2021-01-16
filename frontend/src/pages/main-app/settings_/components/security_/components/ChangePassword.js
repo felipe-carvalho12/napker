@@ -55,8 +55,8 @@ export default function ChangePassword() {
     return (
         <div className="settings-description-container">
             <div
-                className="d-flex justify-content-start align-items-center"
-                style={{ background: 'var(--theme-base-color)', padding: '15px', borderBottom: '1px solid var(--border-color)' }}>
+                className="d-flex justify-content-start align-items-center box-med"
+                style={{ background: 'var(--theme-base-color)', padding: '1px', borderBottom: '1px solid var(--border-color)' }}>
                 <i
                     class="fas fa-arrow-left left-arrow-icon mr-2"
                     onClick={() => window.history.back()}
