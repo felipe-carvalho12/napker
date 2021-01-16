@@ -57,7 +57,7 @@ export default function DeleteAccount() {
             </div>
             <div className="delete-account-confirmation">
                 <input id="password" type="password" placeholder="Senha" autoFocus />
-                <hr />
+                 
                 <br />
                 Tem certeza que deseja apagar a sua conta ?
                 <br />

@@ -12,12 +12,6 @@
     background: var(--img-background-hover)!important;
 }
 
-.create-post-form {
-    background: var(--theme-base-color);
-    padding: 15px 15px 10px 15px;
-    margin-bottom: 15px;
-}
-
 .post-img-container {
     width: fit-content;
     height: fit-content;

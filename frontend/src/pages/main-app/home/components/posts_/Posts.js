@@ -57,7 +57,7 @@ export default function Posts() {
                 hideModal={() => setLikesModal({ isOpen: false, likes: null })}
             />
             {myProfile &&
-                <div className="feed-create-post-form">
+                <div className="feed-create-post-form box-med b-theme-base-color b-vw-t">
                     <PostForm myProfile={myProfile} usePosts={() => [posts, setPosts]} />
                 </div>
             }
