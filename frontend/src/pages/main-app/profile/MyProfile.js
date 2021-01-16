@@ -14,6 +14,7 @@ export default function MyProfile() {
     const [myProfile, setProfile] = useState(null)
     const [currentPageIsPosts, setCurrentPageIsPosts] = useState(true)
     const [isEditing, setIsEditing] = useState(false)
+    const isMobile = visualViewport.width <= 980
 
     document.title = 'Perfil / Napker'
 
@@ -41,10 +42,13 @@ export default function MyProfile() {
 
     return (
         <>
-            <div className="b-theme-base-color box-med blur" style={{ position: "sticky", top: "1vw", padding: "0", zIndex: "1000" }}>
+            <div 
+                className={!isMobile ? "b-theme-base-color box-med blur" : "fixed w-100 b-theme-base-color blur b-b"} 
+                style={!isMobile ? { position: "sticky", top: "1vw", padding: "0", zIndex: "1000" } : { zIndex: "1000" }}
+            >
                 <Header page="Perfil" />
                 {myProfile &&
-                    <div className="profile-page-menu" style={{ marginBottom: '10px' }}>
+                    <div className="profile-page-menu" style={{ marginBottom: '10px', paddingTop: `${isMobile && "50px"}` }}>
                         <div
                             className="profile-page-menu-item profile-page-menu-item-active b-bottom-left-radius-hover"
                             id="profile-posts-page-menu-item"

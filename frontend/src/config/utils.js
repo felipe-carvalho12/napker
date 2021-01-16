@@ -75,7 +75,7 @@ export const setTheme = theme => {
     cssVariables.setProperty('--loader-background'          ,     'rgba(119, 147, 125, .3)')
     cssVariables.setProperty('--theme-base-color'           ,                 'var(--w-07)')
     cssVariables.setProperty('--tertiary-grey'              ,                     '#f2f2f2')
-    cssVariables.setProperty('--theme-base-color-hover'     ,          'rgb(250, 250, 235)')
+    cssVariables.setProperty('--theme-base-color-hover'     ,                 'var(--w-10)')
     cssVariables.setProperty('--view-more-select-border'    ,           'rgba(0, 0, 0, .2)')
     cssVariables.setProperty('--img-background'             ,           'rgba(0, 0, 0, .9)')
     cssVariables.setProperty('--img-background-hover'       ,           'rgba(0, 0, 0, .8)')
