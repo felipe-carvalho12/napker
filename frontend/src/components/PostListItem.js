@@ -2,7 +2,7 @@ import React from 'react'
 import { Link, useHistory } from 'react-router-dom'
 
 import { SERVER_URL } from '../config/settings'
-import { csrftoken } from '../config/utils'
+import { csrftoken, renderTimestamp } from '../config/utils'
 import VideoIframe from './VideoIframe'
 import PostTextbox from '../pages/main-app/home/components/posts_/components/components/post-textbox/PostTextbox'
 
@@ -88,7 +88,7 @@ export default function PostListItem(props) {
             key={post.id}
             style={{ ...props.style, background: 'var(--theme-base-color)', marginBottom: type === 'comment' && '10px', padding: "0" }}
             onClick={() => isLink && history.push(`/post/${post.id}`)}
-        >
+        >{console.log(type, post.created)}
             {color !== undefined &&
                 <div style={{ marginLeft: "20px", width: "5px", background: color }} />
             }
@@ -115,7 +115,7 @@ export default function PostListItem(props) {
                                     {post.author.first_name} {post.author.last_name}
                                 </strong>
                                 <span className="text-secondary">
-                                    @{post.author.user.username} • {post.created.split('-').reverse().join('/')}
+                                    @{post.author.user.username} • {renderTimestamp(post.created)}
                                 </span>
                             </Link>
                         </div>
