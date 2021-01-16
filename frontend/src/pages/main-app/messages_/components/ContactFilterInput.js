@@ -24,7 +24,7 @@ export default function ContactFilterInput(props) {
     return (
         <div className="search-input-container">
             <input
-                className="search-input contact-filter-input"
+                className="search-input contact-filter-input box-shadow"
                 id="contact-filter-input"
                 placeholder="Pesquisar pessoas"
                 style={{ color: 'var(--primary-grey)' }}

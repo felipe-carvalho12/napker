@@ -26,6 +26,11 @@
     border-top-right-radius: 20px!important;
 }
 
+.b-t-r-r { border-top-right-radius: 20px!important; }
+.b-t-l-r { border-top-left-radius: 20px!important; }
+.b-b-r-r { border-bottom-right-radius: 20px!important; }
+.b-b-l-r { border-bottom-left-radius: 20px!important; }
+
 .b-bottom-right-radius-hover:hover {
     border-bottom-right-radius: 20px!important;
 }

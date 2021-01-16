@@ -8,17 +8,15 @@
     width: 40%;
     display: flex;
     flex-direction: column;
-    background: var(--theme-base-color);
+    padding: 1vw;
     overflow: hidden;
     overflow-y: scroll;
-    border-right: 3px solid var(--border-color);
 }
 
 .messages-wrapper .chats-list .search-input-container {
     display: flex;
     align-items: center;
-    padding: 15px;
-    border-bottom: 2px solid var(--border-color);
+    padding: 0 0 15px;
 }
 
 .messages-wrapper .chats-list .search-input {
@@ -41,7 +39,6 @@
     display: flex;
     padding: 10px;
     background: var(--theme-base-color);
-    border-bottom: 2px solid var(--border-color);
 }
 
 .messages-wrapper .chat-page-container {
@@ -108,6 +105,9 @@
     color: var(--primary-grey);
     margin-right: 5px;
 }
+
+
+.message-input:focus { background: var(--background); }
 
 .messages-wrapper .chats-list .search-input:focus, .message-input:focus {
     outline: none;

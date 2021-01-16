@@ -88,52 +88,51 @@ export default function Messages(props) {
 
     return (
         <>
-            <div className="b-theme-base-color box-med blur" style={{ position: "sticky", top: "1vw", padding: "0 20px 0", zIndex: "1000" }}>
-                <Header page="Mensagens" />
-            </div>
-            <div className="content d-flex messages-wrapper">
-                <ModalContactSearch
-                    addingNewChat={addingNewChat}
-                    setModalProfiles={setModalProfiles}
-                    setAddingNewChat={setAddingNewChat}
-                    modalProfiles={modalProfiles}
-                />
-                <div className="chats-list h-100">
-                    <ContactFilterInput
-                        activeChatsProfiles={activeChatsProfiles}
-                        setHasFilteredProfiles={bool => hasFilteredProfiles = bool}
-                        fetchActiveChatProfiles={fetchActiveChatProfiles}
-                        setRenderedActiveChatsProfiles={setRenderedActiveChatsProfiles}
-                        openModal={openModal}
+            <div className="b-theme-base-color box-med blur" style={{ marginTop: "1vw", padding: "0", zIndex: "1000" }}>
+                <div className="content d-flex messages-wrapper" style={{ margin: 0 }}>
+                    <ModalContactSearch
+                        addingNewChat={addingNewChat}
+                        setModalProfiles={setModalProfiles}
+                        setAddingNewChat={setAddingNewChat}
+                        modalProfiles={modalProfiles}
                     />
-                    {renderedActiveChatsProfiles !== null ?
-                        <div className="list-group chats-container">
-                            {renderedActiveChatsProfiles.map(profile => {
-                                return (
-                                    <ContactListItem
-                                        profile={profile}
-                                        activeChats={activeChats}
-                                        activeChatsProfiles={activeChatsProfiles}
-                                    />
-                                )
-                            })}
-                        </div>
-                        :
-                        <div className="loader-container">
-                            <div className="loader" />
-                        </div>
-                    }
+                    <div className="chats-list h-100">
+                        <ContactFilterInput
+                            activeChatsProfiles={activeChatsProfiles}
+                            setHasFilteredProfiles={bool => hasFilteredProfiles = bool}
+                            fetchActiveChatProfiles={fetchActiveChatProfiles}
+                            setRenderedActiveChatsProfiles={setRenderedActiveChatsProfiles}
+                            openModal={openModal}
+                        />
+                        {renderedActiveChatsProfiles !== null ?
+                            <div className="list-group chats-container">
+                                {renderedActiveChatsProfiles.map(profile => {
+                                    return (
+                                        <ContactListItem
+                                            profile={profile}
+                                            activeChats={activeChats}
+                                            activeChatsProfiles={activeChatsProfiles}
+                                        />
+                                    )
+                                })}
+                            </div>
+                            :
+                            <div className="loader-container">
+                                <div className="loader" />
+                            </div>
+                        }
+                    </div>
+                    <Chat
+                        username={username}
+                        otherUsername={props.match.params.slug}
+                        chatId={chatId}
+                        openModal={openModal}
+                        updateUnreadMessagesNumber={props.updateUnreadMessagesNumber}
+                        updateMessagesComponent={fetchActiveChatProfiles}
+                        chatsMessages={chatsMessages}
+                        setChatsMessages={setChatsMessages}
+                    />
                 </div>
-                <Chat
-                    username={username}
-                    otherUsername={props.match.params.slug}
-                    chatId={chatId}
-                    openModal={openModal}
-                    updateUnreadMessagesNumber={props.updateUnreadMessagesNumber}
-                    updateMessagesComponent={fetchActiveChatProfiles}
-                    chatsMessages={chatsMessages}
-                    setChatsMessages={setChatsMessages}
-                />
             </div>
             {!props.match.params.slug &&
                 <BottomMenu />

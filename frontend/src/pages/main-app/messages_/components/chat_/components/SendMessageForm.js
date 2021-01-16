@@ -73,14 +73,13 @@ export default function SendMessageForm(props) {
     return (
         <>
             <form
-                className="d-flex justify-content-center align-items-center w-100 px-1 py-3 b-theme-base-color"
-                style={{ borderTop: '2px solid var(--border-color)' }}
+                className="d-flex justify-content-center align-items-center w-100 b-theme-base-color px-1 py-3 b-b-r-r b-t"
                 onSubmit={sendMessageHandler}
             >
                 <EmojiPicker />
                 <input
                     placeholder="Mensagem"
-                    className="message-input"
+                    className="message-input box-shadow"
                     id="chat-message-input"
                     value={message}
                     autoFocus={document.querySelector('#contact-filter-input').value === ''}
