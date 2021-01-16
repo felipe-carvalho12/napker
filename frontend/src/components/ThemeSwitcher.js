@@ -34,4 +34,4 @@ export default function ThemeSwitcher(props) {
             <span style={{ marginLeft: '10px' }}>Tema</span>
         </div>
     )
-}
+} 
