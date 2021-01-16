@@ -25,7 +25,6 @@
     border-top-left-radius: 20px!important;
     border-top-right-radius: 20px!important;
 }
-<<<<<<< HEAD
 
 .b-t-r-r { border-top-right-radius: 20px!important; }
 .b-t-l-r { border-top-left-radius: 20px!important; }
@@ -39,5 +38,3 @@
 .b-bottom-left-radius-hover:hover {
     border-bottom-left-radius: 20px!important;
 }
-=======
->>>>>>> 17188f8512510637ff7bb9c029fb76584faa1c2c
