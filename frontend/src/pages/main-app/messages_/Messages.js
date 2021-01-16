@@ -92,9 +92,9 @@ export default function Messages(props) {
             <div className="b-theme-base-color box-med" style={{ marginTop: "1vw", padding: "0", zIndex: "1000" }}>
                 <div className="content d-flex messages-wrapper" style={{ margin: 0 }}>
                     <div className="chats-list h-100">
-                        {addingNewChat ? 
+                        {addingNewChat ?
                             <>
-                                <AddNewChatSearch 
+                                <AddNewChatSearch
                                     setModalProfiles={setModalProfiles}
                                     setAddingNewChat={setAddingNewChat}
                                 />
@@ -104,33 +104,20 @@ export default function Messages(props) {
                                             style={{ color: 'var(--primary-grey)', textDecoration: 'none' }}
                                             onClick={() => setAddingNewChat(false)}
                                         >
-                                            <li
-                                                className="position-relative d-flex flex-column border-0 base-hover box-sm b-theme-base-color"
-                                                key={profile.id}
-                                                onClick={props.onClick}
-                                            >
-                                                <div className="d-flex">
-                                                    <div className="profile-img-container">
-                                                        <img src={profile.photo}
-                                                            className="profile-img-med"
-                                                            style={{ marginRight: '10px' }}
-                                                        />
+                                            <li className="list-item d-flex justify-content-start p-2 b-theme-base-color c-primary-grey base-hover box-med" style={{ whiteSpace: 'nowrap' }}>
+                                                <img src={profile.photo}
+                                                    className="profile-img-sm"
+                                                    style={{ marginRight: '10px' }}
+                                                />
+                                                <div className="d-flex flex-column align-items-start">
+                                                    <div className="d-flex" style={{ maxHeight: '30px' }}>
+                                                        <strong style={{ height: 'fit-content' }}>{profile.first_name} {profile.last_name}</strong>
+                                                        <p className="text-secondary" style={{ marginLeft: '5px' }}>@{profile.user.username}</p>
                                                     </div>
-                                                    <div className="d-flex flex-column w-100">
-                                                        <div className="d-flex justify-content-between align-items-center">
-                                                            <div className="main-profile-data">
-                                                                <strong style={{ textAlign: 'start' }}>
-                                                                    {profile.first_name} {profile.last_name}
-                                                                </strong>
-                                                                <p className="text-secondary m-0 mb-1">@{profile.user.username}</p>
-                                                            </div>
-                                                            {props.children}
-                                                        </div>
+                                                    <div className="w-100 pt-2 word-break">
+                                                        {profile.bio.split('').slice(0, 160)}
+                                                        {profile.bio.split('').slice(0, 160).length < profile.bio.length && '...'}
                                                     </div>
-                                                </div>
-                                                <div className="w-100 pt-2 word-break">
-                                                    {profile.bio.split('').slice(0, 160)}
-                                                    {profile.bio.split('').slice(0, 160).length < profile.bio.length && '...'}
                                                 </div>
                                             </li>
                                         </Link>

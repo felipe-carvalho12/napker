@@ -22,8 +22,8 @@ import createToolbarPlugin from 'draft-js-static-toolbar-plugin'
 
 import "draft-js-static-toolbar-plugin/lib/plugin.css"
 
-import { SERVER_URL } from '../../../../../../../../config/settings'
-import { mentionTheme, hashtagTheme, inlineToolbarTheme, emojiTheme } from './themes/index'
+import { SERVER_URL } from '../../../../../../../config/settings'
+import { mentionTheme, hashtagTheme, toolbarTheme, emojiTheme } from './themes/index'
 import StrongMention from './components/StrongMention'
 import LinkMention from './components/LinkMention'
 
@@ -42,7 +42,7 @@ export default class SimpleMentionEditor extends Component {
         })
 
         this.inlineToolbarPlugin = createInlineToolbarPlugin({
-            theme: inlineToolbarTheme
+            theme: toolbarTheme
         })
 
         this.emojiPlugin = createEmojiPlugin({

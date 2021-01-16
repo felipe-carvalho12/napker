@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
-import { SERVER_URL } from '../../../../../../../config/settings'
-import PostForm from '../../components/PostForm'
-import LikesModal from '../../../../../../../components/LikesModal'
-import Header from '../../../../../../../components/fixed/Header'
-import BottomMenu from '../../../../../../../components/fixed/bottom-menu/BottomMenu'
-import PostListItem from '../../../../../../../components/PostListItem'
+import { SERVER_URL } from '../../../../../../config/settings'
+import PostForm from '../components/PostForm'
+import LikesModal from '../../../../../../components/LikesModal'
+import Header from '../../../../../../components/fixed/Header'
+import BottomMenu from '../../../../../../components/fixed/bottom-menu/BottomMenu'
+import PostListItem from '../../../../../../components/PostListItem'
 import CommentListItem from './components/CommentListItem'
 
 export default function Post() {

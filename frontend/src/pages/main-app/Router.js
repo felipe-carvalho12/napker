@@ -18,7 +18,7 @@ import Profile from './profile/Profile'
 import ProfileFriends from './profile/pages/Friends'
 import InterestProfiles from './profile/components/interests/pages/InterestProfiles'
 import EditInterests from './profile/pages/edit_interests/EditInterests'
-import Post from './home/components/posts_/pages/post_/Post'
+import Post from './home/components/posts_/pages/Post'
 
 import PostFormPage from './mobile-post-form/PostFormPage'
 import EditProfileProvider from '../../context/edit-profile/EditProfileContext'

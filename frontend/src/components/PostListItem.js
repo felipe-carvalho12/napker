@@ -4,7 +4,7 @@ import { Link, useHistory } from 'react-router-dom'
 import { SERVER_URL } from '../config/settings'
 import { csrftoken, renderTimestamp } from '../config/utils'
 import VideoIframe from './VideoIframe'
-import PostTextbox from '../pages/main-app/home/components/posts_/components/components/post-textbox/PostTextbox'
+import PostTextbox from '../pages/main-app/home/components/posts_/components/post-textbox/PostTextbox'
 
 export default function PostListItem(props) {
     const post = props.post
