@@ -14,7 +14,7 @@ export default function SettingsMenu() {
                 style={{ fontSize: 'large' }}
             >
                 <NavLink
-                    className="w-100 d-flex justify-content-between align-items-center px-3 py-2 mb-1 c-primary-grey base-hover"
+                    className="w-100 d-flex justify-content-between align-items-center px-3 py-2 mb-1 c-primary-grey base-hover  box-sm"
                     to="/configurações/perfis-bloqueados"
                     style={{ textDecoration: 'none', width: '100%', background: 'var(--theme-base-color)' }}
                     activeStyle={{ background: 'var(--theme-base-color-hover)' }}
@@ -29,7 +29,7 @@ export default function SettingsMenu() {
                 style={{ fontSize: 'large' }}
             >
                 <NavLink
-                    className="w-100 d-flex justify-content-between align-items-center px-3 py-2 mb-1 c-primary-grey base-hover"
+                    className="w-100 d-flex justify-content-between align-items-center px-3 py-2 mb-1 c-primary-grey base-hover box-sm"
                     to="/configurações/segurança"
                     style={{ textDecoration: 'none', width: '100%', background: 'var(--theme-base-color)' }}
                     activeStyle={{ background: 'var(--theme-base-color-hover)' }}
@@ -44,7 +44,7 @@ export default function SettingsMenu() {
                 style={{ fontSize: 'large' }}
             >
                 <NavLink
-                    className="w-100 d-flex justify-content-between align-items-center px-3 py-2 mb-1 c-primary-grey base-hover"
+                    className="w-100 d-flex justify-content-between align-items-center px-3 py-2 mb-1 c-primary-grey base-hover box-sm"
                     to="/configurações/faq"
                     style={{ textDecoration: 'none', width: '100%', background: 'var(--theme-base-color)' }}
                     activeStyle={{ background: 'var(--theme-base-color-hover)' }}
@@ -59,7 +59,7 @@ export default function SettingsMenu() {
                 style={{ fontSize: 'large' }}
             >
                 <NavLink
-                    className="w-100 d-flex justify-content-between align-items-center px-3 py-2 mb-1 c-primary-grey base-hover"
+                    className="w-100 d-flex justify-content-between align-items-center px-3 py-2 mb-1 c-primary-grey base-hover box-sm"
                     to="/configurações/fale-conosco"
                     style={{ textDecoration: 'none', width: '100%', background: 'var(--theme-base-color)' }}
                     activeStyle={{ background: 'var(--theme-base-color-hover)' }}
@@ -70,7 +70,7 @@ export default function SettingsMenu() {
             </li>
             <li
                 className="w-100"
-                className="w-100 d-flex justify-content-between align-items-center px-3 py-2 c-primary-grey b-theme-base-color base-hover"
+                className="w-100 d-flex justify-content-between align-items-center px-3 py-2 c-primary-grey b-theme-base-color base-hover box-sm"
                 style={{ fontSize: 'large' }}
                 onClick={handleLogout}
             >
