@@ -75,7 +75,7 @@ export default function Post() {
                         />
                         <div className="mt-2">
                             {displayingForm &&
-                                <div style={{ marginLeft: '30px' }}>
+                                <div className="box-med b-theme-base-color b-vw-t" style={{ marginLeft: '30px' }}>
                                     <PostForm
                                         type='first-layer-comment'
                                         postId={post.id}

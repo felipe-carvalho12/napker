@@ -82,7 +82,7 @@ export default function ChangePassword() {
                 <Link to="/recuperar-senha">
                     Esqueceu sua senha?
                 </Link>
-                <hr />
+                 
                 <br />
                 <input id="new_password" type="password" placeholder="Nova senha" />
                 <br />

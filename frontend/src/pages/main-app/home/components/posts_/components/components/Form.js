@@ -159,7 +159,7 @@ export default function PostForm(props) {
                 toolbar
             }
             <form
-                className={`create-post-form b-bottom-radius box-shadow p-0 ${props.className}`}
+                className={`create-post-form p-0 ${props.className}`}
                 style={props.style}
                 onSubmit={handleSubmit}
             >
@@ -171,7 +171,7 @@ export default function PostForm(props) {
                         {!advanced &&
                             <div className="d-flex justify-content-end mb-1">
                                 <i
-                                    className="material-icons-outlined m-0 icon c-primary-color secondary-hover"
+                                    className="material-icons-outlined m-0 p-0 icon c-primary-color secondary-hover"
                                     style={{ fontSize: '27px' }}
                                     onClick={() => props.setAdvancedModalIsOpen(true)}
                                 >
@@ -179,7 +179,7 @@ export default function PostForm(props) {
                                 </i>
                             </div>
                         }
-                        <div className="d-flex flex-column w-100" style={{ padding: `${advanced ? '20' : '0'}px 20px 20px` }}>
+                        <div className="d-flex flex-column w-100" style={{ padding: `${advanced ? '20' : '0'}px 0 0` }}>
                             {errMessage !== null &&
                                 <div className="w-100 mt-1">
                                     <span className="word-break" style={{ color: '#f00' }}>{errMessage}</span>
@@ -239,8 +239,7 @@ export default function PostForm(props) {
                                     <VideoIframe src={getEmbedVideoUrl()} />
                                 </div>
                             }
-                            <hr />
-                            <div className="d-flex justify-content-between" style={{ margin: '0px 70px 0 70px' }}>
+                            <div className="d-flex justify-content-between">
                                 <div className="post-extra-options">
                                     {type === 'post' &&
                                         <>
