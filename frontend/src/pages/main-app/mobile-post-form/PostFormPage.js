@@ -16,9 +16,11 @@ export default function Posts() {
 
     return (
         <div className="content">
-            <Header page="Novo post" backArrow={true}>
-                {mobilePostButton !== null && mobilePostButton}
-            </Header>
+            <div className="b-theme-base-color box-med blur" style={{ position: "sticky", top: "1vw", padding: "0 20px 0", zIndex: "1000" }}>
+                <Header page="Novo post" backArrow={true}>
+                    {mobilePostButton !== null && mobilePostButton}
+                </Header>
+            </div>
             <div className="post-form-page-container">
                 {myProfile !== null ?
                     <PostForm myProfile={myProfile} setMobilePostButton={setMobilePostButton} />

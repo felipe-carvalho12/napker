@@ -64,16 +64,16 @@ export const setTheme = theme => {
   const cssVariables = document.documentElement.style
 
   if (theme === 'light') {
-    cssVariables.setProperty('--border-color'               ,                 'var(--w-09)')
+    cssVariables.setProperty('--border-color'               ,                 'var(--w-07)')
     cssVariables.setProperty('--background'                 ,                       'beige')
-    cssVariables.setProperty('--fixed-components-background',                 'var(--w-09)')
+    cssVariables.setProperty('--fixed-components-background',                 'var(--w-07)')
     cssVariables.setProperty('--b-c'                        ,                 'var(--b-04)')
     cssVariables.setProperty('--heart-color'                ,                     '#E0245E')
     cssVariables.setProperty('--heart-background-hover'     ,       'rgba(224, 36, 94, .1)')
     cssVariables.setProperty('--primary-grey'               ,                     '#363636')
     cssVariables.setProperty('--secondary-grey'             ,                     '#757575')
     cssVariables.setProperty('--loader-background'          ,     'rgba(119, 147, 125, .3)')
-    cssVariables.setProperty('--theme-base-color'           ,                 'var(--w-09)')
+    cssVariables.setProperty('--theme-base-color'           ,                 'var(--w-07)')
     cssVariables.setProperty('--tertiary-grey'              ,                     '#f2f2f2')
     cssVariables.setProperty('--theme-base-color-hover'     ,          'rgb(250, 250, 235)')
     cssVariables.setProperty('--view-more-select-border'    ,           'rgba(0, 0, 0, .2)')
@@ -91,7 +91,7 @@ export const setTheme = theme => {
     cssVariables.setProperty('--secondary-grey'             ,                     '#909090')
     cssVariables.setProperty('--loader-background'          ,     'rgba(119, 147, 125, .3)')
     cssVariables.setProperty('--theme-base-color'           ,                 'var(--w-00)')
-    cssVariables.setProperty('--tertiary-grey'              ,             '#202020'        )
+    cssVariables.setProperty('--tertiary-grey'              ,                     '#202020')
     cssVariables.setProperty('--theme-base-color-hover'     ,               'var(--s-b-09)')
     cssVariables.setProperty('--view-more-select-border'    ,     'rgba(255, 255, 255, .2)')
     cssVariables.setProperty('--img-background'             ,           'rgba(0, 0, 0, .3)')

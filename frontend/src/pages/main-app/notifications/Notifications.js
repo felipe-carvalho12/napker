@@ -80,7 +80,9 @@ export default function Notifications(props) {
 
     return (
         <>
-            <Header page="Notificações" />
+            <div className="b-theme-base-color box-med blur" style={{ position: "sticky", top: "1vw", padding: "0 20px 0", zIndex: "1000" }}>
+                <Header page="Notificações" />
+            </div>
             <div className="content">
                 <div>
                     {invites !== null && postNotifications !== null ?

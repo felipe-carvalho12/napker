@@ -14,7 +14,7 @@ export default function Interests(props) {
                             {interest.title &&
                                 <>
                                     <li
-                                        className="w-100 d-flex justify-content-between align-items-center p-3 b-bottom"
+                                        className="w-100 d-flex justify-content-between align-items-center p-3"
                                         style={{ minHeight: '50px', fontSize: 'large' }}
                                     >
                                         {interest.title[0].toUpperCase() + interest.title.slice(1)}

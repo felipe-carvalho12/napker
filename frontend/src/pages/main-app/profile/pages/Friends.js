@@ -30,10 +30,12 @@ export default function Friends() {
     }, [profile])
 
     return (
-        <>
-            <Header page={profile !== null ? `${profile.first_name} ${profile.last_name} / Amigos` : 'Perfil / Amigos'}
-                backArrow={true}
-            />
+        <>  
+            <div className="b-theme-base-color box-med blur" style={{ position: "sticky", top: "1vw", padding: "0 20px 0", zIndex: "1000" }}>
+                <Header page={profile !== null ? `${profile.first_name} ${profile.last_name} / Amigos` : 'Perfil / Amigos'}
+                    backArrow={true}
+                />
+            </div>
             <div className="sidebar-content">
                 <div className="list-group profile-friends-container">
                     {friends !== null && myProfile !== null ?

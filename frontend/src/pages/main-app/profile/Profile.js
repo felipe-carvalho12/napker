@@ -255,10 +255,30 @@ class Profile extends React.Component {
 
     render() {
         return (
-            <>
-                <Header page={this.state.profile ? `${this.state.profile.first_name} ${this.state.profile.last_name}` : 'Perfil'}
-                    backArrow={true}
-                />
+            <>  
+                <div className="b-theme-base-color box-med blur" style={{ position: "sticky", top: "1vw", padding: "0 20px 0", zIndex: "1000" }}>
+                    <Header page={this.state.profile ? `${this.state.profile.first_name} ${this.state.profile.last_name}` : 'Perfil'}
+                        backArrow={true}
+                    />
+                    {this.state.myProfile !== null && this.state.profile !== null &&
+                        <div className="profile-page-menu" style={{ marginBottom: '10px' }}>
+                            <div
+                                className="profile-page-menu-item profile-page-menu-item-active"
+                                id="profile-posts-page-menu-item"
+                                onClick={this.switchPage}
+                            >
+                                Posts ({this.state.profile.posts.length})
+                            </div>
+                            <div
+                                className="profile-page-menu-item"
+                                id="profile-interests-page-menu-item"
+                                onClick={this.switchPage}
+                            >
+                                Interesses ({this.state.profile.interests.filter(i => i.public).length})
+                            </div>
+                        </div>
+                    }
+                </div>
                 {this.state.myProfile !== null && this.state.profile !== null ?
                     <div className="sidebar-content">
                         {this.state.profile.blocked_users.map(u => u.id).includes(this.state.myProfile.user.id) ?
@@ -307,22 +327,6 @@ class Profile extends React.Component {
                                         }
                                     </div>
                                 </ProfileData>
-                                <div className="profile-page-menu b-bottom b-bottom-radius" style={{ marginBottom: '10px' }}>
-                                    <div
-                                        className="profile-page-menu-item profile-page-menu-item-active b-bottom-left-radius-hover"
-                                        id="profile-posts-page-menu-item"
-                                        onClick={this.switchPage}
-                                    >
-                                        Posts ({this.state.profile.posts.length})
-                                    </div>
-                                    <div
-                                        className="profile-page-menu-item b-bottom-right-radius-hover"
-                                        id="profile-interests-page-menu-item"
-                                        onClick={this.switchPage}
-                                    >
-                                        Interesses ({this.state.profile.interests.filter(i => i.public).length})
-                                    </div>
-                                </div>
                                 {this.state.currentPageIsPosts ?
                                     <Posts profile={this.state.profile} fetchProfile={this.fetchProfile} /> :
                                     <Interests profile={this.state.profile} />

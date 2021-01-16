@@ -18,7 +18,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: var(--theme-base-color);
     padding: 1.5% 8.7%;
 }
 
@@ -53,8 +52,7 @@
 
 .profile-page-menu {
     width: 100%;
-    background: var(--theme-base-color);
-    color: #666;
+    color: var(--secondary-grey);
     font-weight: bold;
     display: flex;
     position: sticky;

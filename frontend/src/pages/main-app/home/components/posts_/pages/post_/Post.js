@@ -59,7 +59,9 @@ export default function Post() {
                 likes={commentLikesModal.likes}
                 hideModal={hideCommentLikesModal}
             />
-            <Header page="Post" backArrow={true} />
+            <div className="b-theme-base-color box-med blur" style={{ position: "sticky", top: "1vw", padding: "0 20px 0", zIndex: "1000" }}>
+                <Header page="Post" backArrow={true} />
+            </div>
             <div className="content">
                 {post && myProfile ?
                     <>

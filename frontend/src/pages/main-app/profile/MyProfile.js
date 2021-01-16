@@ -41,7 +41,27 @@ export default function MyProfile() {
 
     return (
         <>
-            <Header page="Perfil" />
+            <div className="b-theme-base-color box-med blur" style={{ position: "sticky", top: "1vw", padding: "0", zIndex: "1000" }}>
+                <Header page="Perfil" />
+                {myProfile &&
+                    <div className="profile-page-menu" style={{ marginBottom: '10px' }}>
+                        <div
+                            className="profile-page-menu-item profile-page-menu-item-active b-bottom-left-radius-hover"
+                            id="profile-posts-page-menu-item"
+                            onClick={switchPage}
+                        >
+                            Posts ({myProfile.posts.length})
+                        </div>
+                        <div
+                            className="profile-page-menu-item b-bottom-right-radius-hover"
+                            id="profile-interests-page-menu-item"
+                            onClick={switchPage}
+                        >
+                            Interesses ({myProfile.interests.filter(i => i.public).length})
+                        </div>
+                    </div>
+                }
+            </div>
             <div className="sidebar-content">
                 {myProfile ?
                     <>
@@ -67,22 +87,6 @@ export default function MyProfile() {
                                 </Link>
                             </div>
                         </ProfileData>
-                        <div className="profile-page-menu b-bottom b-bottom-radius" style={{ marginBottom: '10px' }}>
-                            <div
-                                className="profile-page-menu-item profile-page-menu-item-active b-bottom-left-radius-hover"
-                                id="profile-posts-page-menu-item"
-                                onClick={switchPage}
-                            >
-                                Posts ({myProfile.posts.length})
-                            </div>
-                            <div
-                                className="profile-page-menu-item b-bottom-right-radius-hover"
-                                id="profile-interests-page-menu-item"
-                                onClick={switchPage}
-                            >
-                                Interesses ({myProfile.interests.filter(i => i.public).length})
-                            </div>
-                        </div>
                         {currentPageIsPosts ?
                             <Posts profile={myProfile} fetchProfile={fetchProfile} />
                             :

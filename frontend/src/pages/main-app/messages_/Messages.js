@@ -88,7 +88,9 @@ export default function Messages(props) {
 
     return (
         <>
-            <Header page="Mensagens" />
+            <div className="b-theme-base-color box-med blur" style={{ position: "sticky", top: "1vw", padding: "0 20px 0", zIndex: "1000" }}>
+                <Header page="Mensagens" />
+            </div>
             <div className="content d-flex messages-wrapper">
                 <ModalContactSearch
                     addingNewChat={addingNewChat}
@@ -105,7 +107,7 @@ export default function Messages(props) {
                         openModal={openModal}
                     />
                     {renderedActiveChatsProfiles !== null ?
-                        <div className="list-group chats-container" style={{ background: 'var(--background)' }}>
+                        <div className="list-group chats-container">
                             {renderedActiveChatsProfiles.map(profile => {
                                 return (
                                     <ContactListItem
