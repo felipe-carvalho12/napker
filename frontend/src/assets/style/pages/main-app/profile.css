@@ -100,7 +100,7 @@
 }
 
 .tag-container {
-    border-radius: 20px;
+    border-radius: 10px;
     background: var(--theme-base-color);
     box-shadow: 0 2px 15px rgba(0,0,0,.1);
     display: flex;

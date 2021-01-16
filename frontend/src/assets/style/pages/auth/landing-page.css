@@ -252,7 +252,7 @@
     backdrop-filter: saturate(180%) blur(20px);
 }
 
-.b-all {
+.b-a {
     border: 1px solid var(--b-c);
 }
 
