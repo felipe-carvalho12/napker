@@ -80,4 +80,12 @@
         cursor: pointer;
     }
 
+    .b-bottom-right-radius-hover:hover {
+        border-bottom-right-radius: 20px!important;
+    }
+    
+    .b-bottom-left-radius-hover:hover {
+        border-bottom-left-radius: 20px!important;
+    }
+
 }

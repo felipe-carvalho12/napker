@@ -48,7 +48,7 @@ export default function MyProfile() {
             >
                 <Header page="Perfil" />
                 {myProfile &&
-                    <div className="profile-page-menu" style={{ marginBottom: '10px', paddingTop: `${isMobile && "50px"}` }}>
+                    <div className="profile-page-menu" style={{ paddingTop: `${isMobile && "50px"}` }}>
                         <div
                             className="profile-page-menu-item profile-page-menu-item-active b-bottom-left-radius-hover"
                             id="profile-posts-page-menu-item"

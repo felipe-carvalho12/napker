@@ -25,11 +25,3 @@
     border-top-left-radius: 20px!important;
     border-top-right-radius: 20px!important;
 }
-
-.b-bottom-right-radius-hover:hover {
-    border-bottom-right-radius: 20px!important;
-}
-
-.b-bottom-left-radius-hover:hover {
-    border-bottom-left-radius: 20px!important;
-}
