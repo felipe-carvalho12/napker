@@ -9,18 +9,24 @@ export default function PostForm(props) {
 
     return (
         <>
-            <AdvancedPostModal isOpen={advancedModalIsOpen} closeModal={() => setAdvancedModalIsOpen(false)}>
-                <Form  
-                    advanced={true} 
-                    myProfile={props.myProfile} 
-                    usePosts={props.usePosts} 
-                    setAdvancedModalIsOpen={setAdvancedModalIsOpen} 
-                    setMobilePostButton={props.setMobilePostButton} 
-                    className = "p-3 b-theme-base-color"
+            <AdvancedPostModal
+                isOpen={advancedModalIsOpen}
+                closeModal={() => setAdvancedModalIsOpen(false)}
+            >
+                <Form
+                    {...props}
+                    advanced={true}
+                    setAdvancedModalIsOpen={setAdvancedModalIsOpen}
+                    className={props.className ? props.className : ''}
                 />
             </AdvancedPostModal>
 
-            <Form advanced={false} myProfile={props.myProfile} usePosts={props.usePosts} setAdvancedModalIsOpen={setAdvancedModalIsOpen} setMobilePostButton={props.setMobilePostButton} />
+            <Form
+                {...props}
+                advanced={false}
+                setAdvancedModalIsOpen={setAdvancedModalIsOpen}
+                className={props.className ? props.className : ''}
+            />
         </>
     )
 }

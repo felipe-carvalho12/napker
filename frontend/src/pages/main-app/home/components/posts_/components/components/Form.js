@@ -51,6 +51,7 @@ export default function PostForm(props) {
                 }
             </button>
         ))
+        
     }, [])
 
     useEffect(() => {
@@ -116,7 +117,7 @@ export default function PostForm(props) {
     }
 
     const handleSubmit = e => {
-        e.preventDefault()
+        e && e.preventDefault()
         const postImage = postFormImagePreview
         setPostContent('')
         setPostFormImagePreview('')
@@ -149,10 +150,7 @@ export default function PostForm(props) {
                 } else {
                     errMessage && setErrMessage('')
                     hideForm && hideForm()
-                    posts ?
-                        setPosts([data, ...posts])
-                        :
-                        renderParent()
+                    posts ? setPosts([data, ...posts]) : renderParent()
                 }
             })
     }
@@ -169,7 +167,7 @@ export default function PostForm(props) {
             >
                 <div className="d-flex">
                     {color !== undefined &&
-                        <div style={{ marginLeft: "20px", width: "5px", background: color }} />
+                        <div style={{ marginRight: "15px", width: "5px", background: color }} />
                     }
                     <div className="w-100 h-100">
                         {!advanced &&
@@ -270,7 +268,7 @@ export default function PostForm(props) {
                                         emojiSelector
                                     }
                                 </div>
-                                {(!isMobile || type === 'comment') && advanced != true &&
+                                {(!isMobile || type === 'comment') && advanced !== true &&
                                     <button
                                         type="submit"
                                         className="btn btn-primary"

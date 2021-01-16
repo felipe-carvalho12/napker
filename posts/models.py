@@ -17,8 +17,8 @@ class Post(models.Model):
     video = models.CharField(max_length=1000, blank=True, null=True)
     author = models.ForeignKey(Profile, related_name='posts', on_delete=models.CASCADE)
     views = models.ManyToManyField(Profile, related_name='post_views')
-    updated = models.DateField(auto_now=True)
-    created = models.DateField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
     tagged_users = models.ManyToManyField(User, related_name='my_mentions', blank=True)
     interests = models.ManyToManyField(Interest, related_name='posts', blank=True)
 

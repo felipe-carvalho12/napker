@@ -40,17 +40,17 @@ export default function CommentListItem(props) {
                 level={color(1)}
             />
             {displayingForm &&
-                <PostForm
-                    type='comment'
-                    myProfile={myProfile}
-                    renderParent={renderParent}
-                    postId={post.id}
-                    parentComment={comment}
-                    hideForm={() => setDisplayingForm(false)}
-                    className="box-med"
-                    style={{ marginLeft: "30px" }}
-                    level={color(0)}
-                />
+                <div className="feed-create-post-form box-med b-theme-base-color b-vw-t" style={{ marginLeft: "30px" }}>
+                    <PostForm
+                        type='comment'
+                        myProfile={myProfile}
+                        renderParent={renderParent}
+                        postId={post.id}
+                        parentComment={comment}
+                        hideForm={() => setDisplayingForm(false)}
+                        level={color(0)}
+                    />
+                </div>
             }
             {(comment.comments && displayingComments) && comment.comments.map(c => {
                 return (
