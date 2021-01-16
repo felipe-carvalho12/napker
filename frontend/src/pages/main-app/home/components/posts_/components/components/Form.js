@@ -266,7 +266,7 @@ export default function PostForm(props) {
                                         emojiSelector
                                     }
                                 </div>
-                                {(!isMobile || type === 'comment') &&
+                                {(!isMobile || type === 'comment') && advanced != true &&
                                     <button
                                         type="submit"
                                         className="btn btn-primary"

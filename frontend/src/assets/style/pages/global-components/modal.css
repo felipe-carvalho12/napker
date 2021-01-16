@@ -3,6 +3,8 @@
     padding: 0!important;
 }
 
+.modal-body { padding: 0!important; }
+
 .modal-content {
     background: var(--theme-base-color)!important;
     backdrop-filter: saturate(180%) blur(20px);
