@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 export default function SecurityMenu() {
     return (
-        <div className="settings-description-container">
+        <div className="settings-description-container b-t-r-r b-b-r-r b-theme-base-color b-t-r-r b-b-r-r b-theme-base-color">
             <div className="d-flex flex-column justify-content-between align-items-center w-100 ">
                 <div className="d-flex flex-column w-100">
                     <li

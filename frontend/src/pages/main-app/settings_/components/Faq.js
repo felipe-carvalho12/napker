@@ -4,7 +4,7 @@ import React from 'react'
 export default function Faq() {
 
     return (
-        <div className="settings-description-container">
+        <div className="settings-description-container b-t-r-r b-b-r-r b-theme-base-color">
             <div style={{ padding: '15px', borderBottom: '1px solid var(--border-color)' }}>
                 <h3>FAQ</h3>
             </div>

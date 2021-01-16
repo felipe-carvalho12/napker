@@ -76,7 +76,7 @@ export default function Feedback() {
     }
 
     return (
-        <div className="settings-description-container">
+        <div className="settings-description-container b-t-r-r b-b-r-r b-theme-base-color">
             <div className="primary-form b-theme-base-color feedback-form">
                 <h3>Nos ajude a melhorar</h3>
                 <div className="feedback-faces-container">
