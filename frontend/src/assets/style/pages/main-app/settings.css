@@ -15,7 +15,7 @@
     border: none;
     outline: none;
     border-radius: 20px;
-    background:lightgray;
+    background: var(--p-c-6);
     color: var(--primary-grey);
     margin-bottom: 20px;
     padding: 10px 20px 10px 20px;

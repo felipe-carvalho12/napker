@@ -35,7 +35,7 @@ export default function SettingsMenu() {
                     activeStyle={{ background: 'var(--theme-base-color-hover)' }}
                 >
                     Segurança
-                    <i className="fas fa-angle-right" />
+                    <i className="fas fa-angle-right b-theme-base-color box-med blur" />
                 </NavLink>
             </li>
             <li

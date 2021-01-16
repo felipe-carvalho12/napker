@@ -75,6 +75,10 @@
     cursor: pointer;
 }
 
+.profile-page-menu-item-active {
+    color: var(--primary-color);
+}
+
 
 /* POSTS */
 
