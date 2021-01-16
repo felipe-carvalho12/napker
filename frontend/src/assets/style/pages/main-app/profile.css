@@ -103,7 +103,8 @@
 
 .tag-container {
     border-radius: 20px;
-    background: var(--background);
+    background: var(--theme-base-color);
+    box-shadow: 0 2px 15px rgba(0,0,0,.1);
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -113,7 +114,7 @@
 
 .tag-container:focus-within {
     border: 2px solid var(--primary-color);
-    background: var(--theme-base-color);
+    background: var(--background);
 }
 
 .tag-container .tag {
