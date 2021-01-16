@@ -36,10 +36,10 @@ export default function DeleteAccount() {
     }
 
     return (
-        <div className="settings-description-container b-t-r-r b-b-r-r b-theme-base-color">
+        <div className="settings-description-container b-t-r-r b-b-r-r b-theme-base-color  p-10px">
             <div
-                className="d-flex justify-content-start align-items-center box-med"
-                style={{ background: 'var(--theme-base-color)', padding: '1px', borderBottom: '1px solid var(--border-color)' }}
+                className="d-flex justify-content-start align-items-center"
+                style={{  padding: '1px' }}
             >
                 <i
                     class="fas fa-arrow-left left-arrow-icon mr-2"

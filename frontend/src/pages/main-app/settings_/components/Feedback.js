@@ -76,8 +76,8 @@ export default function Feedback() {
     }
 
     return (
-        <div className="settings-description-container b-t-r-r b-b-r-r b-theme-base-color">
-            <div className="primary-form b-theme-base-color feedback-form">
+        <div className="settings-description-container b-t-r-r b-b-r-r b-theme-base-color  p-10px">
+            <div className="primary-form feedback-form">
                 <h3>Nos ajude a melhorar</h3>
                 <div className="feedback-faces-container">
                     <h6>Como está sendo a sua experiência no Napker até agora?</h6>
@@ -137,7 +137,7 @@ export default function Feedback() {
                  
                 <div className="d-flex flex-column align-items-center textarea-container">
                     <textarea
-                        class='autoExpand focus'
+                        class='autoExpand focus b-background'
                         rows='3'
                         data-min-rows='3'
                         placeholder="Digite a sua mensagem aqui..." />

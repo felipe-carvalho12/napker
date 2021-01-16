@@ -13,7 +13,7 @@
 
 .primary-form textarea {
     margin: 0!important;
-    background: var(--border-color)!important;
+    background: var(--border-color);
     color: var(--primary-grey)!important;
     border-radius: 30px!important;
     padding: 10px 25px 10px 20px;
