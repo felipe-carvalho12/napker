@@ -24,7 +24,6 @@
     align-items: center;
     margin: 0;
     padding: 15px;
-    border-top: 2px solid var(--border-color);
 }
 
 .bottom-menu ul .bottom-menu-item {

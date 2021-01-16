@@ -18,7 +18,7 @@ export default function BottomMenu(props) {
             <div className="bottom-menu-action-icon-container fixed-bottom">
                 {props.children}
             </div>
-            <div className="bottom-menu fixed-bottom">
+            <div className="bottom-menu fixed-bottom blur b-t">
                 <ul>
                     <li>
                         <NavLink to="/home" className="bottom-menu-item" style={{ textDecoration: 'none' }} activeClassName="c-primary-color">
