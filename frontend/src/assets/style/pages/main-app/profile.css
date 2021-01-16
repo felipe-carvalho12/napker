@@ -144,7 +144,7 @@
     outline: none;
     border: none;
     color: var(--primary-grey);
-    background: inherit;
+    background: none;
     flex: 1;
 }
 
