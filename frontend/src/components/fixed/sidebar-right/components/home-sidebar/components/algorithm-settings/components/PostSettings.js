@@ -51,7 +51,7 @@ export default function PostSettings(props) {
                                 <spam className="text-secondary">Post recente</spam>
                                 <strong>{dateValue}</strong>
                             </div>
-                            <div class="range">
+                            <div class="range px-10px">
                                 <Slider
                                     defaultValue={dateValue}
                                     className='c-primary-color'
@@ -64,7 +64,7 @@ export default function PostSettings(props) {
                                 <spam className="text-secondary">Autor do post</spam>
                                 <strong>{authorValue}</strong>
                             </div>
-                            <div class="range">
+                            <div class="range px-10px">
                                 <Slider
                                     defaultValue={authorValue}
                                     className='c-primary-color'
@@ -77,7 +77,7 @@ export default function PostSettings(props) {
                                 <spam className="text-secondary">Likes do post</spam>
                                 <strong>{likesValue}</strong>
                             </div>
-                            <div class="range">
+                            <div class="range px-10px">
                                 <Slider
                                     defaultValue={likesValue}
                                     className='c-primary-color'

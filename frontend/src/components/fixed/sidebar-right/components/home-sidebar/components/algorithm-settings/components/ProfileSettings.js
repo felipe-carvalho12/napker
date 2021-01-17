@@ -54,7 +54,7 @@ export default function ProfileSettings(props) {
                                 <spam className="text-secondary">Interesses em comum</spam>
                                 <strong>{interestsValue}</strong>
                             </div>
-                            <div class="range">
+                            <div class="range px-10px">
                                 <Slider
                                     defaultValue={interestsValue}
                                     className='c-primary-color'
@@ -67,7 +67,7 @@ export default function ProfileSettings(props) {
                                 <spam className="text-secondary">Semelhança de idade</spam>
                                 <strong>{ageValue}</strong>
                             </div>
-                            <div class="range">
+                            <div class="range px-10px">
                                 <Slider
                                     defaultValue={ageValue}
                                     className='c-primary-color'
@@ -80,7 +80,7 @@ export default function ProfileSettings(props) {
                                 <spam className="text-secondary">Amigos em comum</spam>
                                 <strong>{friendsValue}</strong>
                             </div>
-                            <div class="range">
+                            <div class="range px-10px">
                                 <Slider
                                     defaultValue={friendsValue}
                                     className='c-primary-color'
@@ -93,7 +93,7 @@ export default function ProfileSettings(props) {
                                 <spam className="text-secondary">Ser meu amigo</spam>
                                 <strong>{isFriendValue}</strong>
                             </div>
-                            <div class="range">
+                            <div class="range px-10px">
                                 <Slider
                                     defaultValue={isFriendValue}
                                     className='c-primary-color'
