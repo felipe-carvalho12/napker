@@ -10,6 +10,11 @@
     }
 }
 
+@media (max-width: 1382px) {
+    .home-menu-btn-container-s .btn {
+        font-size: .50rem;
+    }}
+
 @media (max-width: 980px) {
     .wrapper .main-content .header {
         position: fixed!important;
