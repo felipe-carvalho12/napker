@@ -26,6 +26,9 @@
     color: var(--background)!important;
 }
 
+.bg-none {
+    background: none!important;
+}
 
 .b-primary-color {
     background-color: var(--primary-color)!important;

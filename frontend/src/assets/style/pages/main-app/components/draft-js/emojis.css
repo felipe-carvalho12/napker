@@ -5,7 +5,7 @@
 }
 
 .smile, .smile:focus{
-    color: var(--primary-color);
+    color: var(--p-c-2);
     font-size: 25px;
     margin-right: 10px;
     padding: 10px;
@@ -16,7 +16,7 @@
 }
 
 .smile:hover {
-    background: var(--secondary-color);
+    color: var(--primary-color);
     cursor: pointer;
 }
 

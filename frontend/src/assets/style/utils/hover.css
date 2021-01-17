@@ -1,6 +1,10 @@
 @media (min-width: 981px) {
     /* GLOBAL */
 
+    .hover-bg-none:hover {
+        background: none!important;
+    }
+
     .hover-pointer:hover {
         cursor: pointer;
       }
@@ -25,7 +29,7 @@
     
     .secondary-hover:hover {
         cursor: pointer!important;
-        background: var(--secondary-color)!important;
+        background: var(--secondary-color);
         color: var(--primary-color-hover)!important;
         transition: .2s!important;
     }
