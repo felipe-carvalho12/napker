@@ -2,7 +2,7 @@
     background: var(--primary-color)!important;
     color: #fff!important;
     border: 1px solid rgba(0, 0, 0, 0.1)!important;
-    border-radius: 20px;
+    border-radius: 10px;
     font-weight: bold!important;
 }
   
@@ -10,7 +10,7 @@
     background: rgba(0, 0, 0, 0)!important;
     color: var(--primary-color)!important;
     border: 1px solid var(--primary-color)!important;
-    border-radius: 20px!important;
+    border-radius: 10px!important;
     font-weight: bold!important;
 }
   
@@ -26,7 +26,7 @@
     background: var(--secondary-color);
     color: var(--primary-grey);
     border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 20px;
+    border-radius: 10px;
     font-weight: bold;
 }
 
