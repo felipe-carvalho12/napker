@@ -20,20 +20,11 @@ export default function AddNewChatSearch(props) {
 
     return (
         <>
-            <div className="search-input-container">
-                <input
-                    className="search-input c-primary-grey contact-filter-input box-shadow"
-                    placeholder="Nova conversa"
-                    onChange={e => setModalSearch(e.target.value)}
-                />
-                <i
-                    className="material-icons-sharp c-primary-color add-icon"
-                    style={{ fontSize: "32px", padding: '5px' }}
-                    onClick={() => setAddingNewChat(false)}
-                >
-                    close
-                </i>
-            </div>
+            <input
+                className="search-input c-primary-grey contact-filter-input box-shadow"
+                placeholder="Nova conversa"
+                onChange={e => setModalSearch(e.target.value)}
+            />
         </>
     )
 }

@@ -22,15 +22,12 @@ export default function ContactFilterInput(props) {
     }
 
     return (
-        <div className="search-input-container">
-            <input
-                className="search-input contact-filter-input box-shadow"
-                id="contact-filter-input"
-                placeholder="Pesquisar pessoas"
-                style={{ color: 'var(--primary-grey)' }}
-                onChange={e => setContactSearch(e.target.value)}
-            />
-            <i className="fas fa-plus add-icon" onClick={addNewChat}></i>
-        </div>
+        <input
+            className="search-input contact-filter-input box-shadow"
+            id="contact-filter-input"
+            placeholder="Pesquisar pessoas"
+            style={{ color: 'var(--primary-grey)' }}
+            onChange={e => setContactSearch(e.target.value)}
+        />
     )
 }
