@@ -252,6 +252,19 @@ export default function PostForm(props) {
                                     <VideoIframe src={getEmbedVideoUrl()} />
                                 </div>
                             }
+                            {isAdvanced &&
+                                <InterestsInput
+                                    myProfile={myProfile}
+                                    setInterests={setPostsInterests}
+                                    placeholder="Adicione interesses ao seu post"
+                                    startEmpty={true}
+                                    minRows='1'
+                                    className="mt-3 position-relative b-a"
+                                    style={{ background: 'none' }}
+                                >
+                                    <InfoIcon onClick={() => window.alert('Olá')} style={{ width: 'fit-content', position: 'absolute', top: '5px' }} />
+                                </InterestsInput>
+                            }
                             <div className="d-flex justify-content-between">
                                 <div className="post-extra-options">
                                     {type === 'post' &&
@@ -279,7 +292,7 @@ export default function PostForm(props) {
                                         emojiSelector
                                     }
                                 </div>
-                                {(!isMobile || type === 'comment') && !isAdvanced &&
+                                {(!isMobile || type === 'comment') &&
                                     <button
                                         type="submit"
                                         className="btn btn-primary d-flex justify-content-center align-items-center justify-self-end align-self-end"
@@ -295,34 +308,6 @@ export default function PostForm(props) {
                                     </button>
                                 }
                             </div>
-                            {isAdvanced &&
-                                <InterestsInput
-                                    myProfile={myProfile}
-                                    setInterests={setPostsInterests}
-                                    placeholder="Adicione interesses ao seu post"
-                                    startEmpty={true}
-                                    minRows='1'
-                                    className="mt-3 position-relative b-a"
-                                    style={{ background: 'none' }}
-                                >
-                                    <InfoIcon onClick={() => window.alert('Olá')} style={{ width: 'fit-content', position: 'absolute', top: '5px' }} />
-                                </InterestsInput>
-                            }
-                            {(!isMobile || type === 'comment') && isAdvanced &&
-                                <button
-                                    type="submit"
-                                    className="btn btn-primary d-flex justify-content-center align-items-center justify-self-end align-self-end mt-10px"
-                                    id={`${isAdvanced ? 'advanced' : 'regular'}-post-form-submit-btn`}
-                                    style={{ height: '30px' }}
-                                    disabled
-                                >
-                                    {type === 'post' ?
-                                        'Postar'
-                                        :
-                                        'Comentar'
-                                    }
-                                </button>
-                            }
                         </div>
                     </div>
                 </div>

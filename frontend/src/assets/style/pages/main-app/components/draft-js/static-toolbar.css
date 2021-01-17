@@ -29,11 +29,11 @@
 
 .draftJsToolbar__active__3qcpF {
     background: var(--theme-base-color-hover);
-    color: var(--primary-grey);
+    color: var(--primary-color);
 }
 
 .draftJsToolbar__active__3qcpF svg {
-    fill: var(--primary-grey);
+    fill: var(--primary-color);
 }
 
 .draftJsToolbar__separator__3U7qt {
