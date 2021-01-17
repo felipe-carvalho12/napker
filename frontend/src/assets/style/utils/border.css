@@ -28,7 +28,7 @@
 
 .b-t-r-r { border-top-right-radius: 10px!important; }
 .b-t-l-r { border-top-left-radius: 10px!important; }
-.b-b-r-r { border-bottom-right-radius: 20px!important; }
+.b-b-r-r { border-bottom-right-radius: 10px!important; }
 .b-b-l-r { border-bottom-left-radius: 10px!important; }
 
 .b-bottom-right-radius-hover:hover {
