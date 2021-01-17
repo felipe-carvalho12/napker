@@ -141,7 +141,7 @@ export default function Feedback() {
                         rows='3'
                         data-min-rows='3'
                         placeholder="Digite a sua mensagem aqui..." />
-                    <button className="btn btn-primary w-100 mt-2" onClick={handleFeedbackSubmit}>Enviar</button>
+                    <button className="btn btn-primary w-100 mt-10px" onClick={handleFeedbackSubmit}>Enviar</button>
                 </div>
             </div>
         </div>

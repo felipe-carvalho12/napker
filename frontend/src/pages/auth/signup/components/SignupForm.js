@@ -137,7 +137,7 @@ export default function SignupForm(props) {
                 />
             </div>
 
-            <div class="w-75 mt-2 d-flex justify-content-center" style={{ marginBottom: '20px' }}>
+            <div class="w-75 mt-10px d-flex justify-content-center" style={{ marginBottom: '20px' }}>
                 <div className="w-100 d-flex flex-column align-items-start">
                     <input
                         ref={usernameRef}
@@ -162,7 +162,7 @@ export default function SignupForm(props) {
                 />
             </div>
 
-            <div class="w-75 mt-2 d-flex justify-content-center" style={{ marginBottom: '20px' }}>
+            <div class="w-75 mt-10px d-flex justify-content-center" style={{ marginBottom: '20px' }}>
                 <div className="w-100 d-flex flex-column align-items-start">
                     <input
                         ref={emailRef}
@@ -176,7 +176,7 @@ export default function SignupForm(props) {
                 </div>
             </div>
 
-            <div class="w-75 mt-2 d-flex justify-content-center">
+            <div class="w-75 mt-10px d-flex justify-content-center">
                 <input
                     ref={passwordRef}
                     class="form-control mb-0"

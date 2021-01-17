@@ -45,7 +45,7 @@ export default function PostSettings(props) {
                             keyboard_arrow_right</i>
                         <h6 style={{ margin: "0", lineHeight: "1.5" }}>Post</h6>
                     </div>
-                    <div className={`mb-2 ${!open && 'd-none'}`}>
+                    <div className={`mb-10px ${!open && 'd-none'}`}>
                         <div className="pt-1" style={{ width: '100%' }}>
                             <div className="d-flex justify-content-between">
                                 <spam className="text-secondary">Post recente</spam>

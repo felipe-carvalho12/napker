@@ -48,7 +48,7 @@ export default function PostNotification(props) {
                     style={{ padding: '15px 15px' }}
                     onClick={() => history.push(`/post/${post.id}`)}
                 >
-                    <div className="d-flex justify-content-between align-items-center mb-2">
+                    <div className="d-flex justify-content-between align-items-center mb-10px">
                         <Link to={`/post/${post.id}`}>
                             <strong style={{ fontSize: "20px", color: "var(--primary-grey)" }}>POST</strong>
                         </Link>   
@@ -57,13 +57,13 @@ export default function PostNotification(props) {
                     <div className="d-flex">
                         <div className="d-flex flex-column justify-content-between w-100">
                             <div className="d-flex justify-content-between w-100">
-                                <span className="mb-2" style={{ textAlign: 'start' }}>
+                                <span className="mb-10px" style={{ textAlign: 'start' }}>
                                     {`${post.content.slice(0, 240)}${post.content.length > 240 && '...'}`}
                                 </span>
-                                <img src={post.image} className="mb-2" style={{ maxWidth: '100px', maxHeight: '100px', borderRadius: '20px' }} />
+                                <img src={post.image} className="mb-10px" style={{ maxWidth: '100px', maxHeight: '100px', borderRadius: '20px' }} />
                             </div>
                             <div className="d-flex justify-content-between w-100">
-                                <div className="d-flex align-items-start mb-2 notification-authors-container">
+                                <div className="d-flex align-items-start mb-10px notification-authors-container">
                                     {!!notification.likes.length &&
                                         <span className="mr-1" id={`${notification.id}like`}></span>
                                     }

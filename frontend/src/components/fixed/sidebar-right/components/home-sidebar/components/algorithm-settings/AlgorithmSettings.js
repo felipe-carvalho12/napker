@@ -129,7 +129,7 @@ export default function AlgorithmSettings(props) {
                         style={{ marginTop: !isMobile && 'var(--header-heigth)', minHeight: props.minHeight }}
                     >
                         <div className="w-100 d-flex justify-content-between align-items-start mb-3">
-                            <h6 className={isMobile ? 'm-2' : 'ml-2'}>Personalize seu algoritmo.</h6>
+                            <h6 className={isMobile ? 'm-2' : 'mr-10px'}>Personalize seu algoritmo.</h6>
                             {renderInfoIcon &&
                                 <InfoIcon onClick={() => setInfoModalIsOpen(true)} />
                             }

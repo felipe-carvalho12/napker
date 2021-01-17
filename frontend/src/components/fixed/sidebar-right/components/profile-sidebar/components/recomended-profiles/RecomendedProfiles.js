@@ -28,7 +28,7 @@ export default function RecomendedProfiles(props) {
             <div className="d-flex flex-column justify-content-start align-items-start" style={{ marginTop: 'var(--header-heigth)', padding: '10px' }}>
                 <InfoIcon className="align-self-end" onClick={() => setInfoModalIsOpen(true)} />
                 <div style={{ width: '100%' }}>
-                    <h6 className="ml-2">Você pode gostar</h6>
+                    <h6 className="ml-10px">Você pode gostar</h6>
                 </div>
                 {recomendedProfiles !== null ?
                     <>

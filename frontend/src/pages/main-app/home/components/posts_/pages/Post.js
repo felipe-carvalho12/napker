@@ -73,7 +73,7 @@ export default function Post() {
                             showHideForm={() => setDisplayingForm(!displayingForm)}
                             style={{ borderTopLeftRadius: '0', borderTopRightRadius: '0' }}
                         />
-                        <div className="mt-2">
+                        <div className="mt-10px">
                             {displayingForm &&
                                 <div className="feed-create-post-form box-med b-theme-base-color b-vw-t" style={{ marginLeft: '30px' }}>
                                     <PostForm

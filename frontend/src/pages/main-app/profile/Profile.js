@@ -299,7 +299,7 @@ class Profile extends React.Component {
                                 <ProfileData profile={this.state.profile}>
                                     <div className="profile-btn-wrapper">
                                         <i
-                                            className="fas fa-ellipsis-h btn btn-secondary mr-2 view-more-icon"
+                                            className="fas fa-ellipsis-h btn btn-secondary mr-10px view-more-icon"
                                             id="profile-view-more-icon"
                                             onClick={this.openCloseExtraOptions}
                                         />

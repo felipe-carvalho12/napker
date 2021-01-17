@@ -111,7 +111,7 @@ export default function Messages(props) {
                                                 />
                                                 <div className="d-flex flex-column align-items-start">
                                                     <div className="d-flex align-items-between" style={{ maxHeight: '30px' }}>
-                                                        <strong className="mr-2" style={{ height: 'fit-content' }}>{profile.first_name} {profile.last_name}</strong>
+                                                        <strong className="mr-10px" style={{ height: 'fit-content' }}>{profile.first_name} {profile.last_name}</strong>
                                                         <p className="text-secondary m-0" style={{ marginLeft: '5px' }}>@{profile.user.username}</p>
                                                     </div>
                                                     <div className="w-100 word-break">
