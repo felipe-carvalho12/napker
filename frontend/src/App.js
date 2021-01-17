@@ -31,7 +31,7 @@ export default function App() {
         fetch(`${SERVER_URL}/profile-api/is-logged`)
             .then(response => response.json())
             .then(data => setIsLogged(data))
-        setTheme(window.localStorage.getItem('theme') || 'light')
+        setTheme(window.localStorage.getItem('theme') || 'dark')
     }, [])
 
     return (
