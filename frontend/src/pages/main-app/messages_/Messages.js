@@ -111,9 +111,9 @@ export default function Messages(props) {
                                 <i
                                     className="material-icons-sharp c-primary-color add-icon p-10px fs-27"
                                     onClick={addNewChat}
-                                    style={{ transform: addingNewChat && "rotate(45deg)" }}
+                                    style={{ transform: addingNewChat ? "rotate(0deg)" : "rotate(45deg)" }}
                                 >
-                                    add
+                                    close
                                 </i>
                             </div>
                             {addingNewChat ?
