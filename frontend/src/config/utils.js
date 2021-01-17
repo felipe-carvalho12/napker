@@ -71,7 +71,7 @@ export const setTheme = theme => {
     cssVariables.setProperty('--heart-color'                ,                     '#E0245E')
     cssVariables.setProperty('--heart-background-hover'     ,       'rgba(224, 36, 94, .1)')
     cssVariables.setProperty('--primary-grey'               ,                 'var(--b-11)')
-    cssVariables.setProperty('--secondary-grey'             ,                 'var(--b-09)')
+    cssVariables.setProperty('--secondary-grey'             ,                 'var(--b-08)')
     cssVariables.setProperty('--loader-background'          ,     'rgba(119, 147, 125, .3)')
     cssVariables.setProperty('--theme-base-color'           ,                 'var(--w-07)')
     cssVariables.setProperty('--tertiary-grey'              ,                     '#f2f2f2')
