@@ -24,7 +24,7 @@ export default function Faq() {
                     </div>
                 </li>
             </Link>
-            <Link to="/configurações/alterar-senha" style={{ textDecoration: 'none', width: '100%' }}>
+            <Link to="/perfil/meus-interesses" style={{ textDecoration: 'none', width: '100%' }}>
                 <li
                     className="w-100 d-flex align-items-center px-3 py-2 c-primary-grey base-hover"
                     style={{ fontSize: 'large' }}
@@ -41,7 +41,7 @@ export default function Faq() {
                     </div>
                 </li>
             </Link>
-            <Link to="/configurações/alterar-senha" style={{ textDecoration: 'none', width: '100%' }}>
+            <Link to="/perfil/meus-interesses" style={{ textDecoration: 'none', width: '100%' }}>
                 <li
                     className="w-100 d-flex align-items-center px-3 py-2 c-primary-grey base-hover"
                     style={{ fontSize: 'large' }}
@@ -58,7 +58,7 @@ export default function Faq() {
                             </div>
                 </li>
             </Link>
-            <Link to="/configurações/alterar-senha" style={{ textDecoration: 'none', width: '100%' }}>
+            <Link to="/perfil/meus-interesses" style={{ textDecoration: 'none', width: '100%' }}>
                 <li
                     className="w-100 d-flex align-items-center px-3 py-2 c-primary-grey base-hover"
                     style={{ fontSize: 'large' }}
@@ -75,7 +75,7 @@ export default function Faq() {
                             </div>
                 </li>
             </Link>
-            <Link to="/configurações/alterar-senha" style={{ textDecoration: 'none', width: '100%' }}>
+            <Link to="/home" style={{ textDecoration: 'none', width: '100%' }}>
                 <li
                     className="w-100 d-flex align-items-center px-3 py-2 c-primary-grey base-hover"
                     style={{ fontSize: 'large' }}
