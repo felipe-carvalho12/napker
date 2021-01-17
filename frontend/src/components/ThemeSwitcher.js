@@ -20,8 +20,9 @@ export default function ThemeSwitcher(props) {
 
     return (
         <div
-            className={`d-flex justify-content-start align-items-center sidebar-menu-item theme-switcher ${props.className}`}
+            className={`d-flex justify-content-start align-items-center sidebar-menu-item theme-switcher .theme-switcher .backgraund${props.className}`}
             style={props.style}
+            style={{border: '2px', padding: '5px', backgroundColor: 'goldenrod'}}
         >
             <div class="one-quarter" id="switch">
                 <input type="checkbox" class="checkbox" id={checkboxId} onChange={switchTheme} />
