@@ -54,7 +54,7 @@ export default function EditInterests() {
                                 Salvar
                             </button>
                             <p
-                                className="edit-interests-success-message ml-2"
+                                className="edit-interests-success-message ml-10px"
                                 id="interests-updated-message"
                             >
                                 Interesses atualizados com sucesso

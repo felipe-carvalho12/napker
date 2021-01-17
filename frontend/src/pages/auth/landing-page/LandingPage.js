@@ -22,7 +22,7 @@ export default function LandingPage() {
                     <Logo size="30px" />
                     <div className="d-flex justify-content-between align-items-center">
                         <Link to="/login">
-                            <span className="c-b-09 fw-300 mr-2">
+                            <span className="c-b-09 fw-300 mr-10px">
                                 Já tem uma conta?
                             </span>
                         </Link>
@@ -98,7 +98,7 @@ export default function LandingPage() {
                             <h4 style={{ color: "var(--w-10)", fontSize: "20px", padding: '25px' }}>
                                 Entre no grupo de testadores no Discord para acompanhar as novidades e discutir novas mudanças.
                             </h4>
-                            <div className="d-flex justify-content-between mt-2" style={{ width: "80%" }}>
+                            <div className="d-flex justify-content-between mt-10px" style={{ width: "80%" }}>
                                 <Link to="/signup">
                                     <button className="s-b-l b-b-09 c-w-12">
                                         Inscrever-se no Napker

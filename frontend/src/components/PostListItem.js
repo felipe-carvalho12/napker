@@ -94,7 +94,7 @@ export default function PostListItem(props) {
             }
             <div className="d-flex flex-column h-100 w-100">
                 <div className="d-flex flex-column h-100 w-100" style={{ padding: "10px 10px 0" }}>
-                    <div className="d-flex justify-content-between align-items-start w-100 mb-2">
+                    <div className="d-flex justify-content-between align-items-start w-100 mb-10px">
                         <div className="d-flex align-items-center">
                             <Link
                                 to={post.author.id === myProfile.id ?
@@ -102,7 +102,7 @@ export default function PostListItem(props) {
                                 onClick={e => e.stopPropagation()}
                             >
                                 <img src={post.author.photo}
-                                    className="profile-img-sm mr-2"
+                                    className="profile-img-sm mr-10px"
                                 />
                             </Link>
                             <Link
@@ -111,7 +111,7 @@ export default function PostListItem(props) {
                                 style={{ color: '#000' }}
                                 onClick={e => e.stopPropagation()}
                             >
-                                <strong className="mr-2" style={{ color: 'var(--primary-grey)' }}>
+                                <strong className="mr-10px" style={{ color: 'var(--primary-grey)' }}>
                                     {post.author.first_name} {post.author.last_name}
                                 </strong>
                                 <span className="text-secondary">
@@ -149,7 +149,7 @@ export default function PostListItem(props) {
                         }
                         <div className="popover-arrow" style={{ top: '-9px', right: '8%' }} />
                     </div>
-                    <div className="d-flex justify-content-start word-break mb-2">
+                    <div className="d-flex justify-content-start word-break mb-10px">
                         <PostTextbox
                             editable={false}
                             postContent={JSON.parse(post.content)}
@@ -198,12 +198,12 @@ export default function PostListItem(props) {
                     </div>
                     <div className="d-flex align-items-center">
                         {post.likes.map(like => like.profile.id).includes(myProfile.id) ?
-                            <i class="fas fa-heart expand-animation mr-1  ml-2 icon"
+                            <i class="fas fa-heart expand-animation mr-1  ml-10px icon"
                                 data-postid={post.id}
                                 onClick={likeUnlikePost}
                             />
                             :
-                            <i class="far fa-heart mr-1 ml-2 icon"
+                            <i class="far fa-heart mr-1 ml-10px icon"
                                 data-postid={post.id}
                                 onClick={likeUnlikePost}
                             />

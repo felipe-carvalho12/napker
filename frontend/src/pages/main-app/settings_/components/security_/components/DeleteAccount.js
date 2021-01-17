@@ -42,7 +42,7 @@ export default function DeleteAccount() {
                 style={{  padding: '1px' }}
             >
                 <i
-                    class="fas fa-arrow-left left-arrow-icon mr-2"
+                    class="fas fa-arrow-left left-arrow-icon mr-10px"
                     onClick={() => window.history.back()}
                 />
                 <strong style={{ fontSize: '1.2rem' }}>Segurança</strong>

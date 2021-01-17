@@ -53,8 +53,8 @@ export default function Explore() {
             />
             {myProfile !== null && posts !== null ?
                 <>
-                    <div className="w-100 d-flex justify-content-center align-items-center p-2 b-theme-base-color">
-                        <InterestSearchInput className="mt-1" style={{ width: '90%' }} />
+                    <div className="w-100 d-flex justify-content-center align-items-center p-10px b-theme-base-color">
+                        <InterestSearchInput className="mt-10px w-100" />
                     </div>
                     <div className="hashtags-header">
                         <div className="hashtag-container active base-hover" onClick={switchPage}>
