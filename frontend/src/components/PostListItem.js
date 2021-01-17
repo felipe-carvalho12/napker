@@ -88,7 +88,7 @@ export default function PostListItem(props) {
             key={post.id}
             style={{ ...props.style, background: 'var(--theme-base-color)', marginBottom: type === 'comment' && '10px', padding: "0" }}
             onClick={() => isLink && history.push(`/post/${post.id}`)}
-        >{console.log(type, post.created)}
+        >
             {color !== undefined &&
                 <div style={{ marginLeft: "20px", width: "5px", background: color }} />
             }

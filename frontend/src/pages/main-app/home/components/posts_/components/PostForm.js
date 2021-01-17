@@ -28,7 +28,7 @@ export default function PostForm(props) {
 
     const [taggedUsernames, setTaggedUsernames] = useState([])
 
-    const [postContent, setPostContent] = useState('')
+    const [postContent, setPostContent] = useState('{"blocks": [{"text": ""}]}')
     const [contentLength, setContentLength] = useState(0)
     const [postFormImagePreview, setPostFormImagePreview] = useState('')
     const [videoUrl, setVideoUrl] = useState('')
@@ -51,7 +51,6 @@ export default function PostForm(props) {
                 Postar
             </button>
         ))
-
     }, [])
 
     useEffect(() => {
@@ -172,7 +171,7 @@ export default function PostForm(props) {
                             <div className="d-flex justify-content-end mb-1">
                                 <i
                                     className="material-icons-outlined m-0 p-0 icon secondary-hover bg-none"
-                                    style={{ fontSize: '27px', transform: 'rotate(180deg)', color: 'var(--p-c-2)' }}
+                                    style={{ fontSize: '27px', transform: 'rotate(180deg)', color: 'var(--p-c-1)' }}
                                     onClick={() => setIsAdvanced(false)}
                                 >
                                     outbound
@@ -182,7 +181,7 @@ export default function PostForm(props) {
                             <div className="d-flex justify-content-end mb-1">
                                 <i
                                     className="material-icons-outlined m-0 p-0 icon secondary-hover bg-none"
-                                    style={{ fontSize: '27px', color: 'var(--p-c-2)' }}
+                                    style={{ fontSize: '27px', color: 'var(--p-c-1)' }}
                                     onClick={() => setIsAdvanced(true)}
                                 >
                                     outbound
@@ -273,7 +272,7 @@ export default function PostForm(props) {
                                                 <label
                                                     htmlFor={`${isAdvanced ? 'advanced' : 'regular'}-post-img`}
                                                     className="far fa-image m-0 icon secondary-hover hover-bg-none"
-                                                    style={{ fontSize: '25px', color: 'var(--p-c-2)' }}
+                                                    style={{ fontSize: '25px', color: 'var(--p-c-1)' }}
                                                 />
                                                 <input
                                                     type="file"
@@ -285,7 +284,7 @@ export default function PostForm(props) {
                                             </div>
                                             <i
                                                 className="material-icons-outlined m-0 icon secondary-hover hover-bg-none"
-                                                style={{ fontSize: '27px', color: 'var(--p-c-2)' }}
+                                                style={{ fontSize: '27px', color: 'var(--p-c-1)' }}
                                                 onClick={() => setVideoUrl(window.prompt('Copie e cole o link de um vídeo do YouTube: '))}
                                             >
                                                 slow_motion_video
