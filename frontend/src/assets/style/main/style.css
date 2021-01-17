@@ -10,7 +10,7 @@
   --p-c-7                      :         rgba(0,192,136,0.04);
   --secondary-color            :      rgba(119, 147, 125, .1);
   --primary-color-hover        :            rgba(0,178,125,1);
-  --header-heigth: 9vh;
+  --header-heigth: 50px;
   --home-page-menu-height: 60px;
   --content-heigth: 91vh;
   --sidebar-width: 275px;
@@ -76,7 +76,7 @@ a {
 }
 
 .wrapper .main-content .header {
-  height: 50px;
+  height: var(--header-heigth);
   position: sticky;
   top: 0;
   padding: 20px;
