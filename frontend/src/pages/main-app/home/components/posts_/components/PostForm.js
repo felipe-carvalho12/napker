@@ -45,7 +45,7 @@ export default function PostForm(props) {
                 type="submit"
                 className="btn btn-primary"
                 id={`${isAdvanced ? 'advanced' : 'regular'}-post-form-submit-btn`}
-                style={{ height: '40px' }}
+                style={{ height: '30px' }}
                 disabled
             >
                 Postar
@@ -282,9 +282,9 @@ export default function PostForm(props) {
                                 {(!isMobile || type === 'comment') && !isAdvanced &&
                                     <button
                                         type="submit"
-                                        className="btn btn-primary"
+                                        className="btn btn-primary d-flex justify-content-center align-items-center justify-self-end align-self-end"
                                         id={`${isAdvanced ? 'advanced' : 'regular'}-post-form-submit-btn`}
-                                        style={{ height: '40px' }}
+                                        style={{ height: '30px' }}
                                         disabled
                                     >
                                         {type === 'post' ?
@@ -311,9 +311,9 @@ export default function PostForm(props) {
                             {(!isMobile || type === 'comment') && isAdvanced &&
                                 <button
                                     type="submit"
-                                    className="btn btn-primary mt-3 align-self-end"
+                                    className="btn btn-primary d-flex justify-content-center align-items-center justify-self-end align-self-end mt-10px"
                                     id={`${isAdvanced ? 'advanced' : 'regular'}-post-form-submit-btn`}
-                                    style={{ height: '40px' }}
+                                    style={{ height: '30px' }}
                                     disabled
                                 >
                                     {type === 'post' ?

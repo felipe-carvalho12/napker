@@ -106,15 +106,15 @@ export default function Messages(props) {
                                         >
                                             <li className="list-item d-flex justify-content-start p-2 b-theme-base-color c-primary-grey base-hover box-med" style={{ whiteSpace: 'nowrap' }}>
                                                 <img src={profile.photo}
-                                                    className="profile-img-sm"
+                                                    className="profile-img-sm align-self-center"
                                                     style={{ marginRight: '10px' }}
                                                 />
                                                 <div className="d-flex flex-column align-items-start">
-                                                    <div className="d-flex" style={{ maxHeight: '30px' }}>
-                                                        <strong style={{ height: 'fit-content' }}>{profile.first_name} {profile.last_name}</strong>
-                                                        <p className="text-secondary" style={{ marginLeft: '5px' }}>@{profile.user.username}</p>
+                                                    <div className="d-flex align-items-between" style={{ maxHeight: '30px' }}>
+                                                        <strong className="mr-2" style={{ height: 'fit-content' }}>{profile.first_name} {profile.last_name}</strong>
+                                                        <p className="text-secondary m-0" style={{ marginLeft: '5px' }}>@{profile.user.username}</p>
                                                     </div>
-                                                    <div className="w-100 pt-2 word-break">
+                                                    <div className="w-100 word-break">
                                                         {profile.bio.split('').slice(0, 160)}
                                                         {profile.bio.split('').slice(0, 160).length < profile.bio.length && '...'}
                                                     </div>

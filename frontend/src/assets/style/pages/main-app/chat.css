@@ -24,7 +24,7 @@
     height: 40px;
     margin-right: 10px;
     border: none;
-    border-radius: 20px;
+    border-radius: 10px;
     background-color: var(--border-color);
     text-align: start;
     padding: 15px;
@@ -99,7 +99,7 @@
     height: 35px;
     padding-left: 15px;
     border: none;
-    border-radius: 20px;
+    border-radius: 10px;
     background-color: var(--border-color);
     color: var(--primary-grey);
     margin-right: 5px;

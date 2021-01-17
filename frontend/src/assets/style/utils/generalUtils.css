@@ -56,4 +56,14 @@
 .m-vw-x { margin-left: 1vw; margin-right: 1vw; }
 .m-vw-y { margin-top: 1vw; margin-bottom: 1vw; }
 
-.p-10px { padding: 10px; }
+.p-10px  { padding: 10px; }
+.pt-10px { padding: 10px; }
+.pr-10px { padding: 10px; }
+.pb-10px { padding: 10px; }
+.pl-10px { padding: 10px; }
+
+.m-10px  { margin: 10px; }
+.mt-10px { margin-top: 10px; }
+.mr-10px { margin-right: 10px; }
+.mb-10px { margin-bottom: 10px; }
+.ml-10px { margin-left: 10px; }

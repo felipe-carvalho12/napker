@@ -5,7 +5,7 @@
     font-size: 1rem!important;
     border: none!important;
     outline: none!important;
-    border-radius: 30px!important;
+    border-radius: 10px!important;
     background: var(--border-color)!important;
     margin-bottom: 20px!important;
     padding: 10px 20px 10px 20px!important;
@@ -15,7 +15,7 @@
     margin: 0!important;
     background: var(--border-color);
     color: var(--primary-grey)!important;
-    border-radius: 30px!important;
+    border-radius: 10px!important;
     padding: 10px 25px 10px 20px;
 }
 
@@ -41,7 +41,7 @@ input:-webkit-autofill {
 }
 
 .primary-form button {
-    border-radius: 30px!important;
+    border-radius: 10px!important;
     height: 45px;
 }
 
@@ -51,7 +51,7 @@ input:-webkit-autofill {
     padding: 15px;
     background: var(--secondary-color);
     border: 2px solid rgba(0, 0, 0, 0.2);
-    border-radius: 20px;
+    border-radius: 10px;
     color: var(--primary-grey);
     font-size: 15px; 
 }

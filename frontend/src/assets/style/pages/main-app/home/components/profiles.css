@@ -12,7 +12,7 @@
     height: 40px;
     padding-left: 15px;
     border: none;
-    border-radius: 20px;
+    border-radius: 10px;
     background: var(--background);
 }
 
@@ -23,7 +23,7 @@
     justify-content: center;
     align-items: center;
     border: 1px solid rgba(0, 0, 0, 0.1)!important;
-    border-radius: 20px;
+    border-radius: 10px;
     font-weight: bold!important;
     margin: 4px;
     background: var(--background)!important;
@@ -47,7 +47,7 @@
 
 .profile-img-container {
     width: fit-content;
-    align-self: start;
+    align-self: center;
 }
 
 

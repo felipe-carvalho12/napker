@@ -32,7 +32,7 @@ export default function ProfileListItem(props) {
                         />
                     </div>
                     <div className="d-flex flex-column w-100">
-                        <div className="d-flex justify-content-between align-items-center">
+                        <div className="d-flex justify-content-between align-items-start">
                             <div className="main-profile-data">
                                 <strong style={{ textAlign: 'start' }}>
                                     {profile.first_name} {profile.last_name}
