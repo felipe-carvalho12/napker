@@ -36,7 +36,7 @@ export default function DeleteAccount() {
     }
 
     return (
-        <div className="settings-description-container b-t-r-r b-b-r-r b-theme-base-color  p-10px">
+        <div className="settings-description-container b-t-r-r b-b-r-r b-theme-base-color p-10px">
             <div
                 className="d-flex justify-content-start align-items-center"
                 style={{  padding: '1px' }}
@@ -67,7 +67,7 @@ export default function DeleteAccount() {
                     className="btn btn-danger"
                     onClick={deleteAccount}
                     style={{
-                        borderRadius : "20px",
+                        borderRadius : "10px",
                         fontWeight: "bold"
                     }}
                 >Deletar conta</button>
