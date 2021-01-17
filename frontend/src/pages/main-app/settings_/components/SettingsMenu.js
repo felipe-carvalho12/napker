@@ -7,7 +7,7 @@ import ThemeSwitcher from '../../../../components/ThemeSwitcher'
 export default function SettingsMenu() {
 
     return (
-        <div className="d-flex flex-column align-items-center h-100 settings-page-menu m-2" style={{ width: '40%' }}>
+        <div className="d-flex flex-column align-items-center h-100 settings-page-menu p-2 b-r" style={{ width: '40%' }}>
             <li
                 className="w-100"
                 id="blocked-profiles"
