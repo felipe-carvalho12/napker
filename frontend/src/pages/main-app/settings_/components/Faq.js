@@ -12,13 +12,13 @@ export default function Faq() {
                     className="w-100 d-flex align-items-center px-3 py-2 c-primary-grey base-hover"
                     style={{ fontSize: 'large' }}
                 >
-                    <span class="material-icons-outlined text-secondary mr-2">
+                    <span class="material-icons-outlined c-secondary-grey align-self-start fs-27 mr-10px mt-10px">
                         vpn_key
                     </span>
                     <div className="d-flex w-100 justify-content-between align-items-center">
                         <div className="d-flex flex-column align-items-start">
-                            <span className="c-p-c-0 fw-500 fs-15">Como alterar minha senha?</span>
-                            <span className="c-secondary-grey fw-300 fs-13 fa-s">Você pode alterar a sua senha a qualquer momento clicando aqui ou pelo menu de segurança.</span>
+                            <span className="c-p-c-0 fw-500 fs-15 mr-10px">Como alterar minha senha?</span>
+                            <span className="c-secondary-grey fw-300 fs-13 fa-l mr-10px">Você pode alterar a sua senha a qualquer momento clicando aqui ou pelo menu de segurança.</span>
                         </div>
                         <i className="fas fa-angle-right" />
                     </div>
@@ -29,13 +29,13 @@ export default function Faq() {
                     className="w-100 d-flex align-items-center px-3 py-2 c-primary-grey base-hover"
                     style={{ fontSize: 'large' }}
                 >
-                    <span class="material-icons-outlined c-secondary-grey fs-27 mr-10px">
+                    <span class="material-icons-outlined c-secondary-grey align-self-start fs-27 mr-10px mt-10px">
                         psychology
                     </span>
                     <div className="d-flex w-100 justify-content-between align-items-center">
                         <div className="d-flex flex-column align-items-start">
-                            <span className="c-p-c-0 fw-500 fs-15">O que são interesses?</span>
-                            <span className="c-secondary-grey fw-300 fs-13 fa-l">Você pode alterar a sua senha a qualquer momento.</span>
+                            <span className="c-p-c-0 fw-500 fs-15 mr-10px">O que são interesses?</span>
+                            <span className="c-secondary-grey fw-300 fs-13 fa-l mr-10px">Você pode alterar a sua senha a qualquer momento.</span>
                         </div>
                         <i className="fas fa-angle-right" />
                     </div>
@@ -46,13 +46,13 @@ export default function Faq() {
                     className="w-100 d-flex align-items-center px-3 py-2 c-primary-grey base-hover"
                     style={{ fontSize: 'large' }}
                 >
-                    <span class="material-icons-outlined c-secondary-grey fs-27 mr-10px">
+                    <span class="material-icons-outlined c-secondary-grey align-self-start fs-27 mr-10px mt-10px">
                         compare_arrows
                     </span>
                             <div className="d-flex w-100 justify-content-between align-items-center">
                                 <div className="d-flex flex-column align-items-start">
-                                    <span className="c-p-c-0 fw-500 fs-15">Como alterar interesses?</span>
-                                    <span className="c-secondary-grey fw-300 fs-13 fa-l">Você pode alterar a sua senha a qualquer momento.</span>
+                                    <span className="c-p-c-0 fw-500 fs-15 mr-10px">Como alterar interesses?</span>
+                                    <span className="c-secondary-grey fw-300 fs-13 fa-l mr-10px">Você pode alterar a sua senha a qualquer momento.</span>
                                 </div>
                                 <i className="fas fa-angle-right" />
                             </div>
@@ -63,13 +63,13 @@ export default function Faq() {
                     className="w-100 d-flex align-items-center px-3 py-2 c-primary-grey base-hover"
                     style={{ fontSize: 'large' }}
                 >
-                    <span class="material-icons-outlined c-secondary-grey fs-27 mr-10px">
+                    <span class="material-icons-outlined c-secondary-grey align-self-start fs-27 mr-10px mt-10px">
                         lock
                     </span>
                             <div className="d-flex w-100 justify-content-between align-items-center">
                                 <div className="d-flex flex-column align-items-start">
-                                    <span className="c-p-c-0 fw-500 fs-15">O que são interesses públicos/privados?</span>
-                                    <span className="c-secondary-grey fw-300 fs-13 fa-l">Você pode alterar a sua senha a qualquer momento.</span>
+                                    <span className="c-p-c-0 fw-500 fs-15 mr-10px">O que são interesses públicos/privados?</span>
+                                    <span className="c-secondary-grey fw-300 fs-13 fa-l mr-10px">Você pode alterar a sua senha a qualquer momento.</span>
                                 </div>
                                 <i className="fas fa-angle-right" />
                             </div>
@@ -80,13 +80,13 @@ export default function Faq() {
                     className="w-100 d-flex align-items-center px-3 py-2 c-primary-grey base-hover"
                     style={{ fontSize: 'large' }}
                 >
-                    <span class="material-icons-outlined c-secondary-grey fs-27 mr-10px">
+                    <span class="material-icons-outlined c-secondary-grey align-self-start fs-27 mr-10px mt-10px">
                         pan_tool
                     </span>
                             <div className="d-flex w-100 justify-content-between align-items-center">
                                 <div className="d-flex flex-column align-items-start">
-                                    <span className="c-p-c-0 fw-500 fs-15">Como denunciar usuários?</span>
-                                    <span className="c-secondary-grey fw-300 fs-13 fa-l">Você pode alterar a sua senha a qualquer momento.</span>
+                                    <span className="c-p-c-0 fw-500 fs-15 mr-10px">Como denunciar usuários?</span>
+                                    <span className="c-secondary-grey fw-300 fs-13 fa-l mr-10px">Você pode alterar a sua senha a qualquer momento.</span>
                                 </div>
                                 <i className="fas fa-angle-right" />
                             </div>
