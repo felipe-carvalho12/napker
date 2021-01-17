@@ -107,18 +107,15 @@
 /* FAQ */
   
 .faq-content {
-    background: var(--theme-base-color);
     display: flex;
     align-items: center;
 }
 
 .faq-content .faq-center {
-    background: var(--theme-base-color);
     width: 100%;
 }
 
 .faq-content details {
-    background: var(--theme-base-color);
 }
 
 .faq-content h2 {
@@ -133,7 +130,6 @@
 }
 
 .faq-content details p {
-    background: var(--theme-base-color);
     padding: 0 25px 15px 25px;
     margin: 0;
     text-shadow: none;
