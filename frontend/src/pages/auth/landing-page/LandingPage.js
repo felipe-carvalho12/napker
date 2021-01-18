@@ -64,7 +64,7 @@ export default function LandingPage() {
                             </div>
                         </div>
                     </div>
-                    <Wave colors={["var(--w-05)", "var(--w-05)", "var(--w-05)", "var(--w-05)"]} />
+                    <Wave colors={["var(--w-05)", "var(--w-05)", "var(--w-05)", "var(--w-12)"]} />
                 </div>
             </div>
             <div className="w-100 d-flex flex-column justify-content-center align-items-center">
