@@ -66,11 +66,21 @@ export default function MainAppRouter() {
                     <div className="sb-fixed-container">
                         <SidebarLeft />
                     </div>
-
                 </div>
             </div>
             <div className="mc-wrapper">
                 <div className="main-content">
+                    <Switch>
+                        <Route path="/home">
+                            <SidebarRight page="home" />
+                        </Route>
+                        <Route path="/perfil">
+                            <SidebarRight page="profile" />
+                        </Route>
+                        <Route path="/user/:slug">
+                            <SidebarRight page="profile" />
+                        </Route>
+                    </Switch>
                     <Switch>
                         <Route path="/" exact>
                             <Redirect to="/home" />
@@ -126,17 +136,6 @@ export default function MainAppRouter() {
                         <Route path="/interesses/:interest" component={InterestProfiles} />
 
                         <Route path="/postar" component={PostFormPage} />
-                    </Switch>
-                    <Switch>
-                        <Route path="/home">
-                            <SidebarRight page="home" />
-                        </Route>
-                        <Route path="/perfil">
-                            <SidebarRight page="profile" />
-                        </Route>
-                        <Route path="/user/:slug">
-                            <SidebarRight page="profile" />
-                        </Route>
                     </Switch>
                 </div>
             </div>

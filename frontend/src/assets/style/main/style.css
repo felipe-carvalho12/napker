@@ -99,6 +99,7 @@ a {
 
 .wrapper .mc-wrapper .main-content {
   display: flex;
+  flex-direction: row-reverse;
   width: 925px;
   height: 100%;
 }
