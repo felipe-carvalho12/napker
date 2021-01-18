@@ -46,7 +46,7 @@ export default class SimpleMentionEditor extends Component {
         this.emojiPlugin = createEmojiPlugin({
             theme: emojiTheme,
             selectButtonContent: (
-                <i className="far fa-smile icon smile m-0" />
+                <i className="far fa-smile icon smile m-0 hover-bg-none" />
             )
         })
 
