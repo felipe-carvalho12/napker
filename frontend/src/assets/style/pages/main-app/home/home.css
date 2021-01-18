@@ -163,3 +163,26 @@ input[type="range"]::-moz-range-track {
     cursor: pointer;
 }
 
+/* Largura da barra de rolagem */
+::-webkit-scrollbar {
+    width: 7px;
+  }
+  
+  /* Fundo da barra de rolagem */
+  ::-webkit-scrollbar-track-piece {
+    background-color: transparent;
+    border-left: 4px solid transparent
+  }
+  
+  /* Cor do indicador de rolagem */
+  ::-webkit-scrollbar-thumb:vertical,
+  ::-webkit-scrollbar-thumb:horizontal {
+    border-radius: 10px;
+    background-color: var(--secondary-color)
+  }
+  
+  /* Cor do indicador de rolagem - ao passar o mouse */
+  ::-webkit-scrollbar-thumb:vertical:hover,
+  ::-webkit-scrollbar-thumb:horizontal:hover {
+    background-color: var(--primary-color-hover)
+  }
