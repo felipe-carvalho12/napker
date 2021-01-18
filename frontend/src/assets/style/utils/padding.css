@@ -29,3 +29,11 @@
   padding-top:    20px; 
   padding-bottom: 20px; 
 }
+
+.p-vw-t { padding-top: 1vw; }
+.p-vw-b { padding-bottom: 1vw; }
+.p-vw-l { padding-left: 1vw; }
+.p-vw-r { padding-right: 1vw; }
+.p-vw { padding: 1vw; }
+.p-vw-x { padding-left: 1vw; padding-right: 1vw; }
+.p-vw-y { padding-top: 1vw; padding-bottom: 1vw; }
