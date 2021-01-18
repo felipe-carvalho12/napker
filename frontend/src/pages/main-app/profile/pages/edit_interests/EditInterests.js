@@ -39,7 +39,7 @@ export default function EditInterests() {
     }
 
     return (
-        <>
+        <div className="content-container">
             <div className="b-theme-base-color box-med blur" style={{ position: "sticky", top: "1vw", padding: "0 20px 0", zIndex: "1000" }}>
                 <Header page="Meus interesses" backArrow={true} />
             </div>
@@ -75,6 +75,6 @@ export default function EditInterests() {
                 }
             </div>
             <BottomMenu />
-        </>
+        </div>
     )
 }

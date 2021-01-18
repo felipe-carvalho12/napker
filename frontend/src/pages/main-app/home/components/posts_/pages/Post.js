@@ -48,7 +48,7 @@ export default function Post() {
     }
 
     return (
-        <div className="w-100">
+        <div className="content-container">
             <LikesModal
                 isOpen={postLikesModal.isOpen}
                 likes={postLikesModal.likes}

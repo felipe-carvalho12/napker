@@ -32,7 +32,7 @@ export default function Home() {
     }, [page])
 
     return (
-        <>
+        <div className="content-container">
             {isMobile ?
                 <div className="fixed w-100 b-theme-base-color blur b-b" style={{ zIndex: "1000" }}>
                     <Header page="Home">
@@ -54,7 +54,7 @@ export default function Home() {
                     </div>
                 </>
             }
-            <div className="sidebar-content">
+            <div className="sidebar-content" style={{ margin: '0 1vw' }}>
                 <div className="w-100 h-100 home-page">
                     {pages[page]}
                 </div>
@@ -64,6 +64,6 @@ export default function Home() {
                     <PostIcon />
                 }
             </BottomMenu>
-        </>
+        </div>
     )
 }

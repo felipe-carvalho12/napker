@@ -13,7 +13,8 @@
   --header-heigth: 50px;
   --home-page-menu-height: 60px;
   --content-heigth: 91vh;
-  --sidebar-width: 275px;
+  --ls-width: 220px;
+  --rs-width: 320px;
   --sidebar-content-width: 43vw;
   --content-width: 59vw;
 }
@@ -64,18 +65,55 @@ a {
 
 /* DOCUMENT MAIN STRUCTURE */
 
+#react-root {
+  width: 100%;
+}
+
 .wrapper {
   position: relative;
   display: flex;
   justify-content: center;
-  width: fit-content;
+  width: 100%;
 }
 
-.wrapper .main-content {
+.wrapper .ls-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  align-items: flex-end;  
+}
+
+.wrapper .ls-wrapper .ls-container{
+  width: var(--ls-width);
+  height: 100%;
+} 
+
+.wrapper .mc-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  align-items: flex-start;
+}
+
+.wrapper .mc-wrapper .main-content {
+  display: flex;
+  width: 900px;
+  height: 100%;
+}
+
+.wrapper .mc-wrapper .main-content .content-container {
   min-width: var(--sidebar-content-width);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-.wrapper .main-content .header {
+.wrapper .mc-wrapper .main-content .rs-container {
+  width: var(--rs-width);
+  height: 100%;
+}
+
+.wrapper .mc-wrapper .main-content .content-container .header {
   height: var(--header-heigth);
   position: sticky;
   top: 0;
@@ -84,18 +122,15 @@ a {
   font-size: 1.2rem;
 }
 
-.wrapper .main-content .content {
-  width: var(--content-width);
+.wrapper .mc-wrapper .main-content .content-container .content {
+  max-width: 750px;
   position: relative;
   text-align: center;
-  margin: 0 1vw;
 }
 
-.wrapper .main-content .sidebar-content {
-  width: var(--sidebar-content-width);
+.wrapper .mc-wrapper .main-content .content-container .sidebar-content {
   position: relative;
   text-align: center;
-  margin: 0 1vw;
 }
 
 /* PROFILE-IMAGE */

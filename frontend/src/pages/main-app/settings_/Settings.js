@@ -27,49 +27,51 @@ export default function Settings(props) {
     }, [props.page])
 
     return (
-        <div className="b-theme-base-color box-med m-vw-t p-0" style={{ height: '90vh' }}>
-            {visualViewport.width < 635 &&
-                <>
-                    {props.page !== 'change-password' && props.page !== 'delete-account' ?
-                        < Header page="Configurações" backArrow={props.page !== 'default'} />
-                        :
-                        <>
-                        </>
-                    }
-                </>
-            }
-            <div className="content m-0 h-100">
-                <div className="settings-page-container h-100">
+        <div className="content-container">
+            <div className="b-theme-base-color box-med m-vw-t p-0" style={{ height: '90vh' }}>
+                {visualViewport.width < 635 &&
+                    <>
+                        {props.page !== 'change-password' && props.page !== 'delete-account' ?
+                            < Header page="Configurações" backArrow={props.page !== 'default'} />
+                            :
+                            <>
+                            </>
+                        }
+                    </>
+                }
+                <div className="content m-0 h-100">
+                    <div className="settings-page-container h-100">
 
-                    <SettingsMenu />
+                        <SettingsMenu />
 
-                    {(props.page === 'blocked-profiles' || props.page === 'default') &&
-                        <BlockedProfiles />
-                    }
+                        {(props.page === 'blocked-profiles' || props.page === 'default') &&
+                            <BlockedProfiles />
+                        }
 
-                    {props.page === 'security' &&
-                        <SecurityMenu />
-                    }
+                        {props.page === 'security' &&
+                            <SecurityMenu />
+                        }
 
-                    {props.page === 'change-password' &&
-                        <ChangePassword />
-                    }
+                        {props.page === 'change-password' &&
+                            <ChangePassword />
+                        }
 
-                    {props.page === 'delete-account' &&
-                        <DeleteAccount />
-                    }
+                        {props.page === 'delete-account' &&
+                            <DeleteAccount />
+                        }
 
-                    {props.page === 'faq' &&
-                        <Faq />
-                    }
+                        {props.page === 'faq' &&
+                            <Faq />
+                        }
 
-                    {props.page === 'feedback' &&
-                        <Feedback />
-                    }
+                        {props.page === 'feedback' &&
+                            <Feedback />
+                        }
 
+                    </div>
                 </div>
+                <BottomMenu />
             </div>
-            <BottomMenu />
         </div>
     )
 }
