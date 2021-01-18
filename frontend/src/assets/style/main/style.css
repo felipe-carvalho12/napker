@@ -15,8 +15,6 @@
   --content-heigth: 91vh;
   --ls-width: 220px;
   --rs-width: 320px;
-  --sidebar-content-width: 43vw;
-  --content-width: 59vw;
 }
 
 * {
@@ -102,7 +100,6 @@ a {
 }
 
 .wrapper .mc-wrapper .main-content .content-container {
-  min-width: var(--sidebar-content-width);
   width: 100%;
   display: flex;
   flex-direction: column;
