@@ -90,7 +90,7 @@ export default function PostListItem(props) {
             onClick={() => isLink && history.push(`/post/${post.id}`)}
         >
             {type !== 'post' &&
-                <div style={{ marginLeft: "10px", width: "5px", background: color !== undefined ? color : "var(--secondary-grey)" }} />
+                <div style={{ marginLeft: "10px", width: "5px", background: color !== undefined ? color : "var(--background)" }} />
             }
             <div className="d-flex flex-column h-100 w-100">
                 <div className="d-flex flex-column h-100 w-100" style={{ padding: "10px 10px 0" }}>
