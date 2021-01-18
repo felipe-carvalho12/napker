@@ -29,9 +29,6 @@ export default function DemoAddInterests() {
             <div className="p-3 w-25 ml-3 align-self-end b-b-01" style={{ borderRadius: '40px', minHeight: '450px' }}>
                 <div className="pb-3" style={{ textAlign: 'start' }}>
                     <PublicInterests />
-
-                    <div className="w-100 my-2 b-bottom" />
-
                     <PrivateInterests />
                 </div>
             </div>

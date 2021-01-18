@@ -20,9 +20,8 @@ export default function ThemeSwitcher(props) {
 
     return (
         <div
-            className={`d-flex justify-content-start align-items-center sidebar-menu-item theme-switcher .theme-switcher .backgraund${props.className}`}
+            className={`pr-10px theme-switcher ${props.className}`}
             style={props.style}
-            style={{ border: '2px', padding: '5px', backgroundColor: 'var(--theme-base-color-hover)' }}
         >
             <div class="one-quarter" id="switch">
                 <input type="checkbox" class="checkbox" id={checkboxId} onChange={switchTheme} />
@@ -32,7 +31,6 @@ export default function ThemeSwitcher(props) {
                     <div class="ball"></div>
                 </label>
             </div>
-            <span style={{ marginLeft: '10px' }}>Tema</span>
         </div>
     )
 } 

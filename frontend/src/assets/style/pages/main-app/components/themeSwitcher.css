@@ -4,7 +4,7 @@
 }
 
 .theme-switcher .label {
-	background-color: var(--b-12);
+	background-color: var(--theme-base-color);
 	border-radius: 50px;
 	cursor: pointer;
 	display: flex;
@@ -17,7 +17,7 @@
 }
 
 .theme-switcher .label .ball {
-	background-color: var(--w-12);
+	background-color: var(--background);
 	border-radius: 50%;
 	position: absolute;
 	top: 2px;
@@ -33,11 +33,11 @@
 }
 
 .theme-switcher .fa-moon {
-	color: var(--w-12);
+	color: var(--primary-color);
 }
 
 .theme-switcher .fa-sun {
-	color: var(--w-12);
+	color: var(--primary-color);
 }
 
 .settings-page-theme-switcher {

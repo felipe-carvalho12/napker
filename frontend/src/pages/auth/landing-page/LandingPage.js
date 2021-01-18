@@ -91,7 +91,7 @@ export default function LandingPage() {
                 >
                     <div
                         className="d-flex flex-column h-50 w-100 justify-content-start align-items-center"
-                        style={{ padding: "50px"}}
+                        style={{ padding: "200px"}}
                     >
                         <h2 style={{ color: "var(--w-10)", fontSize: "40px", fontWeight: "700" }}>Gostou do que viu?</h2>
                         <div className="d-flex flex-column align-items-center">

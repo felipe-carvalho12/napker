@@ -68,10 +68,11 @@ export default function Sidebar() {
                             <span style={{ fontWeight: "500" }}>Configurações</span>
                         </li>
                     </NavLink>
+                    <li className="sidebar-menu-item">
+                        <ThemeSwitcher id="sidebar-switcher" />
+                        <span style={{ fontWeight: "500" }}>Tema</span>
+                    </li>
                 </ul>
-            </div>
-            <div style={{ marginBottom: '50px' }}>
-                <ThemeSwitcher id="sidebar-switcher" />
             </div>
         </div>
     )
