@@ -232,7 +232,7 @@ class Chat extends React.Component {
                             </div>
                             :
                             <div
-                                className="d-flex flex-column justify-content-center align-items-center h-100 no-chat-selected"
+                                className="d-flex flex-column justify-content-center align-items-center h-100 no-chat-selected b-t-r-r b-b-r-r b-theme-base-color"
                                 style={{ width: '60%' }}
                             >
                                 <div>
