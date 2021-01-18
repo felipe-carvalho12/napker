@@ -29,7 +29,7 @@
 }
 
 .theme-switcher .checkbox:checked + .label .ball {
-	transform: translateX(24px);
+	transform: translateX(23px);
 }
 
 .theme-switcher .fa-moon {
