@@ -4,6 +4,11 @@ export default function Wave(props) {
     const height = props.height ? props.height: 200
     const width = props.width ? props.width : "100%"
     const colors = props.colors ? props.colors : ["var(--w-10)", "var(--w-10)"]
+    const objs = []
+    const id = []
+    const length = []
+    const totalSpeed = []
+    const speed = []
 
     useEffect(() => {
         let xs = []
@@ -13,11 +18,9 @@ export default function Wave(props) {
             xs.push(i)
         }
 
-        let t1 = 0
-        let t2 = 0
-
         const points = i => xs.map(x => {
-            let y = (50 + 10 * (i-1) + 20 * (Math.sin((x + t1) / (50 + 50 * Math.abs(Math.sin((x + t2) / 1000))))) * (Math.sin((x + t2) / (100 + 100 * Math.abs(Math.sin((x + t1) / 1000))))))
+            console.log(totalSpeed[i], length[i], speed[i], id[i])
+            let y = (50 + 10 * i + 20 * Math.sin((x + totalSpeed[i]) / length[i]))
             
             return [10 * x, y]
             })
@@ -25,18 +28,16 @@ export default function Wave(props) {
         function animate() {
         
             
-            for (let i in document.querySelectorAll(".wave")) {
-                if (i <= document.querySelectorAll(".wave").length) {
-                    let el = document.querySelectorAll(".wave")[i]
+            for (let i in objs) {
+                if (i <= objs.length) {
+                    let el = document.querySelector(`#a${id[i]}`)
                     let path = `M 0 ${height} ` + points(i).map(p => {
                         return p[0] + "," + p[1]
                     }).join(" L") + ` V ${height} Z`
-                    el.setAttribute("d", path)
+                    el && el.setAttribute("d", path)
+                    totalSpeed[i] += speed[i]
                 }
             }
-            
-            t1 += 1
-            t2 += 0.25
             
             requestAnimationFrame(animate)
         }
@@ -44,10 +45,28 @@ export default function Wave(props) {
         animate()
     }, [])
 
+    const wave = (color, id) => {
+        return ( <path class="wave" id={`a${id}`} d="M10,10 L50,100 L90,50" fill={color}></path> )
+    }
+
+    const waveConstructor = () => {
+        for (let color of colors) {
+            let a = (20 + Math.floor(Math.random() * 181))
+            id.push(a)
+            length.push(50 + 50 * Math.random())
+            speed.push(a / 100)
+            totalSpeed.push(0)
+            objs.push(wave(color, String(a)))
+        }
+      
+        return objs;
+      }
+
     return (
         <svg style={{ height: `${height}px`, width: width }}>
-            <path class="wave" d="M10,10 L50,100 L90,50" fill={colors[1]}></path>
-            <path class="wave" d="M10,10 L50,100 L90,50" fill={colors[0]}></path>
+            {
+                waveConstructor()
+            }
         </svg>
     )
 }
