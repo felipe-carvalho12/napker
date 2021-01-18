@@ -19,7 +19,6 @@ export default function Wave(props) {
         }
 
         const points = i => xs.map(x => {
-            console.log(totalSpeed[i], length[i], speed[i], id[i])
             let y = (50 + 20 * i + 20 * Math.sin((x + totalSpeed[i]) / length[i]))
             
             return [10 * x, y]
@@ -51,10 +50,10 @@ export default function Wave(props) {
 
     const waveConstructor = () => {
         for (let color of colors) {
-            let a = (20 + Math.floor(Math.random() * 181))
+            let a = (2000 + Math.floor(Math.random() * 16001))
             id.push(a)
             length.push(50 + 50 * Math.random())
-            speed.push(a / 100)
+            speed.push(a / 10000)
             totalSpeed.push(0)
             objs.push(wave(color, String(a)))
         }
