@@ -32,7 +32,7 @@ export default function Sidebar() {
                     </NavLink>
                     <NavLink to="/notificações" style={{ textDecoration: 'none' }} activeClassName="active">
                         <li className="sidebar-menu-item">
-                        <i className="material-icons-outlined" style={{ margin: "5px 10px 5px 0px", fontSize: "30px" }}>notifications</i>
+                            <i className="material-icons-outlined" style={{ margin: "5px 10px 5px 0px", fontSize: "30px" }}>notifications</i>
                             <span style={{ fontWeight: "500" }}>Notificações</span>
                             {!notificationsNumber ? '' :
                                 <div className="notification-text-container">
@@ -70,7 +70,9 @@ export default function Sidebar() {
                     </NavLink>
                 </ul>
             </div>
-            <ThemeSwitcher id="sidebar-switcher" />
+            <div style={{ marginBottom: '50px' }}>
+                <ThemeSwitcher id="sidebar-switcher" />
+            </div>
         </div>
     )
 }

@@ -63,7 +63,10 @@ export default function MainAppRouter() {
         <div className="wrapper">
             <div className="ls-wrapper">
                 <div className="ls-container">
-                    <SidebarLeft />
+                    <div className="sb-fixed-container">
+                        <SidebarLeft />
+                    </div>
+
                 </div>
             </div>
             <div className="mc-wrapper">

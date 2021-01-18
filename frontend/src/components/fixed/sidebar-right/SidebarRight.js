@@ -21,8 +21,10 @@ export default function SidebarRight(props) {
 
     return (
         <div className="rs-container">
-            <div className="sidebar right-s" style={{ justifyContent: 'start' }}>
-                {pages[page]}
+            <div className="sb-fixed-container">
+                <div className="sidebar right-s" style={{ justifyContent: 'start' }}>
+                    {pages[page]}
+                </div>
             </div>
         </div>
     )

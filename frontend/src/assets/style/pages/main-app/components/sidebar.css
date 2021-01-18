@@ -1,13 +1,16 @@
+.sb-fixed-container {
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    height: 100%;
+}
+
 .sidebar {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding-bottom: 5%;
-    position: fixed;
-    top: 0;
-    z-index: 1000;
-    height: 100vh;
     box-sizing: border-box;
+    height: 100%;
 }
 
 .sidebar.left-s {
