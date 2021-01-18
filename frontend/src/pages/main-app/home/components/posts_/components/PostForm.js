@@ -164,8 +164,8 @@ export default function PostForm(props) {
             >
                 <div className="d-flex">
                     <div className="w-100 h-100">
-                        <div className="d-flex box-sm b-theme-base-color p-0 justify-content-between w-100" style={{ height: "34px" }}>
-                            <div style={{ transform: isAdvanced ? "translateX(0)" : "translateX(100px)" }}>
+                        <div className={`d-flex ${isAdvanced && "box-sm b-theme-base-color"} p-0 justify-content-between w-100"`} style={{ height: "34px" }}>
+                            <div style={{ transform: isAdvanced ? "translateX(0)" : "translateX(200px)" }}>
                                 {(isAdvanced && toolbar !== null) &&
                                     toolbar
                                 }

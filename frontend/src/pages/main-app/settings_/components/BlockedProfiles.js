@@ -18,7 +18,7 @@ export default function BlockUser() {
 
     return (
         <div className="settings-description-container b-t-r-r b-b-r-r b-theme-base-color p-10px">
-            <h3 className="c-primary-color p-20px">FAQ</h3>
+            <h3 className="c-primary-color p-20px">Perfis bloqueados</h3>
             {blockedProfiles !== null && myProfile !== null ?
                 <>
                     {!!blockedProfiles.length ?
