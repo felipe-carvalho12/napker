@@ -42,14 +42,10 @@
     margin: 0 0.5em;
 }
 .draftJsToolbar__toolbar__dNtBH {
-    background: var(--theme-base-color);
-    border-radius: 10px;
-    box-shadow: var(--box-shaddow-draftjs);
     z-index: 2;
     box-sizing: border-box;
     display: flex;
     justify-content: flex-start;
-    margin-bottom: 5px;
 }
 
   

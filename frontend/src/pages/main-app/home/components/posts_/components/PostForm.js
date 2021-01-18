@@ -164,31 +164,21 @@ export default function PostForm(props) {
             >
                 <div className="d-flex">
                     <div className="w-100 h-100">
-                        {isAdvanced ?
-                            <div className="d-flex justify-content-end mb-1">
-                                <i
-                                    className="material-icons-outlined m-0 p-0 icon secondary-hover bg-none"
-                                    style={{ fontSize: '27px', transform: 'rotate(180deg)', color: 'var(--p-c-1)' }}
-                                    onClick={() => setIsAdvanced(false)}
-                                >
-                                    outbound
-                                </i>
+                        <div className="d-flex box-sm b-theme-base-color p-0 justify-content-between w-100" style={{ height: "34px" }}>
+                            <div style={{ transform: isAdvanced ? "translateX(0)" : "translateX(100px)" }}>
+                                {(isAdvanced && toolbar !== null) &&
+                                    toolbar
+                                }
                             </div>
-                            :
-                            <div className="d-flex justify-content-end mb-1">
-                                <i
-                                    className="material-icons-outlined m-0 p-0 icon secondary-hover bg-none"
-                                    style={{ fontSize: '27px', color: 'var(--p-c-1)' }}
-                                    onClick={() => setIsAdvanced(true)}
-                                >
-                                    outbound
-                                </i>
-                            </div>
-                        }
-                        {(isAdvanced && toolbar !== null) &&
-                            toolbar
-                        }
-                        <div className="d-flex flex-column w-100" style={{ padding: `${isAdvanced ? '20' : '0'}px 0 0` }}>
+                            <i
+                                className="material-icons-outlined m-1 fs-27 my-0 mr-10px align-self-center p-0 icon secondary-hover bg-none"
+                                style={{ transform: isAdvanced ? "rotate(180deg)" : "rotate(0deg)", color: 'var(--p-c-1)' }}
+                                onClick={() => setIsAdvanced(!isAdvanced)}
+                            >
+                                outbound
+                            </i>
+                        </div>
+                        <div className="d-flex flex-column w-100" style={{ padding: `0` }}>
                             {errMessage !== null &&
                                 <div className="w-100 mt-1">
                                     <span className="word-break" style={{ color: '#f00' }}>{errMessage}</span>
