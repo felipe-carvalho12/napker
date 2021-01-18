@@ -91,7 +91,7 @@ export default function Messages(props) {
         <div className="content-container">
             <div className="b-theme-base-color box-med" style={{ marginTop: "1vw", padding: "0", zIndex: "1000" }}>
                 <div className="content d-flex messages-wrapper" style={{ margin: 0 }}>
-                    <div className="chats-list h-100">
+                    <div className="chats-list h-100 b-r">
                         <>
                             <div className="search-input-container">
                                 {addingNewChat ?

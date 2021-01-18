@@ -9,6 +9,7 @@ import './assets/style/utils/border.css'
 import './assets/style/utils/focus.css'
 import './assets/style/utils/fonts.css'
 import './assets/style/utils/slider.css'
+import './assets/style/utils/margin.css'
 
 import './assets/style/pages/auth/auth.css'
 import './assets/style/pages/auth/landing-page.css'
