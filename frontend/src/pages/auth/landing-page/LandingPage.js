@@ -64,11 +64,11 @@ export default function LandingPage() {
                             </div>
                         </div>
                     </div>
-                    <Wave colors={["var(--s-b-00)", "var(--w-10)"]} />
+                    <Wave colors={["var(--w-05)", "var(--w-05)", "var(--w-05)", "var(--w-12)"]} />
                 </div>
             </div>
             <div className="w-100 d-flex flex-column justify-content-center align-items-center">
-                <div className="position-sticky w-100 vh-100 px-2 d-flex justify-content-center b-s-b-00" style={{ top: '0', left: '0', zIndex: '0', padding: '120px 0 90px', color: 'var(--b-09)' }}>
+                <div className="position-sticky w-100 vh-100 px-2 d-flex justify-content-center b-s-w-12" style={{ top: '0', left: '0', zIndex: '0', padding: '120px 0 90px', color: 'var(--b-09)' }}>
                     <DemoAlgorithmSettings />
                 </div>
                 <div className="position-sticky w-100 b-t blur" style={{ top: '0', left: '0', zIndex: '1' }}>
@@ -114,7 +114,7 @@ export default function LandingPage() {
                         className="position-sticky d-flex vw-50 flex-column w-100 justify-content-start align-items-center"
                         style={{ top: '0', left: '0', zIndex: '4' }}
                     >
-                        <Wave colors={["var(--s-w-12)", "var(--w-10)"]} />
+                        <Wave colors={["var(--w-10)", "var(--s-w-12)"]} />
                         <div className="vh-50 w-100 d-flex flex-column justify-content-start align-items-center b-w-10">
                             <div className="vh-50 w-100 d-flex flex-column justify-content-start align-items-center b-w-10"></div>
                             </div>

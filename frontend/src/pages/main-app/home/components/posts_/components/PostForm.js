@@ -163,9 +163,6 @@ export default function PostForm(props) {
                 onSubmit={handleSubmit}
             >
                 <div className="d-flex">
-                    {color !== undefined &&
-                        <div style={{ marginRight: "15px", width: "5px", background: color }} />
-                    }
                     <div className="w-100 h-100">
                         {isAdvanced ?
                             <div className="d-flex justify-content-end mb-1">
