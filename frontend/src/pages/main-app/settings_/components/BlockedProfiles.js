@@ -17,7 +17,8 @@ export default function BlockUser() {
     }, [])
 
     return (
-        <div className="settings-description-container b-t-r-r b-b-r-r b-theme-base-color  p-10px">
+        <div className="settings-description-container b-t-r-r b-b-r-r b-theme-base-color p-10px">
+            <h3 className="c-primary-color p-20px">FAQ</h3>
             {blockedProfiles !== null && myProfile !== null ?
                 <>
                     {!!blockedProfiles.length ?
@@ -39,8 +40,8 @@ export default function BlockUser() {
                             }
                         </div>
                         :
-                        <div className="mt-3 no-blocked-profiles">
-                            <h3>Você não possui perfis bloqueados</h3>
+                        <div className="mt-30px no-blocked-profiles">
+                            <h3 className="c-secondary-grey fw-200 fs-27">Você não possui perfis bloqueados</h3>
                         </div>
                     }
                 </>

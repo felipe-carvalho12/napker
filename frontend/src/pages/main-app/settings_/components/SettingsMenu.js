@@ -16,7 +16,7 @@ export default function SettingsMenu() {
                 <NavLink
                     className="w-100 d-flex justify-content-between align-items-center px-3 py-2 mb-1 c-primary-grey base-hover  box-sm"
                     to="/configurações/perfis-bloqueados"
-                    style={{ textDecoration: 'none', width: '100%', background: 'var(--theme-base-color)' }}
+                    style={{ textDecoration: 'none', width: '100%', background: 'var(--theme-base-color)', borderRadius: "5px" }}
                     activeStyle={{ background: 'var(--theme-base-color-hover)' }}
                 >
                     Perfis bloqueados
@@ -31,7 +31,7 @@ export default function SettingsMenu() {
                 <NavLink
                     className="w-100 d-flex justify-content-between align-items-center px-3 py-2 mb-1 c-primary-grey base-hover box-sm"
                     to="/configurações/segurança"
-                    style={{ textDecoration: 'none', width: '100%', background: 'var(--theme-base-color)' }}
+                    style={{ textDecoration: 'none', width: '100%', background: 'var(--theme-base-color)', borderRadius: "5px" }}
                     activeStyle={{ background: 'var(--theme-base-color-hover)' }}
                 >
                     Segurança
@@ -46,7 +46,7 @@ export default function SettingsMenu() {
                 <NavLink
                     className="w-100 d-flex justify-content-between align-items-center px-3 py-2 mb-1 c-primary-grey base-hover box-sm"
                     to="/configurações/faq"
-                    style={{ textDecoration: 'none', width: '100%', background: 'var(--theme-base-color)' }}
+                    style={{ textDecoration: 'none', width: '100%', background: 'var(--theme-base-color)', borderRadius: "5px" }}
                     activeStyle={{ background: 'var(--theme-base-color-hover)' }}
                 >
                     FAQ
@@ -61,7 +61,7 @@ export default function SettingsMenu() {
                 <NavLink
                     className="w-100 d-flex justify-content-between align-items-center px-3 py-2 mb-1 c-primary-grey base-hover box-sm"
                     to="/configurações/fale-conosco"
-                    style={{ textDecoration: 'none', width: '100%', background: 'var(--theme-base-color)' }}
+                    style={{ textDecoration: 'none', width: '100%', background: 'var(--theme-base-color)', borderRadius: "5px" }}
                     activeStyle={{ background: 'var(--theme-base-color-hover)' }}
                 >
                     Fale conosco
@@ -71,7 +71,7 @@ export default function SettingsMenu() {
             <li
                 className="w-100"
                 className="w-100 d-flex justify-content-between align-items-center px-3 py-2 c-primary-grey b-theme-base-color base-hover box-sm"
-                style={{ fontSize: 'large' }}
+                style={{ fontSize: 'large', borderRadius: "5px" }}
                 onClick={handleLogout}
             >
                 Sair da conta
