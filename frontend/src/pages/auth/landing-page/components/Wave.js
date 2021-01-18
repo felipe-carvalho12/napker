@@ -20,7 +20,7 @@ export default function Wave(props) {
 
         const points = i => xs.map(x => {
             console.log(totalSpeed[i], length[i], speed[i], id[i])
-            let y = (50 + 10 * i + 20 * Math.sin((x + totalSpeed[i]) / length[i]))
+            let y = (50 + 20 * i + 20 * Math.sin((x + totalSpeed[i]) / length[i]))
             
             return [10 * x, y]
             })
