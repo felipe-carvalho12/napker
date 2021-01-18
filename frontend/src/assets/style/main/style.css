@@ -79,11 +79,12 @@ a {
   flex-direction: column;
   flex-grow: 1;
   align-items: flex-end;  
+  position: relative;
 }
 
 .wrapper .ls-wrapper .ls-container{
   width: var(--ls-width);
-  height: 100%;
+  position: relative;
 } 
 
 .wrapper .mc-wrapper {
@@ -100,6 +101,7 @@ a {
 }
 
 .wrapper .mc-wrapper .main-content .content-container {
+  max-width: 650px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -107,7 +109,7 @@ a {
 
 .wrapper .mc-wrapper .main-content .rs-container {
   width: var(--rs-width);
-  height: 100%;
+  position: relative;
 }
 
 .wrapper .mc-wrapper .main-content .content-container .header {
@@ -120,7 +122,6 @@ a {
 }
 
 .wrapper .mc-wrapper .main-content .content-container .content {
-  max-width: 750px;
   position: relative;
   text-align: center;
 }

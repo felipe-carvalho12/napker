@@ -41,9 +41,9 @@ export default function MyProfile() {
     }
 
     return (
-        <div className="content-container">
-            <div 
-                className={!isMobile ? "b-theme-base-color box-med blur" : "fixed w-100 b-theme-base-color blur b-b"} 
+        <div className="content-container" style={{ marginRight: '1vw' }}>
+            <div
+                className={!isMobile ? "b-theme-base-color box-med blur" : "fixed w-100 b-theme-base-color blur b-b"}
                 style={!isMobile ? { position: "sticky", top: "1vw", padding: "0", zIndex: "1000" } : { zIndex: "1000" }}
             >
                 <Header page="Perfil" />

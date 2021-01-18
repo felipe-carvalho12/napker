@@ -16,7 +16,7 @@ export default function Sidebar() {
     let notificationsNumber = invitesReceivedNumber + postNotifications
 
     return (
-        <div className="sidebar" style={{ left: '0' }}>
+        <div className="sidebar left-s">
             <div>
                 <div className="logo-container">
                     <Link to="/home" style={{ textDecoration: 'none' }}>

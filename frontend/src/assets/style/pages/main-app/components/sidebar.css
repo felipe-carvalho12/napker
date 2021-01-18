@@ -3,12 +3,19 @@
     flex-direction: column;
     justify-content: space-between;
     padding-bottom: 5%;
-    position: sticky;
+    position: fixed;
     top: 0;
     z-index: 1000;
     height: 100vh;
-    width: 100%;
     box-sizing: border-box;
+}
+
+.sidebar.left-s {
+    width: var(--ls-width);
+}
+
+.sidebar.right-s {
+    width: var(--rs-width);
 }
 
 .sidebar h6 {

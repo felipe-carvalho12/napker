@@ -54,7 +54,7 @@ export default function Home() {
                     </div>
                 </>
             }
-            <div className="sidebar-content" style={{ margin: '0 1vw' }}>
+            <div className="sidebar-content m-vw-x">
                 <div className="w-100 h-100 home-page">
                     {pages[page]}
                 </div>

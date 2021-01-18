@@ -256,7 +256,7 @@ class Profile extends React.Component {
 
     render() {
         return (
-            <div className="content-container">  
+            <div className="content-container" style={{ marginRight: '1vw' }}>  
                 <div 
                     className={!this.isMobile ? "b-theme-base-color box-med blur" : "fixed w-100 b-theme-base-color blur b-b"} 
                     style={!this.isMobile ? { position: "sticky", top: "1vw", padding: "0", zIndex: "1000" } : { zIndex: "1000" }}
