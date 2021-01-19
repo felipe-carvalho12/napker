@@ -21,7 +21,7 @@ export default function MessageListItem(props) {
         <div className={`mb-3 d-flex flex-column align-items-${message.author === currentUser ? "end" : "start"}`}>
             <li
                 key={message.id}
-                className={`w-100 ${message.author === currentUser ? "sent" : "received"}`}
+                className={`w-100 mb-1 ${message.author === currentUser ? "sent" : "received"}`}
             >
                 <p className="m-0">
                     <Editor

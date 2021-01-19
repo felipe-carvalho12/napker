@@ -74,12 +74,12 @@ export default function EditProfileModal(props) {
                     id="update-profile-form"
                     onSubmit={handleSubmit}
                 >
-                    <div className="d-flex flex-column justify-content-center align-items-center mb-10px">
+                    <div className="d-flex flex-column justify-content-center align-items-center mb-20px position-relative">
                         <img src={profileImage ? profileImage : profile.photo}
                             className="profile-img-big"
-                            style={{ marginBottom: '25px', filter: 'brightness(.7)' }}
+                            style={{ filter: 'brightness(.7)' }}
                         />
-                        <label htmlFor="profile-photo" className="material-icons-outlined position-absolute icon" style={{ top: '40px', color: '#fefefe' }}>
+                        <label htmlFor="profile-photo" className="material-icons-outlined position-absolute icon m-0" style={{ color: '#fefefe' }}>
                             add_a_photo
                         </label>
                         <input
