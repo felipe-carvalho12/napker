@@ -63,38 +63,49 @@ export function onExpandableTextareaInput({ target: elm }) {
 export const setTheme = theme => {
   const cssVariables = document.documentElement.style
 
+  const toRgb = value => `rgba(${value})`
+
+  const toCss = (cssVar, defaultVar) => {
+    cssVariables.setProperty(cssVar, 
+      window.localStorage.getItem(cssVar) ? 
+        toRgb(window.localStorage.getItem(cssVar).split(","))
+        :
+        defaultVar
+    )
+  }
+
   if (theme === 'light') {
-    cssVariables.setProperty('--border-color'               ,                 'var(--w-08)')
-    cssVariables.setProperty('--background'                 ,               'var(--s-b-01)')
-    cssVariables.setProperty('--fixed-components-background',                 'var(--w-08)')
-    cssVariables.setProperty('--b-c'                        ,                 'var(--b-04)')
-    cssVariables.setProperty('--heart-color'                ,                     '#E0245E')
-    cssVariables.setProperty('--heart-background-hover'     ,       'rgba(224, 36, 94, .1)')
-    cssVariables.setProperty('--primary-grey'               ,                 'var(--b-11)')
-    cssVariables.setProperty('--secondary-grey'             ,                 'var(--b-08)')
-    cssVariables.setProperty('--loader-background'          ,     'rgba(119, 147, 125, .3)')
-    cssVariables.setProperty('--theme-base-color'           ,                 'var(--w-08)')
-    cssVariables.setProperty('--tertiary-grey'              ,                     '#f2f2f2')
-    cssVariables.setProperty('--theme-base-color-hover'     ,                 'var(--w-11)')
-    cssVariables.setProperty('--view-more-select-border'    ,           'rgba(0, 0, 0, .2)')
-    cssVariables.setProperty('--img-background'             ,           'rgba(0, 0, 0, .9)')
-    cssVariables.setProperty('--img-background-hover'       ,           'rgba(0, 0, 0, .8)')
+    toCss('--border-color'               ,                 'var(--w-08)')
+    toCss('--background'                 ,               'var(--s-b-01)')
+    toCss('--fixed-components-background',                 'var(--w-08)')
+    toCss('--b-c'                        ,                 'var(--b-04)')
+    toCss('--heart-color'                ,                     '#E0245E')
+    toCss('--heart-background-hover'     ,       'rgba(224, 36, 94, .1)')
+    toCss('--primary-grey'               ,                 'var(--b-11)')
+    toCss('--secondary-grey'             ,                 'var(--b-08)')
+    toCss('--loader-background'          ,     'rgba(119, 147, 125, .3)')
+    toCss('--theme-base-color'           ,                 "var(--w-08)")
+    toCss('--theme-base-color-hover'     ,                 'var(--w-11)')
+    toCss('--tertiary-grey'              ,                     '#f2f2f2')
+    toCss('--view-more-select-border'    ,           'rgba(0, 0, 0, .2)')
+    toCss('--img-background'             ,           'rgba(0, 0, 0, .9)')
+    toCss('--img-background-hover'       ,           'rgba(0, 0, 0, .8)')
 
   } else if (theme === 'dark') {
-    cssVariables.setProperty('--border-color'               ,                 'var(--w-00)')
-    cssVariables.setProperty('--background'                 ,               'var(--s-b-10)')
-    cssVariables.setProperty('--fixed-components-background',                 'var(--w-00)')
-    cssVariables.setProperty('--b-c'                        ,                 'var(--w-04)')
-    cssVariables.setProperty('--heart-color'                ,                     '#E0245E')
-    cssVariables.setProperty('--heart-background-hover'     ,       'rgba(224, 36, 94, .1)')
-    cssVariables.setProperty('--primary-grey'               ,                 'var(--w-11)')
-    cssVariables.setProperty('--secondary-grey'             ,                 'var(--w-09)')
-    cssVariables.setProperty('--loader-background'          ,     'rgba(119, 147, 125, .3)')
-    cssVariables.setProperty('--theme-base-color'           ,                 'var(--w-00)')
-    cssVariables.setProperty('--tertiary-grey'              ,                     '#202020')
-    cssVariables.setProperty('--theme-base-color-hover'     ,               'var(--s-b-09)')
-    cssVariables.setProperty('--view-more-select-border'    ,     'rgba(255, 255, 255, .2)')
-    cssVariables.setProperty('--img-background'             ,           'rgba(0, 0, 0, .3)')
-    cssVariables.setProperty('--img-background-hover'       ,           'rgba(0, 0, 0, .3)')
+    toCss('--border-color'               ,                 'var(--w-00)')
+    toCss('--background'                 ,               'var(--s-b-10)')
+    toCss('--fixed-components-background',                 'var(--w-00)')
+    toCss('--b-c'                        ,                 'var(--w-04)')
+    toCss('--heart-color'                ,                     '#E0245E')
+    toCss('--heart-background-hover'     ,       'rgba(224, 36, 94, .1)')
+    toCss('--primary-grey'               ,                 'var(--w-11)')
+    toCss('--secondary-grey'             ,                 'var(--w-09)')
+    toCss('--loader-background'          ,     'rgba(119, 147, 125, .3)')
+    toCss('--theme-base-color'           ,                 'var(--w-00)')
+    toCss('--theme-base-color-hover'     ,               'var(--s-b-09)')
+    toCss('--tertiary-grey'              ,                     '#202020')
+    toCss('--view-more-select-border'    ,     'rgba(255, 255, 255, .2)')
+    toCss('--img-background'             ,           'rgba(0, 0, 0, .3)')
+    toCss('--img-background-hover'       ,           'rgba(0, 0, 0, .3)')
   }
 }

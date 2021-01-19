@@ -9,6 +9,7 @@ import ChangePassword from './components/security_/components/ChangePassword'
 import DeleteAccount from './components/security_/components/DeleteAccount'
 import BottomMenu from '../../../components/fixed/bottom-menu/BottomMenu'
 import Feedback from './components/Feedback'
+import Colors from './components/Colors/Colors'
 
 
 export default function Settings(props) {
@@ -66,6 +67,10 @@ export default function Settings(props) {
 
                         {props.page === 'feedback' &&
                             <Feedback />
+                        }
+
+                        {props.page === 'colors' &&
+                            <Colors />
                         }
 
                     </div>

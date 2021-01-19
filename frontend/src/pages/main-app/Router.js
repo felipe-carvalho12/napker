@@ -128,6 +128,9 @@ export default function MainAppRouter() {
                         <Route path="/configurações/fale-conosco" exact render={props => (
                             <Settings {...props} page={'feedback'} />
                         )} />
+                        <Route path="/configurações/cores" exact render={props => (
+                            <Settings {...props} page={'colors'} />
+                        )} />
                         <Route path="/user/:slug" exact render={props => (
                             <Profile {...props} updateNotificationsNumber={updateNotificationsNumber} />
                         )} />

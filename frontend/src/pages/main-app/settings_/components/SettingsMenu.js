@@ -14,7 +14,7 @@ export default function SettingsMenu() {
                 style={{ fontSize: 'large' }}
             >
                 <NavLink
-                    className="w-100 d-flex justify-content-between align-items-center px-3 py-2 mb-1 c-primary-grey base-hover  box-sm"
+                    className="w-100 d-flex justify-content-between align-items-center px-3 py-2 mb-1 c-primary-grey base-hover box-sm"
                     to="/configurações/perfis-bloqueados"
                     style={{ textDecoration: 'none', width: '100%', background: 'var(--theme-base-color)', borderRadius: "5px" }}
                     activeStyle={{ background: 'var(--theme-base-color-hover)' }}
@@ -35,7 +35,7 @@ export default function SettingsMenu() {
                     activeStyle={{ background: 'var(--theme-base-color-hover)' }}
                 >
                     Segurança
-                    <i className="fas fa-angle-right b-theme-base-color blur" />
+                    <i className="fas fa-angle-right" />
                 </NavLink>
             </li>
             <li
@@ -65,6 +65,21 @@ export default function SettingsMenu() {
                     activeStyle={{ background: 'var(--theme-base-color-hover)' }}
                 >
                     Fale conosco
+                    <i className="fas fa-angle-right" />
+                </NavLink>
+            </li>
+            <li
+                className="w-100"
+                id="feedback"
+                style={{ fontSize: 'large' }}
+            >
+                <NavLink
+                    className="w-100 d-flex justify-content-between align-items-center px-3 py-2 mb-1 c-primary-grey base-hover box-sm"
+                    to="/configurações/cores"
+                    style={{ textDecoration: 'none', width: '100%', background: 'var(--theme-base-color)', borderRadius: "5px" }}
+                    activeStyle={{ background: 'var(--theme-base-color-hover)' }}
+                >
+                    Customizar Cores
                     <i className="fas fa-angle-right" />
                 </NavLink>
             </li>
