@@ -64,15 +64,11 @@ a {
 
 /* DOCUMENT MAIN STRUCTURE */
 
-#react-root {
-  width: 100%;
-}
-
 .wrapper {
   position: relative;
   display: flex;
   justify-content: center;
-  width: 100%;
+  width: 100vw;
   height: 100%;
 }
 

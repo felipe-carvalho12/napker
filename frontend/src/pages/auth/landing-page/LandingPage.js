@@ -24,12 +24,12 @@ export default function LandingPage() {
                         <Link to="/login">
                             <span className="c-b-09 fw-300 mr-10px">
                                 Já tem uma conta?
-                                </span>
+                            </span>
                         </Link>
                         <Link to="/signup" >
                             <button className="p-b-s b-primary-color c-w-12">
                                 Inscrever-se
-                                </button>
+                            </button>
                         </Link>
                     </div>
                 </div>
