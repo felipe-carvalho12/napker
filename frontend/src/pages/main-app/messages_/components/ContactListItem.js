@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { convertFromRaw, EditorState } from "draft-js"
 
 
 export default function ContactListItem(props) {
@@ -17,8 +18,8 @@ export default function ContactListItem(props) {
         unreadMessagesCounter++
     }
 
-    const setLastChatMessage = message => {
-        lastChatMessage = message
+    const setLastChatMessage = messageContent => {
+        lastChatMessage = EditorState.createWithContent(convertFromRaw(JSON.parse(messageContent))).getCurrentContent().getPlainText()
     }
 
     return (

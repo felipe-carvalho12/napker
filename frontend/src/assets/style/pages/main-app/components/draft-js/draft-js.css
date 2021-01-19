@@ -5,3 +5,7 @@
 .public-DraftEditorPlaceholder-inner {
     position: absolute!important;
 }
+
+.DraftEditor-root {
+    text-align: start;
+}

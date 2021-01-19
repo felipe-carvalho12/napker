@@ -43,7 +43,7 @@ export default function PostForm(props) {
         isMobile && setMobilePostButton && setMobilePostButton((
             <button
                 type="submit"
-                className="btn btn-primary"
+                className="btn btn-primary d-flex justify-content-center align-items-center"
                 id={`${isAdvanced ? 'advanced' : 'regular'}-post-form-submit-btn`}
                 style={{ height: '30px' }}
                 disabled

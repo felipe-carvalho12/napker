@@ -98,10 +98,10 @@ export default class SimpleMentionEditor extends Component {
     };
 
     renderContentAsRawJs() {
-        const contentState = this.state.editorState.getCurrentContent();
-        const raw = convertToRaw(contentState);
+        const contentState = this.state.editorState.getCurrentContent()
+        const raw = convertToRaw(contentState)
 
-        return JSON.stringify(raw);
+        return JSON.stringify(raw)
     }
 
     componentDidMount() {

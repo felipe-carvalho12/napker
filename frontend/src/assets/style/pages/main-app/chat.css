@@ -55,9 +55,8 @@
 }
 
 .chat-log .received {
-    width: 100%;
     display: flex;
-    justify-content: end;
+    justify-content: flex-start;
 }
 
 .chat-log .received p {
@@ -72,10 +71,8 @@
 }
 
 .chat-log .sent {
-    width: 100%;
     display: flex;
     justify-content: flex-end;
-    padding-left: 20px;
 }
 
 .chat-log .sent p {
@@ -95,17 +92,19 @@
 }
 
 .message-input {
-    width: 70%;
-    height: 35px;
+    min-height: 35px;
+    max-height: 150px;
+    overflow-y: auto;
+    display: flex;
+    align-items: center;
     padding-left: 15px;
-    border: none;
     border-radius: 10px;
     background-color: var(--border-color);
     color: var(--primary-grey);
     margin-right: 5px;
 }
 
-.messages-wrapper .chats-list .search-input:focus, .message-input:focus {
+.messages-wrapper .chats-list .search-input:focus, .message-input:focus-within {
     outline: none;
     background: var(--background);
     border: 1px solid var(--primary-color);

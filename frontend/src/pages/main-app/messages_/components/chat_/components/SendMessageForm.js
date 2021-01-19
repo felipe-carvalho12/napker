@@ -1,7 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
-import EmojiPicker from '../../../../../../components/EmojiPicker'
+import { EditorState, ContentState, convertToRaw } from "draft-js"
+import Editor from "draft-js-plugins-editor"
+import createEmojiPlugin from "draft-js-emoji-plugin"
 
+import { emojiTheme } from '../../../../home/components/posts_/components/post-textbox/themes/index'
+
+
+const emojiPlugin = createEmojiPlugin({
+    theme: emojiTheme,
+    selectButtonContent: (
+        <i className="far fa-smile icon smile m-0 p-0 hover-bg-none" />
+    )
+})
+const plugins = [emojiPlugin]
+
+let shouldClearEditor = false
 
 export default function SendMessageForm(props) {
     const WebSocketInstance = props.WebSocketInstance
@@ -13,6 +27,9 @@ export default function SendMessageForm(props) {
     const setOtherUserIsTyping = props.setOtherUserIsTyping
     const addMessage = props.addMessage
 
+    const editor = useRef(null)
+
+    const [editorState, setEditorState] = useState(EditorState.createEmpty())
     const [message, setMessage] = useState('')
 
     let counter = 5
@@ -20,8 +37,13 @@ export default function SendMessageForm(props) {
 
     useEffect(() => {
         typingInterval = window.setInterval(decreaseCounter, 1000)
-
     }, [])
+
+    useEffect(() => {
+        if (shouldClearEditor) {
+            setEditorState(EditorState.push(editorState, ContentState.createFromText('')))
+        }
+    }, [shouldClearEditor])
 
     const decreaseCounter = () => {
         if (counter > 0) counter--
@@ -31,17 +53,19 @@ export default function SendMessageForm(props) {
         }
     }
 
-    const messageChangeHandler = e => {
-        setMessage(e.target.value)
+    const messageChangeHandler = newEditorState => {
+        setEditorState(newEditorState)
+        setMessage(renderContentAsRawJs())
         const el = document.querySelector('#chat-message-submit')
-        el.disabled = e.target.value.trim() === ''
+        if (el) el.disabled = newEditorState.getCurrentContent().getPlainText().trim() === ''
 
-        WebSocketInstance.setIsTyping(myProfile.user.id)
+        myProfile && WebSocketInstance.setIsTyping(myProfile.user.id)
         counter = 5
     }
 
     const sendMessageHandler = e => {
         e.preventDefault()
+        shouldClearEditor = true
         addMessage({
             author: username,
             content: message,
@@ -70,20 +94,39 @@ export default function SendMessageForm(props) {
         updateMessagesComponent()
     }
 
+    const renderContentAsRawJs = () => {
+        const contentState = editorState.getCurrentContent()
+        const raw = convertToRaw(contentState)
+
+        return JSON.stringify(raw)
+    }
+
+    const { EmojiSelect, EmojiSuggestions } = emojiPlugin
+
     return (
         <>
             <form
                 className="d-flex justify-content-center align-items-center w-100 b-theme-base-color px-1 py-3 b-b-r-r b-t"
                 onSubmit={sendMessageHandler}
             >
-                <EmojiPicker />
-                <input
-                    placeholder="Mensagem"
-                    className="message-input box-shadow"
-                    id="chat-message-input"
-                    value={message}
-                    onChange={messageChangeHandler}
-                />
+                <EmojiSuggestions />
+                <div className="w-75 position-relative mr-2">
+                    <div
+                        className="message-input box-shadow pr-30px w-100"
+                        onClick={() => editor.current.focus()}
+                    >
+                        <Editor
+                            editorState={editorState}
+                            onChange={messageChangeHandler}
+                            plugins={plugins}
+                            ref={editor}
+                            placeholder="Mensagem"
+                        />
+                        <div className="position-absolute" style={{ right: '5px' }}>
+                            <EmojiSelect />
+                        </div>
+                    </div>
+                </div>
                 <button
                     className="btn btn-primary d-flex justify-content-center align-items-center"
                     id="chat-message-submit"

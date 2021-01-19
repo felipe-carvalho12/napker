@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 
 import { SERVER_URL } from '../../../config/settings'
 import AddNewChatSearch from './components/AddNewChatSearch'
-import ProfileListItem from '../../../components/ProfileListItem'
 import { Link } from 'react-router-dom'
 import Chat from './components/chat_/Chat'
 import ContactListItem from './components/ContactListItem'

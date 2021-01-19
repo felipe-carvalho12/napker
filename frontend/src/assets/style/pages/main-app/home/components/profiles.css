@@ -40,7 +40,7 @@
     border: 1px solid var(--primary-color)!important;
 }
 
-.profile-img-container:hover, .main-profile-data:hover {
+.profile-img-container:hover {
     cursor: pointer;
     transform: scale(1.01);
 }
