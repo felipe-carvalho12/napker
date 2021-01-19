@@ -1,3 +1,3 @@
 release: python manage.py migrate
-web: gunicorn napker.asgi:application -w 4 -k uvicorn.workers.UvicornWorker
-worker: python manage.py runworker -v2
+web: gunicorn napker.asgi:application -k uvicorn.workers.UvicornWorker
+worker: python manage.py runworker --only-channels=websocket.* -v2
