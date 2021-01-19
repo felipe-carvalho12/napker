@@ -1,3 +1,3 @@
 release: python manage.py migrate
-web: gunicorn -k uvicorn.workers.UvicornWorker napker.asgi:application
+web: gunicorn napker.asgi:application -w 4 -k uvicorn.workers.UvicornWorker
 worker: python manage.py runworker -v2
