@@ -60,52 +60,76 @@ export function onExpandableTextareaInput({ target: elm }) {
 
 // THEME
 
-export const setTheme = theme => {
+export const setTheme = () => {
   const cssVariables = document.documentElement.style
+  const theme = window.localStorage.getItem('theme') || 'light'
+
+  console.log("aaaaaaaa")
 
   const toRgb = value => `rgba(${value})`
 
-  const toCss = (cssVar, defaultVar) => {
+  const toCss = (cssVar, defaultVar, theme) => {
+    const data = window.localStorage.getItem(`${cssVar},${theme}`) && window.localStorage.getItem(`${cssVar},${theme}`).split(",")
     cssVariables.setProperty(cssVar, 
-      window.localStorage.getItem(cssVar) ? 
-        toRgb(window.localStorage.getItem(cssVar).split(","))
+      (data && window.localStorage.getItem(`${theme}-switch`) === "true") ? 
+        toRgb(data)
         :
         defaultVar
     )
   }
 
   if (theme === 'light') {
-    toCss('--border-color'               ,                 'var(--w-08)')
-    toCss('--background'                 ,               'var(--s-b-01)')
-    toCss('--fixed-components-background',                 'var(--w-08)')
-    toCss('--b-c'                        ,                 'var(--b-04)')
-    toCss('--heart-color'                ,                     '#E0245E')
-    toCss('--heart-background-hover'     ,       'rgba(224, 36, 94, .1)')
-    toCss('--primary-grey'               ,                 'var(--b-11)')
-    toCss('--secondary-grey'             ,                 'var(--b-08)')
-    toCss('--loader-background'          ,     'rgba(119, 147, 125, .3)')
-    toCss('--theme-base-color'           ,                 "var(--w-08)")
-    toCss('--theme-base-color-hover'     ,                 'var(--w-11)')
-    toCss('--tertiary-grey'              ,                     '#f2f2f2')
-    toCss('--view-more-select-border'    ,           'rgba(0, 0, 0, .2)')
-    toCss('--img-background'             ,           'rgba(0, 0, 0, .9)')
-    toCss('--img-background-hover'       ,           'rgba(0, 0, 0, .8)')
+    toCss('--primary-color'              ,        'rgba(0,192,136,1   )', 'light')
+    toCss('--primary-color-0'            ,        'rgba(0,192,136,0.8 )', 'light')
+    toCss('--primary-color-1'            ,        'rgba(0,192,136,0.6 )', 'light')
+    toCss('--primary-color-2'            ,        'rgba(0,192,136,0.4 )', 'light')
+    toCss('--primary-color-3'            ,        'rgba(0,192,136,0.20)', 'light')
+    toCss('--primary-color-4'            ,        'rgba(0,192,136,0.16)', 'light')
+    toCss('--primary-color-5'            ,        'rgba(0,192,136,0.12)', 'light')
+    toCss('--primary-color-6'            ,        'rgba(0,192,136,0.08)', 'light')
+    toCss('--primary-color-7'            ,        'rgba(0,192,136,0.04)', 'light')
+    toCss('--primary-color-hover'        ,        'rgba(0,178,125,1   )', 'light')
+    toCss('--border-color'               ,                 'var(--w-08)', 'light')
+    toCss('--background'                 ,               'var(--s-b-01)', 'light')
+    toCss('--fixed-components-background',                 'var(--w-08)', 'light')
+    toCss('--b-c'                        ,                 'var(--b-04)', 'light')
+    toCss('--heart-color'                ,                     '#E0245E', 'light')
+    toCss('--heart-background-hover'     ,       'rgba(224, 36, 94, .1)', 'light')
+    toCss('--primary-grey'               ,                 'var(--b-11)', 'light')
+    toCss('--secondary-grey'             ,                 'var(--b-08)', 'light')
+    toCss('--loader-background'          ,     'rgba(119, 147, 125, .3)', 'light')
+    toCss('--theme-base-color'           ,                 "var(--w-08)", 'light')
+    toCss('--theme-base-color-hover'     ,                 'var(--w-11)', 'light')
+    toCss('--tertiary-grey'              ,                     '#f2f2f2', 'light')
+    toCss('--view-more-select-border'    ,           'rgba(0, 0, 0, .2)', 'light')
+    toCss('--img-background'             ,           'rgba(0, 0, 0, .9)', 'light')
+    toCss('--img-background-hover'       ,           'rgba(0, 0, 0, .8)', 'light')
 
   } else if (theme === 'dark') {
-    toCss('--border-color'               ,                 'var(--w-00)')
-    toCss('--background'                 ,               'var(--s-b-10)')
-    toCss('--fixed-components-background',                 'var(--w-00)')
-    toCss('--b-c'                        ,                 'var(--w-04)')
-    toCss('--heart-color'                ,                     '#E0245E')
-    toCss('--heart-background-hover'     ,       'rgba(224, 36, 94, .1)')
-    toCss('--primary-grey'               ,                 'var(--w-11)')
-    toCss('--secondary-grey'             ,                 'var(--w-09)')
-    toCss('--loader-background'          ,     'rgba(119, 147, 125, .3)')
-    toCss('--theme-base-color'           ,                 'var(--w-00)')
-    toCss('--theme-base-color-hover'     ,               'var(--s-b-09)')
-    toCss('--tertiary-grey'              ,                     '#202020')
-    toCss('--view-more-select-border'    ,     'rgba(255, 255, 255, .2)')
-    toCss('--img-background'             ,           'rgba(0, 0, 0, .3)')
-    toCss('--img-background-hover'       ,           'rgba(0, 0, 0, .3)')
+    toCss('--primary-color'              ,        'rgba(0,192,136,1   )', 'dark')
+    toCss('--primary-color-0'            ,        'rgba(0,192,136,0.8 )', 'dark')
+    toCss('--primary-color-1'            ,        'rgba(0,192,136,0.6 )', 'dark')
+    toCss('--primary-color-2'            ,        'rgba(0,192,136,0.4 )', 'dark')
+    toCss('--primary-color-3'            ,        'rgba(0,192,136,0.20)', 'dark')
+    toCss('--primary-color-4'            ,        'rgba(0,192,136,0.16)', 'dark')
+    toCss('--primary-color-5'            ,        'rgba(0,192,136,0.12)', 'dark')
+    toCss('--primary-color-6'            ,        'rgba(0,192,136,0.08)', 'dark')
+    toCss('--primary-color-7'            ,        'rgba(0,192,136,0.04)', 'dark')
+    toCss('--primary-color-hover'        ,         'rgba(0,178,125,  1)', 'dark')
+    toCss('--border-color'               ,                 'var(--w-00)', 'dark')
+    toCss('--background'                 ,               'var(--s-b-10)', 'dark')
+    toCss('--fixed-components-background',                 'var(--w-00)', 'dark')
+    toCss('--b-c'                        ,                 'var(--w-04)', 'dark')
+    toCss('--heart-color'                ,                     '#E0245E', 'dark')
+    toCss('--heart-background-hover'     ,       'rgba(224, 36, 94, .1)', 'dark')
+    toCss('--primary-grey'               ,                 'var(--w-11)', 'dark')
+    toCss('--secondary-grey'             ,                 'var(--w-09)', 'dark')
+    toCss('--loader-background'          ,     'rgba(119, 147, 125, .3)', 'dark')
+    toCss('--theme-base-color'           ,                 'var(--w-00)', 'dark')
+    toCss('--theme-base-color-hover'     ,               'var(--s-b-09)', 'dark')
+    toCss('--tertiary-grey'              ,                     '#202020', 'dark')
+    toCss('--view-more-select-border'    ,     'rgba(255, 255, 255, .2)', 'dark')
+    toCss('--img-background'             ,           'rgba(0, 0, 0, .3)', 'dark')
+    toCss('--img-background-hover'       ,           'rgba(0, 0, 0, .3)', 'dark')
   }
 }
