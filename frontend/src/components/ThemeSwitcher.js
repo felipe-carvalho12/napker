@@ -14,8 +14,8 @@ export default function ThemeSwitcher(props) {
 
     const switchTheme = () => {
         theme = theme === 'light' ? 'dark' : 'light'
-        setTheme(theme)
         window.localStorage.setItem('theme', theme)
+        setTheme()
     }
 
     return (

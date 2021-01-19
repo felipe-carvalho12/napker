@@ -172,7 +172,7 @@ export default function PostForm(props) {
                             </div>
                             <i
                                 className="material-icons-outlined m-1 fs-27 my-0 mr-10px align-self-center p-0 icon secondary-hover bg-none"
-                                style={{ transform: isAdvanced ? "rotate(180deg)" : "rotate(0deg)", color: 'var(--p-c-1)' }}
+                                style={{ transform: isAdvanced ? "rotate(180deg)" : "rotate(0deg)", color: 'var(--primary-color-1)' }}
                                 onClick={() => setIsAdvanced(!isAdvanced)}
                             >
                                 outbound
@@ -259,7 +259,7 @@ export default function PostForm(props) {
                                                 <label
                                                     htmlFor={`${isAdvanced ? 'advanced' : 'regular'}-post-img`}
                                                     className="far fa-image m-0 icon secondary-hover hover-bg-none"
-                                                    style={{ fontSize: '25px', color: 'var(--p-c-1)' }}
+                                                    style={{ fontSize: '25px', color: 'var(--primary-color-1)' }}
                                                 />
                                                 <input
                                                     type="file"
@@ -271,7 +271,7 @@ export default function PostForm(props) {
                                             </div>
                                             <i
                                                 className="material-icons-outlined m-0 icon secondary-hover hover-bg-none"
-                                                style={{ fontSize: '27px', color: 'var(--p-c-1)' }}
+                                                style={{ fontSize: '27px', color: 'var(--primary-color-1)' }}
                                                 onClick={() => setVideoUrl(window.prompt('Copie e cole o link de um vídeo do YouTube: '))}
                                             >
                                                 slow_motion_video

@@ -1,2 +1,2 @@
 release: python manage.py migrate
-web: gunicorn napker.asgi:application -k uvicorn.workers.UvicornWorker
+web: gunicorn -w 4 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT napker.asgi:application

@@ -1,15 +1,15 @@
 :root {
   --primary-color              :          rgba(0,192,136,  1);
-  --p-c-0                      :         rgba(0,192,136,0.8 );
-  --p-c-1                      :         rgba(0,192,136,0.6 );
-  --p-c-2                      :         rgba(0,192,136,0.4 );
-  --p-c-3                      :         rgba(0,192,136,0.20);
-  --p-c-4                      :         rgba(0,192,136,0.16);
-  --p-c-5                      :         rgba(0,192,136,0.12);
-  --p-c-6                      :         rgba(0,192,136,0.08);
-  --p-c-7                      :         rgba(0,192,136,0.04);
+  --primary-color-0                      :         rgba(0,192,136,0.8 );
+  --primary-color-1                      :         rgba(0,192,136,0.6 );
+  --primary-color-2                      :         rgba(0,192,136,0.4 );
+  --primary-color-3                      :         rgba(0,192,136,0.20);
+  --primary-color-4                      :         rgba(0,192,136,0.16);
+  --primary-color-5                      :         rgba(0,192,136,0.12);
+  --primary-color-6                      :         rgba(0,192,136,0.08);
+  --primary-color-7                      :         rgba(0,192,136,0.04);
   --secondary-color            :      rgba(119, 147, 125, .1);
-  --primary-color-hover        :            rgba(0,178,125,1);
+  --primary-color-hover        :          rgba(0,178,125,  1);
 
   --content-heigth: 91vh;
   --ls-width: 275px;
