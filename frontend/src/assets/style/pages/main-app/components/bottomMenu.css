@@ -24,14 +24,13 @@
     align-items: center;
     margin: 0;
     padding: 15px;
-    border-top: 2px solid var(--border-color);
 }
 
 .bottom-menu ul .bottom-menu-item {
     color: var(--primary-grey);
     font-size: 1.2rem;
     font-weight: bold;
-    border-radius: 20px;
+    border-radius: 10px;
 }
 
 .bottom-menu ul .bottom-menu-item .bottom-menu-menu-icon {

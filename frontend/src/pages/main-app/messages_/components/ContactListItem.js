@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { convertFromRaw, EditorState } from "draft-js"
 
 
 export default function ContactListItem(props) {
@@ -17,8 +18,8 @@ export default function ContactListItem(props) {
         unreadMessagesCounter++
     }
 
-    const setLastChatMessage = message => {
-        lastChatMessage = message
+    const setLastChatMessage = messageContent => {
+        lastChatMessage = EditorState.createWithContent(convertFromRaw(JSON.parse(messageContent))).getCurrentContent().getPlainText()
     }
 
     return (
@@ -26,7 +27,7 @@ export default function ContactListItem(props) {
             {profile !== undefined &&
                 <Link to={`/mensagens/${profile.slug}`} style={{ color: '#000', textDecoration: 'none' }}>
                     {resetUnreadMessagesCounter()}
-                    <li className="list-item d-flex justify-content-start p-2 b-bottom b-theme-base-color c-primary-grey base-hover" style={{ whiteSpace: 'nowrap' }}>
+                    <li className="list-item d-flex justify-content-start p-2 b-theme-base-color c-primary-grey base-hover box-med" style={{ whiteSpace: 'nowrap' }}>
                         <img src={profile.photo}
                             className="profile-img-sm"
                             style={{ marginRight: '10px' }}

@@ -14,6 +14,7 @@ export default function MyProfile() {
     const [myProfile, setProfile] = useState(null)
     const [currentPageIsPosts, setCurrentPageIsPosts] = useState(true)
     const [isEditing, setIsEditing] = useState(false)
+    const isMobile = visualViewport.width <= 980
 
     document.title = 'Perfil / Napker'
 
@@ -40,8 +41,31 @@ export default function MyProfile() {
     }
 
     return (
-        <>
-            <Header page="Perfil" />
+        <div className="content-container p-vw-r">
+            <div
+                className={!isMobile ? "b-theme-base-color box-med blur" : "fixed w-100 b-theme-base-color blur b-b"}
+                style={!isMobile ? { position: "sticky", top: "1vw", padding: "0", zIndex: "1000" } : { zIndex: "1000" }}
+            >
+                <Header page="Perfil" />
+                {myProfile &&
+                    <div className="profile-page-menu" style={{ paddingTop: `${isMobile && "50px"}` }}>
+                        <div
+                            className="profile-page-menu-item profile-page-menu-item-active b-bottom-left-radius-hover"
+                            id="profile-posts-page-menu-item"
+                            onClick={switchPage}
+                        >
+                            Posts ({myProfile.posts.length})
+                        </div>
+                        <div
+                            className="profile-page-menu-item b-bottom-right-radius-hover"
+                            id="profile-interests-page-menu-item"
+                            onClick={switchPage}
+                        >
+                            Interesses ({myProfile.interests.filter(i => i.public).length})
+                        </div>
+                    </div>
+                }
+            </div>
             <div className="sidebar-content">
                 {myProfile ?
                     <>
@@ -67,22 +91,6 @@ export default function MyProfile() {
                                 </Link>
                             </div>
                         </ProfileData>
-                        <div className="profile-page-menu b-bottom b-bottom-radius" style={{ marginBottom: '10px' }}>
-                            <div
-                                className="profile-page-menu-item profile-page-menu-item-active b-bottom-left-radius-hover"
-                                id="profile-posts-page-menu-item"
-                                onClick={switchPage}
-                            >
-                                Posts ({myProfile.posts.length})
-                            </div>
-                            <div
-                                className="profile-page-menu-item b-bottom-right-radius-hover"
-                                id="profile-interests-page-menu-item"
-                                onClick={switchPage}
-                            >
-                                Interesses ({myProfile.interests.filter(i => i.public).length})
-                            </div>
-                        </div>
                         {currentPageIsPosts ?
                             <Posts profile={myProfile} fetchProfile={fetchProfile} />
                             :
@@ -95,6 +103,6 @@ export default function MyProfile() {
                 }
             </div>
             <BottomMenu />
-        </>
+        </div>
     )
 }

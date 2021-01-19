@@ -1,48 +1,99 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 
 export default function Faq() {
 
     return (
-        <div className="settings-description-container">
-            <div style={{ padding: '15px', borderBottom: '1px solid var(--border-color)' }}>
-                <h3>FAQ</h3>
-            </div>
-            <div className="faq-content">
-                <div className="faq-center">
-                    <details>
-                        <summary>
-                            <h2>Como alterar minha senha?</h2>
-                        </summary>
-                        <p>O usuário deverá entrar no menu configurações e abrir a sessão [Segurança], onde encontrará a possibilidade de [Alterar Senha], acompanhada de instruções.</p>
-                    </details>
-                    <details open>
-                        <summary>
-                            <h2>O que são interesses?</h2>
-                        </summary>
-                        <p>Lorem ipsum dolor sit amet, vocent viderer tamquam his ad, mei ut atqui gubergren. Aperiri appareat reprehendunt an cum, ullum dicta debet has te. Has posse doming scribentur ex, qui ea rebum soleat. Vel aeterno aperiri in.</p>
-                    </details>
-                    <details>
-                        <summary>
-                            <h2>Como alterar interesses?</h2>
-                        </summary>
-                        <p>Lorem ipsum dolor sit amet, vocent viderer tamquam his ad, mei ut atqui gubergren. Aperiri appareat reprehendunt an cum, ullum dicta debet has te. Has posse doming scribentur ex, qui ea rebum soleat. Vel aeterno aperiri in.</p>
-                    </details>
-                    <details>
-                        <summary>
-                            <h2>O que são interesses públicos/privados?</h2>
-                        </summary>
-                        <p>Lorem ipsum dolor sit amet, vocent viderer tamquam his ad, mei ut atqui gubergren. Aperiri appareat reprehendunt an cum, ullum dicta debet has te. Has posse doming scribentur ex, qui ea rebum soleat. Vel aeterno aperiri in.</p>
-                    </details>
-                    <details>
-                        <summary>
-                            <h2>Como denunciar usuários?</h2>
-                        </summary>
-                        <p>Lorem ipsum dolor sit amet, vocent viderer tamquam his ad, mei ut atqui gubergren. Aperiri appareat reprehendunt an cum, ullum dicta debet has te. Has posse doming scribentur ex, qui ea rebum soleat. Vel aeterno aperiri in.</p>
-                    </details>
-                </div>
-            </div>
+        <div className="settings-description-container b-t-r-r b-b-r-r b-theme-base-color">
+            <h3 className="c-primary-color p-30px">FAQ</h3>
+            <Link to="/configurações/alterar-senha" style={{ textDecoration: 'none', width: '100%' }}>
+                <li
+                    className="w-100 d-flex align-items-center px-3 py-2 c-primary-grey base-hover"
+                    style={{ fontSize: 'large' }}
+                >
+                    <span class="material-icons-outlined c-secondary-grey align-self-start fs-27 mr-10px mt-10px">
+                        vpn_key
+                    </span>
+                    <div className="d-flex w-100 justify-content-between align-items-center">
+                        <div className="d-flex flex-column align-items-start">
+                            <span className="c-p-c-0 fw-500 fs-15 mr-10px">Como alterar minha senha?</span>
+                            <span className="c-secondary-grey fw-300 fs-13 fa-l mr-10px">Você pode alterar a sua senha a qualquer momento clicando aqui ou pelo menu de segurança.</span>
+                        </div>
+                        <i className="fas fa-angle-right" />
+                    </div>
+                </li>
+            </Link>
+            <Link to="/perfil/meus-interesses" style={{ textDecoration: 'none', width: '100%' }}>
+            </Link>
+            <Link to="/perfil/meus-interesses" style={{ textDecoration: 'none', width: '100%' }}>
+                <li
+                    className="w-100 d-flex align-items-center px-3 py-2 c-primary-grey base-hover"
+                    style={{ fontSize: 'large' }}
+                >
+                    <span class="material-icons-outlined c-secondary-grey align-self-start fs-27 mr-10px mt-10px">
+                        compare_arrows
+                    </span>
+                            <div className="d-flex w-100 justify-content-between align-items-center">
+                                <div className="d-flex flex-column align-items-start">
+                                    <span className="c-p-c-0 fw-500 fs-15 mr-10px">Como alterar interesses?</span>
+                                    <span className="c-secondary-grey fw-300 fs-13 fa-l mr-10px">Descubra como alterar os seus interesses!</span>
+                                </div>
+                                <i className="fas fa-angle-right" />
+                            </div>
+                </li>
+            </Link>
+            <Link to="/perfil/meus-interesses" style={{ textDecoration: 'none', width: '100%' }}>
+                <li
+                    className="w-100 d-flex align-items-center px-3 py-2 c-primary-grey base-hover"
+                    style={{ fontSize: 'large' }}
+                >
+                    <span class="material-icons-outlined c-secondary-grey align-self-start fs-27 mr-10px mt-10px">
+                        lock
+                    </span>
+                            <div className="d-flex w-100 justify-content-between align-items-center">
+                                <div className="d-flex flex-column align-items-start">
+                                    <span className="c-p-c-0 fw-500 fs-15 mr-10px">O que são interesses públicos/privados?</span>
+                                    <span className="c-secondary-grey fw-300 fs-13 fa-l mr-10px">Descubra o que são os interesses públicos e privados!</span>
+                                </div>
+                                <i className="fas fa-angle-right" />
+                            </div>
+                </li>
+            </Link>
+            <Link to="/home" style={{ textDecoration: 'none', width: '100%' }}>
+                <li
+                    className="w-100 d-flex align-items-center px-3 py-2 c-primary-grey base-hover"
+                    style={{ fontSize: 'large' }}
+                >
+                    <span class="material-icons-outlined c-secondary-grey align-self-start fs-27 mr-10px mt-10px">
+                    psychology
+                    </span>
+                            <div className="d-flex w-100 justify-content-between align-items-center">
+                                <div className="d-flex flex-column align-items-start">
+                                    <span className="c-p-c-0 fw-500 fs-15 mr-10px">Porque mudar o algoritimo do feed?</span>
+                                    <span className="c-secondary-grey fw-300 fs-13 fa-l mr-10px">Descubra porque mudar o algoritimo do feed!</span>
+                                </div>
+                                <i className="fas fa-angle-right" />
+                            </div>
+                </li>
+            </Link>
+            <Link to="/home" style={{ textDecoration: 'none', width: '100%' }}>
+                <li
+                    className="w-100 d-flex align-items-center px-3 py-2 c-primary-grey base-hover"
+                    style={{ fontSize: 'large' }}
+                >
+                    <span class="material-icons-outlined c-secondary-grey align-self-start fs-27 mr-10px mt-10px">
+                    arrow_circle_up
+                    </span>
+                            <div className="d-flex w-100 justify-content-between align-items-center">
+                                <div className="d-flex flex-column align-items-start">
+                                    <span className="c-p-c-0 fw-500 fs-15 mr-10px">Como fazer posts avançados?</span>
+                                    <span className="c-secondary-grey fw-300 fs-13 fa-l mr-10px">Descubra como fazer posts avançados!</span>
+                                </div>
+                                <i className="fas fa-angle-right" />
+                            </div>
+                </li>
+            </Link>
         </div>
-
     )
 }

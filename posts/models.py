@@ -4,7 +4,7 @@ from django.db import models
 from profiles.models import Profile
 
 # Create your models here.
-class Interest(models.Model):
+class PostInterest(models.Model):
     title = models.CharField(max_length=50)
     
     def __str__(self): 
@@ -12,14 +12,15 @@ class Interest(models.Model):
 
 
 class Post(models.Model):
-    content = models.TextField(max_length=500)
+    content = models.TextField(max_length=50000)
     image = models.ImageField(upload_to='post/', blank=True, null=True)
     video = models.CharField(max_length=1000, blank=True, null=True)
     author = models.ForeignKey(Profile, related_name='posts', on_delete=models.CASCADE)
     views = models.ManyToManyField(Profile, related_name='post_views')
-    updated = models.DateField(auto_now=True)
-    created = models.DateField(auto_now_add=True)
-    interests = models.ManyToManyField(Interest, related_name='posts', blank=True)
+    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
+    tagged_users = models.ManyToManyField(User, related_name='my_mentions', blank=True)
+    interests = models.ManyToManyField(PostInterest, related_name='posts', blank=True)
 
     class Meta:
         ordering = ['-created']

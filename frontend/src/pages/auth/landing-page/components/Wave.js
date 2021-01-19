@@ -1,16 +1,71 @@
-import React from 'react'
-
+import React, { useEffect } from 'react'
 
 export default function Wave(props) {
+    const height = props.height ? props.height: 200
+    const width = props.width ? props.width : "100%"
+    const colors = props.colors ? props.colors : ["var(--w-10)", "var(--w-10)"]
+    const objs = []
+    const id = []
+    const length = []
+    const totalSpeed = []
+    const speed = []
+
+    useEffect(() => {
+        let xs = []
+        let lenght = 200
+
+        for (var i = 0; i <= lenght; i++) {
+            xs.push(i)
+        }
+
+        const points = i => xs.map(x => {
+            let y = (50 + 20 * i + 20 * Math.sin((x + totalSpeed[i]) / length[i]))
+            
+            return [10 * x, y]
+            })
+
+        function animate() {
+        
+            
+            for (let i in objs) {
+                if (i <= objs.length) {
+                    let el = document.querySelector(`#a${id[i]}`)
+                    let path = `M 0 ${height} ` + points(i).map(p => {
+                        return p[0] + "," + p[1]
+                    }).join(" L") + ` V ${height} Z`
+                    el && el.setAttribute("d", path)
+                    totalSpeed[i] += speed[i]
+                }
+            }
+            
+            requestAnimationFrame(animate)
+        }
+
+        animate()
+    }, [])
+
+    const wave = (color, id) => {
+        return ( <path class="wave" id={`a${id}`} d="M10,10 L50,100 L90,50" fill={color}></path> )
+    }
+
+    const waveConstructor = () => {
+        for (let color of colors) {
+            let a = (2000 + Math.floor(Math.random() * 16001))
+            id.push(a)
+            length.push(50 + 50 * Math.random())
+            speed.push(a / 10000)
+            totalSpeed.push(0)
+            objs.push(wave(color, String(a)))
+        }
+      
+        return objs;
+      }
 
     return (
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100" preserveAspectRatio="none">
-            <path class="wavePath-haxJK1" d="M826.337463,25.5396311 C670.970254,58.655965 603.696181,68.7870267 
-                447.802481,35.1443383 C293.342778,1.81111414 137.33377,1.81111414 0,1.81111414 L0,150 L1920,150 
-                L1920,1.81111414 C1739.53523,-16.6853983 1679.86404,73.1607868 1389.7826,37.4859505 C1099.70117,1.81111414 
-                981.704672,-7.57670281 826.337463,25.5396311 Z"
-                fill={props.color}>
-            </path>
+        <svg style={{ height: `${height}px`, width: width }}>
+            {
+                waveConstructor()
+            }
         </svg>
     )
 }

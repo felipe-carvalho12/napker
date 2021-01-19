@@ -39,32 +39,31 @@ export default function EditInterests() {
     }
 
     return (
-        <>
-            <Header page="Meus interesses" backArrow={true} />
+        <div className="content-container">
+            <div className="b-theme-base-color box-med blur" style={{ position: "sticky", top: "1vw", padding: "0 20px 0", zIndex: "1000" }}>
+                <Header page="Meus interesses" backArrow={true} />
+            </div>
             <div className="sidebar-content">
-                <p
-                    className="edit-interests-success-message b-bottom"
-                    id="interests-updated-message"
-                >
-                    Interesses atualizados com sucesso
-                </p>
                 {myProfile ?
-                    <div className="pb-3" style={{ background: 'var(--theme-base-color)', textAlign: 'start' }}>
-                        <div className="w-100 p-3 b-bottom">
+                    <div className="pb-3" style={{ textAlign: 'start' }}>
+                        <div className="w-100 p-3 d-flex ">
                             <button
                                 className="btn btn-primary"
                                 onClick={submitInterests}
                             >
                                 Salvar
                             </button>
+                            <p
+                                className="edit-interests-success-message ml-10px"
+                                id="interests-updated-message"
+                            >
+                                Interesses atualizados com sucesso
+                            </p>
                         </div>
                         <PublicInterests
                             myProfile={myProfile}
                             setInterests={setPublicInterests}
                         />
-
-                        <div className="w-100 my-2 b-bottom" />
-
                         <PrivateInterests
                             myProfile={myProfile}
                             setInterests={setPrivateInterests}
@@ -76,6 +75,6 @@ export default function EditInterests() {
                 }
             </div>
             <BottomMenu />
-        </>
+        </div>
     )
 }

@@ -1,34 +1,30 @@
-.mobile-home-menu {
-    display: none;
-}
-
-.mobile-home-menu, .desktop-home-menu , .home-page-menu{
-    position: sticky;
-    top: var(--header-heigth);
-    z-index: 1029;
-}
-
-.home-page-menu {
+.desktop-home-menu, .mobile-home-menu {
     width: 100%;
     height: var(--home-page-menu-height);
     display: flex;
+    flex-direction: row;
     align-items: center;
-    background: var(--fixed-components-background);
     font-size: 1.2rem;
 }
 
-.home-page-menu .home-menu-btn-container {
+.mobile-home-menu {
+    margin-top: var(--header-heigth);
+}
+
+.home-menu-btn-container {
     width: 25%;
     display: flex;
     justify-content: center;
     align-items: center;
+    border-bottom: 3px solid rgba(0, 0, 0, 0);
 }
 
-.home-page-menu .home-menu-btn-container-active {
+.home-menu-btn-container-active {
+    color: var(--primary-color)!important;
     border-bottom-color: var(--primary-color)!important;
 }
 
-.home-page-menu .feed-view-more-icon-container {
+.feed-view-more-icon-container {
     width: 20%;
     display: flex;
     justify-content: center;
@@ -36,7 +32,7 @@
     position: absolute;
 }
 
-.home-page-menu .feed-view-more-icon-container .feed-view-more-icon {
+.feed-view-more-icon-container .feed-view-more-icon {
     width: 15px;
     height: 15px;
     display: flex;
@@ -48,7 +44,7 @@
     z-index: 2000;
 }
 
-.home-page-menu .feed-view-more-icon-container .feed-view-more-icon:hover {
+.feed-view-more-icon-container .feed-view-more-icon:hover {
     cursor: pointer;
     background: var(--primary-color-hover);
 }
@@ -165,3 +161,26 @@ input[type="range"]::-moz-range-track {
     cursor: pointer;
 }
 
+/* Largura da barra de rolagem */
+::-webkit-scrollbar {
+    width: 7px;
+  }
+  
+  /* Fundo da barra de rolagem */
+  ::-webkit-scrollbar-track-piece {
+    background-color: transparent;
+    border-left: 4px solid transparent
+  }
+  
+  /* Cor do indicador de rolagem */
+  ::-webkit-scrollbar-thumb:vertical,
+  ::-webkit-scrollbar-thumb:horizontal {
+    border-radius: 10px;
+    background-color: var(--secondary-color)
+  }
+  
+  /* Cor do indicador de rolagem - ao passar o mouse */
+  ::-webkit-scrollbar-thumb:vertical:hover,
+  ::-webkit-scrollbar-thumb:horizontal:hover {
+    background-color: var(--primary-color-hover)
+  }

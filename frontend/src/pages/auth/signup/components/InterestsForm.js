@@ -65,7 +65,7 @@ export default function InterestsForm(props) {
                         <InterestsInput type="public" setInterests={setPublicInterests} />
                     </div>
 
-                    <div className="p-2 mt-2" style={{ border: '3px solid var(--border-color)', borderRadius: '20px' }}>
+                    <div className="p-2 mt-10px" style={{ border: '3px solid var(--border-color)', borderRadius: '20px' }}>
                         <h3>Interesses privados</h3>
                         <p>
                             Os interesses privados não são visíveis para os outros usuários.
@@ -75,7 +75,7 @@ export default function InterestsForm(props) {
                         <InterestsInput type="private" setInterests={setPrivateInterests} />
                     </div>
 
-                    <button class="btn btn-primary w-75 mt-2 py-2">Criar conta</button>
+                    <button class="btn btn-primary w-75 mt-10px py-2">Criar conta</button>
                 </form>
                 :
                 <PageLoader />

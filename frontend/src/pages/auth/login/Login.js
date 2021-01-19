@@ -63,13 +63,13 @@ export default function Login() {
                 <input ref={usernameRef} className="form-control w-100" type="text" placeholder="Nome de usuário" onChange={handleInputChange} />
             </div>
 
-            <div className="w-75 mt-2 d-flex justify-content-center">
+            <div className="w-75 mt-10px d-flex justify-content-center">
                 <input ref={passwordRef} className="form-control w-100" type="password" placeholder="Senha" onChange={handleInputChange} />
             </div>
 
             <button
                 ref={submitButtonRef}
-                className="btn btn-primary w-75 mt-2 py-2"
+                className="btn btn-primary w-75 mt-10px py-2"
                 disabled
             >Entrar
             </button>

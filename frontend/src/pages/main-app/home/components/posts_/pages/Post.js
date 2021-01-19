@@ -48,7 +48,7 @@ export default function Post() {
     }
 
     return (
-        <div className="w-100">
+        <div className="content-container">
             <LikesModal
                 isOpen={postLikesModal.isOpen}
                 likes={postLikesModal.likes}
@@ -59,8 +59,10 @@ export default function Post() {
                 likes={commentLikesModal.likes}
                 hideModal={hideCommentLikesModal}
             />
-            <Header page="Post" backArrow={true} />
-            <div className="content">
+            <div className="b-theme-base-color box-med blur" style={{ position: "sticky", top: "1vw", padding: "0 20px 0", zIndex: "1000" }}>
+                <Header page="Post" backArrow={true} />
+            </div>
+            <div className="content p-vw-x">
                 {post && myProfile ?
                     <>
                         <PostListItem
@@ -71,16 +73,15 @@ export default function Post() {
                             showHideForm={() => setDisplayingForm(!displayingForm)}
                             style={{ borderTopLeftRadius: '0', borderTopRightRadius: '0' }}
                         />
-                        <div className="mt-2">
+                        <div className="mt-10px">
                             {displayingForm &&
-                                <div style={{ marginLeft: '30px' }}>
+                                <div className="feed-create-post-form box-med b-theme-base-color b-vw-t" style={{ marginLeft: '30px' }}>
                                     <PostForm
                                         type='first-layer-comment'
                                         postId={post.id}
                                         myProfile={myProfile}
                                         renderParent={fetchPost}
                                         hideForm={() => setDisplayingForm(false)}
-                                        className="box-med"
                                     />
                                 </div>
                             }

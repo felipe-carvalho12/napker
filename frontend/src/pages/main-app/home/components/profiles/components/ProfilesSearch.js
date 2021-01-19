@@ -45,7 +45,7 @@ export default function ProfilesSearchInput(props) {
 
     const handleSearchTypeSelection = (e, text) => {
         setSearchType(searchType === 'byName' ? 'byInterest' : 'byName')
-        e.target.innerHTML = text
+        if (!isMobile) e.target.innerHTML = text
     }
 
     return (
@@ -57,7 +57,7 @@ export default function ProfilesSearchInput(props) {
                         :
                         <input
                             type="text"
-                            className="profiles-filter-input"
+                            className="profiles-filter-input m-0"
                             placeholder={'Pesquisar perfil'}
                             value={search}
                             onChange={e => setSearch(e.target.value)}
@@ -68,8 +68,8 @@ export default function ProfilesSearchInput(props) {
                 {searchType === 'byName' ?
                     <button
                         type="button"
-                        className="btn btn-grey btn-home"
-                        style={{ margin: '4px 0', borderRadius: '20px', height: "40px" }}
+                        className="btn btn-grey btn-home align-self-start"
+                        style={{ borderRadius: '10px', height: "40px" }}
                         onClick={e => handleSearchTypeSelection(e, "Pesquisar por nome")}
                         onMouseEnter={e => handleMouseIn(e, "Pesquisar por interesse")}
                         onMouseOut={e => handleMouseOut(e, '<i class="fas fa-grin-hearts text-secondary" style="font-size: large;"/>')}
@@ -79,8 +79,8 @@ export default function ProfilesSearchInput(props) {
                     :
                     <button
                         type="button"
-                        className="btn btn-grey btn-home"
-                        style={{ margin: '4px 0', borderRadius: '20px', height: "40px" }}
+                        className="btn btn-grey btn-home align-self-start"
+                        style={{ margin: '4px 0', borderRadius: '10px', height: "40px" }}
                         onClick={e => handleSearchTypeSelection(e, "Pesquisar por interesse")}
                         onMouseEnter={e => handleMouseIn(e, "Pesquisar por nome")}
                         onMouseOut={e => handleMouseOut(e, '<i class="fas fa-user text-secondary" style="font-size: large;"/>')}

@@ -1,19 +1,23 @@
 .fade.modal {
+    z-index: 20000;
     padding: 0!important;
 }
 
+.modal-body { padding: 0!important; }
+
 .modal-content {
     background: var(--theme-base-color)!important;
-    border-color: var(--border-color)!important;
+    backdrop-filter: saturate(180%) blur(20px);
+    border: 1px solid var(--b-c);
     border-radius: 1rem!important;
 }
 
 .modal-content .modal-header  {
-    border-bottom: 3px solid var(--border-color)!important;
+    border-bottom: 1px solid var(--b-c);
 }
 
 .modal-content .modal-footer {
-    border-top: 3px solid var(--border-color)!important;
+    border-top: 1px solid var(--b-c);
 }
   
 .modal-content .close {
@@ -23,13 +27,4 @@
   
 .modal-content .close:hover {
     opacity: 1.5;
-}
-
-.modal-content .modal-search-input {
-    background: var(--border-color);
-    color: var(--primary-grey);
-    width: 100%;
-    padding: 15px;
-    border: none;
-    outline: none;
 }

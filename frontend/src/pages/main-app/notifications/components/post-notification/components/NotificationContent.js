@@ -20,23 +20,23 @@ export default function NotificationContent(props) {
 
     return (
         <div style={{ marginLeft: '20px' }}>
-            <div className="d-flex flex-column align-items-start w-100 b-theme-base-color box-sm" style={{ fontSize: '20px', fontWeight: 'bold' }}>
-                <span className="p-2">{type === 'likes' ? 'Curtidas' : 'Comentários'} ({arr.length})</span>
+            <div className="d-flex align-items-center w-100 b-theme-base-color box-sm" style={{ fontSize: '16px', fontWeight: '500' }}>
                 {isOpen ?
                     <i
-                        className="material-icons-sharp justify-self-end icon base-hover text-secondary"
+                        className="material-icons-sharp icon base-hover text-secondary"
                         style={{ width: '25px', height: '25px' }}
                         onClick={() => setIsOpen(false)}
                     >
                         keyboard_arrow_down</i>
                     :
                     <i
-                        className="material-icons-sharp justify-self-end icon base-hover text-secondary"
+                        className="material-icons-sharp icon base-hover text-secondary"
                         style={{ width: '25px', height: '25px' }}
                         onClick={() => setIsOpen(true)}
                     >
                         keyboard_arrow_right</i>
                 }
+                <span className="p-2">{type === 'likes' ? 'Curtidas' : 'Comentários'} ({arr.length})</span>
             </div>
             {isOpen &&
                 <div style={{ marginLeft: '20px' }}>

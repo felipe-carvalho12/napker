@@ -87,7 +87,11 @@ export default function Profiles() {
                         ) : profiles && profiles.map(profile => {
                             return (
                                 <ProfileListItem profile={profile} myProfile={myProfile}>
-                                    <button className="btn btn-secondary" data-pk={profile.id} onClick={handleRelationshipUpdate}>
+                                    <button
+                                        className="btn btn-secondary align-self-start"
+                                        data-pk={profile.id}
+                                        onClick={handleRelationshipUpdate}
+                                    >
                                         Solicitar
                                     </button>
                                 </ProfileListItem>

@@ -46,9 +46,13 @@ def process_posts_relevance(profile):
 
 
 def sort_posts_by_relevance(profile):
-    posts_relevance = process_posts_relevance(profile)
+    try:
+        posts_relevance = process_posts_relevance(profile)
 
-    posts_by_relevance = [post_relevance[0] for post_relevance in sorted(posts_relevance, key=lambda p: p[1])]
-    posts_by_relevance.reverse()
+        posts_by_relevance = [post_relevance[0] for post_relevance in sorted(posts_relevance, key=lambda p: p[1])]
+        posts_by_relevance.reverse()
 
-    return posts_by_relevance
+        return posts_by_relevance
+
+    except:
+        return []

@@ -20,7 +20,7 @@ export default function ThemeSwitcher(props) {
 
     return (
         <div
-            className={`d-flex justify-content-start align-items-center sidebar-menu-item theme-switcher ${props.className}`}
+            className={`pr-10px theme-switcher ${props.className}`}
             style={props.style}
         >
             <div class="one-quarter" id="switch">
@@ -31,7 +31,6 @@ export default function ThemeSwitcher(props) {
                     <div class="ball"></div>
                 </label>
             </div>
-            <span style={{ marginLeft: '10px' }}>Tema</span>
         </div>
     )
-}
+} 

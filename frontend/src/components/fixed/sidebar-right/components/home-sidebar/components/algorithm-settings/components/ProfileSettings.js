@@ -38,7 +38,7 @@ export default function ProfileSettings(props) {
         <>
             {(interestsValue !== null && ageValue !== null && friendsValue !== null && isFriendValue !== null) &&
                 <div className="w-100">
-                    <div className="w-100 d-flex mb-1 b-theme-base-color">
+                    <div className="w-100 d-flex mb-1">
                         <i
                             className="material-icons-sharp align-self-start icon base-hover text-secondary algorithm-settings-details"
                             data-type='profile'
@@ -48,13 +48,13 @@ export default function ProfileSettings(props) {
                             keyboard_arrow_down</i>
                         <h6 style={{ margin: "0", lineHeight: "1.5" }}>Perfil</h6>
                     </div>
-                    <div className={`mb-2 ${!open && 'd-none'}`}>
+                    <div className={`mb-10px ${!open && 'd-none'}`}>
                         <div className="pt-1" style={{ width: '100%' }}>
                             <div className="d-flex justify-content-between">
                                 <spam className="text-secondary">Interesses em comum</spam>
                                 <strong>{interestsValue}</strong>
                             </div>
-                            <div class="range">
+                            <div class="range px-10px">
                                 <Slider
                                     defaultValue={interestsValue}
                                     className='c-primary-color'
@@ -67,7 +67,7 @@ export default function ProfileSettings(props) {
                                 <spam className="text-secondary">Semelhança de idade</spam>
                                 <strong>{ageValue}</strong>
                             </div>
-                            <div class="range">
+                            <div class="range px-10px">
                                 <Slider
                                     defaultValue={ageValue}
                                     className='c-primary-color'
@@ -80,7 +80,7 @@ export default function ProfileSettings(props) {
                                 <spam className="text-secondary">Amigos em comum</spam>
                                 <strong>{friendsValue}</strong>
                             </div>
-                            <div class="range">
+                            <div class="range px-10px">
                                 <Slider
                                     defaultValue={friendsValue}
                                     className='c-primary-color'
@@ -93,7 +93,7 @@ export default function ProfileSettings(props) {
                                 <spam className="text-secondary">Ser meu amigo</spam>
                                 <strong>{isFriendValue}</strong>
                             </div>
-                            <div class="range">
+                            <div class="range px-10px">
                                 <Slider
                                     defaultValue={isFriendValue}
                                     className='c-primary-color'

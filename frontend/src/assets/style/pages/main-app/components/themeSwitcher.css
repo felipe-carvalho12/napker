@@ -4,7 +4,7 @@
 }
 
 .theme-switcher .label {
-	background-color: var(--primary-grey);
+	background-color: var(--theme-base-color);
 	border-radius: 50px;
 	cursor: pointer;
 	display: flex;
@@ -17,7 +17,7 @@
 }
 
 .theme-switcher .label .ball {
-	background-color: var(--theme-base-color);
+	background-color: var(--background);
 	border-radius: 50%;
 	position: absolute;
 	top: 2px;
@@ -29,15 +29,15 @@
 }
 
 .theme-switcher .checkbox:checked + .label .ball {
-	transform: translateX(24px);
+	transform: translateX(23px);
 }
 
 .theme-switcher .fa-moon {
-	color: var(--theme-base-color);
+	color: var(--primary-color);
 }
 
 .theme-switcher .fa-sun {
-	color: var(--background);
+	color: var(--primary-color);
 }
 
 .settings-page-theme-switcher {

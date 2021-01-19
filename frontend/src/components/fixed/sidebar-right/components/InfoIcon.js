@@ -6,7 +6,7 @@ export default function InfoIcon(props) {
     return (
         <i
             className={`fas fa-info-circle hover-pointer ${props.className}`}
-            style={{ top: '0', right: '5px', zIndex: '2000' }}
+            style={{ top: '0', right: '5px', zIndex: '2000', ...props.style }}
             onClick={props.onClick}
         />
     )

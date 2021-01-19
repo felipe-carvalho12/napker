@@ -36,13 +36,13 @@ export default function DeleteAccount() {
     }
 
     return (
-        <div className="settings-description-container">
+        <div className="settings-description-container b-t-r-r b-b-r-r b-theme-base-color p-10px">
             <div
                 className="d-flex justify-content-start align-items-center"
-                style={{ background: 'var(--theme-base-color)', padding: '15px', borderBottom: '1px solid var(--border-color)' }}
+                style={{  padding: '1px' }}
             >
                 <i
-                    class="fas fa-arrow-left left-arrow-icon mr-2"
+                    class="fas fa-arrow-left left-arrow-icon mr-10px"
                     onClick={() => window.history.back()}
                 />
                 <strong style={{ fontSize: '1.2rem' }}>Segurança</strong>
@@ -57,7 +57,7 @@ export default function DeleteAccount() {
             </div>
             <div className="delete-account-confirmation">
                 <input id="password" type="password" placeholder="Senha" autoFocus />
-                <hr />
+                 
                 <br />
                 Tem certeza que deseja apagar a sua conta ?
                 <br />
@@ -67,7 +67,7 @@ export default function DeleteAccount() {
                     className="btn btn-danger"
                     onClick={deleteAccount}
                     style={{
-                        borderRadius : "20px",
+                        borderRadius : "10px",
                         fontWeight: "bold"
                     }}
                 >Deletar conta</button>

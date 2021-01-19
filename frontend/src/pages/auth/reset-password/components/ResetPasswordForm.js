@@ -60,7 +60,7 @@ export default function ResetPasswordForm(props) {
 
                 <button
                     ref={submitButtonRef}
-                    className="btn btn-primary w-75 mt-2 py-2"
+                    className="btn btn-primary w-75 mt-10px py-2"
                     disabled
                 >Confirmar
             </button>

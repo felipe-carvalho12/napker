@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 
 import { SERVER_URL } from '../../../config/settings'
-import Header from '../../../components/fixed/Header'
-import ModalContactSearch from './components/ModalContactSearch'
+import AddNewChatSearch from './components/AddNewChatSearch'
+import { Link } from 'react-router-dom'
 import Chat from './components/chat_/Chat'
 import ContactListItem from './components/ContactListItem'
 import ContactFilterInput from './components/ContactFilterInput'
@@ -82,60 +82,105 @@ export default function Messages(props) {
             })
     }
 
-    const openModal = () => {
-        setAddingNewChat(true)
+    const addNewChat = () => {
+        addingNewChat ? setAddingNewChat(false) : setAddingNewChat(true)
     }
 
     return (
-        <>
-            <Header page="Mensagens" />
-            <div className="content d-flex messages-wrapper">
-                <ModalContactSearch
-                    addingNewChat={addingNewChat}
-                    setModalProfiles={setModalProfiles}
-                    setAddingNewChat={setAddingNewChat}
-                    modalProfiles={modalProfiles}
-                />
-                <div className="chats-list h-100">
-                    <ContactFilterInput
-                        activeChatsProfiles={activeChatsProfiles}
-                        setHasFilteredProfiles={bool => hasFilteredProfiles = bool}
-                        fetchActiveChatProfiles={fetchActiveChatProfiles}
-                        setRenderedActiveChatsProfiles={setRenderedActiveChatsProfiles}
-                        openModal={openModal}
-                    />
-                    {renderedActiveChatsProfiles !== null ?
-                        <div className="list-group chats-container" style={{ background: 'var(--background)' }}>
-                            {renderedActiveChatsProfiles.map(profile => {
-                                return (
-                                    <ContactListItem
-                                        profile={profile}
-                                        activeChats={activeChats}
-                                        activeChatsProfiles={activeChatsProfiles}
+        <div className="content-container">
+            <div className="b-theme-base-color box-med" style={{ marginTop: "1vw", padding: "0", zIndex: "1000" }}>
+                <div className="content d-flex messages-wrapper" style={{ margin: 0 }}>
+                    <div className="chats-list h-100 b-r">
+                        <>
+                            <div className="search-input-container">
+                                {addingNewChat ?
+                                    <AddNewChatSearch
+                                        setModalProfiles={setModalProfiles}
+                                        setAddingNewChat={setAddingNewChat}
                                     />
-                                )
-                            })}
-                        </div>
-                        :
-                        <div className="loader-container">
-                            <div className="loader" />
-                        </div>
-                    }
+                                    :
+                                    <ContactFilterInput
+                                        activeChatsProfiles={activeChatsProfiles}
+                                        setHasFilteredProfiles={bool => hasFilteredProfiles = bool}
+                                        fetchActiveChatProfiles={fetchActiveChatProfiles}
+                                        setRenderedActiveChatsProfiles={setRenderedActiveChatsProfiles}
+                                        addNewChat={addNewChat}
+                                    />
+                                }
+                                <i
+                                    className="material-icons-sharp c-primary-color add-icon p-10px fs-27"
+                                    onClick={addNewChat}
+                                    style={{ transform: addingNewChat ? "rotate(0deg)" : "rotate(45deg)" }}
+                                >
+                                    close
+                                </i>
+                            </div>
+                            {addingNewChat ?
+                                <>
+                                    {modalProfiles && modalProfiles.map(profile => {
+                                        return (
+                                            <Link to={`/mensagens/${profile.slug}`}
+                                                style={{ color: 'var(--primary-grey)', textDecoration: 'none' }}
+                                                onClick={() => setAddingNewChat(false)}
+                                            >
+                                                <li className="list-item d-flex justify-content-start p-2 b-theme-base-color c-primary-grey base-hover box-med" style={{ whiteSpace: 'nowrap' }}>
+                                                    <img src={profile.photo}
+                                                        className="profile-img-sm align-self-center"
+                                                        style={{ marginRight: '10px' }}
+                                                    />
+                                                    <div className="d-flex flex-column align-items-start">
+                                                        <div className="d-flex align-items-between" style={{ maxHeight: '30px' }}>
+                                                            <strong className="mr-10px" style={{ height: 'fit-content' }}>{profile.first_name} {profile.last_name}</strong>
+                                                            <p className="text-secondary m-0" style={{ marginLeft: '5px' }}>@{profile.user.username}</p>
+                                                        </div>
+                                                        <div className="w-100 word-break">
+                                                            {profile.bio.split('').slice(0, 160)}
+                                                            {profile.bio.split('').slice(0, 160).length < profile.bio.length && '...'}
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </Link>
+                                        )
+                                    })}
+                                </>
+                                :
+                                <>
+                                    {renderedActiveChatsProfiles !== null ?
+                                        <div className="list-group chats-container">
+                                            {renderedActiveChatsProfiles.map(profile => {
+                                                return (
+                                                    <ContactListItem
+                                                        profile={profile}
+                                                        activeChats={activeChats}
+                                                        activeChatsProfiles={activeChatsProfiles}
+                                                    />
+                                                )
+                                            })}
+                                        </div>
+                                        :
+                                        <div className="loader-container">
+                                            <div className="loader" />
+                                        </div>
+                                    }
+                                </>
+                            }
+                        </>
+                    </div>
+                    <Chat
+                        username={username}
+                        otherUsername={props.match.params.slug}
+                        chatId={chatId}
+                        addNewChat={addNewChat}
+                        updateUnreadMessagesNumber={props.updateUnreadMessagesNumber}
+                        updateMessagesComponent={fetchActiveChatProfiles}
+                        chatsMessages={chatsMessages}
+                        setChatsMessages={setChatsMessages}
+                    />
                 </div>
-                <Chat
-                    username={username}
-                    otherUsername={props.match.params.slug}
-                    chatId={chatId}
-                    openModal={openModal}
-                    updateUnreadMessagesNumber={props.updateUnreadMessagesNumber}
-                    updateMessagesComponent={fetchActiveChatProfiles}
-                    chatsMessages={chatsMessages}
-                    setChatsMessages={setChatsMessages}
-                />
             </div>
             {!props.match.params.slug &&
                 <BottomMenu />
             }
-        </>
+        </div>
     )
 }

@@ -179,10 +179,10 @@ class Chat extends React.Component {
                     <>
                         {this.state.otherProfile ?
                             <div
-                                className="d-flex flex-column justify-content-between align-items-center h-100 b-theme-base-color current-chat"
-                                style={{ width: '60%', background: 'var(--tertiary-grey)' }}
+                                className="d-flex flex-column justify-content-between align-items-center h-100 current-chat"
+                                style={{ width: '60%' }}
                             >
-                                <div className="current-chat-header">
+                                <div className="current-chat-header b-t-r-r b-b">
                                     <i class="fas fa-arrow-left left-arrow-icon d-none" onClick={() => window.history.back()} />
                                     <Link to={`/user/${this.state.otherProfile.slug}`}>
                                         <img src={this.state.otherProfile.photo}
@@ -232,13 +232,13 @@ class Chat extends React.Component {
                             </div>
                             :
                             <div
-                                className="d-flex flex-column justify-content-center align-items-center h-100 no-chat-selected"
+                                className="d-flex flex-column justify-content-center align-items-center h-100 no-chat-selected b-t-r-r b-b-r-r b-theme-base-color"
                                 style={{ width: '60%' }}
                             >
                                 <div>
                                     <strong style={{ fontSize: 'larger' }}>Você não tem uma conversa selecionada</strong>
                                     <p className="text-secondary">Selecione uma existente ou comece uma nova</p>
-                                    <button className="btn btn-primary" onClick={() => this.props.openModal()}>Nova conversa</button>
+                                    <button className="btn btn-primary" onClick={() => this.props.addNewChat()}>Nova conversa</button>
                                 </div>
                             </div>
                         }

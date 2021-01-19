@@ -9,6 +9,7 @@ import ChangePassword from './components/security_/components/ChangePassword'
 import DeleteAccount from './components/security_/components/DeleteAccount'
 import BottomMenu from '../../../components/fixed/bottom-menu/BottomMenu'
 import Feedback from './components/Feedback'
+import Colors from './components/Colors/Colors'
 
 
 export default function Settings(props) {
@@ -27,51 +28,55 @@ export default function Settings(props) {
     }, [props.page])
 
     return (
-        <>
-            {visualViewport.width < 635 ?
-                <>
-                    {props.page !== 'change-password' && props.page !== 'delete-account' ?
-                        < Header page="Configurações" backArrow={props.page !== 'default'} />
-                        :
-                        <>
-                        </>
-                    }
-                </>
-                :
-                < Header page="Configurações" />
-            }
-            <div className="content">
-                <div className="settings-page-container">
+        <div className="content-container">
+            <div className="b-theme-base-color box-med m-vw-t p-0" style={{ height: '90vh' }}>
+                {visualViewport.width < 635 &&
+                    <>
+                        {props.page !== 'change-password' && props.page !== 'delete-account' ?
+                            < Header page="Configurações" backArrow={props.page !== 'default'} />
+                            :
+                            <>
+                            </>
+                        }
+                    </>
+                }
+                <div className="content m-0 h-100">
+                    <div className="settings-page-container h-100">
 
-                    <SettingsMenu />
-                    
-                    {(props.page === 'blocked-profiles' || props.page === 'default') &&
-                        <BlockedProfiles />
-                    }
+                        <SettingsMenu />
 
-                    {props.page === 'security' &&
-                        <SecurityMenu />
-                    }
+                        {(props.page === 'blocked-profiles' || props.page === 'default') &&
+                            <BlockedProfiles />
+                        }
 
-                    {props.page === 'change-password' &&
-                        <ChangePassword />
-                    }
+                        {props.page === 'security' &&
+                            <SecurityMenu />
+                        }
 
-                    {props.page === 'delete-account' &&
-                        <DeleteAccount />
-                    }
+                        {props.page === 'change-password' &&
+                            <ChangePassword />
+                        }
 
-                    {props.page === 'faq' &&
-                        <Faq />
-                    }
+                        {props.page === 'delete-account' &&
+                            <DeleteAccount />
+                        }
 
-                    {props.page === 'feedback' &&
-                        <Feedback />
-                    }
+                        {props.page === 'faq' &&
+                            <Faq />
+                        }
 
+                        {props.page === 'feedback' &&
+                            <Feedback />
+                        }
+
+                        {props.page === 'colors' &&
+                            <Colors />
+                        }
+
+                    </div>
                 </div>
+                <BottomMenu />
             </div>
-            <BottomMenu />
-        </>
+        </div>
     )
 }

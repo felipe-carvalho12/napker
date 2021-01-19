@@ -38,10 +38,12 @@
   padding: 2px;
 }
 
-.emoji-list-container {
-  display: none;
-  position: absolute;
-  left: 20px;
-  z-index: 1;
-  border: 2px solid rgba(20, 20, 20, 0.3);
+.sticky {
+  position: sticky!important;
+  top: 0!important;
+}
+
+.fixed {
+  position: fixed!important;
+  top: 0!important;
 }

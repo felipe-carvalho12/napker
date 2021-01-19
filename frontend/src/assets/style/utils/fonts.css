@@ -1,0 +1,24 @@
+/* Font Styles */
+
+.fw-100 { font-weight: 100  !important }
+.fw-200 { font-weight: 200  !important }
+.fw-300 { font-weight: 300  !important }
+.fw-400 { font-weight: 400  !important }
+.fw-500 { font-weight: 500  !important }
+.fw-600 { font-weight: 600  !important }
+.fw-700 { font-weight: 700  !important }
+
+.fs-09  { font-size  :   9px!important; }
+.fs-11  { font-size  :  11px!important; }
+.fs-13  { font-size  :  13px!important; }
+.fs-15  { font-size  :  15px!important; }
+.fs-17  { font-size  :  17px!important; }
+.fs-19  { font-size  :  19px!important; }
+.fs-21  { font-size  :  21px!important; }
+.fs-23  { font-size  :  23px!important; }
+.fs-25  { font-size  :  25px!important; }
+.fs-27  { font-size  :  27px!important; }
+
+.fa-s { text-align: start!important; }
+.fa-c { text-align: center!important; }
+.fa-l { text-align: left!important; }

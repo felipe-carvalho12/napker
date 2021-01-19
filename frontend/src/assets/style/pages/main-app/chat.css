@@ -8,17 +8,15 @@
     width: 40%;
     display: flex;
     flex-direction: column;
-    background: var(--theme-base-color);
+    padding: 1vw;
     overflow: hidden;
     overflow-y: scroll;
-    border-right: 3px solid var(--border-color);
 }
 
 .messages-wrapper .chats-list .search-input-container {
     display: flex;
     align-items: center;
-    padding: 15px;
-    border-bottom: 2px solid var(--border-color);
+    padding: 0 0 15px;
 }
 
 .messages-wrapper .chats-list .search-input {
@@ -26,7 +24,7 @@
     height: 40px;
     margin-right: 10px;
     border: none;
-    border-radius: 20px;
+    border-radius: 10px;
     background-color: var(--border-color);
     text-align: start;
     padding: 15px;
@@ -41,14 +39,12 @@
     display: flex;
     padding: 10px;
     background: var(--theme-base-color);
-    border-bottom: 2px solid var(--border-color);
 }
 
 .messages-wrapper .chat-page-container {
     display: flex;
     padding: 15px;
     width: 100%;
-    border-bottom: 2px solid var(--border-color);
 }
 
 .chat-log {
@@ -59,9 +55,8 @@
 }
 
 .chat-log .received {
-    width: 100%;
     display: flex;
-    justify-content: end;
+    justify-content: flex-start;
 }
 
 .chat-log .received p {
@@ -76,10 +71,8 @@
 }
 
 .chat-log .sent {
-    width: 100%;
     display: flex;
     justify-content: flex-end;
-    padding-left: 20px;
 }
 
 .chat-log .sent p {
@@ -98,32 +91,21 @@
     top: 30%!important;
 }
 
-.smile {
-    color: var(--primary-color);
-    font-size: 25px;
-    margin-right: 10px;
-    padding: 10px;
-    border-radius: 50%;
-}
-
-.smile:hover, .emoji-button-active {
-    background: var(--secondary-color);
-    cursor: pointer;
-}
-
 .message-input {
-    width: 70%;
-    height: 35px;
+    min-height: 35px;
+    max-height: 150px;
+    overflow-y: auto;
+    display: flex;
+    align-items: center;
     padding-left: 15px;
-    border: none;
-    border-radius: 20px;
+    border-radius: 10px;
     background-color: var(--border-color);
     color: var(--primary-grey);
     margin-right: 5px;
 }
 
-.messages-wrapper .chats-list .search-input:focus, .message-input:focus {
+.messages-wrapper .chats-list .search-input:focus, .message-input:focus-within {
     outline: none;
-    background: var(--theme-base-color);
+    background: var(--background);
     border: 1px solid var(--primary-color);
 }

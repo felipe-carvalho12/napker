@@ -2,8 +2,9 @@ import React from 'react'
 import { Link, useHistory } from 'react-router-dom'
 
 import { SERVER_URL } from '../config/settings'
-import { csrftoken } from '../config/utils'
+import { csrftoken, renderTimestamp } from '../config/utils'
 import VideoIframe from './VideoIframe'
+import PostTextbox from '../pages/main-app/home/components/posts_/components/post-textbox/PostTextbox'
 
 export default function PostListItem(props) {
     const post = props.post
@@ -88,12 +89,12 @@ export default function PostListItem(props) {
             style={{ ...props.style, background: 'var(--theme-base-color)', marginBottom: type === 'comment' && '10px', padding: "0" }}
             onClick={() => isLink && history.push(`/post/${post.id}`)}
         >
-            {color !== undefined &&
-                <div style={{ marginLeft: "20px", width: "5px", background: color }} />
+            {type !== 'post' &&
+                <div style={{ marginLeft: "10px", width: "5px", background: color !== undefined ? color : "var(--background)" }} />
             }
             <div className="d-flex flex-column h-100 w-100">
-                <div className="d-flex flex-column h-100 w-100" style={{ padding: "20px 20px 0" }}>
-                    <div className="d-flex justify-content-between align-items-start w-100 mb-2">
+                <div className="d-flex flex-column h-100 w-100" style={{ padding: "10px 10px 0" }}>
+                    <div className="d-flex justify-content-between align-items-start w-100 mb-10px">
                         <div className="d-flex align-items-center">
                             <Link
                                 to={post.author.id === myProfile.id ?
@@ -101,7 +102,7 @@ export default function PostListItem(props) {
                                 onClick={e => e.stopPropagation()}
                             >
                                 <img src={post.author.photo}
-                                    className="profile-img-sm mr-2"
+                                    className="profile-img-sm mr-10px"
                                 />
                             </Link>
                             <Link
@@ -110,11 +111,11 @@ export default function PostListItem(props) {
                                 style={{ color: '#000' }}
                                 onClick={e => e.stopPropagation()}
                             >
-                                <strong className="mr-2" style={{ color: 'var(--primary-grey)' }}>
+                                <strong className="mr-10px" style={{ color: 'var(--primary-grey)' }}>
                                     {post.author.first_name} {post.author.last_name}
                                 </strong>
                                 <span className="text-secondary">
-                                    @{post.author.user.username} • {post.created.split('-').reverse().join('/')}
+                                    @{post.author.user.username} • {renderTimestamp(post.created)}
                                 </span>
                             </Link>
                         </div>
@@ -148,19 +149,22 @@ export default function PostListItem(props) {
                         }
                         <div className="popover-arrow" style={{ top: '-9px', right: '8%' }} />
                     </div>
-                    <div className="d-flex justify-content-start word-break">
-                        {post.content}
+                    <div className="d-flex justify-content-start word-break mb-10px">
+                        <PostTextbox
+                            editable={false}
+                            postContent={JSON.parse(post.content)}
+                        />
                     </div>
                 </div>
-                {post.image &&
-                    <div className="d-flex justify-content-center w-100 post-img-background" style={{ background: 'var(--img-background)' }}>
+                <div className={`d-flex justify-content-center w-100 post-img-background ${(post.video || post.image) && "my-2"}`} style={{ background: 'var(--img-background)' }}>
+                    {post.image &&
                         <img src={post.image} className="post-img m-0 border-0" style={{ borderRadius: "0" }} />
-                    </div>
-                }
-                {post.video &&
-                    <VideoIframe src={post.video} width={videoWidth} height={videoHeigth} />
-                }
-                <div className="d-flex justify-content-start align-items-center text-secondary" style={{ padding: "0 20px 20px" }}>
+                    }
+                    {post.video &&
+                        <VideoIframe src={post.video} width={videoWidth} height={videoHeigth} />
+                    }
+                </div>
+                <div className="d-flex justify-content-start align-items-center text-secondary" style={{ padding: "0 10px 10px" }}>
                     {(type === 'comment' && post.all_child_comments_length !== 0) &&
                         <>
                             {displayingComments ?
@@ -194,12 +198,12 @@ export default function PostListItem(props) {
                     </div>
                     <div className="d-flex align-items-center">
                         {post.likes.map(like => like.profile.id).includes(myProfile.id) ?
-                            <i class="fas fa-heart expand-animation mr-1  ml-2 icon"
+                            <i class="fas fa-heart expand-animation mr-1  ml-10px icon"
                                 data-postid={post.id}
                                 onClick={likeUnlikePost}
                             />
                             :
-                            <i class="far fa-heart mr-1 ml-2 icon"
+                            <i class="far fa-heart mr-1 ml-10px icon"
                                 data-postid={post.id}
                                 onClick={likeUnlikePost}
                             />

@@ -2,6 +2,7 @@ import json
 import datetime
 import base64
 import pytz
+import re
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -12,7 +13,7 @@ from django.shortcuts import render, redirect
 from django.core.files.base import ContentFile
 
 from profiles.views import get_profile_list
-from profiles.serializers import PostSerializer, PostLikeSerializer, CommentSerializer, CommentLikeSerializer, NotificationSerializer
+from profiles.serializers import *
 from profiles.models import Profile
 from .models import *
 from .utils import *
@@ -112,42 +113,43 @@ def visualize_comments(request):
 @api_view(['POST'])
 def create_post(request):
     profile = Profile.objects.get(user=request.user)
-    content = request.data['content']
-    hashtags = request.data['hashtags']
+    raw_content = request.data['content']
+    content = ''.join([block['text'] for block in json.loads(raw_content)['blocks']])
+    hashtags = re.findall(r' \#(\w+) ', content)
     tagged_usernames = request.data['tagged-usernames']
+    interests = request.data['interests']
 
     if len(content) <= 500:
-        has_image_or_video = False
         if len(request.data['post-image']):
             format, imgstr = request.data['post-image'].split(';base64,') 
             img_format = format.split('/')[-1] 
             image = ContentFile(base64.b64decode(imgstr), name=profile.user.username + img_format)
-            post = Post.objects.create(content=content, author=profile, image=image)
-            has_image_or_video = True
+            post = Post.objects.create(content=raw_content, author=profile, image=image)
         elif request.data['post-video'] != '':
-            post = Post.objects.create(content=content, author=profile, video=request.data['post-video'])
-            has_image_or_video = True
+            post = Post.objects.create(content=raw_content, author=profile, video=request.data['post-video'])
         else:
-            post = Post.objects.create(content=content, author=profile)
+            if not len(content):
+                return Response({'message': 'Pare de brincar com o HTML! (:'})
+            post = Post.objects.create(content=raw_content, author=profile)
         
         for hashtag_title in hashtags:
             hashtag, created = Hashtag.objects.get_or_create(title=hashtag_title.lower())
             hashtag.posts.add(post)
             hashtag.save()
 
-        '''for username in tagged_usernames:
+        for username in tagged_usernames:
             if User.objects.filter(username=username).exists():
                 user = User.objects.get(username=username)
-                post.tagged_profiles.add(Profile.objects.get(user=user))
-                post.save()'''
+                post.tagged_users.add(user)
+                post.save()
+
+        for int_title in interests:
+            interest = PostInterest.objects.create(title=int_title)
+            post.interests.add(interest)
+            post.save()
 
         serializer = PostSerializer(post)
-        if len(content) or has_image_or_video:
-            return Response(serializer.data)
-        else:
-            return Response({
-            'message': 'Pare de brincar com o HTML! (:'
-            })
+        return Response(serializer.data)
     else:
         return Response({
             'message': 'Servidor custa caro! (:'
@@ -221,3 +223,9 @@ def unlike_comment(request, comment_id):
     comment = Comment.objects.get(id=comment_id)
     CommentLike.objects.get(profile=profile, comment=comment).delete()
     return JsonResponse(f'Unliked comment #{comment.id}', safe=False)
+
+
+@api_view(['GET'])
+def get_mentions(request):
+    serializer = ProfileMentionSerializer(Profile.objects.filter(user__is_active=True).exclude(user=request.user), many=True)
+    return Response(serializer.data)

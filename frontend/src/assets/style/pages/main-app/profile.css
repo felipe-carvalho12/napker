@@ -18,7 +18,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: var(--theme-base-color);
     padding: 1.5% 8.7%;
 }
 
@@ -53,8 +52,7 @@
 
 .profile-page-menu {
     width: 100%;
-    background: var(--theme-base-color);
-    color: #666;
+    color: var(--secondary-grey);
     font-weight: bold;
     display: flex;
     position: sticky;
@@ -76,9 +74,8 @@
     cursor: pointer;
 }
 
-.profile-page-menu .profile-page-menu-item-active {
+.profile-page-menu-item-active {
     color: var(--primary-color);
-    border-bottom-color: var(--primary-color)!important;
 }
 
 
@@ -93,19 +90,18 @@
 
 .edit-interests-success-message {
     width: 100%;
-    background: var(--theme-base-color);
-    color: rgba(0, 255, 0, 0.8);
+    color: var(--primary-color);
     display: none;
     margin: 0;
     padding: 5px;
     font-size: large;
     font-weight: bold;
-    border-bottom: 1px solid var(--border-color);
 }
 
 .tag-container {
-    border-radius: 20px;
-    background: var(--background);
+    border-radius: 10px;
+    background: var(--theme-base-color);
+    box-shadow: 0 2px 15px rgba(0,0,0,.1);
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -115,7 +111,7 @@
 
 .tag-container:focus-within {
     border: 2px solid var(--primary-color);
-    background: var(--theme-base-color);
+    background: var(--background);
 }
 
 .tag-container .tag {
@@ -146,7 +142,7 @@
     outline: none;
     border: none;
     color: var(--primary-grey);
-    background: inherit;
+    background: none;
     flex: 1;
 }
 

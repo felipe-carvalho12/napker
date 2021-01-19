@@ -290,7 +290,7 @@ input[type="submit"], button {
         height: 52px;
         padding: 2px 0;
         margin: auto 15px;
-        border-radius: 20px;
+        border-radius: 10px;
         transform: translateY(-10px);
     }
 

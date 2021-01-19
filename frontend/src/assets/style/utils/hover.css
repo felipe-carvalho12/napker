@@ -1,6 +1,10 @@
 @media (min-width: 981px) {
     /* GLOBAL */
 
+    .hover-bg-none:hover {
+        background: none!important;
+    }
+
     .hover-pointer:hover {
         cursor: pointer;
       }
@@ -25,7 +29,7 @@
     
     .secondary-hover:hover {
         cursor: pointer!important;
-        background: var(--secondary-color)!important;
+        background: var(--secondary-color);
         color: var(--primary-color-hover)!important;
         transition: .2s!important;
     }
@@ -78,6 +82,14 @@
         color: var(--heart-color);
         text-decoration: underline;
         cursor: pointer;
+    }
+
+    .b-bottom-right-radius-hover:hover {
+        border-bottom-right-radius: 20px!important;
+    }
+    
+    .b-bottom-left-radius-hover:hover {
+        border-bottom-left-radius: 20px!important;
     }
 
 }

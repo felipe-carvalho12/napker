@@ -14,8 +14,8 @@
     width: 60%;
     border: none;
     outline: none;
-    border-radius: 20px;
-    background: var(--border-color);
+    border-radius: 10px;
+    background: var(--p-c-6);
     color: var(--primary-grey);
     margin-bottom: 20px;
     padding: 10px 20px 10px 20px;
@@ -31,7 +31,6 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    background: var(--background);
 }
 
 /* BLOCK USER */
@@ -41,7 +40,7 @@
     height: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: start;
 }
 
 .settings-description-container .blocked-profiles-list {
@@ -69,20 +68,18 @@
 .settings-page-title-container {
     width: 100%;
     height: 20%;
-    background: var(--theme-base-color);
     display: flex;
     justify-content: center;
     align-items: center;
-    border-bottom: 1px solid var(--border-color);
 }
 
 /* CHANGE PASSWORD */
 
 .change-password-form {
-    background: var(--theme-base-color);
     width: 100%;
     height: 60%;
     padding: 20px 0;
+    border-radius: 10px;
 }
 
 .change-password-form button {
@@ -92,7 +89,6 @@
 /* DELETE ACCOUNT */
 
 .delete-account-confirmation {
-    background: var(--theme-base-color);
     width: 100%;
     height: 40%;
     display: flex;
@@ -111,18 +107,15 @@
 /* FAQ */
   
 .faq-content {
-    background: var(--theme-base-color);
     display: flex;
     align-items: center;
 }
 
 .faq-content .faq-center {
-    background: var(--theme-base-color);
     width: 100%;
 }
 
 .faq-content details {
-    background: var(--theme-base-color);
 }
 
 .faq-content h2 {
@@ -137,7 +130,6 @@
 }
 
 .faq-content details p {
-    background: var(--theme-base-color);
     padding: 0 25px 15px 25px;
     margin: 0;
     text-shadow: none;

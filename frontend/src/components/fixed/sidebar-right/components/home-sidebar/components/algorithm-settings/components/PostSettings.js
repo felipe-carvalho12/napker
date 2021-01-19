@@ -35,7 +35,7 @@ export default function PostSettings(props) {
         <>
             {(dateValue !== null && authorValue !== null && likesValue !== null) &&
                 <div className="w-100">
-                    <div className="w-100 d-flex b-theme-base-color">
+                    <div className="w-100 d-flex">
                         <i
                             className="material-icons-sharp align-self-start icon base-hover text-secondary algorithm-settings-details"
                             data-type='post'
@@ -45,13 +45,13 @@ export default function PostSettings(props) {
                             keyboard_arrow_right</i>
                         <h6 style={{ margin: "0", lineHeight: "1.5" }}>Post</h6>
                     </div>
-                    <div className={`mb-2 ${!open && 'd-none'}`}>
+                    <div className={`mb-10px ${!open && 'd-none'}`}>
                         <div className="pt-1" style={{ width: '100%' }}>
                             <div className="d-flex justify-content-between">
                                 <spam className="text-secondary">Post recente</spam>
                                 <strong>{dateValue}</strong>
                             </div>
-                            <div class="range">
+                            <div class="range px-10px">
                                 <Slider
                                     defaultValue={dateValue}
                                     className='c-primary-color'
@@ -64,7 +64,7 @@ export default function PostSettings(props) {
                                 <spam className="text-secondary">Autor do post</spam>
                                 <strong>{authorValue}</strong>
                             </div>
-                            <div class="range">
+                            <div class="range px-10px">
                                 <Slider
                                     defaultValue={authorValue}
                                     className='c-primary-color'
@@ -77,7 +77,7 @@ export default function PostSettings(props) {
                                 <spam className="text-secondary">Likes do post</spam>
                                 <strong>{likesValue}</strong>
                             </div>
-                            <div class="range">
+                            <div class="range px-10px">
                                 <Slider
                                     defaultValue={likesValue}
                                     className='c-primary-color'

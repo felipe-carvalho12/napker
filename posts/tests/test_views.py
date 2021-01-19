@@ -241,3 +241,13 @@ class TestViews(TestCase):
 
     def test_unlike_comment_view(self):
         pass
+
+
+    def test_get_mentions_view(self):
+        User.objects.create(username='guido', is_active=False)
+
+        self.client.force_login(self.test_user)
+        response = self.client.get('/post-api/get-mentions')
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse(response.data == ProfileMentionSerializer(Profile.objects.exclude(user=self.test_user), many=True).data)
+        self.assertTrue(response.data == ProfileMentionSerializer(Profile.objects.filter(user__is_active=True).exclude(user=self.test_user), many=True).data)

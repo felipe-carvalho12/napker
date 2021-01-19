@@ -14,6 +14,7 @@ import HomePageMenu from './components/HomePageMenu'
 export default function Home() {
     const [page, setPage] = useState('Feed')
     const [algorithmSettingsIsOpen, setAlgorithmSettingsIsOpen] = useState(false)
+    const isMobile = visualViewport.width <= 980
 
     const pages = {
         'Feed': <Posts />,
@@ -31,13 +32,17 @@ export default function Home() {
     }, [page])
 
     return (
-        <>
-            <Header page="Home">
-                <MobileAlgorithmSettingsIcon useIsOpen={[algorithmSettingsIsOpen, setAlgorithmSettingsIsOpen]} />
-            </Header>
-            <div className="sidebar-content">
-                <div className="w-100 h-100 home-page">
-                    <div className="desktop-home-menu">
+        <div className="content-container">
+            {isMobile ?
+                <div className="fixed w-100 b-theme-base-color blur b-b" style={{ zIndex: "1000" }}>
+                    <Header page="Home">
+                        <MobileAlgorithmSettingsIcon useIsOpen={[algorithmSettingsIsOpen, setAlgorithmSettingsIsOpen]} />
+                    </Header>
+                    <HomePageMenu setPage={setPage} />
+                </div>
+                :
+                <>
+                    <div className="b-theme-base-color box-med blur" style={{ position: "sticky", top: "1vw", padding: "10px 20px 0", zIndex: "1000" }}>
                         <HomePageMenu
                             setPage={setPage}
                             feedPageTitle='Feed'
@@ -47,9 +52,10 @@ export default function Home() {
                             trendsPageTitle='Tendências'
                         />
                     </div>
-                    <div className="mobile-home-menu">
-                        <HomePageMenu setPage={setPage} />
-                    </div>
+                </>
+            }
+            <div className="sidebar-content p-vw-x">
+                <div className="w-100 h-100 home-page">
                     {pages[page]}
                 </div>
             </div>
@@ -58,6 +64,6 @@ export default function Home() {
                     <PostIcon />
                 }
             </BottomMenu>
-        </>
+        </div>
     )
 }

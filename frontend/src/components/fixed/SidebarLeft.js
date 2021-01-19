@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useContext } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 
 import {
@@ -16,7 +16,7 @@ export default function Sidebar() {
     let notificationsNumber = invitesReceivedNumber + postNotifications
 
     return (
-        <div className="sidebar" style={{ left: '0' }}>
+        <div className="sidebar left-s">
             <div>
                 <div className="logo-container">
                     <Link to="/home" style={{ textDecoration: 'none' }}>
@@ -32,7 +32,7 @@ export default function Sidebar() {
                     </NavLink>
                     <NavLink to="/notificações" style={{ textDecoration: 'none' }} activeClassName="active">
                         <li className="sidebar-menu-item">
-                        <i className="material-icons-outlined" style={{ margin: "5px 10px 5px 0px", fontSize: "30px" }}>notifications</i>
+                            <i className="material-icons-outlined" style={{ margin: "5px 10px 5px 0px", fontSize: "30px" }}>notifications</i>
                             <span style={{ fontWeight: "500" }}>Notificações</span>
                             {!notificationsNumber ? '' :
                                 <div className="notification-text-container">
@@ -68,9 +68,12 @@ export default function Sidebar() {
                             <span style={{ fontWeight: "500" }}>Configurações</span>
                         </li>
                     </NavLink>
+                    <li className="sidebar-menu-item">
+                        <ThemeSwitcher id="sidebar-switcher" />
+                        <span style={{ fontWeight: "500" }}>Tema</span>
+                    </li>
                 </ul>
             </div>
-            <ThemeSwitcher id="sidebar-switcher" />
         </div>
     )
 }

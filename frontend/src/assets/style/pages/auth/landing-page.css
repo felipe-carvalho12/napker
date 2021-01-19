@@ -1,17 +1,279 @@
-.btn-call {
-    border-radius: 25px; 
-    height: 50px; 
-    width: 240px;
-    font-size: 20px;
-    font-weight: 500;
-    border: none!important 
+:root {
+
+    /* B&W tones */
+    
+    --b-00: rgba(000, 000, 000, .04); --s-b-00: rgb(245, 245, 245);
+    --b-01: rgba(000, 000, 000, .08); --s-b-01: rgb(235, 235, 235);
+    --b-02: rgba(000, 000, 000, .12); --s-b-02: rgb(225, 225, 225);
+    --b-03: rgba(000, 000, 000, .16); --s-b-03: rgb(215, 215, 215);
+    --b-04: rgba(000, 000, 000, .20); --s-b-04: rgb(205, 205, 205);
+    --b-05: rgba(000, 000, 000, .30); --s-b-05: rgb(180, 180, 180);
+    --b-06: rgba(000, 000, 000, .40); --s-b-06: rgb(153, 153, 153);
+    --b-07: rgba(000, 000, 000, .50); --s-b-07: rgb(128, 128, 128);
+    --b-08: rgba(000, 000, 000, .60); --s-b-08: rgb(102, 102, 102);
+    --b-09: rgba(000, 000, 000, .70); --s-b-09: rgb(077, 077, 077);
+    --b-10: rgba(000, 000, 000, .80); --s-b-10: rgb(051, 051, 051);
+    --b-11: rgba(000, 000, 000, .90); --s-b-11: rgb(026, 026, 026);
+    --b-12: rgba(000, 000, 000, 1.0); --s-b-12: rgb(000, 000, 000);
+                                      ;                                   
+    --w-00: rgba(255, 255, 255, .04); --s-w-00: rgb(010, 010, 010); 
+    --w-01: rgba(255, 255, 255, .08); --s-w-01: rgb(020, 020, 020); 
+    --w-02: rgba(255, 255, 255, .12); --s-w-02: rgb(030, 030, 030); 
+    --w-03: rgba(255, 255, 255, .16); --s-w-03: rgb(040, 040, 040); 
+    --w-04: rgba(255, 255, 255, .20); --s-w-04: rgb(050, 050, 050); 
+    --w-05: rgba(255, 255, 255, .30); --s-w-05: rgb(075, 075, 075); 
+    --w-06: rgba(255, 255, 255, .40); --s-w-06: rgb(102, 102, 102); 
+    --w-07: rgba(255, 255, 255, .50); --s-w-07: rgb(127, 127, 127); 
+    --w-08: rgba(255, 255, 255, .60); --s-w-08: rgb(153, 153, 153); 
+    --w-09: rgba(255, 255, 255, .70); --s-w-09: rgb(178, 178, 178); 
+    --w-10: rgba(255, 255, 255, .80); --s-w-10: rgb(203, 203, 203); 
+    --w-11: rgba(255, 255, 255, .90); --s-w-11: rgb(228, 228, 228); 
+    --w-12: rgba(255, 255, 255, 1.0); --s-w-12: rgb(255, 255, 255); 
+
+
+    /* Custom Backgrounds */
+
+    --p-g: linear-gradient(0deg,rgba(0,152,136,0.8) -0.45%,rgba(0,192,136,0.8) 50%);
+
+
+    /* Button Sizes */
+
+    --s-b-r:  15px; 
+    --s-h  :  30px; 
+    --s-w  : 144px;
+    --s-f-s:  16px;
+
+    --m-b-r:  20px; 
+    --m-h  :  40px; 
+    --m-w  : 192px;
+    --m-f-s:  18px;
+
+    --l-b-r:  25px; 
+    --l-h  :  50px; 
+    --l-w  : 240px;
+    --l-f-s:  20px;
+
 }
 
-.btn-call:focus {
+/* Color Classes */     
+     
+.c-b-00 { color     : var(--b-00) }
+.c-b-01 { color     : var(--b-01) }
+.c-b-02 { color     : var(--b-02) }
+.c-b-03 { color     : var(--b-03) }
+.c-b-04 { color     : var(--b-04) }
+.c-b-05 { color     : var(--b-05) }
+.c-b-06 { color     : var(--b-06) }
+.c-b-07 { color     : var(--b-07) }
+.c-b-08 { color     : var(--b-08) }
+.c-b-09 { color     : var(--b-09) }
+.c-b-10 { color     : var(--b-10) }
+.c-b-11 { color     : var(--b-11) }
+.c-b-12 { color     : var(--b-12) }
+          
+.c-w-00 { color     : var(--w-00) }
+.c-w-01 { color     : var(--w-01) }
+.c-w-02 { color     : var(--w-02) }
+.c-w-03 { color     : var(--w-03) }
+.c-w-04 { color     : var(--w-04) }
+.c-w-05 { color     : var(--w-05) }
+.c-w-06 { color     : var(--w-06) }
+.c-w-07 { color     : var(--w-07) }
+.c-w-08 { color     : var(--w-08) }
+.c-w-09 { color     : var(--w-09) }
+.c-w-10 { color     : var(--w-10) }
+.c-w-11 { color     : var(--w-11) }
+.c-w-12 { color     : var(--w-12) }
+
+.b-b-00 { background: var(--b-00) }
+.b-b-01 { background: var(--b-01) }
+.b-b-02 { background: var(--b-02) }
+.b-b-03 { background: var(--b-03) }
+.b-b-04 { background: var(--b-04) }
+.b-b-05 { background: var(--b-05) }
+.b-b-06 { background: var(--b-06) }
+.b-b-07 { background: var(--b-07) }
+.b-b-08 { background: var(--b-08) }
+.b-b-09 { background: var(--b-09) }
+.b-b-10 { background: var(--b-10) }
+.b-b-11 { background: var(--b-11) }
+.b-b-12 { background: var(--b-12) }
+
+.b-w-00 { background: var(--w-00) }
+.b-w-01 { background: var(--w-01) }
+.b-w-02 { background: var(--w-02) }
+.b-w-03 { background: var(--w-03) }
+.b-w-04 { background: var(--w-04) }
+.b-w-05 { background: var(--w-05) }
+.b-w-06 { background: var(--w-06) }
+.b-w-07 { background: var(--w-07) }
+.b-w-08 { background: var(--w-08) }
+.b-w-09 { background: var(--w-09) }
+.b-w-10 { background: var(--w-10) }
+.b-w-11 { background: var(--w-11) }
+.b-w-12 { background: var(--w-12) }
+
+.c-s-b-00 { color     : var(--s-b-00) }
+.c-s-b-01 { color     : var(--s-b-01) }
+.c-s-b-02 { color     : var(--s-b-02) }
+.c-s-b-03 { color     : var(--s-b-03) }
+.c-s-b-04 { color     : var(--s-b-04) }
+.c-s-b-05 { color     : var(--s-b-05) }
+.c-s-b-06 { color     : var(--s-b-06) }
+.c-s-b-07 { color     : var(--s-b-07) }
+.c-s-b-08 { color     : var(--s-b-08) }
+.c-s-b-09 { color     : var(--s-b-09) }
+.c-s-b-10 { color     : var(--s-b-10) }
+.c-s-b-11 { color     : var(--s-b-11) }
+.c-s-b-12 { color     : var(--s-b-12) }
+          
+.c-s-w-00 { color     : var(--s-w-00) }
+.c-s-w-01 { color     : var(--s-w-01) }
+.c-s-w-02 { color     : var(--s-w-02) }
+.c-s-w-03 { color     : var(--s-w-03) }
+.c-s-w-04 { color     : var(--s-w-04) }
+.c-s-w-05 { color     : var(--s-w-05) }
+.c-s-w-06 { color     : var(--s-w-06) }
+.c-s-w-07 { color     : var(--s-w-07) }
+.c-s-w-08 { color     : var(--s-w-08) }
+.c-s-w-09 { color     : var(--s-w-09) }
+.c-s-w-10 { color     : var(--s-w-10) }
+.c-s-w-11 { color     : var(--s-w-11) }
+.c-s-w-12 { color     : var(--s-w-12) }
+
+.b-s-b-00 { background: var(--s-b-00) }
+.b-s-b-01 { background: var(--s-b-01) }
+.b-s-b-02 { background: var(--s-b-02) }
+.b-s-b-03 { background: var(--s-b-03) }
+.b-s-b-04 { background: var(--s-b-04) }
+.b-s-b-05 { background: var(--s-b-05) }
+.b-s-b-06 { background: var(--s-b-06) }
+.b-s-b-07 { background: var(--s-b-07) }
+.b-s-b-08 { background: var(--s-b-08) }
+.b-s-b-09 { background: var(--s-b-09) }
+.b-s-b-10 { background: var(--s-b-10) }
+.b-s-b-11 { background: var(--s-b-11) }
+.b-s-b-12 { background: var(--s-b-12) }
+
+.b-s-w-00 { background: var(--s-w-00) }
+.b-s-w-01 { background: var(--s-w-01) }
+.b-s-w-02 { background: var(--s-w-02) }
+.b-s-w-03 { background: var(--s-w-03) }
+.b-s-w-04 { background: var(--s-w-04) }
+.b-s-w-05 { background: var(--s-w-05) }
+.b-s-w-06 { background: var(--s-w-06) }
+.b-s-w-07 { background: var(--s-w-07) }
+.b-s-w-08 { background: var(--s-w-08) }
+.b-s-w-09 { background: var(--s-w-09) }
+.b-s-w-10 { background: var(--s-w-10) }
+.b-s-w-11 { background: var(--s-w-11) }
+.b-s-w-12 { background: var(--s-w-12) }
+
+
+/* Buttons */
+
+
+/* Button Styles */
+
+.p-b-s, .p-b-m, .p-b-l, .s-b-s, .s-b-m, .s-b-l {
+    font-weight  : 500;
+    border       : none!important
+}
+
+.p-b-s {
+    border-radius: var(--s-b-r); 
+    height       : var(--s-h  ); 
+    width        : var(--s-w  );
+    font-size    : var(--s-f-s);
+}
+
+.p-b-m {
+    border-radius: var(--m-b-r); 
+    height       : var(--m-h  ); 
+    width        : var(--m-w  );
+    font-size    : var(--m-f-s);
+}
+
+.p-b-l {
+    border-radius: var(--l-b-r); 
+    height       : var(--l-h  ); 
+    width        : var(--l-w  );
+    font-size    : var(--l-f-s);
+}
+
+.s-b-s {
+    border-radius: var(--s-b-r); 
+    height       : var(--s-h  ); 
+    width        : var(--s-w  );
+    font-size    : var(--s-f-s);
+}
+
+.s-b-m {
+    border-radius: var(--m-b-r); 
+    height       : var(--m-h  ); 
+    width        : var(--m-w  );
+    font-size    : var(--m-f-s);
+}
+
+.s-b-l {
+    border-radius: var(--l-b-r); 
+    height       : var(--l-h  ); 
+    width        : var(--l-w  );
+    font-size    : var(--l-f-s);
+}
+
+/* Button Actions */
+
+.s-b-s:focus, .s-b-m:focus, .s-b-l:focus, .p-b-s:hover, .p-b-m:hover, .p-b-l:hover {
     outline: none!important
 }
 
-.btn-call:hover {
+.p-b-s:hover, .p-b-m:hover, .p-b-l:hover {
+    background-color: var(--primary-color-hover)!important;
+    box-shadow: 0 8px 15px rgba(0,0,0,.2)
+}
+
+.s-b-s:hover, .s-b-m:hover, .s-b-l:hover {
     color: var(--primary-color)!important;
     box-shadow: 0 8px 15px rgba(0,0,0,.2)
+}
+
+/* Utils */
+
+.blur {
+    backdrop-filter: saturate(180%) blur(20px);
+}
+
+.b-a {
+    border: 1px solid var(--b-c);
+}
+
+.b-t {
+    border-top: 1px solid var(--b-c);
+}
+
+.b-r {
+    border-right: 1px solid var(--b-c);
+}
+
+.b-b {
+    border-bottom: 1px solid var(--b-c);
+}
+
+.b-l {
+    border-left: 1px solid var(--b-c);
+}
+
+.b-x {
+    border-right: 1px solid var(--b-c);
+    border-left: 1px solid var(--b-c);
+}
+
+.b-y {
+    border-top: 1px solid var(--b-c);
+    border-bottom: 1px solid var(--b-c);
+}
+
+.lp-blur {
+    backdrop-filter: blur(20px);
 }
