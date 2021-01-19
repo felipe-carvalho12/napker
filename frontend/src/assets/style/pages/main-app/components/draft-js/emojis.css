@@ -31,6 +31,11 @@
     box-shadow: var(--box-shaddow-draftjs);
 }
 
+.send-message-emoji-popover {
+    top: -380px;
+    left: -200px;
+}
+
 .emojiSelectPopoverClosed {
     display: none;
 }

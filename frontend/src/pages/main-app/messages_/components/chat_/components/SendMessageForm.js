@@ -8,7 +8,7 @@ import { emojiTheme } from '../../../../home/components/posts_/components/post-t
 
 
 const emojiPlugin = createEmojiPlugin({
-    theme: emojiTheme,
+    theme: {...emojiTheme, emojiSelectPopover: `${emojiTheme.emojiSelectPopover} send-message-emoji-popover`},
     selectButtonContent: (
         <i className="far fa-smile icon smile m-0 p-0 hover-bg-none" />
     )
