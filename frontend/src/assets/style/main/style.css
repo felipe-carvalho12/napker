@@ -10,11 +10,12 @@
   --p-c-7                      :         rgba(0,192,136,0.04);
   --secondary-color            :      rgba(119, 147, 125, .1);
   --primary-color-hover        :            rgba(0,178,125,1);
-  --header-heigth: 50px;
-  --home-page-menu-height: 60px;
+
   --content-heigth: 91vh;
   --ls-width: 275px;
   --rs-width: 275px;
+  --header-heigth: 50px;
+  --home-page-menu-height: 32px;
 }
 
 * {
@@ -40,8 +41,14 @@ body {
   overflow-y: scroll;
 }
 
-btn, input {
+.btn, input {
   overflow: hidden;
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 h3 {

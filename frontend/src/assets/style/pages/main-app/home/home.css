@@ -1,16 +1,14 @@
 .desktop-home-menu, .mobile-home-menu {
     width: 100%;
+    height: var(--home-page-menu-height);
     display: flex;
     flex-direction: row;
     align-items: center;
     font-size: 1.2rem;
 }
 
-.desktop-home-menu {
-}
-
 .mobile-home-menu {
-    padding-top: 50px;
+    margin-top: var(--header-heigth);
 }
 
 .home-menu-btn-container {
