@@ -7,6 +7,7 @@ export default function RgbaEditor(props) {
     const theme = props.theme
     const title = props.title || ""
     const cssVar = props.cssVar
+    const setChecked = props.setChecked
     
     let oldColor = window.localStorage.getItem(`${cssVar},${theme}`) && window.localStorage.getItem(`${cssVar},${theme}`).split(",")
 
@@ -30,6 +31,7 @@ export default function RgbaEditor(props) {
     }
 
     const handleChange = () => {
+        setChecked(true)
         cssVariables.setProperty(`${cssVar}`      , toRgb(toString(             redValue ,              greenValue ,              blueValue ,                     opacityValue/100)))
         cssVariables.setProperty(`${cssVar}-hover`, toRgb(toString(hoverFormula(redValue), hoverFormula(greenValue), hoverFormula(blueValue), hoverOpacityFormula(opacityValue)/100)))
         cssVariables.setProperty(`${cssVar}-0`    , toRgb(toString(             redValue ,              greenValue ,              blueValue ,             0.8  * (opacityValue/100))))

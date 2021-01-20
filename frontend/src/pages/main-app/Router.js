@@ -19,6 +19,7 @@ import ProfileFriends from './profile/pages/Friends'
 import InterestProfiles from './profile/components/interests/pages/InterestProfiles'
 import EditInterests from './profile/pages/edit_interests/EditInterests'
 import Post from './home/components/posts_/pages/Post'
+import NotFound from '../not-found/NotFound'
 
 import PostFormPage from './mobile-post-form/PostFormPage'
 import EditProfileProvider from '../../context/edit-profile/EditProfileContext'
@@ -139,6 +140,8 @@ export default function MainAppRouter() {
                         <Route path="/interesses/:interest" component={InterestProfiles} />
 
                         <Route path="/postar" component={PostFormPage} />
+
+                        <Route component={NotFound} />
                     </Switch>
                 </div>
             </div>
