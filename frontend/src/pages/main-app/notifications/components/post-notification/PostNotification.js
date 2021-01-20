@@ -12,6 +12,33 @@ export default function PostNotification(props) {
 
     const history = useHistory()
 
+    const postContentFormatter = rawContent => {
+        const blocks = rawContent.blocks
+        const length = blocks.reduce((total, block) => total + block.text.length, 0)
+
+        if (length <= 240) return rawContent
+
+        let totalLength = 0
+        let reachedMaxLength = false
+        const formattedBlocks = blocks.map(block => {
+            if (reachedMaxLength) return
+            
+            totalLength += block.text.length
+            if (totalLength > 240) {
+                const remaining = 240 - (totalLength - block.text.length)
+                reachedMaxLength = true
+                return {...block, text: block.text.slice(0, remaining) + '...'}
+            }
+            return block
+        })
+
+        rawContent.blocks = formattedBlocks
+
+        console.log(formattedBlocks, rawContent)
+
+        return rawContent
+    }
+
     useEffect(() => {
         renderLabel(notification.likes, 'like')
         renderLabel(notification.comments, 'comment')
@@ -63,7 +90,7 @@ export default function PostNotification(props) {
                                     <PostTextbox
                                         editable={false}
                                         postContent={JSON.parse(post.content)}
-                                        postContentFormatter={postContent => `${postContent.slice(0, 240)}${postContent.length > 240 && '...'}`}
+                                        contentFormatter={postContentFormatter}
                                     />
                                 </span>
                                 {post.image &&
@@ -87,7 +114,7 @@ export default function PostNotification(props) {
                     </div>
                 </div>
                 <NotificationContent type='likes' arr={notification.likes} />
-                <NotificationContent type='comments' arr={notification.comments} />
+                <NotificationContent type='comments' arr={notification.comments} commentContentFormatter={postContentFormatter} />
             </li>
         </div>
     )

@@ -8,6 +8,7 @@ import PostTextbox from '../../../../home/components/posts_/components/component
 export default function NotificationContent(props) {
     const type = props.type
     const arr = props.arr
+    const commentContentFormatter = props.commentContentFormatter ? props.commentContentFormatter : false
 
     const [isOpen, setIsOpen] = useState(false)
 
@@ -74,7 +75,7 @@ export default function NotificationContent(props) {
                                             <PostTextbox
                                                 editable={false}
                                                 postContent={JSON.parse(item.content)}
-                                                postContentFormatter={postContent => `${postContent.slice(0, 240)}${postContent.length > 240 && '...'}`}
+                                                contentFormatter={commentContentFormatter}
                                             />
                                         </div>
                                     }
