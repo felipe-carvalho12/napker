@@ -18,21 +18,16 @@ export default function Info(props) {
             </div>
             <div className="d-flex flex-column" style={{ marginRadius: "10px", overflowY: "auto" }}>
                 <span className="mb-5px c-secondary-grey">
-                    <p>Perfil: Os critérios presentes na barra lateral (Interesses em comum, Semelhança de idade...) são utilizados para calcularmos a
+                    <p><strong>Perfil: </strong>Os critérios presentes na barra lateral (Interesses em comum, Semelhança de idade...) são utilizados para calcularmos a
                     relevância de um perfil em relação a outro. Sabendo disso, você pode escolher o peso de cada critério e assim, personalizar o
                     algoritmo, que calculará a relevância dos perfia.</p>
-                    <p>Post: Os critérios presentes na barra lateral (Likes do post, Autor do post...) são utilizados para calcularmos a
-                    relevância de um post em relação a outro. Sabendo disso, você pode escolher o peso de cada critério e assim, personalizar o
-                    algoritmo, que calculará a ordem dos posts no seu feed e no descubrir.</p>
+                    <p><strong>Post: </strong>A relevância de um post é calculada baseada na relevância do autor do mesmo e dos perfis que curtiram a publicação. Ou seja,
+                    ao decidir como a relevância de um perfil será calculada, você está personalizando o algoritmo que decidirá quais posts devem aparecer para você
+                    e em que ordem.</p>
                 </span>
                 <span className="mb-5px c-secondary-grey">
                     <strong>Exemplo:</strong> Caso você mude o peso do critério "Interesses em comum" para 100 e todos os outros para 0, os perfis da página "Encontrar perfis" 
                     serão ordenados levando em consideração apenas a quantidade de interesses em comum que o usuário tem com você.
-                </span>
-                <span className="mb-5px c-secondary-grey">
-                    A relevância de um post é calculada baseada na relevância do autor do mesmo e dos perfis que curtiram a publicação. Ou seja,
-                    ao decidir como a relevância de um perfil será calculada, você está personalizando o algoritmo que decidirá quais posts devem aparecer para você
-                    e em que ordem.
                 </span>
             </div>
         </div>
