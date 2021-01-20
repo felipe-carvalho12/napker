@@ -15,10 +15,9 @@ export default function InterestsInfoModal(props) {
             <Modal.Body>
                 <div className="d-flex flex-column b-theme-base-color p-2 b-b" style={{ marginBottom: "20px" }}>
                     <span className="mb-1 c-primary-grey">
-                        1) xxx
-                        2) yyy
-                        3) zzz
-                        4) kkk
+                        1) Seu post terá mais chance de aparecer no feed de usuários que possuam o(s) interesse(s) adicionado(s) ao post.
+                        2) Seu post terá maior probabilidade de aparecer no descobrir.
+                        3) Seu post ganhará mais engajamento já que será direcionado para usuários mais interessados no conteúdo.
                     </span>
                 </div>
             </Modal.Body>
