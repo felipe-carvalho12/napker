@@ -4,7 +4,7 @@ import { EditorState, ContentState, convertToRaw } from "draft-js"
 import Editor from "draft-js-plugins-editor"
 import createEmojiPlugin from "draft-js-emoji-plugin"
 
-import { emojiTheme } from '../../../../home/components/posts_/components/post-textbox/themes/index'
+import { emojiTheme } from '../../../../home/components/posts_/components/components/post-textbox/themes/index'
 
 
 const emojiPlugin = createEmojiPlugin({

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import PostTextbox from './post-textbox/PostTextbox'
+import PostTextbox from './components/post-textbox/PostTextbox'
 import VideoIframe from '../../../../../../components/VideoIframe'
 
 import { SERVER_URL } from '../../../../../../config/settings'
@@ -165,7 +165,7 @@ export default function PostForm(props) {
                 <div className="d-flex">
                     <div className="w-100 h-100">
                         <div className={`d-flex ${isAdvanced && "box-sm b-theme-base-color"} p-0 justify-content-between w-100"`} style={{ height: "34px" }}>
-                            <div style={{ transform: isAdvanced ? "translateX(0)" : "translateX(200px)" }}>
+                            <div style={{ transform: isAdvanced ? "translateX(0)" : "translateX(200px)", transition: '.8s' }}>
                                 {(isAdvanced && toolbar !== null) &&
                                     toolbar
                                 }

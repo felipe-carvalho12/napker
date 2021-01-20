@@ -125,7 +125,7 @@ export default function AlgorithmSettings(props) {
             >
                 {weights ?
                     <div
-                        className={`w-100 ${isMobile ? 'p-2' : 'h-100'} d-flex flex-column justify-content-between box-med b-theme-base-color`}
+                        className={`w-100 ${isMobile ? 'p-2' : ''} d-flex flex-column justify-content-between box-med b-theme-base-color`}
                         style={{ marginTop: !isMobile && 'var(--header-heigth)', minHeight: props.minHeight }}
                     >
                         <div>

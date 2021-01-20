@@ -20,7 +20,7 @@ import createInlineToolbarPlugin from "draft-js-inline-toolbar-plugin"
 import createEmojiPlugin from "draft-js-emoji-plugin"
 import createToolbarPlugin from 'draft-js-static-toolbar-plugin'
 
-import { SERVER_URL } from '../../../../../../../config/settings'
+import { SERVER_URL } from '../../../../../../../../config/settings'
 import { mentionTheme, hashtagTheme, inlineToolbarTheme, emojiTheme } from './themes/index'
 import StrongMention from './components/StrongMention'
 import LinkMention from './components/LinkMention'
