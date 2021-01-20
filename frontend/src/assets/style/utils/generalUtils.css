@@ -38,6 +38,13 @@
   padding: 2px;
 }
 
+.alert-success {
+  color: var(--primary-color)!important;
+  background: var(--primary-color-3)!important;
+  margin-top: 5px;
+  border: none!important;
+}
+
 .sticky {
   position: sticky!important;
   top: 0!important;
