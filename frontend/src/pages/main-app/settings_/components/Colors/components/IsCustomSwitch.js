@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { setTheme } from '../../../../../../config/utils'
 
 export default function IsCustomSwitch(props) {
@@ -7,6 +7,10 @@ export default function IsCustomSwitch(props) {
     let custom = window.localStorage.getItem(checkboxId) || 'true'
 
     const [isChecked, setIsChecked] = useState(custom === 'false' ? true : false)
+
+    useEffect(() => {
+        custom = window.localStorage.getItem(checkboxId)
+    }, [window.localStorage.getItem(checkboxId)])
 
     const switchIsCustom = () => {
 

@@ -1,19 +1,14 @@
 import React, { useState } from 'react'
 import RgbaEditor from './RgbaEditor'
 import IsCustomSwitch from './IsCustomSwitch'
-import { setTheme } from '../../../../../../config/utils'
 
 
 export default function Colors(props) {
+    const themeContext = props.themeContext
+    const setThemeContext = props.setThemeContext
     const theme = props.theme
     const title = props.title
     const icon = props.icon
-    
-    const [isOpen, setIsOpen] = useState(false)
-
-    const open = () => {
-        isOpen ? setIsOpen(false) : setIsOpen(true)
-    }
 
     return (
         <li className="w-100 d-flex flex-column align-items-center">
@@ -31,14 +26,14 @@ export default function Colors(props) {
                     <i
                         className="material-icons-sharp align-self-start icon base-hover text-secondary algorithm-settings-details"
                         style={{ width: '25px', height: '25px' }}
-                        onClick={open}
+                        onClick={() => setThemeContext(theme)}
                     >
-                        {!isOpen ? "keyboard_arrow_right" : "keyboard_arrow_down"}
+                        {themeContext !== theme ? "keyboard_arrow_right" : "keyboard_arrow_down"}
                     </i>
                 </div>
             </div>
-            <div className={`m-10px ${!isOpen ? 'd-none' : 'd-flex'} w-100`}>
-                <div className={`m-10px d-flex flex-column w-100`}>
+            <div className={`${themeContext !== theme ? 'd-none' : 'd-flex'} w-100`}>
+                <div className="m-5px d-flex flex-column w-100">
                     <RgbaEditor 
                         cssVar="--primary-color" 
                         title="Cor primária"
@@ -55,7 +50,7 @@ export default function Colors(props) {
                         theme={theme}
                     />
                 </div>
-                <div className={`m-10px d-flex flex-column w-100`}>
+                <div className={`m-5px d-flex flex-column w-100`}>
                     <RgbaEditor 
                         cssVar="--primary-grey" 
                         title="Cor da fonte primária"
@@ -67,7 +62,6 @@ export default function Colors(props) {
                         theme={theme}
                     />
                 </div>
-                <button onClick={setTheme}>Aplicar</button>
             </div>
         </li>
     )

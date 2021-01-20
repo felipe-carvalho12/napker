@@ -11,14 +11,14 @@ export default function ColorSlider(props) {
 
     return (
         <div className="d-flex align-items-center w-100">
-            <span>{title}</span>
+            <span style={{ color: "rgba(0, 0, 0, 1)" }}>{title}</span>
             <Slider
                 defaultValue={color}
                 max={max}
                 className='c-primary-color mx-10px'
                 onChange={(e, value) => {setColor(value); handleChange()}}
             />
-            <strong>{color}</strong>
+            <strong style={{ color: "rgba(0, 0, 0, 1)" }}>{color}</strong>
         </div>
     )
 }
