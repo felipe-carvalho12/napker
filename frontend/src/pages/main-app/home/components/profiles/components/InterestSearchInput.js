@@ -65,6 +65,10 @@ export default function InterestSearchInput(props) {
                 const index = tags.indexOf(tagLabel)
                 tags = [...tags.slice(0, index), ...tags.slice(index + 1)]
                 addTags()
+                if (!tags.length) {
+                    input.current.rows = '1'
+                    input.current.dataset.minRows = '1'
+                }
             }
         })
 

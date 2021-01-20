@@ -1,5 +1,5 @@
-import React, { useEffect, useState, } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useHistory } from 'react-router-dom'
 
 import PostTextbox from './components/post-textbox/PostTextbox'
 import VideoIframe from '../../../../../../components/VideoIframe'
@@ -24,6 +24,8 @@ export default function PostForm(props) {
     const setMobilePostButton = props.setMobilePostButton
     const renderParent = props.renderParent
 
+    const history = useHistory()
+
     const [posts, setPosts] = usePosts()
     const [errMessage, setErrMessage] = useState(null)
 
@@ -43,15 +45,17 @@ export default function PostForm(props) {
 
     useEffect(() => {
         isMobile && setMobilePostButton && setMobilePostButton((
-            <button
-                type="submit"
-                className="btn btn-primary d-flex justify-content-center align-items-center"
-                id={`${isAdvanced ? 'advanced' : 'regular'}-post-form-submit-btn`}
-                style={{ height: '30px' }}
-                disabled
-            >
-                Postar
-            </button>
+            <form onSubmit={handleSubmit}>
+                <button
+                    type="submit"
+                    className="btn btn-primary d-flex justify-content-center align-items-center"
+                    id={`${isMobile ? 'mobile' : 'desktop'}-post-form-submit-btn`}
+                    style={{ height: '30px' }}
+                    disabled
+                >
+                    Postar
+                </button>
+            </form>
         ))
     }, [])
 
@@ -69,13 +73,14 @@ export default function PostForm(props) {
         if (videoUrl) {
             setPostFormImagePreview('')
         }
-        const el = document.querySelector(`#${isAdvanced ? 'advanced' : 'regular'}-post-form-submit-btn`)
+        const el = document.querySelector(`#${isMobile ? 'mobile' : 'desktop'}-post-form-submit-btn`)
         if (el) el.disabled = !videoUrl.trim() && !postFormImagePreview && !videoUrl
     }, [videoUrl])
 
     useEffect(() => {
-        const el = document.querySelector(`#${isAdvanced ? 'advanced' : 'regular'}-post-form-submit-btn`)
+        const el = document.querySelector(`#${isMobile ? 'mobile' : 'desktop'}-post-form-submit-btn`)
         if (el) el.disabled = !contentLength && !postFormImagePreview && !videoUrl
+
     }, [contentLength])
 
     const handlePostImageChange = e => {
@@ -83,8 +88,8 @@ export default function PostForm(props) {
         reader.onload = () => {
             if (reader.readyState === 2) {
                 setPostFormImagePreview(reader.result)
-                document.querySelector(`#${isAdvanced ? 'advanced' : 'regular'}-post-img-container`).style.display = 'initial'
-                document.querySelector(`#${isAdvanced ? 'advanced' : 'regular'}-post-form-submit-btn`).disabled = false
+                document.querySelector(`#${isMobile ? 'mobile' : 'desktop'}-post-img-container`).style.display = 'initial'
+                document.querySelector(`#${isMobile ? 'mobile' : 'desktop'}-post-form-submit-btn`).disabled = false
             }
         }
         try {
@@ -106,26 +111,23 @@ export default function PostForm(props) {
     }
 
     const handleCloseImage = () => {
-        document.querySelector(`#${isAdvanced ? 'advanced' : 'regular'}-post-img-container`).style.display = 'none'
-        document.querySelector(`#${isAdvanced ? 'advanced' : 'regular'}-post-img`).value = ''
+        document.querySelector(`#${isMobile ? 'mobile' : 'desktop'}-post-img-container`).style.display = 'none'
+        document.querySelector(`#${isMobile ? 'mobile' : 'desktop'}-post-img`).value = ''
         if (!postContent.trim() && !videoUrl.trim())
             setPostFormImagePreview(null)
     }
 
     const handleCloseVideo = () => {
         setVideoUrl('')
-        if (!postContent.trim() && !postFormImagePreview.trim()) document.querySelector(`#${isAdvanced ? 'advanced' : 'regular'}-post-form-submit-btn`).disabled = true
+        if (!postContent.trim() && !postFormImagePreview.trim()) document.querySelector(`#${isMobile ? 'mobile' : 'desktop'}-post-form-submit-btn`).disabled = true
     }
 
     const handleSubmit = e => {
         e && e.preventDefault()
-        const postImage = postFormImagePreview
-        setPostContent('')
-        setPostFormImagePreview('')
-        setVideoUrl('')
-        setIsAdvanced(false)
 
-        document.querySelector(`#${isAdvanced ? 'advanced' : 'regular'}-post-form-submit-btn`).disabled = true
+        document.querySelector(`#${isMobile ? 'mobile' : 'desktop'}-post-form-submit-btn`).disabled = true
+
+        console.log(postContent)
 
         fetch(`${SERVER_URL}/post-api/create-${type === 'post' ? type : 'comment'}`, {
             method: 'POST',
@@ -138,7 +140,7 @@ export default function PostForm(props) {
                 'post-id': postId || '',
                 'parent-comment-id': parentComment ? parentComment.id : '',
                 'type': type,
-                'post-image': postImage || '',
+                'post-image': postFormImagePreview || '',
                 'post-video': getEmbedVideoUrl() || '',
                 'tagged-usernames': taggedUsernames,
                 'interests': postInterests
@@ -153,7 +155,14 @@ export default function PostForm(props) {
                     errMessage && setErrMessage('')
                     hideForm && hideForm()
                     posts ? setPosts([data, ...posts]) : renderParent()
+
+                    isMobile && history.push('/home')
                 }
+
+                setPostContent('')
+                setPostFormImagePreview('')
+                setVideoUrl('')
+                setIsAdvanced(false)
             })
     }
 
@@ -167,7 +176,7 @@ export default function PostForm(props) {
             >
                 <div className="d-flex">
                     <div className="w-100 h-100">
-                        <div className={`d-flex ${isAdvanced && "box-sm b-theme-base-color"} p-0 justify-content-between w-100"`} style={{ height: "34px" }}>
+                        <div className={`d-flex ${isAdvanced ? "box-sm b-theme-base-color" : ""} ${isMobile ? 'mb-2' : ''} p-0 justify-content-between w-100"`} style={{ height: "34px" }}>
                             <div style={{ transform: isAdvanced ? "translateX(0)" : "translateX(200px)", transition: '.8s' }}>
                                 {(isAdvanced && toolbar !== null) &&
                                     toolbar
@@ -211,7 +220,7 @@ export default function PostForm(props) {
                                 <div className="w-100 d-flex justify-content-center mt-2">
                                     <div
                                         className="post-img-container"
-                                        id={`${isAdvanced ? 'advanced' : 'regular'}-post-img-container`}>
+                                        id={`${isMobile ? 'mobile' : 'desktop'}-post-img-container`}>
                                         <div
                                             className="post-img-options"
                                         >
@@ -223,7 +232,7 @@ export default function PostForm(props) {
                                         <img
                                             src={postFormImagePreview}
                                             className="post-img mt-0"
-                                            id={`${isAdvanced ? 'advanced' : 'regular'}-post-form-img-preview`}
+                                            id={`${isMobile ? 'mobile' : 'desktop'}-post-form-img-preview`}
                                         />
                                     </div>
                                 </div>
@@ -263,14 +272,14 @@ export default function PostForm(props) {
                                         <>
                                             <div>
                                                 <label
-                                                    htmlFor={`${isAdvanced ? 'advanced' : 'regular'}-post-img`}
+                                                    htmlFor={`${isMobile ? 'mobile' : 'desktop'}-post-img`}
                                                     className="far fa-image m-0 icon secondary-hover hover-bg-none"
                                                     style={{ fontSize: '25px', color: 'var(--primary-color-1)' }}
                                                 />
                                                 <input
                                                     type="file"
                                                     accept="image/png, image/jpg, image/jpeg, image/gif"
-                                                    id={`${isAdvanced ? 'advanced' : 'regular'}-post-img`}
+                                                    id={`${isMobile ? 'mobile' : 'desktop'}-post-img`}
                                                     style={{ display: 'none' }}
                                                     onChange={handlePostImageChange}
                                                 />
@@ -292,7 +301,7 @@ export default function PostForm(props) {
                                     <button
                                         type="submit"
                                         className="btn btn-primary d-flex justify-content-center align-items-center justify-self-end align-self-end"
-                                        id={`${isAdvanced ? 'advanced' : 'regular'}-post-form-submit-btn`}
+                                        id={`${isMobile ? 'mobile' : 'desktop'}-post-form-submit-btn`}
                                         style={{ height: '30px' }}
                                         disabled
                                     >
