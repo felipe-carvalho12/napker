@@ -1,8 +1,6 @@
 import { SERVER_URL } from './settings'
 
-export const csrftoken = getCookie('csrftoken')
-
-function getCookie(name) {
+export const getCookie = name => {
   let cookieValue = null;
   if (document.cookie && document.cookie !== '') {
     const cookies = document.cookie.split(';');
@@ -17,6 +15,8 @@ function getCookie(name) {
   }
   return cookieValue;
 }
+
+export const csrftoken = getCookie('csrftoken')
 
 export const handleLogout = () => {
   const bool = window.confirm('Sair do Napker?\nVocê poderá entrar novamente quando quiser.')
@@ -63,8 +63,6 @@ export function onExpandableTextareaInput({ target: elm }) {
 export const setTheme = () => {
   const cssVariables = document.documentElement.style
   const theme = window.localStorage.getItem('theme') || 'light'
-
-  console.log("aaaaaaaa")
 
   const toRgb = value => `rgba(${value})`
 
@@ -132,4 +130,13 @@ export const setTheme = () => {
     toCss('--img-background'             ,           'rgba(0, 0, 0, .3)', 'dark')
     toCss('--img-background-hover'       ,           'rgba(0, 0, 0, .3)', 'dark')
   }
+}
+
+
+// YOUTUBE IFRAME
+
+export const getThumbnailSrc = iframeSrc => {
+  const youtube_video_id = iframeSrc.match(/youtube\.com.*(\?v=|\/embed\/)(.{11})/).pop()
+
+  return `https://img.youtube.com/vi/${youtube_video_id}/0.jpg`
 }

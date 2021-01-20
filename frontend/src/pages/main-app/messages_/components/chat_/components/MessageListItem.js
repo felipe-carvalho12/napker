@@ -4,7 +4,7 @@ import Editor from "draft-js-plugins-editor"
 import createEmojiPlugin from "draft-js-emoji-plugin"
 
 import { renderTimestamp } from '../../../../../../config/utils'
-import { emojiTheme } from '../../../../home/components/posts_/components/post-textbox/themes/index'
+import { emojiTheme } from '../../../../home/components/posts_/components/components/post-textbox/themes/index'
 
 
 
@@ -28,6 +28,7 @@ export default function MessageListItem(props) {
                         editorState={editorState}
                         onChange={newEditorState => setEditorState(newEditorState)}
                         plugins={plugins}
+                        readOnly={true}
                     />
                 </p>
             </li>

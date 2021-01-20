@@ -6,7 +6,7 @@
     border-left: 1px solid var(--view-more-select-border);
     transform: rotate(45deg);
     z-index: 2;
-    background: var(--theme-base-color);
+    background: var(--theme-base-color-hover);
 }
   
 .view-more-select li:first-of-type:hover ~ .popover-arrow {
@@ -21,7 +21,7 @@
     border: 1px solid var(--view-more-select-border);
     border-radius: 10px;
     text-align: start;
-    background: var(--theme-base-color);
+    background: var(--theme-base-color-hover);
 }
   
 .view-more-select li:first-of-type{

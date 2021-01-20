@@ -265,7 +265,7 @@ class Profile extends React.Component {
                         backArrow={true}
                     />
                     {this.state.myProfile !== null && this.state.profile !== null &&
-                        <div className="profile-page-menu" style={{ marginBottom: '10px', paddingTop: `${this.isMobile && "50px"}` }}>
+                        <div className="profile-page-menu" style={{ paddingTop: `${this.isMobile && "50px"}` }}>
                             <div
                                 className="profile-page-menu-item profile-page-menu-item-active"
                                 id="profile-posts-page-menu-item"

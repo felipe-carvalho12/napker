@@ -10,6 +10,7 @@ export default function InterestsInput(props) {
     const input = useRef()  //input where the interests are submitted
     const interestsInput = useRef() //hidden input that stores the interests titles
 
+
     useEffect(() => {
         let tags = myProfile && !props.startEmpty ? myProfile.interests.filter(i => type === 'public' ? i.public : !i.public).map(i => i.title) : []
         addTags()
@@ -66,6 +67,10 @@ export default function InterestsInput(props) {
                 const tagLabel = e.target.getAttribute('data-item')
                 const index = tags.indexOf(tagLabel)
                 tags = [...tags.slice(0, index), ...tags.slice(index + 1)]
+                if (!tags.length) {
+                    input.current.rows = props.minRows ? props.minRows : '1'
+                    input.current.dataset.minRows = props.minRows ? props.minRows : '1'
+                }
                 addTags()
             }
         })

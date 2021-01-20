@@ -213,6 +213,22 @@
         width: 100%;
         text-align: center;
     }
+
+    .tag-container textarea::placeholder {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 380px) {
+    .draftJsToolbar__button__qi1gf {
+        width: 30px;
+        font-size: 14px;
+    }
+
+    .draftJsToolbar__button__qi1gf svg {
+        width: 20px;
+        height: 20px;
+    }
 }
 
 @media (max-width: 375px) {
@@ -240,6 +256,15 @@
 @media (max-width:330px) {
     .interests-page-container h3 {
         font-size: 1.2rem;
+    }
+    .draftJsToolbar__button__qi1gf {
+        width: 25px;
+        font-size: 13px;
+    }
+
+    .draftJsToolbar__button__qi1gf svg {
+        width: 18px;
+        height: 18px;
     }
 }
 

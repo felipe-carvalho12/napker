@@ -4,7 +4,7 @@ import { Link, useHistory } from 'react-router-dom'
 import { SERVER_URL } from '../config/settings'
 import { csrftoken, renderTimestamp } from '../config/utils'
 import VideoIframe from './VideoIframe'
-import PostTextbox from '../pages/main-app/home/components/posts_/components/post-textbox/PostTextbox'
+import PostTextbox from '../pages/main-app/home/components/posts_/components/components/post-textbox/PostTextbox'
 
 export default function PostListItem(props) {
     const post = props.post
@@ -83,7 +83,7 @@ export default function PostListItem(props) {
 
     return (
         <li
-            className={`d-flex w-100 base-hover hide-animation box-med post-container ${props.className}`}
+            className={`position-relative d-flex w-100 base-hover hide-animation box-med post-container ${props.className}`}
             id={`profile-post-${post.id}`}
             key={post.id}
             style={{ ...props.style, background: 'var(--theme-base-color)', marginBottom: type === 'comment' && '10px', padding: "0" }}
@@ -126,7 +126,7 @@ export default function PostListItem(props) {
                             onClick={e => openCloseExtraOptions(e, post.id)}
                         />
                     </div>
-                    <div className="view-more-select" id={`post-view-more-select-${post.id}`} style={{ right: '0%' }}>
+                    <div className="view-more-select" id={`post-view-more-select-${post.id}`} style={{ right: '10px', top: '45px' }}>
                         {myProfile.id === post.author.id ?
                             <li
                                 style={{ color: '#f00' }}

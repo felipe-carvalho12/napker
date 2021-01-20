@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 
+import { renderTimestamp, getThumbnailSrc } from '../../../../../config/utils'
 import NotificationContent from './components/NotificationContent'
+import PostTextbox from '../../../home/components/posts_/components/components/post-textbox/PostTextbox'
 
 
 export default function PostNotification(props) {
@@ -9,6 +11,33 @@ export default function PostNotification(props) {
     const post = notification.post
 
     const history = useHistory()
+
+    const postContentFormatter = rawContent => {
+        const blocks = rawContent.blocks
+        const length = blocks.reduce((total, block) => total + block.text.length, 0)
+
+        if (length <= 240) return rawContent
+
+        let totalLength = 0
+        let reachedMaxLength = false
+        const formattedBlocks = blocks.map(block => {
+            if (reachedMaxLength) return
+            
+            totalLength += block.text.length
+            if (totalLength > 240) {
+                const remaining = 240 - (totalLength - block.text.length)
+                reachedMaxLength = true
+                return {...block, text: block.text.slice(0, remaining) + '...'}
+            }
+            return block
+        })
+
+        rawContent.blocks = formattedBlocks
+
+        console.log(formattedBlocks, rawContent)
+
+        return rawContent
+    }
 
     useEffect(() => {
         renderLabel(notification.likes, 'like')
@@ -51,16 +80,25 @@ export default function PostNotification(props) {
                     <div className="d-flex justify-content-between align-items-center mb-10px">
                         <Link to={`/post/${post.id}`}>
                             <strong style={{ fontSize: "20px", color: "var(--primary-grey)" }}>POST</strong>
-                        </Link>   
-                        <span>{post.created.split('-').reverse().join('/')}</span>
+                        </Link>
+                        <span>{renderTimestamp(post.created)}</span>
                     </div>
                     <div className="d-flex">
                         <div className="d-flex flex-column justify-content-between w-100">
                             <div className="d-flex justify-content-between w-100">
-                                <span className="mb-10px" style={{ textAlign: 'start' }}>
-                                    {`${post.content.slice(0, 240)}${post.content.length > 240 && '...'}`}
+                                <span className="w-50 mb-10px" style={{ textAlign: 'start' }}>
+                                    <PostTextbox
+                                        editable={false}
+                                        postContent={JSON.parse(post.content)}
+                                        contentFormatter={postContentFormatter}
+                                    />
                                 </span>
-                                <img src={post.image} className="mb-10px" style={{ maxWidth: '100px', maxHeight: '100px', borderRadius: '20px' }} />
+                                {post.image &&
+                                    <img src={post.image} className="mb-10px" style={{ maxWidth: '100px', maxHeight: '100px', borderRadius: '20px' }} />
+                                }
+                                {post.video &&
+                                    <img src={getThumbnailSrc(post.video)} style={{ maxWidth: '200px', maxHeight: '150px', borderRadius: '20px' }} />
+                                }
                             </div>
                             <div className="d-flex justify-content-between w-100">
                                 <div className="d-flex align-items-start mb-10px notification-authors-container">
@@ -76,7 +114,7 @@ export default function PostNotification(props) {
                     </div>
                 </div>
                 <NotificationContent type='likes' arr={notification.likes} />
-                <NotificationContent type='comments' arr={notification.comments} />
+                <NotificationContent type='comments' arr={notification.comments} commentContentFormatter={postContentFormatter} />
             </li>
         </div>
     )

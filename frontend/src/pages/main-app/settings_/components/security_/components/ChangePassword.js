@@ -77,7 +77,7 @@ export default function ChangePassword() {
                 <h3>Alterar senha</h3>
             </div>
             <form className="change-password-form">
-                <input id="password" type="password" placeholder="Senha atual" autoFocus />
+                <input className="m-0" id="password" type="password" placeholder="Senha atual" autoFocus />
                 <br />
                 <Link to="/recuperar-senha">
                     Esqueceu sua senha?

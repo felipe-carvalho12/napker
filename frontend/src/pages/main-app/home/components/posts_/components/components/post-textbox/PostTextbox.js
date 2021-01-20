@@ -20,7 +20,7 @@ import createInlineToolbarPlugin from "draft-js-inline-toolbar-plugin"
 import createEmojiPlugin from "draft-js-emoji-plugin"
 import createToolbarPlugin from 'draft-js-static-toolbar-plugin'
 
-import { SERVER_URL } from '../../../../../../../config/settings'
+import { SERVER_URL } from '../../../../../../../../config/settings'
 import { mentionTheme, hashtagTheme, inlineToolbarTheme, emojiTheme } from './themes/index'
 import StrongMention from './components/StrongMention'
 import LinkMention from './components/LinkMention'
@@ -54,7 +54,9 @@ export default class SimpleMentionEditor extends Component {
     }
 
     state = {
-        editorState: this.props.postContent ? EditorState.createWithContent(convertFromRaw(this.props.postContent)) : EditorState.createEmpty(),
+        editorState: this.props.postContent ?
+            EditorState.createWithContent(convertFromRaw(this.props.contentFormatter ? this.props.contentFormatter(this.props.postContent) : this.props.postContent)) :
+            EditorState.createEmpty(),
         mentions: null,
         suggestions: []
     };
@@ -130,6 +132,24 @@ export default class SimpleMentionEditor extends Component {
         }
     }
 
+    handleBeforeInput = chars => {
+        if (this.props.maxLength) {
+            const totalLength = this.state.editorState.getCurrentContent().getPlainText().length + chars.length
+            if (totalLength > this.props.maxLength) {
+                return 'handled'
+            }
+        }
+    }
+
+    handlePastedText = chars => {
+        if (this.props.maxLength) {
+            const totalLength = this.state.editorState.getCurrentContent().getPlainText().length + chars.length
+            if (totalLength > this.props.maxLength) {
+                return 'handled'
+            }
+        }
+    }
+
     componentWillReceiveProps(newProps) {
         if (newProps.shouldClearEditor) {
             const editorState = EditorState.push(this.state.editorState, ContentState.createFromText(''))
@@ -157,6 +177,8 @@ export default class SimpleMentionEditor extends Component {
                         ref={(element) => this.editor = element}
                         placeholder={this.props.placeholder !== undefined ? this.props.placeholder : ''}
                         readOnly={!this.props.editable}
+                        handleBeforeInput={this.handleBeforeInput}
+                        handlePastedText={this.handlePastedText}
                     />
                 </div>
                 {this.props.editable &&

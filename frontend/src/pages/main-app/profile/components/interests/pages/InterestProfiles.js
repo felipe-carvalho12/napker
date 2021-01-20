@@ -23,7 +23,7 @@ export default function InterestProfiles() {
     }, [])
 
     return (
-        <>
+        <div className="content-container p-vw-r">
             <Header
                 page={`Interesse / ${interest[0].toUpperCase() + interest.slice(1)}`}
                 backArrow={true}
@@ -49,6 +49,6 @@ export default function InterestProfiles() {
                     }
                 </div>
             </div>
-        </>
+        </div>
     )
 }

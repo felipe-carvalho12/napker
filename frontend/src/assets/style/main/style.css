@@ -25,7 +25,7 @@
   list-style: none;
   text-decoration: none;
   font-family: 'IBM Plex Sans', sans-serif;
-  transition: .1s!important;
+  transition: .1s;
   -webkit-font-smoothing: antialiased
 }
 

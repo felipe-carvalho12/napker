@@ -4,7 +4,7 @@ import { EditorState, ContentState, convertToRaw } from "draft-js"
 import Editor from "draft-js-plugins-editor"
 import createEmojiPlugin from "draft-js-emoji-plugin"
 
-import { emojiTheme } from '../../../../home/components/posts_/components/post-textbox/themes/index'
+import { emojiTheme } from '../../../../home/components/posts_/components/components/post-textbox/themes/index'
 
 
 const emojiPlugin = createEmojiPlugin({
@@ -65,6 +65,10 @@ export default function SendMessageForm(props) {
 
     const sendMessageHandler = e => {
         e.preventDefault()
+        if (!JSON.parse(message).blocks.reduce((total, block) => total + block.text.length, 0)) {
+            window.alert('A mensagem não pode estar em branco!')
+            return
+        }
         shouldClearEditor = true
         addMessage({
             author: username,
