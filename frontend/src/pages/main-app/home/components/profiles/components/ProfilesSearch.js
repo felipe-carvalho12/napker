@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
+
 import { SERVER_URL } from '../../../../../../config/settings'
+import { csrftoken } from '../../../../../../config/utils'
 import InterestSearchInput from './InterestSearchInput'
 
 
 export default function ProfilesSearchInput(props) {
     const setFilteredProfiles = props.setFilteredProfiles
 
-    let [interests, setInterests] = [[], newInterests => interests = newInterests]
+    const [interests, setInterests] = useState([])
     const [search, setSearch] = useState('')
     const [searchType, setSearchType] = useState('byName')
 
@@ -30,20 +32,34 @@ export default function ProfilesSearchInput(props) {
             setFilteredProfiles(null)
             return
         }
-        if (searchType === 'byName') {
-            fetch(`${SERVER_URL}/profile-api/users/${search}`)
-                .then(response => response.json())
-                .then(data => {
-                    setFilteredProfiles(data)
-                })
-        } else if (searchType === 'byInterest') {
-            fetch(`${SERVER_URL}/profile-api/users-by-interest/${search}`)
-                .then(response => response.json())
-                .then(data => {
-                    setFilteredProfiles(data)
-                })
-        }
+        fetch(`${SERVER_URL}/profile-api/users/${search}`)
+            .then(response => response.json())
+            .then(data => {
+                setFilteredProfiles(data)
+            })
     }, [search])
+
+    useEffect(() => {
+        if (!interests.length) {
+            setFilteredProfiles(null)
+            return
+        }
+        fetch(`${SERVER_URL}/profile-api/users-by-interest`, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+                'X-CSRFToken': csrftoken,
+            },
+            body: JSON.stringify({
+                'interests': interests
+            })
+        }
+        )
+            .then(response => response.json())
+            .then(data => {
+                setFilteredProfiles(data)
+            })
+    }, [interests])
 
     const handleSearchTypeSelection = (e, text) => {
         setSearchType(searchType === 'byName' ? 'byInterest' : 'byName')
@@ -55,7 +71,7 @@ export default function ProfilesSearchInput(props) {
             <div className="profiles-filter-container b-bottom-radius">
                 <div style={{ width: '60%' }}>
                     {searchType === 'byInterest' ?
-                        <InterestSearchInput setInterests={setInterests} />
+                        <InterestSearchInput interests={interests} setInterests={setInterests} />
                         :
                         <input
                             type="text"

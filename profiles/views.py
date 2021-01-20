@@ -64,9 +64,9 @@ def filter_profiles(request, query):
     return Response(serializer.data)
 
 
-@api_view(['GET'])
-def filter_profiles_by_interests(request, query):
-    interests = [i.strip() for i in query.split(',')]
+@api_view(['POST'])
+def filter_profiles_by_interests(request):
+    interests = request.data['interests']
     profiles = []
     for profile in Profile.objects.filter(interests__title=interests[0]).exclude(user=request.user):
         if all(inter in [i.title for i in profile.interests.filter(public=True)] for inter in interests) and profile not in profiles:

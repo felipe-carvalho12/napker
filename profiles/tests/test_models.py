@@ -58,7 +58,7 @@ class TestModels(TestCase):
         post2 = Post.objects.create(content='Hello, world!', author=self.test_user.profile)
 
         self.assertEqual(len(self.test_user.profile.get_all_posts()), 2)
-        self.assertEqual(list(self.test_user.profile.get_all_posts()), [post1, post2])
+        self.assertEqual(list(self.test_user.profile.get_all_posts()), [post2, post1])
 
     
     def test_relationship_manager(self):
