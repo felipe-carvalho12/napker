@@ -77,7 +77,7 @@ export default function Profiles() {
         <>
             <ProfilesSearch setFilteredProfiles={setFilteredProfiles} />
             <div className="list-group">
-                {myProfile && (profiles || filteredProfiles) &&
+                {myProfile && (profiles || filteredProfiles) ?
                     <div className="w-100">
                         {filteredProfiles ? filteredProfiles.map(profile => {
                             return (
@@ -99,10 +99,11 @@ export default function Profiles() {
                         })
                         }
                     </div>
+                    :
+                    <div className="loader-container">
+                        <div className="loader" />
+                    </div>
                 }
-                <div className="loader-container">
-                    <div className="loader" />
-                </div>
             </div>
         </>
     )

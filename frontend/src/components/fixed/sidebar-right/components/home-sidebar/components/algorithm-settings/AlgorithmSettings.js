@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import { AlgorithmWeightsContext } from '../../../../../../../context/app/AppContext'
 import { SERVER_URL } from '../../../../../../../config/settings'
 import { csrftoken } from '../../../../../../../config/utils'
-import InfoModal from './components/InfoModal'
+import Info from './components/Info'
 import InfoIcon from '../../../InfoIcon'
 import ProfileSettings from './components/ProfileSettings'
 import PostSettings from './components/PostSettings'
@@ -19,7 +19,7 @@ export default function AlgorithmSettings(props) {
     const [profileWeights, setProfileWeights] = useState(null)
     const [postWeights, setPostWeights] = useState(null)
 
-    const [infoModalIsOpen, setInfoModalIsOpen] = useState(false)
+    const [infoIsOpen, setInfoIsOpen] = useState(false)
 
     const [profileSettingsIsOpen, setProfileSettingsIsOpen] = useState(true)
     const [postSettingsIsOpen, setPostSettingsIsOpen] = useState(false)
@@ -118,7 +118,6 @@ export default function AlgorithmSettings(props) {
 
     return (
         <>
-            <InfoModal isOpen={infoModalIsOpen} hideModal={() => setInfoModalIsOpen(false)} />
             <div
                 className={`d-flex flex-column justify-content-start align-items-center ${props.className}`}
                 style={{ height: '85%', ...props.style }}
@@ -126,37 +125,43 @@ export default function AlgorithmSettings(props) {
                 {weights ?
                     <div
                         className={`w-100 ${isMobile ? 'p-2' : ''} d-flex flex-column justify-content-between box-med b-theme-base-color`}
-                        style={{ marginTop: !isMobile && 'var(--header-heigth)', height: !isMobile && '405px' }}
+                        style={{ marginTop: !isMobile && 'var(--header-heigth)', maxHeight: "600px" }}
                     >
-                        <div>
-                            <div className="w-100 d-flex justify-content-between align-items-start mb-3">
-                                <h6 className={isMobile ? 'm-2' : 'mr-10px'}>Personalize seu algoritmo.</h6>
-                                {renderInfoIcon &&
-                                    <InfoIcon onClick={() => setInfoModalIsOpen(true)} />
+                        {infoIsOpen ? 
+                            <Info setInfoIsOpen={setInfoIsOpen} />
+                            :
+                            <>
+                                <div>
+                                    <div className="w-100 d-flex justify-content-between align-items-start mb-3">
+                                        <h6 className={isMobile ? 'm-2' : 'mr-10px'}>Personalize seu algoritmo.</h6>
+                                        {renderInfoIcon &&
+                                            <InfoIcon className="p-5px" onClick={() => setInfoIsOpen(true)} />
+                                        }
+                                    </div>
+                                    <div>
+                                        <ProfileSettings
+                                            open={profileSettingsIsOpen}
+                                            handleDetailClick={handleDetailClick}
+                                            useCurrentWeights={[profileWeights, setProfileWeights]}
+                                        />
+                                        <PostSettings
+                                            open={postSettingsIsOpen}
+                                            handleDetailClick={handleDetailClick}
+                                            useCurrentWeights={[postWeights, setPostWeights]}
+                                        />
+                                    </div>
+                                </div>
+                                {!props.isDemo &&
+                                    <button
+                                        ref={buttonRef}
+                                        className="btn btn-primary d-flex justify-content-center align-items-center justify-self-end align-self-end"
+                                        style={{ width: '70px', height: '30px' }}
+                                        onClick={handleSave}
+                                    >
+                                        Salvar
+                                    </button>
                                 }
-                            </div>
-                            <div>
-                                <ProfileSettings
-                                    open={profileSettingsIsOpen}
-                                    handleDetailClick={handleDetailClick}
-                                    useCurrentWeights={[profileWeights, setProfileWeights]}
-                                />
-                                <PostSettings
-                                    open={postSettingsIsOpen}
-                                    handleDetailClick={handleDetailClick}
-                                    useCurrentWeights={[postWeights, setPostWeights]}
-                                />
-                            </div>
-                        </div>
-                        {!props.isDemo &&
-                            <button
-                                ref={buttonRef}
-                                className="btn btn-primary d-flex justify-content-center align-items-center justify-self-end align-self-end"
-                                style={{ width: '70px', height: '30px' }}
-                                onClick={handleSave}
-                            >
-                                Salvar
-                            </button>
+                            </>
                         }
                     </div>
                     :

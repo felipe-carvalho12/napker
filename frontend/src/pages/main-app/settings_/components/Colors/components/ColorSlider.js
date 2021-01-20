@@ -18,7 +18,7 @@ export default function ColorSlider(props) {
                 className='c-primary-color mx-10px'
                 onChange={(e, value) => {setColor(value); handleChange()}}
             />
-            <strong style={{ color: "rgba(0, 0, 0, 1)" }}>{color}</strong>
+            <strong style={{ color: "rgba(0, 0, 0, 1)" }}>{Math.floor(color)}</strong>
         </div>
     )
 }
