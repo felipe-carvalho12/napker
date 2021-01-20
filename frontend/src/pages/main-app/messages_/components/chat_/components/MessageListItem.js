@@ -28,6 +28,7 @@ export default function MessageListItem(props) {
                         editorState={editorState}
                         onChange={newEditorState => setEditorState(newEditorState)}
                         plugins={plugins}
+                        readOnly={true}
                     />
                 </p>
             </li>

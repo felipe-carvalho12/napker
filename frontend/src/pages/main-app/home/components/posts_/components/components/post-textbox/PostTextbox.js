@@ -132,6 +132,24 @@ export default class SimpleMentionEditor extends Component {
         }
     }
 
+    handleBeforeInput = chars => {
+        if (this.props.maxLength) {
+            const totalLength = this.state.editorState.getCurrentContent().getPlainText().length + chars.length
+            if (totalLength > this.props.maxLength) {
+                return 'handled'
+            }
+        }
+    }
+
+    handlePastedText = chars => {
+        if (this.props.maxLength) {
+            const totalLength = this.state.editorState.getCurrentContent().getPlainText().length + chars.length
+            if (totalLength > this.props.maxLength) {
+                return 'handled'
+            }
+        }
+    }
+
     componentWillReceiveProps(newProps) {
         if (newProps.shouldClearEditor) {
             const editorState = EditorState.push(this.state.editorState, ContentState.createFromText(''))
@@ -159,6 +177,8 @@ export default class SimpleMentionEditor extends Component {
                         ref={(element) => this.editor = element}
                         placeholder={this.props.placeholder !== undefined ? this.props.placeholder : ''}
                         readOnly={!this.props.editable}
+                        handleBeforeInput={this.handleBeforeInput}
+                        handlePastedText={this.handlePastedText}
                     />
                 </div>
                 {this.props.editable &&

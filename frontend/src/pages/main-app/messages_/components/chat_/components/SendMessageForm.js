@@ -65,6 +65,10 @@ export default function SendMessageForm(props) {
 
     const sendMessageHandler = e => {
         e.preventDefault()
+        if (!JSON.parse(message).blocks.reduce((total, block) => total + block.text.length, 0)) {
+            window.alert('A mensagem não pode estar em branco!')
+            return
+        }
         shouldClearEditor = true
         addMessage({
             author: username,
