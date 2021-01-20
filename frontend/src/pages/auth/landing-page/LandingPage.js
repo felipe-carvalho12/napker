@@ -114,12 +114,9 @@ export default function LandingPage() {
                         className="d-flex flex-column h-50 w-100 justify-content-start align-items-center"
                     >
                         <Wave colors={["var(--w-05)", "var(--w-05)", "var(--w-05)", "var(--w-05)"]} />
-                        <div className="w-100 d-flex flex-column justify-content-start align-items-center" style={{ height: "50vh",  background: "rgba(255, 255, 255, 0.76)" }}>
-                            <h3 className="c-p-c-1 p-30px">FAQ</h3>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
     )
 }
