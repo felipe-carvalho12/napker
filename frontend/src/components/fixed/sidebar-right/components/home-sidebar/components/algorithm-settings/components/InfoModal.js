@@ -19,8 +19,8 @@ export default function FeedAlgorithmInfoModal(props) {
                         relevância de um perfil em relação a outro. Sabendo disso, você pode escolher o peso de cada critério e assim, personalizar o
                         algoritmo, que calculará a relevância dos perfia.</p>
                         <p>Post: Os critérios presentes na barra lateral (Likes do post, Autor do post...) são utilizados para calcularmos a
-                        relevância de um post em relação a outro. Sabendo disso, você pode escolher o peso de cada critério e assim, personalizar o
-                        algoritmo, que calculará a ordem dos posts no seu feed e no descubrir.</p>
+                        relevância de um post em relação a você. Sabendo disso, você pode escolher o peso de cada critério e assim, personalizar o
+                        algoritmo, que calculará a ordem dos posts no seu feed e no descobrir.</p>
                     </span>
                     <span className="mb-1 c-primary-grey">
                         <strong>Exemplo:</strong> Caso você mude o peso do critério "Interesses em comum" para 100 e todos os outros para 0, os perfis da página "Encontrar perfis" 
