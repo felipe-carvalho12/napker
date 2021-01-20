@@ -22,6 +22,8 @@ export default function PostListItem(props) {
     const history = useHistory()
     const isLink = props.isLink !== undefined ? props.isLink : true
 
+    const parsedContent = JSON.parse(post.content)
+
     const likeUnlikePost = e => {
         e.stopPropagation()
         const likeBtn = e.target
@@ -108,7 +110,7 @@ export default function PostListItem(props) {
                             <Link
                                 to={post.author.id === myProfile.id ? '/perfil' : `/user/${post.author.slug}`}
                                 className="d-flex justify-content-start align-items-start post-author-data-wrapper"
-                                style={{ color: '#000' }}
+                                style={{ color: '#000', flexDirection: props.breakAuthorData && 'column' }}
                                 onClick={e => e.stopPropagation()}
                             >
                                 <strong className="mr-10px" style={{ color: 'var(--primary-grey)' }}>
@@ -149,12 +151,14 @@ export default function PostListItem(props) {
                         }
                         <div className="popover-arrow" style={{ top: '-9px', right: '8%' }} />
                     </div>
-                    <div className="d-flex justify-content-start word-break mb-10px">
-                        <PostTextbox
-                            editable={false}
-                            postContent={JSON.parse(post.content)}
-                        />
-                    </div>
+                    {parsedContent.blocks.map(block => block.text).join('') !== '' &&
+                        <div className="d-flex justify-content-start word-break mb-10px">
+                            <PostTextbox
+                                editable={false}
+                                postContent={parsedContent}
+                            />
+                        </div>
+                    }
                 </div>
                 <div className={`d-flex justify-content-center w-100 post-img-background ${(post.video || post.image) && "my-2"}`} style={{ background: 'var(--img-background)' }}>
                     {post.image &&
