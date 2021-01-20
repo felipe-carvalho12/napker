@@ -3,6 +3,7 @@ import { Link, useHistory } from 'react-router-dom'
 
 import PostTextbox from './components/post-textbox/PostTextbox'
 import VideoIframe from '../../../../../../components/VideoIframe'
+import InterestsInfoModal from './components/InterestsInfoModal'
 
 import { SERVER_URL } from '../../../../../../config/settings'
 import { csrftoken } from '../../../../../../config/utils'
@@ -40,6 +41,7 @@ export default function PostForm(props) {
     const [toolbar, setToolbar] = useState(null)
 
     const [isAdvanced, setIsAdvanced] = useState(false)
+    const [interestsInfoModalIsOpen, setInterestsInfoModalIsOpen] = useState(false)
 
     useEffect(() => {
         isMobile && setMobilePostButton && setMobilePostButton((
@@ -166,6 +168,7 @@ export default function PostForm(props) {
 
     return (
         <>
+            <InterestsInfoModal isOpen={interestsInfoModalIsOpen} hideModal={() => setInterestsInfoModalIsOpen(false)} />
             <form
                 className={`create-post-form p-0 ${props.className}`}
                 style={props.style}
@@ -258,16 +261,9 @@ export default function PostForm(props) {
                                     style={{ background: 'none' }}
                                 >
                                     <InfoIcon
-                                        onClick={
-                                            () => window.alert(
-                                                `Por que adicionar interesses ao seu post? \n
-                                                1) Seu post terá mais chance de aparecer no feed de usuários que possuam o(s) interesse(s) adicionado(s) ao post.\n
-                                                2) Seu post terá maior probabilidade de aparecer no descobrir.\n
-                                                3) Seu post ganhará mais engajamento já que será direcionado para usuários mais interessados no conteúdo.\n
-                                                `
-                                            )
-                                        }
-                                        style={{ width: 'fit-content', position: 'absolute', top: '5px' }} />
+                                        onClick={() => setInterestsInfoModalIsOpen(true)}
+                                        style={{ width: 'fit-content', position: 'absolute', top: '5px' }}
+                                    />
                                 </InterestsInput>
                             }
                             <div className="d-flex justify-content-between">
