@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { renderTimestamp } from '../../../../../../config/utils'
+import PostTextbox from '../../../../home/components/posts_/components/components/post-textbox/PostTextbox'
 
 
 export default function NotificationContent(props) {
@@ -63,14 +64,18 @@ export default function NotificationContent(props) {
                                             {" • "}
                                             <Link to={`/user/${author.slug}`} style={{ color: "var(--primary-grey)" }}>
                                                 @{author.user.username}
-                                            </Link> {type === 'likes' ? 'curtiu' : 'comentou' } seu post.
+                                            </Link> {type === 'likes' ? 'curtiu' : 'comentou'} seu post.
                                         </p>
                                     </div>
                                     {item.content &&
                                         <div className="d-flex justify-content-start word-break w-100"
                                             style={{ paddingTop: '10px' }}
                                         >
-                                            {item.content}
+                                            <PostTextbox
+                                                editable={false}
+                                                postContent={JSON.parse(item.content)}
+                                                postContentFormatter={postContent => `${postContent.slice(0, 240)}${postContent.length > 240 && '...'}`}
+                                            />
                                         </div>
                                     }
                                 </div>

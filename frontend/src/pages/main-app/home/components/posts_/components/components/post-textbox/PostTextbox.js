@@ -54,7 +54,9 @@ export default class SimpleMentionEditor extends Component {
     }
 
     state = {
-        editorState: this.props.postContent ? EditorState.createWithContent(convertFromRaw(this.props.postContent)) : EditorState.createEmpty(),
+        editorState: this.props.postContent ?
+            EditorState.createWithContent(convertFromRaw(this.props.postContent)) :
+            EditorState.createEmpty(),
         mentions: null,
         suggestions: []
     };
