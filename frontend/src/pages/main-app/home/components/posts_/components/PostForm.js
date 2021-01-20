@@ -205,7 +205,7 @@ export default function PostForm(props) {
                                 />
                             </div>
                             {(postFormImagePreview && postFormImagePreview !== '') &&
-                                <div className="w-100 d-flex justify-content-center">
+                                <div className="w-100 d-flex justify-content-center mt-2">
                                     <div
                                         className="post-img-container"
                                         id={`${isAdvanced ? 'advanced' : 'regular'}-post-img-container`}>
@@ -248,7 +248,17 @@ export default function PostForm(props) {
                                     className="mt-3 position-relative b-a"
                                     style={{ background: 'none' }}
                                 >
-                                    <InfoIcon onClick={() => window.alert('Olá')} style={{ width: 'fit-content', position: 'absolute', top: '5px' }} />
+                                    <InfoIcon
+                                        onClick={
+                                            () => window.alert(
+                                                `Por que adicionar interesses ao seu post? \n
+                                                1) Seu post terá mais chance de aparecer no feed de usuários que possuam o(s) interesse(s) adicionado(s) ao post.\n
+                                                2) Seu post terá maior probabilidade de aparecer no descobrir.\n
+                                                3) Seu post ganhará mais engajamento já que será direcionado para usuários mais interessados no conteúdo.\n
+                                                `
+                                            )
+                                        }
+                                        style={{ width: 'fit-content', position: 'absolute', top: '5px' }} />
                                 </InterestsInput>
                             }
                             <div className="d-flex justify-content-between">

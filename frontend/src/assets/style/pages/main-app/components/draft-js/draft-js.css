@@ -9,3 +9,7 @@
 .DraftEditor-root {
     text-align: start;
 }
+
+.DraftEditor-root blockquote {
+    color: var(--primary-grey);
+}
