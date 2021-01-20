@@ -42,6 +42,8 @@ export default function InterestSearchInput(props) {
                 tagContainer.current.prepend(createTag(tag))
             })
             query += tags[tags.length - 1]
+
+            props.setInterests && props.setInterests(tags)
         }
 
         input.current.addEventListener('keypress', (e) => {

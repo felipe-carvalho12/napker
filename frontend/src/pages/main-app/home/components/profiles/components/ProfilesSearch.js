@@ -5,6 +5,8 @@ import InterestSearchInput from './InterestSearchInput'
 
 export default function ProfilesSearchInput(props) {
     const setFilteredProfiles = props.setFilteredProfiles
+
+    let [interests, setInterests] = [[], newInterests => interests = newInterests]
     const [search, setSearch] = useState('')
     const [searchType, setSearchType] = useState('byName')
 
@@ -53,7 +55,7 @@ export default function ProfilesSearchInput(props) {
             <div className="profiles-filter-container b-bottom-radius">
                 <div style={{ width: '60%' }}>
                     {searchType === 'byInterest' ?
-                        <InterestSearchInput />
+                        <InterestSearchInput setInterests={setInterests} />
                         :
                         <input
                             type="text"

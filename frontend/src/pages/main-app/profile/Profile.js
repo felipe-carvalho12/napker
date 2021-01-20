@@ -292,7 +292,7 @@ class Profile extends React.Component {
                             :
                             <>
                                 {this.state.alertMessage &&
-                                    <div class="alert alert-success profile-page-alert-success" role="alert">
+                                    <div class="alert alert-success" role="alert">
                                         {this.state.alertMessage}
                                     </div>
                                 }
