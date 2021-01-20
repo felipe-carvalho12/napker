@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 import SignupForm from './components/SignupForm'
-import InterestsForm from './components/InterestsForm'
+import InterestsForm from './components/interests-form/InterestsForm'
 import ActivationLinkSent from './components/ActivationLinkSent'
 import PageLoader from '../../PageLoader'
 
