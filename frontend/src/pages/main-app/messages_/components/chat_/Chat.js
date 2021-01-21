@@ -179,7 +179,7 @@ class Chat extends React.Component {
                     <>
                         {this.state.otherProfile ?
                             <div
-                                className="d-flex flex-column justify-content-between align-items-center h-100 current-chat"
+                                className="d-flex flex-column justify-content-between align-items-center h-100 current-chat blur"
                                 style={{ width: '60%' }}
                             >
                                 <div className="current-chat-header b-t-r-r b-b">

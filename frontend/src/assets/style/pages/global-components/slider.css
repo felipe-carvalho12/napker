@@ -1,17 +1,24 @@
+
 .MuiSlider-thumb {
     width: 10px!important;
     height: 16px!important;
     border-radius: 25%!important;
-    background-color: var(--theme-base-color)!important;
+    background-color: var(--background)!important;
     margin-top: -7px!important;
     border: solid 1px var(--b-c)!important;
     backdrop-filter: saturate(180%) blur(20px)!important;
   }
   
-  .MuiSlider-thumb.Mui-focusVisible, .MuiSlider-thumb:hover {
+.MuiSlider-thumb.Mui-focusVisible, .MuiSlider-thumb:hover {
     box-shadow: 0 0 0 5px var(--secondary-color)!important;
-  }
-  
-  .MuiSlider-thumb.MuiSlider-active {
+}
+
+.MuiSlider-thumb.MuiSlider-active {
     box-shadow: 0 0 0 7px var(--secondary-color)!important;
-  }
+}
+
+@media (hover: none) {
+    .MuiSlider-thumb.Mui-focusVisible, .MuiSlider-thumb:hover {
+        box-shadow: none!important;
+    }
+}

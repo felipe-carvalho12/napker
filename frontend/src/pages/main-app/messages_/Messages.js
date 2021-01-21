@@ -8,6 +8,7 @@ import ContactListItem from './components/ContactListItem'
 import ContactFilterInput from './components/ContactFilterInput'
 import BottomMenu from '../../../components/fixed/bottom-menu/BottomMenu'
 import WebSocketInstance from './websocket'
+import Header from '../../../components/fixed/Header'
 
 export default function Messages(props) {
     const [username, setUsername] = useState(null)
@@ -19,6 +20,8 @@ export default function Messages(props) {
     const [addingNewChat, setAddingNewChat] = useState(false)
     const [modalProfiles, setModalProfiles] = useState([])
     const [chatsMessages, setChatsMessages] = useState({})
+
+    const isMobile = visualViewport.width <= 980
 
     let rerenderingInterval = null
     let hasFilteredProfiles = false
@@ -88,6 +91,11 @@ export default function Messages(props) {
 
     return (
         <div className="content-container">
+            {isMobile &&
+                <div className="fixed w-100 b-theme-base-color blur b-b" style={{ zIndex: "1000" }}>
+                    <Header page="Mensagens" />
+                </div>
+            }
             <div className="b-theme-base-color box-med" style={{ marginTop: "1vw", padding: "0", zIndex: "1000" }}>
                 <div className="content d-flex messages-wrapper" style={{ margin: 0 }}>
                     <div className="chats-list h-100 b-r">
