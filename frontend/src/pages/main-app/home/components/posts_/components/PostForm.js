@@ -21,7 +21,6 @@ export default function PostForm(props) {
     const color = props.level
 
     const isMobile = visualViewport.width <= 980
-    const setMobilePostButton = props.setMobilePostButton
     const renderParent = props.renderParent
 
     const history = useHistory()
@@ -42,22 +41,6 @@ export default function PostForm(props) {
 
     const [isAdvanced, setIsAdvanced] = useState(false)
     const [interestsInfoModalIsOpen, setInterestsInfoModalIsOpen] = useState(false)
-
-    useEffect(() => {
-        isMobile && setMobilePostButton && setMobilePostButton((
-            <form onSubmit={handleSubmit}>
-                <button
-                    type="submit"
-                    className="btn btn-primary d-flex justify-content-center align-items-center"
-                    id={`${isMobile ? 'mobile' : 'desktop'}-post-form-submit-btn`}
-                    style={{ height: '30px' }}
-                    disabled
-                >
-                    Postar
-                </button>
-            </form>
-        ))
-    }, [])
 
     useEffect(() => {
         if (postFormImagePreview !== '') {
@@ -152,9 +135,9 @@ export default function PostForm(props) {
                 } else {
                     errMessage && setErrMessage('')
                     hideForm && hideForm()
-                    posts ? setPosts([data, ...posts]) : renderParent()
+                    posts ? setPosts([data, ...posts]) : renderParent && renderParent()
 
-                    isMobile && history.push('/home')
+                    isMobile && history.push('/perfil')
                 }
 
                 setPostContent('')
@@ -295,21 +278,19 @@ export default function PostForm(props) {
                                         emojiSelector
                                     }
                                 </div>
-                                {(!isMobile || type === 'comment') &&
-                                    <button
-                                        type="submit"
-                                        className="btn btn-primary d-flex justify-content-center align-items-center justify-self-end align-self-end"
-                                        id={`${isMobile ? 'mobile' : 'desktop'}-post-form-submit-btn`}
-                                        style={{ height: '30px' }}
-                                        disabled
-                                    >
-                                        {type === 'post' ?
-                                            'Postar'
-                                            :
-                                            'Comentar'
-                                        }
-                                    </button>
-                                }
+                                <button
+                                    type="submit"
+                                    className="btn btn-primary d-flex justify-content-center align-items-center justify-self-end align-self-end"
+                                    id={`${isMobile ? 'mobile' : 'desktop'}-post-form-submit-btn`}
+                                    style={{ height: '30px' }}
+                                    disabled
+                                >
+                                    {type === 'post' ?
+                                        'Postar'
+                                        :
+                                        'Comentar'
+                                    }
+                                </button>
                             </div>
                         </div>
                     </div>

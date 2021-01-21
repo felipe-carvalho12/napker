@@ -17,15 +17,13 @@ export default function Posts() {
     return (
         <div className="content-container p-0">
             <div className="b-theme-base-color box-med blur" style={{ position: "sticky", top: "1vw", padding: "0 20px 0", zIndex: "1000" }}>
-                <Header page="Novo post" backArrow={true}>
-                    {mobilePostButton !== null && mobilePostButton}
-                </Header>
+                <Header page="Novo post" backArrow={true} />
             </div>
             <div className="content">
                 <div className="post-form-page-container">
                     {myProfile !== null ?
                         <div className="box-med b-theme-base-color b-vw-t mt-50px">
-                            <PostForm myProfile={myProfile} setMobilePostButton={setMobilePostButton} />
+                            <PostForm myProfile={myProfile} />
                         </div>
                         :
                         <div className="loader-container" >

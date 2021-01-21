@@ -17,7 +17,7 @@ export default function ProfileData(props) {
                 <p style={{ marginBottom: 0 }}><strong>{profile.first_name} {profile.last_name}</strong></p>
                 <p className="text-secondary" style={{ marginTop: 0 }}>@{profile.user.username}</p>
                 <p>{profile.bio}</p>
-                <p className="text-secondary">
+                <p className="text-secondary joined-date">
                     <i className="far fa-calendar-alt"></i> Entrou em {profile.created.split('-').reverse().join('/')}
                 </p>
                 <p>
