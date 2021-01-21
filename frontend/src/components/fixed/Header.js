@@ -4,7 +4,7 @@ export default function Header(props) {
     const isMobile = visualViewport.width <= 980
     
     return (
-        <div className="d-flex justify-content-between align-items-center header fixed-top">
+        <div className={"d-flex justify-content-between align-items-center header fixed-top " + props.className}>
             <div>
                 {props.backArrow &&
                     <i class="fas fa-arrow-left left-arrow-icon" onClick={() => window.history.back()} />

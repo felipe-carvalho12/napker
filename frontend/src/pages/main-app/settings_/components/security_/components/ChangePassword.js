@@ -53,7 +53,7 @@ export default function ChangePassword() {
     }
 
     return (
-        <div className="settings-description-container b-t-r-r b-b-r-r b-theme-base-color  p-10px">
+        <div className="settings-description-container b-t-r-r b-b-r-r b-theme-base-color blur p-10px">
             <div
                 className="d-flex justify-content-start align-items-center"
                 style={{  padding: '1px' }}>
