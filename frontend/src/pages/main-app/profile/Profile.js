@@ -219,7 +219,7 @@ class Profile extends React.Component {
                         console.log(data)
                         this.setState({
                             alertMessage: `Você bloqueou @${this.state.profile.user.username}.
-                         ${this.state.profile.first_name} não conseguirá mais ver o seu perfil ou te enviar mensagens.`
+                         @${this.state.profile.user.username} não conseguirá mais ver o seu perfil ou te enviar mensagens.`
                         })
                         this.fetchProfile()
                     })
