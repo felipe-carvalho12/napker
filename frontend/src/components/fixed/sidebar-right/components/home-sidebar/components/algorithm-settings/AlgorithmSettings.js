@@ -119,56 +119,58 @@ export default function AlgorithmSettings(props) {
     return (
         <>
             <div
-                className={`d-flex flex-column justify-content-start align-items-center algorithm-settings ${props.className}`}
+                className={`d-flex flex-column justify-content-start align-items-center algorithm-settings ${props.className ? props.className : ''}`}
                 style={{ height: '85%', ...props.style }}
             >
-                {weights ?
-                    <div
-                        className={`w-100 ${isMobile ? 'p-2' : ''} d-flex flex-column justify-content-between box-med b-theme-base-color`}
-                        style={{ marginTop: !isMobile && 'var(--header-heigth)', height: "400px" }}
-                    >
-                        {infoIsOpen ? 
-                            <Info setInfoIsOpen={setInfoIsOpen} />
-                            :
-                            <>
-                                <div>
-                                    <div className="w-100 d-flex justify-content-between align-items-start mb-3">
-                                        <h6 className={isMobile ? 'm-2' : 'mr-10px'}>Personalize seu algoritmo.</h6>
-                                        {renderInfoIcon &&
-                                            <InfoIcon className="p-5px" onClick={() => setInfoIsOpen(true)} />
-                                        }
-                                    </div>
+                <div className="w-100 h-100 blur">
+                    {weights ?
+                        <div
+                            className={`w-100 ${isMobile ? 'p-2' : ''} d-flex flex-column justify-content-between box-med b-theme-base-color`}
+                            style={{ marginTop: !isMobile && 'var(--header-heigth)', height: "400px" }}
+                        >
+                            {infoIsOpen ?
+                                <Info setInfoIsOpen={setInfoIsOpen} />
+                                :
+                                <>
                                     <div>
-                                        <ProfileSettings
-                                            open={profileSettingsIsOpen}
-                                            handleDetailClick={handleDetailClick}
-                                            useCurrentWeights={[profileWeights, setProfileWeights]}
-                                        />
-                                        <PostSettings
-                                            open={postSettingsIsOpen}
-                                            handleDetailClick={handleDetailClick}
-                                            useCurrentWeights={[postWeights, setPostWeights]}
-                                        />
+                                        <div className="w-100 d-flex justify-content-between align-items-start mb-3">
+                                            <h6 className={isMobile ? 'm-2' : 'mr-10px'}>Personalize seu algoritmo.</h6>
+                                            {renderInfoIcon &&
+                                                <InfoIcon className="p-5px" onClick={() => setInfoIsOpen(true)} />
+                                            }
+                                        </div>
+                                        <div>
+                                            <ProfileSettings
+                                                open={profileSettingsIsOpen}
+                                                handleDetailClick={handleDetailClick}
+                                                useCurrentWeights={[profileWeights, setProfileWeights]}
+                                            />
+                                            <PostSettings
+                                                open={postSettingsIsOpen}
+                                                handleDetailClick={handleDetailClick}
+                                                useCurrentWeights={[postWeights, setPostWeights]}
+                                            />
+                                        </div>
                                     </div>
-                                </div>
-                                {!props.isDemo &&
-                                    <button
-                                        ref={buttonRef}
-                                        className="btn btn-primary d-flex justify-content-center align-items-center justify-self-end align-self-end"
-                                        style={{ width: '70px', height: '30px' }}
-                                        onClick={handleSave}
-                                    >
-                                        Salvar
+                                    {!props.isDemo &&
+                                        <button
+                                            ref={buttonRef}
+                                            className="btn btn-primary d-flex justify-content-center align-items-center justify-self-end align-self-end"
+                                            style={{ width: '70px', height: '30px' }}
+                                            onClick={handleSave}
+                                        >
+                                            Salvar
                                     </button>
-                                }
-                            </>
-                        }
-                    </div>
-                    :
-                    <div className="loader-container" style={{ marginTop: '20px' }}>
-                        <div className="loader" />
-                    </div>
-                }
+                                    }
+                                </>
+                            }
+                        </div>
+                        :
+                        <div className="loader-container" style={{ marginTop: '20px' }}>
+                            <div className="loader" />
+                        </div>
+                    }
+                </div>
             </div>
         </>
     )
