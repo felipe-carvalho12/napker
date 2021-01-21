@@ -50,7 +50,6 @@
 }
 
 .default-switcher .label {
-	background-color: var(--background);
 	border-radius: 50px;
 	cursor: pointer;
 	display: flex;

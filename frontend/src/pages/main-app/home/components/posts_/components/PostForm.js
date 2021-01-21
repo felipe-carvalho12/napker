@@ -127,8 +127,6 @@ export default function PostForm(props) {
 
         document.querySelector(`#${isMobile ? 'mobile' : 'desktop'}-post-form-submit-btn`).disabled = true
 
-        console.log(postContent)
-
         fetch(`${SERVER_URL}/post-api/create-${type === 'post' ? type : 'comment'}`, {
             method: 'POST',
             headers: {

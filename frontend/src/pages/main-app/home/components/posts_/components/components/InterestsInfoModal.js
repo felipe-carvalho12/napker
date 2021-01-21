@@ -10,7 +10,7 @@ export default function InterestsInfoModal(props) {
             size="lg"
         >
             <Modal.Header closeButton>
-                <Modal.Title><strong>Porque usar o post avançado?</strong></Modal.Title>
+                <Modal.Title><strong>Porque adicionar interesses aos posts?</strong></Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <div className="d-flex flex-column b-theme-base-color p-2 b-b" style={{ marginBottom: "20px" }}>

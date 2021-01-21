@@ -1,14 +1,18 @@
 import React, { useState } from 'react'
 
-import { SERVER_URL } from '../../../../config/settings'
-import { csrftoken } from '../../../../config/utils'
-import Logo from '../../../../assets/icons/Logo'
-import PageLoader from '../../../PageLoader'
-import InterestsInput from '../../../main-app/profile/pages/edit_interests/components/InterestsInput'
+import { SERVER_URL } from '../../../../../config/settings'
+import { csrftoken } from '../../../../../config/utils'
+import Logo from '../../../../../assets/icons/Logo'
+import PageLoader from '../../../../PageLoader'
+import InterestsInput from '../../../../main-app/profile/pages/edit_interests/components/InterestsInput'
+import TermsOfUseModal from './components/TermsOfUseModal'
+import PrivacyPoliciesModal from './components/PrivacyPoliciesModal'
 
 
 export default function InterestsForm(props) {
     const [errMessage, setErrMessage] = useState(null)
+    const [termsIsOpen, setTermsIsOpen] = useState(false)
+    const [privacyPoliciesISOpen, setPrivacyPoliciesIsOPen] = useState(false)
 
     let [publicInterests, setPublicInterests] = [null, value => publicInterests = value]
     let [privateInterests, setPrivateInterests] = [null, value => privateInterests = value]
@@ -40,6 +44,8 @@ export default function InterestsForm(props) {
 
     return (
         <>
+            <TermsOfUseModal isOpen={termsIsOpen} hideModal={() => setTermsIsOpen(false)} />
+            <PrivacyPoliciesModal isOpen={privacyPoliciesISOpen} hideModal={() => setPrivacyPoliciesIsOPen(false)} />
             {props.myUserId ?
                 <form
                     class="d-flex flex-column align-items-center primary-form"
@@ -74,6 +80,14 @@ export default function InterestsForm(props) {
                         </p>
                         <InterestsInput type="private" setInterests={setPrivateInterests} />
                     </div>
+
+                    <span className="mt-10px">
+                        <span>Ao criar conta você concorda com nossos </span>
+                        <span className="c-primary-color hover-pointer hover-underline" onClick={() => setTermsIsOpen(true)}>Termos de uso</span>
+                        <span> e </span>
+                        <span className="c-primary-color hover-pointer hover-underline" onClick={() => setPrivacyPoliciesIsOPen(true)}>Politicas de privacidade</span>
+                        <span>.</span>
+                    </span>
 
                     <button class="btn btn-primary w-75 mt-10px py-2">Criar conta</button>
                 </form>

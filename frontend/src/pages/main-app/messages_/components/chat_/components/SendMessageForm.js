@@ -8,7 +8,7 @@ import { emojiTheme } from '../../../../home/components/posts_/components/compon
 
 
 const emojiPlugin = createEmojiPlugin({
-    theme: {...emojiTheme, emojiSelectPopover: `${emojiTheme.emojiSelectPopover} send-message-emoji-popover`},
+    theme: { ...emojiTheme, emojiSelectPopover: `${emojiTheme.emojiSelectPopover} send-message-emoji-popover` },
     selectButtonContent: (
         <i className="far fa-smile icon smile m-0 p-0 hover-bg-none" />
     )
@@ -69,6 +69,16 @@ export default function SendMessageForm(props) {
             window.alert('A mensagem não pode estar em branco!')
             return
         }
+        if (otherProfile.blocked_users.map(u => u.id).includes(myProfile.user.id)) {
+            window.alert(`Você não pode enviar mensagens para ${otherProfile.first_name}.
+            ${otherProfile.first_name} te bloqueou.`)
+            return
+        }
+        if (myProfile.blocked_users.map(u => u.id).includes(otherProfile.user.id)) {
+            window.alert(`Você não pode enviar mensagens para ${otherProfile.first_name}.
+            Você bloqueou ${otherProfile.first_name}.`)
+            return
+        }
         shouldClearEditor = true
         addMessage({
             author: username,
@@ -83,16 +93,6 @@ export default function SendMessageForm(props) {
             chatId: chatId
         };
         setMessage('')
-        if (otherProfile.blocked_users.map(u => u.id).includes(myProfile.user.id)) {
-            window.alert(`Você não pode enviar mensagens para ${otherProfile.first_name}.
-            ${otherProfile.first_name} te bloqueou.`)
-            return
-        }
-        if (myProfile.blocked_users.map(u => u.id).includes(otherProfile.user.id)) {
-            window.alert(`Você não pode enviar mensagens para ${otherProfile.first_name}.
-            Você bloqueou ${otherProfile.first_name}.`)
-            return
-        }
         WebSocketInstance.newChatMessage(messageObject)
         document.querySelector('#chat-message-submit').disabled = true
         updateMessagesComponent()

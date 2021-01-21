@@ -4,18 +4,21 @@ import { InvitesReceivedContext, InvitesReceivedProvider } from './invites-recei
 import { PostNotificationsContext, PostNotificationsProvider } from './post-notifications-number/PostNotificationsContext'
 import { UnreadMessagesContext, UnreadMessagesProvider } from './unread-messages-number/UnreadMessagesContext'
 import { AlgorithmWeightsContext, AlgorithmWeightsProvider } from './algorithm-weights/AlgorithmWeightsContext'
-export { InvitesReceivedContext, PostNotificationsContext, UnreadMessagesContext, AlgorithmWeightsContext }
+import { ThemeContext, ThemeContextProvider } from './theme-context/ThemeContext'
+export { ThemeContext, InvitesReceivedContext, PostNotificationsContext, UnreadMessagesContext, AlgorithmWeightsContext }
 
 export default function AppContextProvider(props) {
     return (
-        <InvitesReceivedProvider>
-            <PostNotificationsProvider>
-                <UnreadMessagesProvider>
-                    <AlgorithmWeightsProvider>
-                        {props.children}
-                    </AlgorithmWeightsProvider>
-                </UnreadMessagesProvider>
-            </PostNotificationsProvider>
-        </InvitesReceivedProvider>
+        <ThemeContextProvider>
+            <InvitesReceivedProvider>
+                <PostNotificationsProvider>
+                    <UnreadMessagesProvider>
+                        <AlgorithmWeightsProvider>
+                            {props.children}
+                        </AlgorithmWeightsProvider>
+                    </UnreadMessagesProvider>
+                </PostNotificationsProvider>
+            </InvitesReceivedProvider>
+        </ThemeContextProvider>
     )
 }

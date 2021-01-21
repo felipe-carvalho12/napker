@@ -69,32 +69,42 @@ export default function Explore() {
                         })}
                     </div>
                     <div className="d-flex justify-content-between">
-                        <div className="post-list" style={{ width: '49%' }}>
-                            {posts.filter((post, index) => !(index % 2)).map(post => {
-                                return (
-                                    <PostListItem
-                                        post={post}
-                                        myProfile={myProfile}
-                                        renderParent={fetchPosts}
-                                        openLikesModal={likes => setLikesModal({ isOpen: true, likes: likes })}
-                                    />
-                                )
-                            })
-                            }
-                        </div>
-                        <div className="post-list" style={{ width: '49%' }}>
-                            {posts.filter((post, index) => index % 2).map(post => {
-                                return (
-                                    <PostListItem
-                                        post={post}
-                                        myProfile={myProfile}
-                                        renderParent={fetchPosts}
-                                        openLikesModal={likes => setLikesModal({ isOpen: true, likes: likes })}
-                                    />
-                                )
-                            })
-                            }
-                        </div>
+                        {posts.length ?
+                            <>
+                                <div className="post-list" style={{ width: '49%' }}>
+                                    {posts.filter((post, index) => !(index % 2)).map(post => {
+                                        return (
+                                            <PostListItem
+                                                post={post}
+                                                myProfile={myProfile}
+                                                renderParent={fetchPosts}
+                                                breakAuthorData={true}
+                                                openLikesModal={likes => setLikesModal({ isOpen: true, likes: likes })}
+                                            />
+                                        )
+                                    })
+                                    }
+                                </div>
+                                <div className="post-list" style={{ width: '49%' }}>
+                                    {posts.filter((post, index) => index % 2).map(post => {
+                                        return (
+                                            <PostListItem
+                                                post={post}
+                                                myProfile={myProfile}
+                                                renderParent={fetchPosts}
+                                                breakAuthorData={true}
+                                                openLikesModal={likes => setLikesModal({ isOpen: true, likes: likes })}
+                                            />
+                                        )
+                                    })
+                                    }
+                                </div>
+                            </>
+                            :
+                            <div className="mt-20px">
+                                <spam className="fs-21 fw-400">Não encontramos nenhum post</spam>
+                            </div>
+                        }
                     </div>
                 </>
                 :

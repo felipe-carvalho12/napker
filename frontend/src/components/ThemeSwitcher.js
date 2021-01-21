@@ -1,4 +1,6 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
+
+import { ThemeContext } from '../context/app/AppContext'
 
 import { setTheme } from '../config/utils'
 
@@ -6,15 +8,14 @@ import { setTheme } from '../config/utils'
 export default function ThemeSwitcher(props) {
     const checkboxId = props.id
 
-    let theme = window.localStorage.getItem('theme') || 'light'
+    const [theme, setThemeContext] = useContext(ThemeContext)
 
     useEffect(() => {
         document.getElementById(checkboxId).checked = theme === 'dark'
-    }, [])
+    }, [theme])
 
     const switchTheme = () => {
-        theme = theme === 'light' ? 'dark' : 'light'
-        window.localStorage.setItem('theme', theme)
+        setThemeContext(theme === 'light' ? 'dark' : 'light')
         setTheme()
     }
 

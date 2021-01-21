@@ -39,10 +39,15 @@ def get_post(request, post_id):
 
 @api_view(['GET'])
 def interest_post_list(request, interest):
+    profile = Profile.objects.get(user=request.user)
+    interest_obj, created = PostInterest.objects.get_or_create(title=interest)
     hashtag_obj, created = Hashtag.objects.get_or_create(title=interest)
-    posts = [post for post in hashtag_obj.posts.all() if post.image]
-    posts.extend(post for post in Post.objects.all() if interest in post.content)
+
+    posts = list(interest_obj.posts.all())
+    posts.extend(list(hashtag_obj.posts.exclude(id__in=[post.id for post in posts])))
+    posts = sort_posts_by_relevance(profile, posts)
     serializer = PostSerializer(posts, many=True)
+
     return Response(serializer.data)
 
 @api_view(['GET'])
@@ -50,8 +55,12 @@ def explore_post_list(request):
     profile = Profile.objects.get(user=request.user)
     posts = []
     for interest in profile.interests.all():
-        if Hashtag.objects.filter(title=interest.title).exists():
-            posts.extend(list(Hashtag.objects.get(title=interest.title).posts.all()))
+        interest_obj, created = PostInterest.objects.get_or_create(title=interest.title)
+        hashtag_obj, created = Hashtag.objects.get_or_create(title=interest.title)
+        posts.extend(list(interest_obj.posts.all()))
+        posts.extend(list(hashtag_obj.posts.exclude(id__in=[post.id for post in posts])))
+
+    posts = sort_posts_by_relevance(profile, posts)
     serializer = PostSerializer(posts, many=True)
     return Response(serializer.data)
 
@@ -144,7 +153,7 @@ def create_post(request):
                 post.save()
 
         for int_title in interests:
-            interest = PostInterest.objects.create(title=int_title)
+            interest, created = PostInterest.objects.get_or_create(title=int_title)
             post.interests.add(interest)
             post.save()
 

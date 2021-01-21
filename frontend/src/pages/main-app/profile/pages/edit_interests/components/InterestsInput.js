@@ -44,7 +44,7 @@ export default function InterestsInput(props) {
             tags.slice().reverse().forEach(tag => {
                 tagContainer.current.prepend(createTag(tag));
             });
-            props.setInterests && setInterests(tags)
+            setInterests && setInterests(tags)
         }
 
         input.current.addEventListener('keypress', (e) => {
