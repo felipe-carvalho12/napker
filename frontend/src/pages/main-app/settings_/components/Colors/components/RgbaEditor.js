@@ -71,21 +71,17 @@ export default function RgbaEditor(props) {
 
 
     return (
-        <div 
-            className="b--base-color mb-10px p-10px box-med"
-            style={{ background: "rgba(255, 255, 255, 0.2)" }}
-        >
+        <div className="b--base-color mb-10px p-10px box-med b-theme-base-color">
             <div 
                 className="w-100 d-flex justify-content-between"
                 onClick={open}
             >
                 <i
                     className="material-icons-sharp align-self-start icon base-hover algorithm-settings-details"
-                    style={{ width: '25px', height: '25px', color: "rgba(0, 0, 0, 1)" }}
+                    style={{ width: '25px', height: '25px' }}
                 >
                     {!isOpen ? "keyboard_arrow_right" : "keyboard_arrow_down"}</i>
                 <h3 
-                    style={{ color: "rgba(0, 0, 0, 1)" }}
                     className="fs-15"
                 >
                     {title}
