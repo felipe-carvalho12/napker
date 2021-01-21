@@ -125,7 +125,7 @@ export default function AlgorithmSettings(props) {
                 {weights ?
                     <div
                         className={`w-100 ${isMobile ? 'p-2' : ''} d-flex flex-column justify-content-between box-med b-theme-base-color`}
-                        style={{ marginTop: !isMobile && 'var(--header-heigth)', maxHeight: "600px" }}
+                        style={{ marginTop: !isMobile && 'var(--header-heigth)', height: "400px" }}
                     >
                         {infoIsOpen ? 
                             <Info setInfoIsOpen={setInfoIsOpen} />
