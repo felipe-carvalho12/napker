@@ -113,9 +113,10 @@ export default function Notifications(props) {
                                         </div>
                                     }
 
-                                </div> :
+                                </div> 
+                                :
                                 <div className="d-flex justify-content-center mt-5">
-                                    <h3>Você não tem nenhuma notificação</h3>
+                                    <span className="c-secondary-grey fw-300 fs-21 fa-l mr-10px">Você não tem nenhuma notificação.</span>
                                 </div>
                             }
 

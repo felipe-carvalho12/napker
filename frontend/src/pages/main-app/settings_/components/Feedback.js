@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-
+import SettingsContent from './components/SettingsContent'
 import { SERVER_URL } from '../../../../config/settings'
 import { csrftoken } from '../../../../config/utils'
 
@@ -76,9 +76,8 @@ export default function Feedback() {
     }
 
     return (
-        <div className="settings-description-container b-t-r-r b-b-r-r b-theme-base-color  p-10px">
+        <SettingsContent title="Nos ajude a melhorar" padding={10} mobileFontSize={21} >
             <div className="primary-form feedback-form">
-                <h3>Nos ajude a melhorar</h3>
                 <div className="feedback-faces-container">
                     <h6>Como está sendo a sua experiência no Napker até agora?</h6>
                     <div className="d-flex justify-content-center">
@@ -144,6 +143,6 @@ export default function Feedback() {
                     <button className="btn btn-primary w-100 mt-10px" onClick={handleFeedbackSubmit}>Enviar</button>
                 </div>
             </div>
-        </div>
+        </SettingsContent>
     )
 }

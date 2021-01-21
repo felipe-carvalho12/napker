@@ -91,12 +91,6 @@ export default function SettingsMenu() {
             >
                 Sair da conta
             </li>
-
-            <ThemeSwitcher
-                className="w-100 ml-3 settings-page-theme-switcher"
-                style={{ marginTop: '100px', fontWeight: 'bold' }}
-                id="settings-switcher"
-            />
         </div>
     )
 }

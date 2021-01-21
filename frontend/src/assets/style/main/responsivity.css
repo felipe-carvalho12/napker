@@ -62,7 +62,7 @@
     }
 
     .post-list, .profile-list-container, .interest-list-container, .interest-profile-list,
-    .interests-page-container, .settings-page-container, .settings-description-container, .notifications-container {
+    .interests-page-container, .notifications-container {
         padding-bottom: 10vh;
     }
     .list-group-item {

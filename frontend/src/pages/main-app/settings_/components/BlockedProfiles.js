@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import SettingsContent from './components/SettingsContent'
 
 import { SERVER_URL } from '../../../../config/settings'
 import ProfileListItem from '../../../../components/ProfileListItem'
@@ -17,8 +18,7 @@ export default function BlockUser() {
     }, [])
 
     return (
-        <div className="settings-description-container b-t-r-r b-b-r-r b-theme-base-color p-10px">
-            <h3 className="c-primary-color p-20px">Perfis bloqueados</h3>
+        <SettingsContent title="Perfis bloqueados" padding={10}>
             {blockedProfiles !== null && myProfile !== null ?
                 <>
                     {!!blockedProfiles.length ?
@@ -50,6 +50,6 @@ export default function BlockUser() {
                     <div className="loader" />
                 </div>
             }
-        </div>
+        </SettingsContent>
     )
 }

@@ -13,6 +13,8 @@ import Colors from './components/Colors/Colors'
 
 
 export default function Settings(props) {
+    const isMobile = visualViewport.width <= 980
+
     if (!props.page) props.page = 'default'
 
     document.title = 'Configurações / Napker'
@@ -28,17 +30,10 @@ export default function Settings(props) {
     }, [props.page])
 
     return (
-        <div className="content-container">
-            <div className="b-theme-base-color box-med m-vw-t p-0" style={{ height: '90vh' }}>
-                {visualViewport.width < 635 &&
-                    <>
-                        {props.page !== 'change-password' && props.page !== 'delete-account' ?
-                            < Header page="Configurações" backArrow={props.page !== 'default'} />
-                            :
-                            <>
-                            </>
-                        }
-                    </>
+        <div className={`content-container ${isMobile && "b-theme-base-color"}`}>
+            <div className={`p-0 ${!isMobile && "b-theme-base-color box-med m-vw-t"}`} style={{ height: '90vh' }}>
+                {isMobile &&
+                    < Header page="Configurações" className= "b-b"/>
                 }
                 <div className="content m-0 h-100">
                     <div className="settings-page-container h-100">

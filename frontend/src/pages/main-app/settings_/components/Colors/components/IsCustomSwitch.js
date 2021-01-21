@@ -20,7 +20,7 @@ export default function IsCustomSwitch(props) {
         >
             <div class="one-quarter" id="switch">
                 <input type="checkbox" class="checkbox" id={checkboxId} checked={checked} onChange={() => setChecked(!checked)} />
-                <label class={`label m-0 ${checked ? "b-primary-color" : "b-background"}`} for={checkboxId}>
+                <label class={`label m-0 ${checked ? "b-primary-color" : "b-theme-base-color"}`} for={checkboxId}>
                     <div class="ball"></div>
                 </label>
             </div>
