@@ -46,6 +46,8 @@ export default function InterestSearchInput(props) {
 
         input.current.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
+                window.alert('Esta funcionalidade estará pronta em alguns dias.')
+                return
                 let willAlert = false
                 input.current.value.split(',').forEach(tag => {
                     if (tag.length < 3) {
