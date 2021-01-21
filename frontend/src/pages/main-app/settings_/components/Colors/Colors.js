@@ -9,10 +9,12 @@ export default function Colors() {
 
     return (
         <div className="settings-description-container b-t-r-r b-b-r-r b-theme-base-color">
-            {false ?
-                <div className="d-flex flex-column justify-content-between align-items-center w-100 ">
-                    <div className="d-flex flex-column w-100">
-                        <h3 className="c-primary-color p-30px">Cores</h3>
+            {true ?
+                <div className="d-flex flex-column align-items-center w-100 h-100 ">
+                    <div className="pt-30px border-box w-100" style={{ height: '15%' }}>
+                        <h3 className="c-primary-color m-0">Cores</h3>
+                    </div>
+                    <div style={{ height: '85%' }}>
                         <ThemeEditor
                             themeContext={theme}
                             setThemeContext={setThemeContext}

@@ -30,6 +30,7 @@
     }
 }
 
+/* Mobile starts here */
 @media (max-width: 980px) {
     /* -----Mobile DOM main structure----- */
     .wrapper .mc-wrapper .main-content {
@@ -100,6 +101,14 @@
     }
     .settings-page-theme-switcher, .header-view-more-icon {
         display: flex!important;
+    }
+    .algorithm-settings {
+        background-color: var(--b-w-11)!important;
+    }
+    .algorithm-settings > .box-med {
+        background: none!important;
+        box-shadow: none!important;
+        height: 70%!important;
     }
 }
 

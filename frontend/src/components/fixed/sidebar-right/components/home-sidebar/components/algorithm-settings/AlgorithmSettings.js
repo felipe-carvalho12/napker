@@ -119,7 +119,7 @@ export default function AlgorithmSettings(props) {
     return (
         <>
             <div
-                className={`d-flex flex-column justify-content-start align-items-center ${props.className}`}
+                className={`d-flex flex-column justify-content-start align-items-center algorithm-settings ${props.className}`}
                 style={{ height: '85%', ...props.style }}
             >
                 {weights ?
