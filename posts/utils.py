@@ -29,7 +29,6 @@ def process_posts_relevance(profile, posts):
 
     WEIGHTS = raw_weights / np.sum(raw_weights)
 
-    posts = posts if posts is not None else Post.objects.all()
     authors = [post.author for post in posts]
 
     authors_relevance = process_authors_relevance(profile, authors) * WEIGHTS[0]
@@ -46,13 +45,9 @@ def process_posts_relevance(profile, posts):
 
 
 def sort_posts_by_relevance(profile, posts=None):
-    try:
-        posts_relevance = process_posts_relevance(profile, posts)
+    posts_relevance = process_posts_relevance(profile, posts if posts is not None else Post.objects.all())
 
-        posts_by_relevance = [post_relevance[0] for post_relevance in sorted(posts_relevance, key=lambda p: p[1])]
-        posts_by_relevance.reverse()
+    posts_by_relevance = [post_relevance[0] for post_relevance in sorted(posts_relevance, key=lambda p: p[1])]
+    posts_by_relevance.reverse()
 
-        return posts_by_relevance
-
-    except:
-        return []
+    return posts_by_relevance
