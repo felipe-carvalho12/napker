@@ -39,18 +39,20 @@ export default function Posts() {
     }, [weights])
 
     const fetchPosts = () => {
+        console.log('fetching posts...')
         fetch(`${SERVER_URL}/post-api/post-list/${scrollCount}`)
             .then(response => response.json())
             .then(data => {
                 isFetching_scroll = false
                 setIsFetching_weights(false)
                 setPosts(data)
+                console.log('fetched posts: ', data)
             })
     }
 
 
     return (
-        <>
+        <>{console.log(posts)}
             <LikesModal
                 isOpen={likesModal.isOpen}
                 likes={likesModal.likes}
