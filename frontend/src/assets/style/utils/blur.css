@@ -1,0 +1,16 @@
+
+.blur-5px {
+    backdrop-filter: saturate(180%) blur(5px);
+}
+
+.blur-10px {
+    backdrop-filter: saturate(180%) blur(10px);
+}
+
+.blur-15px {
+    backdrop-filter: saturate(180%) blur(15px);
+}
+
+.blur-20px {
+    backdrop-filter: saturate(180%) blur(20px);
+}

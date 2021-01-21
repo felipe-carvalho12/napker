@@ -92,7 +92,7 @@ export default function Messages(props) {
     return (
         <div className="content-container">
             {isMobile &&
-                <div className="fixed w-100 b-theme-base-color blur b-b" style={{ zIndex: "1000" }}>
+                <div className="fixed w-100 b-theme-base-color blur-20px b-b" style={{ zIndex: "1000" }}>
                     <Header page="Mensagens" />
                 </div>
             }

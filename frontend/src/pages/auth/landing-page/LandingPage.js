@@ -15,7 +15,7 @@ export default function LandingPage() {
     return (
         <div className="d-flex flex-column align-items-center c-b-12 b-w-12" style={{ color: 'var(--b-12)', background: 'var(--primary-color)' }}>
             <div
-                className="position-fixed d-flex justify-content-center align-items-center w-100 b-w-10 b-b blur"
+                className="position-fixed d-flex justify-content-center align-items-center w-100 b-w-10 b-b blur-20px"
                 style={{ top: '0', left: '0', zIndex: '10000', height: "50px" }}
             >
                 <div className="d-flex justify-content-between align-items-center w-75">

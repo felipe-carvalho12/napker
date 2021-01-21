@@ -240,7 +240,7 @@
 
 /* Utils */
 
-.blur {
+.blur-20px {
     backdrop-filter: saturate(180%) blur(20px);
 }
 
