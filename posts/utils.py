@@ -41,21 +41,13 @@ def process_posts_relevance(profile, posts):
 
     post_relevance = list(zip(posts, post_relevance))
 
-    print('POSTS1: ', posts)
-
     return post_relevance
 
 
 def sort_posts_by_relevance(profile, posts=None):
-    try:
-        posts_relevance = process_posts_relevance(profile, posts if posts is not None else Post.objects.all())
+    posts_relevance = process_posts_relevance(profile, posts if posts is not None else Post.objects.all())
 
-        posts_by_relevance = [post_relevance[0] for post_relevance in sorted(posts_relevance, key=lambda p: p[1])]
-        posts_by_relevance.reverse()
+    posts_by_relevance = [post_relevance[0] for post_relevance in sorted(posts_relevance, key=lambda p: p[1])]
+    posts_by_relevance.reverse()
 
-        print('POSTS2: ', posts_by_relevance)
-
-        return posts_by_relevance
-
-    except:
-        return []
+    return posts_by_relevance

@@ -90,7 +90,7 @@
 
 .delete-account-confirmation {
     width: 100%;
-    height: 40%;
+    max-height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
