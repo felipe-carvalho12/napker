@@ -219,6 +219,12 @@
     }
 }
 
+@media (max-width: 420px) {
+    .profile-data-container .joined-date {
+        font-size: 11px;
+    }
+}
+
 @media (max-width: 380px) {
     .draftJsToolbar__button__qi1gf {
         width: 30px;
