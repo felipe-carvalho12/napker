@@ -8,6 +8,7 @@ export default function RgbaEditor(props) {
     const title = props.title || ""
     const cssVar = props.cssVar
     const setChecked = props.setChecked
+    const isMobile = visualViewport.width <= 980
     
     let oldColor = window.localStorage.getItem(`${cssVar},${theme}`) && window.localStorage.getItem(`${cssVar},${theme}`).split(",")
 
@@ -15,7 +16,7 @@ export default function RgbaEditor(props) {
     const [greenValue, setGreenValue] = useState(oldColor ? Math.floor(oldColor[1]) : 255)
     const [blueValue, setBlueValue] = useState(oldColor ? Math.floor(oldColor[2]) : 255)
     const [opacityValue, setOpacityValue] = useState(oldColor ? (oldColor[3] * 100) : 50)
-    const [isOpen, setIsOpen] = useState(true)
+    const [isOpen, setIsOpen] = useState(!isMobile)
 
     const apply = (cssVar, theme, redValue, greenValue, blueValue, opacityValue) => {
         window.localStorage.setItem(`${cssVar},${theme}`, toString(redValue, greenValue, blueValue, opacityValue/100))

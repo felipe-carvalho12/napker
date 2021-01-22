@@ -15,6 +15,7 @@ let notificationsFetchInterval
 export default function Notifications(props) {
     const [invites, setInvites] = useState(null)
     const [postNotifications, setPostNotifications] = useState(null)
+    const isMobile = visualViewport.width <= 980
 
     document.title = 'Notificações / Napker'
 
@@ -80,9 +81,17 @@ export default function Notifications(props) {
 
     return (
         <div className="content-container">
-            <div className="b-theme-base-color box-med blur-20px" style={{ position: "sticky", top: "1vw", padding: "0 20px 0", zIndex: "1000" }}>
-                <Header page="Notificações" />
-            </div>
+            {isMobile ?
+                <Header
+                    page="Notificações"
+                    className="b-theme-base-color box-med blur-20px"
+                    style={{ position: "sticky", top: "1vw", padding: "0 20px 0", zIndex: "1000", borderRadius: '0' }}
+                />
+                :
+                <div className="b-theme-base-color box-med blur-20px" style={{ position: "sticky", top: "1vw", padding: "0 20px 0", zIndex: "1000" }}>
+                    <Header page="Notificações" />
+                </div>
+            }
             <div className="content m-vw-x">
                 <div>
                     {invites !== null && postNotifications !== null ?
@@ -113,7 +122,7 @@ export default function Notifications(props) {
                                         </div>
                                     }
 
-                                </div> 
+                                </div>
                                 :
                                 <div className="d-flex justify-content-center mt-5">
                                     <span className="c-secondary-grey fw-300 fs-21 fa-l mr-10px">Você não tem nenhuma notificação.</span>

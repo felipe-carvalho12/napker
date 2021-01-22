@@ -46,7 +46,8 @@ export default function NotificationContent(props) {
                         const author = item.author || item.profile
 
                         return (
-                            <li className="d-flex w-100 white-hover box-med b-theme-base-color" style={{ padding: '15px 15px' }}
+                            <li
+                                className="d-flex w-100 white-hover box-med b-theme-base-color p-10px"
                                 key={author.id}
                             >
                                 <div className="d-flex flex-column h-100" style={{ marginRight: '10px' }}>
