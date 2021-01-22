@@ -1,17 +1,21 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import RgbaEditor from './RgbaEditor'
 import IsCustomSwitch from './IsCustomSwitch'
 import ThemeSwitcher from '../../../../../../components/ThemeSwitcher'
 import { ThemeContext } from '../../../../../../context/app/AppContext'
 
 
-export default function Colors(props) {
-    const [checked, setChecked] = useState(window.localStorage.getItem(`${theme}-switch`) === 'false' ? false : true)
+export default function ThemeEditor() {
     const [theme, ] = useContext(ThemeContext)
+    const [checked, setChecked] = useState(window.localStorage.getItem(`${theme}-switch`) === 'true')
 
     const isMobile = visualViewport.width <= 980
     const title = "Tema " + theme
     const icon = theme === "light" ? "brightness_5" : "brightness_3"
+
+    useEffect(() => {
+        setChecked(window.localStorage.getItem(`${theme}-switch`) === 'true')
+    }, [theme])
 
     return (
         <li className="w-100 d-flex flex-column align-items-center" style={{ overflowY: 'auto', maxHeight: '100%' }}>

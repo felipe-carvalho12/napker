@@ -80,8 +80,7 @@ export default function Post() {
                         />
                         <div className="mt-10px">
                             {displayingForm &&
-                                <div className="feed-create-post-form box-med b-theme-base-color b-vw-t" style={{ marginLeft: '30px' }}>
-                                    {console.log('def')}
+                                <div className="box-med b-theme-base-color b-vw-t" style={{ marginLeft: '30px' }}>
                                     <PostForm
                                         type='first-layer-comment'
                                         postId={post.id}

@@ -230,7 +230,7 @@ export default function PostForm(props) {
                                     <VideoIframe src={getEmbedVideoUrl()} />
                                 </div>
                             }
-                            {isAdvanced &&
+                            {isAdvanced && type === 'post' &&
                                 <InterestsInput
                                     myProfile={myProfile}
                                     setInterests={setPostsInterests}
