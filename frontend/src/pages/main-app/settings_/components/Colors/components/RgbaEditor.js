@@ -18,16 +18,7 @@ export default function RgbaEditor(props) {
     const [isOpen, setIsOpen] = useState(true)
 
     const apply = (cssVar, theme, redValue, greenValue, blueValue, opacityValue) => {
-        window.localStorage.setItem(`${cssVar},${theme}`      , toString(             redValue ,              greenValue ,              blueValue ,                     opacityValue/100)) 
-        window.localStorage.setItem(`${cssVar}-hover,${theme}`, toString(hoverFormula(redValue), hoverFormula(greenValue), hoverFormula(blueValue), hoverOpacityFormula(opacityValue)/100))
-        window.localStorage.setItem(`${cssVar}-0,${theme}`    , toString(             redValue ,              greenValue ,              blueValue ,             0.8  * (opacityValue/100)))
-        window.localStorage.setItem(`${cssVar}-1,${theme}`    , toString(             redValue ,              greenValue ,              blueValue ,             0.6  * (opacityValue/100)))
-        window.localStorage.setItem(`${cssVar}-2,${theme}`    , toString(             redValue ,              greenValue ,              blueValue ,             0.4  * (opacityValue/100)))
-        window.localStorage.setItem(`${cssVar}-3,${theme}`    , toString(             redValue ,              greenValue ,              blueValue ,             0.2  * (opacityValue/100)))
-        window.localStorage.setItem(`${cssVar}-4,${theme}`    , toString(             redValue ,              greenValue ,              blueValue ,             0.16 * (opacityValue/100)))
-        window.localStorage.setItem(`${cssVar}-5,${theme}`    , toString(             redValue ,              greenValue ,              blueValue ,             0.12 * (opacityValue/100)))
-        window.localStorage.setItem(`${cssVar}-6,${theme}`    , toString(             redValue ,              greenValue ,              blueValue ,             0.08 * (opacityValue/100)))
-        window.localStorage.setItem(`${cssVar}-7,${theme}`    , toString(             redValue ,              greenValue ,              blueValue ,             0.04 * (opacityValue/100)))
+        window.localStorage.setItem(`${cssVar},${theme}`, toString(redValue, greenValue, blueValue, opacityValue/100))
     }
 
     const handleChange = () => {
