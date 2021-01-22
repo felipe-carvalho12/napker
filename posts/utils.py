@@ -52,6 +52,5 @@ def sort_posts_by_relevance(profile, posts=None):
         posts_by_relevance.reverse()
 
         return posts_by_relevance
-
     except:
         return []
