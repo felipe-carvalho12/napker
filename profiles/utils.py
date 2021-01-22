@@ -10,7 +10,10 @@ def get_author_relevance(profile, author):
 
     if author.user in profile.friends.all(): is_friend_boolean = 1
 
-    age_points = datetime.date(2200, 1, 1).toordinal() - abs(datetime.date.toordinal(profile.birth_date) - datetime.date.toordinal(author.birth_date))
+    try:
+        age_points = datetime.date(2200, 1, 1).toordinal() - abs(datetime.date.toordinal(profile.birth_date) - datetime.date.toordinal(author.birth_date))
+    except:
+        age_points = 0
 
     friends_points = len(set(profile.friends.all()).intersection(author.friends.all()))
 
