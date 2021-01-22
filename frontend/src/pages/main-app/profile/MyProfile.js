@@ -43,7 +43,7 @@ export default function MyProfile() {
     return (
         <div className="content-container p-vw-r">
             <div
-                className={!isMobile ? "b-theme-base-color box-med blur" : "fixed w-100 b-theme-base-color blur b-b"}
+                className={!isMobile ? "b-theme-base-color box-med blur-20px" : "fixed w-100 b-theme-base-color blur-20px b-b"}
                 style={!isMobile ? { position: "sticky", top: "1vw", padding: "0", zIndex: "1000" } : { zIndex: "1000" }}
             >
                 <Header page="Perfil" />
