@@ -26,7 +26,12 @@ export default function MobileAlgorithmSettingsIcon(props) {
             }
             {isOpen &&
                 <div className="position-absolute d-flex vw-100 vh-100 b-theme-base-color" style={{ left: '0', top: 'var(--header-heigth)', zIndex: '2000' }}>
-                    <AlgorithmSettings className='w-100 h-100 position-relative' isMobile={true} saveCallBack={() => setIsOpen(false)} />
+                    <AlgorithmSettings
+                        className='w-100 h-100 position-relative'
+                        style={{ background: 'var(--b-w-12)' }}
+                        isMobile={true}
+                        saveCallBack={() => setIsOpen(false)}
+                    />
                 </div>
             }
         </>
