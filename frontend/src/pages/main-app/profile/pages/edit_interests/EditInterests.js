@@ -12,6 +12,8 @@ export default function EditInterests() {
     let [publicInterests, setPublicInterests] = [null, value => publicInterests = value]
     let [privateInterests, setPrivateInterests] = [null, value => privateInterests = value]
 
+    const isMobile = visualViewport.width <= 980
+
     useEffect(() => {
         fetch(`${SERVER_URL}/profile-api/myprofile`)
             .then(response => response.json())
@@ -40,10 +42,13 @@ export default function EditInterests() {
 
     return (
         <div className="content-container">
-            <div className="b-theme-base-color box-med blur-20px" style={{ position: "sticky", top: "1vw", padding: "0 20px 0", zIndex: "1000" }}>
-                <Header page="Meus interesses" backArrow={true} />
-            </div>
-            <div className="sidebar-content">
+            <Header
+                page="Meus interesses"
+                backArrow={true}
+                className="b-theme-base-color box-med blur-20px"
+                style={{ top: "1vw", padding: "0 20px 0", zIndex: "1000" }}
+            />
+            <div className={`sidebar-content ${isMobile ? 'pb-mobile' : ''}`}>
                 {myProfile ?
                     <div className="pb-3" style={{ textAlign: 'start' }}>
                         <div className="w-100 p-3 d-flex ">

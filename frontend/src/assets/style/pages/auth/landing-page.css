@@ -33,7 +33,7 @@
 
     /* Custom Backgrounds */
 
-    --p-g: linear-gradient(0deg,rgba(0,152,136,0.8) -0.45%,rgba(0,192,136,0.8) 50%);
+    --p-g: linear-gradient(0deg,var(--primary-color-3) -0.45%,var(--primary-color) 50%);
 
 
     /* Button Sizes */
@@ -239,10 +239,6 @@
 }
 
 /* Utils */
-
-.blur-20px {
-    backdrop-filter: saturate(180%) blur(20px);
-}
 
 .b-a {
     border: 1px solid var(--b-c);

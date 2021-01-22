@@ -8,6 +8,7 @@ export default function RgbaEditor(props) {
     const title = props.title || ""
     const cssVar = props.cssVar
     const setChecked = props.setChecked
+    const isMobile = visualViewport.width <= 980
     
     let oldColor = window.localStorage.getItem(`${cssVar},${theme}`) && window.localStorage.getItem(`${cssVar},${theme}`).split(",")
 
@@ -15,25 +16,16 @@ export default function RgbaEditor(props) {
     const [greenValue, setGreenValue] = useState(oldColor ? Math.floor(oldColor[1]) : 255)
     const [blueValue, setBlueValue] = useState(oldColor ? Math.floor(oldColor[2]) : 255)
     const [opacityValue, setOpacityValue] = useState(oldColor ? (oldColor[3] * 100) : 50)
-    const [isOpen, setIsOpen] = useState(true)
+    const [isOpen, setIsOpen] = useState(!isMobile)
 
     const apply = (cssVar, theme, redValue, greenValue, blueValue, opacityValue) => {
-        window.localStorage.setItem(`${cssVar},${theme}`      , toString(             redValue ,              greenValue ,              blueValue ,                     opacityValue/100)) 
-        window.localStorage.setItem(`${cssVar}-hover,${theme}`, toString(hoverFormula(redValue), hoverFormula(greenValue), hoverFormula(blueValue), hoverOpacityFormula(opacityValue)/100))
-        window.localStorage.setItem(`${cssVar}-0,${theme}`    , toString(             redValue ,              greenValue ,              blueValue ,             0.8  * (opacityValue/100)))
-        window.localStorage.setItem(`${cssVar}-1,${theme}`    , toString(             redValue ,              greenValue ,              blueValue ,             0.6  * (opacityValue/100)))
-        window.localStorage.setItem(`${cssVar}-2,${theme}`    , toString(             redValue ,              greenValue ,              blueValue ,             0.4  * (opacityValue/100)))
-        window.localStorage.setItem(`${cssVar}-3,${theme}`    , toString(             redValue ,              greenValue ,              blueValue ,             0.2  * (opacityValue/100)))
-        window.localStorage.setItem(`${cssVar}-4,${theme}`    , toString(             redValue ,              greenValue ,              blueValue ,             0.16 * (opacityValue/100)))
-        window.localStorage.setItem(`${cssVar}-5,${theme}`    , toString(             redValue ,              greenValue ,              blueValue ,             0.12 * (opacityValue/100)))
-        window.localStorage.setItem(`${cssVar}-6,${theme}`    , toString(             redValue ,              greenValue ,              blueValue ,             0.08 * (opacityValue/100)))
-        window.localStorage.setItem(`${cssVar}-7,${theme}`    , toString(             redValue ,              greenValue ,              blueValue ,             0.04 * (opacityValue/100)))
+        window.localStorage.setItem(`${cssVar},${theme}`, toString(redValue, greenValue, blueValue, opacityValue/100))
     }
 
     const handleChange = () => {
         setChecked(true)
         cssVariables.setProperty(`${cssVar}`      , toRgb(toString(             redValue ,              greenValue ,              blueValue ,                     opacityValue/100)))
-        cssVariables.setProperty(`${cssVar}-hover`, toRgb(toString(hoverFormula(redValue), hoverFormula(greenValue), hoverFormula(blueValue), hoverOpacityFormula(opacityValue)/100)))
+        cssVariables.setProperty(`${cssVar}-hover`, toRgb(toString(hoverFormula(redValue), hoverFormula(greenValue), hoverFormula(blueValue),                     opacityValue/100)))
         cssVariables.setProperty(`${cssVar}-0`    , toRgb(toString(             redValue ,              greenValue ,              blueValue ,             0.8  * (opacityValue/100))))
         cssVariables.setProperty(`${cssVar}-1`    , toRgb(toString(             redValue ,              greenValue ,              blueValue ,             0.6  * (opacityValue/100))))
         cssVariables.setProperty(`${cssVar}-2`    , toRgb(toString(             redValue ,              greenValue ,              blueValue ,             0.4  * (opacityValue/100))))
@@ -51,17 +43,10 @@ export default function RgbaEditor(props) {
     }
 
     const hoverFormula = color => {
-        return (
-            (color + (255 - color) * 0.2 ) 
-        )
-    }
-
-    const hoverOpacityFormula = opacity => {
-        return (
-            (opacity + 10) < 100 ? 
-                (opacity + 10)
-                :
-                (opacity - 10)
+        return ( (color + ((255 - color) * 0.2)) >= 255 ? 
+          (color - (color * 0.05))
+          :
+          (color + ((255 - color) * 0.2))
         )
     }
 

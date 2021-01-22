@@ -7,8 +7,8 @@ export default function InviteListItem(props) {
 
     return (
         <li
-            className="d-flex justify-content-between w-100 box-sm"
-            style={{ padding: '30px', backgroundColor: 'var(--theme-base-color)', ...props.style }}
+            className="d-flex justify-content-between w-100 p-10px box-sm"
+            style={{ backgroundColor: 'var(--theme-base-color)', ...props.style }}
             id={`fr-${invite.sender.id}`}
             key={invite.sender.id}
             onClick={() => window.location.href = `/user/${invite.sender.slug}`}

@@ -10,6 +10,9 @@ export default function PostNotification(props) {
     const notification = props.notification
     const post = notification.post
 
+    const isMobile = visualViewport.width <= 980
+    const parsedContent = JSON.parse(post.content)
+
     const history = useHistory()
 
     const postContentFormatter = rawContent => {
@@ -22,12 +25,12 @@ export default function PostNotification(props) {
         let reachedMaxLength = false
         const formattedBlocks = blocks.map(block => {
             if (reachedMaxLength) return
-            
+
             totalLength += block.text.length
             if (totalLength > 240) {
                 const remaining = 240 - (totalLength - block.text.length)
                 reachedMaxLength = true
-                return {...block, text: block.text.slice(0, remaining) + '...'}
+                return { ...block, text: block.text.slice(0, remaining) + '...' }
             }
             return block
         })
@@ -85,19 +88,21 @@ export default function PostNotification(props) {
                     </div>
                     <div className="d-flex">
                         <div className="d-flex flex-column justify-content-between w-100">
-                            <div className="d-flex justify-content-between w-100">
-                                <span className="w-50 mb-10px" style={{ textAlign: 'start' }}>
-                                    <PostTextbox
-                                        editable={false}
-                                        postContent={JSON.parse(post.content)}
-                                        contentFormatter={postContentFormatter}
-                                    />
-                                </span>
+                            <div className={`d-flex justify-content-between align-items-start w-100 ${isMobile ? 'flex-column' : ''}`}>
+                                {parsedContent.blocks.map(block => block.text).join('') !== '' &&
+                                    <span className={`w-${isMobile ? '100' : '50'} mb-10px`} style={{ textAlign: 'start' }}>
+                                        <PostTextbox
+                                            editable={false}
+                                            postContent={parsedContent}
+                                            contentFormatter={postContentFormatter}
+                                        />
+                                    </span>
+                                }
                                 {post.image &&
                                     <img src={post.image} className="mb-10px" style={{ maxWidth: '100px', maxHeight: '100px', borderRadius: '20px' }} />
                                 }
                                 {post.video &&
-                                    <img src={getThumbnailSrc(post.video)} style={{ maxWidth: '200px', maxHeight: '150px', borderRadius: '20px' }} />
+                                    <img src={getThumbnailSrc(post.video)} className="mb-10px" style={{ maxWidth: '200px', maxHeight: '150px', borderRadius: '20px' }} />
                                 }
                             </div>
                             <div className="d-flex justify-content-between w-100">

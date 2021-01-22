@@ -64,77 +64,82 @@ export const setTheme = () => {
   const cssVariables = document.documentElement.style
   const theme = window.localStorage.getItem('theme') || 'light'
 
+  const colorVariants = ["-0", "-1", "-2", "-3", "-4", "-5", "-6", "-7"]
+  const variantWeights = [0.8 , 0.6 , 0.4 , 0.20, 0.16, 0.12, 0.08, 0.04]
+
   const toRgb = value => `rgba(${value})`
 
   const toCss = (cssVar, defaultVar, theme) => {
-    const data = window.localStorage.getItem(`${cssVar},${theme}`) && window.localStorage.getItem(`${cssVar},${theme}`).split(",")
-    cssVariables.setProperty(cssVar, 
-      (data && window.localStorage.getItem(`${theme}-switch`) === "true") ? 
-        toRgb(data)
-        :
-        defaultVar
+    let data = ((window.localStorage.getItem(`${cssVar},${theme}`) && window.localStorage.getItem(`${theme}-switch`) === "true") ?  
+                    window.localStorage.getItem(`${cssVar},${theme}`) 
+                    : 
+                    defaultVar
+                 ).replace(/ /g, "").split(",")
+
+    data = data.map(val => parseFloat(val))
+
+    console.log(data[0], data[1], data[2], data[3])
+    console.log(cssVar + "-hover", toRgb(toString(hoverFormula(data[0]), hoverFormula(data[1]), hoverFormula(data[2]), data[3])))
+
+    cssVariables.setProperty(cssVar, toRgb(toString(data[0], data[1], data[2], data[3])))
+    cssVariables.setProperty(cssVar + "-hover", toRgb(toString(hoverFormula(data[0]), hoverFormula(data[1]), hoverFormula(data[2]), data[3])))
+    for (let i in colorVariants) {
+      console.log(cssVar + colorVariants[i], toRgb(toString(data[0], data[1], data[2], variantWeights[i] * data[3])))
+      cssVariables.setProperty(cssVar + colorVariants[i], toRgb(toString(data[0], data[1], data[2], variantWeights[i] * data[3])))
+    }
+  }
+
+  const toString = (redValue, greenValue, blueValue, opacityValue) => {
+    return `${String(redValue)},${String(greenValue)},${String(blueValue)},${String(opacityValue)}`
+  }
+
+  const hoverFormula = color => {
+    return ( (color + ((255 - color) * 0.2)) >= 255 ? 
+      (color - (color * 0.05))
+      :
+      (color + ((255 - color) * 0.2))
     )
   }
 
   if (theme === 'light') {
-    toCss('--primary-color'              ,        'rgba(0,192,136,1   )', 'light')
-    toCss('--primary-color-0'            ,        'rgba(0,192,136,0.8 )', 'light')
-    toCss('--primary-color-1'            ,        'rgba(0,192,136,0.6 )', 'light')
-    toCss('--primary-color-2'            ,        'rgba(0,192,136,0.4 )', 'light')
-    toCss('--primary-color-3'            ,        'rgba(0,192,136,0.20)', 'light')
-    toCss('--primary-color-4'            ,        'rgba(0,192,136,0.16)', 'light')
-    toCss('--primary-color-5'            ,        'rgba(0,192,136,0.12)', 'light')
-    toCss('--primary-color-6'            ,        'rgba(0,192,136,0.08)', 'light')
-    toCss('--primary-color-7'            ,        'rgba(0,192,136,0.04)', 'light')
-    toCss('--primary-color-hover'        ,        'rgba(0,178,125,1   )', 'light')
-    toCss('--border-color'               ,                 'var(--w-08)', 'light')
-    toCss('--background'                 ,               'var(--s-b-01)', 'light')
-    toCss('--fixed-components-background',                 'var(--w-08)', 'light')
-    toCss('--b-c'                        ,                 'var(--b-04)', 'light')
-    toCss('--b-w-10'                     ,                 'var(--w-10)', 'light')
-    toCss('--b-w-11'                     ,                 'var(--w-11)', 'light')
-    toCss('--b-w-12'                     ,                 'var(--w-12)', 'light')
-    toCss('--heart-color'                ,                     '#E0245E', 'light')
-    toCss('--heart-background-hover'     ,       'rgba(224, 36, 94, .1)', 'light')
-    toCss('--primary-grey'               ,                 'var(--b-11)', 'light')
-    toCss('--secondary-grey'             ,                 'var(--b-08)', 'light')
-    toCss('--loader-background'          ,     'rgba(119, 147, 125, .3)', 'light')
-    toCss('--theme-base-color'           ,                 "var(--w-08)", 'light')
-    toCss('--theme-base-color-hover'     ,                 'var(--w-11)', 'light')
-    toCss('--tertiary-grey'              ,                     '#f2f2f2', 'light')
-    toCss('--view-more-select-border'    ,           'rgba(0, 0, 0, .2)', 'light')
-    toCss('--img-background'             ,           'rgba(0, 0, 0, .9)', 'light')
-    toCss('--img-background-hover'       ,           'rgba(0, 0, 0, .8)', 'light')
+    toCss('--primary-color'              ,          "0  , 192, 136, 1   ", 'light')
+    toCss('--background'                 ,          "235, 235, 235, 1   ", 'light')
+    toCss('--primary-grey'               ,          "000, 000, 000,  .90", 'light')
+    toCss('--secondary-grey'             ,          "000, 000, 000,  .60", 'light')
+    toCss('--theme-base-color'           ,          "255, 255, 255,  .60", 'light')
+    toCss('--fixed-components-background',          "255, 255, 255,  .60", 'light')
+    cssVariables.setProperty('--border-color'               ,                 'var(--w-08)')
+    cssVariables.setProperty('--b-c'                        ,                 'var(--b-04)')
+    cssVariables.setProperty('--b-w-10'                     ,                 'var(--w-10)')
+    cssVariables.setProperty('--b-w-11'                     ,                 'var(--w-11)')
+    cssVariables.setProperty('--b-w-12'                     ,                 'var(--w-12)')
+    cssVariables.setProperty('--heart-color'                ,                     '#E0245E')
+    cssVariables.setProperty('--heart-background-hover'     ,       'rgba(224, 36, 94, .1)')
+    cssVariables.setProperty('--loader-background'          ,     'rgba(119, 147, 125, .3)')
+    cssVariables.setProperty('--tertiary-grey'              ,                     '#f2f2f2')
+    cssVariables.setProperty('--view-more-select-border'    ,           'rgba(0, 0, 0, .2)')
+    cssVariables.setProperty('--img-background'             ,           'rgba(0, 0, 0, .9)')
+    cssVariables.setProperty('--img-background-hover'       ,           'rgba(0, 0, 0, .8)')
 
   } else if (theme === 'dark') {
-    toCss('--primary-color'              ,        'rgba(0,192,136,1   )', 'dark')
-    toCss('--primary-color-0'            ,        'rgba(0,192,136,0.8 )', 'dark')
-    toCss('--primary-color-1'            ,        'rgba(0,192,136,0.6 )', 'dark')
-    toCss('--primary-color-2'            ,        'rgba(0,192,136,0.4 )', 'dark')
-    toCss('--primary-color-3'            ,        'rgba(0,192,136,0.20)', 'dark')
-    toCss('--primary-color-4'            ,        'rgba(0,192,136,0.16)', 'dark')
-    toCss('--primary-color-5'            ,        'rgba(0,192,136,0.12)', 'dark')
-    toCss('--primary-color-6'            ,        'rgba(0,192,136,0.08)', 'dark')
-    toCss('--primary-color-7'            ,        'rgba(0,192,136,0.04)', 'dark')
-    toCss('--primary-color-hover'        ,         'rgba(0,178,125,  1)', 'dark')
-    toCss('--border-color'               ,                 'var(--w-00)', 'dark')
-    toCss('--background'                 ,               'var(--s-b-10)', 'dark')
-    toCss('--fixed-components-background',                 'var(--w-00)', 'dark')
-    toCss('--b-c'                        ,                 'var(--w-04)', 'dark')
-    toCss('--b-w-10'                     ,                 'var(--b-10)', 'dark')
-    toCss('--b-w-11'                     ,                 'var(--b-11)', 'dark')
-    toCss('--b-w-12'                     ,                 'var(--b-12)', 'dark')
-    toCss('--heart-color'                ,                     '#E0245E', 'dark')
-    toCss('--heart-background-hover'     ,       'rgba(224, 36, 94, .1)', 'dark')
-    toCss('--primary-grey'               ,                 'var(--w-11)', 'dark')
-    toCss('--secondary-grey'             ,                 'var(--w-09)', 'dark')
-    toCss('--loader-background'          ,     'rgba(119, 147, 125, .3)', 'dark')
-    toCss('--theme-base-color'           ,                 'var(--w-00)', 'dark')
-    toCss('--theme-base-color-hover'     ,               'var(--s-b-09)', 'dark')
-    toCss('--tertiary-grey'              ,                     '#202020', 'dark')
-    toCss('--view-more-select-border'    ,     'rgba(255, 255, 255, .2)', 'dark')
-    toCss('--img-background'             ,           'rgba(0, 0, 0, .3)', 'dark')
-    toCss('--img-background-hover'       ,           'rgba(0, 0, 0, .3)', 'dark')
+    toCss('--primary-color'              ,          '  0, 192, 136, 1   ', 'dark')
+    toCss('--background'                 ,          '051, 051, 051, 1   ', 'dark')
+    toCss('--primary-grey'               ,          '255, 255, 255,  .90', 'dark')
+    toCss('--secondary-grey'             ,          '255, 255, 255,  .70', 'dark')
+    toCss('--theme-base-color'           ,          '255, 255, 255,  .04', 'dark')
+    toCss('--fixed-components-background',          '255, 255, 255,  .04', 'dark')
+    cssVariables.setProperty('--border-color'               ,                 'var(--w-00)')
+    cssVariables.setProperty('--b-c'                        ,                 'var(--w-04)')
+    cssVariables.setProperty('--b-w-10'                     ,                 'var(--b-10)')
+    cssVariables.setProperty('--b-w-11'                     ,                 'var(--b-11)')
+    cssVariables.setProperty('--b-w-12'                     ,                 'var(--b-12)')
+    cssVariables.setProperty('--heart-color'                ,                     '#E0245E')
+    cssVariables.setProperty('--heart-background-hover'     ,       'rgba(224, 36, 94, .1)')
+    cssVariables.setProperty('--loader-background'          ,     'rgba(119, 147, 125, .3)')
+    cssVariables.setProperty('--tertiary-grey'              ,                     '#202020')
+    cssVariables.setProperty('--view-more-select-border'    ,     'rgba(255, 255, 255, .2)')
+    cssVariables.setProperty('--img-background'             ,           'rgba(0, 0, 0, .3)')
+    cssVariables.setProperty('--img-background-hover'       ,           'rgba(0, 0, 0, .3)')
   }
 }
 
