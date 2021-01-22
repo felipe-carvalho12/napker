@@ -8,7 +8,7 @@ export default function Info(props) {
     return (
         <div className="d-flex flex-column h-100">
             <div className="d-flex align-items-start">
-                <strong className="mr-10px">Como o seu algoritmo deve funcionar?</strong>
+                <strong className="mr-10px" style={{marginBottom: '10px'}}>Como o seu algoritmo deve funcionar?</strong>
                 <i
                     className="material-icons-sharp c-primary-grey add-icon p-5px m-0 fs-15"
                     onClick={() => setInfoIsOpen(false)}
