@@ -102,9 +102,6 @@
     .settings-page-theme-switcher, .header-view-more-icon {
         display: flex!important;
     }
-    .algorithm-settings {
-        background-color: var(--b-w-10)!important;
-    }
     .algorithm-settings .box-med {
         background: none!important;
         box-shadow: none!important;

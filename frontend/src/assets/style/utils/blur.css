@@ -14,3 +14,19 @@
 .blur-20px {
     backdrop-filter: saturate(180%) blur(20px);
 }
+
+.blur-sat0-5px {
+    backdrop-filter: blur(5px);
+}
+
+.blur-sat0-10px {
+    backdrop-filter: blur(10px);
+}
+
+.blur-sat0-15px {
+    backdrop-filter: blur(15px);
+}
+
+.blur-sat0-20px {
+    backdrop-filter: blur(20px);
+}

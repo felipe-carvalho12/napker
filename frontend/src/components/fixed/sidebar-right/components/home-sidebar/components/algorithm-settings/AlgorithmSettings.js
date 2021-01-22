@@ -122,10 +122,10 @@ export default function AlgorithmSettings(props) {
                 className={`d-flex flex-column justify-content-start align-items-center algorithm-settings ${props.className ? props.className : ''}`}
                 style={{ height: '85%', ...props.style }}
             >
-                <div className="w-100 h-100 blur-20px">
+                <div className={"w-100 h-100 " + (!props.isDemo && "blur-20px")}>
                     {weights ?
                         <div
-                            className={`w-100 ${isMobile ? 'p-2' : ''} d-flex flex-column justify-content-between box-med b-theme-base-color`}
+                            className={`w-100 ${isMobile ? 'p-2' : ''} d-flex flex-column justify-content-between box-med ` + (!props.isDemo && "b-theme-base-color")}
                             style={{ marginTop: !isMobile && 'var(--header-heigth)', height: "400px" }}
                         >
                             {infoIsOpen ?

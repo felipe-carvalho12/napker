@@ -7,7 +7,7 @@ import { ThemeContext } from '../../../../../../context/app/AppContext'
 
 export default function Colors(props) {
     const [checked, setChecked] = useState(window.localStorage.getItem(`${theme}-switch`) === 'false' ? false : true)
-    const [theme, setThemeContext] = useContext(ThemeContext)
+    const [theme, ] = useContext(ThemeContext)
 
     const isMobile = visualViewport.width <= 980
     const title = "Tema " + theme
