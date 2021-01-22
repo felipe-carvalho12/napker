@@ -54,7 +54,7 @@ export default function Home() {
                     </div>
                 </>
             }
-            <div className="sidebar-content p-vw-x">
+            <div className={`sidebar-content p-vw-x ${isMobile ? 'pb-mobile' : ''}`}>
                 <div className="w-100 h-100 home-page">
                     {pages[page]}
                 </div>

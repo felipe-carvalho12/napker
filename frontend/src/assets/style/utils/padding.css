@@ -85,3 +85,7 @@
 .p-vw { padding: 1vw!important; }
 .p-vw-x { padding-left: 1vw!important; padding-right: 1vw!important; }
 .p-vw-y { padding-top: 1vw!important; padding-bottom: 1vw!important; }
+
+.pb-mobile {
+  padding-bottom: var(--bottom-menu-height)!important;
+}

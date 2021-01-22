@@ -70,13 +70,13 @@ export const setTheme = () => {
   const toRgb = value => `rgba(${value})`
 
   const toCss = (cssVar, defaultVar, theme) => {
-    const data = ((window.localStorage.getItem(`${cssVar},${theme}`) && window.localStorage.getItem(`${theme}-switch`) === "true") ?  
+    let data = ((window.localStorage.getItem(`${cssVar},${theme}`) && window.localStorage.getItem(`${theme}-switch`) === "true") ?  
                     window.localStorage.getItem(`${cssVar},${theme}`) 
                     : 
                     defaultVar
                  ).replace(/ /g, "").split(",")
 
-    for (let i in data) { data[i] = parseFloat(data[i]) }
+    data = data.map(val => parseFloat(val))
 
     console.log(data[0], data[1], data[2], data[3])
     console.log(cssVar + "-hover", toRgb(toString(hoverFormula(data[0]), hoverFormula(data[1]), hoverFormula(data[2]), data[3])))

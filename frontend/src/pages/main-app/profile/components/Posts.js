@@ -9,6 +9,8 @@ export default function Posts(props) {
     const [likesModal, setLikesModal] = useState({ isOpen: false, likes: null })
     const profile = props.profile
 
+    const isMobile = visualViewport.width <= 980
+
     useEffect(() => {
         fetch(`${SERVER_URL}/profile-api/myprofile`)
             .then(response => response.json())
@@ -30,7 +32,7 @@ export default function Posts(props) {
                 likes={likesModal.likes}
                 hideModal={hideLikesModal}
             />
-            <div className="d-flex flex-column justify-content-start align-items-center w-100">
+            <div className={`d-flex flex-column justify-content-start align-items-center w-100 ${isMobile ? 'pb-mobile' : ''}`}>
                 {profile && myProfile ?
                     <>
                         {profile.posts.length ? profile.posts.map(post => {

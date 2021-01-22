@@ -53,6 +53,7 @@
         height: 100vh!important;
         max-width: unset!important;
         padding-top: var(--header-heigth);
+        padding-bottom: var(--bottom-menu-height);
     }
 
     /* ------------------------------------ */
