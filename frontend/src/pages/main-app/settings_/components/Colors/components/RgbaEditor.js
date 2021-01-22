@@ -24,7 +24,7 @@ export default function RgbaEditor(props) {
     const handleChange = () => {
         setChecked(true)
         cssVariables.setProperty(`${cssVar}`      , toRgb(toString(             redValue ,              greenValue ,              blueValue ,                     opacityValue/100)))
-        cssVariables.setProperty(`${cssVar}-hover`, toRgb(toString(hoverFormula(redValue), hoverFormula(greenValue), hoverFormula(blueValue), hoverOpacityFormula(opacityValue)/100)))
+        cssVariables.setProperty(`${cssVar}-hover`, toRgb(toString(hoverFormula(redValue), hoverFormula(greenValue), hoverFormula(blueValue),                     opacityValue/100)))
         cssVariables.setProperty(`${cssVar}-0`    , toRgb(toString(             redValue ,              greenValue ,              blueValue ,             0.8  * (opacityValue/100))))
         cssVariables.setProperty(`${cssVar}-1`    , toRgb(toString(             redValue ,              greenValue ,              blueValue ,             0.6  * (opacityValue/100))))
         cssVariables.setProperty(`${cssVar}-2`    , toRgb(toString(             redValue ,              greenValue ,              blueValue ,             0.4  * (opacityValue/100))))
@@ -42,17 +42,10 @@ export default function RgbaEditor(props) {
     }
 
     const hoverFormula = color => {
-        return (
-            (color + (255 - color) * 0.2 ) 
-        )
-    }
-
-    const hoverOpacityFormula = opacity => {
-        return (
-            (opacity + 10) < 100 ? 
-                (opacity + 10)
-                :
-                (opacity - 10)
+        return ( (color + ((255 - color) * 0.2)) >= 255 ? 
+          (color - (color * 0.05))
+          :
+          (color + ((255 - color) * 0.2))
         )
     }
 
