@@ -125,7 +125,6 @@ export default function PostForm(props) {
                 'post-video': getEmbedVideoUrl() || '',
                 'tagged-usernames': taggedUsernames,
                 'interests': postInterests
-
             })
         })
             .then(response => response.json())
