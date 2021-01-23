@@ -19,7 +19,7 @@ export default function VarEditor(props) {
     const [isOpen, setIsOpen] = useState(!isMobile)
 
     const apply = (cssVar, theme, value) => {
-        window.localStorage.setItem(`${cssVar},${theme}`, String(value))
+        window.localStorage.setItem(`${cssVar},${theme}`, String(value + modifier))
     }
 
     const handleChange = () => {
