@@ -110,7 +110,8 @@ export default function SendMessageForm(props) {
     return (
         <>
             <form
-                className="d-flex justify-content-center align-items-center w-100 b-theme-base-color px-1 py-3 b-b-r-r b-t"
+                className="d-flex justify-content-center align-items-center w-100 b-theme-base-color px-1 py-3 b-b-r-r b-t position-sticky"
+                style={{ bottom: '0' }}
                 onSubmit={sendMessageHandler}
             >
                 <EmojiSuggestions />
