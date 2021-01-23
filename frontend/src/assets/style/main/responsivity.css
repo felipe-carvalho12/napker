@@ -53,6 +53,7 @@
         height: 100vh!important;
         max-width: unset!important;
         padding-top: var(--header-heigth);
+        padding-bottom: var(--bottom-menu-height);
     }
 
     /* ------------------------------------ */
@@ -105,7 +106,7 @@
     .algorithm-settings .box-med {
         background: none!important;
         box-shadow: none!important;
-        height: 70%!important;
+        height: 75%!important;
     }
 }
 

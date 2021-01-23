@@ -20,6 +20,8 @@ export default function Post() {
 
     const { id } = useParams()
 
+    const isMobile = visualViewport.width <= 980
+
     useEffect(() => {
         fetchPost()
         fetch(`${SERVER_URL}/profile-api/myprofile`)
@@ -59,10 +61,13 @@ export default function Post() {
                 likes={commentLikesModal.likes}
                 hideModal={hideCommentLikesModal}
             />
-            <div className="b-theme-base-color box-med blur-20px" style={{ position: "sticky", top: "1vw", padding: "0 20px 0", zIndex: "1000" }}>
-                <Header page="Post" backArrow={true} />
-            </div>
-            <div className="content p-vw-x">
+            <Header
+                page="Post"
+                backArrow={true}
+                className="b-theme-base-color box-med blur-20px"
+                style={{ position: "sticky", top: "1vw", padding: "0 20px 0", zIndex: "1000" }}
+            />
+            <div className={`content p-vw-x ${isMobile ? 'pb-mobile' : ''}`}>
                 {post && myProfile ?
                     <>
                         <PostListItem
@@ -75,7 +80,7 @@ export default function Post() {
                         />
                         <div className="mt-10px">
                             {displayingForm &&
-                                <div className="feed-create-post-form box-med b-theme-base-color b-vw-t" style={{ marginLeft: '30px' }}>
+                                <div className="box-med b-theme-base-color b-vw-t" style={{ marginLeft: '30px' }}>
                                     <PostForm
                                         type='first-layer-comment'
                                         postId={post.id}
