@@ -31,7 +31,7 @@ export default function Settings(props) {
 
     return (
         <div className={`content-container ${isMobile && "b-theme-base-color"}`}>
-            <div className={`p-0 ${!isMobile && "b-theme-base-color box-med m-vw-t"}`} style={{ height: '90vh' }}>
+            <div className={`p-0 ${!isMobile && "b-theme-base-color box-med m-vw-t"}`} style={{ height: 'var(--content-height)' }}>
                 {isMobile &&
                     < Header page="Configurações" className= "b-b"/>
                 }

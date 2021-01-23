@@ -36,16 +36,17 @@ export default function MobileLP() {
                 className="position-sticky d-flex flex-column w-100 justify-content-center align-items-center position-relative"
                 style={{ top: '0', left: '0', zIndex: '0' }}
             >
-                <div 
+                <div
                     className="d-flex flex-column justify-content-center align-items-center w-100 pr-10px pl-20px"
                     style={{ paddingTop: "70px" }}
                 >
                     <h2 className="c-w-10 fs-45 fw-700 fa-l">Por que usar o Napker?</h2>
                     <div className="d-flex flex-column align-items-center">
                         <h4 className="c-w-10 fs-21 fw-300 fa-l">
-                            As grandes redes socias utilizam o gigantesco volume de dados gerados pelos usuários para alimentar algoritmos misteriosos.
-                            Estes controlam a experiêcia do usuário visando mantê-lo o máximo de tempo possível na rede social e criam modelos de usuários para vender para anunciantes.
-                            O Napker foi pensado como uma alternativa a essas plataformas. Com um algoritmo personalizável e um sistema de interesses públicos e privados,
+                            As grandes redes socias utilizam seu gigantesco volume de dados para alimentar algoritmos misteriosos.
+                            Estes controlam a experiêcia do usuário visando mantê-lo o máximo de tempo possível conectado.
+                            O Napker foi pensado como uma alternativa a essas plataformas.
+                            Com um algoritmo personalizável e um sistema de interesses públicos e privados,
                             o usuário tem total controle sobre a sua experiência no aplicativo.
                         </h4>
                         <div className="d-flex flex-column justify-content-between w-100">
@@ -64,8 +65,8 @@ export default function MobileLP() {
                 </div>
                 <Wave colors={["var(--w-06)", "var(--w-06)", "var(--w-06)", "var(--w-06)"]} />
             </div>
-            <div 
-                className="position-sticky flex-column w-100 vh-100 px-20px pt-20px d-flex blur-sat0-20px b-t" 
+            <div
+                className="position-sticky flex-column w-100 vh-100 px-20px pt-20px d-flex blur-sat0-20px b-t"
                 style={{ top: '49px', left: '0', zIndex: '1', color: 'var(--b-09)', background: "rgba(255, 255, 255, 0.88)" }}
             >
                 <h2>Experiência controlada pelo usuário, com todo o poder dos dados em suas mãos.</h2>
@@ -82,16 +83,16 @@ export default function MobileLP() {
                     o que estão fazendo com os seus dados. As possibilidades são enormes.
                 </p>
             </div>
-            <div 
-                className="position-sticky flex-column w-100 vh-100 px-20px pt-20px d-flex blur-sat0-20px b-t" 
+            <div
+                className="position-sticky flex-column w-100 vh-100 px-20px pt-20px d-flex blur-sat0-20px b-t"
                 style={{ top: '49px', left: '0', zIndex: '2', color: 'var(--b-09)', background: "rgba(255, 255, 255, 0.88)" }}
             >
                 <div className="w-100">
                     <DemoAlgorithmSettings />
                 </div>
             </div>
-            <div 
-                className="position-sticky flex-column w-100 vh-100 px-20px pt-20px d-flex blur-sat0-20px b-t" 
+            <div
+                className="position-sticky flex-column w-100 vh-100 px-20px pt-20px d-flex blur-sat0-20px b-t"
                 style={{ top: '49px', left: '0', zIndex: '3', color: 'var(--b-09)', background: "rgba(255, 255, 255, 0.88)" }}
             >
                 <h2>Sistema de interesses públicos e privados, conheça pessoas e faça novas amizades.</h2>
@@ -105,18 +106,18 @@ export default function MobileLP() {
                 <p className="mt-10px">
                     Os interesses públicos aparecem em seu perfil e, além de fazer ele ser recomendado a outras pessoas com esses mesmos interesses,
                     servem como um estímulo para outros usuários que possuam esses interesses se conectarem com você. Os interesses privados são interesses mais
-                    particulares e servem apenas para aumentar a precisão nas recomendações de perfis e posts. Ao lado temos uma pequena demonstração de os interesses 
+                    particulares e servem apenas para aumentar a precisão nas recomendações de perfis e posts. Ao lado temos uma pequena demonstração de os interesses
                     são adicionados ao perfil.
                 </p>
             </div>
-            <div 
-                className="position-sticky flex-column w-100 vh-100 px-20px pt-20px d-flex blur-sat0-20px b-t" 
+            <div
+                className="position-sticky flex-column w-100 vh-100 px-20px pt-20px d-flex blur-sat0-20px b-t"
                 style={{ top: '49px', left: '0', zIndex: '4', color: 'var(--b-09)', background: "rgba(255, 255, 255, 0.88)" }}
             >
                 <DemoAddInterests />
             </div>
-            <div 
-                className="position-sticky flex-column w-100 vh-100 px-20px pt-20px d-flex blur-sat0-20px b-t" 
+            <div
+                className="position-sticky flex-column w-100 vh-100 px-20px pt-20px d-flex blur-sat0-20px b-t"
                 style={{ top: '49px', left: '0', zIndex: '5', color: 'var(--b-09)', background: "rgba(255, 255, 255, 0.88)" }}
             >
                 <h2>Pesquisa avançada de perfis baseada em interesses.</h2>
@@ -133,8 +134,8 @@ export default function MobileLP() {
                     o que estão fazendo com os seus dados. As possibilidades são enormes.
                 </p>
             </div>
-            <div 
-                className="position-sticky flex-column w-100 vh-100 px-20px pt-20px d-flex blur-sat0-20px b-t" 
+            <div
+                className="position-sticky flex-column w-100 vh-100 px-20px pt-20px d-flex blur-sat0-20px b-t"
                 style={{ top: '49px', left: '0', zIndex: '6', color: 'var(--b-09)', background: "rgba(255, 255, 255, 0.88)" }}
             >
                 <DemoSearchProfiles />
@@ -146,7 +147,7 @@ export default function MobileLP() {
                 <div
                     className="d-flex flex-column w-100 justify-content-start align-items-center"
                 >
-                    <div 
+                    <div
                         className="d-flex flex-column justify-content-center align-items-center w-100 pr-10px pl-20px"
                         style={{ paddingTop: "70px" }}
                     >
@@ -172,7 +173,7 @@ export default function MobileLP() {
                     className="d-flex flex-column h-100 w-100 justify-content-start align-items-center"
                 >
                     <Wave colors={["var(--w-05)", "var(--w-05)", "var(--w-05)", "var(--w-05)"]} />
-                    <div 
+                    <div
                         className="h-100 w-100"
                         style={{ background: "rgba(255, 255, 255, 0.88)" }}
                     >

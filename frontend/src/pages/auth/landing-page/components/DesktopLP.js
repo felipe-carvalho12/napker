@@ -42,9 +42,10 @@ export default function DesktopLP() {
                             <h2 style={{ color: "var(--w-10)", fontSize: "60px", fontWeight: "700" }}>Por que usar o Napker?</h2>
                             <div className="d-flex flex-column align-items-center">
                                 <h4 style={{ color: "var(--w-10)", fontSize: "20px" }}>
-                                    As grandes redes socias utilizam o gigantesco volume de dados gerados pelos usuários para alimentar algoritmos misteriosos.
-                                    Estes controlam a experiêcia do usuário visando mantê-lo o máximo de tempo possível na rede social e criam modelos de usuários para vender para anunciantes.
-                                    O Napker foi pensado como uma alternativa a essas plataformas. Com um algoritmo personalizável e um sistema de interesses públicos e privados,
+                                    As grandes redes socias utilizam seu gigantesco volume de dados para alimentar algoritmos misteriosos.
+                                    Estes controlam a experiêcia do usuário visando mantê-lo o máximo de tempo possível conectado.
+                                    O Napker foi pensado como uma alternativa a essas plataformas.
+                                    Com um algoritmo personalizável e um sistema de interesses públicos e privados,
                                     o usuário tem total controle sobre a sua experiência no aplicativo.
                                     </h4>
                                 <div className="d-flex justify-content-between p-3">
@@ -89,7 +90,7 @@ export default function DesktopLP() {
                 >
                     <div
                         className="d-flex flex-column h-50 w-100 justify-content-start align-items-center"
-                        style={{ padding: "200px"}}
+                        style={{ padding: "200px" }}
                     >
                         <h2 style={{ color: "var(--w-10)", fontSize: "40px", fontWeight: "700" }}>Gostou do que viu?</h2>
                         <div className="d-flex flex-column align-items-center">
