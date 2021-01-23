@@ -15,7 +15,7 @@ export default function RgbaEditor(props) {
     const [redValue, setRedValue] = useState(oldColor ? Math.floor(oldColor[0]) : 255)
     const [greenValue, setGreenValue] = useState(oldColor ? Math.floor(oldColor[1]) : 255)
     const [blueValue, setBlueValue] = useState(oldColor ? Math.floor(oldColor[2]) : 255)
-    const [opacityValue, setOpacityValue] = useState(oldColor ? (oldColor[3] * 100) : 50)
+    const [opacityValue, setOpacityValue] = useState(oldColor ? Math.floor(oldColor[3] * 100) : 50)
     const [isOpen, setIsOpen] = useState(!isMobile)
 
     const apply = (cssVar, theme, redValue, greenValue, blueValue, opacityValue) => {
