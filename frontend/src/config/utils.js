@@ -78,9 +78,6 @@ export const setTheme = () => {
 
     data = data.map(val => parseFloat(val))
 
-    console.log(data[0], data[1], data[2], data[3])
-    console.log(cssVar + "-hover", toRgb(toString(hoverFormula(data[0]), hoverFormula(data[1]), hoverFormula(data[2]), data[3])))
-
     cssVariables.setProperty(cssVar, toRgb(toString(data[0], data[1], data[2], data[3])))
     cssVariables.setProperty(cssVar + "-hover", toRgb(toString(hoverFormula(data[0]), hoverFormula(data[1]), hoverFormula(data[2]), data[3])))
     for (let i in colorVariants) {

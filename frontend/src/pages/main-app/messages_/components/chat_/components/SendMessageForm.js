@@ -108,7 +108,7 @@ export default function SendMessageForm(props) {
     const { EmojiSelect, EmojiSuggestions } = emojiPlugin
 
     return (
-        <>
+        <div>
             <form
                 className="d-flex justify-content-center align-items-center w-100 b-theme-base-color px-1 py-3 b-b-r-r b-t"
                 onSubmit={sendMessageHandler}
@@ -140,6 +140,6 @@ export default function SendMessageForm(props) {
                     <i class="fas fa-chevron-right" style={{ fontSize: 'large' }} />
                 </button>
             </form>
-        </>
+        </div>
     )
 }
