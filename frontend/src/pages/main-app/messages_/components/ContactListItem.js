@@ -49,7 +49,7 @@ export default function ContactListItem(props) {
                                 }
                                 <p className="text-secondary" style={{ marginLeft: '5px' }}>@{profile.user.username}</p>
                             </div>
-                            <p className="text-secondary">{lastChatMessage.slice(0, 40)}</p>
+                            <p className="text-secondary">{lastChatMessage.slice(0, 25)}{lastChatMessage.length > 25 && '...'}</p>
                         </div>
                     </li>
                 </Link>

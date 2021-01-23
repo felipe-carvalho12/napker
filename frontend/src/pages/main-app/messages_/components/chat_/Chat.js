@@ -139,10 +139,12 @@ class Chat extends React.Component {
     getMessages(messages) {
         this.setState({ messages: messages.reverse() })
 
-        const key = this.props.chatId.toString()
-        const obj = { ...this.props.chatsMessages }
-        obj[key] = this.state.messages
-        this.props.setChatsMessages(obj)
+        if (this.props.chatId) {
+            const key = this.props.chatId.toString()
+            const obj = { ...this.props.chatsMessages }
+            obj[key] = this.state.messages
+            this.props.setChatsMessages(obj)
+        }
     }
 
     addMessage(message) {
