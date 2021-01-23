@@ -19,23 +19,23 @@
     display: none;
     flex-direction: column;
     border: 1px solid var(--view-more-select-border);
-    border-radius: 10px;
+    border-radius: var(--b-r);
     text-align: start;
     background: var(--theme-base-color-hover);
 }
   
 .view-more-select li:first-of-type{
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    border-top-left-radius: var(--b-r);
+    border-top-right-radius: var(--b-r);
 }
   
 .view-more-select li:last-of-type {
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: var(--b-r);
+    border-bottom-right-radius: var(--b-r);
 }
   
 .view-more-select li {
-    padding: 15px;
+    padding: var(--sz-2);
     border-bottom: 1px solid var(--view-more-select-border);
 }
   

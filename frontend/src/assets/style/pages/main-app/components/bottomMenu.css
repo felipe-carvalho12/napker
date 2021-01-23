@@ -6,7 +6,7 @@
     position: absolute;
     right: 15px;
     bottom: 12vh;
-    padding: 10px;
+    padding: var(--sz-1);
     border-radius: 50%;
 }
 
@@ -23,14 +23,14 @@
     justify-content: space-evenly;
     align-items: center;
     margin: 0;
-    padding: 15px;
+    padding: var(--sz-2);
 }
 
 .bottom-menu ul .bottom-menu-item {
     color: var(--primary-grey);
     font-size: 1.2rem;
     font-weight: bold;
-    border-radius: 10px;
+    border-radius: var(--b-r);
 }
 
 .bottom-menu ul .bottom-menu-item .bottom-menu-menu-icon {

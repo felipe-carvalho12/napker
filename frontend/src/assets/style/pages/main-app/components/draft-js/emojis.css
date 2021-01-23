@@ -8,7 +8,7 @@
     color: var(--primary-color-1);
     font-size: 25px;
     margin-right: 10px;
-    padding: 10px;
+    padding: var(--sz-1);
     border-radius: 50%;
     background: none;
     border: none;
@@ -235,12 +235,12 @@
     min-width: 1em;
 }
 .emojiSuggestionsEntry {
-    padding: 5px 10px 1px 10px;
+    padding: var(--sz-1);
     transition: background-color 0.4s cubic-bezier(.27,1.27,.48,.56);
 }
 
 .emojiSuggestionsEntry:active {
-    padding: 5px 10px 1px 10px;
+    padding: var(--sz-1);
     background-color: var(--theme-base-color-hover);
 }
 

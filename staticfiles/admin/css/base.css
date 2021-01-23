@@ -235,7 +235,7 @@ th {
 thead th,
 tfoot td {
     color: #666;
-    padding: 5px 10px;
+    padding: var(--sz-1);
     font-size: 11px;
     background: #fff;
     border: none;
@@ -270,7 +270,7 @@ tr:nth-child(odd) + .row-form-errors .errorlist {
 /* SORTABLE TABLES */
 
 thead th {
-    padding: 5px 10px;
+    padding: var(--sz-1);
     line-height: normal;
     text-transform: uppercase;
     background: #f6f6f6;
@@ -289,14 +289,14 @@ thead th.sorted .text {
 }
 
 table thead th .text span {
-    padding: 8px 10px;
+    padding: var(--sz-1);
     display: block;
 }
 
 table thead th .text a {
     display: block;
     cursor: pointer;
-    padding: 8px 10px;
+    padding: var(--sz-1);
 }
 
 table thead th .text a:focus, table thead th .text a:hover {
@@ -313,7 +313,7 @@ table thead th.sorted:hover a.sortremove {
 
 table thead th.sorted .sortoptions {
     display: block;
-    padding: 9px 5px 0 5px;
+    padding: var(--sz-0);
     float: right;
     text-align: right;
 }
@@ -401,7 +401,7 @@ input[type=text], input[type=password], input[type=email], input[type=url],
 input[type=number], input[type=tel], textarea, select, .vTextField {
     border: 1px solid #ccc;
     border-radius: 4px;
-    padding: 5px 6px;
+    padding: var(--sz-0) 6px;
     margin-top: 0;
 }
 
@@ -425,7 +425,7 @@ select[multiple] {
 
 .button, input[type=submit], input[type=button], .submit-row input, a.button {
     background: #79aec8;
-    padding: 10px 15px;
+    padding: var(--sz-1);
     border: none;
     border-radius: 4px;
     color: #fff;
@@ -433,7 +433,7 @@ select[multiple] {
 }
 
 a.button {
-    padding: 4px 5px;
+    padding: var(--sz-0);
 }
 
 .button:active, input[type=submit]:active, input[type=button]:active,
@@ -523,7 +523,7 @@ ul.messagelist li {
     display: block;
     font-weight: 400;
     font-size: 13px;
-    padding: 10px 10px 10px 65px;
+    padding: var(--sz-0);
     margin: 0 0 10px 0;
     background: #dfd url(../img/icon-yes.svg) 40px 12px no-repeat;
     background-size: 16px auto;
@@ -544,7 +544,7 @@ ul.messagelist li.error {
     font-size: 14px;
     font-weight: 700;
     display: block;
-    padding: 10px 12px;
+    padding: var(--sz-1) 12px;
     margin: 0 0 10px 0;
     color: #ba2121;
     border: 1px solid #ba2121;
@@ -602,14 +602,14 @@ td ul.errorlist + input, td ul.errorlist + select, td ul.errorlist + textarea {
 
 .description {
     font-size: 12px;
-    padding: 5px 0 0 12px;
+    padding: var(--sz-0) 0 0 12px;
 }
 
 /* BREADCRUMBS */
 
 div.breadcrumbs {
     background: #79aec8;
-    padding: 10px 40px;
+    padding: var(--sz-1) 40px;
     border: none;
     font-size: 14px;
     color: #c4dce8;
@@ -756,7 +756,7 @@ table#change-history tbody th {
 }
 
 #content {
-    padding: 20px 40px;
+    padding: var(--sz-3) 40px;
 }
 
 .dashboard #content {
@@ -777,7 +777,7 @@ table#change-history tbody th {
 
 #footer {
     clear: both;
-    padding: 10px;
+    padding: var(--sz-1);
 }
 
 /* COLUMN TYPES */
@@ -812,7 +812,7 @@ table#change-history tbody th {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 40px;
+    padding: var(--sz-1) 40px;
     background: #417690;
     color: #ffc;
     overflow: hidden;
@@ -843,7 +843,7 @@ table#change-history tbody th {
 }
 
 #branding h2 {
-    padding: 0 10px;
+    padding: var(--sz-1);
     font-size: 14px;
     margin: -8px 0 8px 0;
     font-weight: normal;
@@ -924,7 +924,7 @@ table#change-history tbody th {
 .delete-confirmation form input[type="submit"] {
     background: #ba2121;
     border-radius: 4px;
-    padding: 10px 15px;
+    padding: var(--sz-1);
     color: #fff;
 }
 
@@ -941,7 +941,7 @@ table#change-history tbody th {
     line-height: 15px;
     background: #ddd;
     border-radius: 4px;
-    padding: 10px 15px;
+    padding: var(--sz-1);
     color: #333;
     margin: 0 0 0 10px;
 }
@@ -954,7 +954,7 @@ table#change-history tbody th {
 
 /* POPUP */
 .popup #content {
-    padding: 20px;
+    padding: var(--sz-3);
 }
 
 .popup #container {
@@ -962,5 +962,5 @@ table#change-history tbody th {
 }
 
 .popup #header {
-    padding: 10px 20px;
+    padding: var(--sz-2);
 }

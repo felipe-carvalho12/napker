@@ -37,7 +37,7 @@ export default function Friends() {
                 page={profile !== null ? `${profile.first_name} ${profile.last_name} / Amigos` : 'Perfil / Amigos'}
                 backArrow={true}
                 className="b-theme-base-color box-med blur-20px"
-                style={{ position: "sticky", top: "1vw", padding: "0 20px 0", zIndex: "1000" }}
+                style={{ position: "sticky", top: "1vw", padding: "var(--sz-2)", zIndex: "1000" }}
             />
             <div className={`sidebar-content ${isMobile ? 'pb-mobile' : ''}`}>
                 <div className="list-group profile-friends-container">

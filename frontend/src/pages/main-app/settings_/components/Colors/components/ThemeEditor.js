@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react'
 import RgbaEditor from './RgbaEditor'
 import IsCustomSwitch from './IsCustomSwitch'
+import VarEditor from './VarEditor'
 import ThemeSwitcher from '../../../../../../components/ThemeSwitcher'
 import { ThemeContext } from '../../../../../../context/app/AppContext'
 
@@ -123,6 +124,21 @@ export default function ThemeEditor() {
                             <RgbaEditor
                                 cssVar="--secondary-grey"
                                 title="Cor da fonte secundária"
+                                theme={theme}
+                                setChecked={setChecked}
+                            />
+                            <VarEditor
+                                cssVar="--b-r"
+                                title="Arredondamento das quinas"
+                                maxValue={40}
+                                theme={theme}
+                                setChecked={setChecked}
+                            />
+                            <VarEditor
+                                cssVar="--sz"
+                                title="Espaçamento"
+                                modifier={5}
+                                maxValue={10}
                                 theme={theme}
                                 setChecked={setChecked}
                             />

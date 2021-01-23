@@ -85,10 +85,10 @@ export default function Notifications(props) {
                 <Header
                     page="Notificações"
                     className="b-theme-base-color box-med blur-20px"
-                    style={{ position: "sticky", top: "1vw", padding: "0 20px 0", zIndex: "1000", borderRadius: '0' }}
+                    style={{ position: "sticky", top: "1vw", padding: "var(--sz-2)", zIndex: "1000", borderRadius: '0' }}
                 />
                 :
-                <div className="b-theme-base-color box-med blur-20px" style={{ position: "sticky", top: "1vw", padding: "0 20px 0", zIndex: "1000" }}>
+                <div className="b-theme-base-color box-med blur-20px" style={{ position: "sticky", top: "1vw", padding: "0 var(--sz-2)", zIndex: "1000" }}>
                     <Header page="Notificações" />
                 </div>
             }

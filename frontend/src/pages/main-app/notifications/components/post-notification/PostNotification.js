@@ -77,7 +77,7 @@ export default function PostNotification(props) {
             >
                 <div
                     className="d-flex flex-column w-100 base-hover b-theme-base-color box-sm"
-                    style={{ padding: '15px 15px' }}
+                    style={{ padding: "var(--sz-1)" }}
                     onClick={() => history.push(`/post/${post.id}`)}
                 >
                     <div className="d-flex justify-content-between align-items-center mb-10px">

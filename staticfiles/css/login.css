@@ -44,7 +44,7 @@
     font-size: 13px;
     letter-spacing: 1px;
     height: 40px;
-    padding: 2px 15px 2px 35px;
+    padding: var(--sz-0);
     border: none;
     border-bottom: 1px solid #333;
     border-radius: 0;
@@ -62,10 +62,10 @@
     font-weight: 600;
     letter-spacing: 1px;
     width: 100%;
-    padding: 10px 20px;
+    padding: var(--sz-2);
     margin: 0 0 15px 0;
     border: none;
-    border-radius: 10px;
+    border-radius: var(--b-r);
     text-transform: uppercase;
 }
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import ColorSlider from './ColorSlider'
+import ThemeSlider from './ThemeSlider'
 import { setTheme } from '../../../../../../config/utils'
 
 export default function RgbaEditor(props) {
@@ -75,33 +75,33 @@ export default function RgbaEditor(props) {
             <div 
                 className={`${!isOpen ? 'd-none' : 'd-flex'} flex-column`}
             >
-                <ColorSlider 
+                <ThemeSlider 
                     title = "R"
                     max={255}
                     handleChange = {handleChange}
-                    color = {redValue}
-                    setColor = {setRedValue}
+                    value = {redValue}
+                    setValue = {setRedValue}
                 />
-                <ColorSlider 
+                <ThemeSlider 
                     title = "G"
                     max={255}
                     handleChange = {handleChange}
-                    color = {greenValue}
-                    setColor = {setGreenValue}
+                    value = {greenValue}
+                    setValue = {setGreenValue}
                 />
-                <ColorSlider 
+                <ThemeSlider 
                     title = "B"
                     max={255}
                     handleChange = {handleChange}
-                    color = {blueValue}
-                    setColor = {setBlueValue}
+                    value = {blueValue}
+                    setValue = {setBlueValue}
                 />
-                <ColorSlider 
+                <ThemeSlider 
                     title = "O"
                     max={100}
                     handleChange = {handleChange}
-                    color = {opacityValue}
-                    setColor = {setOpacityValue}
+                    value = {opacityValue}
+                    setValue = {setOpacityValue}
                 />
                 <div className="d-flex justify-content-end">
                     <button

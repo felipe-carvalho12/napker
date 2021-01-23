@@ -5,18 +5,18 @@
     font-size: 1rem!important;
     border: none!important;
     outline: none!important;
-    border-radius: 10px!important;
+    border-radius: var(--b-r)!important;
     background: var(--border-color)!important;
     margin-bottom: 20px!important;
-    padding: 10px 20px 10px 20px!important;
+    padding: var(--sz-2)!important;
 }
 
 .primary-form textarea {
     margin: 0!important;
     background: var(--border-color);
     color: var(--primary-grey)!important;
-    border-radius: 10px!important;
-    padding: 10px 25px 10px 20px;
+    border-radius: var(--b-r)!important;
+    padding: var(--sz-2);
 }
 
 .primary-form textarea:focus {
@@ -41,17 +41,17 @@ input:-webkit-autofill {
 }
 
 .primary-form button {
-    border-radius: 10px!important;
+    border-radius: var(--b-r)!important;
     height: 45px;
 }
 
 /* ADD INTERESTS */
 
 .interests-description {
-    padding: 15px;
+    padding: var(--sz-2);
     background: var(--secondary-color);
     border: 2px solid rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
+    border-radius: var(--b-r);
     color: var(--primary-grey);
     font-size: 15px; 
 }

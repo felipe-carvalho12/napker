@@ -198,7 +198,7 @@ fieldset .fieldBox {
 
 .errornote {
     background-position: 100% 12px;
-    padding: 10px 12px;
+    padding: var(--sz-1) 12px;
 }
 
 /* WIDGETS */

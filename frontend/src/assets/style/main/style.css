@@ -1,5 +1,12 @@
 :root {
   --secondary-color: rgba(119, 147, 125, .1);
+  --b-r:  10px;
+  --sz-0:  5px;
+  --sz-1: 10px;
+  --sz-2: 20px;
+  --sz-3: 30px;
+  --sz-4: 40px;
+  --sz-5: 50px;
 
   --content-height: 94vh;
   --ls-width: 275px;
@@ -111,7 +118,7 @@ a {
   height: var(--header-heigth);
   position: sticky;
   top: 0;
-  padding: 20px;
+  padding: var(--sz-2);
   color: var(--primary-grey);
   font-size: 1.2rem;
 }

@@ -31,7 +31,7 @@
 }
 
 .interests-description {
-    padding: 15px;
+    padding: var(--sz-2);
     background: var(--secondary-color);
     border: 2px solid rgba(0, 0, 0, 0.2);
     border-radius: 20px;
@@ -53,7 +53,7 @@
 .tag-container .tag {
     height: 30px;
     margin: 5px;
-    padding: 5px 6px;
+    padding: var(--sz-0) 6px;
     border: 1px solid #ccc;
     border-radius: 3px;
     background: #eee;
@@ -71,7 +71,7 @@
 }
 
 .tag-container input {
-    padding: 5px;
+    padding: var(--sz-0);
     font-size: 16px;
     border: 0;
     outline: none;
@@ -86,7 +86,7 @@
     font-weight: 600;
     letter-spacing: 1px;
     width: 100%;
-    padding: 10px 20px;
+    padding: var(--sz-2);
     margin: 10px 0 15px 0;
     border: none;
     border-radius: 20px;
