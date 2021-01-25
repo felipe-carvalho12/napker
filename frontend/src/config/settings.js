@@ -1,3 +1,5 @@
+const DEBUG = true
+
 //const SERVER_URL = 'https://napker.herokuapp.com'
 //const SOCKET_URL = 'wss://napker.herokuapp.com'
 const SERVER_URL = 'http://127.0.0.1:8000'

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 
 import { SERVER_URL } from '../../../../../config/settings'
-import { AlgorithmWeightsContext } from '../../../../../context/app/AppContext'
+import { AlgorithmWeightsContext, MyProfileContext } from '../../../../../context/app/AppContext'
 import LikesModal from '../../../../../components/LikesModal'
 import PostForm from './components/PostForm'
 import PostListItem from '../../../../../components/PostListItem'
@@ -12,7 +12,7 @@ export default function Posts() {
     const [weights,] = useContext(AlgorithmWeightsContext)
     const [isFetching_weights, setIsFetching_weights] = useState(false)
 
-    const [myProfile, setMyProfile] = useState(null)
+    const [myProfile,] = useContext(MyProfileContext)
     const [posts, setPosts] = useState(null)
     const [likesModal, setLikesModal] = useState({ isOpen: false, likes: null })
 
@@ -27,9 +27,6 @@ export default function Posts() {
     }
 
     useEffect(() => {
-        fetch(`${SERVER_URL}/profile-api/myprofile`)
-            .then(response => response.json())
-            .then(data => setMyProfile(data))
         fetchPosts()
     }, [])
 
@@ -58,7 +55,7 @@ export default function Posts() {
             />
             {myProfile &&
                 <div className="feed-create-post-form box-med b-theme-base-color b-vw-t">
-                    <PostForm myProfile={myProfile} usePosts={() => [posts, setPosts]} />
+                    <PostForm usePosts={() => [posts, setPosts]} />
                 </div>
             }
             <div className="d-flex flex-column justify-content-start align-items-center w-100 h-100">

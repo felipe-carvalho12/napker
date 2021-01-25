@@ -11,7 +11,7 @@ export default function InviteListItem(props) {
             style={{ backgroundColor: 'var(--theme-base-color)', ...props.style }}
             id={`fr-${invite.sender.id}`}
             key={invite.sender.id}
-            onClick={() => window.location.href = `/user/${invite.sender.slug}`}
+            onClick={() => window.location.href = `/user/${invite.sender.user.username}`}
         >
             <div className="d-flex">
                 <div className="profile-img-container">

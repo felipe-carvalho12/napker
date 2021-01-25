@@ -21,7 +21,7 @@ export default function ProfileData(props) {
                     <i className="far fa-calendar-alt"></i> Entrou em {profile.created.split('-').reverse().join('/')}
                 </p>
                 <p>
-                    <Link to={`/user/${profile.slug}/amigos`} style={{ color: "var(--primary-grey)" }}>
+                    <Link to={`/user/${profile.user.username}/amigos`} style={{ color: "var(--primary-grey)" }}>
                         <strong>{profile.friends.length}</strong> <span className="text-secondary">{profile.friends.length === 1 ? 'amigo' : 'amigos'}</span>
                     </Link>
                 </p>

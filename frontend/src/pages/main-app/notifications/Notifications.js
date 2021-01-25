@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import { SERVER_URL } from '../../../config/settings'
+import { SERVER_URL, DEBUG } from '../../../config/settings'
 import { csrftoken } from '../../../config/utils'
 import Header from '../../../components/fixed/Header'
 import InviteNotification from './components/InviteNotification'
@@ -58,21 +58,20 @@ export default function Notifications(props) {
     const replyRequest = e => {
         e.stopPropagation()
         const btn = e.target
-        const requestBody = {
-            'senderid': btn.dataset.senderid,
-            'reply': btn.dataset.reply
-        }
         fetch(`${SERVER_URL}/profile-api/reply-friend-request`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
                 'X-CSRFToken': csrftoken,
             },
-            body: JSON.stringify(requestBody)
+            body: JSON.stringify({
+                'senderid': btn.dataset.senderid,
+                'reply': btn.dataset.reply
+            })
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data)
+                DEBUG && console.log(data)
                 props.updateNotificationsNumber()
             })
         document.getElementById(`fr-${btn.dataset.senderid}`).remove()

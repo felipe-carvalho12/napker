@@ -1,18 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useContext } from 'react'
 
-import { SERVER_URL } from '../../../config/settings'
+import { MyProfileContext } from '../../../context/app/AppContext'
 import Header from '../../../components/fixed/Header'
 import PostForm from '../home/components/posts_/components/PostForm'
 
 export default function Posts() {
-    const [myProfile, setMyProfile] = useState(null)
-    const [mobilePostButton, setMobilePostButton] = useState(null)
-
-    useEffect(() => {
-        fetch(`${SERVER_URL}/profile-api/myprofile`)
-            .then(response => response.json())
-            .then(data => setMyProfile(data))
-    }, [])
+    const [myProfile,] = useContext(MyProfileContext)
 
     return (
         <div className="content-container p-0">
@@ -23,7 +16,7 @@ export default function Posts() {
                 <div className="post-form-page-container">
                     {myProfile !== null ?
                         <div className="box-med b-theme-base-color b-vw-t mt-50px">
-                            <PostForm myProfile={myProfile} />
+                            <PostForm />
                         </div>
                         :
                         <div className="loader-container" >

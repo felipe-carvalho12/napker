@@ -36,7 +36,7 @@ class Migration(migrations.Migration):
                 ('email', models.EmailField(blank=True, max_length=100, null=True, unique=True)),
                 ('photo', models.ImageField(default='avatar.png', upload_to='')),
                 ('bio', models.TextField(default='Sem bio...', max_length=240)),
-                ('slug', models.SlugField(blank=True, unique=True)),
+                ('slug', models.user.usernameField(blank=True, unique=True)),
                 ('created', models.DateField(auto_now_add=True)),
                 ('updated', models.DateField(auto_now=True)),
                 ('friends', models.ManyToManyField(blank=True, related_name='friends', to=settings.AUTH_USER_MODEL)),

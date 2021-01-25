@@ -1,24 +1,20 @@
 import React, { useEffect, useState } from 'react'
 
 import { SERVER_URL } from '../../../../../config/settings'
+import { MyProfileContext } from '../../../../../context/app/AppContext'
 import PostListItem from '../../../../../components/PostListItem'
 import LikesModal from '../../../../../components/LikesModal'
 import InterestSearchInput from '../profiles/components/InterestSearchInput'
 
 
 export default function Explore() {
-    const [myProfile, setMyProfile] = useState(null)
+    const [myProfile,] = useContext(MyProfileContext)
     const [posts, setPosts] = useState(null)
     const [likesModal, setLikesModal] = useState({ isOpen: false, likes: null })
 
     let selectedInterest = null
 
     useEffect(() => {
-        fetch(`${SERVER_URL}/profile-api/myprofile`)
-            .then(response => response.json())
-            .then(data => {
-                setMyProfile(data)
-            })
         fetchPosts()
     }, [])
 

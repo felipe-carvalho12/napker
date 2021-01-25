@@ -45,7 +45,6 @@ export default function CommentListItem(props) {
                     <div className="w-100 pl-10px py-10px">
                         <PostForm
                             type='comment'
-                            myProfile={myProfile}
                             renderParent={renderParent}
                             postId={post.id}
                             parentComment={comment}

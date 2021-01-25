@@ -25,7 +25,7 @@ export default function ContactListItem(props) {
     return (
         <>
             {profile !== undefined &&
-                <Link to={`/mensagens/${profile.slug}`} style={{ color: '#000', textDecoration: 'none' }}>
+                <Link to={`/mensagens/${profile.user.username}`} style={{ color: '#000', textDecoration: 'none' }}>
                     {resetUnreadMessagesCounter()}
                     <li className="list-item d-flex justify-content-start p-2 b-theme-base-color c-primary-grey base-hover box-med" style={{ whiteSpace: 'nowrap' }}>
                         <img src={profile.photo}
@@ -35,7 +35,7 @@ export default function ContactListItem(props) {
                         <div className="d-flex flex-column align-items-start">
                             <div className="d-flex" style={{ maxHeight: '30px' }}>
                                 <strong style={{ height: 'fit-content' }}>{profile.first_name} {profile.last_name}</strong>
-                                {activeChats[activeChatsProfiles.map(p => p.slug).indexOf(profile.slug)].messages.map((message, i, messages) => {
+                                {activeChats[activeChatsProfiles.map(p => p.user.username).indexOf(profile.user.username)].messages.map((message, i, messages) => {
                                     if (messages[messages.length - 1] === message) setLastChatMessage(message.content)
                                     if (message.read || message.contact.user.username !== profile.user.username) return
                                     incrementUnreadMessagesCounter()

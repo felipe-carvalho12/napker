@@ -27,7 +27,7 @@ class TestModels(TestCase):
 
     
     def test_profile_save_method(self):
-        self.assertEqual(self.test_user.profile.slug, self.test_user.username)
+        self.assertEqual(self.test_user.profile.user.username, self.test_user.username)
 
 
     def test_profile_get_friends_number_method(self):

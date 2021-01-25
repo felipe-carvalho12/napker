@@ -14,7 +14,7 @@ export default function ProfileListItem(props) {
 
     return (
         <Link to={myProfile != undefined && profile.id === myProfile.id ?
-            '/perfil' : `/user/${profile.slug}`}
+            '/perfil' : `/user/${profile.user.username}`}
             style={{ color: 'var(--primary-grey)', textDecoration: 'none', width: '100%' }}
             onClick={() => onClick}
         >

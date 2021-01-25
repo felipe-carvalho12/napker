@@ -84,11 +84,8 @@ def post_notifications(request):
             if (comment.author != profile) and (not comment.visualized or now - datetime.timedelta(2) < comment.updated):
                 comments.append(comment)
 
-        if notification.likes.all() != post.likes.all() or notification.comments.all() != post.comments.all():
-            notification.likes.set(post.likes.all())
-            notification.comments.set(post.comments.all())
-            notification.notifications_number = len([like for like in likes if not like.visualized]) + len([comment for comment in comments if not comment.visualized])
-            notification.save()
+        notification.notifications_number = len([like for like in likes if not like.visualized]) + len([comment for comment in comments if not comment.visualized])
+        notification.save()
 
         if len(likes) or len(comments):
             notifications.append(notification)

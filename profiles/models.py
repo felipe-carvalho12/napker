@@ -1,9 +1,8 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.models import A
 from django.db import models
-from django.template.defaultfilters import slugify
+from django.db.models import Q
 
 # Create your models here.
-
 
 class Interest(models.Model):
     title = models.CharField(max_length=50)
@@ -15,6 +14,70 @@ class Interest(models.Model):
     def __str__(self):
         return self.title
 
+
+class InterestWeight(models.Model):
+    value = models.FloatField()
+    interest = models.OneToOneField(Interest, on_delete=models.CASCADE, related_name='weight')
+
+
+class InterestSet(models.Model):
+    interests = models.ManyToManyField(Interest)
+    
+    def __str__(self): 
+        return [interest.title for interest in self.interests]
+
+
+# ----------------------------------------------------------------------
+
+
+class RelationshipDetails(models.Model):
+    sender = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name='sender')
+    receiver = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name='receiver')
+
+    def __str__(self):
+        return f'{self.sender} - {self.receiver} - {self.content}'
+
+
+class InvitationManager(models.Manager):
+    def invitations_received(self, receiver):
+        invites = Invitation.objects.filter(details__receiver=receiver, status='sent')
+        return invites
+
+    def invitations_sent(self, sender):
+        invites = Invitation.objects.filter(details__sender=sender, status='sent')
+        return invites
+
+    def friends(self, profile):
+        invites = Invitation.objects.filter(Q(details__sender=profile) | Q(details__receiver=profile), status='accepted')
+        friends = [i.details.receiver if i.details.sender == profile else i.details.sender for i in invites]
+        return friends
+
+class Invitation(models.Model):
+    details = models.OneToOneField(RelationshipDetails, related_name='content', on_delete=models.CASCADE)
+    status = models.CharField(max_length=8, choices=(('sent', 'sent'), ('accepted', 'accepted')), default='sent')
+
+    objects = InvitationManager()
+
+    def __str__(self):
+        return f'invitation-{self.status}'
+
+
+class BlockManager(models.Manager):
+    def blocked_profiles(self, profile):
+        blocks = Block.objects.filter(details__sender=profile)
+        profiles = [block.details.receiver for block in blocks]
+        return profiles
+
+class Block(models.Model):
+    details = models.OneToOneField(RelationshipDetails, related_name='content', on_delete=models.CASCADE)
+
+    objects = BlockManager()
+
+    def __str__(self):
+        return f'block'
+
+
+# ----------------------------------------------------------------------
 
 class ProfileWeights(models.Model):
     interest_weight = models.FloatField()
@@ -40,6 +103,9 @@ class Weights(models.Model):
     post = models.ForeignKey(PostWeights, on_delete=models.CASCADE)
 
 
+# ----------------------------------------------------------------------
+
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     first_name = models.CharField(max_length=50, blank=True)
@@ -48,47 +114,22 @@ class Profile(models.Model):
     birth_date = models.DateField(blank=True, null=True)
     photo = models.ImageField(default='profile_avatar.jpeg', upload_to='profile/')
     bio = models.TextField(default='Sem bio...', max_length=100)
-    slug = models.SlugField(unique=True, blank=True)
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
-    friends = models.ManyToManyField(User, blank=True, related_name='friends')
-    blocked_users = models.ManyToManyField(User, blank=True, related_name='blocked_me')
-    interests = models.ManyToManyField(Interest, related_name='profiles')
+    interest_set = models.ForeignKey(InterestSet, related_name='profiles', blank=True, on_delete=models.SET_NULL)
     weights = models.ForeignKey(Weights, on_delete=models.SET_NULL, related_name='profiles', default=None, blank=True, null=True)
 
     def __str__(self):
         return f'{self.user.username}'
 
-    def get_friends_number(self):
-        return self.friends.all().count()
-
-    def get_posts_number(self):
-        return self.posts.all().count()
-
-    def get_all_posts(self):
+    @property
+    def posts(self):
         return self.posts.all()
 
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.user.username)
-        super().save(*args, **kwargs)
+    @property
+    def public_interests_length(self):
+        return self.interest_set.interests.filter(public=True).count()
 
-
-class RelationshipManager(models.Manager):
-    def invitations_received(self, receiver):
-        invites = Relationship.objects.filter(receiver=receiver, status='sent')
-        return invites
-
-    def invitations_sent(self, sender):
-        invites = Relationship.objects.filter(sender=sender, status='sent')
-        return invites
-
-
-class Relationship(models.Model):
-    sender = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='sender')
-    receiver = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='receiver')
-    status = models.CharField(max_length=8, choices=(('sent', 'sent'), ('accepted', 'accepted')), default='sent')
-
-    objects = RelationshipManager()
-
-    def __str__(self):
-        return f'{self.sender} - {self.receiver} - {self.status}'
+    @property
+    def blocked_users(self):
+        return [rel.receiver for rel in Block.objects.filter(details__sender=self)]

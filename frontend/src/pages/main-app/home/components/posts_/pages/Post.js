@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { SERVER_URL } from '../../../../../../config/settings'
+import { MyProfileContext } from '../../../../../../context/app/AppContext'
 import PostForm from '../components/PostForm'
 import LikesModal from '../../../../../../components/LikesModal'
 import Header from '../../../../../../components/fixed/Header'
@@ -11,7 +12,7 @@ import CommentListItem from './components/CommentListItem'
 
 export default function Post() {
     const [post, setPost] = useState(null)
-    const [myProfile, setMyProfile] = useState(null)
+    const [myProfile,] = useContext(MyProfileContext)
 
     const [displayingForm, setDisplayingForm] = useState(false)
 
@@ -24,9 +25,6 @@ export default function Post() {
 
     useEffect(() => {
         fetchPost()
-        fetch(`${SERVER_URL}/profile-api/myprofile`)
-            .then(response => response.json())
-            .then(data => setMyProfile(data))
     }, [])
 
     const fetchPost = () => {
@@ -84,7 +82,6 @@ export default function Post() {
                                     <PostForm
                                         type='first-layer-comment'
                                         postId={post.id}
-                                        myProfile={myProfile}
                                         renderParent={fetchPost}
                                         hideForm={() => setDisplayingForm(false)}
                                     />

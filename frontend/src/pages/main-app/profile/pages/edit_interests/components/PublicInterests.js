@@ -11,7 +11,7 @@ export default function PublicInterests(props) {
                 Os interesses públicos são visíveis para os outros usuários.
                 Coloque aqui interesses que sem eles seu perfil ficaria incompleto.
             </p>
-            <InterestsInput type="public" myProfile={props.myProfile} setInterests={props.setInterests} />
+            <InterestsInput type="public" setInterests={props.setInterests} />
         </div>
     )
 }

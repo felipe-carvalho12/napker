@@ -1,21 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 
-import { SERVER_URL } from '../../../../config/settings'
+import { MyProfileContext } from '../../../../context/app/AppContext'
 import LikesModal from '../../../../components/LikesModal'
 import PostListItem from '../../../../components/PostListItem'
 
 export default function Posts(props) {
-    const [myProfile, setMyProfile] = useState(null)
+    const [myProfile,] = useContext(MyProfileContext)
     const [likesModal, setLikesModal] = useState({ isOpen: false, likes: null })
     const profile = props.profile
 
     const isMobile = visualViewport.width <= 980
-
-    useEffect(() => {
-        fetch(`${SERVER_URL}/profile-api/myprofile`)
-            .then(response => response.json())
-            .then(data => setMyProfile(data))
-    }, [])
 
     const hideLikesModal = () => {
         setLikesModal({
@@ -23,7 +17,6 @@ export default function Posts(props) {
             likes: null
         })
     }
-
 
     return (
         <>

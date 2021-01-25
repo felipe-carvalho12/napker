@@ -1,18 +1,16 @@
-import React, { useEffect, useState } from 'react'
-import SettingsContent from './components/SettingsContent'
+import React, { useContext, useEffect, useState } from 'react'
 
 import { SERVER_URL } from '../../../../config/settings'
+import { MyProfileContext } from '../../../../context/app/AppContext'
+import SettingsContent from './components/SettingsContent'
 import ProfileListItem from '../../../../components/ProfileListItem'
 
-export default function BlockUser() {
+export default function BlockedProfiles() {
     const [blockedProfiles, setBlockedProfiles] = useState(null)
-    const [myProfile, setMyProfile] = useState(null)
+    const [myProfile, ] = useContext(MyProfileContext)
 
     useEffect(() => {
-        fetch(`${SERVER_URL}/profile-api/myprofile`)
-            .then(response => response.json())
-            .then(data => setMyProfile(data))
-        fetch(`${SERVER_URL}/profile-api/get-blocked-profiles`)
+        fetch(`${SERVER_URL}/profile-api/blocked-profiles`)
             .then(response => response.json())
             .then(data => setBlockedProfiles(data))
     }, [])

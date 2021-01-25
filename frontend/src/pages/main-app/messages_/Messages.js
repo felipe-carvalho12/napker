@@ -12,13 +12,13 @@ import Header from '../../../components/fixed/Header'
 
 export default function Messages(props) {
     const [username, setUsername] = useState(null)
-    const [otherUsername, setOtherUsername] = useState(props.match.params.slug)
+    const [otherUsername, setOtherUsername] = useState(props.match.params.user.username)
     const [chatId, setChatId] = useState(null)
     const [activeChats, setActiveChats] = useState(null)
     const [activeChatsProfiles, setActiveChatsProfiles] = useState(null)
     const [renderedActiveChatsProfiles, setRenderedActiveChatsProfiles] = useState(null)
     const [addingNewChat, setAddingNewChat] = useState(false)
-    const [modalProfiles, setModalProfiles] = useState([])
+    const [addingNewChatProfiles, setAddingNewChatProfiles] = useState([])
     const [chatsMessages, setChatsMessages] = useState({})
 
     const isMobile = visualViewport.width <= 980
@@ -29,12 +29,12 @@ export default function Messages(props) {
     document.title = 'Mensagens / Napker'
 
     const handleReceiveProps = props => {
-        if (props.match.params.slug) {
-            if (props.match.params.slug !== otherUsername && WebSocketInstance.state() === 1) {
+        if (props.match.params.user.username) {
+            if (props.match.params.user.username !== otherUsername && WebSocketInstance.state() === 1) {
                 WebSocketInstance.disconnect()
-                setOtherUsername(props.match.params.slug)
+                setOtherUsername(props.match.params.user.username)
             }
-            fetch(`${SERVER_URL}/chat-api/chat-id/${props.match.params.slug}`)
+            fetch(`${SERVER_URL}/chat-api/chat-id/${props.match.params.user.username}`)
                 .then(response => response.json())
                 .then(data => {
                     setChatId(data['chat_id'])
@@ -50,10 +50,10 @@ export default function Messages(props) {
 
     const handleComponentChange = () => {
         if (!username) {
-            fetch(`${SERVER_URL}/profile-api/logged-user`)
+            fetch(`${SERVER_URL}/profile-api/myusername`)
                 .then(response => response.json())
                 .then(data => {
-                    setUsername(data.username)
+                    setUsername(data)
                 })
         }
         if (!activeChatsProfiles && activeChatsProfiles !== []) {
@@ -103,8 +103,7 @@ export default function Messages(props) {
                             <div className="search-input-container">
                                 {addingNewChat ?
                                     <AddNewChatSearch
-                                        setModalProfiles={setModalProfiles}
-                                        setAddingNewChat={setAddingNewChat}
+                                        setAddingNewChatProfiles={setAddingNewChatProfiles}
                                     />
                                     :
                                     <ContactFilterInput
@@ -125,9 +124,9 @@ export default function Messages(props) {
                             </div>
                             {addingNewChat ?
                                 <>
-                                    {modalProfiles && modalProfiles.map(profile => {
+                                    {addingNewChatProfiles && addingNewChatProfiles.map(profile => {
                                         return (
-                                            <Link to={`/mensagens/${profile.slug}`}
+                                            <Link to={`/mensagens/${profile.user.username}`}
                                                 style={{ color: 'var(--primary-grey)', textDecoration: 'none' }}
                                                 onClick={() => setAddingNewChat(false)}
                                             >
@@ -176,7 +175,7 @@ export default function Messages(props) {
                     </div>
                     <Chat
                         username={username}
-                        otherUsername={props.match.params.slug}
+                        otherUsername={props.match.params.user.username}
                         chatId={chatId}
                         addNewChat={addNewChat}
                         updateUnreadMessagesNumber={props.updateUnreadMessagesNumber}
@@ -186,7 +185,7 @@ export default function Messages(props) {
                     />
                 </div>
             </div>
-            {!props.match.params.slug &&
+            {!props.match.params.user.username &&
                 <BottomMenu />
             }
         </div>

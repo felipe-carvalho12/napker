@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import { SERVER_URL } from '../../../config/settings'
+import { SERVER_URL, DEBUG } from '../../../config/settings'
 import { csrftoken } from '../../../config/utils'
 import Header from '../../../components/fixed/Header'
 import Posts from './components/Posts'
@@ -20,7 +20,7 @@ class Profile extends React.Component {
             currentPageIsPosts: true,
         }
         this.isMobile = visualViewport.width <= 980
-        this.slug = this.props.match.params.slug
+        this.username = this.props.match.params.username
         this.baseState = this.state
     }
 
@@ -65,37 +65,23 @@ class Profile extends React.Component {
     componentWillReceiveProps(newProps) {
         if (newProps === this.props) return
         this.setState(this.baseState) //resetting state
-        this.slug = newProps.match.params.slug
+        this.username = newProps.match.params.username
         this.fetchProfile()
         this.fetchRelationship()
     }
 
     fetchRelationship = () => {
-        fetch(`${SERVER_URL}/profile-api/relationship/${this.slug}`)
+        fetch(`${SERVER_URL}/profile-api/button-label/${this.username}`)
             .then(response => response.json())
             .then(data => {
-                let label
-                switch (data.relationship) {
-                    case 'friends':
-                        label = 'Amigos'
-                        break
-                    case 'invite-sent':
-                        label = 'Solicitado'
-                        break
-                    case 'invite-received':
-                        label = 'Aceitar'
-                        break
-                    case 'none':
-                        label = 'Solicitar'
-                }
                 this.setState({
-                    relationshipButtonLabel: label
+                    relationshipButtonLabel: data
                 })
             })
     }
 
     fetchProfile = () => {
-        fetch(`${SERVER_URL}/profile-api/user/${this.slug}`)
+        fetch(`${SERVER_URL}/profile-api/profile01/${this.username}`)
             .then(response => response.json())
             .then(data => this.setState({
                 profile: data
@@ -115,7 +101,7 @@ class Profile extends React.Component {
             body: JSON.stringify(pk)
         })
             .then(response => response.json())
-            .then(data => console.log(data))
+            .then(data => DEBUG && console.log(data))
     }
 
     cancelFriendRequest = pk => {
@@ -128,7 +114,7 @@ class Profile extends React.Component {
             body: JSON.stringify(pk)
         })
             .then(response => response.json())
-            .then(data => console.log(data))
+            .then(data => DEBUG && console.log(data))
     }
 
     removeFromFriends = pk => {
@@ -141,7 +127,7 @@ class Profile extends React.Component {
             body: JSON.stringify(pk)
         })
             .then(response => response.json())
-            .then(data => console.log(data))
+            .then(data => DEBUG && console.log(data))
     }
 
     acceptFriendRequest = pk => {
@@ -158,7 +144,7 @@ class Profile extends React.Component {
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data)
+                DEBUG && console.log(data)
                 this.props.updateNotificationsNumber()
             })
     }
@@ -195,7 +181,7 @@ class Profile extends React.Component {
                         'Content-type': 'application/json',
                         'X-CSRFToken': csrftoken,
                     },
-                    body: JSON.stringify(this.state.profile)
+                    body: JSON.stringify(this.state.profile.id)
                 })
                     .then(response => response.json())
                     .then(data => {
@@ -212,7 +198,7 @@ class Profile extends React.Component {
                         'Content-type': 'application/json',
                         'X-CSRFToken': csrftoken,
                     },
-                    body: JSON.stringify(this.state.profile)
+                    body: JSON.stringify(this.state.profile.id)
                 })
                     .then(response => response.json())
                     .then(data => {
@@ -256,9 +242,9 @@ class Profile extends React.Component {
 
     render() {
         return (
-            <div className="content-container p-vw-r">  
-                <div 
-                    className={!this.isMobile ? "b-theme-base-color box-med blur-20px" : "fixed w-100 b-theme-base-color blur-20px b-b"} 
+            <div className="content-container p-vw-r">
+                <div
+                    className={!this.isMobile ? "b-theme-base-color box-med blur-20px" : "fixed w-100 b-theme-base-color blur-20px b-b"}
                     style={!this.isMobile ? { position: "sticky", top: "1vw", padding: "0", zIndex: "1000" } : { zIndex: "1000" }}
                 >
                     <Header page={this.state.profile ? `${this.state.profile.first_name} ${this.state.profile.last_name}` : 'Perfil'}
@@ -278,14 +264,14 @@ class Profile extends React.Component {
                                 id="profile-interests-page-menu-item"
                                 onClick={this.switchPage}
                             >
-                                Interesses ({this.state.profile.interests.filter(i => i.public).length})
+                                Interesses ({this.state.profile.public_interests_length})
                             </div>
                         </div>
                     }
                 </div>
                 {this.state.myProfile !== null && this.state.profile !== null ?
                     <div className="sidebar-content">
-                        {this.state.profile.blocked_users.map(u => u.id).includes(this.state.myProfile.user.id) ?
+                        {this.state.profile.blocked_users.includes(this.state.myProfile.user.id) ?
                             <div className="user-blocked-me-container">
                                 <h3>O usuário te bloqueou</h3>
                             </div>
@@ -306,7 +292,7 @@ class Profile extends React.Component {
                                         <div className="view-more-select" id="profile-view-more-select" style={{ top: '60%', right: '10%' }}>
                                             {!this.state.myProfile.blocked_users.map(u => u.id).includes(this.state.profile.user.id) &&
                                                 <li>
-                                                    <Link to={`/mensagens/${this.state.profile.slug}`} style={{ color: 'var(--primary-grey)', textDecoration: 'none' }}>
+                                                    <Link to={`/mensagens/${this.state.profile.user.username}`} style={{ color: 'var(--primary-grey)', textDecoration: 'none' }}>
                                                         <i class="fas fa-envelope text-secondary" />
                                                         Enviar mensagem
                                                     </Link>

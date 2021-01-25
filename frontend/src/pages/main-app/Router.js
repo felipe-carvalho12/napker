@@ -35,10 +35,13 @@ export default function MainAppRouter() {
     useEffect(() => {
         updateNotificationsNumber()
         updateUnreadMessagesNumber()
+
         window.setInterval(() => {
             updateNotificationsNumber()
+        }, 60000)
+        window.setInterval(() => {
             updateUnreadMessagesNumber()
-        }, 6000)
+        }, 10000)
 
         fetch(`${SERVER_URL}/profile-api/get-weights`)
             .then(response => response.json())
@@ -46,9 +49,9 @@ export default function MainAppRouter() {
     }, [])
 
     const updateNotificationsNumber = () => {
-        fetch(`${SERVER_URL}/profile-api/myinvites`)
+        fetch(`${SERVER_URL}/profile-api/myinvites-number`)
             .then(response => response.json())
-            .then(data => setInvitesReceived(data.length))
+            .then(data => setInvitesReceived(data))
         fetch(`${SERVER_URL}/post-api/post-notifications`)
             .then(response => response.json())
             .then(data => setPostNotifications(data.map(obj => obj.notifications_number).reduce((accumulator, current) => accumulator + current, 0)))
@@ -78,7 +81,7 @@ export default function MainAppRouter() {
                         <Route path="/perfil">
                             <SidebarRight page="profile" />
                         </Route>
-                        <Route path="/user/:slug">
+                        <Route path="/user/:username">
                             <SidebarRight page="profile" />
                         </Route>
                     </Switch>
@@ -101,7 +104,7 @@ export default function MainAppRouter() {
                             <Notifications {...props} updateNotificationsNumber={updateNotificationsNumber} />
                         )} />
                         <Route path="/mensagens" exact component={Messages} />
-                        <Route path="/mensagens/:slug" render={props => (
+                        <Route path="/mensagens/:username" render={props => (
                             <Messages {...props} updateUnreadMessagesNumber={updateUnreadMessagesNumber} />
                         )} />
                         <Route path="/perfil" exact render={props => (
@@ -135,7 +138,7 @@ export default function MainAppRouter() {
                         <Route path="/user/:slug" exact render={props => (
                             <Profile {...props} updateNotificationsNumber={updateNotificationsNumber} />
                         )} />
-                        <Route path="/user/:slug/amigos" component={ProfileFriends} />
+                        <Route path="/user/:username/amigos" component={ProfileFriends} />
                         <Route path="/post/:id" exact component={Post} />
                         <Route path="/interesses/:interest" component={InterestProfiles} />
 

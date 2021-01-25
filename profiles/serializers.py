@@ -4,85 +4,52 @@ from rest_framework import serializers
 from posts.models import *
 from .models import *
 
-class RecursiveField(serializers.Serializer):
-    def to_representation(self, value):
-        serializer = self.parent.parent.__class__(value, context=self.context)
-        return serializer.data
 
-class UserSerializer(serializers.ModelSerializer):
+class User01Serializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username']
+        field = ['id', 'username']
 
-# UNRELATED SERIALIZERS - AVOID CIRCULAR RELATIONSHIP ISSUE
-class PostLikeUnrelatedSerializer(serializers.ModelSerializer):
+class User02Serializer(serializers.ModelSerializer):
     class Meta:
-        model = PostLike
-        fields = '__all__'
-
-class CommentLikeUnrelatedSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CommentLike
-        fields = '__all__'
-
-class PostUnrelatedSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Post
-        fields = '__all__'
+        model = User
+        field = ['username']
 
 
-class ProfileUnrelatedSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
+# ----------------------------------------------------------------------
+
+
+class Profile01Serializer(serializers.ModelSerializer):
+    user = User01Serializer()
+
     class Meta:
         model = Profile
-        fields = '__all__'
+        fields = ['id', 'user', 'first_name', 'last_name', 'posts', 'public_interests_length', 'blocked_users']
 
-
-class CommentUnrelatedSerializer(serializers.ModelSerializer):
-    author = ProfileUnrelatedSerializer()
-    post = PostUnrelatedSerializer()
-    likes = CommentLikeUnrelatedSerializer(many=True)
+class Profile02Serializer(serializers.ModelSerializer):
+    user = User02Serializer()
 
     class Meta:
-        model = Comment
-        fields = '__all__'
-#------------------------------------------
+        model = Profile
+        fields = ['user', 'first_name', 'last_name', 'photo']
 
-
-# POSTS APP SERIALIZERS
-class PostLikeSerializer(PostLikeUnrelatedSerializer):
-    profile = ProfileUnrelatedSerializer()
-
-class CommentLikeSerializer(CommentLikeUnrelatedSerializer):
-    profile = ProfileUnrelatedSerializer()
-    comment = CommentUnrelatedSerializer()
-
-class CommentSerializer(CommentUnrelatedSerializer):
-    likes = CommentLikeSerializer(source='all_likes', many=True)
-    comments = RecursiveField(source='child_comments', many=True)
-    all_child_comments_length = serializers.IntegerField()
-
-class PostSerializer(PostUnrelatedSerializer):
-    likes = PostLikeSerializer(source='all_likes', many=True)
-    all_child_comments_length = serializers.IntegerField()
-    first_layer_comments = CommentSerializer(many=True)
-    author = ProfileUnrelatedSerializer()
-
-class NotificationSerializer(serializers.ModelSerializer):
-    post = PostUnrelatedSerializer()
-    likes = PostLikeSerializer(many=True)
-    comments = CommentUnrelatedSerializer(many=True)
+class Profile03Serializer(serializers.ModelSerializer):
+    user = User02Serializer()
 
     class Meta:
-        model = Notification
-        fields = '__all__'
+        model = Profile
+        fields = ['id', 'user', 'first_name', 'last_name', 'photo', 'bio']
 
+class Profile04Serializer(serializers.ModelSerializer):
+    user = User02Serializer()
 
-# PROFILES APP SERIALIZERS
-class InterestSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Interest
-        fields = '__all__'
+        model = Profile
+        fields = ['id', 'user', 'first_name', 'last_name', 'photo', 'bio', 'created', 'posts', 'interests']
+
+
+# ----------------------------------------------------------------------
+
 
 class ProfileWeightsSerializer(serializers.ModelSerializer):
     class Meta:
@@ -102,23 +69,13 @@ class WeightsSerializer(serializers.ModelSerializer):
         model = Weights
         fields = '__all__'
 
-class ProfileSerializer(ProfileUnrelatedSerializer):
-    interests = InterestSerializer(many=True)
-    friends = UserSerializer(many=True)
-    blocked_users = UserSerializer(many=True)
-    posts = PostSerializer(source='get_all_posts', many=True)
-    weights = WeightsSerializer()
 
-class ProfileMentionSerializer(serializers.ModelSerializer):
-    name = serializers.CharField(source='slug')
-    avatar = serializers.ImageField(source='photo')
-    class Meta:
-        model = Profile
-        fields = ['name', 'avatar']
+# ----------------------------------------------------------------------
 
-class RelationshipSerializer(serializers.ModelSerializer):
-    sender = ProfileSerializer()
-    receiver = ProfileSerializer()
+class RelationshipDetailsSerializer(serializers.ModelSerializer):
+    sender = Profile03Serializer()
+
     class Meta:
-        model = Relationship
-        fields = '__all__'
+        model = RelationshipDetails
+        fields = ['sender']
+

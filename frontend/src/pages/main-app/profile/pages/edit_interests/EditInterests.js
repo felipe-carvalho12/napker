@@ -1,24 +1,19 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 
 import { SERVER_URL } from '../../../../../config/settings'
 import { csrftoken } from '../../../../../config/utils'
+import { MyProfileContext } from '../../../../../context/app/AppContext'
 import Header from '../../../../../components/fixed/Header'
 import PublicInterests from './components/PublicInterests'
 import PrivateInterests from './components/PrivateInterests'
 import BottomMenu from '../../../../../components/fixed/bottom-menu/BottomMenu'
 
 export default function EditInterests() {
-    const [myProfile, setMyProfile] = useState(null)
+    const [myProfile, updateMyProfile] = useContext(MyProfileContext)
     let [publicInterests, setPublicInterests] = [null, value => publicInterests = value]
     let [privateInterests, setPrivateInterests] = [null, value => privateInterests = value]
 
     const isMobile = visualViewport.width <= 980
-
-    useEffect(() => {
-        fetch(`${SERVER_URL}/profile-api/myprofile`)
-            .then(response => response.json())
-            .then(data => setMyProfile(data))
-    }, [])
 
     const submitInterests = () => {
         fetch(`${SERVER_URL}/profile-api/set-myinterests`, {
@@ -37,6 +32,7 @@ export default function EditInterests() {
                 console.log(data)
                 document.querySelector('#interests-updated-message').style.display = 'block'
                 document.documentElement.scrollTop = 0
+                updateMyProfile()
             })
     }
 
@@ -66,11 +62,9 @@ export default function EditInterests() {
                             </p>
                         </div>
                         <PublicInterests
-                            myProfile={myProfile}
                             setInterests={setPublicInterests}
                         />
                         <PrivateInterests
-                            myProfile={myProfile}
                             setInterests={setPrivateInterests}
                         />
                     </div> :

@@ -5,7 +5,8 @@ import { PostNotificationsContext, PostNotificationsProvider } from './post-noti
 import { UnreadMessagesContext, UnreadMessagesProvider } from './unread-messages-number/UnreadMessagesContext'
 import { AlgorithmWeightsContext, AlgorithmWeightsProvider } from './algorithm-weights/AlgorithmWeightsContext'
 import { ThemeContext, ThemeContextProvider } from './theme-context/ThemeContext'
-export { ThemeContext, InvitesReceivedContext, PostNotificationsContext, UnreadMessagesContext, AlgorithmWeightsContext }
+import { MyProfileContext, MyProfileProvider } from './myprofile/MyProfileContext'
+export { ThemeContext, InvitesReceivedContext, PostNotificationsContext, UnreadMessagesContext, AlgorithmWeightsContext, MyProfileContext }
 
 export default function AppContextProvider(props) {
     return (
@@ -14,7 +15,9 @@ export default function AppContextProvider(props) {
                 <PostNotificationsProvider>
                     <UnreadMessagesProvider>
                         <AlgorithmWeightsProvider>
-                            {props.children}
+                            <MyProfileProvider>
+                                {props.children}
+                            </MyProfileProvider>
                         </AlgorithmWeightsProvider>
                     </UnreadMessagesProvider>
                 </PostNotificationsProvider>

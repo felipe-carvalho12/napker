@@ -9,7 +9,7 @@ export default function Header(props) {
                 {props.backArrow &&
                     <i class="fas fa-arrow-left left-arrow-icon" onClick={() => window.history.back()} />
                 }
-                <strong>{props.page}</strong>
+                <spam className="c-secondary-grey fw-300 fs-21 fa-l">{props.page}</spam>
             </div>
             {props.children}
         </div>

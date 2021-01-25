@@ -100,7 +100,7 @@ export default function PostListItem(props) {
                         <div className="d-flex align-items-center">
                             <Link
                                 to={post.author.id === myProfile.id ?
-                                    '/perfil' : `/user/${post.author.slug}`}
+                                    '/perfil' : `/user/${post.author.user.username}`}
                                 onClick={e => e.stopPropagation()}
                             >
                                 <img src={post.author.photo}
@@ -108,7 +108,7 @@ export default function PostListItem(props) {
                                 />
                             </Link>
                             <Link
-                                to={post.author.id === myProfile.id ? '/perfil' : `/user/${post.author.slug}`}
+                                to={post.author.id === myProfile.id ? '/perfil' : `/user/${post.author.user.username}`}
                                 className="d-flex justify-content-start align-items-start post-author-data-wrapper"
                                 style={{ color: '#000', flexDirection: props.breakAuthorData && 'column' }}
                                 onClick={e => e.stopPropagation()}

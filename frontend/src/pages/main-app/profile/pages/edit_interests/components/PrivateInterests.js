@@ -12,7 +12,7 @@ export default function PrivateInterests(props) {
                 Eles servem para aumentar a precisão das recomendações de perfis que
                 possuem o máximo de afinidade possível com você.
             </p>
-            <InterestsInput type="private" myProfile={props.myProfile} setInterests={props.setInterests} />
+            <InterestsInput type="private" setInterests={props.setInterests} />
         </div>
     )
 }

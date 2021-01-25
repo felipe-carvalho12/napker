@@ -32,7 +32,7 @@ export default function ProfilesSearchInput(props) {
             setFilteredProfiles(null)
             return
         }
-        fetch(`${SERVER_URL}/profile-api/users/${search}`)
+        fetch(`${SERVER_URL}/profile-api/profiles/${search}`)
             .then(response => response.json())
             .then(data => {
                 setFilteredProfiles(data)
@@ -44,7 +44,7 @@ export default function ProfilesSearchInput(props) {
             setFilteredProfiles(null)
             return
         }
-        fetch(`${SERVER_URL}/profile-api/users-by-interest`, {
+        fetch(`${SERVER_URL}/profile-api/profiles-by-interest`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',

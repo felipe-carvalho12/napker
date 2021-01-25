@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 
 import PostTextbox from './components/post-textbox/PostTextbox'
@@ -7,12 +7,12 @@ import InterestsInfoModal from './components/InterestsInfoModal'
 
 import { SERVER_URL } from '../../../../../../config/settings'
 import { csrftoken } from '../../../../../../config/utils'
+import { MyProfileContext } from '../../../../../../context/app/AppContexts'
 import InterestsInput from '../../../../profile/pages/edit_interests/components/InterestsInput'
 import InfoIcon from '../../../../../../components/fixed/sidebar-right/components/InfoIcon'
 
 
 export default function PostForm(props) {
-    const myProfile = props.myProfile
     const usePosts = props.usePosts || (() => [null, null])
     const type = props.type === undefined ? 'post' : props.type
     const postId = props.postId
@@ -22,6 +22,8 @@ export default function PostForm(props) {
 
     const isMobile = visualViewport.width <= 980
     const renderParent = props.renderParent
+
+    const [myProfile, updateMyProfile] = useContext(MyProfileContext)
 
     const history = useHistory()
 
@@ -143,6 +145,7 @@ export default function PostForm(props) {
                 setPostFormImagePreview('')
                 setVideoUrl('')
                 setIsAdvanced(false)
+                updateMyProfile()
             })
     }
 
