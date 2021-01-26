@@ -16,8 +16,7 @@ export default function Post() {
 
     const [displayingForm, setDisplayingForm] = useState(false)
 
-    const [postLikesModal, setPostLikesModal] = useState({ isOpen: false, likes: null })
-    const [commentLikesModal, setCommentLikesModal] = useState({ isOpen: false, likes: null })
+    const [likesModal, setLikesModal] = useState({ isOpen: false, likes: null })
 
     const { id } = useParams()
 
@@ -33,31 +32,13 @@ export default function Post() {
             .then(data => setPost(data))
     }
 
-    const hidePostLikesModal = () => {
-        setPostLikesModal({
-            isOpen: false,
-            likes: null
-        })
-    }
-
-    const hideCommentLikesModal = () => {
-        setCommentLikesModal({
-            isOpen: false,
-            likes: null
-        })
-    }
 
     return (
         <div className="content-container">
             <LikesModal
                 isOpen={postLikesModal.isOpen}
                 likes={postLikesModal.likes}
-                hideModal={hidePostLikesModal}
-            />
-            <LikesModal
-                isOpen={commentLikesModal.isOpen}
-                likes={commentLikesModal.likes}
-                hideModal={hideCommentLikesModal}
+                hideModal={() => setLikesModal({ isOpen: false, likes: likesModal.likes })}
             />
             <Header
                 page="Post"
@@ -74,14 +55,16 @@ export default function Post() {
                             isLink={false}
                             renderParent={fetchPost}
                             showHideForm={() => setDisplayingForm(!displayingForm)}
+                            openLikesModal={() => setLikesModal({ isOpen: true, likes: likesModal.likes })}
+                            setLikesModalItems={likes => setLikesModal({ isOpen: likesModal.isOpen, likes: likes })}
                             style={{ borderTopLeftRadius: '0', borderTopRightRadius: '0' }}
                         />
                         <div className="mt-10px">
                             {displayingForm &&
                                 <div className="box-med b-theme-base-color b-vw-t" style={{ marginLeft: '30px' }}>
                                     <PostForm
-                                        type='first-layer-comment'
-                                        postId={post.id}
+                                        type='comment'
+                                        parent={post}
                                         renderParent={fetchPost}
                                         hideForm={() => setDisplayingForm(false)}
                                     />
@@ -94,6 +77,8 @@ export default function Post() {
                                         comment={comment}
                                         myProfile={myProfile}
                                         renderParent={fetchPost}
+                                        openLikesModal={() => setLikesModal({ isOpen: true, likes: likesModal.likes })}
+                                        setLikesModalItems={likes => setLikesModal({ isOpen: likesModal.isOpen, likes: likes })}
                                         style={{ borderLeft: "5px solid var(--background)" }}
                                     />
                                 )

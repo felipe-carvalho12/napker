@@ -30,13 +30,14 @@ export default function CommentListItem(props) {
         <div style={{ marginLeft: '30px' }}>
             <PostListItem
                 type='comment'
-                post={comment}
                 myProfile={myProfile}
                 isLink={false}
                 renderParent={renderParent}
                 displayingComments={displayingComments}
                 showHideForm={() => setDisplayingForm(!displayingForm)}
                 showHideComments={showHideComments}
+                openLikesModal={props.openLikesModal}
+                setLikesModalItems={props.setLikesModalItems}
                 level={color(1)}
             />
             {displayingForm &&
@@ -46,8 +47,7 @@ export default function CommentListItem(props) {
                         <PostForm
                             type='comment'
                             renderParent={renderParent}
-                            postId={post.id}
-                            parentComment={comment}
+                            parent={comment}
                             hideForm={() => setDisplayingForm(false)}
                         />
                     </div>

@@ -21,7 +21,7 @@ class InterestWeight(models.Model):
 
 
 class InterestSet(models.Model):
-    interests = models.ManyToManyField(Interest)
+    interests = models.ManyToManyField(Interest, related_name='interest_set')
     
     def __str__(self): 
         return [interest.title for interest in self.interests]
@@ -121,6 +121,10 @@ class Profile(models.Model):
 
     def __str__(self):
         return f'{self.user.username}'
+
+    @property
+    def username(self):
+        return self.user.username
 
     @property
     def posts(self):

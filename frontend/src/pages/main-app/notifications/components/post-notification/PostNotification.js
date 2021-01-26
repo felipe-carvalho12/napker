@@ -107,10 +107,10 @@ export default function PostNotification(props) {
                             </div>
                             <div className="d-flex justify-content-between w-100">
                                 <div className="d-flex align-items-start mb-10px notification-authors-container">
-                                    {!!notification.likes.length &&
+                                    {!!notification.publication.likes.length &&
                                         <span className="mr-1" id={`${notification.id}like`}></span>
                                     }
-                                    {!!notification.comments.length &&
+                                    {!!notification.publication.comments.length &&
                                         <span className="mr-1" id={`${notification.id}comment`}></span>
                                     }
                                 </div>
@@ -118,8 +118,8 @@ export default function PostNotification(props) {
                         </div>
                     </div>
                 </div>
-                <NotificationContent type='likes' arr={notification.likes} />
-                <NotificationContent type='comments' arr={notification.comments} commentContentFormatter={postContentFormatter} />
+                <NotificationContent type='likes' arr={notification.publication.likes} />
+                <NotificationContent type='comments' arr={notification.publication.comments} commentContentFormatter={postContentFormatter} />
             </li>
         </div>
     )

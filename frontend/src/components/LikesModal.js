@@ -17,8 +17,8 @@ export default function LikesModal(props) {
             </Modal.Header>
             <Modal.Body>
                 <div className="list-group" style={{ height: '400px', overflow: 'hidden', overflowY: 'scroll' }}>
-                    {props.likes &&
-                        props.likes.map(like => like.profile).map(profile => {
+                    {props.likes ?
+                        props.likes.map(profile => {
                             return (
                                 <ProfileListItem
                                     profile={profile}
@@ -27,7 +27,12 @@ export default function LikesModal(props) {
                                     onClick={props.hideModal}
                                 />
                             )
-                        })}
+                        })
+                        :
+                        <div className="loader-container">
+                            <div className="loader" />
+                        </div>
+                    }
                 </div>
             </Modal.Body>
         </Modal>

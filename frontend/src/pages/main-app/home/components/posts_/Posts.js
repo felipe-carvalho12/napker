@@ -66,7 +66,8 @@ export default function Posts() {
                                 post={post}
                                 myProfile={myProfile}
                                 renderParent={fetchPosts}
-                                openLikesModal={likes => setLikesModal({ isOpen: true, likes: likes })}
+                                openLikesModal={() => setLikesModal({ isOpen: true, likes: likesModal.likes })}
+                                setLikesModalItems={likes => setLikesModal({ isOpen: likesModal.isOpen, likes: likes })}
                             />
                         )
                     })

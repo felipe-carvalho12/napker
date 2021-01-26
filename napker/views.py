@@ -132,7 +132,7 @@ def activate_account_view(request, uidb64, token):
 
 @api_view(['POST'])
 def update_profile(request):
-    profile = Profile.objects.get(user=request.user)
+    profile = request.user.profile
 
     if len(request.data['profile-photo']):
         format, imgstr = request.data['profile-photo'].split(';base64,') 

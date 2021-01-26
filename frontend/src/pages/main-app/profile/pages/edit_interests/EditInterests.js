@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 
 import { SERVER_URL } from '../../../../../config/settings'
 import { csrftoken } from '../../../../../config/utils'

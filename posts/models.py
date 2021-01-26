@@ -26,12 +26,12 @@ class Like(models.Model):
 
 
 class PublicationDetails(models.Model):
-    author = models.ForeignKey(Profile, related_name='comments', on_delete=models.CASCADE)
+    author = models.ForeignKey(Profile, related_name='publications', on_delete=models.CASCADE)
     views = models.ManyToManyField(Profile, related_name='post_views')
-    likes = models.ManyToManyField(Like, related_name='post', blank=True)
+    likes = models.ManyToManyField(Like, related_name='publication', blank=True)
+    layer = models.IntegerField(default=0)
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
-    visualized = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['-created']
@@ -39,28 +39,34 @@ class PublicationDetails(models.Model):
     def __str__(self):
         return f'{self.author.user.username} - {self.content[:50]}'
 
-    def all_child_comments(self):
+    def comments(self):
         comment_list = []
 
         def append_comments(comments):
             for comment in comments:
                 comment_list.append(comment)
-                append_comments(comment.comments.all())
+                append_comments([comment.details for comment in comment.comments.all()])
 
-        append_comments(self.comments.all())
+        append_comments([comment.details for comment in self.comments.all()])
 
         return comment_list
     
-    def all_child_comments_length(self):
-        return len(self.all_child_comments())
+    def comments_length(self):
+        return len(self.comments())
 
     def first_layer_child_comments(self):
         return self.comments.all()
+    
+    def likes_profile_id(self):
+        return [like.profile.id for like in self.likes.all()]
+
+    def likes_profiles(self):
+        return [like.profile for like in self.likes.all()]
 
 
 class Post(models.Model):
     details = models.OneToOneField(PublicationDetails, related_name='content', on_delete=models.CASCADE)
-    content = models.TextField(max_length=300)
+    content = models.TextField(max_length=100000)
     image = models.ImageField(upload_to='post/', blank=True, null=True)
     video = models.CharField(max_length=1000, blank=True, null=True)
     interest_set = models.ForeignKey(InterestSet, related_name='posts', blank=True, on_delete=models.SET_NULL)
@@ -70,8 +76,11 @@ class Post(models.Model):
 
 class Comment(models.Model):
     details = models.OneToOneField(PublicationDetails, related_name='content', on_delete=models.CASCADE)
+    content = models.TextField(max_length=100000)
     parent = models.ForeignKey(PublicationDetails, related_name='comments', on_delete=models.CASCADE)
-    layer = models.IntegerField(default=0)
+    tagged_users = models.ManyToManyField(User, related_name='my_mentions', blank=True)
+    hashtags = models.ManyToManyField(Hashtag, related_name='posts', blank=True)
+    visualized = models.BooleanField(default=False)
 
 
 class Notification(models.Model):

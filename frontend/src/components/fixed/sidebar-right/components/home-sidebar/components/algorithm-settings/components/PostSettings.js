@@ -18,7 +18,7 @@ export default function PostSettings(props) {
     useEffect(() => {
         if (weights) {
             setDateValue(parseInt(weights.post.date_weight))
-            setAuthorValue(parseInt(weights.post.author_weight))
+            setAuthorValue(parseInt(weights.post.details.author_weight))
             setLikesValue(parseInt(weights.post.likes_weight))
         }
     }, [weights])
