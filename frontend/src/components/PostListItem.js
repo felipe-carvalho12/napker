@@ -88,7 +88,7 @@ export default function PostListItem(props) {
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data)
+                    DEBUG && console.log(data)
                     renderParent !== undefined && renderParent()
                 })
         }
@@ -98,8 +98,8 @@ export default function PostListItem(props) {
         e.stopPropagation()
         props.openLikesModal()
         fetch(`${SERVER_URL}/post-api/likes/${post.details.id}`)
-        .then(response => response.data)
-        .then(data => props.setLikesModalItems(data))
+            .then(response => response.json())
+            .then(data => props.setLikesModalItems(data))
     }
 
     return (

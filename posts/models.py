@@ -61,6 +61,7 @@ class PublicationDetails(models.Model):
     def likes_profile_id(self):
         return [like.profile.id for like in self.likes.all()]
 
+    @property
     def likes_profiles(self):
         return [like.profile for like in self.likes.all()]
 

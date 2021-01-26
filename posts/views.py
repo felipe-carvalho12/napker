@@ -42,8 +42,8 @@ def get_post(request, post_id):
 @api_view(['GET'])
 def get_likes(request, publication_id):
     publication = PublicationDetails.objects.get(id=publication_id)
-    serializer = Profile01Serializer(publication.likes_profiles(), many=True)
-
+    serializer = Profile01Serializer(publication.likes_profiles, many=True)
+    
     return Response(serializer.data)
 
 
@@ -59,6 +59,7 @@ def interest_post_list(request, interest):
     serializer = Post01Serializer(posts, many=True)
 
     return Response(serializer.data)
+
 
 @api_view(['GET'])
 def explore_post_list(request):
