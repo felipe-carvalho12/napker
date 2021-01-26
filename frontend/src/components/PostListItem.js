@@ -97,7 +97,7 @@ export default function PostListItem(props) {
     const handleViewLikes = e => {
         e.stopPropagation()
         props.openLikesModal()
-        fetch(`${SERVER_URL}/post-api/likes/${post.id}`)
+        fetch(`${SERVER_URL}/post-api/likes/${post.details.id}`)
         .then(response => response.data)
         .then(data => props.setLikesModalItems(data))
     }
@@ -108,7 +108,7 @@ export default function PostListItem(props) {
             id={`profile-post-${post.id}`}
             key={post.id}
             style={{ ...props.style, background: 'var(--theme-base-color)', marginBottom: type === 'comment' && '10px', padding: "0" }}
-            onClick={() => isLink && history.push(`/post/${post.id}`)}
+            onClick={() => isLink && history.push(`/post/${post.details.id}`)}
         >
             {type !== 'post' &&
                 <div style={{ marginLeft: "10px", width: "5px", background: color !== undefined ? color : "var(--background)" }} />
