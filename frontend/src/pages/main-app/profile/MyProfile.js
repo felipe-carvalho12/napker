@@ -11,7 +11,7 @@ import BottomMenu from '../../../components/fixed/bottom-menu/BottomMenu'
 
 
 export default function MyProfile() {
-    const [myProfile] = useContext(MyProfileContext)
+    const [myProfile, updateMyProfile] = useContext(MyProfileContext)
     const [currentPageIsPosts, setCurrentPageIsPosts] = useState(true)
     const [isEditing, setIsEditing] = useState(false)
     const isMobile = visualViewport.width <= 980
@@ -81,7 +81,7 @@ export default function MyProfile() {
                             </div>
                         </ProfileData>
                         {currentPageIsPosts ?
-                            <Posts profile={myProfile} fetchProfile={fetchProfile} />
+                            <Posts profile={myProfile} fetchProfile={updateMyProfile} />
                             :
                             <Interests profile={myProfile} />
                         }

@@ -7,7 +7,7 @@ import InterestsInfoModal from './components/InterestsInfoModal'
 
 import { SERVER_URL } from '../../../../../../config/settings'
 import { csrftoken } from '../../../../../../config/utils'
-import { MyProfileContext } from '../../../../../../context/app/AppContexts'
+import { MyProfileContext } from '../../../../../../context/app/AppContext'
 import InterestsInput from '../../../../profile/pages/edit_interests/components/InterestsInput'
 import InfoIcon from '../../../../../../components/fixed/sidebar-right/components/InfoIcon'
 
@@ -114,7 +114,7 @@ export default function PostForm(props) {
             var body = {
                 'content': postContent,
                 'post-image': postFormImagePreview,
-                'post-video': getEmbedVideoUrl(),
+                'post-video': getEmbedVideoUrl() || '',
                 'tagged-usernames': taggedUsernames,
                 'interests': postInterests
             }
@@ -126,7 +126,7 @@ export default function PostForm(props) {
             }
         }
 
-        fetch(`${SERVER_URL}/post-api/create-${type === 'post' ? type : 'comment'}`, {
+        fetch(`${SERVER_URL}/post-api/create-${type}`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',

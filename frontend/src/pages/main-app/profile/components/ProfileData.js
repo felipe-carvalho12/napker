@@ -22,7 +22,7 @@ export default function ProfileData(props) {
                 </p>
                 <p>
                     <Link to={`/user/${profile.user.username}/amigos`} style={{ color: "var(--primary-grey)" }}>
-                        <strong>{profile.friends.length}</strong> <span className="text-secondary">{profile.friends.length === 1 ? 'amigo' : 'amigos'}</span>
+                        <strong>{profile.friends_length}</strong> <span className="text-secondary">{profile.friends_length === 1 ? 'amigo' : 'amigos'}</span>
                     </Link>
                 </p>
             </div>

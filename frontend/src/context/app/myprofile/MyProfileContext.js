@@ -7,10 +7,6 @@ export const MyProfileContext = createContext()
 export const MyProfileProvider = props => {
     const [myProfile, setMyProfile] = useState(null)
 
-    useEffect(() => {
-        fetchMyProfile()
-    }, [])
-
     const fetchMyProfile = () => {
         fetch(`${SERVER_URL}/profile-api/myprofile`)
             .then(response => response.json())

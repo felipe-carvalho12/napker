@@ -39,6 +39,7 @@ class PublicationDetails(models.Model):
     def __str__(self):
         return f'{self.author.user.username} - {self.content[:50]}'
 
+    @property
     def comments(self):
         comment_list = []
 
@@ -52,9 +53,9 @@ class PublicationDetails(models.Model):
         return comment_list
     
     def comments_length(self):
-        return len(self.comments())
+        return len(self.comments.all())
 
-    def first_layer_child_comments(self):
+    def first_layer_comments(self):
         return self.comments.all()
     
     def likes_profile_id(self):
@@ -65,21 +66,21 @@ class PublicationDetails(models.Model):
 
 
 class Post(models.Model):
-    details = models.OneToOneField(PublicationDetails, related_name='content', on_delete=models.CASCADE)
+    details = models.OneToOneField(PublicationDetails, related_name='post', on_delete=models.CASCADE)
     content = models.TextField(max_length=100000)
     image = models.ImageField(upload_to='post/', blank=True, null=True)
     video = models.CharField(max_length=1000, blank=True, null=True)
-    interest_set = models.ForeignKey(InterestSet, related_name='posts', blank=True, on_delete=models.SET_NULL)
-    tagged_users = models.ManyToManyField(User, related_name='my_mentions', blank=True)
+    interest_set = models.ForeignKey(InterestSet, related_name='posts', blank=True, on_delete=models.SET_NULL, null=True)
+    tagged_users = models.ManyToManyField(User, related_name='post_mentions', blank=True)
     hashtags = models.ManyToManyField(Hashtag, related_name='posts', blank=True)
 
 
 class Comment(models.Model):
-    details = models.OneToOneField(PublicationDetails, related_name='content', on_delete=models.CASCADE)
+    details = models.OneToOneField(PublicationDetails, related_name='comment', on_delete=models.CASCADE)
     content = models.TextField(max_length=100000)
     parent = models.ForeignKey(PublicationDetails, related_name='comments', on_delete=models.CASCADE)
-    tagged_users = models.ManyToManyField(User, related_name='my_mentions', blank=True)
-    hashtags = models.ManyToManyField(Hashtag, related_name='posts', blank=True)
+    tagged_users = models.ManyToManyField(User, related_name='comment_mentions', blank=True)
+    hashtags = models.ManyToManyField(Hashtag, related_name='comments', blank=True)
     visualized = models.BooleanField(default=False)
 
 

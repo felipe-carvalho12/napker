@@ -11,18 +11,20 @@ class RecursiveField(serializers.Serializer):
         return serializer.data
 
 
-# ---------------------------------------------------------------------
+# ----------------------------------------------------------------------
+# --Profiles------------------------------------------------------------
+# ----------------------------------------------------------------------
 
 
 class User01Serializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        field = ['id', 'username']
+        fields = ['id', 'username']
 
 class User02Serializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        field = ['username']
+        fields = ['username']
 
 
 # ---------------------------------------------------------------------
@@ -41,7 +43,9 @@ class Profile02Serializer(serializers.ModelSerializer):
         model = Profile
         fields = ['user', 'first_name', 'last_name', 'photo']
 
-# ----------
+# ----------------------------------------------------------------------
+# --Posts---------------------------------------------------------------
+# ----------------------------------------------------------------------
 
 
 class LikeSerializer(serializers.ModelSerializer):
@@ -85,7 +89,33 @@ class PublicationDetails03Serializer(serializers.ModelSerializer):
         model = PublicationDetails
         fields = ['author', 'likes', 'comments']
 
-# ----------
+class PublicationDetails04Serializer(serializers.ModelSerializer):
+    author = Profile01Serializer()
+    first_layer_comments = PublicationDetails02Serializer(many=True)
+
+    class Meta:
+        model = PublicationDetails
+        fields = ['author', 'created', 'comments_length', 'likes_profile_id', 'first_layer_comments']
+
+
+class Post01Serializer(serializers.ModelSerializer):
+    details = PublicationDetails01Serializer()
+
+    class Meta:
+        model = Post
+        fields = ['id', 'details', 'content', 'video', 'image']
+
+class Post02Serializer(serializers.ModelSerializer):
+    details = PublicationDetails04Serializer()
+
+    class Meta:
+        model = Post
+        fields = ['id', 'details', 'content', 'video', 'image']
+
+
+# ----------------------------------------------------------------------
+# --Profiles------------------------------------------------------------
+# ----------------------------------------------------------------------
 
 class Profile03Serializer(serializers.ModelSerializer):
     user = User01Serializer()
@@ -96,10 +126,11 @@ class Profile03Serializer(serializers.ModelSerializer):
 
 class Profile04Serializer(serializers.ModelSerializer):
     user = User02Serializer()
+    posts = Post01Serializer(many=True)
 
     class Meta:
         model = Profile
-        fields = ['id', 'user', 'first_name', 'last_name', 'photo', 'bio', 'created', 'posts', 'interests']
+        fields = ['id', 'user', 'first_name', 'last_name', 'photo', 'bio', 'posts', 'interests', 'friends_length', 'created']
 
 class Profile05Serializer(serializers.ModelSerializer): # mentions
     name = serializers.CharField(source='username')
@@ -145,17 +176,6 @@ class RelationshipDetailsSerializer(serializers.ModelSerializer):
 
 # ----------------------------------------------------------------------
 # --Posts---------------------------------------------------------------
-# ----------------------------------------------------------------------
-
-
-class Post01Serializer(serializers.ModelSerializer):
-    details = PublicationDetails01Serializer()
-
-    class Meta:
-        model = Post
-        fields = ['id', 'details', 'content', 'video', 'image']
-
-
 # ----------------------------------------------------------------------
 
 

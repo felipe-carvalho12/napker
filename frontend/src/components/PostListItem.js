@@ -136,7 +136,7 @@ export default function PostListItem(props) {
                                     {post.details.author.first_name} {post.details.author.last_name}
                                 </strong>
                                 <span className="text-secondary">
-                                    @{post.details.author.user.username} • {renderTimestamp(post.created)}
+                                    @{post.details.author.user.username} • {renderTimestamp(post.details.created)}
                                 </span>
                             </Link>
                         </div>
@@ -216,7 +216,7 @@ export default function PostListItem(props) {
                             class="far fa-comment mr-1 icon"
                         />
                         <p style={{ margin: '0' }}>
-                            {post.comments_length}
+                            {post.details.comments_length}
                         </p>
                     </div>
                     <div className="d-flex align-items-center">
@@ -234,7 +234,7 @@ export default function PostListItem(props) {
                         <p className="m-0 likes-number"
                             onClick={handleViewLikes}
                         >
-                            {post.likes_profile_id.length}
+                            {post.details.likes_profile_id.length}
                         </p>
                     </div>
                 </div>

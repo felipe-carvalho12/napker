@@ -25,9 +25,9 @@ def post_list_view(request, scroll_count):
     profile = request.user.profile
     posts = sort_posts_by_relevance(profile)
     for post in posts[:15 * scroll_count]:
-        if profile in post.views.all(): continue
-        post.views.add(profile)
-        post.save()
+        if profile in post.details.views.all(): continue
+        post.details.views.add(profile)
+        post.details.save()
     serializer = Post01Serializer(posts[:15 * scroll_count], many=True)
     return Response(serializer.data)
 
@@ -35,7 +35,7 @@ def post_list_view(request, scroll_count):
 @api_view(['GET'])
 def get_post(request, post_id):
     post = Post.objects.get(id=post_id)
-    serializer = Post01Serializer(post)
+    serializer = Post02Serializer(post)
     return Response(serializer.data)
 
 
@@ -64,7 +64,7 @@ def interest_post_list(request, interest):
 def explore_post_list(request):
     profile = request.user.profile
     posts = []
-    for interest in profile.interest_set.interests.all():
+    for interest in profile.interests:
         interest_obj, created = Interest.objects.get_or_create(title=interest.title)
         hashtag_obj, created = Hashtag.objects.get_or_create(title=interest.title)
         posts.extend(list(interest_obj.posts.all()))
@@ -134,18 +134,20 @@ def create_post(request):
     tagged_usernames = request.data['tagged-usernames']
     interests = request.data['interests']
 
+    details = PublicationDetails.objects.create(author=profile)
+
     if len(content) <= 500:
         if len(request.data['post-image']):
             format, imgstr = request.data['post-image'].split(';base64,') 
             img_format = format.split('/')[-1] 
             image = ContentFile(base64.b64decode(imgstr), name=profile.user.username + img_format)
-            post = Post.objects.create(content=raw_content, author=profile, image=image)
+            post = Post.objects.create(details=details, content=raw_content, image=image)
         elif request.data['post-video'] != '':
-            post = Post.objects.create(content=raw_content, author=profile, video=request.data['post-video'])
+            post = Post.objects.create(details=details, content=raw_content, video=request.data['post-video'])
         else:
             if not len(content):
                 return Response({'message': 'Pare de brincar com o HTML! (:'})
-            post = Post.objects.create(content=raw_content, author=profile)
+            post = Post.objects.create(details=details, content=raw_content)
         
         for hashtag_title in hashtags:
             hashtag, created = Hashtag.objects.get_or_create(title=hashtag_title.lower())

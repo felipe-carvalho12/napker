@@ -12,7 +12,7 @@ import Header from '../../../components/fixed/Header'
 
 export default function Messages(props) {
     const [username, setUsername] = useState(null)
-    const [otherUsername, setOtherUsername] = useState(props.match.params.user.username)
+    const [otherUsername, setOtherUsername] = useState(props.match.params.username)
     const [chatId, setChatId] = useState(null)
     const [activeChats, setActiveChats] = useState(null)
     const [activeChatsProfiles, setActiveChatsProfiles] = useState(null)
@@ -29,12 +29,12 @@ export default function Messages(props) {
     document.title = 'Mensagens / Napker'
 
     const handleReceiveProps = props => {
-        if (props.match.params.user.username) {
-            if (props.match.params.user.username !== otherUsername && WebSocketInstance.state() === 1) {
+        if (props.match.params.username) {
+            if (props.match.params.username !== otherUsername && WebSocketInstance.state() === 1) {
                 WebSocketInstance.disconnect()
-                setOtherUsername(props.match.params.user.username)
+                setOtherUsername(props.match.params.username)
             }
-            fetch(`${SERVER_URL}/chat-api/chat-id/${props.match.params.user.username}`)
+            fetch(`${SERVER_URL}/chat-api/chat-id/${props.match.params.username}`)
                 .then(response => response.json())
                 .then(data => {
                     setChatId(data['chat_id'])
@@ -175,7 +175,7 @@ export default function Messages(props) {
                     </div>
                     <Chat
                         username={username}
-                        otherUsername={props.match.params.user.username}
+                        otherUsername={props.match.params.username}
                         chatId={chatId}
                         addNewChat={addNewChat}
                         updateUnreadMessagesNumber={props.updateUnreadMessagesNumber}
@@ -185,7 +185,7 @@ export default function Messages(props) {
                     />
                 </div>
             </div>
-            {!props.match.params.user.username &&
+            {!props.match.params.username &&
                 <BottomMenu />
             }
         </div>

@@ -1,4 +1,4 @@
-from django.contrib.auth.models import A
+from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import Q
 
@@ -53,7 +53,7 @@ class InvitationManager(models.Manager):
         return friends
 
 class Invitation(models.Model):
-    details = models.OneToOneField(RelationshipDetails, related_name='content', on_delete=models.CASCADE)
+    details = models.OneToOneField(RelationshipDetails, related_name='invitation', on_delete=models.CASCADE)
     status = models.CharField(max_length=8, choices=(('sent', 'sent'), ('accepted', 'accepted')), default='sent')
 
     objects = InvitationManager()
@@ -69,7 +69,7 @@ class BlockManager(models.Manager):
         return profiles
 
 class Block(models.Model):
-    details = models.OneToOneField(RelationshipDetails, related_name='content', on_delete=models.CASCADE)
+    details = models.OneToOneField(RelationshipDetails, related_name='block', on_delete=models.CASCADE)
 
     objects = BlockManager()
 
@@ -116,7 +116,7 @@ class Profile(models.Model):
     bio = models.TextField(default='Sem bio...', max_length=100)
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
-    interest_set = models.ForeignKey(InterestSet, related_name='profiles', blank=True, on_delete=models.SET_NULL)
+    interest_set = models.ForeignKey(InterestSet, related_name='profiles', on_delete=models.SET_NULL, blank=True, null=True, default=None)
     weights = models.ForeignKey(Weights, on_delete=models.SET_NULL, related_name='profiles', default=None, blank=True, null=True)
 
     def __str__(self):
@@ -128,11 +128,19 @@ class Profile(models.Model):
 
     @property
     def posts(self):
-        return self.posts.all()
+        return [pub.post for pub in self.publications.all() if pub.post]
+
+    @property
+    def interests(self):
+        return self.interest_set.interests if self.interest_set is not None else []
 
     @property
     def public_interests_length(self):
         return self.interest_set.interests.filter(public=True).count()
+
+    @property
+    def friends_length(self):
+        return len(Invitation.objects.friends(self))
 
     @property
     def blocked_users(self):

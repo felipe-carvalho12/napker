@@ -75,7 +75,7 @@ def filter_profiles_by_interests(request):
 
 
 @api_view(['GET'])
-def my_profile_list_view(request, scroll_count):
+def my_profile_list(request, scroll_count):
     profile = request.user.profile
     profiles = get_profile_list(profile)
     serializer = Profile01Serializer(profiles[:10 * scroll_count], many=True)
@@ -83,9 +83,9 @@ def my_profile_list_view(request, scroll_count):
 
 
 @api_view(['GET'])
-def profile_list_view(request, slug):
-    profile = Profile.objects.get(slug=slug)
-    profiles = get_profile_list(profile)
+def profile_list(request, username):
+    user = User.objects.get(username=username)
+    profiles = get_profile_list(user.profile)
     serializer = Profile01Serializer(profiles[:4], many=True)
     return Response(serializer.data)
 

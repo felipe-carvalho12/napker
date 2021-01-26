@@ -42,7 +42,7 @@ export default function Friends() {
                                 )
                             }) :
                                 <h3 style={{ marginTop: '30px' }}>
-                                    {profile ? `${profile.first_name} ainda não possui amigos` : 'Você ainda não possui amigos'}
+                                    {myProfile.user.username !== username ? `@${username} ainda não possui amigos` : 'Você ainda não possui amigos'}
                                 </h3>
                             }
                         </>

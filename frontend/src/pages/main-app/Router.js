@@ -3,7 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 
 import { SERVER_URL } from '../../config/settings'
 import {
-    InvitesReceivedContext, PostNotificationsContext, UnreadMessagesContext, AlgorithmWeightsContext
+    InvitesReceivedContext, PostNotificationsContext, UnreadMessagesContext, AlgorithmWeightsContext, MyProfileContext
 } from '../../context/app/AppContext'
 
 import SidebarLeft from '../../components/fixed/SidebarLeft'
@@ -25,6 +25,8 @@ import PostFormPage from './mobile-post-form/PostFormPage'
 import EditProfileProvider from '../../context/edit-profile/EditProfileContext'
 
 export default function MainAppRouter() {
+    const [, fetchMyProfile] = useContext(MyProfileContext)
+
     const [, setWeights] = useContext(AlgorithmWeightsContext)
 
     const [, setInvitesReceived] = useContext(InvitesReceivedContext)
@@ -33,6 +35,7 @@ export default function MainAppRouter() {
     const [, setUnreadMessagesNumber] = useContext(UnreadMessagesContext)
 
     useEffect(() => {
+        fetchMyProfile()
         updateNotificationsNumber()
         updateUnreadMessagesNumber()
 

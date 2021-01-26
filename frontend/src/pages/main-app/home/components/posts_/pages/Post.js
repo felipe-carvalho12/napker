@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { SERVER_URL } from '../../../../../../config/settings'
@@ -11,11 +11,10 @@ import PostListItem from '../../../../../../components/PostListItem'
 import CommentListItem from './components/CommentListItem'
 
 export default function Post() {
-    const [post, setPost] = useState(null)
     const [myProfile,] = useContext(MyProfileContext)
 
+    const [post, setPost] = useState(null)
     const [displayingForm, setDisplayingForm] = useState(false)
-
     const [likesModal, setLikesModal] = useState({ isOpen: false, likes: null })
 
     const { id } = useParams()
@@ -36,8 +35,8 @@ export default function Post() {
     return (
         <div className="content-container">
             <LikesModal
-                isOpen={postLikesModal.isOpen}
-                likes={postLikesModal.likes}
+                isOpen={likesModal.isOpen}
+                likes={likesModal.likes}
                 hideModal={() => setLikesModal({ isOpen: false, likes: likesModal.likes })}
             />
             <Header
@@ -70,7 +69,7 @@ export default function Post() {
                                     />
                                 </div>
                             }
-                            {post.first_layer_comments.map(comment => {
+                            {post.details.first_layer_comments.map(comment => {
                                 return (
                                     <CommentListItem
                                         post={post}

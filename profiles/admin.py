@@ -4,8 +4,7 @@ from .models import *
 
 # Register your models here.
 admin.site.register(Profile)
-admin.site.register(Interest)
-admin.site.register(ProfileWeights)
-admin.site.register(PostWeights)
+admin.site.register(InterestSet)
 admin.site.register(Weights)
-admin.site.register(Relationship)
+admin.site.register(Invitation)
+admin.site.register(Block)
