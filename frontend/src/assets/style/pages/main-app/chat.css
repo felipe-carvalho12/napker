@@ -16,7 +16,7 @@
 .messages-wrapper .chats-list .search-input-container {
     display: flex;
     align-items: center;
-    padding: 0 0 15px;
+    padding-bottom: var(--sz-1);
 }
 
 .messages-wrapper .chats-list .search-input {
@@ -24,10 +24,10 @@
     height: 40px;
     margin-right: 10px;
     border: none;
-    border-radius: 10px;
+    border-radius: var(--b-r);
     background-color: var(--border-color);
     text-align: start;
-    padding: 15px;
+    padding: var(--sz-2);
 }
 
 .messages-wrapper .chats-list .chats-container {
@@ -37,13 +37,13 @@
 .current-chat-header {
     width: 100%;
     display: flex;
-    padding: 10px;
+    padding: var(--sz-1);
     background: var(--theme-base-color);
 }
 
 .messages-wrapper .chat-page-container {
     display: flex;
-    padding: 15px;
+    padding: var(--sz-2);
     width: 100%;
 }
 
@@ -51,7 +51,7 @@
     overflow: hidden;
     overflow-y: scroll;
     width: 100%;
-    padding: 15px;
+    padding: var(--sz-2);
 }
 
 .chat-log .received {
@@ -63,7 +63,7 @@
     background: #DEDEDE;
     color: #595959;
     max-width: 70%;
-    padding: 15px;
+    padding: var(--sz-2);
     text-align: left;
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;
@@ -79,7 +79,7 @@
     background: var(--primary-color);
     color: #fff;
     max-width: 70%;
-    padding: 15px;
+    padding: var(--sz-2);
     text-align: left;
     border-top-left-radius: 30px;
     border-bottom-left-radius: 30px;
@@ -98,7 +98,7 @@
     display: flex;
     align-items: center;
     padding-left: 15px;
-    border-radius: 10px;
+    border-radius: var(--b-r);
     background-color: var(--border-color);
     color: var(--primary-grey);
     margin-right: 5px;

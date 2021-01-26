@@ -168,7 +168,7 @@ export default class SimpleMentionEditor extends Component {
             <div className="w-100" style={{ textAlign: 'start' }} onClick={this.focus}>
                 <div
                     className="border-0 pb-0 c-primary-grey post-textbox"
-                    style={{ width: '90%', padding: '10px', outline: 'none' }}
+                    style={{ width: '90%', padding: "var(--sz-1)", outline: 'none' }}
                 >
                     <Editor
                         editorState={this.state.editorState}

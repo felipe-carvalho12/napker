@@ -161,7 +161,7 @@ export default function EditProfileModal(props) {
                                     value={editingBioContent}
                                     placeholder={profile.bio}
                                     maxLength={240}
-                                    style={{ padding: '10px', outline: 'none', paddingRight: '35px' }}
+                                    style={{ padding: 'var(--sz-0)' }}
                                     onChange={e => setEditingBioContent(e.target.value)}
                                 />
                                 <EmojiPicker style={{ position: 'absolute', margin: '0', right: '0', top: '10%' }} />

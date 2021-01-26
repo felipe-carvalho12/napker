@@ -27,7 +27,7 @@ export default function InterestProfiles() {
                 backArrow={true}
             />
             <div className="content">
-                <div className="w-100 b-bottom" style={{ background: 'var(--theme-base-color)', padding: '15px' }}>
+                <div className="w-100 b-bottom" style={{ background: 'var(--theme-base-color)', padding: "var(--sz-1)" }}>
                     <h3>Perfis interessados em "{interest}"</h3>
                 </div>
                 <div className="w-100 list-group">

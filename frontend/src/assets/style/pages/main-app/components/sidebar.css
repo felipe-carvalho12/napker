@@ -32,9 +32,9 @@
     font-weight: 400;
     display: flex;
     align-items: center;
-    padding: 10px 5px;
+    padding: var(--sz-0);
     margin: 5px 0;
-    border-radius: 10px;
+    border-radius: var(--b-r);
 }
 
 .sidebar .logo-container {

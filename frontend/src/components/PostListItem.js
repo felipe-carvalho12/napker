@@ -114,7 +114,7 @@ export default function PostListItem(props) {
                 <div style={{ marginLeft: "10px", width: "5px", background: color !== undefined ? color : "var(--background)" }} />
             }
             <div className="d-flex flex-column h-100 w-100">
-                <div className="d-flex flex-column h-100 w-100" style={{ padding: "10px 10px 0" }}>
+                <div className="d-flex flex-column h-100 w-100" style={{ padding: "var(--sz-1) var(--sz-1) 0" }}>
                     <div className="d-flex justify-content-between align-items-start w-100 mb-10px">
                         <div className="d-flex align-items-center">
                             <Link

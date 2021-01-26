@@ -3,8 +3,8 @@
 }
 
 .draftJsToolbar__buttonWrapper__1Dmqh:first-of-type, .draftJsToolbar__buttonWrapper__1Dmqh:first-of-type .draftJsToolbar__button__qi1gf {
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
+    border-top-left-radius: var(--b-r);
+    border-bottom-left-radius: var(--b-r);
 }
   
 .draftJsToolbar__button__qi1gf {

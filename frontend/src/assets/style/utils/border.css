@@ -17,24 +17,24 @@
 /* BORDER RADIUS */
 
 .b-bottom-radius {
-    border-bottom-left-radius: 10px!important;
-    border-bottom-right-radius: 10px!important;
+    border-bottom-left-radius: var(--b-r)!important;
+    border-bottom-right-radius: var(--b-r)!important;
 }
 
 .b-top-radius {
-    border-top-left-radius: 10px!important;
-    border-top-right-radius: 10px!important;
+    border-top-left-radius: var(--b-r)!important;
+    border-top-right-radius: var(--b-r)!important;
 }
 
-.b-t-r-r { border-top-right-radius: 10px!important; }
-.b-t-l-r { border-top-left-radius: 10px!important; }
-.b-b-r-r { border-bottom-right-radius: 10px!important; }
-.b-b-l-r { border-bottom-left-radius: 10px!important; }
+.b-t-r-r { border-top-right-radius: var(--b-r)!important; }
+.b-t-l-r { border-top-left-radius: var(--b-r)!important; }
+.b-b-r-r { border-bottom-right-radius: var(--b-r)!important; }
+.b-b-l-r { border-bottom-left-radius: var(--b-r)!important; }
 
 .b-bottom-right-radius-hover:hover {
-    border-bottom-right-radius: 10px!important;
+    border-bottom-right-radius: var(--b-r)!important;
 }
 
 .b-bottom-left-radius-hover:hover {
-    border-bottom-left-radius: 10px!important;
+    border-bottom-left-radius: var(--b-r)!important;
 }

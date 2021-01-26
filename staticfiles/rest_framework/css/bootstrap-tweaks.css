@@ -178,7 +178,7 @@ footer p {
   text-align: center;
   color: gray;
   border-top: 1px solid #DDDDDD;
-  padding-top: 10px;
+  padding-top: var(--sz-1);
 }
 
 footer a {

@@ -43,7 +43,7 @@ export default function Post() {
                 page="Post"
                 backArrow={true}
                 className="b-theme-base-color box-med blur-20px"
-                style={{ position: "sticky", top: "1vw", padding: "0 20px 0", zIndex: "1000" }}
+                style={{ position: "sticky", top: "1vw", padding: "var(--sz-2)", zIndex: "1000" }}
             />
             <div className={`content p-vw-x ${isMobile ? 'pb-mobile' : ''}`}>
                 {post && myProfile ?

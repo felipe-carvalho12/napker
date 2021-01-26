@@ -9,17 +9,17 @@
     display: flex;
     justify-content: start;
     align-items: center;
-    padding: 10px;
+    padding: var(--sz-1);
     background: var(--theme-base-color);
     border-bottom: 1px solid var(--border-color);
     overflow-x: scroll;
 }
 
 .explore-page-container .hashtag-container {
-    padding: 5px 15px;
+    padding: var(--sz-1);
     margin-right: 10px;
     border: 1px solid var(--border-color);
-    border-radius: 10px;
+    border-radius: var(--b-r);
     font-weight: bold;
     color: var(--primary-grey);
 }

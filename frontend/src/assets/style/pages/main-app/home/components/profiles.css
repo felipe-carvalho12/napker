@@ -4,7 +4,7 @@
     justify-content: space-between;
     align-items: flex-start;
     background: var(--theme-base-color);
-    padding: 10px;
+    padding: var(--sz-1);
     margin-bottom: 15px;
 }
 
@@ -12,7 +12,7 @@
     height: 40px;
     padding-left: 15px;
     border: none;
-    border-radius: 10px;
+    border-radius: var(--b-r);
     background: var(--background);
 }
 
@@ -23,7 +23,7 @@
     justify-content: center;
     align-items: center;
     border: 1px solid rgba(0, 0, 0, 0.1)!important;
-    border-radius: 10px;
+    border-radius: var(--b-r);
     font-weight: bold!important;
     margin: 4px;
     background: var(--background)!important;

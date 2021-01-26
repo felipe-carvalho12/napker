@@ -68,7 +68,7 @@
 /* TOOLBAR */
 
 #changelist #toolbar {
-    padding: 8px 10px;
+    padding: var(--sz-1);
     margin-bottom: 15px;
     border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
@@ -79,14 +79,14 @@
 #changelist #toolbar form input {
     border-radius: 4px;
     font-size: 14px;
-    padding: 5px;
+    padding: var(--sz-0);
     color: #333;
 }
 
 #changelist #toolbar form #searchbar {
     height: 19px;
     border: 1px solid #ccc;
-    padding: 2px 5px;
+    padding: var(--sz-0);
     margin: 0;
     vertical-align: top;
     font-size: 13px;
@@ -136,7 +136,7 @@
     font-size: 14px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    padding: 5px 15px;
+    padding: var(--sz-1);
     margin-bottom: 12px;
     border-bottom: none;
 }
@@ -144,13 +144,13 @@
 #changelist-filter h3 {
     font-weight: 400;
     font-size: 14px;
-    padding: 0 15px;
+    padding: var(--sz-1);
     margin-bottom: 10px;
 }
 
 #changelist-filter ul {
     margin: 5px 0;
-    padding: 0 15px 15px;
+    padding: var(--sz-1);
     border-bottom: 1px solid #eaeaea;
 }
 
@@ -223,7 +223,7 @@
 
 .paginator {
     font-size: 13px;
-    padding-top: 10px;
+    padding-top: var(--sz-1);
     padding-bottom: 10px;
     line-height: 22px;
     margin: 0;
@@ -281,7 +281,7 @@
 }
 
 #changelist .actions {
-    padding: 10px;
+    padding: var(--sz-1);
     background: #fff;
     border-top: none;
     border-bottom: none;

@@ -38,7 +38,7 @@ export default function DesktopLP() {
             >
                 <div className="d-flex flex-column justify-content-center  align-items-center w-100" style={{ background: "var(--p-g)" }}>
                     <div className="d-flex flex-column justify-content-center  align-items-center w-100" style={{ padding: "50px" }}>
-                        <div className="d-flex flex-column w-75 justify-content-center align-items-center" style={{ textAlign: "center", padding: "20px" }}>
+                        <div className="d-flex flex-column w-75 justify-content-center align-items-center" style={{ textAlign: "center", padding: "var(--sz-2)" }}>
                             <h2 style={{ color: "var(--w-10)", fontSize: "60px", fontWeight: "700" }}>Por que usar o Napker?</h2>
                             <div className="d-flex flex-column align-items-center">
                                 <h4 style={{ color: "var(--w-10)", fontSize: "20px" }}>
@@ -67,19 +67,19 @@ export default function DesktopLP() {
                 </div>
             </div>
             <div className="w-100 d-flex flex-column justify-content-center align-items-center" style={{ background: 'rgba(0,152,136,0.8)' }}>
-                <div className="position-sticky w-100 vh-100 px-2 d-flex justify-content-center" style={{ top: '0', left: '0', zIndex: '0', padding: '120px 0 90px', color: 'var(--b-09)', background: "rgba(255, 255, 255, 0.88)" }}>
+                <div className="position-sticky w-100 vh-100 px-2 d-flex justify-content-center" style={{ top: '0', left: '0', zIndex: '0', padding: "var(--sz-2) 0 90px", color: 'var(--b-09)', background: "rgba(255, 255, 255, 0.88)" }}>
                     <DemoAlgorithmSettings />
                 </div>
                 <div className="position-sticky w-100 b-t lp-blur" style={{ top: '0', left: '0', zIndex: '1' }}>
                     <div className="vh-100 w-100 d-flex flex-column justify-content-start align-items-center b-p-c-5">
-                        <div className="w-100 px-2 d-flex justify-content-center" style={{ padding: '120px 0 90px', color: 'var(--b-09)' }}>
+                        <div className="w-100 px-2 d-flex justify-content-center" style={{ padding: "var(--sz-2) 0 90px", color: 'var(--b-09)' }}>
                             <DemoAddInterests />
                         </div>
                     </div>
                 </div>
                 <div className="position-sticky w-100 b-t lp-blur" style={{ top: '0', left: '0', zIndex: '2' }}>
                     <div className="vh-100 w-100 d-flex justify-content-center b-p-c-5">
-                        <div className="w-100 d-flex justify-content-center" style={{ padding: '120px 12.5% 90px', color: 'var(--b-09)' }}>
+                        <div className="w-100 d-flex justify-content-center" style={{ padding: "var(--sz-2) 12.5% 90px", color: 'var(--b-09)' }}>
                             <DemoSearchProfiles />
                         </div>
                     </div>
@@ -94,7 +94,7 @@ export default function DesktopLP() {
                     >
                         <h2 style={{ color: "var(--w-10)", fontSize: "40px", fontWeight: "700" }}>Gostou do que viu?</h2>
                         <div className="d-flex flex-column align-items-center">
-                            <h4 style={{ color: "var(--w-10)", fontSize: "20px", padding: '25px' }}>
+                            <h4 style={{ color: "var(--w-10)", fontSize: "20px", padding: "var(--sz-3)" }}>
                                 Entre no grupo de testadores no Discord para acompanhar as novidades e discutir novas mudanças.
                             </h4>
                             <div className="d-flex justify-content-between mt-10px" style={{ width: "80%" }}>
