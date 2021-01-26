@@ -74,7 +74,6 @@ def explore_post_list(request):
     serializer = Post01Serializer(posts, many=True)
     return Response(serializer.data)
 
-
 @api_view(['GET'])
 def publication_notifications(request):
     profile = request.user.profile
@@ -91,7 +90,7 @@ def publication_notifications(request):
             if (like.profile != profile) and (not like.visualized or now - datetime.timedelta(2) < like.updated):
                 likes.append(like)
         for comment in publication.comments.all():
-            if (comment.author != profile) and (not comment.visualized or now - datetime.timedelta(2) < comment.updated):
+            if (comment.details.author != profile) and (not comment.visualized or now - datetime.timedelta(2) < comment.details.updated):
                 comments.append(comment)
 
         notification.notifications_number = len([like for like in likes if not like.visualized]) + len([comment for comment in comments if not comment.visualized])

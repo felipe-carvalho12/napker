@@ -23,9 +23,11 @@ export default function Notifications(props) {
         fetch(`${SERVER_URL}/profile-api/myinvites`)
             .then(response => response.json())
             .then(data => setInvites(data))
+        console.log(invites)
         fetch(`${SERVER_URL}/post-api/post-notifications`)
             .then(response => response.json())
             .then(data => setPostNotifications(data))
+        console.log(postNotifications)
     }
 
     useEffect(() => {
