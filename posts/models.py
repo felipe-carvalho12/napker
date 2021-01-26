@@ -37,7 +37,7 @@ class PublicationDetails(models.Model):
         ordering = ['-created']
 
     def __str__(self):
-        return f'{self.author.user.username} - {self.content[:50]}'
+        return f'{self.author.user.username} - layer {self.layer}'
 
     @property
     def comments(self):

@@ -216,7 +216,9 @@ def like_publication(request, publication_id):
     profile = request.user.profile
     publication = PublicationDetails.objects.get(id=publication_id)
     if not Like.objects.filter(profile=profile, publication=publication).exists():
-        Like.objects.create(profile=profile, publication=publication)
+        like = Like.objects.create(profile=profile)
+        publication.likes.add(like)
+        publication.save()
         return Response(f'Liked post #{publication.id}')
     return Response(f'You have already liked post #{publication.id}')
 

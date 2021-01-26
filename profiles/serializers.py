@@ -61,7 +61,7 @@ class PublicationDetails01Serializer(serializers.ModelSerializer):
 
     class Meta:
         model = PublicationDetails
-        fields = ['author', 'created', 'comments_length', 'likes_profile_id']
+        fields = ['id', 'author', 'created', 'comments_length', 'likes_profile_id']
 
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -103,7 +103,7 @@ class Post01Serializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ['id', 'details', 'content', 'video', 'image']
+        fields = ['details', 'content', 'video', 'image']
 
 class Post02Serializer(serializers.ModelSerializer):
     details = PublicationDetails04Serializer()

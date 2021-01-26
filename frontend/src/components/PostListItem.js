@@ -30,7 +30,7 @@ export default function PostListItem(props) {
         if (likeBtn.classList.contains('fas')) {
             likeBtn.classList.remove('fas') //border heart
             likeBtn.classList.add('far')  //filled heart
-            fetch(`${SERVER_URL}/post-api/unlike-publication/${likeBtn.dataset.publicationId}`, {
+            fetch(`${SERVER_URL}/post-api/unlike-publication/${likeBtn.dataset.publicationid}`, {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json',
@@ -49,7 +49,7 @@ export default function PostListItem(props) {
             likeBtn.onanimationend = () => {
                 likeBtn.classList.remove('animated')
             }
-            fetch(`${SERVER_URL}/post-api/like-publication/${likeBtn.dataset.publicationId}`, {
+            fetch(`${SERVER_URL}/post-api/like-publication/${likeBtn.dataset.publicationid}`, {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json',
@@ -222,12 +222,12 @@ export default function PostListItem(props) {
                     <div className="d-flex align-items-center">
                         {post.details.likes_profile_id.includes(myProfile.id) ?
                             <i class="fas fa-heart expand-animation mr-1  ml-10px icon"
-                                data-publicationId={post.id}
+                                data-publicationid={post.details.id}
                                 onClick={likeUnlikePublication}
                             />
                             :
                             <i class="far fa-heart mr-1 ml-10px icon"
-                                data-publicationId={post.id}
+                                data-publicationid={post.details.id}
                                 onClick={likeUnlikePublication}
                             />
                         }
