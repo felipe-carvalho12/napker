@@ -105,8 +105,8 @@ export default function PostListItem(props) {
     return (
         <li
             className={`position-relative d-flex w-100 base-hover hide-animation box-med post-container ${props.className}`}
-            id={`profile-post-${post.id}`}
-            key={post.id}
+            id={`profile-post-${post.details.id}`}
+            key={post.details.id}
             style={{ ...props.style, background: 'var(--theme-base-color)', marginBottom: type === 'comment' && '10px', padding: "0" }}
             onClick={() => isLink && history.push(`/post/${post.details.id}`)}
         >
@@ -142,9 +142,9 @@ export default function PostListItem(props) {
                         </div>
                         <i
                             className="fas fa-ellipsis-h d-flex justify-content-center align-items-center text-secondary secondary-hover view-more-icon"
-                            id={`post-view-more-icon-${post.id}`}
+                            id={`post-view-more-icon-${post.details.id}`}
                             style={{ textDecoration: 'none', width: '30px', height: '30px', borderRadius: '30px' }}
-                            onClick={e => openCloseExtraOptions(e, post.id)}
+                            onClick={e => openCloseExtraOptions(e, post.details.id)}
                         />
                     </div>
                     <div className="view-more-select" id={`post-view-more-select-${post.details.id}`} style={{ right: '10px', top: '45px' }}>
