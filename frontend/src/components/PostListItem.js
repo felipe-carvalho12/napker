@@ -147,11 +147,11 @@ export default function PostListItem(props) {
                             onClick={e => openCloseExtraOptions(e, post.id)}
                         />
                     </div>
-                    <div className="view-more-select" id={`post-view-more-select-${post.id}`} style={{ right: '10px', top: '45px' }}>
+                    <div className="view-more-select" id={`post-view-more-select-${post.details.id}`} style={{ right: '10px', top: '45px' }}>
                         {myProfile.id === post.details.author.id ?
                             <li
                                 style={{ color: '#f00' }}
-                                onClick={e => deletePost(e, post.id)}
+                                onClick={e => deletePost(e, post.details.id)}
                             >
                                 <i class="fas fa-trash" />
                                 Excluir
