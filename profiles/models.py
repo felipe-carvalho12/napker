@@ -128,7 +128,13 @@ class Profile(models.Model):
 
     @property
     def posts(self):
-        return [pub.post for pub in self.publications.all() if pub.post]
+        posts = []
+
+        for pub in self.publications.all():
+            try: posts.append(pub.post)
+            except: pass
+
+        return posts
 
     @property
     def interests(self):
