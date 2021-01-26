@@ -11,8 +11,6 @@ export const MyProfileProvider = props => {
         fetch(`${SERVER_URL}/profile-api/myprofile`)
             .then(response => response.json())
             .then(data => setMyProfile(data))
-
-        console.log(myProfile)
     }
 
     return (
