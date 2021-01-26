@@ -24,7 +24,7 @@ class InterestSet(models.Model):
     interests = models.ManyToManyField(Interest, related_name='interest_set')
     
     def __str__(self): 
-        return [interest.title for interest in self.interests]
+        return ', '.join([interest.title for interest in self.interests.all()])
 
 
 # ----------------------------------------------------------------------

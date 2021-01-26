@@ -44,7 +44,7 @@ export default function InterestsInput(props) {
             clearTags();
             tags.sort()
             tags.slice().reverse().forEach(tag => {
-                tagContainer.current.prepend(createTag(tag));
+                tagContainer.current.append(createTag(tag));
             });
             setInterests && setInterests(tags)
         }

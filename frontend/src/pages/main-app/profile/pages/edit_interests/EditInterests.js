@@ -8,10 +8,12 @@ import PublicInterests from './components/PublicInterests'
 import PrivateInterests from './components/PrivateInterests'
 import BottomMenu from '../../../../../components/fixed/bottom-menu/BottomMenu'
 
+
+let [publicInterests, setPublicInterests] = [null, value => publicInterests = value]
+let [privateInterests, setPrivateInterests] = [null, value => privateInterests = value]
+
 export default function EditInterests() {
     const [myProfile, updateMyProfile] = useContext(MyProfileContext)
-    let [publicInterests, setPublicInterests] = [null, value => publicInterests = value]
-    let [privateInterests, setPrivateInterests] = [null, value => privateInterests = value]
 
     const isMobile = visualViewport.width <= 980
 
@@ -23,8 +25,8 @@ export default function EditInterests() {
                 'X-CSRFToken': csrftoken,
             },
             body: JSON.stringify({
-                public_interests: publicInterests.sort(),
-                private_interests: privateInterests.sort()
+                'public-interests': publicInterests.sort(),
+                'private-interests': privateInterests.sort()
             })
         })
             .then(response => response.json())

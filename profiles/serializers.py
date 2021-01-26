@@ -117,6 +117,13 @@ class Post02Serializer(serializers.ModelSerializer):
 # --Profiles------------------------------------------------------------
 # ----------------------------------------------------------------------
 
+
+class InterestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Interest
+        fields = '__all__'
+
+
 class Profile03Serializer(serializers.ModelSerializer):
     user = User01Serializer()
 
@@ -127,6 +134,7 @@ class Profile03Serializer(serializers.ModelSerializer):
 class Profile04Serializer(serializers.ModelSerializer):
     user = User02Serializer()
     posts = Post01Serializer(many=True)
+    interests = InterestSerializer(many=True)
 
     class Meta:
         model = Profile

@@ -278,19 +278,26 @@ def set_myinterests(request):
     profile = request.user.profile
     profile.interests.clear()
     interests = []
-    for title in request.data['public_interests']:
+    
+    for title in request.data['public-interests']:
         if len(title) < 3:
             continue
         public_i, created = Interest.objects.get_or_create(title=title.lower(), public=True)
         interests.append(public_i)
 
-    for title in request.data['private_interests']:
+    for title in request.data['private-interests']:
         if len(title) < 3:
             continue
         private_i, created = Interest.objects.get_or_create(title=title.lower(), public=False)
         interests.append(private_i)
     
-    interest_set, created = InterestSet.objects.get_or_create(interests=interests)
+    try:
+        interest_set = InterestSet.objects.get(interests=interests)
+    except:
+        interest_set = InterestSet.objects.create()
+        interest_set.interests.set(interests)
+        interest_set.save()
+
     profile.interest_set = interest_set
     profile.save()
     
