@@ -164,9 +164,6 @@
     color: var(--primary-color);
 }
 .feedback-form .feedback-faces-container {
-    background: var(--body-background);
-    border-radius: 25px;
-    text-align: center;
     padding: var(--sz-3);
 }
 
