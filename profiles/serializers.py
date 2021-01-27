@@ -103,7 +103,7 @@ class Post01Serializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ['details', 'content', 'video', 'image']
+        fields = ['id', 'details', 'content', 'video', 'image']
 
 class Post02Serializer(serializers.ModelSerializer):
     details = PublicationDetails04Serializer()
