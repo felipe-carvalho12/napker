@@ -138,7 +138,7 @@ class Profile(models.Model):
 
     @property
     def interests(self):
-        return self.interest_set.interests if self.interest_set is not None else []
+        return self.interest_set.interests.all() if self.interest_set is not None else []
 
     @property
     def public_interests_length(self):
