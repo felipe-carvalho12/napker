@@ -110,7 +110,7 @@ def interest_profile_list(request, interest):
 @api_view(['GET'])
 def my_profile(request):
     profile = request.user.profile
-    serializer = Profile04Serializer(profile)
+    serializer = Profile03Serializer(profile)
     return Response(serializer.data)
 
 
@@ -216,7 +216,7 @@ def remove_from_friends(request):
 def send_friend_request(request):
     sender = request.user.profile
     receiver = Profile.objects.get(id=request.data)
-    if Invitation.objects.filters(Q(details__sender=sender) | Q(details__sender=receiver), Q(details__receiver=sender) | Q(details__receiver=receiver)).exists():
+    if Invitation.objects.filter(Q(details__sender=sender) | Q(details__sender=receiver), Q(details__receiver=sender) | Q(details__receiver=receiver)).exists():
         return Response('Users already have a relationship')
     details = RelationshipDetails.objects.create(sender=sender, receiver=receiver)
     Invitation.objects.create(details=details, status='sent')

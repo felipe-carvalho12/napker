@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import { SERVER_URL, DEBUG } from '../../../config/settings'
 import { csrftoken } from '../../../config/utils'
+import { MyProfileContext } from '../../../context/app/AppContext'
 import Header from '../../../components/fixed/Header'
 import InviteNotification from './components/InviteNotification'
 import PostNotification from './components/post-notification/PostNotification'
@@ -13,6 +14,7 @@ let didVisualizedComments = false
 let notificationsFetchInterval
 
 export default function Notifications(props) {
+    const [, updateMyProfile] = useContext(MyProfileContext)
     const [invites, setInvites] = useState(null)
     const [postNotifications, setPostNotifications] = useState(null)
     const isMobile = visualViewport.width <= 980
@@ -75,6 +77,7 @@ export default function Notifications(props) {
             .then(data => {
                 DEBUG && console.log(data)
                 props.updateNotificationsNumber()
+                updateMyProfile()
             })
         document.getElementById(`fr-${btn.dataset.senderid}`).remove()
         fetchNotifications()

@@ -236,5 +236,5 @@ def unlike_publication(request, publication_id):
 @api_view(['GET'])
 def get_mentions(request):
     profiles = Profile.objects.filter(user__is_active=True).exclude(user=request.user)
-    serializer = Profile05Serializer(profiles, many=True)
+    serializer = Profile04Serializer(profiles, many=True)
     return Response(serializer.data)

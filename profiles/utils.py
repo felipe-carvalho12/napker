@@ -39,35 +39,38 @@ def process_authors_relevance(profile, authors):
 
     
 def get_profile_list(profile):
-    profiles = []
+    try:
+        profiles = []
 
-    for p in Profile.objects.exclude(user=profile.user):
-        if not p.user.is_active: continue
-        if p in profile.blocked_profiles: continue
-        if p.user in Invitation.objects.friends(profile): continue
-        if profile in p.blocked_profiles: continue
-        if p.id in [i.receiver for i in Invitation.objects.invitations_sent(profile)]: continue
-        if p in [i.sender for i in Invitation.objects.invitations_received(profile)]: continue
-        if p.user.is_superuser: continue
-        profiles.append(p)
+        for p in Profile.objects.exclude(user=profile.user):
+            if not p.user.is_active: continue
+            if p in profile.blocked_profiles: continue
+            if p.user in Invitation.objects.friends(profile): continue
+            if profile in p.blocked_profiles: continue
+            if p.id in [i.receiver for i in Invitation.objects.invitations_sent(profile)]: continue
+            if p in [i.sender for i in Invitation.objects.invitations_received(profile)]: continue
+            if p.user.is_superuser: continue
+            profiles.append(p)
 
-    points = process_authors_relevance(profile, profiles)
+        points = process_authors_relevance(profile, profiles)
 
-    profiles = list(zip(profiles, points))
+        profiles = list(zip(profiles, points))
 
-    interest_profile_dict = {}
-    for i_quantity in set([item[1] for item in profiles]):
-        interest_profile_dict[i_quantity] = [p[0] for p in profiles if p[1] == i_quantity]
-    for key in interest_profile_dict:
-        interest_profile_dict[key] = sorted(
-            interest_profile_dict[key],
-            key=lambda p: abs(datetime.date.toordinal(profile.birth_date) - datetime.date.toordinal(p.birth_date))
-        )
-    profiles.clear()
-    for key in interest_profile_dict:
-        profile_list = interest_profile_dict[key]
-        profile_list.reverse()
-        profiles.extend(profile_list)
-    profiles.reverse()
+        interest_profile_dict = {}
+        for i_quantity in set([item[1] for item in profiles]):
+            interest_profile_dict[i_quantity] = [p[0] for p in profiles if p[1] == i_quantity]
+        for key in interest_profile_dict:
+            interest_profile_dict[key] = sorted(
+                interest_profile_dict[key],
+                key=lambda p: abs(datetime.date.toordinal(profile.birth_date) - datetime.date.toordinal(p.birth_date))
+            )
+        profiles.clear()
+        for key in interest_profile_dict:
+            profile_list = interest_profile_dict[key]
+            profile_list.reverse()
+            profiles.extend(profile_list)
+        profiles.reverse()
 
-    return profiles
+        return profiles
+    except:
+        return []

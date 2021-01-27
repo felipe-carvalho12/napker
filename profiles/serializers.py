@@ -125,14 +125,6 @@ class InterestSerializer(serializers.ModelSerializer):
 
 
 class Profile03Serializer(serializers.ModelSerializer):
-    user = User01Serializer()
-    posts = Post01Serializer(many=True)
-
-    class Meta:
-        model = Profile
-        fields = ['id', 'user', 'first_name', 'last_name', 'photo', 'posts', 'public_interests_length', 'blocked_profiles_id', 'created']
-
-class Profile04Serializer(serializers.ModelSerializer):
     user = User02Serializer()
     posts = Post01Serializer(many=True)
     interests = InterestSerializer(many=True)
@@ -141,7 +133,8 @@ class Profile04Serializer(serializers.ModelSerializer):
         model = Profile
         fields = ['id', 'user', 'first_name', 'last_name', 'photo', 'bio', 'posts', 'interests', 'friends_length', 'blocked_profiles_id', 'created']
 
-class Profile05Serializer(serializers.ModelSerializer): # mentions
+
+class Profile04Serializer(serializers.ModelSerializer): # mentions
     name = serializers.CharField(source='username')
     avatar = serializers.ImageField(source='photo')
 

@@ -264,7 +264,7 @@ class Profile extends React.Component {
                                 id="profile-interests-page-menu-item"
                                 onClick={this.switchPage}
                             >
-                                Interesses ({this.state.profile.public_interests_length})
+                                Interesses ({this.state.profile.interests.filter(i => i.public).length})
                             </div>
                         </div>
                     }
