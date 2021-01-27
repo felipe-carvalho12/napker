@@ -1,41 +1,34 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { SERVER_URL, DEBUG } from '../../../config/settings'
 import { csrftoken } from '../../../config/utils'
+import { MyProfileContext } from '../../../context/app/AppContext'
 import Header from '../../../components/fixed/Header'
 import Posts from './components/Posts'
 import Interests from './components/interests/Interests'
 import ProfileData from './components/ProfileData'
 import BottomMenu from '../../../components/fixed/bottom-menu/BottomMenu'
 
-class Profile extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            myProfile: null,
-            profile: null,
-            alertMessage: null,
-            relationshipButtonLabel: '',
-            currentPageIsPosts: true,
-        }
-        this.isMobile = visualViewport.width <= 980
-        this.username = this.props.match.params.username
-        this.baseState = this.state
-    }
+export default function Profile(props) {
+    const [myProfile, updateMyProfile] = useContext(MyProfileContext)
+    const [profile, setProfile] = useState(null)
+    const [alertMessage, setAlertMessage] = useState(null)
+    const [relationshipButtonLabel, setRelationshipButtonLabel] = useState('')
+    const [currentPageIsPosts, setCurrentPageIsPosts] = useState(true)
+    const [username, setUsername] = useState(props.match.params.username)
 
-    componentWillMount() {
-        this.fetchProfile()
-    }
+    const isMobile = visualViewport.width <= 980
 
-    componentDidMount() {
-        this.fetchRelationship()
-    }
+    useEffect(() => {
+        fetchProfile()
+        fetchRelationship()
+    }, [])
 
-    componentDidUpdate() {
+    useEffect(() => {
         let btn = document.querySelector('#profile-page-relationship-btn')
         if (btn) {
-            switch (btn.innerHTML, this.state.relationshipButtonLabel) {
+            switch (btn.innerHTML, relationshipButtonLabel) {
                 case 'Amigos':
                     btn.classList.add('btn-primary')
                     btn.onmouseenter = () => {
@@ -60,38 +53,29 @@ class Profile extends React.Component {
                     btn.classList.remove('d-none')
             }
         }
-    }
+    })
 
-    componentWillReceiveProps(newProps) {
-        if (newProps === this.props) return
-        this.setState(this.baseState) //resetting state
-        this.username = newProps.match.params.username
-        this.fetchProfile()
-        this.fetchRelationship()
-    }
+    useEffect(() => {
+        if (username === props.match.params.username) return
+        setUsername(props.match.params.username)
+        fetchProfile()
+        fetchRelationship()
+    }, [props])
 
-    fetchRelationship = () => {
-        fetch(`${SERVER_URL}/profile-api/button-label/${this.username}`)
+
+    const fetchRelationship = () => {
+        fetch(`${SERVER_URL}/profile-api/button-label/${username}`)
             .then(response => response.json())
-            .then(data => {
-                this.setState({
-                    relationshipButtonLabel: data
-                })
-            })
+            .then(data => setRelationshipButtonLabel(data))
     }
 
-    fetchProfile = () => {
-        fetch(`${SERVER_URL}/profile-api/profile01/${this.username}`)
+    const fetchProfile = () => {
+        fetch(`${SERVER_URL}/profile-api/profile01/${username}`)
             .then(response => response.json())
-            .then(data => this.setState({
-                profile: data
-            }))
-        fetch(`${SERVER_URL}/profile-api/myprofile`)
-            .then(response => response.json())
-            .then(data => this.setState({ myProfile: data }))
+            .then(data => setProfile(data))
     }
 
-    sendFriendRequest = pk => {
+    const sendFriendRequest = pk => {
         fetch(`${SERVER_URL}/profile-api/send-friend-request`, {
             method: 'POST',
             headers: {
@@ -104,7 +88,7 @@ class Profile extends React.Component {
             .then(data => DEBUG && console.log(data))
     }
 
-    cancelFriendRequest = pk => {
+    const cancelFriendRequest = pk => {
         fetch(`${SERVER_URL}/profile-api/cancel-friend-request`, {
             method: 'POST',
             headers: {
@@ -117,7 +101,7 @@ class Profile extends React.Component {
             .then(data => DEBUG && console.log(data))
     }
 
-    removeFromFriends = pk => {
+    const removeFromFriends = pk => {
         fetch(`${SERVER_URL}/profile-api/remove-from-friends`, {
             method: 'POST',
             headers: {
@@ -127,10 +111,13 @@ class Profile extends React.Component {
             body: JSON.stringify(pk)
         })
             .then(response => response.json())
-            .then(data => DEBUG && console.log(data))
+            .then(data => {
+                DEBUG && console.log(data)
+                updateMyProfile()
+            })
     }
 
-    acceptFriendRequest = pk => {
+    const acceptFriendRequest = pk => {
         fetch(`${SERVER_URL}/profile-api/reply-friend-request`, {
             method: 'POST',
             headers: {
@@ -145,77 +132,79 @@ class Profile extends React.Component {
             .then(response => response.json())
             .then(data => {
                 DEBUG && console.log(data)
-                this.props.updateNotificationsNumber()
+                props.updateNotificationsNumber()
+                fetchProfile()
+                updateMyProfile()
             })
     }
 
-    handleRelationshipUpdate = e => {
+    const handleRelationshipUpdate = e => {
         const btn = e.target
         if (btn.innerHTML === 'Solicitar') {
-            this.sendFriendRequest(btn.dataset.pk)
+            sendFriendRequest(btn.dataset.pk)
             btn.innerHTML = 'Solicitado'
             btn.className = 'btn btn-primary'
         } else if (btn.innerHTML === 'Solicitado') {
-            this.cancelFriendRequest(btn.dataset.pk)
+            cancelFriendRequest(btn.dataset.pk)
             btn.innerHTML = 'Solicitar'
             btn.className = 'btn btn-secondary'
         } else if (btn.innerHTML === 'Amigos' || btn.innerHTML === 'Remover') {
-            if (window.confirm(`Remover @${this.state.profile.user.username} dos amigos?`)) {
-                this.removeFromFriends(btn.dataset.pk)
+            if (window.confirm(`Remover @${profile.user.username} dos amigos?`)) {
+                removeFromFriends(btn.dataset.pk)
                 btn.innerHTML = 'Solicitar'
                 btn.className = 'btn btn-secondary'
             }
         } else if (btn.innerHTML === 'Aceitar') {
-            this.acceptFriendRequest(btn.dataset.pk)
+            acceptFriendRequest(btn.dataset.pk)
             btn.innerHTML = 'Amigos'
             btn.className = 'btn btn-primary'
         }
     }
 
-    blockUnblockUser = () => {
-        if (this.state.myProfile.blocked_profiles_id.includes(this.state.profile.id)) {
-            if (window.confirm(`Tem certeza que deseja desbloquear ${this.state.profile.first_name} ?`)) {
+    const blockUnblockUser = () => {
+        if (myProfile.blocked_profiles_id.includes(profile.id)) {
+            if (window.confirm(`Tem certeza que deseja desbloquear ${profile.first_name} ?`)) {
                 fetch(`${SERVER_URL}/profile-api/unblock-user`, {
                     method: 'POST',
                     headers: {
                         'Content-type': 'application/json',
                         'X-CSRFToken': csrftoken,
                     },
-                    body: JSON.stringify(this.state.profile.id)
+                    body: JSON.stringify(profile.id)
                 })
                     .then(response => response.json())
                     .then(data => {
-                        console.log(data)
-                        this.setState({ alertMessage: `Você desbloqueou @${this.state.profile.user.username}.` })
-                        this.fetchProfile()
+                        DEBUG && console.log(data)
+                        setAlertMessage(`Você desbloqueou @${profile.user.username}.`)
+                        fetchProfile()
+                        updateMyProfile()
                     })
             }
         } else {
-            if (window.confirm(`Tem certeza que deseja bloquear ${this.state.profile.first_name} ?`)) {
+            if (window.confirm(`Tem certeza que deseja bloquear ${profile.first_name} ?`)) {
                 fetch(`${SERVER_URL}/profile-api/block-user`, {
                     method: 'POST',
                     headers: {
                         'Content-type': 'application/json',
                         'X-CSRFToken': csrftoken,
                     },
-                    body: JSON.stringify(this.state.profile.id)
+                    body: JSON.stringify(profile.id)
                 })
                     .then(response => response.json())
                     .then(data => {
-                        console.log(data)
-                        this.setState({
-                            alertMessage: `Você bloqueou @${this.state.profile.user.username}.
-                         @${this.state.profile.user.username} não conseguirá mais ver o seu perfil ou te enviar mensagens.`
-                        })
-                        this.fetchProfile()
+                        DEBUG && console.log(data)
+                        setAlertMessage(`Você bloqueou @${profile.user.username}.
+                        @${profile.user.username} não conseguirá mais ver o seu perfil ou te enviar mensagens.`)
+                        fetchProfile()
+                        updateMyProfile()
                     })
             }
         }
-        this.fetchProfile()
+        fetchProfile()
         document.querySelector('#profile-view-more-select').style.display = 'none'
     }
 
-    openCloseExtraOptions = () => {
+    const openCloseExtraOptions = () => {
         const el = document.querySelector('#profile-view-more-select')
         const style = el.style
         if (!style.display) style.display = 'none'
@@ -228,111 +217,107 @@ class Profile extends React.Component {
         }
     }
 
-    switchPage = e => {
+    const switchPage = e => {
         document.querySelectorAll('.profile-page-menu-item-active').forEach(el => {
             el.classList.remove('profile-page-menu-item-active')
         })
         e.target.classList.add('profile-page-menu-item-active')
         if (e.target.id === 'profile-posts-page-menu-item') {
-            this.setState({ currentPageIsPosts: true })
+            setCurrentPageIsPosts(true)
         } else if (e.target.id === 'profile-interests-page-menu-item') {
-            this.setState({ currentPageIsPosts: false })
+            setCurrentPageIsPosts(false)
         }
     }
 
-    render() {
-        return (
-            <div className="content-container p-vw-r">
-                <div
-                    className={!this.isMobile ? "b-theme-base-color box-med blur-20px" : "fixed w-100 b-theme-base-color blur-20px b-b"}
-                    style={!this.isMobile ? { position: "sticky", top: "1vw", padding: "0", zIndex: "1000" } : { zIndex: "1000" }}
-                >
-                    <Header page={this.state.profile ? `${this.state.profile.first_name} ${this.state.profile.last_name}` : 'Perfil'}
-                        backArrow={true}
-                    />
-                    {this.state.myProfile !== null && this.state.profile !== null &&
-                        <div className="profile-page-menu" style={{ paddingTop: `${this.isMobile && "50px"}` }}>
-                            <div
-                                className="profile-page-menu-item profile-page-menu-item-active"
-                                id="profile-posts-page-menu-item"
-                                onClick={this.switchPage}
-                            >
-                                Posts ({this.state.profile.posts.length})
-                            </div>
-                            <div
-                                className="profile-page-menu-item"
-                                id="profile-interests-page-menu-item"
-                                onClick={this.switchPage}
-                            >
-                                Interesses ({this.state.profile.interests.filter(i => i.public).length})
-                            </div>
-                        </div>
-                    }
-                </div>
-                {this.state.myProfile !== null && this.state.profile !== null ?
-                    <div className="sidebar-content">
-                        {this.state.profile.blocked_profiles_id.includes(this.state.myProfile.id) ?
-                            <div className="user-blocked-me-container">
-                                <h3>O usuário te bloqueou</h3>
-                            </div>
-                            :
-                            <>
-                                {this.state.alertMessage &&
-                                    <div class="alert alert-success" role="alert">
-                                        {this.state.alertMessage}
-                                    </div>
-                                }
-                                <ProfileData profile={this.state.profile}>
-                                    <div className="profile-btn-wrapper">
-                                        <i
-                                            className="fas fa-ellipsis-h btn btn-secondary mr-10px view-more-icon"
-                                            id="profile-view-more-icon"
-                                            onClick={this.openCloseExtraOptions}
-                                        />
-                                        <div className="view-more-select" id="profile-view-more-select" style={{ top: '60%', right: '10%' }}>
-                                            {!this.state.myProfile.blocked_profiles_id.includes(this.state.profile.id) &&
-                                                <li>
-                                                    <Link to={`/mensagens/${this.state.profile.user.username}`} style={{ color: 'var(--primary-grey)', textDecoration: 'none' }}>
-                                                        <i class="fas fa-envelope text-secondary" />
-                                                        Enviar mensagem
-                                                    </Link>
-                                                </li>
-                                            }
-                                            <li onClick={this.blockUnblockUser}>
-                                                <i class="fas fa-user-lock text-secondary" />
-                                                {this.state.myProfile.blocked_profiles_id.includes(this.state.profile.id) ?
-                                                    'Desbloquear'
-                                                    :
-                                                    'Bloquear'
-                                                }
-                                            </li>
-                                            <div className="popover-arrow" style={{ top: '-9px', left: '30%' }} />
-                                        </div>
-                                        {!this.state.myProfile.blocked_profiles_id.includes(this.state.profile.id) &&
-                                            <button className="btn d-none"
-                                                id="profile-page-relationship-btn"
-                                                data-pk={this.state.profile.id}
-                                                onClick={this.handleRelationshipUpdate}
-                                            >{this.state.relationshipButtonLabel}</button>
-                                        }
-                                    </div>
-                                </ProfileData>
-                                {this.state.currentPageIsPosts ?
-                                    <Posts profile={this.state.profile} fetchProfile={this.fetchProfile} /> :
-                                    <Interests profile={this.state.profile} />
-                                }
-                            </>
-                        }
+    return (
+        <div className="content-container p-vw-r">
+            <div
+                className={!isMobile ? "b-theme-base-color box-med blur-20px" : "fixed w-100 b-theme-base-color blur-20px b-b"}
+                style={!isMobile ? { position: "sticky", top: "1vw", padding: "0", zIndex: "1000" } : { zIndex: "1000" }}
+            >
+                <Header page={profile ? `${profile.first_name} ${profile.last_name}` : 'Perfil'}
+                    backArrow={true}
+                />
+                {myProfile !== null && profile !== null &&
+                    <div className="profile-page-menu" style={{ paddingTop: `${isMobile && "50px"}` }}>
+                        <div
+                            className="profile-page-menu-item profile-page-menu-item-active"
+                            id="profile-posts-page-menu-item"
+                            onClick={switchPage}
+                        >
+                            Posts ({profile.posts.length})
                     </div>
-                    :
-                    <div className="loader-container">
-                        <div className="loader" />
+                        <div
+                            className="profile-page-menu-item"
+                            id="profile-interests-page-menu-item"
+                            onClick={switchPage}
+                        >
+                            Interesses ({profile.interests.filter(i => i.public).length})
+                    </div>
                     </div>
                 }
-                <BottomMenu />
             </div>
-        )
-    }
+            {myProfile !== null && profile !== null ?
+                <div className="sidebar-content">
+                    {profile.blocked_profiles_id.includes(myProfile.id) ?
+                        <div className="user-blocked-me-container">
+                            <h3>O usuário te bloqueou</h3>
+                        </div>
+                        :
+                        <>
+                            {alertMessage &&
+                                <div class="alert alert-success" role="alert">
+                                    {alertMessage}
+                                </div>
+                            }
+                            <ProfileData profile={profile}>
+                                <div className="profile-btn-wrapper">
+                                    <i
+                                        className="fas fa-ellipsis-h btn btn-secondary mr-10px view-more-icon"
+                                        id="profile-view-more-icon"
+                                        onClick={openCloseExtraOptions}
+                                    />
+                                    <div className="view-more-select" id="profile-view-more-select" style={{ top: '60%', right: '10%' }}>
+                                        {!myProfile.blocked_profiles_id.includes(profile.id) &&
+                                            <li>
+                                                <Link to={`/mensagens/${profile.user.username}`} style={{ color: 'var(--primary-grey)', textDecoration: 'none' }}>
+                                                    <i class="fas fa-envelope text-secondary" />
+                                                Enviar mensagem
+                                            </Link>
+                                            </li>
+                                        }
+                                        <li onClick={blockUnblockUser}>
+                                            <i class="fas fa-user-lock text-secondary" />
+                                            {myProfile.blocked_profiles_id.includes(profile.id) ?
+                                                'Desbloquear'
+                                                :
+                                                'Bloquear'
+                                            }
+                                        </li>
+                                        <div className="popover-arrow" style={{ top: '-9px', left: '30%' }} />
+                                    </div>
+                                    {!myProfile.blocked_profiles_id.includes(profile.id) &&
+                                        <button className="btn d-none"
+                                            id="profile-page-relationship-btn"
+                                            data-pk={profile.id}
+                                            onClick={handleRelationshipUpdate}
+                                        >{relationshipButtonLabel}</button>
+                                    }
+                                </div>
+                            </ProfileData>
+                            {currentPageIsPosts ?
+                                <Posts profile={profile} fetchProfile={fetchProfile} /> :
+                                <Interests profile={profile} />
+                            }
+                        </>
+                    }
+                </div>
+                :
+                <div className="loader-container">
+                    <div className="loader" />
+                </div>
+            }
+            <BottomMenu />
+        </div>
+    )
 }
-
-export default Profile
