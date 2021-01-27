@@ -5,7 +5,6 @@ import PostForm from '../../components/PostForm'
 
 
 export default function CommentListItem(props) {
-    const post = props.post
     const comment = props.comment
     const myProfile = props.myProfile
     const renderParent = props.renderParent
@@ -17,7 +16,7 @@ export default function CommentListItem(props) {
 
     const color = i => {
         return (
-            colors[comment.layer - i >= colors.length ? (comment.layer - i) % colors.length : comment.layer - i]
+            colors[comment.details.layer - i >= colors.length ? (comment.details.layer - i) % colors.length : comment.details.layer - i]
         )
     }
 
@@ -30,6 +29,7 @@ export default function CommentListItem(props) {
         <div style={{ marginLeft: '30px' }}>
             <PostListItem
                 type='comment'
+                post={comment}
                 myProfile={myProfile}
                 isLink={false}
                 renderParent={renderParent}
@@ -53,10 +53,9 @@ export default function CommentListItem(props) {
                     </div>
                 </div>
             }
-            {(comment.comments && displayingComments) && comment.comments.map(c => {
+            {(comment.first_layer_comments && displayingComments) && comment.first_layer_comments.map(c => {
                 return (
                     <CommentListItem
-                        post={post}
                         comment={c}
                         myProfile={myProfile}
                         renderParent={renderParent}

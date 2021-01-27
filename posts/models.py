@@ -22,7 +22,7 @@ class Like(models.Model):
         ordering = ['-created']
 
     def __str__(self):
-        return f'{self.profile} liked {self.post}'
+        return f'{self.profile} liked {self.publication}'
 
 
 class PublicationDetails(models.Model):
@@ -38,19 +38,6 @@ class PublicationDetails(models.Model):
 
     def __str__(self):
         return f'{self.author.user.username} - layer {self.layer}'
-
-    @property
-    def comments(self):
-        comment_list = []
-
-        def append_comments(comments):
-            for comment in comments:
-                comment_list.append(comment)
-                append_comments([comment.details for comment in comment.comments.all()])
-
-        append_comments([comment.details for comment in self.comments.all()])
-
-        return comment_list
     
     def comments_length(self):
         return len(self.comments.all())
@@ -83,6 +70,25 @@ class Comment(models.Model):
     tagged_users = models.ManyToManyField(User, related_name='comment_mentions', blank=True)
     hashtags = models.ManyToManyField(Hashtag, related_name='comments', blank=True)
     visualized = models.BooleanField(default=False)
+
+    @property
+    def comments(self):
+        comment_list = []
+
+        self.details.layer == 1 and print([comment for comment in self.details.comments.all()])
+
+        def append_comments(comments):
+            for comment in comments:
+                comment_list.append(comment)
+                append_comments([comment for comment in comment.details.comments.all()])
+
+        append_comments([comment for comment in self.details.comments.all()])
+
+        return comment_list
+
+    @property
+    def first_layer_comments(self):
+        return self.details.comments.all()
 
 
 class Notification(models.Model):

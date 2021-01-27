@@ -184,7 +184,7 @@ def create_comment(request):
     parent = PublicationDetails.objects.get(id=request.data['parent-id'])
 
     details = PublicationDetails.objects.create(author=profile, layer=parent.layer + 1)
-    comment = Comment.objects.create(details=details, parent=parent)
+    comment = Comment.objects.create(details=details, parent=parent, content=raw_content)
 
     for hashtag_title in hashtags:
             hashtag, created = Hashtag.objects.get_or_create(title=hashtag_title.lower())
