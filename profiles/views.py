@@ -26,9 +26,10 @@ def my_username(request):
 
 @api_view(['GET'])
 def get_profile01(request, username):
-    profile = User.objects.get(username=username)
+    profile = User.objects.get(username=username).profile
     serializer = Profile03Serializer(profile)
     return Response(serializer.data)
+
 
 @api_view(['GET'])
 def get_profile02(request, username):
@@ -165,9 +166,7 @@ def friends_profiles(request, username):
 
 @api_view(['GET'])
 def blocked_profiles(request):
-    profile = request.user.profile
-    profiles = Block.objects.blocked_profiles(profile)
-    serializer = Profile01Serializer(profiles, many=True)
+    serializer = Profile01Serializer(request.user.profile.blocked_profiles, many=True)
     return Response(serializer.data)
 
 
@@ -176,11 +175,11 @@ def button_label(request, username):
     profile = request.user.profile
     other_user = User.objects.get(username=username)
 
-    if Invitation.objects.friends(profile).filter(user=other_user).exists():
+    if other_user.profile in Invitation.objects.friends(profile):
         return Response('Amigos')
-    if Invitation.objects.invitations_received(profile).filter(user=other_user).exists():
+    if other_user.profile in Invitation.objects.invitations_received(profile):
         return Response('Aceitar')
-    if Invitation.objects.invitations_sent(profile).filter(user=other_user).exists():
+    if other_user.profile in Invitation.objects.invitations_sent(profile):
         return Response('Solicitado')
 
     return Response('Solicitar')

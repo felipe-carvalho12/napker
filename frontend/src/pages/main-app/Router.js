@@ -138,7 +138,7 @@ export default function MainAppRouter() {
                         <Route path="/configurações/cores" exact render={props => (
                             <Settings {...props} page={'colors'} />
                         )} />
-                        <Route path="/user/:slug" exact render={props => (
+                        <Route path="/user/:username" exact render={props => (
                             <Profile {...props} updateNotificationsNumber={updateNotificationsNumber} />
                         )} />
                         <Route path="/user/:username/amigos" component={ProfileFriends} />

@@ -149,5 +149,9 @@ class Profile(models.Model):
         return len(Invitation.objects.friends(self))
 
     @property
-    def blocked_users(self):
-        return [rel.receiver for rel in Block.objects.filter(details__sender=self)]
+    def blocked_profiles(self):
+        return Block.objects.blocked_profiles(self)
+
+    @property
+    def blocked_profiles_id(self):
+        return [profile.id for profile in Block.objects.blocked_profiles(self)]

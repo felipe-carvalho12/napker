@@ -173,7 +173,7 @@ class Profile extends React.Component {
     }
 
     blockUnblockUser = () => {
-        if (this.state.myProfile.blocked_users.map(u => u.id).includes(this.state.profile.user.id)) {
+        if (this.state.myProfile.blocked_profiles_id.includes(this.state.profile.id)) {
             if (window.confirm(`Tem certeza que deseja desbloquear ${this.state.profile.first_name} ?`)) {
                 fetch(`${SERVER_URL}/profile-api/unblock-user`, {
                     method: 'POST',
@@ -271,7 +271,7 @@ class Profile extends React.Component {
                 </div>
                 {this.state.myProfile !== null && this.state.profile !== null ?
                     <div className="sidebar-content">
-                        {this.state.profile.blocked_users.includes(this.state.myProfile.user.id) ?
+                        {this.state.profile.blocked_profiles_id.includes(this.state.myProfile.id) ?
                             <div className="user-blocked-me-container">
                                 <h3>O usuário te bloqueou</h3>
                             </div>
@@ -290,7 +290,7 @@ class Profile extends React.Component {
                                             onClick={this.openCloseExtraOptions}
                                         />
                                         <div className="view-more-select" id="profile-view-more-select" style={{ top: '60%', right: '10%' }}>
-                                            {!this.state.myProfile.blocked_users.map(u => u.id).includes(this.state.profile.user.id) &&
+                                            {!this.state.myProfile.blocked_profiles_id.includes(this.state.profile.id) &&
                                                 <li>
                                                     <Link to={`/mensagens/${this.state.profile.user.username}`} style={{ color: 'var(--primary-grey)', textDecoration: 'none' }}>
                                                         <i class="fas fa-envelope text-secondary" />
@@ -300,7 +300,7 @@ class Profile extends React.Component {
                                             }
                                             <li onClick={this.blockUnblockUser}>
                                                 <i class="fas fa-user-lock text-secondary" />
-                                                {this.state.myProfile.blocked_users.map(u => u.id).includes(this.state.profile.user.id) ?
+                                                {this.state.myProfile.blocked_profiles_id.includes(this.state.profile.id) ?
                                                     'Desbloquear'
                                                     :
                                                     'Bloquear'
@@ -308,7 +308,7 @@ class Profile extends React.Component {
                                             </li>
                                             <div className="popover-arrow" style={{ top: '-9px', left: '30%' }} />
                                         </div>
-                                        {!this.state.myProfile.blocked_users.map(u => u.id).includes(this.state.profile.user.id) &&
+                                        {!this.state.myProfile.blocked_profiles_id.includes(this.state.profile.id) &&
                                             <button className="btn d-none"
                                                 id="profile-page-relationship-btn"
                                                 data-pk={this.state.profile.id}
