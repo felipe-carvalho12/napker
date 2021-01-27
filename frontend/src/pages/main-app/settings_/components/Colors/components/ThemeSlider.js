@@ -4,21 +4,21 @@ import Slider from '@material-ui/core/Slider'
 
 export default function ColorSlider(props) {
     const max = props.max
-    const color = props.color
+    const value = props.value
     const title = props.title
-    const setColor = props.setColor
+    const setValue = props.setValue
     const handleChange = props.handleChange
 
     return (
         <div className="d-flex align-items-center w-100">
             <span>{title}</span>
             <Slider
-                defaultValue={color}
+                defaultValue={value}
                 max={max}
                 className='c-primary-color mx-10px'
-                onChange={(e, value) => {setColor(value); handleChange()}}
+                onChange={(e, newValue) => {setValue(newValue); handleChange()}}
             />
-            <strong>{Math.floor(color)}</strong>
+            <strong>{Math.floor(value)}</strong>
         </div>
     )
 }

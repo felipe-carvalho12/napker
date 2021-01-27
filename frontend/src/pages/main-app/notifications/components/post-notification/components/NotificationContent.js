@@ -55,7 +55,7 @@ export default function NotificationContent(props) {
                                 </div>
                                 <div className="d-flex flex-column justify-content-start align-items-start h-100 w-100">
                                     <div className="d-flex justify-content-center align-items-center">
-                                        <Link to={`/user/${author.slug}`}>
+                                        <Link to={`/user/${author.user.username}`}>
                                             <img src={author.photo}
                                                 className="profile-img-med"
                                                 style={{ marginRight: '10px' }}
@@ -64,7 +64,7 @@ export default function NotificationContent(props) {
                                         <p className="text-secondary d-inline-block" style={{ margin: '0' }}>
                                             {renderTimestamp(item.created)}
                                             {" • "}
-                                            <Link to={`/user/${author.slug}`} style={{ color: "var(--primary-grey)" }}>
+                                            <Link to={`/user/${author.user.username}`} style={{ color: "var(--primary-grey)" }}>
                                                 @{author.user.username}
                                             </Link> {type === 'likes' ? 'curtiu' : 'comentou'} seu post.
                                         </p>

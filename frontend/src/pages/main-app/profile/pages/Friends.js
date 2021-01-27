@@ -1,43 +1,32 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { SERVER_URL } from '../../../../config/settings'
+import { MyProfileContext } from '../../../../context/app/AppContext'
 import Header from '../../../../components/fixed/Header'
 import ProfileListItem from '../../../../components/ProfileListItem'
 import BottomMenu from '../../../../components/fixed/bottom-menu/BottomMenu'
 
 export default function Friends() {
+    const [myProfile,] = useContext(MyProfileContext)
     const [friends, setFriends] = useState(null)
-    const [profile, setProfile] = useState(null)
-    const [myProfile, setMyProfile] = useState(null)
-    const { slug } = useParams()
+    const { username } = useParams()
 
     const isMobile = visualViewport.width <= 980
 
     useEffect(() => {
-        fetch(`${SERVER_URL}/profile-api/user/${slug}`)
+        fetch(`${SERVER_URL}/profile-api/friends-profiles/${username}`)
             .then(response => response.json())
-            .then(data => setProfile(data))
-        fetch(`${SERVER_URL}/profile-api/myprofile`)
-            .then(response => response.json())
-            .then(data => setMyProfile(data))
+            .then(data => setFriends(data))
     }, [])
-
-    useEffect(() => {
-        if (profile) {
-            fetch(`${SERVER_URL}/profile-api/get-friends-profiles/${profile.slug}`)
-                .then(response => response.json())
-                .then(data => setFriends(data))
-        }
-    }, [profile])
 
     return (
         <div className="content-container">
             <Header
-                page={profile !== null ? `${profile.first_name} ${profile.last_name} / Amigos` : 'Perfil / Amigos'}
+                page={`@${username} / amigos`}
                 backArrow={true}
                 className="b-theme-base-color box-med blur-20px"
-                style={{ position: "sticky", top: "1vw", padding: "0 20px 0", zIndex: "1000" }}
+                style={{ position: "sticky", top: "1vw", padding: "var(--sz-2)", zIndex: "1000" }}
             />
             <div className={`sidebar-content ${isMobile ? 'pb-mobile' : ''}`}>
                 <div className="list-group profile-friends-container">
@@ -53,7 +42,7 @@ export default function Friends() {
                                 )
                             }) :
                                 <h3 style={{ marginTop: '30px' }}>
-                                    {profile ? `${profile.first_name} ainda não possui amigos` : 'Você ainda não possui amigos'}
+                                    {myProfile.user.username !== username ? `@${username} ainda não possui amigos` : 'Você ainda não possui amigos'}
                                 </h3>
                             }
                         </>

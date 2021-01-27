@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
-import { SERVER_URL } from '../../../../../config/settings'
+import { SERVER_URL, DEBUG } from '../../../../../config/settings'
 import { csrftoken } from '../../../../../config/utils'
+import { MyProfileContext } from '../../../../../context/app/AppContext'
 import ProfileListItem from '../../../../../components/ProfileListItem'
 import ProfilesSearch from './components/ProfilesSearch'
 
 export default function Profiles() {
-    const [myProfile, setMyProfile] = useState(null)
+    const [myProfile,] = useContext(MyProfileContext)
     const [profiles, setProfiles] = useState(null)
     const [filteredProfiles, setFilteredProfiles] = useState(null)
     const [scrollCount, setScrollCount] = useState(1)
@@ -18,13 +19,7 @@ export default function Profiles() {
     }
 
     useEffect(() => {
-        fetch(`${SERVER_URL}/profile-api/myprofile`)
-            .then(response => response.json())
-            .then(data => setMyProfile(data))
-    }, [])
-
-    useEffect(() => {
-        fetch(`${SERVER_URL}/profile-api/myprofile-list/${scrollCount}`)
+        fetch(`${SERVER_URL}/profile-api/my-profile-list/${scrollCount}`)
             .then(response => response.json())
             .then(data => {
                 setFilteredProfiles(null)
@@ -42,7 +37,7 @@ export default function Profiles() {
             body: JSON.stringify(pk)
         })
             .then(response => response.json())
-            .then(data => console.log(data))
+            .then(data => DEBUG && console.log(data))
     }
 
     const cancelFriendRequest = pk => {
@@ -55,7 +50,7 @@ export default function Profiles() {
             body: JSON.stringify(pk)
         })
             .then(response => response.json())
-            .then(data => console.log(data))
+            .then(data => DEBUG && console.log(data))
     }
 
     const handleRelationshipUpdate = e => {

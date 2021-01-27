@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, useHistory } from 'react-router-dom'
 
-import { SERVER_URL } from '../config/settings'
+import { SERVER_URL, DEBUG } from '../config/settings'
 import { csrftoken, renderTimestamp } from '../config/utils'
 import VideoIframe from './VideoIframe'
 import PostTextbox from '../pages/main-app/home/components/posts_/components/components/post-textbox/PostTextbox'
@@ -24,16 +24,22 @@ export default function PostListItem(props) {
 
     const parsedContent = JSON.parse(post.content)
 
-    const likeUnlikePost = e => {
+    const likeUnlikePublication = e => {
         e.stopPropagation()
         const likeBtn = e.target
         if (likeBtn.classList.contains('fas')) {
             likeBtn.classList.remove('fas') //border heart
             likeBtn.classList.add('far')  //filled heart
-            fetch(`${SERVER_URL}/post-api/unlike-${type}/${likeBtn.dataset.postid}`)
+            fetch(`${SERVER_URL}/post-api/unlike-publication/${post.details.id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json',
+                    'X-CSRFToken': csrftoken,
+                }
+            })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data)
+                    DEBUG && console.log(data)
                     renderParent !== undefined && renderParent()
                 })
         } else {
@@ -43,18 +49,24 @@ export default function PostListItem(props) {
             likeBtn.onanimationend = () => {
                 likeBtn.classList.remove('animated')
             }
-            fetch(`${SERVER_URL}/post-api/like-${type}/${likeBtn.dataset.postid}`)
+            fetch(`${SERVER_URL}/post-api/like-publication/${post.details.id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json',
+                    'X-CSRFToken': csrftoken,
+                }
+            })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data)
+                    DEBUG && console.log(data)
                     renderParent !== undefined && renderParent()
                 })
         }
     }
 
-    const openCloseExtraOptions = (e, postId) => {
+    const openCloseExtraOptions = (e, publicationId) => {
         e.stopPropagation()
-        const el = document.querySelector(`#post-view-more-select-${postId}`)
+        const el = document.querySelector(`#post-view-more-select-${publicationId}`)
         const style = el.style
         if (!style.display) style.display = 'none'
         if (style.display === 'none') {
@@ -64,11 +76,10 @@ export default function PostListItem(props) {
         }
     }
 
-    const deletePost = (e, postId) => {
+    const deletePost = (e, publicationId) => {
         e.stopPropagation()
-        const el = document.querySelector(`#profile-post-${postId}`)
         if (window.confirm(`Tem certeza que deseja apagar o ${type === 'post' ? type : 'comentário'}?\nEssa ação é irreversível.`)) {
-            fetch(`${SERVER_URL}/post-api/delete-${type}/${postId}`, {
+            fetch(`${SERVER_URL}/post-api/delete-publication/${publicationId}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-type': 'application/json',
@@ -77,62 +88,70 @@ export default function PostListItem(props) {
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data)
+                    DEBUG && console.log(data)
                     renderParent !== undefined && renderParent()
                 })
         }
     }
 
+    const handleViewLikes = e => {
+        e.stopPropagation()
+        props.openLikesModal()
+        fetch(`${SERVER_URL}/post-api/likes/${post.details.id}`)
+            .then(response => response.json())
+            .then(data => props.setLikesModalItems(data))
+    }
+
     return (
         <li
             className={`position-relative d-flex w-100 base-hover hide-animation box-med post-container ${props.className}`}
-            id={`profile-post-${post.id}`}
-            key={post.id}
+            id={`profile-post-${post.details.id}`}
+            key={post.details.id}
             style={{ ...props.style, background: 'var(--theme-base-color)', marginBottom: type === 'comment' && '10px', padding: "0" }}
-            onClick={() => isLink && history.push(`/post/${post.id}`)}
+            onClick={() => isLink && history.push(`/post/${post.details.id}`)}
         >
             {type !== 'post' &&
                 <div style={{ marginLeft: "10px", width: "5px", background: color !== undefined ? color : "var(--background)" }} />
             }
             <div className="d-flex flex-column h-100 w-100">
-                <div className="d-flex flex-column h-100 w-100" style={{ padding: "10px 10px 0" }}>
+                <div className="d-flex flex-column h-100 w-100" style={{ padding: "var(--sz-1) var(--sz-1) 0" }}>
                     <div className="d-flex justify-content-between align-items-start w-100 mb-10px">
                         <div className="d-flex align-items-center">
                             <Link
-                                to={post.author.id === myProfile.id ?
-                                    '/perfil' : `/user/${post.author.slug}`}
+                                to={post.details.author.id === myProfile.id ?
+                                    '/perfil' : `/user/${post.details.author.user.username}`}
                                 onClick={e => e.stopPropagation()}
                             >
-                                <img src={post.author.photo}
+                                <img src={post.details.author.photo}
                                     className="profile-img-sm mr-10px"
                                 />
                             </Link>
                             <Link
-                                to={post.author.id === myProfile.id ? '/perfil' : `/user/${post.author.slug}`}
+                                to={post.details.author.id === myProfile.id ? '/perfil' : `/user/${post.details.author.user.username}`}
                                 className="d-flex justify-content-start align-items-start post-author-data-wrapper"
                                 style={{ color: '#000', flexDirection: props.breakAuthorData && 'column' }}
                                 onClick={e => e.stopPropagation()}
                             >
                                 <strong className="mr-10px" style={{ color: 'var(--primary-grey)' }}>
-                                    {post.author.first_name} {post.author.last_name}
+                                    {post.details.author.first_name} {post.details.author.last_name}
                                 </strong>
                                 <span className="text-secondary">
-                                    @{post.author.user.username} • {renderTimestamp(post.created)}
+                                    @{post.details.author.user.username} • {renderTimestamp(post.details.created)}
                                 </span>
                             </Link>
                         </div>
                         <i
                             className="fas fa-ellipsis-h d-flex justify-content-center align-items-center text-secondary secondary-hover view-more-icon"
-                            id={`post-view-more-icon-${post.id}`}
+                            id={`post-view-more-icon-${post.details.id}`}
                             style={{ textDecoration: 'none', width: '30px', height: '30px', borderRadius: '30px' }}
-                            onClick={e => openCloseExtraOptions(e, post.id)}
+                            onClick={e => openCloseExtraOptions(e, post.details.id)}
                         />
                     </div>
-                    <div className="view-more-select" id={`post-view-more-select-${post.id}`} style={{ right: '10px', top: '45px' }}>
-                        {myProfile.id === post.author.id ?
+                    <div className="view-more-select" id={`post-view-more-select-${post.details.id}`} style={{ right: '10px', top: '45px' }}>
+                        {myProfile.id === post.details.author.id ?
                             <li
                                 style={{ color: '#f00' }}
-                                onClick={e => deletePost(e, post.id)}
+                                onClick={e => deletePost(e, post.details.id)}
                             >
                                 <i class="fas fa-trash" />
                                 Excluir
@@ -169,7 +188,7 @@ export default function PostListItem(props) {
                     }
                 </div>
                 <div className="d-flex justify-content-start align-items-center text-secondary" style={{ padding: "0 10px 10px" }}>
-                    {(type === 'comment' && post.all_child_comments_length !== 0) &&
+                    {(type === 'comment' && post.details.comments_length !== 0) &&
                         <>
                             {displayingComments ?
                                 <i
@@ -197,29 +216,23 @@ export default function PostListItem(props) {
                             class="far fa-comment mr-1 icon"
                         />
                         <p style={{ margin: '0' }}>
-                            {post.all_child_comments_length}
+                            {post.details.comments_length}
                         </p>
                     </div>
                     <div className="d-flex align-items-center">
-                        {post.likes.map(like => like.profile.id).includes(myProfile.id) ?
+                        {post.details.likes_profile_id.includes(myProfile.id) ?
                             <i class="fas fa-heart expand-animation mr-1  ml-10px icon"
-                                data-postid={post.id}
-                                onClick={likeUnlikePost}
+                                onClick={likeUnlikePublication}
                             />
                             :
                             <i class="far fa-heart mr-1 ml-10px icon"
-                                data-postid={post.id}
-                                onClick={likeUnlikePost}
+                                onClick={likeUnlikePublication}
                             />
                         }
                         <p className="m-0 likes-number"
-                            onClick={e => {
-                                e.stopPropagation()
-                                props.openLikesModal(post.likes)
-                            }
-                            }
+                            onClick={handleViewLikes}
                         >
-                            {post.likes.length}
+                            {post.details.likes_profile_id.length}
                         </p>
                     </div>
                 </div>

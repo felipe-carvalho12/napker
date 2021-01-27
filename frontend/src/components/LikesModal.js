@@ -1,16 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import Modal from 'react-bootstrap/Modal'
 
-import { SERVER_URL } from '../config/settings'
+import { MyProfileContext } from '../context/app/AppContext'
 import ProfileListItem from './ProfileListItem'
 
 export default function LikesModal(props) {
-    const [myProfile, setMyProfile] = useState(null)
-    useEffect(() => {
-        fetch(`${SERVER_URL}/profile-api/myprofile`)
-            .then(response => response.json())
-            .then(data => setMyProfile(data))
-    }, [])
+    const [myProfile,] = useContext(MyProfileContext)
 
     return (
         <Modal show={props.isOpen}
@@ -22,8 +17,8 @@ export default function LikesModal(props) {
             </Modal.Header>
             <Modal.Body>
                 <div className="list-group" style={{ height: '400px', overflow: 'hidden', overflowY: 'scroll' }}>
-                    {props.likes &&
-                        props.likes.map(like => like.profile).map(profile => {
+                    {props.likes ?
+                        props.likes.map(profile => {
                             return (
                                 <ProfileListItem
                                     profile={profile}
@@ -32,7 +27,12 @@ export default function LikesModal(props) {
                                     onClick={props.hideModal}
                                 />
                             )
-                        })}
+                        })
+                        :
+                        <div className="loader-container">
+                            <div className="loader" />
+                        </div>
+                    }
                 </div>
             </Modal.Body>
         </Modal>

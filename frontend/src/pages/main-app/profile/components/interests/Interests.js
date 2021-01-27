@@ -19,7 +19,7 @@ export default function Interests(props) {
                                     >
                                         {interest.title[0].toUpperCase() + interest.title.slice(1)}
                                         <Link to={`/interesses/${interest.title}`}>
-                                            <button className="btn btn-secondary" style={{ padding: '5px' }}>Pesquisar usuários</button>
+                                            <button className="btn btn-secondary" style={{ padding: 'var(--sz-0)' }}>Pesquisar usuários</button>
                                         </Link>
                                     </li>
                                 </>

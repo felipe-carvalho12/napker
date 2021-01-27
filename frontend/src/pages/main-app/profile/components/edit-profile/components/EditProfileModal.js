@@ -4,13 +4,15 @@ import Modal from 'react-bootstrap/Modal'
 
 import { SERVER_URL } from '../../../../../../config/settings'
 import { csrftoken } from '../../../../../../config/utils'
+import { MyProfileContext } from '../../../../../../context/app/AppContext'
 import { ProfileImageContext } from '../../../../../../context/edit-profile/EditProfileContext'
 import EmojiPicker from '../../../../../../components/EmojiPicker'
 
 
 export default function EditProfileModal(props) {
     const profile = props.profile
-    const [profileImage, setProfileImage] = useContext(ProfileImageContext)
+    const [, updateMyProfile] = useContext(MyProfileContext)
+    const [profileImage,] = useContext(ProfileImageContext)
     const [editingBioContent, setEditingBioContent] = useState('')
     const [errMessage, setErrMessage] = useState(null)
 
@@ -18,10 +20,10 @@ export default function EditProfileModal(props) {
 
     const handleUsernameChange = e => {
         if (e.target.value.trim() !== '') {
-            fetch(`${SERVER_URL}/profile-api/user/${e.target.value}`)
+            fetch(`${SERVER_URL}/profile-api/username-is-taken/${e.target.value}`)
                 .then(response => response.json())
                 .then(data => {
-                    if (data.bool !== 'false' && data.id !== profile.id) {
+                    if (data) {
                         document.querySelector('#username-taken').style.display = 'initial'
                     } else {
                         document.querySelector('#username-taken').style.display = 'none'
@@ -57,7 +59,7 @@ export default function EditProfileModal(props) {
             .then(data => {
                 if (data === 'profile updated') {
                     props.closeModal()
-                    props.fetchProfile()
+                    updateMyProfile()
                 }
                 else setErrMessage(data)
             })
@@ -159,7 +161,7 @@ export default function EditProfileModal(props) {
                                     value={editingBioContent}
                                     placeholder={profile.bio}
                                     maxLength={240}
-                                    style={{ padding: '10px', outline: 'none', paddingRight: '35px' }}
+                                    style={{ padding: 'var(--sz-0)' }}
                                     onChange={e => setEditingBioContent(e.target.value)}
                                 />
                                 <EmojiPicker style={{ position: 'absolute', margin: '0', right: '0', top: '10%' }} />

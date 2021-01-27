@@ -8,7 +8,7 @@ summary {
     align-items: center;
     justify-content: space-between;
     cursor: pointer;
-    padding: 5px;
+    padding: var(--sz-0);
 }
 
 details[open] summary:hover {

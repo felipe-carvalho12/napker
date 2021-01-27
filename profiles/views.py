@@ -16,51 +16,51 @@ from .utils import *
 
 @api_view(['GET'])
 def is_logged(request):
-    if request.user.is_authenticated:
-        return Response('True')
-    else:
-        return Response('False')
+    return Response(request.user.is_authenticated)
+
 
 @api_view(['GET'])
-def get_logged_user(request):
-    serializer = UserSerializer(request.user)
+def my_username(request):
+    return Response(request.user.username)
+
+
+@api_view(['GET'])
+def get_profile01(request, username):
+    profile = User.objects.get(username=username).profile
+    serializer = Profile03Serializer(profile)
     return Response(serializer.data)
 
 
 @api_view(['GET'])
-def get_profile(request, slug):
-    profiles = Profile.objects.filter(slug=slug)
-    if profiles.exists():
-        profile = profiles.first()
-        serializer = ProfileSerializer(profile)
-        return Response(serializer.data)
-    else:
-        return Response({'bool': 'false'})
+def get_profile02(request, username):
+    profile = User.objects.get(username=username)
+    serializer = Profile02Serializer(profile)
+    return Response(serializer.data)
 
 
 @api_view(['GET'])
-def get_profile_by_email(request, email):
-    profiles =  Profile.objects.filter(email=email, user__is_active=True)
-    if profiles.exists():
-        profile = profiles.first()
-        serializer = ProfileSerializer(profile)
-        return Response(serializer.data)
-    else:
-        return Response({'bool': 'false'})
+def username_is_taken(request, username):
+    user = User.objects.filter(username=username)
+    return Response(user.exists())
+
+
+@api_view(['GET'])
+def email_is_taken(request, email):
+    profile =  Profile.objects.filter(email=email, user__is_active=True)
+    return Response(profile.exists())
 
 
 @api_view(['GET'])
 def filter_profiles(request, query):
-    profile = Profile.objects.get(user=request.user)
     all_profiles = Profile.objects.filter(user__is_active=True)
 
-    profiles = [p for p in all_profiles if len(re.findall(f'^{query.lower()}', p.slug))]
+    profiles = [p for p in all_profiles if len(re.findall(f'^{query.lower()}', p.user.username))]
 
     for p in all_profiles.exclude(id__in=[p.id for p in profiles]):
-        if query.lower() in p.slug:
+        if query.lower() in p.user.username:
             profiles.append(p)
 
-    serializer = ProfileSerializer(profiles, many=True)
+    serializer = Profile01Serializer(profiles, many=True)
     return Response(serializer.data)
 
 
@@ -71,54 +71,52 @@ def filter_profiles_by_interests(request):
     for profile in Profile.objects.filter(interests__title=interests[0]).exclude(user=request.user):
         if all(inter in [i.title for i in profile.interests.filter(public=True)] for inter in interests) and profile not in profiles:
             profiles.append(profile)
-    serializer = ProfileSerializer(profiles, many=True)
+    serializer = Profile01Serializer(profiles, many=True)
     return Response(serializer.data)
 
 
 @api_view(['GET'])
-def myprofile_list_view(request, scroll_count):
-    profile = Profile.objects.get(user=request.user)
+def my_profile_list(request, scroll_count):
+    profile = request.user.profile
     profiles = get_profile_list(profile)
-    serializer = ProfileSerializer(profiles[:10 * scroll_count], many=True)
+    serializer = Profile01Serializer(profiles[:10 * scroll_count], many=True)
     return Response(serializer.data)
 
 
 @api_view(['GET'])
-def profile_list_view(request, slug):
-    profile = Profile.objects.get(slug=slug)
-    profiles = get_profile_list(profile)
-    serializer = ProfileSerializer(profiles[:4], many=True)
+def profile_list(request, username):
+    user = User.objects.get(username=username)
+    profiles = get_profile_list(user.profile)
+    serializer = Profile01Serializer(profiles[:4], many=True)
     return Response(serializer.data)
 
 
 @api_view(['GET'])
 def interest_profile_list(request, interest):
-    profiles = []
-    interest = Interest.objects.filter(title=interest.lower(), public=True)
+    try:
+        profiles = []
+        interest = Interest.objects.get(title=interest.lower(), public=True)
 
-    if interest.exists():
-        interest = interest.first()
-    else:
+        profiles_id = [p.id for p in profiles]
+        for p in Profile.objects.filter(interests__id=interest.id).exclude(user=request.user).exclude(id__in=profiles_id):
+            profiles.append(p)
+        random.shuffle(profiles)
+        serializer = Profile01Serializer(profiles[:30], many=True)
+        return Response(serializer.data)
+    except:
         return Response([])
-
-    profiles_id = [p.id for p in profiles]
-    for p in Profile.objects.filter(interests__id=interest.id).exclude(user=request.user).exclude(id__in=profiles_id):
-        profiles.append(p)
-    random.shuffle(profiles)
-    serializer = ProfileSerializer(profiles[:50], many=True)
-    return Response(serializer.data)
 
 
 @api_view(['GET'])
 def my_profile(request):
-    profile = Profile.objects.get(user=request.user)
-    serializer = ProfileSerializer(profile)
+    profile = request.user.profile
+    serializer = Profile03Serializer(profile)
     return Response(serializer.data)
 
 
 @api_view(['GET'])
 def get_weights(request):
-    profile = Profile.objects.get(user=request.user)
+    profile = request.user.profile
     if profile.weights:
         serializer = WeightsSerializer(profile.weights)
         return Response(serializer.data)
@@ -152,107 +150,112 @@ def set_weights(request):
 
     new_weights, created = Weights.objects.get_or_create(profile=profile_weights, post=post_weights)
 
-    profile = Profile.objects.get(user=request.user)
+    profile = request.user.profile
     profile.weights = new_weights
     profile.save()
     return Response('weights updated')
 
 
 @api_view(['GET'])
-def friends_profiles(request, slug):
-    profile = Profile.objects.get(slug=slug)
-    friends = [friend_user.profile for friend_user in profile.friends.all()]
-    serializer = ProfileSerializer(friends, many=True)
+def friends_profiles(request, username):
+    user = User.objects.get(username=username)
+    friends = Invitation.objects.friends(user.profile)
+    serializer = Profile01Serializer(friends, many=True)
     return Response(serializer.data)
 
 
 @api_view(['GET'])
 def blocked_profiles(request):
-    profile = Profile.objects.get(user=request.user)
-    profiles = [blocked_user.profile for blocked_user in profile.blocked_users.all()]
-    serializer = ProfileSerializer(profiles, many=True)
+    serializer = Profile01Serializer(request.user.profile.blocked_profiles, many=True)
     return Response(serializer.data)
 
 
 @api_view(['GET'])
-def get_relationship(request, slug):
-    profile = Profile.objects.get(user=request.user)
-    other_profile = Profile.objects.get(slug=slug)
-    if profile.friends.filter(username=slug).exists():
-        return Response({'relationship': 'friends'})
-    else:
-        relationships = Relationship.objects.invitations_sent(profile)
-        for r in relationships:
-            if other_profile == r.receiver:
-                return Response({'relationship': 'invite-sent'})
-        relationships = Relationship.objects.invitations_received(profile)
-        for r in relationships:
-            if other_profile == r.sender:
-                return Response({'relationship': 'invite-received'})
+def button_label(request, username):
+    profile = request.user.profile
+    other_user = User.objects.get(username=username)
 
-    return Response({'relationship': 'none'})
+    if other_user.profile in Invitation.objects.friends(profile):
+        return Response('Amigos')
+    if other_user.profile in Invitation.objects.invitations_received(profile):
+        return Response('Aceitar')
+    if other_user.profile in Invitation.objects.invitations_sent(profile):
+        return Response('Solicitado')
+
+    return Response('Solicitar')
 
 
 @api_view(['GET'])
-def friend_requests_received(request):
-    profile = Profile.objects.get(user=request.user)
-    invites = Relationship.objects.invitations_received(profile)
-    serializer = RelationshipSerializer(invites, many=True)
+def myinvites(request):
+    profile = request.user.profile
+    invites = Invitation.objects.invitations_received(profile)
+    serializer = RelationshipDetailsSerializer([i.details for i in invites], many=True)
     return Response(serializer.data)
+
+
+@api_view(['GET'])
+def myinvites_number(request):
+    profile = request.user.profile
+    invites = Invitation.objects.invitations_received(profile)
+    return Response(len(invites))
 
 
 @api_view(['POST'])
 def remove_from_friends(request):
-    profile = Profile.objects.get(user=request.user)
-    other_profile = Profile.objects.get(id=int(request.data))
-    relationship = Relationship.objects.filter(Q(sender=profile) | Q(sender=other_profile), Q(
-        receiver=profile) | Q(receiver=other_profile), status='accepted').first()
-    relationship.delete()
-    return Response('Removed from friends with success')
+    profile = request.user.profile
+    other_profile = Profile.objects.get(id=request.data)
+    try:
+        relationship = Invitation.objects.get(Q(details__sender=profile) | Q(details__sender=other_profile), Q(details__receiver=profile) | Q(details__receiver=other_profile), status='accepted')
+        relationship.delete()
+        return Response('Removed from friends with success')
+    except:
+        return Response('Relationship doesn\'t exists')
 
 
 @api_view(['POST'])
 def send_friend_request(request):
-    sender = Profile.objects.get(user=request.user)
-    receiver = Profile.objects.get(id=int(request.data))
-    if Relationship.objects.filter(Q(sender=sender) | Q(sender=receiver), Q(receiver=sender) | Q(receiver=receiver)).exists():
+    sender = request.user.profile
+    receiver = Profile.objects.get(id=request.data)
+    if Invitation.objects.filter(Q(details__sender=sender) | Q(details__sender=receiver), Q(details__receiver=sender) | Q(details__receiver=receiver)).exists():
         return Response('Users already have a relationship')
-    Relationship.objects.create(sender=sender, receiver=receiver, status='sent')
+    details = RelationshipDetails.objects.create(sender=sender, receiver=receiver)
+    Invitation.objects.create(details=details, status='sent')
     return Response('Friend request sent')
 
 
 @api_view(['POST'])
 def cancel_friend_request(request):
-    sender = Profile.objects.get(user=request.user)
-    receiver = Profile.objects.get(id=int(request.data))
-    r = Relationship.objects.get(sender=sender, receiver=receiver, status='sent')
-    r.delete()
-    return Response('Friend request canceled')
+    sender = request.user.profile
+    receiver = Profile.objects.get(id=request.data)
+    try:
+        Invitation.objects.get(details__sender=sender, details__receiver=receiver, status='sent').delete()
+        return Response('Friend request canceled')
+    except:
+        return Response('Relationship doesn\'t exists')
 
 
 @api_view(['POST'])
 def reply_friend_request(request):
-    profile = Profile.objects.get(user=request.user)
-    sender = Profile.objects.get(id=int(request.data['senderid']))
+    profile = request.user.profile
+    sender = Profile.objects.get(id=request.data['senderid'])
     reply = request.data['reply']
-    r = Relationship.objects.get(sender=sender, receiver=profile, status='sent')
+    invitation = Invitation.objects.get(details__sender=sender, details__receiver=profile, status='sent')
     if reply == 'accept':
-        r.status = 'accepted'
-        r.save()
+        invitation.status = 'accepted'
+        invitation.save()
     elif reply == 'decline':
-        r.delete()
+        invitation.delete()
     return Response('Replied with success')
 
 
 @api_view(['POST'])
 def block_profile(request):
-    profile = Profile.objects.get(user=request.user)
-    profile_to_block = Profile.objects.get(id=request.data['id'])
+    profile = request.user.profile
+    profile_to_block = Profile.objects.get(id=request.data)
     if profile != profile_to_block:
-        for r in Relationship.objects.filter(Q(sender=profile) | Q(sender=profile_to_block), Q(receiver=profile) | Q(receiver=profile_to_block)):
-            r.delete()
-        profile.blocked_users.add(profile_to_block.user)
-        profile.save()
+        RelationshipDetails.objects.filter(Q(sender=profile) | Q(sender=profile_to_block), Q(receiver=profile) | Q(receiver=profile_to_block)).delete()
+        details = RelationshipDetails.objects.create(sender=profile, receiver=profile_to_block)
+        Block.objects.create(details=details)
         return Response('Profile blocked')
     else:
         return Response('You can\'t block yourself')
@@ -260,28 +263,41 @@ def block_profile(request):
 
 @api_view(['POST'])
 def unblock_profile(request):
-    profile = Profile.objects.get(user=request.user)
-    profile_to_unblock = Profile.objects.get(id=request.data['id'])
-    profile.blocked_users.remove(profile_to_unblock.user)
-    profile.save()
-    return Response('Profile unblocked')
+    profile = request.user.profile
+    profile_to_unblock = Profile.objects.get(id=request.data)
+    try:
+        Block.objects.get(details__sender=profile, details__receiver=profile_to_unblock).delete()
+        return Response('Profile unblocked')
+    except:
+        return Response('Relationship doesn\'t exists')
 
 
 @api_view(['POST'])
 def set_myinterests(request):
-    profile = Profile.objects.get(user=request.user)
+    profile = request.user.profile
     profile.interests.clear()
-    for title in request.data['public_interests']:
+    interests = []
+    
+    for title in request.data['public-interests']:
         if len(title) < 3:
             continue
         public_i, created = Interest.objects.get_or_create(title=title.lower(), public=True)
-        profile.interests.add(public_i)
+        interests.append(public_i)
 
-    for title in request.data['private_interests']:
+    for title in request.data['private-interests']:
         if len(title) < 3:
             continue
         private_i, created = Interest.objects.get_or_create(title=title.lower(), public=False)
-        profile.interests.add(private_i)
+        interests.append(private_i)
+    
+    try:
+        interest_set = InterestSet.objects.get(interests=interests)
+    except:
+        interest_set = InterestSet.objects.create()
+        interest_set.interests.set(interests)
+        interest_set.save()
+
+    profile.interest_set = interest_set
     profile.save()
     
     return Response('Interests updated')

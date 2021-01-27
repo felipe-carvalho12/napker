@@ -1,9 +1,11 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
+
+import { MyProfileContext } from '../../../../../../context/app/AppContext'
 
 export default function InterestsInput(props) {
 
     const type = props.type !== undefined ? props.type : 'public'
-    const myProfile = props.myProfile
+    const [myProfile,] = useContext(MyProfileContext)
     const setInterests = props.setInterests
 
     const tagContainer = useRef()
@@ -42,7 +44,7 @@ export default function InterestsInput(props) {
             clearTags();
             tags.sort()
             tags.slice().reverse().forEach(tag => {
-                tagContainer.current.prepend(createTag(tag));
+                tagContainer.current.append(createTag(tag));
             });
             setInterests && setInterests(tags)
         }

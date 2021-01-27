@@ -24,13 +24,13 @@
   
 .mentionSuggestionsEntry {
     display: flex;
-    padding: 7px 10px 3px 10px;
+    padding: var(--sz-1);
     transition: background-color 0.4s cubic-bezier(.27,1.27,.48,.56);
 }
   
 .mentionSuggestionsEntryFocused {
     display: flex;
-    padding: 7px 10px 3px 10px;
+    padding: var(--sz-1);
     background-color: var(--theme-base-color-hover);
 }
 

@@ -20,7 +20,7 @@ from django.conf import settings
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, reverse
 
-from profiles.models import Profile, Interest
+from profiles.models import Profile, Interest, InterestSet
 
 @api_view(['POST'])
 def login_view(request):
@@ -80,19 +80,28 @@ def signup_view(request):
 def add_interests_view(request):
     user = User.objects.get(id=request.data['uid'])
     profile = Profile.objects.get(user=user)
+    interests = []
     
     for title in request.data['public_interests']:
         if len(title) < 3:
             continue
         public_i, created = Interest.objects.get_or_create(title=title.lower(), public=True)
-        profile.interests.add(public_i)
+        interests.append(public_i)
 
     for title in request.data['private_interests']:
         if len(title) < 3:
             continue
         private_i, created = Interest.objects.get_or_create(title=title.lower(), public=False)
-        profile.interests.add(private_i)
+        interests.append(private_i)
     
+    try:
+        interest_set = InterestSet.objects.get(interests=interests)
+    except:
+        interest_set = InterestSet.objects.create()
+        interest_set.interests.set(interests)
+        interest_set.save()
+
+    profile.interest_set = interest_set
     profile.save()
 
     current_site = get_current_site(request)
@@ -132,7 +141,7 @@ def activate_account_view(request, uidb64, token):
 
 @api_view(['POST'])
 def update_profile(request):
-    profile = Profile.objects.get(user=request.user)
+    profile = request.user.profile
 
     if len(request.data['profile-photo']):
         format, imgstr = request.data['profile-photo'].split(';base64,') 

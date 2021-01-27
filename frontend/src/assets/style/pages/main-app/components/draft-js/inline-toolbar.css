@@ -50,7 +50,7 @@
     color: var(--secondary-grey);
     font-size: 18px;
     border: 0;
-    padding-top: 5px;
+    padding-top: var(--sz-0);
     vertical-align: bottom;
     height: 34px;
     width: 36px;

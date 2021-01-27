@@ -67,7 +67,7 @@
     float: left;
     width: 22px;
     background-color: #eee;
-    border-radius: 10px;
+    border-radius: var(--b-r);
     margin: 10em 5px 0 5px;
     padding: 0;
 }
@@ -79,7 +79,7 @@
 }
 
 .selector select {
-    padding: 0 10px;
+    padding: var(--sz-1);
     margin: 0 0 10px;
     border-radius: 0 0 4px 4px;
 }
@@ -193,12 +193,12 @@ a.active.selector-clearall:focus, a.active.selector-clearall:hover {
     width: 50px;
     margin: 0 0 10px 40%;
     background-color: #eee;
-    border-radius: 10px;
+    border-radius: var(--b-r);
 }
 
 .stacked .selector-chooser li {
     float: left;
-    padding: 3px 3px 3px 5px;
+    padding: var(--sz-0);
 }
 
 .stacked .selector-chooseall, .stacked .selector-clearall {
@@ -404,7 +404,7 @@ span.clearable-file-input label {
 }
 
 .calendar th {
-    padding: 8px 5px;
+    padding: var(--sz-0);
     background: #f8f8f8;
     border-bottom: 1px solid #ddd;
     font-weight: 400;

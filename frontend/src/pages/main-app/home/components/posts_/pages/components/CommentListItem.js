@@ -5,7 +5,6 @@ import PostForm from '../../components/PostForm'
 
 
 export default function CommentListItem(props) {
-    const post = props.post
     const comment = props.comment
     const myProfile = props.myProfile
     const renderParent = props.renderParent
@@ -17,7 +16,7 @@ export default function CommentListItem(props) {
 
     const color = i => {
         return (
-            colors[comment.layer - i >= colors.length ? (comment.layer - i) % colors.length : comment.layer - i]
+            colors[comment.details.layer - i >= colors.length ? (comment.details.layer - i) % colors.length : comment.details.layer - i]
         )
     }
 
@@ -37,6 +36,8 @@ export default function CommentListItem(props) {
                 displayingComments={displayingComments}
                 showHideForm={() => setDisplayingForm(!displayingForm)}
                 showHideComments={showHideComments}
+                openLikesModal={props.openLikesModal}
+                setLikesModalItems={props.setLikesModalItems}
                 level={color(1)}
             />
             {displayingForm &&
@@ -45,22 +46,21 @@ export default function CommentListItem(props) {
                     <div className="w-100 pl-10px py-10px">
                         <PostForm
                             type='comment'
-                            myProfile={myProfile}
                             renderParent={renderParent}
-                            postId={post.id}
-                            parentComment={comment}
+                            parent={comment}
                             hideForm={() => setDisplayingForm(false)}
                         />
                     </div>
                 </div>
             }
-            {(comment.comments && displayingComments) && comment.comments.map(c => {
+            {(comment.first_layer_comments && displayingComments) && comment.first_layer_comments.map(c => {
                 return (
                     <CommentListItem
-                        post={post}
                         comment={c}
                         myProfile={myProfile}
                         renderParent={renderParent}
+                        openLikesModal={props.openLikesModal}
+                        setLikesModalItems={props.setLikesModalItems}
                     />
                 )
             })

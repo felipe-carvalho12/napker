@@ -4,7 +4,7 @@
 
 .form-row {
     overflow: hidden;
-    padding: 10px;
+    padding: var(--sz-1);
     font-size: 13px;
     border-bottom: 1px solid #eee;
 }
@@ -69,7 +69,7 @@ form ul.inline li {
 
 .aligned label {
     display: block;
-    padding: 4px 10px 0 0;
+    padding: var(--sz-1) 0 0;
     float: left;
     width: 160px;
     word-wrap: break-word;
@@ -159,7 +159,7 @@ form .aligned table p {
     width: auto;
     display: inline-block;
     vertical-align: -3px;
-    padding: 0 0 5px 5px;
+    padding: var(--sz-0);
 }
 
 .aligned .vCheckboxLabel + p.help,
@@ -285,7 +285,7 @@ body.popup .submit-row {
     display: block;
     background: #ba2121;
     border-radius: 4px;
-    padding: 10px 15px;
+    padding: var(--sz-1);
     height: 15px;
     line-height: 15px;
     color: #fff;
@@ -295,7 +295,7 @@ body.popup .submit-row {
     display: inline-block;
     background: #bbbbbb;
     border-radius: 4px;
-    padding: 10px 15px;
+    padding: var(--sz-1);
     height: 15px;
     line-height: 15px;
     margin: 0 0 0 5px;
@@ -377,7 +377,7 @@ body.popup .submit-row {
 }
 
 .inline-group thead th {
-    padding: 8px 10px;
+    padding: var(--sz-1);
 }
 
 .inline-group .aligned label {
@@ -391,7 +391,7 @@ body.popup .submit-row {
 .inline-related h3 {
     margin: 0;
     color: #666;
-    padding: 5px;
+    padding: var(--sz-0);
     font-size: 13px;
     background: #f8f8f8;
     border-top: 1px solid #eee;
@@ -416,7 +416,7 @@ body.popup .submit-row {
 
 .inline-related fieldset.module h3 {
     margin: 0;
-    padding: 2px 5px 3px 5px;
+    padding: var(--sz-0);
     font-size: 11px;
     text-align: left;
     font-weight: bold;
@@ -471,19 +471,19 @@ body.popup .submit-row {
 
 .inline-group ul.tools li {
     display: inline;
-    padding: 0 5px;
+    padding: var(--sz-0);
 }
 
 .inline-group div.add-row,
 .inline-group .tabular tr.add-row td {
     color: #666;
     background: #f8f8f8;
-    padding: 8px 10px;
+    padding: var(--sz-1);
     border-bottom: 1px solid #eee;
 }
 
 .inline-group .tabular tr.add-row td {
-    padding: 8px 10px;
+    padding: var(--sz-1);
     border-bottom: 1px solid #eee;
 }
 

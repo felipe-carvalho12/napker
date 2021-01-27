@@ -159,7 +159,7 @@
         bottom: 0;
         height: 8vh;
         background: var(--theme-base-color);
-        padding: 10px;
+        padding: var(--sz-1);
     }
     .messages-wrapper .current-chat-header .left-arrow-icon {
         display: unset;

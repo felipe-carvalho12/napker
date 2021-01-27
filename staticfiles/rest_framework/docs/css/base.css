@@ -45,7 +45,7 @@ pre.highlight code {
     background-color: #23282e;
     display: block;
     text-align: center;
-    padding: 25px 0;
+    padding: var(--sz-4) 0;
     margin-top: 0;
     margin-bottom: 0;
 }
@@ -112,7 +112,7 @@ pre.highlight code {
   border-bottom: 1px solid #23282e;
   margin-left: 0px;
   line-height: 1.4;
-  padding-top: 10px;
+  padding-top: var(--sz-1);
   padding-bottom: 10px;
   padding-right: 10px;
   padding-left: 25px;
@@ -254,7 +254,7 @@ body {
 @media (max-width: 767px) {
   .main-container {
     padding-left: 15px;
-    padding-right: 15px;
+    padding-right: var(--sz-2);
   }
 
   .sidebar {
@@ -313,7 +313,7 @@ body {
 }
 
 .api-modal .modal-body .request-awaiting {
-  padding: 35px 10px;
+  padding: var(--sz-1);
   color: #7F8177;
   text-align: center;
 }

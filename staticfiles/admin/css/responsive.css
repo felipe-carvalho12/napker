@@ -13,7 +13,7 @@ input[type="submit"], button {
     }
 
     td, th {
-        padding: 10px;
+        padding: var(--sz-1);
         font-size: 14px;
     }
 
@@ -28,18 +28,18 @@ input[type="submit"], button {
     }
 
     #content {
-        padding: 20px 30px 30px;
+        padding: var(--sz-5);
     }
 
     div.breadcrumbs {
-        padding: 10px 30px;
+        padding: var(--sz-5);
     }
 
     /* Header */
 
     #header {
         flex-direction: column;
-        padding: 15px 30px;
+        padding: var(--sz-5);
         justify-content: flex-start;
     }
 
@@ -95,7 +95,7 @@ input[type="submit"], button {
 
     #changelist #toolbar {
         border: none;
-        padding: 15px;
+        padding: var(--sz-2);
     }
 
     #changelist-search > div {
@@ -123,7 +123,7 @@ input[type="submit"], button {
     #changelist .actions {
         display: flex;
         flex-wrap: wrap;
-        padding: 15px 0;
+        padding: var(--sz-2) 0;
     }
 
     #changelist .actions.selected {
@@ -205,12 +205,12 @@ input[type="submit"], button {
     fieldset .fieldBox {
         float: none;
         margin: 0 -10px;
-        padding: 0 10px;
+        padding: var(--sz-1);
     }
 
     fieldset .fieldBox + .fieldBox {
         margin-top: 10px;
-        padding-top: 10px;
+        padding-top: var(--sz-1);
         border-top: 1px solid #eee;
     }
 
@@ -290,7 +290,7 @@ input[type="submit"], button {
         height: 52px;
         padding: 2px 0;
         margin: auto 15px;
-        border-radius: 10px;
+        border-radius: var(--b-r);
         transform: translateY(-10px);
     }
 
@@ -430,7 +430,7 @@ input[type="submit"], button {
     /* Login */
 
     .login #header {
-        padding: 15px 20px;
+        padding: var(--sz-2);
     }
 
     .login #branding h1 {
@@ -466,7 +466,7 @@ input[type="submit"], button {
     /* Layout */
 
     #header, #content, #footer {
-        padding: 15px;
+        padding: var(--sz-2);
     }
 
     #footer:empty {
@@ -474,7 +474,7 @@ input[type="submit"], button {
     }
 
     div.breadcrumbs {
-        padding: 10px 15px;
+        padding: var(--sz-1);
     }
 
     /* Dashboard */
@@ -493,7 +493,7 @@ input[type="submit"], button {
     }
 
     #content-related .module h2 {
-        padding: 10px 15px;
+        padding: var(--sz-1);
         font-size: 16px;
     }
 
@@ -506,7 +506,7 @@ input[type="submit"], button {
 
     #changelist #toolbar {
         order: 1;
-        padding: 10px;
+        padding: var(--sz-1);
     }
 
     #changelist .xfull {
@@ -564,7 +564,7 @@ input[type="submit"], button {
     /* Forms */
 
     .form-row {
-        padding: 15px 0;
+        padding: var(--sz-2) 0;
     }
 
     .aligned .form-row,
@@ -588,7 +588,7 @@ input[type="submit"], button {
 
     fieldset .fieldBox + .fieldBox {
         margin-top: 15px;
-        padding-top: 15px;
+        padding-top: var(--sz-0);
     }
 
     fieldset.collapsed .form-row {
@@ -597,7 +597,7 @@ input[type="submit"], button {
 
     .aligned label {
         width: 100%;
-        padding: 0 0 10px;
+        padding: var(--sz-1);
     }
 
     .aligned label:after {
@@ -622,7 +622,7 @@ input[type="submit"], button {
 
     .aligned .vCheckboxLabel {
         flex: 1 0;
-        padding: 1px 0 0 5px;
+        padding: var(--sz-0);
     }
 
     .aligned label + p,
@@ -767,7 +767,7 @@ input[type="submit"], button {
     }
 
     .inline-group[data-inline-type="stacked"] .inline-related .module {
-        padding: 0 10px;
+        padding: var(--sz-1);
     }
 
     .inline-group[data-inline-type="stacked"] .inline-related .module .form-row:last-child {
@@ -775,7 +775,7 @@ input[type="submit"], button {
     }
 
     .inline-group[data-inline-type="stacked"] .inline-related h3 {
-        padding: 10px;
+        padding: var(--sz-1);
         border-top-width: 0;
         border-bottom-width: 2px;
         display: flex;
@@ -815,14 +815,14 @@ input[type="submit"], button {
     .inline-group div.add-row a,
     .inline-group .tabular tr.add-row td a {
         display: block;
-        padding: 8px 10px 8px 26px;
+        padding: var(--sz-1) 8px 26px;
         background-position: 8px 9px;
     }
 
     /* Submit row */
 
     .submit-row {
-        padding: 10px 10px 0;
+        padding: var(--sz-1) 0;
         margin: 0 0 15px;
         display: flex;
         flex-direction: column;
@@ -839,7 +839,7 @@ input[type="submit"], button {
     }
 
     .submit-row a.closelink {
-        padding: 10px 0;
+        padding: var(--sz-1) 0;
     }
 
     .submit-row p.deletelink-box {
@@ -864,13 +864,13 @@ input[type="submit"], button {
     /* Paginator */
 
     .paginator .this-page, .paginator a:link, .paginator a:visited {
-        padding: 4px 10px;
+        padding: var(--sz-1);
     }
 
     /* Login */
 
     body.login {
-        padding: 0 15px;
+        padding: var(--sz-1);
     }
 
     .login #container {
@@ -881,7 +881,7 @@ input[type="submit"], button {
 
     .login #header,
     .login #content {
-        padding: 15px;
+        padding: var(--sz-2);
     }
 
     .login #content-main {
@@ -904,7 +904,7 @@ input[type="submit"], button {
     }
 
     .login .submit-row {
-        padding: 15px 0 0;
+        padding: var(--sz-2) 0 0;
     }
 
     .login br, .login .submit-row label {
@@ -965,7 +965,7 @@ input[type="submit"], button {
     }
 
     .calendar-shortcuts {
-        padding: 10px 0;
+        padding: var(--sz-1) 0;
         font-size: 12px;
         line-height: 12px;
     }
@@ -980,15 +980,15 @@ input[type="submit"], button {
     }
 
     .calendar-cancel {
-        padding: 8px 10px;
+        padding: var(--sz-1);
     }
 
     .clockbox h2 {
-        padding: 8px 15px;
+        padding: var(--sz-1);
     }
 
     .calendar caption {
-        padding: 10px;
+        padding: var(--sz-1);
     }
 
     .calendarbox .calendarnav-previous, .calendarbox .calendarnav-next {

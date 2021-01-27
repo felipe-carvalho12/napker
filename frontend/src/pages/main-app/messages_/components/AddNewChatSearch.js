@@ -3,18 +3,17 @@ import React from 'react'
 import { SERVER_URL } from '../../../../config/settings'
 
 export default function AddNewChatSearch(props) {
-    const setModalProfiles = props.setModalProfiles
-    const setAddingNewChat = props.setAddingNewChat
+    const setAddingNewChatProfiles = props.setAddingNewChatProfiles
 
-    const setModalSearch = query => {
+    const setSearch = query => {
         if (query === '') {
-            setModalProfiles([])
+            setAddingNewChatProfiles([])
             return
         }
-        fetch(`${SERVER_URL}/profile-api/users/${query}`)
+        fetch(`${SERVER_URL}/profile-api/profiles/${query}`)
             .then(response => response.json())
             .then(data => {
-                setModalProfiles(data)
+                setAddingNewChatProfiles(data)
             })
     }
 
@@ -23,7 +22,7 @@ export default function AddNewChatSearch(props) {
             <input
                 className="search-input c-primary-grey contact-filter-input box-shadow"
                 placeholder="Nova conversa"
-                onChange={e => setModalSearch(e.target.value)}
+                onChange={e => setSearch(e.target.value)}
             />
         </>
     )

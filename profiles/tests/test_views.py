@@ -51,7 +51,7 @@ class TestViews(TestCase):
 
     
     def test_get_profile_view(self):
-        response = self.client.get(f'/profile-api/user/{self.test_user_2.profile.slug}')
+        response = self.client.get(f'/profile-api/user/{self.test_user_2.profile.user.username}')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data, ProfileSerializer(self.test_user_2.profile).data)
 

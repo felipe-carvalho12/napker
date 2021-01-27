@@ -175,7 +175,7 @@ input[type="range"]::-moz-range-track {
   /* Cor do indicador de rolagem */
   ::-webkit-scrollbar-thumb:vertical,
   ::-webkit-scrollbar-thumb:horizontal {
-    border-radius: 10px;
+    border-radius: var(--b-r);
     background-color: var(--secondary-color)
   }
   

@@ -14,11 +14,11 @@
     width: 60%;
     border: none;
     outline: none;
-    border-radius: 10px;
+    border-radius: var(--b-r);
     background: var(--primary-color-6);
     color: var(--primary-grey);
     margin-bottom: 20px;
-    padding: 10px 20px 10px 20px;
+    padding: var(--sz-2);
 }
 
 .settings-page-container input[type=password]:focus {
@@ -54,7 +54,7 @@
     position: sticky;
     z-index: 1;
     top: 0;
-    padding: 15px;
+    padding: var(--sz-2);
     text-align: center;
     background: var(--theme-base-color);
     border-bottom: 1px solid var(--border-color);
@@ -78,8 +78,8 @@
 .change-password-form {
     width: 100%;
     height: 60%;
-    padding: 20px 0;
-    border-radius: 10px;
+    padding: var(--sz-3) 0;
+    border-radius: var(--b-r);
 }
 
 .change-password-form button {
@@ -96,7 +96,7 @@
     justify-content: center;
     align-items: center;
     font-size: large;
-    padding: 20px 0;
+    padding: var(--sz-3) 0;
     color: var(--primary-grey);
 }
 
@@ -130,7 +130,7 @@
 }
 
 .faq-content details p {
-    padding: 0 25px 15px 25px;
+    padding: var(--sz-3);
     margin: 0;
     text-shadow: none;
     text-align: justify;
@@ -157,17 +157,14 @@
 }
 
 .feedback-form {
-    padding: 20px;
+    padding: var(--sz-3);
 }
 
 .feedback-form h3 {
     color: var(--primary-color);
 }
 .feedback-form .feedback-faces-container {
-    background: var(--body-background);
-    border-radius: 25px;
-    text-align: center;
-    padding: 20px;
+    padding: var(--sz-3);
 }
 
 .feedback-form .option-container {
@@ -193,7 +190,7 @@
 .feedback-form textarea {
     width: 100%;
     border: 1px solid var(--border-color);
-    border-radius: 10px;
-    padding: 10px;
+    border-radius: var(--b-r);
+    padding: var(--sz-1);
     outline: none;
 }

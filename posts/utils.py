@@ -5,12 +5,12 @@ from profiles.utils import *
 
 
 def get_post_relevance(profile, post):
-    authors = post.views.exclude(user=profile.user).all() if len(post.views.exclude(user=profile.user).all()) else [profile]
+    authors = post.details.views.exclude(user=profile.user).all() if len(post.details.views.exclude(user=profile.user).all()) else [profile]
     points = []
 
     author_points = process_authors_relevance(profile, authors)
 
-    likes_authors = [like.profile for like in post.all_likes().all()]
+    likes_authors = [like.profile for like in post.details.likes.all()]
 
     for i, author in enumerate(authors):
         if author in likes_authors:
@@ -29,7 +29,7 @@ def process_posts_relevance(profile, posts):
 
     WEIGHTS = raw_weights / np.sum(raw_weights)
 
-    authors = [post.author for post in posts]
+    authors = [post.details.author for post in posts]
 
     authors_relevance = process_authors_relevance(profile, authors) * WEIGHTS[0]
 
@@ -54,3 +54,4 @@ def sort_posts_by_relevance(profile, posts=None):
         return posts_by_relevance
     except:
         return []
+        

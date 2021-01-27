@@ -87,13 +87,13 @@
     color: var(--primary-color);
     display: none;
     margin: 0;
-    padding: 5px;
+    padding: var(--sz-0);
     font-size: large;
     font-weight: bold;
 }
 
 .tag-container {
-    border-radius: 10px;
+    border-radius: var(--b-r);
     background: var(--theme-base-color);
     box-shadow: 0 2px 15px rgba(0,0,0,.1);
     display: flex;
@@ -112,7 +112,7 @@
     width: fit-content;
     height: 30px;
     margin: 5px;
-    padding: 5px 6px;
+    padding: var(--sz-0) 6px;
     border-radius: 4px;
     background: rgba(128, 128, 128, 0.3);
     display: flex;
@@ -131,7 +131,7 @@
 }
 
 .tag-container textarea {
-    padding: 5px;
+    padding: var(--sz-0);
     font-size: 16px;
     outline: none;
     border: none;

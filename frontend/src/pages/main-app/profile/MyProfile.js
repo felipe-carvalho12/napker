@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import { SERVER_URL } from '../../../config/settings'
+import { MyProfileContext } from '../../../context/app/AppContext'
 import Header from '../../../components/fixed/Header'
 import EditProfile from './components/edit-profile/EditProfile'
 import Posts from './components/Posts'
@@ -11,22 +11,12 @@ import BottomMenu from '../../../components/fixed/bottom-menu/BottomMenu'
 
 
 export default function MyProfile() {
-    const [myProfile, setProfile] = useState(null)
+    const [myProfile, updateMyProfile] = useContext(MyProfileContext)
     const [currentPageIsPosts, setCurrentPageIsPosts] = useState(true)
     const [isEditing, setIsEditing] = useState(false)
     const isMobile = visualViewport.width <= 980
 
     document.title = 'Perfil / Napker'
-
-    useEffect(() => {
-        fetchProfile()
-    }, [])
-
-    const fetchProfile = () => {
-        fetch(`${SERVER_URL}/profile-api/myprofile`)
-            .then(response => response.json())
-            .then(data => setProfile(data))
-    }
 
     const switchPage = e => {
         document.querySelectorAll('.profile-page-menu-item-active').forEach(el => {
@@ -73,7 +63,6 @@ export default function MyProfile() {
                             profile={myProfile}
                             isOpen={isEditing}
                             closeModal={() => setIsEditing(false)}
-                            fetchProfile={fetchProfile}
                         />
 
                         <ProfileData profile={myProfile}>
@@ -92,7 +81,7 @@ export default function MyProfile() {
                             </div>
                         </ProfileData>
                         {currentPageIsPosts ?
-                            <Posts profile={myProfile} fetchProfile={fetchProfile} />
+                            <Posts profile={myProfile} fetchProfile={updateMyProfile} />
                             :
                             <Interests profile={myProfile} />
                         }

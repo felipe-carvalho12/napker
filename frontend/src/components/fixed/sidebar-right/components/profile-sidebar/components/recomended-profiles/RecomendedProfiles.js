@@ -10,13 +10,13 @@ import InfoIcon from '../../../InfoIcon'
 export default function RecomendedProfiles(props) {
     const [recomendedProfiles, setRecomendedProfiles] = useState(null)
     const myProfile = props.myProfile
-    const profileSlug = props.profileSlug
+    const username = props.username
 
     const [infoModalIsOpen, setInfoModalIsOpen] = useState(false)
 
     useEffect(() => {
-        if (profileSlug) {
-            fetch(`${SERVER_URL}/profile-api/profile-list/${profileSlug}`)
+        if (username) {
+            fetch(`${SERVER_URL}/profile-api/profile-list/${username}`)
                 .then(response => response.json())
                 .then(data => setRecomendedProfiles(data))
         }
@@ -24,7 +24,7 @@ export default function RecomendedProfiles(props) {
 
     return (
         <>
-            <InfoModal isOpen={infoModalIsOpen} hideModal={() => setInfoModalIsOpen(false)} profileSlug={profileSlug} />
+            <InfoModal isOpen={infoModalIsOpen} hideModal={() => setInfoModalIsOpen(false)} username={username} />
             <div className="d-flex flex-column justify-content-start align-items-start" style={{ marginTop: 'var(--header-heigth)', padding: '10px' }}>
                 <InfoIcon className="align-self-end" onClick={() => setInfoModalIsOpen(true)} />
                 <div style={{ width: '100%' }}>

@@ -2,7 +2,7 @@
     background: var(--primary-color)!important;
     color: var(--background)!important;
     border: 1px solid rgba(0, 0, 0, 0.1)!important;
-    border-radius: 10px;
+    border-radius: var(--b-r);
     font-weight: bold!important;
 }
   
@@ -10,13 +10,13 @@
     background: rgba(0, 0, 0, 0)!important;
     color: var(--primary-color)!important;
     border: 1px solid var(--primary-color)!important;
-    padding: 5px 10px;
-    border-radius: 10px!important;
+    padding: var(--sz-0) var(--sz-1);
+    border-radius: var(--b-r)!important;
     font-weight: bold!important;
 }
   
 .left-arrow-icon, .add-icon {
-    padding: 10px;
+    padding: var(--sz-1);
     margin-right: 10px;
     color: var(--primary-color);
     border-radius: 50%;
@@ -27,7 +27,7 @@
     background: var(--secondary-color);
     color: var(--primary-grey);
     border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
+    border-radius: var(--b-r);
     font-weight: bold;
 }
 

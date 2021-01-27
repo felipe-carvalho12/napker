@@ -22,12 +22,12 @@ export default function SignupForm(props) {
     useEffect(() => {
         usernameRef.current.addEventListener('keyup', () => {
             if (usernameRef.current.value !== '') {
-                fetch(`${SERVER_URL}/profile-api/user/${usernameRef.current.value}`)
+                fetch(`${SERVER_URL}/profile-api/username-is-taken/${usernameRef.current.value}`)
                     .then(response => response.json())
                     .then(data => {
-                        if (data.bool !== 'false') {
+                        if (data) {
                             document.querySelector('#username-taken').style.display = 'initial'
-                        } else if (document.querySelector('#username-taken').style.display === 'initial') {
+                        } else {
                             document.querySelector('#username-taken').style.display = 'none'
                         }
                     })
@@ -36,10 +36,10 @@ export default function SignupForm(props) {
 
         emailRef.current.addEventListener('keyup', () => {
             if (emailRef.current.value !== '') {
-                fetch(`${SERVER_URL}/profile-api/profile-by-email/${emailRef.current.value}`)
+                fetch(`${SERVER_URL}/profile-api/email-is-taken/${emailRef.current.value}`)
                     .then(response => response.json())
                     .then(data => {
-                        if (data.bool !== 'false') {
+                        if (data) {
                             document.querySelector('#email-taken').style.display = 'initial'
                         } else if (document.querySelector('#email-taken').style.display === 'initial') {
                             document.querySelector('#email-taken').style.display = 'none'

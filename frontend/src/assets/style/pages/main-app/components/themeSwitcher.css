@@ -10,7 +10,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 5px;
+	padding: var(--sz-0);
 	position: relative;
 	height: 26px;
     width: 50px;
@@ -55,7 +55,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 5px;
+	padding: var(--sz-0);
 	position: relative;
 	height: 26px;
     width: 50px;

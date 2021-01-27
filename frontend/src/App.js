@@ -43,7 +43,7 @@ export default function App() {
                 
                 {isLogged !== null ?
                     <Route path="/">
-                        {isLogged === 'True' ?
+                        {isLogged ?
                             <MainAppRouter />
                             :
                             <AuthRouter />

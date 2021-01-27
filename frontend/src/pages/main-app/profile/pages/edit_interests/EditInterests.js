@@ -1,24 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 
 import { SERVER_URL } from '../../../../../config/settings'
 import { csrftoken } from '../../../../../config/utils'
+import { MyProfileContext } from '../../../../../context/app/AppContext'
 import Header from '../../../../../components/fixed/Header'
 import PublicInterests from './components/PublicInterests'
 import PrivateInterests from './components/PrivateInterests'
 import BottomMenu from '../../../../../components/fixed/bottom-menu/BottomMenu'
 
+
+let [publicInterests, setPublicInterests] = [null, value => publicInterests = value]
+let [privateInterests, setPrivateInterests] = [null, value => privateInterests = value]
+
 export default function EditInterests() {
-    const [myProfile, setMyProfile] = useState(null)
-    let [publicInterests, setPublicInterests] = [null, value => publicInterests = value]
-    let [privateInterests, setPrivateInterests] = [null, value => privateInterests = value]
+    const [myProfile, updateMyProfile] = useContext(MyProfileContext)
 
     const isMobile = visualViewport.width <= 980
-
-    useEffect(() => {
-        fetch(`${SERVER_URL}/profile-api/myprofile`)
-            .then(response => response.json())
-            .then(data => setMyProfile(data))
-    }, [])
 
     const submitInterests = () => {
         fetch(`${SERVER_URL}/profile-api/set-myinterests`, {
@@ -28,8 +25,8 @@ export default function EditInterests() {
                 'X-CSRFToken': csrftoken,
             },
             body: JSON.stringify({
-                public_interests: publicInterests.sort(),
-                private_interests: privateInterests.sort()
+                'public-interests': publicInterests.sort(),
+                'private-interests': privateInterests.sort()
             })
         })
             .then(response => response.json())
@@ -37,6 +34,7 @@ export default function EditInterests() {
                 console.log(data)
                 document.querySelector('#interests-updated-message').style.display = 'block'
                 document.documentElement.scrollTop = 0
+                updateMyProfile()
             })
     }
 
@@ -46,7 +44,7 @@ export default function EditInterests() {
                 page="Meus interesses"
                 backArrow={true}
                 className="b-theme-base-color box-med blur-20px"
-                style={{ top: "1vw", padding: "0 20px 0", zIndex: "1000" }}
+                style={{ top: "1vw", padding: "var(--sz-2)", zIndex: "1000" }}
             />
             <div className={`sidebar-content ${isMobile ? 'pb-mobile' : ''}`}>
                 {myProfile ?
@@ -66,11 +64,9 @@ export default function EditInterests() {
                             </p>
                         </div>
                         <PublicInterests
-                            myProfile={myProfile}
                             setInterests={setPublicInterests}
                         />
                         <PrivateInterests
-                            myProfile={myProfile}
                             setInterests={setPrivateInterests}
                         />
                     </div> :

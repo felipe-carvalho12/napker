@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 
 import PostTextbox from './components/post-textbox/PostTextbox'
@@ -7,21 +7,21 @@ import InterestsInfoModal from './components/InterestsInfoModal'
 
 import { SERVER_URL } from '../../../../../../config/settings'
 import { csrftoken } from '../../../../../../config/utils'
+import { MyProfileContext } from '../../../../../../context/app/AppContext'
 import InterestsInput from '../../../../profile/pages/edit_interests/components/InterestsInput'
 import InfoIcon from '../../../../../../components/fixed/sidebar-right/components/InfoIcon'
 
 
 export default function PostForm(props) {
-    const myProfile = props.myProfile
     const usePosts = props.usePosts || (() => [null, null])
     const type = props.type === undefined ? 'post' : props.type
-    const postId = props.postId
-    const parentComment = props.parentComment
+    const parent = props.parent
     const hideForm = props.hideForm
-    const color = props.level
 
     const isMobile = visualViewport.width <= 980
     const renderParent = props.renderParent
+
+    const [myProfile, updateMyProfile] = useContext(MyProfileContext)
 
     const history = useHistory()
 
@@ -110,22 +110,29 @@ export default function PostForm(props) {
 
         document.querySelector(`#${isMobile ? 'mobile' : 'desktop'}-post-form-submit-btn`).disabled = true
 
-        fetch(`${SERVER_URL}/post-api/create-${type === 'post' ? type : 'comment'}`, {
+        if (type === 'post') {
+            var body = {
+                'content': postContent,
+                'post-image': postFormImagePreview,
+                'post-video': getEmbedVideoUrl() || '',
+                'tagged-usernames': taggedUsernames,
+                'interests': postInterests
+            }
+        } else {
+            var body = {
+                'content': postContent,
+                'parent-id': parent.details.id,
+                'tagged-usernames': taggedUsernames
+            }
+        }
+
+        fetch(`${SERVER_URL}/post-api/create-${type}`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
                 'X-CSRFToken': csrftoken,
             },
-            body: JSON.stringify({
-                'content': postContent,
-                'post-id': postId || '',
-                'parent-comment-id': parentComment ? parentComment.id : '',
-                'type': type,
-                'post-image': postFormImagePreview || '',
-                'post-video': getEmbedVideoUrl() || '',
-                'tagged-usernames': taggedUsernames,
-                'interests': postInterests
-            })
+            body: JSON.stringify(body)
         })
             .then(response => response.json())
             .then(data => {
@@ -143,6 +150,7 @@ export default function PostForm(props) {
                 setPostFormImagePreview('')
                 setVideoUrl('')
                 setIsAdvanced(false)
+                updateMyProfile()
             })
     }
 
@@ -186,7 +194,7 @@ export default function PostForm(props) {
                                 <PostTextbox
                                     editable={true}
                                     isAdvanced={isAdvanced}
-                                    placeholder={parentComment ? `Responder ${parentComment.author.first_name}` : "O que passa pela sua cabeça?"}
+                                    placeholder={type === 'comment' ? `Responder ${parent.details.author.first_name}` : "O que passa pela sua cabeça?"}
                                     setEmojiSelector={setEmojiSelector}
                                     setToolbar={setToolbar}
                                     setPostContent={setPostContent}

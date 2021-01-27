@@ -64,12 +64,15 @@ export const setTheme = () => {
   const cssVariables = document.documentElement.style
   const theme = window.localStorage.getItem('theme') || 'light'
 
-  const colorVariants = ["-0", "-1", "-2", "-3", "-4", "-5", "-6", "-7"]
-  const variantWeights = [0.8 , 0.6 , 0.4 , 0.20, 0.16, 0.12, 0.08, 0.04]
+  //Colors
 
   const toRgb = value => `rgba(${value})`
 
-  const toCss = (cssVar, defaultVar, theme) => {
+  const rgbToCss = (cssVar, defaultVar, theme) => {
+
+    const colorVariants = ["-0", "-1", "-2", "-3", "-4", "-5", "-6", "-7"]
+    const variantWeights = [0.8 , 0.6 , 0.4 , 0.20, 0.16, 0.12, 0.08, 0.04]
+
     let data = ((window.localStorage.getItem(`${cssVar},${theme}`) && window.localStorage.getItem(`${theme}-switch`) === "true") ?  
                     window.localStorage.getItem(`${cssVar},${theme}`) 
                     : 
@@ -78,14 +81,14 @@ export const setTheme = () => {
 
     data = data.map(val => parseFloat(val))
 
-    cssVariables.setProperty(cssVar, toRgb(toString(data[0], data[1], data[2], data[3])))
-    cssVariables.setProperty(cssVar + "-hover", toRgb(toString(hoverFormula(data[0]), hoverFormula(data[1]), hoverFormula(data[2]), data[3])))
+    cssVariables.setProperty(cssVar, toRgb(rgbToString(data[0], data[1], data[2], data[3])))
+    cssVariables.setProperty(cssVar + "-hover", toRgb(rgbToString(hoverFormula(data[0]), hoverFormula(data[1]), hoverFormula(data[2]), data[3])))
     for (let i in colorVariants) {
-      cssVariables.setProperty(cssVar + colorVariants[i], toRgb(toString(data[0], data[1], data[2], variantWeights[i] * data[3])))
+      cssVariables.setProperty(cssVar + colorVariants[i], toRgb(rgbToString(data[0], data[1], data[2], variantWeights[i] * data[3])))
     }
   }
 
-  const toString = (redValue, greenValue, blueValue, opacityValue) => {
+  const rgbToString = (redValue, greenValue, blueValue, opacityValue) => {
     return `${String(redValue)},${String(greenValue)},${String(blueValue)},${String(opacityValue)}`
   }
 
@@ -97,13 +100,38 @@ export const setTheme = () => {
     )
   }
 
+  //Variables
+
+  const varToCss = (cssVar, defaultVar, theme) => {
+
+    
+    const sizeVariants = ["-0", "-1", "-2", "-3", "-4", "-5"]
+    const variantSizes = [0.5, 1, 2, 3, 4, 5]
+
+    let data = parseInt((window.localStorage.getItem(`${cssVar},${theme}`) && window.localStorage.getItem(`${theme}-switch`) === "true") ?  
+                window.localStorage.getItem(`${cssVar},${theme}`) 
+                : 
+                defaultVar
+               )
+
+    for (let i in sizeVariants) {
+      cssVariables.setProperty(cssVar + sizeVariants[i], String(data * variantSizes[i]) + "px")
+    }
+
+    cssVariables.setProperty(cssVar, data + "px")
+  }
+
+  //Apply
+
   if (theme === 'light') {
-    toCss('--primary-color'              ,          "0  , 192, 136, 1   ", 'light')
-    toCss('--background'                 ,          "235, 235, 235, 1   ", 'light')
-    toCss('--primary-grey'               ,          "000, 000, 000,  .90", 'light')
-    toCss('--secondary-grey'             ,          "000, 000, 000,  .60", 'light')
-    toCss('--theme-base-color'           ,          "255, 255, 255,  .60", 'light')
-    toCss('--fixed-components-background',          "255, 255, 255,  .60", 'light')
+    varToCss('--sz',                                                    "10", 'light')
+    varToCss('--b-r',                                                   "10", 'light')
+    rgbToCss('--primary-color'              ,          "0  , 192, 136, 1   ", 'light')
+    rgbToCss('--background'                 ,          "235, 235, 235, 1   ", 'light')
+    rgbToCss('--primary-grey'               ,          "000, 000, 000,  .90", 'light')
+    rgbToCss('--secondary-grey'             ,          "000, 000, 000,  .60", 'light')
+    rgbToCss('--theme-base-color'           ,          "255, 255, 255,  .60", 'light')
+    rgbToCss('--fixed-components-background',          "255, 255, 255,  .60", 'light')
     cssVariables.setProperty('--border-color'               ,                 'var(--w-08)')
     cssVariables.setProperty('--b-c'                        ,                 'var(--b-04)')
     cssVariables.setProperty('--b-w-10'                     ,                 'var(--w-10)')
@@ -118,12 +146,14 @@ export const setTheme = () => {
     cssVariables.setProperty('--img-background-hover'       ,           'rgba(0, 0, 0, .8)')
 
   } else if (theme === 'dark') {
-    toCss('--primary-color'              ,          '  0, 192, 136, 1   ', 'dark')
-    toCss('--background'                 ,          '051, 051, 051, 1   ', 'dark')
-    toCss('--primary-grey'               ,          '255, 255, 255,  .90', 'dark')
-    toCss('--secondary-grey'             ,          '255, 255, 255,  .70', 'dark')
-    toCss('--theme-base-color'           ,          '255, 255, 255,  .04', 'dark')
-    toCss('--fixed-components-background',          '255, 255, 255,  .04', 'dark')
+    varToCss('--sz',                                                    "10", 'dark')
+    varToCss('--b-r',                                                   "10", 'dark')
+    rgbToCss('--primary-color'              ,          '  0, 192, 136, 1   ', 'dark')
+    rgbToCss('--background'                 ,          '051, 051, 051, 1   ', 'dark')
+    rgbToCss('--primary-grey'               ,          '255, 255, 255,  .90', 'dark')
+    rgbToCss('--secondary-grey'             ,          '255, 255, 255,  .70', 'dark')
+    rgbToCss('--theme-base-color'           ,          '255, 255, 255,  .04', 'dark')
+    rgbToCss('--fixed-components-background',          '255, 255, 255,  .04', 'dark')
     cssVariables.setProperty('--border-color'               ,                 'var(--w-00)')
     cssVariables.setProperty('--b-c'                        ,                 'var(--w-04)')
     cssVariables.setProperty('--b-w-10'                     ,                 'var(--b-10)')

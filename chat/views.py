@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404
 
-from profiles.serializers import Profile, ProfileSerializer
+from profiles.serializers import Profile, Profile01Serializer
 from .models import Chat, Contact
 from .serializers import ChatSerializer
 
@@ -51,7 +51,7 @@ def get_active_chats_profiles(request):
     for chat in ordered_chats:
         for participant in chat.participants.exclude(user=contact.user):
             profiles.append(Profile.objects.get(user=participant.user))
-    profiles_serializer = ProfileSerializer(profiles, many=True)
+    profiles_serializer = Profile01Serializer(profiles, many=True)
     chats_serializer = ChatSerializer(ordered_chats, many=True)
     return Response({
         'profiles': profiles_serializer.data,

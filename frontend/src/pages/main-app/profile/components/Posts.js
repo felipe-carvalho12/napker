@@ -1,36 +1,23 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 
-import { SERVER_URL } from '../../../../config/settings'
+import { MyProfileContext } from '../../../../context/app/AppContext'
 import LikesModal from '../../../../components/LikesModal'
 import PostListItem from '../../../../components/PostListItem'
 
 export default function Posts(props) {
-    const [myProfile, setMyProfile] = useState(null)
-    const [likesModal, setLikesModal] = useState({ isOpen: false, likes: null })
+    const [myProfile,] = useContext(MyProfileContext)
+    const [likesModalIsOpen, setLikesModalIsOpen] = useState(false)
+    const [likesModalItems, setLikesModalItems] = useState(null)
     const profile = props.profile
 
     const isMobile = visualViewport.width <= 980
 
-    useEffect(() => {
-        fetch(`${SERVER_URL}/profile-api/myprofile`)
-            .then(response => response.json())
-            .then(data => setMyProfile(data))
-    }, [])
-
-    const hideLikesModal = () => {
-        setLikesModal({
-            isOpen: false,
-            likes: null
-        })
-    }
-
-
     return (
         <>
             <LikesModal
-                isOpen={likesModal.isOpen}
-                likes={likesModal.likes}
-                hideModal={hideLikesModal}
+                isOpen={likesModalIsOpen}
+                likes={likesModalItems}
+                hideModal={() => setLikesModalIsOpen(false)}
             />
             <div className={`d-flex flex-column justify-content-start align-items-center w-100 ${isMobile ? 'pb-mobile' : ''}`}>
                 {profile && myProfile ?
@@ -41,7 +28,8 @@ export default function Posts(props) {
                                     post={post}
                                     myProfile={myProfile}
                                     renderParent={props.fetchProfile}
-                                    openLikesModal={likes => setLikesModal({ isOpen: true, likes: likes })}
+                                    openLikesModal={() => setLikesModalIsOpen(true)}
+                                    setLikesModalItems={likes => setLikesModalItems(likes)}
                                 />
                             )
                         }) :

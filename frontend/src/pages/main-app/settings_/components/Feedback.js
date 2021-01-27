@@ -1,19 +1,16 @@
-import React, { useEffect, useState } from 'react'
-import SettingsContent from './components/SettingsContent'
-import { SERVER_URL } from '../../../../config/settings'
+import React, { useContext } from 'react'
+
+import { SERVER_URL, DEBUG } from '../../../../config/settings'
 import { csrftoken } from '../../../../config/utils'
+import { MyProfileContext } from '../../../../context/app/AppContext'
+import SettingsContent from './components/SettingsContent'
 
 
 export default function Feedback() {
-    const [name, setName] = useState(null)
+    const [myProfile,] = useContext(MyProfileContext)
+    const name = myProfile ? myProfile.first_name : null
 
     let selectedRating = -1
-
-    useEffect(() => {
-        fetch(`${SERVER_URL}/profile-api/myprofile`)
-            .then(response => response.json())
-            .then(data => setName(data.first_name))
-    }, [])
 
     const handleFaceMouseEnter = e => {
         const img = e.target
@@ -47,8 +44,12 @@ export default function Feedback() {
     }
 
     const thankYouPage = () => {
-        document.querySelector('.feedback-form > h3').innerHTML = `Muito obrigado${name !== null ? (`, ${name}`) : ''}!`
-        document.querySelector('.feedback-faces-container').innerHTML = 'A sua mensagem ajudará o Napker ser uma plataforma ainda melhor! Caso pense em mais alguma coisa, sinta-se à vontade para entrar em contato novamente.'
+        document.querySelector('.feedback-form h6').innerHTML = `Muito obrigado${name !== null ? (`, ${name}`) : ''}!`
+        
+        document.querySelector('.feedback-faces-container').innerHTML = `
+        A sua mensagem ajudará o Napker ser uma plataforma ainda melhor!
+        Caso pense em mais alguma coisa, sinta-se à vontade para entrar em contato novamente.`
+
         document.querySelector('.textarea-container').innerHTML = "<img src='/static/media/feedback-faces/thankyou.png'/>"
     }
 
@@ -70,7 +71,7 @@ export default function Feedback() {
                 })
             })
                 .then(response => response.json())
-                .then(data => console.log(data))
+                .then(data => DEBUG && console.log(data))
             thankYouPage()
         }
     }
@@ -78,9 +79,9 @@ export default function Feedback() {
     return (
         <SettingsContent title="Nos ajude a melhorar" padding={10} mobileFontSize={21} >
             <div className="primary-form feedback-form">
-                <div className="feedback-faces-container">
+                <div>
                     <h6>Como está sendo a sua experiência no Napker até agora?</h6>
-                    <div className="d-flex justify-content-center">
+                    <div className="d-flex justify-content-center feedback-faces-container">
                         <div className="option-container">
                             <img
                                 src="/static/media/feedback-faces/5bw.png"
@@ -133,7 +134,7 @@ export default function Feedback() {
                         </div>
                     </div>
                 </div>
-                 
+
                 <div className="d-flex flex-column align-items-center textarea-container">
                     <textarea
                         class='autoExpand focus b-background'

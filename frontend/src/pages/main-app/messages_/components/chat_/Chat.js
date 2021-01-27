@@ -39,7 +39,7 @@ class Chat extends React.Component {
 
     handleComponentChange = () => {
         if (this.state.otherUsername && (!this.state.otherProfile || this.state.otherProfile.user.username !== this.state.otherUsername)) {
-            fetch(`${SERVER_URL}/profile-api/user/${this.state.otherUsername}`)
+            fetch(`${SERVER_URL}/profile-api/profile02/${this.state.otherUsername}`)
                 .then(response => response.json())
                 .then(data => this.setState({
                     otherProfile: data
@@ -186,7 +186,7 @@ class Chat extends React.Component {
                             >
                                 <div className="current-chat-header b-t-r-r b-b">
                                     <i class="fas fa-arrow-left left-arrow-icon d-none" onClick={() => window.history.back()} />
-                                    <Link to={`/user/${this.state.otherProfile.slug}`}>
+                                    <Link to={`/user/${this.state.otherProfile.user.username}`}>
                                         <img src={this.state.otherProfile.photo}
                                             className="profile-img-sm"
                                             style={{ marginRight: '5px' }}

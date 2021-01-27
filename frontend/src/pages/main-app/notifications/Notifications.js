@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
-import { SERVER_URL } from '../../../config/settings'
+import { SERVER_URL, DEBUG } from '../../../config/settings'
 import { csrftoken } from '../../../config/utils'
+import { MyProfileContext } from '../../../context/app/AppContext'
 import Header from '../../../components/fixed/Header'
 import InviteNotification from './components/InviteNotification'
 import PostNotification from './components/post-notification/PostNotification'
@@ -13,6 +14,7 @@ let didVisualizedComments = false
 let notificationsFetchInterval
 
 export default function Notifications(props) {
+    const [, updateMyProfile] = useContext(MyProfileContext)
     const [invites, setInvites] = useState(null)
     const [postNotifications, setPostNotifications] = useState(null)
     const isMobile = visualViewport.width <= 980
@@ -23,9 +25,11 @@ export default function Notifications(props) {
         fetch(`${SERVER_URL}/profile-api/myinvites`)
             .then(response => response.json())
             .then(data => setInvites(data))
+        console.log(invites)
         fetch(`${SERVER_URL}/post-api/post-notifications`)
             .then(response => response.json())
             .then(data => setPostNotifications(data))
+        console.log(postNotifications)
     }
 
     useEffect(() => {
@@ -58,22 +62,22 @@ export default function Notifications(props) {
     const replyRequest = e => {
         e.stopPropagation()
         const btn = e.target
-        const requestBody = {
-            'senderid': btn.dataset.senderid,
-            'reply': btn.dataset.reply
-        }
         fetch(`${SERVER_URL}/profile-api/reply-friend-request`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
                 'X-CSRFToken': csrftoken,
             },
-            body: JSON.stringify(requestBody)
+            body: JSON.stringify({
+                'senderid': btn.dataset.senderid,
+                'reply': btn.dataset.reply
+            })
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data)
+                DEBUG && console.log(data)
                 props.updateNotificationsNumber()
+                updateMyProfile()
             })
         document.getElementById(`fr-${btn.dataset.senderid}`).remove()
         fetchNotifications()
@@ -85,10 +89,10 @@ export default function Notifications(props) {
                 <Header
                     page="Notificações"
                     className="b-theme-base-color box-med blur-20px"
-                    style={{ position: "sticky", top: "1vw", padding: "0 20px 0", zIndex: "1000", borderRadius: '0' }}
+                    style={{ position: "sticky", top: "1vw", padding: "var(--sz-2)", zIndex: "1000", borderRadius: '0' }}
                 />
                 :
-                <div className="b-theme-base-color box-med blur-20px" style={{ position: "sticky", top: "1vw", padding: "0 20px 0", zIndex: "1000" }}>
+                <div className="b-theme-base-color box-med blur-20px" style={{ position: "sticky", top: "1vw", padding: "0 var(--sz-2)", zIndex: "1000" }}>
                     <Header page="Notificações" />
                 </div>
             }
