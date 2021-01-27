@@ -108,7 +108,7 @@ export default function PostListItem(props) {
             id={`profile-post-${post.details.id}`}
             key={post.details.id}
             style={{ ...props.style, background: 'var(--theme-base-color)', marginBottom: type === 'comment' && '10px', padding: "0" }}
-            onClick={() => isLink && history.push(`/post/${post.details.id}`)}
+            onClick={() => isLink && history.push(`/post/${post.id}`)}
         >
             {type !== 'post' &&
                 <div style={{ marginLeft: "10px", width: "5px", background: color !== undefined ? color : "var(--background)" }} />
