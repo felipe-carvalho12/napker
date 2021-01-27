@@ -49,7 +49,7 @@ class Profile02Serializer(serializers.ModelSerializer):
 
 
 class LikeSerializer(serializers.ModelSerializer):
-    author = Profile01Serializer
+    author = Profile01Serializer()
 
     class Meta:
         model = Like
@@ -62,26 +62,16 @@ class PublicationDetails01Serializer(serializers.ModelSerializer):
     class Meta:
         model = PublicationDetails
         fields = ['id', 'author', 'created', 'comments_length', 'likes_profile_id']
-
-
-class CommentSerializer(serializers.ModelSerializer):
-    details = PublicationDetails01Serializer()
-
-    class Meta:
-        model = PublicationDetails
-        fields = ['author', 'comments']
-
     
 class PublicationDetails02Serializer(serializers.ModelSerializer):
-    author = Profile01Serializer
-    comments = RecursiveField(many=True)
+    author = Profile01Serializer()
 
     class Meta:
         model = PublicationDetails
-        fields = ['author', 'comments']
+        fields = ['id', 'author', 'layer', 'created', 'comments_length', 'likes_profile_id']
 
 class PublicationDetails03Serializer(serializers.ModelSerializer):
-    author = Profile01Serializer
+    author = Profile01Serializer()
     likes = LikeSerializer(many=True)
     comments = PublicationDetails02Serializer(many=True)
 
@@ -89,13 +79,23 @@ class PublicationDetails03Serializer(serializers.ModelSerializer):
         model = PublicationDetails
         fields = ['author', 'likes', 'comments']
 
+
+class CommentSerializer(serializers.ModelSerializer):
+    details = PublicationDetails02Serializer()
+    first_layer_comments = RecursiveField(many=True)
+
+    class Meta:
+        model = Comment
+        fields = ['details', 'content', 'first_layer_comments']
+
+
 class PublicationDetails04Serializer(serializers.ModelSerializer):
     author = Profile01Serializer()
-    first_layer_comments = PublicationDetails02Serializer(many=True)
+    first_layer_comments = CommentSerializer(many=True)
 
     class Meta:
         model = PublicationDetails
-        fields = ['author', 'created', 'comments_length', 'likes_profile_id', 'first_layer_comments']
+        fields = ['id', 'author', 'created', 'comments_length', 'likes_profile_id', 'first_layer_comments']
 
 
 class Post01Serializer(serializers.ModelSerializer):

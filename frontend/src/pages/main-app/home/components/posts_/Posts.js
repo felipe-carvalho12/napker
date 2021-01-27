@@ -14,7 +14,8 @@ export default function Posts() {
 
     const [myProfile,] = useContext(MyProfileContext)
     const [posts, setPosts] = useState(null)
-    const [likesModal, setLikesModal] = useState({ isOpen: false, likes: null })
+    const [likesModalIsOpen, setLikesModalIsOpen] = useState(false)
+    const [likesModalItems, setLikesModalItems] = useState(null)
 
     let scrollCount = 1
 
@@ -49,9 +50,9 @@ export default function Posts() {
     return (
         <>
             <LikesModal
-                isOpen={likesModal.isOpen}
-                likes={likesModal.likes}
-                hideModal={() => setLikesModal({ isOpen: false, likes: null })}
+                isOpen={likesModalIsOpen}
+                likes={likesModalItems}
+                hideModal={() => setLikesModalIsOpen(false)}
             />
             {myProfile &&
                 <div className="feed-create-post-form box-med b-theme-base-color b-vw-t">
@@ -66,8 +67,8 @@ export default function Posts() {
                                 post={post}
                                 myProfile={myProfile}
                                 renderParent={fetchPosts}
-                                openLikesModal={() => setLikesModal({ isOpen: true, likes: likesModal.likes })}
-                                setLikesModalItems={likes => setLikesModal({ isOpen: likesModal.isOpen, likes: likes })}
+                                openLikesModal={() => setLikesModalIsOpen(true)}
+                                setLikesModalItems={likes => setLikesModalItems(likes)}
                             />
                         )
                     })

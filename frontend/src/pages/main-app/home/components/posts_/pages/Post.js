@@ -15,7 +15,8 @@ export default function Post() {
 
     const [post, setPost] = useState(null)
     const [displayingForm, setDisplayingForm] = useState(false)
-    const [likesModal, setLikesModal] = useState({ isOpen: false, likes: null })
+    const [likesModalIsOpen, setLikesModalIsOpen] = useState(false)
+    const [likesModalItems, setLikesModalItems] = useState(null)
 
     const { id } = useParams()
 
@@ -35,9 +36,9 @@ export default function Post() {
     return (
         <div className="content-container">
             <LikesModal
-                isOpen={likesModal.isOpen}
-                likes={likesModal.likes}
-                hideModal={() => setLikesModal({ isOpen: false, likes: likesModal.likes })}
+                isOpen={likesModalIsOpen}
+                likes={likesModalItems}
+                hideModal={() => setLikesModalIsOpen(false)}
             />
             <Header
                 page="Post"
@@ -54,8 +55,8 @@ export default function Post() {
                             isLink={false}
                             renderParent={fetchPost}
                             showHideForm={() => setDisplayingForm(!displayingForm)}
-                            openLikesModal={() => setLikesModal({ isOpen: true, likes: likesModal.likes })}
-                            setLikesModalItems={likes => setLikesModal({ isOpen: likesModal.isOpen, likes: likes })}
+                            openLikesModal={() => setLikesModalIsOpen(true)}
+                            setLikesModalItems={likes => setLikesModalItems(likes)}
                             style={{ borderTopLeftRadius: '0', borderTopRightRadius: '0' }}
                         />
                         <div className="mt-10px">
@@ -72,12 +73,11 @@ export default function Post() {
                             {post.details.first_layer_comments.map(comment => {
                                 return (
                                     <CommentListItem
-                                        post={post}
                                         comment={comment}
                                         myProfile={myProfile}
                                         renderParent={fetchPost}
-                                        openLikesModal={() => setLikesModal({ isOpen: true, likes: likesModal.likes })}
-                                        setLikesModalItems={likes => setLikesModal({ isOpen: likesModal.isOpen, likes: likes })}
+                                        openLikesModal={() => setLikesModalIsOpen(true)}
+                                        setLikesModalItems={likes => setLikesModalItems(likes)}
                                         style={{ borderLeft: "5px solid var(--background)" }}
                                     />
                                 )

@@ -42,8 +42,8 @@ def get_post(request, post_id):
 @api_view(['GET'])
 def get_likes(request, publication_id):
     publication = PublicationDetails.objects.get(id=publication_id)
-    serializer = Profile01Serializer(publication.likes_profiles(), many=True)
-
+    serializer = Profile01Serializer(publication.likes_profiles, many=True)
+    
     return Response(serializer.data)
 
 
@@ -59,6 +59,7 @@ def interest_post_list(request, interest):
     serializer = Post01Serializer(posts, many=True)
 
     return Response(serializer.data)
+
 
 @api_view(['GET'])
 def explore_post_list(request):
@@ -183,7 +184,7 @@ def create_comment(request):
     parent = PublicationDetails.objects.get(id=request.data['parent-id'])
 
     details = PublicationDetails.objects.create(author=profile, layer=parent.layer + 1)
-    comment = Comment.objects.create(details=details, parent=parent)
+    comment = Comment.objects.create(details=details, parent=parent, content=raw_content)
 
     for hashtag_title in hashtags:
             hashtag, created = Hashtag.objects.get_or_create(title=hashtag_title.lower())
