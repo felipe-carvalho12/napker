@@ -165,7 +165,7 @@ export default class SimpleMentionEditor extends Component {
         const { EmojiSuggestions } = this.emojiPlugin
 
         return (
-            <div className="w-100" style={{ textAlign: 'start' }} onClick={this.focus}>
+            <div className="w-100" style={{ textAlign: 'start' }} onClick={this.focus}>{console.log(this.state.mentions)}
                 <div
                     className="border-0 pb-0 c-primary-grey post-textbox"
                     style={{ width: '90%', padding: "var(--sz-1)", outline: 'none' }}

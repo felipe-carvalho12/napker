@@ -9,13 +9,13 @@ import TermsOfUseModal from './components/TermsOfUseModal'
 import PrivacyPoliciesModal from './components/PrivacyPoliciesModal'
 
 
+let [publicInterests, setPublicInterests] = [null, value => publicInterests = value]
+let [privateInterests, setPrivateInterests] = [null, value => privateInterests = value]
+
 export default function InterestsForm(props) {
     const [errMessage, setErrMessage] = useState(null)
     const [termsIsOpen, setTermsIsOpen] = useState(false)
     const [privacyPoliciesISOpen, setPrivacyPoliciesIsOPen] = useState(false)
-
-    let [publicInterests, setPublicInterests] = [null, value => publicInterests = value]
-    let [privateInterests, setPrivateInterests] = [null, value => privateInterests = value]
 
     const handleSubmit = e => {
         e.preventDefault()
