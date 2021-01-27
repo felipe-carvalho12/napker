@@ -177,9 +177,9 @@ def button_label(request, username):
 
     if other_user.profile in Invitation.objects.friends(profile):
         return Response('Amigos')
-    if other_user.profile in Invitation.objects.invitations_received(profile):
+    if other_user.profile in [i.details.sender for i in Invitation.objects.invitations_received(profile)]:
         return Response('Aceitar')
-    if other_user.profile in Invitation.objects.invitations_sent(profile):
+    if other_user.profile in [i.details.receiver for i in Invitation.objects.invitations_sent(profile)]:
         return Response('Solicitado')
 
     return Response('Solicitar')
