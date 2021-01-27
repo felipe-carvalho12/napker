@@ -59,6 +59,8 @@ export default function CommentListItem(props) {
                         comment={c}
                         myProfile={myProfile}
                         renderParent={renderParent}
+                        openLikesModal={props.openLikesModal}
+                        setLikesModalItems={props.setLikesModalItems}
                     />
                 )
             })

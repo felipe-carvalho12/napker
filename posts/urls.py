@@ -13,7 +13,7 @@ urlpatterns = [
     path('visualize-comments', visualize_comments),
     path('create-post', create_post),
     path('create-comment', create_comment),
-    path('delete-publication/<int:post_id>', delete_publication),
+    path('delete-publication/<int:publication_id>', delete_publication),
     path('like-publication/<int:publication_id>', like_publication),
     path('unlike-publication/<int:publication_id>', unlike_publication),
     path('get-mentions', get_mentions),
