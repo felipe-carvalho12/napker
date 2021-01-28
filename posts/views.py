@@ -75,16 +75,62 @@ def explore_post_list(request):
     serializer = Post01Serializer(posts, many=True)
     return Response(serializer.data)
 
+
+
 @api_view(['GET'])
-def publication_notifications(request):
+def publication_notification_number(request):
+    profile = request.user.profile
+    counter = 0
+    now = datetime.datetime.now()
+    now = pytz.utc.localize(now)
+
+    for publication in profile.publications.all():
+
+        likes = []
+        comments = []
+        for like in publication.likes.all():
+            if (like.profile != profile) and (not like.visualized or now - datetime.timedelta(2) < like.updated):
+                likes.append(like)
+        if hasattr(publication, 'post'):
+            for comment in publication.comments.all():
+                if (comment.details.author != profile) and (not comment.visualized or now - datetime.timedelta(2) < comment.details.updated):
+                    comments.append(comment)
+        elif hasattr(publication, 'comment'):
+            for comment in publication.first_layer_comments:
+                if (comment.details.author != profile) and (not comment.visualized or now - datetime.timedelta(2) < comment.details.updated):
+                    comments.append(comment)
+
+        if hasattr(publication, 'post') and hasattr(publication.post, 'notification'):
+            publication.post.notification.details.notifications_number = len([like for like in likes if not like.visualized]) + len([comment for comment in comments if not comment.visualized])
+            publication.post.notification.details.save()
+
+            counter += publication.post.notification.details.notifications_number
+        elif hasattr(publication, 'comment') and hasattr(publication.comment, 'notification'):
+            publication.comment.notification.details.notifications_number = len([like for like in likes if not like.visualized]) + len([comment for comment in comments if not comment.visualized])
+            publication.comment.notification.details.save()
+
+            counter += publication.comment.notification.details.notifications_number
+        
+    return Response(counter)
+
+
+
+@api_view(['GET'])
+def post_notifications(request):
     profile = request.user.profile
     publications = PublicationDetails.objects.filter(author=profile)
     notifications = []
     now = datetime.datetime.now()
     now = pytz.utc.localize(now)
 
-    for publication in publications:
-        notification, created = Notification.objects.get_or_create(publication=publication)
+    for publication in [pub for pub in publications.all() if hasattr(pub, 'post')]:
+        if NotificationDetails.objects.filter(post_notification__post=publication.post).exists():
+            notification_details = NotificationDetails.objects.get(post_notification__post=publication.post)
+            notification = notification_details.post_notification
+        else:
+            notification_details = NotificationDetails.objects.create()
+            notification = PostNotification.objects.create(details=notification_details, post=publication.post)
+
         likes = []
         comments = []
         for like in publication.likes.all():
@@ -94,13 +140,49 @@ def publication_notifications(request):
             if (comment.details.author != profile) and (not comment.visualized or now - datetime.timedelta(2) < comment.details.updated):
                 comments.append(comment)
 
-        notification.notifications_number = len([like for like in likes if not like.visualized]) + len([comment for comment in comments if not comment.visualized])
-        notification.save()
+        notification_details.notifications_number = len([like for like in likes if not like.visualized]) + len([comment for comment in comments if not comment.visualized])
+        notification_details.save()
 
         if len(likes) or len(comments):
             notifications.append(notification)
 
-    serializer = NotificationSerializer(notifications, many=True)
+    serializer = PostNotificationsSerializer(notifications, many=True)
+
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def comment_notifications(request):
+    profile = request.user.profile
+    publications = PublicationDetails.objects.filter(author=profile)
+    notifications = []
+    now = datetime.datetime.now()
+    now = pytz.utc.localize(now)
+
+    for publication in [pub for pub in publications.all() if hasattr(pub, 'comment')]:
+        if NotificationDetails.objects.filter(comment_notification__comment=publication.comment).exists():
+            notification_details = NotificationDetails.objects.get(comment_notification__comment=publication.comment)
+            notification = notification_details.comment_notification
+        else:
+            notification_details = NotificationDetails.objects.create()
+            notification = CommentNotification.objects.create(details=notification_details, comment=publication.comment)
+
+        likes = []
+        comments = []
+        for like in publication.likes.all():
+            if (like.profile != profile) and (not like.visualized or now - datetime.timedelta(2) < like.updated):
+                likes.append(like)
+        for comment in publication.comments.all():
+            if (comment.details.author != profile) and (not comment.visualized or now - datetime.timedelta(2) < comment.details.updated):
+                comments.append(comment)
+
+        notification_details.notifications_number = len([like for like in likes if not like.visualized]) + len([comment for comment in comments if not comment.visualized])
+        notification_details.save()
+
+        if len(likes) or len(comments):
+            notifications.append(notification)
+
+    serializer = CommentNotificationsSerializer(notifications, many=True)
 
     return Response(serializer.data)
 
@@ -197,7 +279,7 @@ def create_comment(request):
             comment.tagged_users.add(user)
             comment.save()
 
-    serializer = CommentSerializer(comment)
+    serializer = Comment01Serializer(comment)
     return Response(serializer.data)
 
 

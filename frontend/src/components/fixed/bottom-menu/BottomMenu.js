@@ -2,16 +2,16 @@ import React, { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
 
 import {
-    InvitesReceivedContext, PostNotificationsContext, UnreadMessagesContext
+    InvitesReceivedContext, PublicationNotificationsContext, UnreadMessagesContext
 } from '../../../context/app/AppContext'
 
 export default function BottomMenu(props) {
     const [invitesReceivedNumber,] = useContext(InvitesReceivedContext)
-    const [postNotifications,] = useContext(PostNotificationsContext)
+    const [publicationNotifications,] = useContext(PublicationNotificationsContext)
 
     const [unreadMessagesNumber,] = useContext(UnreadMessagesContext)
 
-    let notificationsNumber = invitesReceivedNumber + postNotifications
+    let notificationsNumber = invitesReceivedNumber + publicationNotifications
 
     return (
         <>

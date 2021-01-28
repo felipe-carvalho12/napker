@@ -7,6 +7,7 @@ import PostTextbox from '../../../../home/components/posts_/components/component
 
 export default function NotificationContent(props) {
     const type = props.type
+    const publicationType = props.publicationType
     const arr = props.arr
     const commentContentFormatter = props.commentContentFormatter ? props.commentContentFormatter : false
 
@@ -66,7 +67,7 @@ export default function NotificationContent(props) {
                                             {" • "}
                                             <Link to={`/user/${author.user.username}`} style={{ color: "var(--primary-grey)" }}>
                                                 @{author.user.username}
-                                            </Link> {type === 'likes' ? 'curtiu' : 'comentou'} seu post.
+                                            </Link> {type === 'likes' ? 'curtiu' : 'comentou'} seu {publicationType === 'post' ? publicationType : 'comentário'}.
                                         </p>
                                     </div>
                                     {item.content &&

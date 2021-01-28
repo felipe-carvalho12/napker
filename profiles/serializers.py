@@ -49,11 +49,11 @@ class Profile02Serializer(serializers.ModelSerializer):
 
 
 class LikeSerializer(serializers.ModelSerializer):
-    author = Profile01Serializer()
+    profile = Profile01Serializer()
 
     class Meta:
         model = Like
-        fields = ['author', 'created']
+        fields = ['profile', 'created']
 
 
 class PublicationDetails01Serializer(serializers.ModelSerializer):
@@ -77,10 +77,10 @@ class PublicationDetails03Serializer(serializers.ModelSerializer):
 
     class Meta:
         model = PublicationDetails
-        fields = ['author', 'likes', 'comments']
+        fields = ['author', 'likes', 'comments', 'created']
 
 
-class CommentSerializer(serializers.ModelSerializer):
+class Comment01Serializer(serializers.ModelSerializer):
     details = PublicationDetails02Serializer()
     first_layer_comments = RecursiveField(many=True)
 
@@ -88,10 +88,18 @@ class CommentSerializer(serializers.ModelSerializer):
         model = Comment
         fields = ['details', 'content', 'first_layer_comments']
 
+class Comment02Serializer(serializers.ModelSerializer):
+    details = PublicationDetails02Serializer()
+    comments = RecursiveField(source='first_layer_comments', many=True)
+
+    class Meta:
+        model = Comment
+        fields = ['details', 'content', 'comments']
+
 
 class PublicationDetails04Serializer(serializers.ModelSerializer):
     author = Profile01Serializer()
-    first_layer_comments = CommentSerializer(many=True)
+    first_layer_comments = Comment01Serializer(many=True)
 
     class Meta:
         model = PublicationDetails
@@ -103,10 +111,17 @@ class Post01Serializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ['details', 'content', 'video', 'image']
+        fields = ['id', 'details', 'content', 'video', 'image']
 
 class Post02Serializer(serializers.ModelSerializer):
     details = PublicationDetails04Serializer()
+
+    class Meta:
+        model = Post
+        fields = ['id', 'details', 'content', 'video', 'image']
+
+class Post03Serializer(serializers.ModelSerializer):
+    details = PublicationDetails03Serializer()
 
     class Meta:
         model = Post
@@ -181,9 +196,23 @@ class RelationshipDetailsSerializer(serializers.ModelSerializer):
 # ----------------------------------------------------------------------
 
 
-class NotificationSerializer(serializers.ModelSerializer):
-    details = PublicationDetails01Serializer()
+class NotificationDetailsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = NotificationDetails
+        fields = '__all__'
+
+class PostNotificationsSerializer(serializers.ModelSerializer):
+    details = NotificationDetailsSerializer()
+    post = Post03Serializer()
 
     class Meta:
-        model = Notification
+        model = PostNotification
+        fields = '__all__'
+
+class CommentNotificationsSerializer(serializers.ModelSerializer):
+    details = NotificationDetailsSerializer()
+    comment = Comment02Serializer()
+
+    class Meta:
+        model = CommentNotification
         fields = '__all__'

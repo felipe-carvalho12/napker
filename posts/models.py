@@ -42,6 +42,7 @@ class PublicationDetails(models.Model):
     def comments_length(self):
         return len(self.comments.all())
 
+    @property
     def first_layer_comments(self):
         return self.comments.all()
     
@@ -91,6 +92,15 @@ class Comment(models.Model):
         return self.details.comments.all()
 
 
-class Notification(models.Model):
-    publication = models.OneToOneField(PublicationDetails, on_delete=models.CASCADE, related_name='notification')
-    notifications_number = models.IntegerField(default=0) 
+class NotificationDetails(models.Model):
+    notifications_number = models.IntegerField(default=0)
+
+
+class PostNotification(models.Model):
+    details = models.OneToOneField(NotificationDetails, related_name='post_notification', on_delete=models.CASCADE)
+    post = models.OneToOneField(Post, related_name='notification', on_delete=models.CASCADE)
+
+
+class CommentNotification(models.Model):
+    details = models.OneToOneField(NotificationDetails, related_name='comment_notification', on_delete=models.CASCADE)
+    comment = models.OneToOneField(Comment, related_name='notification', on_delete=models.CASCADE)

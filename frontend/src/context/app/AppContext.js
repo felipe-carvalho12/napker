@@ -1,18 +1,18 @@
 import React from 'react'
 
 import { InvitesReceivedContext, InvitesReceivedProvider } from './invites-received-number/InvitesReceivedContext'
-import { PostNotificationsContext, PostNotificationsProvider } from './post-notifications-number/PostNotificationsContext'
+import { PublicationNotificationsContext, PublicationNotificationsProvider } from './publication-notifications-number/PublicationNotificationsContext'
 import { UnreadMessagesContext, UnreadMessagesProvider } from './unread-messages-number/UnreadMessagesContext'
 import { AlgorithmWeightsContext, AlgorithmWeightsProvider } from './algorithm-weights/AlgorithmWeightsContext'
 import { ThemeContext, ThemeContextProvider } from './theme-context/ThemeContext'
 import { MyProfileContext, MyProfileProvider } from './myprofile/MyProfileContext'
-export { ThemeContext, InvitesReceivedContext, PostNotificationsContext, UnreadMessagesContext, AlgorithmWeightsContext, MyProfileContext }
+export { ThemeContext, InvitesReceivedContext, PublicationNotificationsContext, UnreadMessagesContext, AlgorithmWeightsContext, MyProfileContext }
 
 export default function AppContextProvider(props) {
     return (
         <ThemeContextProvider>
             <InvitesReceivedProvider>
-                <PostNotificationsProvider>
+                <PublicationNotificationsProvider>
                     <UnreadMessagesProvider>
                         <AlgorithmWeightsProvider>
                             <MyProfileProvider>
@@ -20,7 +20,7 @@ export default function AppContextProvider(props) {
                             </MyProfileProvider>
                         </AlgorithmWeightsProvider>
                     </UnreadMessagesProvider>
-                </PostNotificationsProvider>
+                </PublicationNotificationsProvider>
             </InvitesReceivedProvider>
         </ThemeContextProvider>
     )

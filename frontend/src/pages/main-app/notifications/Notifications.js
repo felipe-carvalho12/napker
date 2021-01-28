@@ -5,7 +5,7 @@ import { csrftoken } from '../../../config/utils'
 import { MyProfileContext } from '../../../context/app/AppContext'
 import Header from '../../../components/fixed/Header'
 import InviteNotification from './components/InviteNotification'
-import PostNotification from './components/post-notification/PostNotification'
+import PublicationNotification from './components/post-notification/PublicationNotification'
 import BottomMenu from '../../../components/fixed/bottom-menu/BottomMenu'
 
 
@@ -17,6 +17,7 @@ export default function Notifications(props) {
     const [, updateMyProfile] = useContext(MyProfileContext)
     const [invites, setInvites] = useState(null)
     const [postNotifications, setPostNotifications] = useState(null)
+    const [commentNotifications, setCommentNotifications] = useState(null)
     const isMobile = visualViewport.width <= 980
 
     document.title = 'Notificações / Napker'
@@ -25,11 +26,12 @@ export default function Notifications(props) {
         fetch(`${SERVER_URL}/profile-api/myinvites`)
             .then(response => response.json())
             .then(data => setInvites(data))
-        console.log(invites)
         fetch(`${SERVER_URL}/post-api/post-notifications`)
             .then(response => response.json())
             .then(data => setPostNotifications(data))
-        console.log(postNotifications)
+        fetch(`${SERVER_URL}/post-api/comment-notifications`)
+            .then(response => response.json())
+            .then(data => setCommentNotifications(data))
     }
 
     useEffect(() => {
@@ -98,9 +100,9 @@ export default function Notifications(props) {
             }
             <div className="content m-vw-x">
                 <div>
-                    {invites !== null && postNotifications !== null ?
+                    {invites !== null && postNotifications !== null && commentNotifications !== null ?
                         <div>
-                            {invites.length || postNotifications.length ?
+                            {invites.length || postNotifications.length || commentNotifications.length ?
                                 <div className="notifications-container">
                                     {!!invites.length &&
                                         <div>
@@ -120,7 +122,17 @@ export default function Notifications(props) {
                                         <div>
                                             {postNotifications.map(notification => {
                                                 return (
-                                                    <PostNotification notification={notification} />
+                                                    <PublicationNotification type="post" notification={notification} />
+                                                )
+                                            })}
+                                        </div>
+                                    }
+
+                                    {!!commentNotifications.length &&
+                                        <div>
+                                            {commentNotifications.map(notification => {
+                                                return (
+                                                    <PublicationNotification type="comment" notification={notification} />
                                                 )
                                             })}
                                         </div>
