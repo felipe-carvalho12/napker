@@ -86,30 +86,18 @@ def publication_notification_number(request):
 
     for publication in profile.publications.all():
 
-        likes = []
-        comments = []
-        for like in publication.likes.all():
-            if (like.profile != profile) and (not like.visualized or now - datetime.timedelta(2) < like.updated):
-                likes.append(like)
-        if hasattr(publication, 'post'):
-            for comment in publication.comments.all():
-                if (comment.details.author != profile) and (not comment.visualized or now - datetime.timedelta(2) < comment.details.updated):
-                    comments.append(comment)
-        elif hasattr(publication, 'comment'):
-            for comment in publication.first_layer_comments:
-                if (comment.details.author != profile) and (not comment.visualized or now - datetime.timedelta(2) < comment.details.updated):
-                    comments.append(comment)
+        notifications_number = len(publication.likes.filter(visualized=False).exclude(profile=profile)) + len(publication.comments.filter(visualized=False).exclude(details__author=profile))
 
         if hasattr(publication, 'post') and hasattr(publication.post, 'notification'):
-            publication.post.notification.details.notifications_number = len([like for like in likes if not like.visualized]) + len([comment for comment in comments if not comment.visualized])
+            publication.post.notification.details.notifications_number = notifications_number
             publication.post.notification.details.save()
 
-            counter += publication.post.notification.details.notifications_number
+            counter += notifications_number
         elif hasattr(publication, 'comment') and hasattr(publication.comment, 'notification'):
-            publication.comment.notification.details.notifications_number = len([like for like in likes if not like.visualized]) + len([comment for comment in comments if not comment.visualized])
+            publication.comment.notification.details.notifications_number =  notifications_number
             publication.comment.notification.details.save()
 
-            counter += publication.comment.notification.details.notifications_number
+            counter += notifications_number
         
     return Response(counter)
 

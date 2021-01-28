@@ -63,7 +63,7 @@ export default function NotificationContent(props) {
                                             />
                                         </Link>
                                         <p className="text-secondary d-inline-block" style={{ margin: '0' }}>
-                                            {renderTimestamp(item.created)}
+                                            {renderTimestamp(type === 'likes' ? item.created : item.details.created)}
                                             {" • "}
                                             <Link to={`/user/${author.user.username}`} style={{ color: "var(--primary-grey)" }}>
                                                 @{author.user.username}
