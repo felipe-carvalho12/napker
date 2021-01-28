@@ -88,14 +88,6 @@ class Comment01Serializer(serializers.ModelSerializer):
         model = Comment
         fields = ['details', 'content', 'first_layer_comments']
 
-class Comment02Serializer(serializers.ModelSerializer):
-    details = PublicationDetails02Serializer()
-    comments = RecursiveField(source='first_layer_comments', many=True)
-
-    class Meta:
-        model = Comment
-        fields = ['details', 'content', 'comments']
-
 
 class PublicationDetails04Serializer(serializers.ModelSerializer):
     author = Profile01Serializer()
@@ -104,6 +96,24 @@ class PublicationDetails04Serializer(serializers.ModelSerializer):
     class Meta:
         model = PublicationDetails
         fields = ['id', 'author', 'created', 'comments_length', 'likes_profile_id', 'first_layer_comments']
+
+
+class PublicationDetails05Serializer(serializers.ModelSerializer):
+    author = Profile01Serializer()
+    likes = LikeSerializer(many=True)
+
+    class Meta:
+        model = PublicationDetails
+        fields = ['author', 'likes', 'created']
+
+
+class Comment02Serializer(serializers.ModelSerializer):
+    details = PublicationDetails05Serializer()
+    comments = RecursiveField(source='first_layer_comments', many=True)
+
+    class Meta:
+        model = Comment
+        fields = ['details', 'content', 'comments']
 
 
 class Post01Serializer(serializers.ModelSerializer):

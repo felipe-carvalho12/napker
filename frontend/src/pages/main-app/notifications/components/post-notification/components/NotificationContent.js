@@ -39,12 +39,12 @@ export default function NotificationContent(props) {
                     >
                         keyboard_arrow_right</i>
                 }
-                <span className="p-2">{type === 'likes' ? 'Curtidas' : 'Comentários'} ({arr.length})</span>
+                <span className="p-2">{type === 'likes' ? 'Curtidas' : publicationType === 'post' ? 'Comentários' : 'Respostas'} ({arr.length})</span>
             </div>
             {isOpen &&
                 <div style={{ marginLeft: '20px' }}>
                     {arr.map(item => {
-                        const author = item.author || item.profile
+                        const author = item.profile || item.details.author
 
                         return (
                             <li
