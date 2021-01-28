@@ -17,6 +17,8 @@ export default function PublicationNotification(props) {
         var publication = notification.comment
     }
 
+    const comments = (type === 'post' ? publication.details.comments : publication.comments)
+
     const isMobile = visualViewport.width <= 980
     const parsedContent = JSON.parse(publication.content)
 
@@ -49,7 +51,7 @@ export default function PublicationNotification(props) {
 
     useEffect(() => {
         renderLabel(publication.details.likes, 'like')
-        renderLabel(publication.details.comments, 'comment')
+        renderLabel(comments, 'comment')
     }, [props.notification])
 
     const renderLabel = (arr, type_) => {
@@ -59,7 +61,7 @@ export default function PublicationNotification(props) {
         const len = arr.length < 3 ? arr.length : 3
 
         for (let i = 0; i < len; i++) {
-            const author = arr[i].author || arr[i].profile
+            const author = arr[i].profile || arr[i].details.author
             if (type_ === 'comment') {
                 var typeLabel = arr.length === 1 ? type === 'post' ? 'comentou' : 'respondeu' : type === 'post' ? 'comentaram' : 'responderam'
             } else if (type_ === 'like') {
@@ -116,7 +118,7 @@ export default function PublicationNotification(props) {
                                     {!!publication.details.likes.length &&
                                         <span className="mr-1" id={`${notification.id}like`}></span>
                                     }
-                                    {!!publication.details.comments.length &&
+                                    {!!comments.length &&
                                         <span className="mr-1" id={`${notification.id}comment`}></span>
                                     }
                                 </div>
@@ -125,7 +127,7 @@ export default function PublicationNotification(props) {
                     </div>
                 </div>
                 <NotificationContent type='likes' publicationType={type} arr={publication.details.likes} />
-                <NotificationContent type='comments' publicationType={type} arr={publication.details.comments} commentContentFormatter={publicationContentFormatter} />
+                <NotificationContent type='comments' publicationType={type} arr={comments} commentContentFormatter={publicationContentFormatter} />
             </li>
         </div>
     )
