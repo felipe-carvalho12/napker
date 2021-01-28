@@ -55,7 +55,7 @@ export default function PublicationNotification(props) {
     }, [props.notification])
 
     const renderLabel = (arr, type_) => {
-        const el = document.getElementById(`${notification.id}${type_}`)
+        const el = document.getElementById(`${notification.details.id}${type_}`)
         if (!el) return
         let str = ''
         const len = arr.length < 3 ? arr.length : 3
@@ -81,7 +81,7 @@ export default function PublicationNotification(props) {
         <div>
             <li
                 className="d-flex flex-column w-100"
-                key={notification.id}
+                key={notification.details.id}
             >
                 <div
                     className="d-flex flex-column w-100 base-hover b-theme-base-color box-sm"
@@ -116,10 +116,10 @@ export default function PublicationNotification(props) {
                             <div className="d-flex justify-content-between w-100">
                                 <div className="d-flex align-items-start mb-10px notification-authors-container">
                                     {!!publication.details.likes.length &&
-                                        <span className="mr-1" id={`${notification.id}like`}></span>
+                                        <span className="mr-1" id={`${notification.details.id}like`}></span>
                                     }
                                     {!!comments.length &&
-                                        <span className="mr-1" id={`${notification.id}comment`}></span>
+                                        <span className="mr-1" id={`${notification.details.id}comment`}></span>
                                     }
                                 </div>
                             </div>
