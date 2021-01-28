@@ -41,25 +41,25 @@ export default function Notifications(props) {
     }, [])
 
     useEffect(() => {
-        if (!didVisualizedLikes && postNotifications && postNotifications[0] && postNotifications[0].likes && postNotifications[0].likes.length) {
+        if (!didVisualizedLikes && postNotifications && postNotifications[0]) {
             fetch(`${SERVER_URL}/post-api/visualize-likes`)
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data)
+                    DEBUG && console.log(data)
                     didVisualizedLikes = true
                     props.updateNotificationsNumber()
                 })
         }
-        if (!didVisualizedComments && postNotifications && postNotifications[0] && postNotifications[0].comments && postNotifications[0].comments.length) {
+        if (!didVisualizedComments && postNotifications && postNotifications[0]) {
             fetch(`${SERVER_URL}/post-api/visualize-comments`)
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data)
+                    DEBUG && console.log(data)
                     didVisualizedComments = true
                     props.updateNotificationsNumber()
                 })
         }
-    }, [postNotifications])
+    }, [postNotifications, commentNotifications])
 
     const replyRequest = e => {
         e.stopPropagation()
