@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 
 import { renderTimestamp, getThumbnailSrc } from '../../../../../config/utils'
@@ -6,16 +6,23 @@ import NotificationContent from './components/NotificationContent'
 import PostTextbox from '../../../home/components/posts_/components/components/post-textbox/PostTextbox'
 
 
-export default function PostNotification(props) {
+export default function PublicationNotification(props) {
     const notification = props.notification
-    const post = notification.post
+    const type = props.type
+
+    if (type === 'post') {
+        var publication = notification.post
+    }
+    else if (type === 'comment') {
+        var publication = notification.comment
+    }
 
     const isMobile = visualViewport.width <= 980
-    const parsedContent = JSON.parse(post.content)
+    const parsedContent = JSON.parse(publication.content)
 
     const history = useHistory()
 
-    const postContentFormatter = rawContent => {
+    const publicationContentFormatter = rawContent => {
         const blocks = rawContent.blocks
         const length = blocks.reduce((total, block) => total + block.text.length, 0)
 
@@ -37,32 +44,31 @@ export default function PostNotification(props) {
 
         rawContent.blocks = formattedBlocks
 
-        console.log(formattedBlocks, rawContent)
-
         return rawContent
     }
 
     useEffect(() => {
-        renderLabel(notification.likes, 'like')
-        renderLabel(notification.comments, 'comment')
+        renderLabel(publication.details.likes, 'like')
+        renderLabel(publication.details.comments, 'comment')
     }, [props.notification])
 
-    const renderLabel = (arr, type) => {
-        const el = document.getElementById(`${notification.id}${type}`)
+    const renderLabel = (arr, type_) => {
+        const el = document.getElementById(`${notification.id}${type_}`)
         if (!el) return
         let str = ''
         const len = arr.length < 3 ? arr.length : 3
 
         for (let i = 0; i < len; i++) {
             const author = arr[i].author || arr[i].profile
-            if (type === 'comment') {
-                var typeLabel = arr.length === 1 ? 'comentou' : 'comentaram'
-            } else if (type === 'like') {
+            if (type_ === 'comment') {
+                var typeLabel = arr.length === 1 ? type === 'post' ? 'comentou' : 'respondeu' : type === 'post' ? 'comentaram' : 'responderam'
+            } else if (type_ === 'like') {
                 var typeLabel = arr.length === 1 ? 'curtiu' : 'curtiram'
             }
+            const publicationType = type === 'post' ? type : 'comentário.'
             str += `
             <strong>@${author.user.username}</strong>
-            ${i < len - 1 ? ', ' : (arr.length > 3 ? 'e outras <strong>' + (arr.length - 3).toString() + '</strong> pessoas ' : '') + typeLabel + ' seu post. '}
+            ${i < len - 1 ? ', ' : (arr.length > 3 ? 'e outras <strong>' + (arr.length - 3).toString() + '</strong> pessoas ' : '') + typeLabel + ' seu ' + publicationType}
             `
         }
 
@@ -78,13 +84,13 @@ export default function PostNotification(props) {
                 <div
                     className="d-flex flex-column w-100 base-hover b-theme-base-color box-sm"
                     style={{ padding: "var(--sz-1)" }}
-                    onClick={() => history.push(`/post/${post.id}`)}
+                    onClick={() => history.push(`/post/${publication.id}`)}
                 >
                     <div className="d-flex justify-content-between align-items-center mb-10px">
-                        <Link to={`/post/${post.id}`}>
-                            <strong style={{ fontSize: "20px", color: "var(--primary-grey)" }}>POST</strong>
+                        <Link to={`/post/${publication.id}`}>
+                            <strong style={{ fontSize: "20px", color: "var(--primary-grey)" }}>{type === 'post' ? 'POST' : 'COMENTÁRIO'}</strong>
                         </Link>
-                        <span>{renderTimestamp(post.created)}</span>
+                        <span>{renderTimestamp(publication.details.created)}</span>
                     </div>
                     <div className="d-flex">
                         <div className="d-flex flex-column justify-content-between w-100">
@@ -94,23 +100,23 @@ export default function PostNotification(props) {
                                         <PostTextbox
                                             editable={false}
                                             postContent={parsedContent}
-                                            contentFormatter={postContentFormatter}
+                                            contentFormatter={publicationContentFormatter}
                                         />
                                     </span>
                                 }
-                                {post.image &&
-                                    <img src={post.image} className="mb-10px" style={{ maxWidth: '100px', maxHeight: '100px', borderRadius: '20px' }} />
+                                {publication.image &&
+                                    <img src={publication.image} className="mb-10px" style={{ maxWidth: '100px', maxHeight: '100px', borderRadius: '20px' }} />
                                 }
-                                {post.video &&
-                                    <img src={getThumbnailSrc(post.video)} className="mb-10px" style={{ maxWidth: '200px', maxHeight: '150px', borderRadius: '20px' }} />
+                                {publication.video &&
+                                    <img src={getThumbnailSrc(publication.video)} className="mb-10px" style={{ maxWidth: '200px', maxHeight: '150px', borderRadius: '20px' }} />
                                 }
                             </div>
                             <div className="d-flex justify-content-between w-100">
                                 <div className="d-flex align-items-start mb-10px notification-authors-container">
-                                    {!!notification.publication.likes.length &&
+                                    {!!publication.details.likes.length &&
                                         <span className="mr-1" id={`${notification.id}like`}></span>
                                     }
-                                    {!!notification.publication.comments.length &&
+                                    {!!publication.details.comments.length &&
                                         <span className="mr-1" id={`${notification.id}comment`}></span>
                                     }
                                 </div>
@@ -118,8 +124,8 @@ export default function PostNotification(props) {
                         </div>
                     </div>
                 </div>
-                <NotificationContent type='likes' arr={notification.publication.likes} />
-                <NotificationContent type='comments' arr={notification.publication.comments} commentContentFormatter={postContentFormatter} />
+                <NotificationContent type='likes' publicationType={type} arr={publication.details.likes} />
+                <NotificationContent type='comments' publicationType={type} arr={publication.details.comments} commentContentFormatter={publicationContentFormatter} />
             </li>
         </div>
     )

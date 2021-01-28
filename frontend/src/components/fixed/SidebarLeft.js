@@ -2,18 +2,18 @@ import React, { useContext } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 
 import {
-    InvitesReceivedContext, PostNotificationsContext, UnreadMessagesContext
+    InvitesReceivedContext, PublicationNotificationsContext, UnreadMessagesContext
 } from '../../context/app/AppContext'
 import Logo from '../../assets/icons/Logo'
 import ThemeSwitcher from '../ThemeSwitcher'
 
 export default function Sidebar() {
     const [invitesReceivedNumber,] = useContext(InvitesReceivedContext)
-    const [postNotifications,] = useContext(PostNotificationsContext)
+    const [publicationNotifications,] = useContext(PublicationNotificationsContext)
 
     const [unreadMessagesNumber,] = useContext(UnreadMessagesContext)
 
-    let notificationsNumber = invitesReceivedNumber + postNotifications
+    let notificationsNumber = invitesReceivedNumber + publicationNotifications
 
     return (
         <div className="sidebar left-s">

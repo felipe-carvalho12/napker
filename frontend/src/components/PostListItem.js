@@ -90,6 +90,7 @@ export default function PostListItem(props) {
                 .then(data => {
                     DEBUG && console.log(data)
                     renderParent !== undefined && renderParent()
+                    history.push('/home')
                 })
         }
     }
