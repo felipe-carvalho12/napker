@@ -61,14 +61,14 @@ class PublicationDetails01Serializer(serializers.ModelSerializer):
 
     class Meta:
         model = PublicationDetails
-        fields = ['id', 'author', 'created', 'comments_length', 'likes_profile_id']
+        fields = ['id', 'author', 'created', 'all_comments_length', 'likes_profile_id']
     
 class PublicationDetails02Serializer(serializers.ModelSerializer):
     author = Profile01Serializer()
 
     class Meta:
         model = PublicationDetails
-        fields = ['id', 'author', 'layer', 'created', 'comments_length', 'likes_profile_id']
+        fields = ['id', 'author', 'layer', 'created', 'first_layer_comments_length', 'likes_profile_id']
 
 
 class Comment01Serializer(serializers.ModelSerializer):
@@ -83,7 +83,7 @@ class Comment01Serializer(serializers.ModelSerializer):
 class PublicationDetails03Serializer(serializers.ModelSerializer):
     author = Profile01Serializer()
     likes = LikeSerializer(many=True)
-    comments = Comment01Serializer(many=True)
+    comments = Comment01Serializer(source='all_comments', many=True)
 
     class Meta:
         model = PublicationDetails
@@ -96,7 +96,7 @@ class PublicationDetails04Serializer(serializers.ModelSerializer):
 
     class Meta:
         model = PublicationDetails
-        fields = ['id', 'author', 'created', 'comments_length', 'likes_profile_id', 'first_layer_comments']
+        fields = ['id', 'author', 'created', 'all_comments_length', 'likes_profile_id', 'first_layer_comments']
 
 
 class PublicationDetails05Serializer(serializers.ModelSerializer):
