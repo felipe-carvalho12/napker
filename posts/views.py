@@ -53,8 +53,10 @@ def interest_post_list(request, interest):
     interest_obj, created = Interest.objects.get_or_create(title=interest)
     hashtag_obj, created = Hashtag.objects.get_or_create(title=interest)
 
-    posts = list(tuple([i.posts for i in interest_obj.interest_set]))
-    posts.extend(list(hashtag_obj.posts.exclude(id__in=[post.id for post in posts])))
+    posts = []
+    for interest_set in interest_obj.interest_set.all():
+        posts.extend(interest_set.posts.exclude(id__in=[post.id for post in posts]))
+    
     posts = sort_posts_by_relevance(profile, posts)
     serializer = Post01Serializer(posts, many=True)
 
