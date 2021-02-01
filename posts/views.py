@@ -109,12 +109,11 @@ def publication_notification_number(request):
 @api_view(['GET'])
 def post_notifications(request):
     profile = request.user.profile
-    publications = PublicationDetails.objects.filter(author=profile)
     notifications = []
     now = datetime.datetime.now()
     now = pytz.utc.localize(now)
 
-    for publication in [pub for pub in publications.all() if hasattr(pub, 'post')]:
+    for publication in [pub for pub in profile.publications.all() if hasattr(pub, 'post')]:
         if NotificationDetails.objects.filter(post_notification__post=publication.post).exists():
             notification_details = NotificationDetails.objects.get(post_notification__post=publication.post)
             notification = notification_details.post_notification
