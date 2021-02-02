@@ -70,7 +70,7 @@ export default function PublicationNotification(props) {
             const publicationType = type === 'post' ? type : 'comentário.'
             str += `
             <strong>@${author.user.username}</strong>
-            ${i < len - 1 ? ', ' : (arr.length > 3 ? 'e outras <strong>' + (arr.length - 3).toString() + '</strong> pessoas ' : '') + typeLabel + ' seu ' + publicationType}
+            ${i < len - 1 ? (len > 2 ? ', ' : ' e ') : (arr.length > 3 ? 'e outras <strong>' + (arr.length - 3).toString() + '</strong> pessoas ' : '') + typeLabel + ' seu ' + publicationType}
             `
         }
 
