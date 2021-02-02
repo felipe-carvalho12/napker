@@ -45,7 +45,7 @@ def get_profile_list(profile):
         for p in Profile.objects.exclude(user=profile.user):
             if not p.user.is_active: continue
             if p in profile.blocked_profiles: continue
-            if p.user in Invitation.objects.friends(profile): continue
+            if p in Invitation.objects.friends(profile): continue
             if profile in p.blocked_profiles: continue
             if p.id in [i.details.receiver for i in Invitation.objects.invitations_sent(profile)]: continue
             if p in [i.details.sender for i in Invitation.objects.invitations_received(profile)]: continue
