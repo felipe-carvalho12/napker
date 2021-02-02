@@ -39,12 +39,27 @@ class PublicationDetails(models.Model):
     def __str__(self):
         return f'{self.author.user.username} - layer {self.layer}'
     
-    def comments_length(self):
-        return len(self.comments.all())
+    def all_comments(self):
+        comment_list = []
+
+        def append_comments(comments):
+            for comment in comments:
+                comment_list.append(comment)
+                append_comments([comment for comment in comment.details.comments.all()])
+
+        append_comments([comment for comment in self.comments.all()])
+
+        return comment_list
+
+    def all_comments_length(self):
+        return len(self.all_comments())
 
     @property
     def first_layer_comments(self):
         return self.comments.all()
+
+    def first_layer_comments_length(self):
+        return len(self.comments.all())
     
     def likes_profile_id(self):
         return [like.profile.id for like in self.likes.all()]
@@ -75,8 +90,6 @@ class Comment(models.Model):
     @property
     def comments(self):
         comment_list = []
-
-        self.details.layer == 1 and print([comment for comment in self.details.comments.all()])
 
         def append_comments(comments):
             for comment in comments:

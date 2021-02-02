@@ -23,6 +23,7 @@ export default function PostListItem(props) {
     const isLink = props.isLink !== undefined ? props.isLink : true
 
     const parsedContent = JSON.parse(post.content)
+    const comments_length = post.details.all_comments_length !== undefined ?  post.details.all_comments_length : post.details.first_layer_comments_length
 
     const likeUnlikePublication = e => {
         e.stopPropagation()
@@ -189,7 +190,7 @@ export default function PostListItem(props) {
                     }
                 </div>
                 <div className="d-flex justify-content-start align-items-center text-secondary" style={{ padding: "0 10px 10px" }}>
-                    {(type === 'comment' && post.details.comments_length !== 0) &&
+                    {(type === 'comment' && comments_length !== 0) &&
                         <>
                             {displayingComments ?
                                 <i
@@ -217,7 +218,7 @@ export default function PostListItem(props) {
                             class="far fa-comment mr-1 icon"
                         />
                         <p style={{ margin: '0' }}>
-                            {post.details.comments_length}
+                            {comments_length}
                         </p>
                     </div>
                     <div className="d-flex align-items-center">

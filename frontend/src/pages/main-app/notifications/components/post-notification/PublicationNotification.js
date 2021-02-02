@@ -127,7 +127,7 @@ export default function PublicationNotification(props) {
                     </div>
                 </div>
                 <NotificationContent type='likes' publicationType={type} arr={publication.details.likes} />
-                <NotificationContent type='comments' publicationType={type} arr={comments} commentContentFormatter={publicationContentFormatter} />
+                <NotificationContent type='comments' publicationType={type} arr={comments} commentContentFormatter={publicationContentFormatter} parentPublication={publication} />
             </li>
         </div>
     )

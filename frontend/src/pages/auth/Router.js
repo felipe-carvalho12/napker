@@ -4,6 +4,7 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 import Login from './login/Login'
 import Signup from './signup/Signup'
 import LandingPage from './landing-page/LandingPage'
+import NotFound from '../not-found/NotFound'
 
 export default function AuthRouter() {
 
@@ -49,6 +50,8 @@ export default function AuthRouter() {
             <Route path="/" exact>
                 <Redirect to="/bem-vindo" />
             </Route>
+
+            <Route component={NotFound} />
         </Switch>
     )
 }

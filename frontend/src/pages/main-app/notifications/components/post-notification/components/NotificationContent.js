@@ -9,6 +9,7 @@ export default function NotificationContent(props) {
     const type = props.type
     const publicationType = props.publicationType
     const arr = props.arr
+    const parent = props.parentPublication
     const commentContentFormatter = props.commentContentFormatter ? props.commentContentFormatter : false
 
     const [isOpen, setIsOpen] = useState(false)
@@ -62,13 +63,30 @@ export default function NotificationContent(props) {
                                                 style={{ marginRight: '10px' }}
                                             />
                                         </Link>
-                                        <p className="text-secondary d-inline-block" style={{ margin: '0' }}>
-                                            {renderTimestamp(type === 'likes' ? item.created : item.details.created)}
-                                            {" • "}
-                                            <Link to={`/user/${author.user.username}`} style={{ color: "var(--primary-grey)" }}>
-                                                @{author.user.username}
-                                            </Link> {type === 'likes' ? 'curtiu' : 'comentou'} seu {publicationType === 'post' ? publicationType : 'comentário'}.
-                                        </p>
+                                        <div className="d-flex flex-column align-items-start">
+                                            {type === 'comments' &&
+                                                <div>
+                                                    {publicationType === 'post' ?
+                                                        <div className="d-flex">
+                                                            <span className="mr-1">Camada</span>
+                                                            <strong>{item.details.layer < 10 ? `0${item.details.layer}` : item.details.layer}</strong>
+                                                        </div>
+                                                        :
+                                                        <div className="d-flex">
+                                                            <span className="mr-1">Camada</span>
+                                                            <strong>{item.details.layer - parent.details.layer < 10 ? `0${item.details.layer - parent.details.layer}` : item.details.layer - parent.details.layer}</strong>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            }
+                                            <p className="text-secondary d-inline-block" style={{ margin: '0' }}>
+                                                {renderTimestamp(type === 'likes' ? item.created : item.details.created)}
+                                                {" • "}
+                                                <Link to={`/user/${author.user.username}`} style={{ color: "var(--primary-grey)" }}>
+                                                    @{author.user.username}
+                                                </Link> {type === 'likes' ? 'curtiu' : publicationType === 'post' ? 'comentou' : 'respondeu'} seu {publicationType === 'post' ? publicationType : 'comentário'}.
+                                            </p>
+                                        </div>
                                     </div>
                                     {item.content &&
                                         <div className="d-flex justify-content-start word-break w-100"
