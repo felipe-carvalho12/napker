@@ -52,7 +52,7 @@ class PublicationDetails(models.Model):
         return comment_list
 
     def all_comments_length(self):
-        return len(self.comments.all())
+        return len(self.all_comments())
 
     @property
     def first_layer_comments(self):

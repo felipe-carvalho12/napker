@@ -105,7 +105,7 @@ class PublicationDetails05Serializer(serializers.ModelSerializer):
 
     class Meta:
         model = PublicationDetails
-        fields = ['author', 'likes', 'created']
+        fields = ['author', 'likes', 'layer', 'created']
 
 
 class Comment02Serializer(serializers.ModelSerializer):

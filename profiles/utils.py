@@ -47,9 +47,8 @@ def get_profile_list(profile):
             if p in profile.blocked_profiles: continue
             if p.user in Invitation.objects.friends(profile): continue
             if profile in p.blocked_profiles: continue
-            if p.id in [i.receiver for i in Invitation.objects.invitations_sent(profile)]: continue
-            if p in [i.sender for i in Invitation.objects.invitations_received(profile)]: continue
-            if p.user.is_superuser: continue
+            if p.id in [i.details.receiver for i in Invitation.objects.invitations_sent(profile)]: continue
+            if p in [i.details.sender for i in Invitation.objects.invitations_received(profile)]: continue
             profiles.append(p)
 
         points = process_authors_relevance(profile, profiles)
