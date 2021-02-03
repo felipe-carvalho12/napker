@@ -80,6 +80,11 @@ def explore_post_list(request):
 
 
 @api_view(['GET'])
+def mention_notifications_number(request):
+    pass
+
+
+@api_view(['GET'])
 def post_mention_notifications(request):
     mentions = list(filter(lambda mention: hasattr(mention.publication, 'post'), request.user.mentions.all()))
 

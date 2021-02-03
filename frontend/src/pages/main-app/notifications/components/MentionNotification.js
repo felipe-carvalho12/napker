@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 
 import { renderTimestamp } from '../../../../config/utils'
@@ -40,10 +40,12 @@ export default function MentionNotification(props) {
                         <p className="text-secondary d-inline-block" style={{ margin: '0' }}>
                             {renderTimestamp(publicationDetails.created)}
                             {" • "}
-                            <Link to={`/user/${publicationDetails.author.user.username}`} style={{ color: "var(--primary-grey)" }}>
+                            <Link to={`/user/${publicationDetails.author.user.username}`}
+                                style={{ color: "var(--primary-grey)" }}
+                            >
                                 @{publicationDetails.author.user.username}
                             </Link> {`Marcou você em um ${type === 'comment' ? 'comentário' : 'post'}`}.
-                        </p>
+                                </p>
                     </div>
                 </div>
                 {publication.content &&
