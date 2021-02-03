@@ -69,13 +69,21 @@ class PublicationDetails(models.Model):
         return [like.profile for like in self.likes.all()]
 
 
+class Mention(models.Model):
+    user = models.ForeignKey(User, related_name='mentions', on_delete=models.CASCADE)
+    publication = models.ForeignKey(PublicationDetails, related_name='mentions', on_delete=models.CASCADE)
+    visualized = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'mention - {self.user.username}'
+
+
 class Post(models.Model):
     details = models.OneToOneField(PublicationDetails, related_name='post', on_delete=models.CASCADE)
     content = models.TextField(max_length=100000)
     image = models.ImageField(upload_to='post/', blank=True, null=True)
     video = models.CharField(max_length=1000, blank=True, null=True)
     interest_set = models.ForeignKey(InterestSet, related_name='posts', blank=True, on_delete=models.SET_NULL, null=True)
-    tagged_users = models.ManyToManyField(User, related_name='post_mentions', blank=True)
     hashtags = models.ManyToManyField(Hashtag, related_name='posts', blank=True)
 
 
@@ -83,7 +91,6 @@ class Comment(models.Model):
     details = models.OneToOneField(PublicationDetails, related_name='comment', on_delete=models.CASCADE)
     content = models.TextField(max_length=100000)
     parent = models.ForeignKey(PublicationDetails, related_name='comments', on_delete=models.CASCADE)
-    tagged_users = models.ManyToManyField(User, related_name='comment_mentions', blank=True)
     hashtags = models.ManyToManyField(Hashtag, related_name='comments', blank=True)
     visualized = models.BooleanField(default=False)
 

@@ -79,6 +79,21 @@ def explore_post_list(request):
     return Response(serializer.data)
 
 
+@api_view(['GET'])
+def post_mention_notifications(request):
+    mentions = list(filter(lambda mention: hasattr(mention.publication, 'post'), request.user.mentions.all()))
+
+    serializer = PostMentionSerializer(mentions, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def comment_mention_notifications(request):
+    mentions = list(filter(lambda mention: hasattr(mention.publication, 'comment'), request.user.mentions.all()))
+
+    serializer = CommentMentionSerializer(mentions, many=True)
+    return Response(serializer.data)
+
 
 @api_view(['GET'])
 def publication_notification_number(request):
@@ -229,8 +244,7 @@ def create_post(request):
         for username in tagged_usernames:
             if User.objects.filter(username=username).exists():
                 user = User.objects.get(username=username)
-                post.tagged_users.add(user)
-                post.save()
+                Mention.objects.create(user=user, publication=details)
 
         for int_title in interests:
             interest, created = Interest.objects.get_or_create(title=int_title)
@@ -266,8 +280,7 @@ def create_comment(request):
     for username in tagged_usernames:
         if User.objects.filter(username=username).exists():
             user = User.objects.get(username=username)
-            comment.tagged_users.add(user)
-            comment.save()
+            Mention.objects.create(user=user, publication=details)
 
     serializer = Comment01Serializer(comment)
     return Response(serializer.data)

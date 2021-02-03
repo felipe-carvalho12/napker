@@ -7,6 +7,7 @@ import Header from '../../../components/fixed/Header'
 import InviteNotification from './components/InviteNotification'
 import PublicationNotification from './components/post-notification/PublicationNotification'
 import BottomMenu from '../../../components/fixed/bottom-menu/BottomMenu'
+import MentionNotification from './components/MentionNotification'
 
 
 let didVisualizedLikes = false
@@ -16,6 +17,8 @@ let notificationsFetchInterval
 export default function Notifications(props) {
     const [, updateMyProfile] = useContext(MyProfileContext)
     const [invites, setInvites] = useState(null)
+    const [postMentionNotifications, setPostMentionNotifications] = useState(null)
+    const [commentMentionNotifications, setCommentMentionNotifications] = useState(null)
     const [postNotifications, setPostNotifications] = useState(null)
     const [commentNotifications, setCommentNotifications] = useState(null)
     const isMobile = visualViewport.width <= 980
@@ -26,6 +29,12 @@ export default function Notifications(props) {
         fetch(`${SERVER_URL}/profile-api/myinvites`)
             .then(response => response.json())
             .then(data => setInvites(data))
+        fetch(`${SERVER_URL}/post-api/post-mention-notifications`)
+            .then(response => response.json())
+            .then(data => setPostMentionNotifications(data))
+        fetch(`${SERVER_URL}/post-api/comment-mention-notifications`)
+            .then(response => response.json())
+            .then(data => setCommentMentionNotifications(data))
         fetch(`${SERVER_URL}/post-api/post-notifications`)
             .then(response => response.json())
             .then(data => setPostNotifications(data))
@@ -85,6 +94,31 @@ export default function Notifications(props) {
         fetchNotifications()
     }
 
+    const publicationContentFormatter = rawContent => {
+        const blocks = rawContent.blocks
+        const length = blocks.reduce((total, block) => total + block.text.length, 0)
+
+        if (length <= 240) return rawContent
+
+        let totalLength = 0
+        let reachedMaxLength = false
+        const formattedBlocks = blocks.map(block => {
+            if (reachedMaxLength) return
+
+            totalLength += block.text.length
+            if (totalLength > 240) {
+                const remaining = 240 - (totalLength - block.text.length)
+                reachedMaxLength = true
+                return { ...block, text: block.text.slice(0, remaining) + '...' }
+            }
+            return block
+        })
+
+        rawContent.blocks = formattedBlocks
+
+        return rawContent
+    }
+
     return (
         <div className="content-container">
             {isMobile ?
@@ -100,9 +134,9 @@ export default function Notifications(props) {
             }
             <div className="content m-vw-x">
                 <div>
-                    {invites !== null && postNotifications !== null && commentNotifications !== null ?
+                    {invites !== null && postMentionNotifications !== null && commentMentionNotifications !== null && postNotifications !== null && commentNotifications !== null ?
                         <div>
-                            {invites.length || postNotifications.length || commentNotifications.length ?
+                            {invites.length || postMentionNotifications.length || commentMentionNotifications.length || postNotifications.length || commentNotifications.length ?
                                 <div className="notifications-container">
                                     {!!invites.length &&
                                         <div>
@@ -118,11 +152,31 @@ export default function Notifications(props) {
                                         </div>
                                     }
 
+                                    {!!postMentionNotifications.length &&
+                                        <div>
+                                            {postMentionNotifications.map(mention => {
+                                                return (
+                                                    <MentionNotification type="post" mention={mention} publicationContentFormatter={publicationContentFormatter} />
+                                                )
+                                            })}
+                                        </div>
+                                    }
+
+                                    {!!commentMentionNotifications.length &&
+                                        <div>
+                                            {commentMentionNotifications.map(mention => {
+                                                return (
+                                                    <MentionNotification type="comment" mention={mention} publicationContentFormatter={publicationContentFormatter} />
+                                                )
+                                            })}
+                                        </div>
+                                    }
+
                                     {!!postNotifications.length &&
                                         <div>
                                             {postNotifications.map(notification => {
                                                 return (
-                                                    <PublicationNotification type="post" notification={notification} />
+                                                    <PublicationNotification type="post" notification={notification} publicationContentFormatter={publicationContentFormatter} />
                                                 )
                                             })}
                                         </div>
@@ -132,7 +186,7 @@ export default function Notifications(props) {
                                         <div>
                                             {commentNotifications.map(notification => {
                                                 return (
-                                                    <PublicationNotification type="comment" notification={notification} />
+                                                    <PublicationNotification type="comment" notification={notification} publicationContentFormatter={publicationContentFormatter} />
                                                 )
                                             })}
                                         </div>
