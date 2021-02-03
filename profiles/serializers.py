@@ -153,7 +153,7 @@ class PublicationDetails06Serializer(serializers.ModelSerializer):
 
     class Meta:
         model = PublicationDetails
-        fields = ['author', 'post']
+        fields = ['author', 'post', 'created']
 
 class PublicationDetails07Serializer(serializers.ModelSerializer):
     author = Profile01Serializer()
@@ -161,7 +161,7 @@ class PublicationDetails07Serializer(serializers.ModelSerializer):
 
     class Meta:
         model = PublicationDetails
-        fields = ['author', 'comment']
+        fields = ['author', 'comment', 'layer', 'created']
 
 
 # ----------------------------------------------------------------------

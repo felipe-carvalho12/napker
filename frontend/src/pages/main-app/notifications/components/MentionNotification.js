@@ -16,7 +16,7 @@ export default function MentionNotification(props) {
         <li
             className="d-flex w-100 white-hover box-med b-theme-base-color p-10px"
             key={mention.id}
-        >
+        >{console.log(publicationDetails)}
             <div className="d-flex flex-column h-100" style={{ marginRight: '10px' }}>
                 <i class="fas fa-at" style={{ fontSize: '30px', color: 'var(--primary-color)' }} />
             </div>
@@ -44,7 +44,7 @@ export default function MentionNotification(props) {
                                 style={{ color: "var(--primary-grey)" }}
                             >
                                 @{publicationDetails.author.user.username}
-                            </Link> {`Marcou você em um ${type === 'comment' ? 'comentário' : 'post'}`}.
+                            </Link> {`marcou você em um ${type === 'comment' ? 'comentário' : 'post'}`}.
                                 </p>
                     </div>
                 </div>
