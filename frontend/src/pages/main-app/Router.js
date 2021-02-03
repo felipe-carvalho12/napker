@@ -3,7 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 
 import { SERVER_URL } from '../../config/settings'
 import {
-    InvitesReceivedContext, PublicationNotificationsContext, UnreadMessagesContext, AlgorithmWeightsContext, MyProfileContext
+    InvitesReceivedContext, PublicationNotificationsContext, MentionNumberContext, UnreadMessagesContext, AlgorithmWeightsContext, MyProfileContext
 } from '../../context/app/AppContext'
 
 import SidebarLeft from '../../components/fixed/SidebarLeft'
@@ -31,6 +31,7 @@ export default function MainAppRouter() {
 
     const [, setInvitesReceived] = useContext(InvitesReceivedContext)
     const [, setPublicationNotifications] = useContext(PublicationNotificationsContext)
+    const [, setMentionNotificationsNumber] = useContext(MentionNumberContext)
 
     const [, setUnreadMessagesNumber] = useContext(UnreadMessagesContext)
 
@@ -58,6 +59,9 @@ export default function MainAppRouter() {
         fetch(`${SERVER_URL}/post-api/publication-notifications-number`)
             .then(response => response.json())
             .then(data => setPublicationNotifications(data))
+        fetch(`${SERVER_URL}/post-api/mention-notifications-number`)
+            .then(response => response.json())
+            .then(data => setMentionNotificationsNumber(data))
     }
 
     const updateUnreadMessagesNumber = () => {

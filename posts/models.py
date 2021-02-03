@@ -73,6 +73,7 @@ class Mention(models.Model):
     user = models.ForeignKey(User, related_name='mentions', on_delete=models.CASCADE)
     publication = models.ForeignKey(PublicationDetails, related_name='mentions', on_delete=models.CASCADE)
     visualized = models.BooleanField(default=False)
+    updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f'mention - {self.user.username}'

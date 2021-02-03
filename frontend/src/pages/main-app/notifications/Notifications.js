@@ -10,17 +10,20 @@ import BottomMenu from '../../../components/fixed/bottom-menu/BottomMenu'
 import MentionNotification from './components/MentionNotification'
 
 
-let didVisualizedLikes = false
-let didVisualizedComments = false
 let notificationsFetchInterval
 
 export default function Notifications(props) {
     const [, updateMyProfile] = useContext(MyProfileContext)
     const [invites, setInvites] = useState(null)
-    const [postMentionNotifications, setPostMentionNotifications] = useState(null)
+    const [mentionNotifications, setMentionNotifications] = useState(null)
     const [commentMentionNotifications, setCommentMentionNotifications] = useState(null)
     const [postNotifications, setPostNotifications] = useState(null)
     const [commentNotifications, setCommentNotifications] = useState(null)
+
+    const [didVisualizedLikes, setDidVisualizedLikes] = useState(false)
+    const [didVisualizedComments, setDidVisualizedComments] = useState(false)
+    const [didVisualizedMentions, setDidVisualizedMentions] = useState(false)
+
     const isMobile = visualViewport.width <= 980
 
     document.title = 'Notificações / Napker'
@@ -31,7 +34,7 @@ export default function Notifications(props) {
             .then(data => setInvites(data))
         fetch(`${SERVER_URL}/post-api/post-mention-notifications`)
             .then(response => response.json())
-            .then(data => setPostMentionNotifications(data))
+            .then(data => setMentionNotifications(data))
         fetch(`${SERVER_URL}/post-api/comment-mention-notifications`)
             .then(response => response.json())
             .then(data => setCommentMentionNotifications(data))
@@ -50,21 +53,30 @@ export default function Notifications(props) {
     }, [])
 
     useEffect(() => {
-        if (!didVisualizedLikes && postNotifications && postNotifications[0]) {
+        if (!didVisualizedMentions && mentionNotifications && mentionNotifications.length) {
+            fetch(`${SERVER_URL}/post-api/visualize-mentions`)
+                .then(response => response.json())
+                .then(data => {
+                    DEBUG && console.log(data)
+                    setDidVisualizedMentions(true)
+                    props.updateNotificationsNumber()
+                })
+        }
+        if (!didVisualizedLikes && postNotifications && postNotifications.length) {
             fetch(`${SERVER_URL}/post-api/visualize-likes`)
                 .then(response => response.json())
                 .then(data => {
                     DEBUG && console.log(data)
-                    didVisualizedLikes = true
+                    setDidVisualizedLikes(true)
                     props.updateNotificationsNumber()
                 })
         }
-        if (!didVisualizedComments && postNotifications && postNotifications[0]) {
+        if (!didVisualizedComments && postNotifications && postNotifications.length) {
             fetch(`${SERVER_URL}/post-api/visualize-comments`)
                 .then(response => response.json())
                 .then(data => {
                     DEBUG && console.log(data)
-                    didVisualizedComments = true
+                    setDidVisualizedComments(true)
                     props.updateNotificationsNumber()
                 })
         }
@@ -134,9 +146,9 @@ export default function Notifications(props) {
             }
             <div className="content m-vw-x">
                 <div>
-                    {invites !== null && postMentionNotifications !== null && commentMentionNotifications !== null && postNotifications !== null && commentNotifications !== null ?
+                    {invites !== null && mentionNotifications !== null && commentMentionNotifications !== null && postNotifications !== null && commentNotifications !== null ?
                         <div>
-                            {invites.length || postMentionNotifications.length || commentMentionNotifications.length || postNotifications.length || commentNotifications.length ?
+                            {invites.length || mentionNotifications.length || commentMentionNotifications.length || postNotifications.length || commentNotifications.length ?
                                 <div className="notifications-container">
                                     {!!invites.length &&
                                         <div>
@@ -152,9 +164,9 @@ export default function Notifications(props) {
                                         </div>
                                     }
 
-                                    {!!postMentionNotifications.length &&
+                                    {!!mentionNotifications.length &&
                                         <div>
-                                            {postMentionNotifications.map(mention => {
+                                            {mentionNotifications.map(mention => {
                                                 return (
                                                     <MentionNotification type="post" mention={mention} publicationContentFormatter={publicationContentFormatter} />
                                                 )

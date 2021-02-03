@@ -150,6 +150,7 @@ export default function PostForm(props) {
                 setPostFormImagePreview('')
                 setVideoUrl('')
                 setIsAdvanced(false)
+                setTaggedUsernames([])
                 updateMyProfile()
             })
     }
