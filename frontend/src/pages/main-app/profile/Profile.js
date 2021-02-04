@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 import { SERVER_URL, DEBUG } from '../../../config/settings'
 import { csrftoken } from '../../../config/utils'
@@ -19,8 +19,10 @@ export default function Profile(props) {
     const [username, setUsername] = useState(props.match.params.username)
 
     const isMobile = visualViewport.width <= 980
+    const history = useHistory()
 
     useEffect(() => {
+        if (myProfile.user.username === username) history.replace('/perfil')
         fetchProfile()
         fetchRelationship()
     }, [])

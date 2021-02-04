@@ -79,13 +79,44 @@ def explore_post_list(request):
     return Response(serializer.data)
 
 
+@api_view(['GET'])
+def mention_notifications_number(request):
+    return Response(len(Mention.objects.filter(user=request.user, visualized=False)))
+
+
+@api_view(['GET'])
+def post_mention_notifications(request):
+    now = datetime.datetime.now()
+    now = pytz.utc.localize(now)
+    mentions = list(filter(lambda mention: hasattr(mention.publication, 'post'), request.user.mentions.all()))
+    mentions = list(filter(lambda mention: not mention.visualized or now - datetime.timedelta(2) < mention.updated, mentions))
+
+    serializer = PostMentionSerializer(mentions, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def comment_mention_notifications(request):
+    now = datetime.datetime.now()
+    now = pytz.utc.localize(now)
+    mentions = list(filter(lambda mention: hasattr(mention.publication, 'comment'), request.user.mentions.all()))
+    mentions = list(filter(lambda mention: not mention.visualized or now - datetime.timedelta(2) < mention.updated, mentions))
+
+    serializer = CommentMentionSerializer(mentions, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def visualize_mentions(request):
+    Mention.objects.filter(user=request.user, visualized=False).update(visualized=True)
+
+    return Response('Mentions visualized with success')
+
 
 @api_view(['GET'])
 def publication_notification_number(request):
     profile = request.user.profile
     counter = 0
-    now = datetime.datetime.now()
-    now = pytz.utc.localize(now)
 
     for publication in profile.publications.all():
 
@@ -181,9 +212,7 @@ def comment_notifications(request):
 def visualize_likes(request):
     profile = request.user.profile
     for publication in profile.publications.all():
-        for like in publication.likes.filter(visualized=False):
-            like.visualized = True
-            like.save()
+        publication.likes.filter(visualized=False).update(visualized=True)
     return Response('Likes visualized with success')
 
 
@@ -191,9 +220,7 @@ def visualize_likes(request):
 def visualize_comments(request):
     profile = request.user.profile
     for publication in profile.publications.all():
-        for comment in publication.comments.filter(visualized=False):
-            comment.visualized = True
-            comment.save()
+        publication.comments.filter(visualized=False).update(visualized=True)
     return Response('Comments visualized with success')
 
 
@@ -229,8 +256,7 @@ def create_post(request):
         for username in tagged_usernames:
             if User.objects.filter(username=username).exists():
                 user = User.objects.get(username=username)
-                post.tagged_users.add(user)
-                post.save()
+                Mention.objects.create(user=user, publication=details)
 
         for int_title in interests:
             interest, created = Interest.objects.get_or_create(title=int_title)
@@ -266,8 +292,7 @@ def create_comment(request):
     for username in tagged_usernames:
         if User.objects.filter(username=username).exists():
             user = User.objects.get(username=username)
-            comment.tagged_users.add(user)
-            comment.save()
+            Mention.objects.create(user=user, publication=details)
 
     serializer = Comment01Serializer(comment)
     return Response(serializer.data)

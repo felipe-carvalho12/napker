@@ -89,7 +89,6 @@ class PublicationDetails03Serializer(serializers.ModelSerializer):
         model = PublicationDetails
         fields = ['author', 'likes', 'comments', 'created']
 
-
 class PublicationDetails04Serializer(serializers.ModelSerializer):
     author = Profile01Serializer()
     first_layer_comments = Comment01Serializer(many=True)
@@ -97,7 +96,6 @@ class PublicationDetails04Serializer(serializers.ModelSerializer):
     class Meta:
         model = PublicationDetails
         fields = ['id', 'author', 'created', 'all_comments_length', 'likes_profile_id', 'first_layer_comments']
-
 
 class PublicationDetails05Serializer(serializers.ModelSerializer):
     author = Profile01Serializer()
@@ -115,6 +113,11 @@ class Comment02Serializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = ['details', 'content', 'comments']
+
+class Comment03Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = ['details', 'content']
 
 
 class Post01Serializer(serializers.ModelSerializer):
@@ -137,6 +140,28 @@ class Post03Serializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = ['id', 'details', 'content', 'video', 'image']
+
+class Post04Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = Post
+        fields = ['id', 'details', 'content', 'video', 'image']
+
+
+class PublicationDetails06Serializer(serializers.ModelSerializer):
+    author = Profile01Serializer()
+    post = Post04Serializer()
+
+    class Meta:
+        model = PublicationDetails
+        fields = ['author', 'post', 'created']
+
+class PublicationDetails07Serializer(serializers.ModelSerializer):
+    author = Profile01Serializer()
+    comment = Comment03Serializer()
+
+    class Meta:
+        model = PublicationDetails
+        fields = ['author', 'comment', 'layer', 'created']
 
 
 # ----------------------------------------------------------------------
@@ -205,6 +230,22 @@ class RelationshipDetailsSerializer(serializers.ModelSerializer):
 # ----------------------------------------------------------------------
 # --Posts---------------------------------------------------------------
 # ----------------------------------------------------------------------
+
+
+class PostMentionSerializer(serializers.ModelSerializer):
+    publication = PublicationDetails06Serializer()
+
+    class Meta:
+        model = Mention
+        fields = ['id', 'publication']
+
+class CommentMentionSerializer(serializers.ModelSerializer):
+    publication = PublicationDetails07Serializer()
+
+    class Meta:
+        model = Mention
+        fields = ['id', 'publication']
+
 
 
 class NotificationDetailsSerializer(serializers.ModelSerializer):
