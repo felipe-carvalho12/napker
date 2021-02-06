@@ -241,7 +241,7 @@ def create_post(request):
     profile = request.user.profile
     raw_content = request.data['content']
     content = ''.join([block['text'] for block in json.loads(raw_content)['blocks']])
-    hashtags = re.findall(r' \#(\w+) ', content)
+    hashtags = re.findall(r'\#(\w+)', content)
     tagged_usernames = request.data['tagged-usernames']
     interests = request.data['interests']
 
