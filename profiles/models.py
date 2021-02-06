@@ -21,7 +21,7 @@ class InterestWeight(models.Model):
 
 
 class InterestSet(models.Model):
-    interests = models.ManyToManyField(Interest, related_name='interest_set')
+    interests = models.ManyToManyField(Interest, related_name='interest_sets')
     
     def __str__(self): 
         return ', '.join([interest.title for interest in self.interests.all()])

@@ -67,12 +67,22 @@ def interest_post_list(request, interest):
 def explore_post_list(request):
     profile = request.user.profile
     posts = []
-    for interest in profile.interest_set.interests.all():
+
+    def extend_posts(interest):
         interest_obj, created = Interest.objects.get_or_create(title=interest.title)
         hashtag_obj, created = Hashtag.objects.get_or_create(title=interest.title)
+
         for interest_set in interest.interest_set.all():
             posts.extend(interest_set.posts.exclude(id__in=[post.id for post in posts]))
+
         posts.extend(hashtag_obj.posts.exclude(id__in=[post.id for post in posts]))
+
+    if profile.interest_set.interests.exists():
+        for interest in profile.interest_set.interests.all():
+            extend_posts(interest)
+    else:
+        for interest in sorted(Interest.objects.all(), key=lambda interest: sum([len(interest_set.profiles) for interest_set in interest.interest_sets.all()]))[:10]:
+            extend_posts(interest)
 
     posts = sort_posts_by_relevance(profile, posts)
     serializer = Post01Serializer(posts, many=True)

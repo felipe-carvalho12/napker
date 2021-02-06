@@ -17,7 +17,7 @@ def get_author_relevance(profile, author):
 
     friends_points = len(set(Invitation.objects.friends(profile)).intersection(Invitation.objects.friends(author)))
 
-    if not author == profile: interest_points = len(set([i.title for i in profile.interests]).intersection([i.title for i in author.interests])) 
+    if not author == profile: interest_points = len(set(profile.interest_set.interests.all()).intersection(author.interest_set.interests.all()))
     else: interest_points = 0.5
 
     return np.array([interest_points, age_points, friends_points, is_friend_boolean])

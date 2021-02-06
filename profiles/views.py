@@ -275,7 +275,6 @@ def unblock_profile(request):
 @api_view(['POST'])
 def set_myinterests(request):
     profile = request.user.profile
-    profile.interests.clear()
     interests = []
     
     for title in request.data['public-interests']:
