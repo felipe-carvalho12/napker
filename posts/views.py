@@ -54,8 +54,10 @@ def interest_post_list(request, interest):
     hashtag_obj, created = Hashtag.objects.get_or_create(title=interest)
 
     posts = []
-    for interest_set in interest_obj.interest_set.all():
+    for interest_set in interest_obj.interest_sets.all():
         posts.extend(interest_set.posts.exclude(id__in=[post.id for post in posts]))
+    
+    posts.extend(hashtag_obj.posts.all())
     
     posts = sort_posts_by_relevance(profile, posts)
     serializer = Post01Serializer(posts, many=True)
@@ -72,7 +74,7 @@ def explore_post_list(request):
         interest_obj, created = Interest.objects.get_or_create(title=interest.title)
         hashtag_obj, created = Hashtag.objects.get_or_create(title=interest.title)
 
-        for interest_set in interest.interest_set.all():
+        for interest_set in interest.interest_sets.all():
             posts.extend(interest_set.posts.exclude(id__in=[post.id for post in posts]))
 
         posts.extend(hashtag_obj.posts.exclude(id__in=[post.id for post in posts]))
