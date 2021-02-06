@@ -117,7 +117,7 @@ class Profile(models.Model):
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
     interest_set = models.ForeignKey(InterestSet, related_name='profiles', on_delete=models.SET_NULL, blank=True, null=True, default=None)
-    weights = models.ForeignKey(Weights, on_delete=models.SET_NULL, related_name='profiles', default=None, blank=True, null=True)
+    weights = models.ForeignKey(Weights, on_delete=models.SET_NULL, related_name='profiles', blank=True, null=True)
 
     def __str__(self):
         return f'{self.user.username}'
