@@ -242,6 +242,7 @@ def create_post(request):
     raw_content = request.data['content']
     content = ''.join([block['text'] for block in json.loads(raw_content)['blocks']])
     hashtags = re.findall(r'\#(\w+)', content)
+    
     tagged_usernames = request.data['tagged-usernames']
     interests = request.data['interests']
 
@@ -272,7 +273,11 @@ def create_post(request):
 
         for int_title in interests:
             interest, created = Interest.objects.get_or_create(title=int_title)
-            interest_set, created = InterestSet.objects.get_or_create(interests=[interest])
+            try:
+                interest_set = InterestSet.objects.get(interests=[interest])
+            except:
+                interest_set = InterestSet.objects.create()
+                interest_set.interests.set([interest])
             post.interest_set = interest_set
             post.save()
 
