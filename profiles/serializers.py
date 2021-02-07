@@ -147,6 +147,19 @@ class Post04Serializer(serializers.ModelSerializer):
         fields = ['id', 'details', 'content', 'video', 'image']
 
 
+class PostId01Serializer(serializers.Serializer):
+    id = serializers.IntegerField()
+
+    interest_points = serializers.FloatField()
+    age_points = serializers.FloatField()
+    friends_points = serializers.FloatField()
+    is_friend_boolean = serializers.IntegerField()
+
+    date_points = serializers.FloatField()
+    author_points = serializers.FloatField()
+    likes_points = serializers.FloatField()
+
+
 class PublicationDetails06Serializer(serializers.ModelSerializer):
     author = Profile01Serializer()
     post = Post04Serializer()

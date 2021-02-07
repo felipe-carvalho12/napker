@@ -24,52 +24,41 @@ def get_author_relevance(profile, author):
 
 
 def process_authors_relevance(profile, authors):
-    if profile.weights is not None:
-        raw_weights = np.array([profile.weights.profile.interest_weight, profile.weights.profile.age_weight, profile.weights.profile.friends_weight, profile.weights.profile.is_friend_weight])
-    else:
-        raw_weights = np.array([0.25, 0.25, 0.25, 0.25])
-
-    WEIGHTS = raw_weights / np.sum(raw_weights)
-
     authors_relevance = np.vstack(tuple(get_author_relevance(profile, author) for author in authors))
 
-    authors_relevance = np.sum(np.array([np.true_divide(authors_relevance.T[i], (np.amax(column) if np.amax(column) else 1) / WEIGHTS[i]) for i, column in enumerate(authors_relevance.T)]), axis=0)
+    authors_relevance = np.array([np.true_divide(authors_relevance.T[i], np.amax(column) if np.amax(column) else 1) for i, column in enumerate(authors_relevance.T)])
 
     return authors_relevance
 
     
 def get_profile_list(profile):
-    try:
-        profiles = []
+    profiles = []
 
-        for p in Profile.objects.exclude(user=profile.user):
-            if not p.user.is_active: continue
-            if p in profile.blocked_profiles: continue
-            if p in Invitation.objects.friends(profile): continue
-            if profile in p.blocked_profiles: continue
-            if p.id in [i.details.receiver for i in Invitation.objects.invitations_sent(profile)]: continue
-            if p in [i.details.sender for i in Invitation.objects.invitations_received(profile)]: continue
-            profiles.append(p)
+    for p in Profile.objects.exclude(user=profile.user):
+        if not p.user.is_active: continue
+        if p in profile.blocked_profiles: continue
+        if p in Invitation.objects.friends(profile): continue
+        if profile in p.blocked_profiles: continue
+        if p.id in [i.details.receiver for i in Invitation.objects.invitations_sent(profile)]: continue
+        if p in [i.details.sender for i in Invitation.objects.invitations_received(profile)]: continue
+        profiles.append(p)
 
-        points = process_authors_relevance(profile, profiles)
+    points = process_authors_relevance(profile, profiles)
+    profiles = [(profile, sum(points[i])) for i, profile in enumerate(profiles)]
 
-        profiles = list(zip(profiles, points))
+    interest_profile_dict = {}
+    for i_quantity in set([item[1] for item in profiles]):
+        interest_profile_dict[i_quantity] = [p[0] for p in profiles if p[1] == i_quantity]
+    for key in interest_profile_dict:
+        interest_profile_dict[key] = sorted(
+            interest_profile_dict[key],
+            key=lambda p: abs(datetime.date.toordinal(profile.birth_date) - datetime.date.toordinal(p.birth_date))
+        )
+    profiles.clear()
+    for key in interest_profile_dict:
+        profile_list = interest_profile_dict[key]
+        profile_list.reverse()
+        profiles.extend(profile_list)
+    profiles.reverse()
 
-        interest_profile_dict = {}
-        for i_quantity in set([item[1] for item in profiles]):
-            interest_profile_dict[i_quantity] = [p[0] for p in profiles if p[1] == i_quantity]
-        for key in interest_profile_dict:
-            interest_profile_dict[key] = sorted(
-                interest_profile_dict[key],
-                key=lambda p: abs(datetime.date.toordinal(profile.birth_date) - datetime.date.toordinal(p.birth_date))
-            )
-        profiles.clear()
-        for key in interest_profile_dict:
-            profile_list = interest_profile_dict[key]
-            profile_list.reverse()
-            profiles.extend(profile_list)
-        profiles.reverse()
-
-        return profiles
-    except:
-        return []
+    return profiles

@@ -24,11 +24,8 @@ from .utils import *
 def post_list_view(request, scroll_count):
     profile = request.user.profile
     posts = sort_posts_by_relevance(profile)
-    for post in posts[:15 * scroll_count]:
-        if profile in post.details.views.all(): continue
-        post.details.views.add(profile)
-        post.details.save()
-    serializer = Post01Serializer(posts[:15 * scroll_count], many=True)
+    # serializer = PostId01Serializer(posts[:1000 * scroll_count], many=True)
+    serializer = Post01Serializer(posts[:1000 * scroll_count], many=True)
     return Response(serializer.data)
 
 
