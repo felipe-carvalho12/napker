@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { Link, useHistory, useParams } from 'react-router-dom'
 
 import { SERVER_URL, DEBUG } from '../../../config/settings'
 import { csrftoken } from '../../../config/utils'
@@ -16,13 +16,13 @@ export default function Profile(props) {
     const [alertMessage, setAlertMessage] = useState(null)
     const [relationshipButtonLabel, setRelationshipButtonLabel] = useState('')
     const [currentPageIsPosts, setCurrentPageIsPosts] = useState(true)
-    const [username, setUsername] = useState(props.match.params.username)
 
     const isMobile = visualViewport.width <= 980
     const history = useHistory()
+    const { username } = useParams()
 
     useEffect(() => {
-        if (myProfile.user.username === username) history.replace('/perfil')
+        if (myProfile && myProfile.user.username === username && history.location !== '/perfil') history.replace('/perfil')
         fetchProfile()
         fetchRelationship()
     }, [])
@@ -58,11 +58,9 @@ export default function Profile(props) {
     })
 
     useEffect(() => {
-        if (username === props.match.params.username) return
-        setUsername(props.match.params.username)
         fetchProfile()
         fetchRelationship()
-    }, [props])
+    }, [username])
 
 
     const fetchRelationship = () => {

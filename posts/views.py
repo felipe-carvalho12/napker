@@ -68,7 +68,6 @@ def explore_post_list(request):
     posts = []
 
     def extend_posts(interest):
-        interest_obj, created = Interest.objects.get_or_create(title=interest.title)
         hashtag_obj, created = Hashtag.objects.get_or_create(title=interest.title)
 
         for interest_set in interest.interest_sets.all():
