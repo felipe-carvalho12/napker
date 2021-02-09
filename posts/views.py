@@ -23,9 +23,18 @@ from .utils import *
 @api_view(['GET'])
 def post_list_view(request, scroll_count):
     profile = request.user.profile
-    posts = sort_posts_by_relevance(profile)
-    # serializer = PostId01Serializer(posts[:1000 * scroll_count], many=True)
-    serializer = Post01Serializer(posts[:1000 * scroll_count], many=True)
+    light_posts_arrs = sort_posts_by_relevance(profile)
+    light_posts_dicts = list(map(lambda data: {
+        'id': data[0],
+        'interest_points': data[1],
+        'age_points': data[2],
+        'friends_points': data[3],
+        'is_friend_boolean': data[4],
+
+        'date_points': data[5],
+        'likes_points': data[6],
+    }, light_posts_arrs))
+    serializer = PostId01Serializer(light_posts_dicts[:1000 * scroll_count], many=True)
     return Response(serializer.data)
 
 

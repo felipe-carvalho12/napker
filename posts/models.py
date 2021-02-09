@@ -51,6 +51,7 @@ class PublicationDetails(models.Model):
 
         return comment_list
 
+    @property
     def all_comments_length(self):
         return len(self.all_comments())
 
@@ -58,9 +59,11 @@ class PublicationDetails(models.Model):
     def first_layer_comments(self):
         return self.comments.all()
 
+    @property
     def first_layer_comments_length(self):
         return len(self.comments.all())
     
+    @property
     def likes_profile_id(self):
         return [like.profile.id for like in self.likes.all()]
 

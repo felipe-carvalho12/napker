@@ -156,7 +156,6 @@ class PostId01Serializer(serializers.Serializer):
     is_friend_boolean = serializers.IntegerField()
 
     date_points = serializers.FloatField()
-    author_points = serializers.FloatField()
     likes_points = serializers.FloatField()
 
 
