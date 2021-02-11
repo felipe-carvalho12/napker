@@ -3,7 +3,7 @@ from django.urls import path
 from .views import *
 
 urlpatterns = [
-    path('post-list/<int:scroll_count>', post_list_view),
+    path('post-id-list/<int:scroll_count>', get_post_id_list),
     path('post/<int:post_id>', get_post),
     path('likes/<int:publication_id>', get_likes),
     path('interest-post-list/<str:interest>', interest_post_list),

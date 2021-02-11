@@ -43,6 +43,7 @@ export default function Posts() {
                 isFetching_scroll = false
                 setIsFetching_weights(false)
                 setPosts(data)
+                console.log(data)
             })
     }
 

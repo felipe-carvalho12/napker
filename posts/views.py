@@ -21,7 +21,7 @@ from .utils import *
 # Create your views here.
 
 @api_view(['GET'])
-def post_list_view(request, scroll_count):
+def get_post_id_list(request, scroll_count):
     profile = request.user.profile
     light_posts_arrs = sort_posts_by_relevance(profile)
     light_posts_dicts = list(map(lambda data: {
@@ -35,6 +35,7 @@ def post_list_view(request, scroll_count):
         'likes_points': data[6],
     }, light_posts_arrs))
     serializer = PostId01Serializer(light_posts_dicts[:1000 * scroll_count], many=True)
+    print(serializer.data)
     return Response(serializer.data)
 
 
