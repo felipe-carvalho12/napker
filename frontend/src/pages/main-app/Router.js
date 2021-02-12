@@ -39,7 +39,7 @@ export default function MainAppRouter() {
 
     useEffect(() => {
         fetchMyProfile()
-        fetchPostsId()
+        fetchPostsId(1)
         updateNotificationsNumber()
         updateUnreadMessagesNumber()
 

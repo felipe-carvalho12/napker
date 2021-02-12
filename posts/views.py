@@ -35,7 +35,14 @@ def get_post_id_list(request, scroll_count):
         'likes_points': data[6],
     }, light_posts_arrs))
     serializer = PostId01Serializer(light_posts_dicts[:1000 * scroll_count], many=True)
-    print(serializer.data)
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def get_post_list(request):
+    posts_id = request.data
+    posts = Post.objects.filter(id__in=posts_id)
+    serializer = Post01Serializer(posts, many=True)
     return Response(serializer.data)
 
 

@@ -1,19 +1,20 @@
 import React, { useContext, useEffect, useState } from 'react'
 
-import { SERVER_URL } from '../../../../../config/settings'
-import { AlgorithmWeightsContext, MyProfileContext } from '../../../../../context/app/AppContext'
+import { DEBUG, SERVER_URL } from '../../../../../config/settings'
+import { AlgorithmWeightsContext, MyProfileContext, PostsIdContext, FeedPostsContext } from '../../../../../context/app/AppContext'
 import LikesModal from '../../../../../components/LikesModal'
 import PostForm from './components/PostForm'
 import PostListItem from '../../../../../components/PostListItem'
+import { csrftoken } from '../../../../../config/utils'
 
 let isFetching_scroll = false
 
 export default function Posts() {
     const [weights,] = useContext(AlgorithmWeightsContext)
-    const [isFetching_weights, setIsFetching_weights] = useState(false)
 
     const [myProfile,] = useContext(MyProfileContext)
-    const [posts, setPosts] = useState(null)
+    const [postsId,] = useContext(PostsIdContext)
+    const [posts, setPosts] = useContext(FeedPostsContext)
     const [likesModalIsOpen, setLikesModalIsOpen] = useState(false)
     const [likesModalItems, setLikesModalItems] = useState(null)
 
@@ -23,33 +24,39 @@ export default function Posts() {
         if (Math.ceil(window.innerHeight + window.scrollY) >= document.body.offsetHeight * 0.9 && !isFetching_scroll) {
             scrollCount++
             isFetching_scroll = true
-            fetchPosts()
+            postsId && fetchPosts()
         }
     }
 
     useEffect(() => {
-        fetchPosts()
-    }, [])
+        !posts.length && postsId && fetchPosts()
+    }, [postsId])
 
     useEffect(() => {
-        setIsFetching_weights(true)
-        fetchPosts()
+        //postsId && fetchPosts()
     }, [weights])
 
     const fetchPosts = () => {
-        fetch(`${SERVER_URL}/post-api/post-list/${scrollCount}`)
+        console.log('a')
+        fetch(`${SERVER_URL}/post-api/post-list`, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+                'X-CSRFToken': csrftoken,
+            },
+            body: JSON.stringify(postsId.slice((scrollCount - 1) * 50, scrollCount * 50).map(postId => postId.id)), 
+        })
             .then(response => response.json())
             .then(data => {
                 isFetching_scroll = false
-                setIsFetching_weights(false)
-                setPosts(data)
-                console.log(data)
+                setPosts([...posts, ...data])
+                DEBUG && console.log(data)
             })
     }
 
 
     return (
-        <>
+        <>{console.log(posts)}
             <LikesModal
                 isOpen={likesModalIsOpen}
                 likes={likesModalItems}
@@ -61,7 +68,7 @@ export default function Posts() {
                 </div>
             }
             <div className="d-flex flex-column justify-content-start align-items-center w-100 h-100">
-                {(posts && myProfile && !isFetching_weights) &&
+                {(!!posts.length && myProfile) &&
                     posts.map(post => {
                         return (
                             <PostListItem
