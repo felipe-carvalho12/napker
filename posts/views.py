@@ -73,8 +73,8 @@ def interest_post_list(request, interest):
     
     posts.extend(hashtag_obj.posts.all())
     
-    posts = sort_posts_by_relevance(profile, posts)
-    serializer = Post01Serializer(posts, many=True)
+    posts = sort_posts_by_relevance(profile, posts) if len(posts) else []
+    serializer = Post01Serializer(Post.objects.filter(id__in=[post_id[0] for post_id in posts]), many=True)
 
     return Response(serializer.data)
 
@@ -99,8 +99,8 @@ def explore_post_list(request):
         for interest in sorted(Interest.objects.all(), key=lambda interest: sum([len(interest_set.profiles) for interest_set in interest.interest_sets.all()]))[:10]:
             extend_posts(interest)
 
-    posts = sort_posts_by_relevance(profile, posts)
-    serializer = Post01Serializer(posts, many=True)
+    posts = sort_posts_by_relevance(profile, posts) if len(posts) else []
+    serializer = Post01Serializer(Post.objects.filter(id__in=[post_id[0] for post_id in posts]), many=True)
     return Response(serializer.data)
 
 

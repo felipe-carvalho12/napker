@@ -30,6 +30,17 @@ export default function Posts() {
 
     useEffect(() => {
         !posts.length && postsId && fetchPosts()
+
+        const renderedPostIds = posts.map(post => post.id)
+        for (let i = 0; i++; i < renderedPostIds.length) {
+            console.log('got here1')
+            if (!postsId.map(postId => postId.id).includes(renderedPostIds[i])) {
+                console.log('got here2')
+                const copiedPosts = posts.slice()
+                copiedPosts.splice(i, 1)
+                setPosts(copiedPosts)
+            }
+        }
     }, [postsId])
 
     useEffect(() => {
@@ -37,7 +48,6 @@ export default function Posts() {
     }, [weights])
 
     const fetchPosts = () => {
-        console.log('a')
         fetch(`${SERVER_URL}/post-api/post-list`, {
             method: 'POST',
             headers: {
@@ -50,13 +60,12 @@ export default function Posts() {
             .then(data => {
                 isFetching_scroll = false
                 setPosts([...posts, ...data])
-                DEBUG && console.log(data)
             })
     }
 
 
     return (
-        <>{console.log(posts)}
+        <>
             <LikesModal
                 isOpen={likesModalIsOpen}
                 likes={likesModalItems}

@@ -1,16 +1,16 @@
 import React from 'react'
 
-import { InvitesReceivedContext, InvitesReceivedProvider } from './notifications-number/invites-received-number/InvitesReceivedContext'
-import { PublicationNotificationsContext, PublicationNotificationsProvider } from './notifications-number/publication-notifications-number/PublicationNotificationsContext'
-import { MentionNumberContext, MentionNumberProvider } from './notifications-number/mention-notifications-number/MentionNumberContext'
-import { UnreadMessagesContext, UnreadMessagesProvider } from './notifications-number/unread-messages-number/UnreadMessagesContext'
+import { InvitesReceivedContext, InvitesReceivedProvider } from './notifications-number/InvitesReceivedContext'
+import { PublicationNotificationsContext, PublicationNotificationsProvider } from './notifications-number/PublicationNotificationsContext'
+import { MentionNumberContext, MentionNumberProvider } from './notifications-number/MentionNumberContext'
+import { UnreadMessagesContext, UnreadMessagesProvider } from './notifications-number/UnreadMessagesContext'
 
 import { AlgorithmWeightsContext, AlgorithmWeightsProvider } from './algorithm-weights/AlgorithmWeightsContext'
 import { ThemeContext, ThemeContextProvider } from './theme-context/ThemeContext'
 import { MyProfileContext, MyProfileProvider } from './myprofile/MyProfileContext'
 
-import { PostsIdContext, PostsIdProvider } from './posts-id/PostsIdContext'
-import { FeedPostsContext, FeedPostsContextProvider } from './feed-posts/FeedPostsContext'
+import { PostsIdContext, PostsIdProvider } from './posts/PostsIdContext'
+import { FeedPostsContext, FeedPostsContextProvider } from './posts/FeedPostsContext'
 
 export {
     ThemeContext,

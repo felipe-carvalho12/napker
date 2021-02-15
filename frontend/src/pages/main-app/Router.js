@@ -4,7 +4,7 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 import { SERVER_URL } from '../../config/settings'
 import {
     InvitesReceivedContext, PublicationNotificationsContext, MentionNumberContext,
-    UnreadMessagesContext, AlgorithmWeightsContext, MyProfileContext, PostsIdContext
+    UnreadMessagesContext, AlgorithmWeightsContext, MyProfileContext, PostsIdContext, FeedPostsContext
 } from '../../context/app/AppContext'
 
 import SidebarLeft from '../../components/fixed/SidebarLeft'
@@ -27,7 +27,7 @@ import EditProfileProvider from '../../context/edit-profile/EditProfileContext'
 
 export default function MainAppRouter() {
     const [, fetchMyProfile] = useContext(MyProfileContext)
-    const [, fetchPostsId] = useContext(PostsIdContext)
+    const [, , fetchPostsId] = useContext(PostsIdContext)
 
     const [, setWeights] = useContext(AlgorithmWeightsContext)
 

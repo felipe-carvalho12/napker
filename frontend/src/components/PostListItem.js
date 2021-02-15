@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 
 import { SERVER_URL, DEBUG } from '../config/settings'
 import { csrftoken, renderTimestamp } from '../config/utils'
+import { PostsIdContext, FeedPostsContext } from '../context/app/AppContext'
 import VideoIframe from './VideoIframe'
 import PostTextbox from '../pages/main-app/home/components/posts_/components/components/post-textbox/PostTextbox'
 
@@ -19,11 +20,14 @@ export default function PostListItem(props) {
     const videoWidth = props.videoWidth
     const videoHeigth = props.videoHeigth
 
+    const [, , removePostId] = useContext(PostsIdContext)
+    const [, , removePost] = useContext(FeedPostsContext)
+
     const history = useHistory()
     const isLink = props.isLink !== undefined ? props.isLink : true
 
     const parsedContent = JSON.parse(post.content)
-    const comments_length = post.details.all_comments_length !== undefined ?  post.details.all_comments_length : post.details.first_layer_comments_length
+    const comments_length = post.details.all_comments_length !== undefined ? post.details.all_comments_length : post.details.first_layer_comments_length
 
     const likeUnlikePublication = e => {
         e.stopPropagation()
@@ -90,7 +94,8 @@ export default function PostListItem(props) {
                 .then(response => response.json())
                 .then(data => {
                     DEBUG && console.log(data)
-                    renderParent !== undefined && renderParent()
+                    removePostId(publicationId)
+                    removePost(publicationId)
                     type === 'post' && window.location.href.split('/').includes('post') && history.push('/home')
                 })
         }

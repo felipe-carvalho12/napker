@@ -25,7 +25,6 @@ def get_author_relevance(profile, author):
 
 def process_authors_relevance(profile, authors):
     authors_relevance = np.vstack(tuple(get_author_relevance(profile, author) for author in authors))
-
     authors_relevance = np.array([np.true_divide(authors_relevance.T[i], np.amax(column) if np.amax(column) else 1) for i, column in enumerate(authors_relevance.T)])
 
     return authors_relevance
