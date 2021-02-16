@@ -33,8 +33,9 @@ export default function Posts() {
     }, [postsId])
 
     useEffect(() => {
-        postsId && console.log('def', sortedPosts(postsId, weights))
+        postsId && console.log(postsId.map(postId => postId.id))
         postsId && setPostsId(sortedPosts(postsId, weights))
+        postsId && console.log(sortedPosts(postsId, weights).map(postId => postId.id))
     }, [weights])
 
     const fetchPosts = keepPosts => {
@@ -49,12 +50,13 @@ export default function Posts() {
             .then(response => response.json())
             .then(data => {
                 isFetching_scroll = false
+                console.log(data, keepPosts)
                 keepPosts ? setPosts([...posts, ...data]) : setPosts(data)
             })
     }
 
     return (
-        <>{postsId && posts && console.log(postsId, posts)}
+        <>
             <LikesModal
                 isOpen={likesModalIsOpen}
                 likes={likesModalItems}

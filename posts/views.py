@@ -41,7 +41,7 @@ def get_post_id_list(request, scroll_count):
 @api_view(['POST'])
 def get_post_list(request):
     posts_id = request.data
-    posts = Post.objects.filter(details_id__in=posts_id)
+    posts = sorted(Post.objects.filter(details_id__in=posts_id), key=lambda post: posts_id.index(post.details.id))
     serializer = Post01Serializer(posts, many=True)
     return Response(serializer.data)
 

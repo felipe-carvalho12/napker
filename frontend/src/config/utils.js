@@ -182,6 +182,7 @@ export const getThumbnailSrc = iframeSrc => {
 // ALGORITHM WEIGHTS SORTING
 
 export const sortedPosts = (posts, weights) => {
+  console.log('sorting posts...')
   const getPoints = post => {
     const authorPoints = (
       (post.interest_points * weights.profile.interest_weight) +
@@ -194,6 +195,7 @@ export const sortedPosts = (posts, weights) => {
 
 
   return posts.sort((a, b) => {
+    console.log(getPoints(a), getPoints(b), a.id, b.id)
       if (getPoints(a) > getPoints(b)) return -1
       else if (getPoints(a) < getPoints(b)) return 1
       return 0
