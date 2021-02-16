@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react'
 
-import { DEBUG, SERVER_URL } from '../../../../../config/settings'
-import { AlgorithmWeightsContext, MyProfileContext, PostsIdContext, FeedPostsContext } from '../../../../../context/app/AppContext'
+import { SERVER_URL } from '../../../../../config/settings'
+import { AlgorithmWeightsContext, MyProfileContext, PostsIdContext } from '../../../../../context/app/AppContext'
 import LikesModal from '../../../../../components/LikesModal'
 import PostForm from './components/PostForm'
 import PostListItem from '../../../../../components/PostListItem'
-import { csrftoken } from '../../../../../config/utils'
+import { csrftoken, sortedPosts } from '../../../../../config/utils'
 
 let isFetching_scroll = false
 
@@ -13,8 +13,8 @@ export default function Posts() {
     const [weights,] = useContext(AlgorithmWeightsContext)
 
     const [myProfile,] = useContext(MyProfileContext)
-    const [postsId,] = useContext(PostsIdContext)
-    const [posts, setPosts] = useContext(FeedPostsContext)
+    const [postsId, setPostsId, , removePostId] = useContext(PostsIdContext)
+    const [posts, setPosts] = useState([])
     const [likesModalIsOpen, setLikesModalIsOpen] = useState(false)
     const [likesModalItems, setLikesModalItems] = useState(null)
 
@@ -24,30 +24,20 @@ export default function Posts() {
         if (Math.ceil(window.innerHeight + window.scrollY) >= document.body.offsetHeight * 0.9 && !isFetching_scroll) {
             scrollCount++
             isFetching_scroll = true
-            postsId && fetchPosts()
+            postsId && fetchPosts(true)
         }
     }
 
     useEffect(() => {
-        !posts.length && postsId && fetchPosts()
-
-        const renderedPostIds = posts.map(post => post.id)
-        for (let i = 0; i++; i < renderedPostIds.length) {
-            console.log('got here1')
-            if (!postsId.map(postId => postId.id).includes(renderedPostIds[i])) {
-                console.log('got here2')
-                const copiedPosts = posts.slice()
-                copiedPosts.splice(i, 1)
-                setPosts(copiedPosts)
-            }
-        }
+        postsId && fetchPosts(false)
     }, [postsId])
 
     useEffect(() => {
-        //postsId && fetchPosts()
+        postsId && console.log('def', sortedPosts(postsId, weights))
+        postsId && setPostsId(sortedPosts(postsId, weights))
     }, [weights])
 
-    const fetchPosts = () => {
+    const fetchPosts = keepPosts => {
         fetch(`${SERVER_URL}/post-api/post-list`, {
             method: 'POST',
             headers: {
@@ -59,13 +49,12 @@ export default function Posts() {
             .then(response => response.json())
             .then(data => {
                 isFetching_scroll = false
-                setPosts([...posts, ...data])
+                keepPosts ? setPosts([...posts, ...data]) : setPosts(data)
             })
     }
 
-
     return (
-        <>
+        <>{postsId && posts && console.log(postsId, posts)}
             <LikesModal
                 isOpen={likesModalIsOpen}
                 likes={likesModalItems}
@@ -86,6 +75,7 @@ export default function Posts() {
                                 renderParent={fetchPosts}
                                 openLikesModal={() => setLikesModalIsOpen(true)}
                                 setLikesModalItems={likes => setLikesModalItems(likes)}
+                                deleteCallback={() => removePostId(post.details.id)}
                             />
                         )
                     })

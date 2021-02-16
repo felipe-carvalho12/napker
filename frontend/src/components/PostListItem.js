@@ -1,9 +1,8 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { Link, useHistory } from 'react-router-dom'
 
 import { SERVER_URL, DEBUG } from '../config/settings'
 import { csrftoken, renderTimestamp } from '../config/utils'
-import { PostsIdContext, FeedPostsContext } from '../context/app/AppContext'
 import VideoIframe from './VideoIframe'
 import PostTextbox from '../pages/main-app/home/components/posts_/components/components/post-textbox/PostTextbox'
 
@@ -16,12 +15,10 @@ export default function PostListItem(props) {
     const showHideComments = props.showHideComments
     const showHideForm = props.showHideForm
     const color = props.level
+    const deleteCallback = props.deleteCallback
 
     const videoWidth = props.videoWidth
     const videoHeigth = props.videoHeigth
-
-    const [, , removePostId] = useContext(PostsIdContext)
-    const [, , removePost] = useContext(FeedPostsContext)
 
     const history = useHistory()
     const isLink = props.isLink !== undefined ? props.isLink : true
@@ -94,8 +91,7 @@ export default function PostListItem(props) {
                 .then(response => response.json())
                 .then(data => {
                     DEBUG && console.log(data)
-                    removePostId(publicationId)
-                    removePost(publicationId)
+                    deleteCallback()
                     type === 'post' && window.location.href.split('/').includes('post') && history.push('/home')
                 })
         }

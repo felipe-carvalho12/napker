@@ -28,14 +28,16 @@ def get_weighted_points(profile, data):
             profile_weights_obj.is_friend_weight
         ]
         response = np.array(
-            np.sum([
-                np.sum([x * profile_weights[i] for i, x in enumerate(data[0:4])]) * profile.weights.post.author_weight,
-                data[4] * profile.weights.post.date_weight,
-                data[5] * profile.weights.post.likes_weight
-            ])
+            np.true_divide(
+                np.sum([
+                    np.sum(np.true_divide([x * profile_weights[i] for i, x in enumerate(data[0:4])], 4)) * profile.weights.post.author_weight,
+                    data[4] * profile.weights.post.date_weight,
+                    data[5] * profile.weights.post.likes_weight
+                ]), 3
+            )
         )
     else:
-        response = np.sum([np.sum(data[0:4]) /4, data[4], data[5]]) / 3
+        response = np.sum(np.sum([np.true_divide(np.sum(data[0:4]), 4), data[4], data[5]])) / 3
 
     return response
 

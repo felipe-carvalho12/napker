@@ -71,13 +71,13 @@ export const setTheme = () => {
   const rgbToCss = (cssVar, defaultVar, theme) => {
 
     const colorVariants = ["-0", "-1", "-2", "-3", "-4", "-5", "-6", "-7"]
-    const variantWeights = [0.8 , 0.6 , 0.4 , 0.20, 0.16, 0.12, 0.08, 0.04]
+    const variantWeights = [0.8, 0.6, 0.4, 0.20, 0.16, 0.12, 0.08, 0.04]
 
-    let data = ((window.localStorage.getItem(`${cssVar},${theme}`) && window.localStorage.getItem(`${theme}-switch`) === "true") ?  
-                    window.localStorage.getItem(`${cssVar},${theme}`) 
-                    : 
-                    defaultVar
-                 ).replace(/ /g, "").split(",")
+    let data = ((window.localStorage.getItem(`${cssVar},${theme}`) && window.localStorage.getItem(`${theme}-switch`) === "true") ?
+      window.localStorage.getItem(`${cssVar},${theme}`)
+      :
+      defaultVar
+    ).replace(/ /g, "").split(",")
 
     data = data.map(val => parseFloat(val))
 
@@ -93,7 +93,7 @@ export const setTheme = () => {
   }
 
   const hoverFormula = color => {
-    return ( (color + ((255 - color) * 0.2)) >= 255 ? 
+    return ((color + ((255 - color) * 0.2)) >= 255 ?
       (color - (color * 0.05))
       :
       (color + ((255 - color) * 0.2))
@@ -104,15 +104,15 @@ export const setTheme = () => {
 
   const varToCss = (cssVar, defaultVar, theme) => {
 
-    
+
     const sizeVariants = ["-0", "-1", "-2", "-3", "-4", "-5"]
     const variantSizes = [0.5, 1, 2, 3, 4, 5]
 
-    let data = parseInt((window.localStorage.getItem(`${cssVar},${theme}`) && window.localStorage.getItem(`${theme}-switch`) === "true") ?  
-                window.localStorage.getItem(`${cssVar},${theme}`) 
-                : 
-                defaultVar
-               )
+    let data = parseInt((window.localStorage.getItem(`${cssVar},${theme}`) && window.localStorage.getItem(`${theme}-switch`) === "true") ?
+      window.localStorage.getItem(`${cssVar},${theme}`)
+      :
+      defaultVar
+    )
 
     for (let i in sizeVariants) {
       cssVariables.setProperty(cssVar + sizeVariants[i], String(data * variantSizes[i]) + "px")
@@ -124,48 +124,48 @@ export const setTheme = () => {
   //Apply
 
   if (theme === 'light') {
-    varToCss('--sz',                                                    "10", 'light')
-    varToCss('--b-r',                                                   "10", 'light')
-    rgbToCss('--primary-color'              ,          "0  , 192, 136, 1   ", 'light')
-    rgbToCss('--background'                 ,          "235, 235, 235, 1   ", 'light')
-    rgbToCss('--primary-grey'               ,          "000, 000, 000,  .90", 'light')
-    rgbToCss('--secondary-grey'             ,          "000, 000, 000,  .60", 'light')
-    rgbToCss('--theme-base-color'           ,          "255, 255, 255,  .60", 'light')
-    rgbToCss('--fixed-components-background',          "255, 255, 255,  .60", 'light')
-    cssVariables.setProperty('--border-color'               ,                 'var(--w-08)')
-    cssVariables.setProperty('--b-c'                        ,                 'var(--b-04)')
-    cssVariables.setProperty('--b-w-10'                     ,                 'var(--w-10)')
-    cssVariables.setProperty('--b-w-11'                     ,                 'var(--w-11)')
-    cssVariables.setProperty('--b-w-12'                     ,                 'var(--w-12)')
-    cssVariables.setProperty('--heart-color'                ,                     '#E0245E')
-    cssVariables.setProperty('--heart-background-hover'     ,       'rgba(224, 36, 94, .1)')
-    cssVariables.setProperty('--loader-background'          ,     'rgba(119, 147, 125, .3)')
-    cssVariables.setProperty('--tertiary-grey'              ,                     '#f2f2f2')
-    cssVariables.setProperty('--view-more-select-border'    ,           'rgba(0, 0, 0, .2)')
-    cssVariables.setProperty('--img-background'             ,           'rgba(0, 0, 0, .9)')
-    cssVariables.setProperty('--img-background-hover'       ,           'rgba(0, 0, 0, .8)')
+    varToCss('--sz', "10", 'light')
+    varToCss('--b-r', "10", 'light')
+    rgbToCss('--primary-color', "0  , 192, 136, 1   ", 'light')
+    rgbToCss('--background', "235, 235, 235, 1   ", 'light')
+    rgbToCss('--primary-grey', "000, 000, 000,  .90", 'light')
+    rgbToCss('--secondary-grey', "000, 000, 000,  .60", 'light')
+    rgbToCss('--theme-base-color', "255, 255, 255,  .60", 'light')
+    rgbToCss('--fixed-components-background', "255, 255, 255,  .60", 'light')
+    cssVariables.setProperty('--border-color', 'var(--w-08)')
+    cssVariables.setProperty('--b-c', 'var(--b-04)')
+    cssVariables.setProperty('--b-w-10', 'var(--w-10)')
+    cssVariables.setProperty('--b-w-11', 'var(--w-11)')
+    cssVariables.setProperty('--b-w-12', 'var(--w-12)')
+    cssVariables.setProperty('--heart-color', '#E0245E')
+    cssVariables.setProperty('--heart-background-hover', 'rgba(224, 36, 94, .1)')
+    cssVariables.setProperty('--loader-background', 'rgba(119, 147, 125, .3)')
+    cssVariables.setProperty('--tertiary-grey', '#f2f2f2')
+    cssVariables.setProperty('--view-more-select-border', 'rgba(0, 0, 0, .2)')
+    cssVariables.setProperty('--img-background', 'rgba(0, 0, 0, .9)')
+    cssVariables.setProperty('--img-background-hover', 'rgba(0, 0, 0, .8)')
 
   } else if (theme === 'dark') {
-    varToCss('--sz',                                                    "10", 'dark')
-    varToCss('--b-r',                                                   "10", 'dark')
-    rgbToCss('--primary-color'              ,          '  0, 192, 136, 1   ', 'dark')
-    rgbToCss('--background'                 ,          '051, 051, 051, 1   ', 'dark')
-    rgbToCss('--primary-grey'               ,          '255, 255, 255,  .90', 'dark')
-    rgbToCss('--secondary-grey'             ,          '255, 255, 255,  .70', 'dark')
-    rgbToCss('--theme-base-color'           ,          '255, 255, 255,  .04', 'dark')
-    rgbToCss('--fixed-components-background',          '255, 255, 255,  .04', 'dark')
-    cssVariables.setProperty('--border-color'               ,                 'var(--w-00)')
-    cssVariables.setProperty('--b-c'                        ,                 'var(--w-04)')
-    cssVariables.setProperty('--b-w-10'                     ,                 'var(--b-10)')
-    cssVariables.setProperty('--b-w-11'                     ,                 'var(--b-11)')
-    cssVariables.setProperty('--b-w-12'                     ,                 'var(--b-12)')
-    cssVariables.setProperty('--heart-color'                ,                     '#E0245E')
-    cssVariables.setProperty('--heart-background-hover'     ,       'rgba(224, 36, 94, .1)')
-    cssVariables.setProperty('--loader-background'          ,     'rgba(119, 147, 125, .3)')
-    cssVariables.setProperty('--tertiary-grey'              ,                     '#202020')
-    cssVariables.setProperty('--view-more-select-border'    ,     'rgba(255, 255, 255, .2)')
-    cssVariables.setProperty('--img-background'             ,           'rgba(0, 0, 0, .3)')
-    cssVariables.setProperty('--img-background-hover'       ,           'rgba(0, 0, 0, .3)')
+    varToCss('--sz', "10", 'dark')
+    varToCss('--b-r', "10", 'dark')
+    rgbToCss('--primary-color', '  0, 192, 136, 1   ', 'dark')
+    rgbToCss('--background', '051, 051, 051, 1   ', 'dark')
+    rgbToCss('--primary-grey', '255, 255, 255,  .90', 'dark')
+    rgbToCss('--secondary-grey', '255, 255, 255,  .70', 'dark')
+    rgbToCss('--theme-base-color', '255, 255, 255,  .04', 'dark')
+    rgbToCss('--fixed-components-background', '255, 255, 255,  .04', 'dark')
+    cssVariables.setProperty('--border-color', 'var(--w-00)')
+    cssVariables.setProperty('--b-c', 'var(--w-04)')
+    cssVariables.setProperty('--b-w-10', 'var(--b-10)')
+    cssVariables.setProperty('--b-w-11', 'var(--b-11)')
+    cssVariables.setProperty('--b-w-12', 'var(--b-12)')
+    cssVariables.setProperty('--heart-color', '#E0245E')
+    cssVariables.setProperty('--heart-background-hover', 'rgba(224, 36, 94, .1)')
+    cssVariables.setProperty('--loader-background', 'rgba(119, 147, 125, .3)')
+    cssVariables.setProperty('--tertiary-grey', '#202020')
+    cssVariables.setProperty('--view-more-select-border', 'rgba(255, 255, 255, .2)')
+    cssVariables.setProperty('--img-background', 'rgba(0, 0, 0, .3)')
+    cssVariables.setProperty('--img-background-hover', 'rgba(0, 0, 0, .3)')
   }
 }
 
@@ -176,4 +176,26 @@ export const getThumbnailSrc = iframeSrc => {
   const youtube_video_id = iframeSrc.match(/youtube\.com.*(\?v=|\/embed\/)(.{11})/).pop()
 
   return `https://img.youtube.com/vi/${youtube_video_id}/0.jpg`
+}
+
+
+// ALGORITHM WEIGHTS SORTING
+
+export const sortedPosts = (posts, weights) => {
+  const getPoints = post => {
+    const authorPoints = (
+      (post.interest_points * weights.profile.interest_weight) +
+      (post.age_points * weights.profile.age_weight) +
+      (post.friends_points * weights.profile.friends_weight) +
+      (post.is_friend_boolean * weights.profile.is_friend_weight)
+    )
+    return authorPoints * weights.post.author_weight + post.date_points * weights.post.date_weight + post.likes_points * weights.post.likes_weight
+  }
+
+
+  return posts.sort((a, b) => {
+      if (getPoints(a) > getPoints(b)) return -1
+      else if (getPoints(a) < getPoints(b)) return 1
+      return 0
+  })
 }

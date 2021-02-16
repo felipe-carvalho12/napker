@@ -26,13 +26,13 @@ def get_post_id_list(request, scroll_count):
     light_posts_arrs = sort_posts_by_relevance(profile)
     light_posts_dicts = list(map(lambda data: {
         'id': data[0],
-        'interest_points': data[1],
-        'age_points': data[2],
-        'friends_points': data[3],
-        'is_friend_boolean': data[4],
+        'interest_points': data[1] / 12,
+        'age_points': data[2] / 12,
+        'friends_points': data[3] / 12,
+        'is_friend_boolean': data[4] / 12,
 
-        'date_points': data[5],
-        'likes_points': data[6],
+        'date_points': data[5] / 3,
+        'likes_points': data[6] / 3,
     }, light_posts_arrs))
     serializer = PostId01Serializer(light_posts_dicts[:1000 * scroll_count], many=True)
     return Response(serializer.data)
@@ -41,7 +41,7 @@ def get_post_id_list(request, scroll_count):
 @api_view(['POST'])
 def get_post_list(request):
     posts_id = request.data
-    posts = Post.objects.filter(id__in=posts_id)
+    posts = Post.objects.filter(details_id__in=posts_id)
     serializer = Post01Serializer(posts, many=True)
     return Response(serializer.data)
 

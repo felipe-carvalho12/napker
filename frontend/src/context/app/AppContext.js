@@ -10,7 +10,6 @@ import { ThemeContext, ThemeContextProvider } from './theme-context/ThemeContext
 import { MyProfileContext, MyProfileProvider } from './myprofile/MyProfileContext'
 
 import { PostsIdContext, PostsIdProvider } from './posts/PostsIdContext'
-import { FeedPostsContext, FeedPostsContextProvider } from './posts/FeedPostsContext'
 
 export {
     ThemeContext,
@@ -20,7 +19,6 @@ export {
     AlgorithmWeightsContext,
     MyProfileContext,
     PostsIdContext,
-    FeedPostsContext,
 }
 
 export default function AppContextProvider(props) {
@@ -33,9 +31,7 @@ export default function AppContextProvider(props) {
                             <AlgorithmWeightsProvider>
                                 <MyProfileProvider>
                                     <PostsIdProvider>
-                                        <FeedPostsContextProvider>
-                                            {props.children}
-                                        </FeedPostsContextProvider>
+                                        {props.children}
                                     </PostsIdProvider>
                                 </MyProfileProvider>
                             </AlgorithmWeightsProvider>

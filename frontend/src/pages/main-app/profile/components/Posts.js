@@ -27,9 +27,9 @@ export default function Posts(props) {
                                 <PostListItem
                                     post={post}
                                     myProfile={myProfile}
-                                    renderParent={props.fetchProfile}
                                     openLikesModal={() => setLikesModalIsOpen(true)}
                                     setLikesModalItems={likes => setLikesModalItems(likes)}
+                                    deleteCallback={props.fetchProfile}
                                 />
                             )
                         }) :
