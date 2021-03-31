@@ -3,7 +3,7 @@ Brazillian social network that connects people with shared interests.
 
 # Motivation
 Nowadays social networks can basically be divided into two cathegories: connection focused (Facebook, LinkedIn...) and content focused (YouTube, Reddit, TikTok, Instagram...)
-Napker would fit into the connection focused social network cathegory.
+Napker would fit into the connection focused cathegory.
 
 The main purpose of this social network is to give users control over the data generated in the platform so they can easily find other people with advanced searchs.
 This is done with customizable algorithm weights and an advanced user search by interest system.
