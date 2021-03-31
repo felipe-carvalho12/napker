@@ -15,6 +15,7 @@ Django handles the create-react-app frontend javascript and css as its static fi
 
 # Demo
 https://user-images.githubusercontent.com/67564586/113099932-1d422a80-91d1-11eb-9930-74ab052dd52a.mp4
+![demo](https://user-images.githubusercontent.com/67564586/113100440-ce48c500-91d1-11eb-8dda-d94acba62108.gif)
 ![Captura de Tela (148)](https://user-images.githubusercontent.com/67564586/113099165-eb7c9400-91cf-11eb-9290-dfaa95bd7bfb.png)
 ![Captura de Tela (154)](https://user-images.githubusercontent.com/67564586/113099188-f59e9280-91cf-11eb-8c85-226bdc0dada3.png)
 ![Captura de Tela (155)](https://user-images.githubusercontent.com/67564586/113099190-f6372900-91cf-11eb-8e2c-14ef3ed1aacb.png)
